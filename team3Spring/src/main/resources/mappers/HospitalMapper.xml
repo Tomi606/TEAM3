@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.team3.dao.HospitalDAO">
+	<insert id="insertHospital">
+		insert into hospital(ho_id, ho_pw, ho_email, ho_name, ho_ceo, ho_hs_num, ho_num, ho_address, ho_phone, ho_authority, ho_ms_state) 
+		values(#{ho.ho_id}, #{ho.ho_pw}, #{ho.ho_email}, #{ho.ho_name}, #{ho.ho_ceo}, 
+				#{ho.ho_hs_num}, #{ho.ho_num}, #{ho.ho_address}, #{ho.ho_phone},"MANAGER","이용중")
+	</insert>
+	
+	<insert id="insertSiteHospital">
+		insert into site_management(site_la_num, site_id, site_authority)
+		value(1, #{st.site_id}, "USER")
+	</insert>
+	
+	<select id="selectHospitalId" resultType="HospitalVO">
+		select * from hospital where ho_id = #{ho_id}
+	</select>
+</mapper>
