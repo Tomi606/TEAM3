@@ -13,6 +13,7 @@
 }
 .login-box{
 	text-align: center;
+	margin: 20px 0;
 }
 
 .login-btn{
@@ -49,7 +50,7 @@
 
 .login-form{
 	width: 399px;
-	height: 400px;
+	height: 350px;
 	border: 1px solid gray;
 	text-align: center;
 	display: inline-block;
@@ -78,7 +79,9 @@
 	display: none;
 }
 
-
+.find-signup-box{
+	margin-top: 20px;
+}
 
 
 </style>
@@ -91,23 +94,37 @@
 			<button type="button" class="login-btn hospital-login-btn">병원</button>
 		</div>
 		<div class="form-box member-form-box">
-			<form action="<c:url value="/member/login"/>" method="post" class="login-form">
-				<div class="input-group">
-					<input type="text" placeholder="아이디" name="me_id" class="input-box">
-					<input type="password" placeholder="비밀번호" name="me_pw" class="input-box">
+			<div class="login-form">
+				<form action="<c:url value="/member/login"/>" method="post">
+					<div class="input-group">
+						<input type="text" placeholder="아이디" name="me_id" class="input-box">
+						<input type="password" placeholder="비밀번호" name="me_pw" class="input-box">
+					</div>
+					<button class="submit-btn">로그인</button>
+				</form>
+				<div class="find-signup-box">
+					<a class="" href="">아이디/비밀번호 찾기</a>
+					<span>|</span>
+					<a class="" href="">회원가입</a>
 				</div>
-				<button class="submit-btn">로그인</button>
-			</form>
+			</div>
 		</div>
 		<div class="form-box hospital-form-box">
-			<form action="" method="post" class="login-form">
-				<div class="input-group">
-					<input type="text" placeholder="사업자번호" name="ho_num" class="input-box">
-					<input type="text" placeholder="아이디" name="ho_id" class="input-box">
-					<input type="password" placeholder="비밀번호" name="ho_pw" class="input-box">
+			<div class="login-form">
+				<form action="" method="post">
+					<div class="input-group">
+						<input type="text" placeholder="사업자번호" name="ho_num" class="input-box">
+						<input type="text" placeholder="아이디" name="ho_id" class="input-box">
+						<input type="password" placeholder="비밀번호" name="ho_pw" class="input-box">
+					</div>
+					<button class="submit-btn">로그인</button>
+				</form>
+				<div class="find-signup-box">
+					<a class="" href="">아이디/비밀번호 찾기</a>
+					<span>|</span>
+					<a class="" href="">회원가입</a>
 				</div>
-				<button class="submit-btn">로그인</button>
-			</form>
+			</div>
 		</div>
 	</div>
 </body>
