@@ -88,3 +88,7 @@ target/
 spring/**/test/resources/
 
 node_modules/
+
+# ignore properties file
+MANIFEST.MF
+pom.properties
