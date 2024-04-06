@@ -12,5 +12,9 @@ public interface MemberDAO {
 	boolean insertMember(@Param("me")MemberVO member);
 
 	boolean insertSiteMember(@Param("si")SiteManagement site);
+
+	MemberVO selectMember(@Param("me_id")String me_id);
 	
+	SiteManagement selectSite(@Param("me_id")String me_id);
+
 }
