@@ -24,7 +24,8 @@
 	<input type="text" id="" name="me_phone" placeholder="폰번호"><br>
 	<input type="text" id="" name="me_email" placeholder="이메일"><br>
 	<input type="text" id="" name="me_address" placeholder="주소"><br>
-	<button type="submit"  onclick="meIdForm()">회원가입</button>
+	<button type="submit" id="land1" onclick="meIdForm()">회원가입</button>
+	<input type="hidden" id="land2" name="site_la_num">
 </form>
  <script type="text/javascript">
 //아이디 값 같게 하기 
@@ -33,7 +34,6 @@ function meIdForm() {
 	document.getElementById("id2").value = meId;
 	document.getElementById("myForm").submit();
 }
-
 </script>	
  
 </body>
