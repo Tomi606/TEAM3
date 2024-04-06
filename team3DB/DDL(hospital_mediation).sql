@@ -1,0 +1,485 @@
+DROP DATABASE IF EXISTS `hospital_mediation`;
+
+CREATE DATABASE IF NOT EXISTS `hospital_mediation`;
+
+use `hospital_mediation`;
+
+#DROP TABLE IF EXISTS `member`;
+
+CREATE TABLE `member` (
+	`me_id`	varchar(13) primary key,
+	`me_ms_state`	VARCHAR(20)	NOT NULL default '이용중',
+    `me_hs_num`	int NULL,
+	`me_pw`	varchar(255) NOT NULL,
+	`me_name`	varchar(20)	NOT NULL,
+	`me_gender`	varchar(3)	NOT NULL,
+	`me_job`	varchar(20)	NOT NULL,
+	`me_frontNum`	char(6)	NOT NULL,
+	`me_backNum`	char(7)	NOT NULL,
+	`me_phone`	varchar(11)	NOT NULL,
+	`me_email`	varchar(50)	NOT NULL,
+	`me_address`	varchar(100) NOT NULL,
+	`me_authority`	varchar(10)	not null default 'USER',
+	`me_cookie`	varchar(255) NULL,
+	`me_cookie_limit` datetime NULL
+);
+
+DROP TABLE IF EXISTS `post`;
+
+CREATE TABLE `post` (
+	`po_num`	int	 primary key auto_increment,
+	`po_title`	varchar(30) NOT	NULL,
+	`po_content`	TEXT NOT NULL,
+	`po_bo_num`	int	NOT NULL,
+	`po_mg_num`	int	NOT NULL
+);
+
+DROP TABLE IF EXISTS `comment`;
+
+CREATE TABLE `comment` (
+	`co_num`	int	primary key auto_increment,
+	`co_content`	TEXT NOT NULL,
+	`co_po_num`	int	NOT NULL,
+	`co_mg_num`	int	NOT NULL
+);
+
+DROP TABLE IF EXISTS `board`;
+
+CREATE TABLE `board` (
+	`bo_num`	int	primary key auto_increment,
+	`bo_title`	VARCHAR (15) NOT NULL
+);
+
+DROP TABLE IF EXISTS `reservation`;
+
+CREATE TABLE `reservation` (
+	`rv_num`	int	primary key auto_increment,
+	`rv_me_id`	varchar(13)	NOT NULL,
+	`rv_rvs_name`	varchar(10)	NOT NULL,
+	`rv_rs_num`	int	NOT NULL
+);
+
+DROP TABLE IF EXISTS `bookmark`;
+
+CREATE TABLE `bookmark` (
+	`bmk_num`	int	primary key auto_increment,
+	`bmk_me_id`	varchar(13)	NOT NULL,
+	`bmk_ho_id`	varchar(13)	NOT NULL
+);
+
+DROP TABLE IF EXISTS `payment`;
+
+CREATE TABLE `payment` (
+	`pm_num`	int	primary key auto_increment,
+	`pm_price`	int	NOT NULL,
+	`pm_type`	VARCHAR(20)	NOT NULL,
+	`pm_ps_name`	VARCHAR(20)	NOT NULL,
+	`pm_rv_num`	int	NOT NULL
+);
+
+DROP TABLE IF EXISTS `recommend`;
+
+CREATE TABLE `recommend` (
+	`re_num`	int	primary key auto_increment,
+	`re_state`	int NULL default 0,
+	`re_po_num`	int	NOT NULL,
+	`re_mg_num`	int	NOT NULL
+);
+
+DROP TABLE IF EXISTS `report`;
+
+CREATE TABLE `report` (
+	`rp_num`	int	primary key auto_increment,
+	`rp_target`	varchar(13)	NOT NULL,
+	`rp_name`	varchar(20) NOT	NULL,
+	`rp_rs_name`	varchar(20)	NOT NULL,
+	`rp_site_num`	int	NOT NULL
+);
+
+DROP TABLE IF EXISTS `reservation_state`;
+
+CREATE TABLE `reservation_state` (
+	`rvs_name`	varchar(10)	primary key
+);
+
+DROP TABLE IF EXISTS `payment_state`;
+
+CREATE TABLE `payment_state` (
+	`ps_name`	VARCHAR(20)	primary key
+);
+
+DROP TABLE IF EXISTS `report_state`;
+
+CREATE TABLE `report_state` (
+	`rs_name`	varchar(20)	primary key
+);
+
+DROP TABLE IF EXISTS `file`;
+
+CREATE TABLE `file` (
+	`fi_num`	int primary key auto_increment,
+	`fi_name`	VARCHAR(255) NOT NULL,
+	`fi_ori_name`	VARCHAR(255) NOT NULL,
+	`fi_po_num`	int	NOT NULL
+);
+
+DROP TABLE IF EXISTS `member_state`;
+
+CREATE TABLE `member_state` (
+	`ms_state`	VARCHAR(20) primary key
+);
+
+DROP TABLE IF EXISTS `hospital`;
+
+CREATE TABLE `hospital` (
+	`ho_id`	varchar(13)	primary key,
+	`ho_ms_state`	VARCHAR(20)	NOT NULL,
+	`ho_cs_num`	int	NOT NULL,
+	`ho_pw`	varchar(255) NOT NULL,
+	`ho_name`	varchar(50)	NOT NULL,
+	`ho_ceo`	varchar(5)	NOT NULL,
+	`ho_num`	char(10) NOT NULL,
+	`ho_address`	varchar(100) NOT NULL,
+	`ho_phone`	char(11) NOT NULL,
+	`ho_authority`	varchar(10) NOT NULL,
+	`ho_cookie`	varchar(255) NULL,
+	`ho_cookie_limit`	datetime NULL
+);
+
+DROP TABLE IF EXISTS `site_management`;
+
+CREATE TABLE `site_management` (
+	`site_num`	int	primary key auto_increment,
+	`site_la_num`	int	not NULL,
+	`site_id`	varchar(13) NOT	NULL,
+	`site_authority`	varchar(10)	NOT NULL default 'USER'
+);
+
+DROP TABLE IF EXISTS `chat_room`;
+
+CREATE TABLE `chat_room` (
+	`cr_num`	int primary key auto_increment,
+	`cr_ho_id`	varchar(13)	NOT NULL,
+	`cr_me_id`	varchar(13)	NOT NULL
+);
+
+DROP TABLE IF EXISTS `eup_myeon_dong`;
+
+CREATE TABLE `eup_myeon_dong` (
+	`emd_num`	int	primary key auto_increment,
+	`emd_name`	varchar(255) NOT NULL,
+	`emd_sgg_num`	int	NOT NULL
+);
+
+
+DROP TABLE IF EXISTS `si_goon_gu`;
+
+CREATE TABLE `si_goon_gu` (
+	`sgg_num`	int	primary key auto_increment,
+	`sgg_name`	varchar(255) NOT NULL,
+	`sgg_sd_num`	int	NOT NULL
+);
+
+DROP TABLE IF EXISTS `land`;
+
+CREATE TABLE `land` (
+	`la_num`	int	primary key auto_increment,
+	`la_emd_num`	int	NOT NULL
+);
+
+DROP TABLE IF EXISTS `si_do`;
+
+CREATE TABLE `si_do` (
+	`sd_num`	int	primary key auto_increment,
+	`sd_name`	varchar(255) NOT NULL
+);
+
+DROP TABLE IF EXISTS `chat`;
+
+CREATE TABLE `chat` (
+	`ct_num`	int	primary key auto_increment,
+	`ct_site_num`	int	NOT NULL,
+	`ct_cr_num`	int	NOT NULL,
+	`ct_content`	text NOT NULL,
+	`ct_date`	datetime NOT NULL
+);
+
+DROP TABLE IF EXISTS `item`;
+
+CREATE TABLE `item` (
+	`it_num`	int	primary key auto_increment,
+	`it_name`	varchar(100) NOT NULL,
+	`it_explanation`	text NOT NULL
+);
+
+DROP TABLE IF EXISTS `hospital_program`;
+
+CREATE TABLE `hospital_program` (
+	`hp_num`	int	primary key auto_increment,
+	`hp_title`	varchar(100) NOT NULL,
+	`hp_payment`	int	NOT NULL,
+	`hp_ho_id`	varchar(13)	NOT NULL
+);
+
+DROP TABLE IF EXISTS `item_list`;
+
+CREATE TABLE `item_list` (
+	`il_num`	int	primary key auto_increment,
+	`il_title`	varchar(100) NOT NULL,
+	`il_hp_num`	int	NOT NULL,
+	`il_it_num`	int	NOT NULL
+);
+
+DROP TABLE IF EXISTS `reservation_schedule`;
+
+CREATE TABLE `reservation_schedule` (
+	`rs_num`	int	primary key auto_increment,
+	`rs_hp_num`	int	NOT NULL,
+	`rs_date`	date NOT NULL,
+	`rs_time`	datetime NOT NULL,
+	`rs_max_person`	int	NOT NULL default 0
+);
+
+DROP TABLE IF EXISTS `hospital_subject`;
+
+CREATE TABLE `hospital_subject` (
+	`hs_num`	int	primary key auto_increment,
+	`hs_title`	varchar(100) NOT NULL
+);
+
+ALTER TABLE `member` ADD CONSTRAINT `FK_member_state_TO_member_1` FOREIGN KEY (
+	`me_ms_state`
+)
+REFERENCES `member_state` (
+	`ms_state`
+);
+
+ALTER TABLE `post` ADD CONSTRAINT `FK_board_TO_post_1` FOREIGN KEY (
+	`po_bo_num`
+)
+REFERENCES `board` (
+	`bo_num`
+);
+
+ALTER TABLE `post` ADD CONSTRAINT `FK_site_management_TO_post_1` FOREIGN KEY (
+	`po_mg_num`
+)
+REFERENCES `site_management` (
+	`site_num`
+);
+
+ALTER TABLE `comment` ADD CONSTRAINT `FK_post_TO_comment_1` FOREIGN KEY (
+	`co_po_num`
+)
+REFERENCES `post` (
+	`po_num`
+);
+
+ALTER TABLE `comment` ADD CONSTRAINT `FK_site_management_TO_comment_1` FOREIGN KEY (
+	`co_mg_num`
+)
+REFERENCES `site_management` (
+	`site_num`
+);
+
+ALTER TABLE `reservation` ADD CONSTRAINT `FK_member_TO_reservation_1` FOREIGN KEY (
+	`rv_me_id`
+)
+REFERENCES `member` (
+	`me_id`
+);
+
+ALTER TABLE `reservation` ADD CONSTRAINT `FK_reservation_state_TO_reservation_1` FOREIGN KEY (
+	`rv_rvs_name`
+)
+REFERENCES `reservation_state` (
+	`rvs_name`
+);
+
+ALTER TABLE `reservation` ADD CONSTRAINT `FK_reservation_schedule_TO_reservation_1` FOREIGN KEY (
+	`rv_rs_num`
+)
+REFERENCES `reservation_schedule` (
+	`rs_num`
+);
+
+ALTER TABLE `bookmark` ADD CONSTRAINT `FK_member_TO_bookmark_1` FOREIGN KEY (
+	`bmk_me_id`
+)
+REFERENCES `member` (
+	`me_id`
+);
+
+ALTER TABLE `bookmark` ADD CONSTRAINT `FK_hospital_TO_bookmark_1` FOREIGN KEY (
+	`bmk_ho_id`
+)
+REFERENCES `hospital` (
+	`ho_id`
+);
+
+ALTER TABLE `payment` ADD CONSTRAINT `FK_payment_state_TO_payment_1` FOREIGN KEY (
+	`pm_ps_name`
+)
+REFERENCES `payment_state` (
+	`ps_name`
+);
+
+ALTER TABLE `payment` ADD CONSTRAINT `FK_reservation_TO_payment_1` FOREIGN KEY (
+	`pm_rv_num`
+)
+REFERENCES `reservation` (
+	`rv_num`
+);
+
+ALTER TABLE `recommend` ADD CONSTRAINT `FK_post_TO_recommend_1` FOREIGN KEY (
+	`re_po_num`
+)
+REFERENCES `post` (
+	`po_num`
+);
+
+ALTER TABLE `recommend` ADD CONSTRAINT `FK_site_management_TO_recommend_1` FOREIGN KEY (
+	`re_mg_num`
+)
+REFERENCES `site_management` (
+	`site_num`
+);
+
+ALTER TABLE `report` ADD CONSTRAINT `FK_report_state_TO_report_1` FOREIGN KEY (
+	`rp_rs_name`
+)
+REFERENCES `report_state` (
+	`rs_name`
+);
+
+ALTER TABLE `report` ADD CONSTRAINT `FK_site_management_TO_report_1` FOREIGN KEY (
+	`rp_site_num`
+)
+REFERENCES `site_management` (
+	`site_num`
+);
+
+ALTER TABLE `file` ADD CONSTRAINT `FK_post_TO_file_1` FOREIGN KEY (
+	`fi_po_num`
+)
+REFERENCES `post` (
+	`po_num`
+);
+
+ALTER TABLE `hospital` ADD CONSTRAINT `FK_member_state_TO_hospital_1` FOREIGN KEY (
+	`ho_ms_state`
+)
+REFERENCES `member_state` (
+	`ms_state`
+);
+
+ALTER TABLE `hospital` ADD CONSTRAINT `FK_hospital_subject_TO_hospital_1` FOREIGN KEY (
+	`ho_cs_num`
+)
+REFERENCES `hospital_subject` (
+	`hs_num`
+);
+
+#error
+ALTER TABLE `site_management` ADD CONSTRAINT `FK_land_TO_site_management_1` FOREIGN KEY (
+	`site_la_num`
+)
+REFERENCES `land` (
+	`la_num`
+);
+
+ALTER TABLE `chat_room` ADD CONSTRAINT `FK_hospital_TO_chat_room_1` FOREIGN KEY (
+	`cr_ho_id`
+)
+REFERENCES `hospital` (
+	`ho_id`
+);
+
+ALTER TABLE `chat_room` ADD CONSTRAINT `FK_member_TO_chat_room_1` FOREIGN KEY (
+	`cr_me_id`
+)
+REFERENCES `member` (
+	`me_id`
+);
+
+ALTER TABLE `eup_myeon_dong` ADD CONSTRAINT `FK_si_goon_gu_TO_eup_myeon_dong_1` FOREIGN KEY (
+	`emd_sgg_num`
+)
+REFERENCES `si_goon_gu` (
+	`sgg_num`
+);
+
+ALTER TABLE `si_goon_gu` ADD CONSTRAINT `FK_si_do_TO_si_goon_gu_1` FOREIGN KEY (
+	`sgg_sd_num`
+)
+REFERENCES `si_do` (
+	`sd_num`
+);
+
+#error
+ALTER TABLE `land` ADD CONSTRAINT `FK_eup_myeon_dong_TO_land_1` FOREIGN KEY (
+	`la_emd_num`
+)
+REFERENCES `eup_myeon_dong` (
+	`emd_num`
+);
+
+ALTER TABLE `chat` ADD CONSTRAINT `FK_site_management_TO_chat_1` FOREIGN KEY (
+	`ct_site_num`
+)
+REFERENCES `site_management` (
+	`site_num`
+);
+
+#error
+ALTER TABLE `chat` ADD CONSTRAINT `FK_chat_room_TO_chat_1` FOREIGN KEY (
+	`ct_cr_num`
+)
+REFERENCES `chat_room` (
+	`cr_num`
+);
+
+ALTER TABLE `hospital_program` ADD CONSTRAINT `FK_hospital_TO_hospital_program_1` FOREIGN KEY (
+	`hp_ho_id`
+)
+REFERENCES `hospital` (
+	`ho_id`
+);
+
+ALTER TABLE `item_list` ADD CONSTRAINT `FK_hospital_program_TO_item_list_1` FOREIGN KEY (
+	`il_hp_num`
+)
+REFERENCES `hospital_program` (
+	`hp_num`
+);
+
+ALTER TABLE `item_list` ADD CONSTRAINT `FK_item_TO_item_list_1` FOREIGN KEY (
+	`il_it_num`
+)
+REFERENCES `item` (
+	`it_num`
+);
+
+ALTER TABLE `reservation_schedule` ADD CONSTRAINT `FK_hospital_program_TO_reservation_schedule_1` FOREIGN KEY (
+	`rs_hp_num`
+)
+REFERENCES `hospital_program` (
+	`hp_num`
+);
+
+ALTER TABLE `member` ADD CONSTRAINT `FK_hospital_subject_TO_member_1` FOREIGN KEY (
+	`me_hs_num`
+)
+REFERENCES `hospital_subject` (
+	`hs_num`
+);
+
+#지역설정 및 회원 상태 더미데이터 
+INSERT INTO MEMBER_STATE VALUES('이용중'), ('기간정지'), ('영구정지'), ('탈퇴');
+
+insert into si_do value(1,'서울시');
+insert into si_goon_gu value(1,'강남구','1');
+insert into eup_myeon_dong value(1,'역삼동','1');
+insert into land value(1,1);
+
+
