@@ -13,7 +13,7 @@
 }
 .login-box{
 	text-align: center;
-	margin: 20px 0;
+	margin-top: 20px;
 }
 
 .login-btn{
@@ -37,6 +37,7 @@
 .login-btn-click{
 	color: black;
 	background: white;
+	font-weight: bold;
 }
 
 .member-login-btn:hover{
@@ -81,6 +82,8 @@
 
 .find-signup-box{
 	margin-top: 20px;
+	font-size: 13px;
+	font-weight: bold;
 }
 
 
