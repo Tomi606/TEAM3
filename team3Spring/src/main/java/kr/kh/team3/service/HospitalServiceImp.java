@@ -1,11 +1,13 @@
 package kr.kh.team3.service;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.kh.team3.dao.HospitalDAO;
+import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.SiteManagement;
 import lombok.extern.log4j.Log4j;
@@ -153,6 +155,11 @@ public class HospitalServiceImp implements HospitalService {
 		}
 		
 		return hospitalDao.insertSiteHospital(site);
+	}
+
+	public ArrayList<HospitalSubjectVO> getHospitalSubjectList() {
+
+		return hospitalDao.selectHospitalSubjectList();
 	}
 
 }

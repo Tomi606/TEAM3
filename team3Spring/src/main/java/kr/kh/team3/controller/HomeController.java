@@ -1,12 +1,15 @@
 package kr.kh.team3.controller;
 
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -66,8 +69,11 @@ public class HomeController {
 	@GetMapping("/hospital/signup")
 	public String hospitalSignup(HospitalVO hospital, Model model) {
 		log.info("사업자 회원가입");
-		
+		//병원 진료과목
+		ArrayList<HospitalSubjectVO> list = hospitalService.getHospitalSubjectList();
+		log.info(list);
 		model.addAttribute("hospital", hospital);
+		model.addAttribute("list", list);
 		return "/hospital/signup";
 	}
 	

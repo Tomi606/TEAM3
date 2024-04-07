@@ -36,7 +36,11 @@
 	</div>
 	<div>
 		<label for="subject">대표 진료과목</label>
-		<input type="text" id="subject" name="ho_hs_num" required placeholder="(숫자입력)대표 진료과목을 입력하세요."/>
+		<select id="subject" name="ho_hs_num" required>
+			<c:forEach items="${list}" var="hs">
+				<option value="${hs.hs_num}">${hs.hs_title}</option>
+			</c:forEach>
+		</select>
 	</div>
 	<div>
 		<label for="ceo">대표자명</label>
