@@ -5,7 +5,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class HopitalSubjectVO {
+//병원 과목
+public class HospitalSubjectVO {
 	
 	private int hs_num;
 	private String hs_title;
