@@ -17,7 +17,7 @@
 	<select id="selectHospitalId" resultType="HospitalVO">
 		select * from hospital where ho_id = #{ho_id}
 	</select>
-	
+		
 	<select id="selectHospitalSubjectList" resultType="HospitalSubjectVO">
 		select * from hospital_subject
 	</select>

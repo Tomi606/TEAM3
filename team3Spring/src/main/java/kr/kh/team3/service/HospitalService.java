@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiteManagement;
 
 public interface HospitalService {
@@ -13,5 +14,7 @@ public interface HospitalService {
 	boolean signup(SiteManagement site);
 
 	ArrayList<HospitalSubjectVO> getHospitalSubjectList();
+
+	boolean idCheck(HospitalVO ho_id);
 
 }
