@@ -1,8 +1,10 @@
 package kr.kh.team3.controller;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,11 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
-import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
@@ -50,19 +53,16 @@ public class HomeController {
 	//개인 회원가입 페이지
 	@GetMapping("/member/signup")
 	public String memberSignup(Model model, SiDoVO sido,SiGoonGuVO sgg,EupMyeonDongVO emd) {
+
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
-		ArrayList<SiDoVO> sggList = memberService.getSgg();
-		ArrayList<SiDoVO> emdList = memberService.getEmd();
 		model.addAttribute("sidoList",sidoList);
-		model.addAttribute("sggList",sggList);
-		model.addAttribute("emdList",emdList);
 		return "/member/signup";
 	}
 	
 	//개인 회원가입 페이지
 	@PostMapping("/member/signup")
 	public String postPemberSignup(Model model,MemberVO member,SiteManagement site,SiDoVO sido,SiGoonGuVO sgg) {
-		log.info("개인 회원가입");
+
 		boolean memberRes = memberService.memberSignup(member);
 		boolean siteRes = memberService.siteSignup(site);
 		if (!memberRes||!siteRes) {
@@ -71,6 +71,26 @@ public class HomeController {
 		
 		return "/member/signup";
 	}
+	
+	//개인 회원가입 페이지
+	@ResponseBody
+	@PostMapping("/member/signup/gungoo")
+	public ArrayList<SiGoonGuVO> postgoongoo(int sd_num){
+		ArrayList<SiGoonGuVO> sggList = memberService.getSgg(sd_num);
+		return sggList;
+	}
+	
+	//개인 회원가입 페이지
+	@ResponseBody
+	@PostMapping("/member/signup/eupmyeondong")
+	public ArrayList<EupMyeonDongVO> postEupMyeonDong(int sgg_num){
+		System.out.println("여기 잘들옴");
+		System.out.println(sgg_num);
+		ArrayList<EupMyeonDongVO> emdList = memberService.getEmd(sgg_num);
+		System.out.println(emdList);
+		return emdList;
+	}
+	
 	
 	//사업자 회원가입 페이지
 	@GetMapping("/hospital/signup")
