@@ -166,8 +166,7 @@ $.validator.addMethod(
 <!-- 아이디 중복 검사 -->
 <script type="text/javascript">
 function idCheckDup() {
-	$('#id-error2').text('사용 가능한 아이디입니다.');
-	$('#id-error2').show();
+
 	//입력된 아이디를 가져옴
 	let id = $('[name=ho_id]').val();
 	let obj = {
@@ -217,11 +216,11 @@ function hoIdForm() {
 	var pw2 = document.getElementById("pw2").value;
 
 	if(pw !== pw2) {
-		alert("비번 불일치");
+		console.log("비번 불일치");
 		return false;
 	}
 	else if(pw === pw2) {
-		alert("비번 일치");
+		console.log("비번 일치");
 		return true;
 	}
 	else {
