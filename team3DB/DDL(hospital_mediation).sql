@@ -1,4 +1,4 @@
-#DROP DATABASE IF EXISTS `hospital_mediation`;
+DROP DATABASE IF EXISTS `hospital_mediation`;
 
 CREATE DATABASE IF NOT EXISTS `hospital_mediation`;
 
@@ -485,4 +485,7 @@ select * from si_do join si_goon_gu on sd_num = sgg_sd_num join eup_myeon_dong o
 
 # 병원 과목
 insert into hospital_subject(hs_title) 
-values('내과'), ('외과'), ('정형외과'),('이비인후과'),('치과'),('산부인과'), ('신경과'), ('신경외과'),('성형외과'),('피부과'),('비뇨기과'),('건강검진');
+values('내과'), ('외과'), ('정형외과'),('site_management이비인후과'),('치과'),('산부인과'), ('신경과'), ('신경외과'),('성형외과'),('피부과'),('비뇨기과'),('건강검진');
+
+
+select * from member join site_management on site_id = me_id;
