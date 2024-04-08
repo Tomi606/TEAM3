@@ -53,7 +53,7 @@ public class HospitalServiceImp implements HospitalService {
 		return hospitalDao.selectHospitalSubjectList();
 	}
 
-	//아이디 중복 체크(안됨)
+	//아이디 중복 체크
 	public HospitalVO idCheck(String ho_id) {
 		return hospitalDao.selectHospitalId(ho_id);
 	}

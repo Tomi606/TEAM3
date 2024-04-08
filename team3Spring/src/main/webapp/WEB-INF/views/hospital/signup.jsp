@@ -57,7 +57,7 @@
 	</div>
 	<div>
 		<label for="num">사업자번호</label>
-		<input type="text" id="num" name="ho_num" required placeholder="'-'제외한 사업자번호를 입력하세요."/>
+		<input type="number" id="num" name="ho_num" required placeholder="'-'제외한 사업자번호를 입력하세요."/>
 		<label id="num-error" class="error text-danger" for="num"></label>
 	</div>
 	<div>
@@ -86,7 +86,7 @@
 	</div>
 	<div>
 		<label for="phone">대표 전화번호</label>
-		<input type="text" id="phone" name="ho_phone" required placeholder="'-'제외한 대표 전화번호를 입력하세요."/>
+		<input type="number" id="phone" name="ho_phone" required placeholder="'-'제외한 대표 전화번호를 입력하세요."/>
 		<label id="phone-error" class="error text-danger" for="phone"></label>
 	</div>
 	<button type="button" onclick="hoIdForm()">회원가입</button>
@@ -160,6 +160,7 @@ $("form").validate({
 		ho_num : {
 			required : "필수 항목입니다.",
 			regex : "사업자 번호는 '-'제외한 10자리를 입력하세요."
+			//,digits : "숫자만 입력하세요."
 		},
 		ho_address : {
 			required : "필수 항목입니다.",
@@ -168,6 +169,7 @@ $("form").validate({
 		ho_phone : {
 			required : "필수 항목입니다.",
 			regex : "대표 전화번호는 '-'제외한 번호를 입력하세요."
+			//,digits : "숫자만 입력하세요."
 		}
 	}
 });
