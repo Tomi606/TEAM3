@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 public class MemberVO {
 	private String me_id;
 	private String me_pw;
+	private int me_hs_num;
 	private String me_name;
 	private String me_gender;
 	private String me_job;
