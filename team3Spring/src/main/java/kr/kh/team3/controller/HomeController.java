@@ -149,7 +149,7 @@ public class HomeController {
 		
 		if(ho.getHo_ms_state().equals("가입대기")) {
 			model.addAttribute("url", "/main/login");
-			model.addAttribute("msg", "가입 대기 상태입니다.");
+			model.addAttribute("msg", "승인 확인 전입니다.");
 		}
 		else if(ho.getHo_ms_state().equals("이용중") && user != null) {
 			model.addAttribute("user", user);//user라는 이름으로 전송
