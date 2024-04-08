@@ -1,7 +1,8 @@
 package kr.kh.team3.controller;
 
-
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -137,5 +138,12 @@ public class HomeController {
 		log.info(hospital.getHo_num());
 		return "/hospital/login";
 	}
-	
+	//로그아웃 기능
+	@GetMapping("/logout")
+	public String logout(Model model, HttpSession session) {
+		session.removeAttribute("user");
+		model.addAttribute("msg", "로그아웃 했습니다.");
+		model.addAttribute("url", "/");
+		return "message";
+	}
 }
