@@ -116,6 +116,8 @@ public class HomeController {
 		boolean hospitalRes = hospitalService.signup(hospital);
 		boolean siteRes = hospitalService.signup(site);
 		if(!hospitalRes || !siteRes) {
+//			log.info(site);
+//			log.info(hospital);
 			System.out.println("회원가입 실패");
 			return "/hospital/signup";
 		}
