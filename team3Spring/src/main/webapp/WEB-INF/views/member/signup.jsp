@@ -10,6 +10,27 @@
 </head>
 <body>
 <form id="myForm" action="<c:url value="/member/signup"/>" method="post">
+	 <select name="sd_num">
+        <c:forEach items="${sidoList}" var="sd">
+            <option value="${sd.sd_num}">${sd.sd_name}</option>
+        </c:forEach>
+        </select>	
+	 <select name="sgg_num" >
+ 	<c:choose>
+ 		<c:when test="${sd_num == sgg_sd_num}">
+        <c:forEach items="${sggList}" var="sgg">
+                <option value="${sgg.sgg_num}">${sgg.sgg_name}</option>
+        </c:forEach>
+        </c:when>
+       </c:choose>
+       </select>	
+ 	<select name="emd_num" >
+        <c:forEach items="${emdList}" var="emd">
+                <option value="${emd.emd_num}">${emd.emd_name}</option>
+        </c:forEach>
+    </select>
+
+
 	<input type="text" id="id" name="me_id" placeholder="아이디"><br>
 	<input type="hidden" id="id2" name="site_id" >
 	<input type="password" id="" name="me_pw" placeholder="비밀번호"><br>
@@ -24,7 +45,8 @@
 	<input type="text" id="" name="me_phone" placeholder="폰번호"><br>
 	<input type="text" id="" name="me_email" placeholder="이메일"><br>
 	<input type="text" id="" name="me_address" placeholder="주소"><br>
-	<button type="submit"  onclick="meIdForm()">회원가입</button>
+	<button type="submit" id="land1" onclick="meIdForm()">회원가입</button>
+	<input type="hidden" id="land2" name="site_la_num">
 </form>
  <script type="text/javascript">
 //아이디 값 같게 하기 
@@ -33,8 +55,25 @@ function meIdForm() {
 	document.getElementById("id2").value = meId;
 	document.getElementById("myForm").submit();
 }
-
 </script>	
- 
+ <script>
+function checkGender() {
+	    var backNum = document.getElementById("back-num").value;
+	    var male = document.getElementById("male");
+	    var female = document.getElementById("female");
+	
+	    if (backNum.charAt(0) === '1' || backNum.charAt(0) === '3') {
+	    	male.checked = true;
+	    	female.checked = false;
+	    	female.disabled = true;
+	    	male.disabled = false;
+	    } else if (backNum.charAt(0) === '2' || backNum.charAt(0) === '4') {
+	    	male.checked = false;
+	    	female.checked = true;
+	        male.disabled = true;
+	        female.disabled = false;
+	    }
+}
+</script>
 </body>
 </html>

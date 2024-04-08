@@ -5,5 +5,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="kr.kh.team3.model.vo.MemberVO" alias="MemberVO"/>
+		<typeAlias type="kr.kh.team3.model.vo.HospitalVO" alias="HospitalVO"/>
+		<typeAlias type="kr.kh.team3.model.vo.HospitalSubjectVO" alias="HospitalSubjectVO"/>
 	</typeAliases>
 </configuration>

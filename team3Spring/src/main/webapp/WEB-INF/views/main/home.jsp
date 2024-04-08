@@ -3,7 +3,7 @@
 	pageEncoding="UTF-8"%>
 <html>
 <head>
-	<title>홈</title>
+<title>병원 중개 사이트</title>
 </head>
 <body>
 <h1>
