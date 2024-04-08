@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.kh.team3.dao.HospitalDAO;
+import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.SiDoVO;
+import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
 import lombok.extern.log4j.Log4j;
 
@@ -50,6 +53,21 @@ public class HospitalServiceImp implements HospitalService {
 	//아이디 중복 체크(안됨)
 	public HospitalVO idCheck(String ho_id) {
 		return hospitalDao.selectHospitalId(ho_id);
+	}
+
+	@Override
+	public ArrayList<SiDoVO> getSiDoList() {
+		return hospitalDao.selectSiDoList();
+	}
+
+	@Override
+	public ArrayList<SiGoonGuVO> getSggList() {
+		return hospitalDao.selectSggList();
+	}
+
+	@Override
+	public ArrayList<EupMyeonDongVO> getEmdList() {
+		return hospitalDao.selectEmdList();
 	}
 
 }

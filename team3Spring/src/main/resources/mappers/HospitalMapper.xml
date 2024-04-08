@@ -21,4 +21,16 @@
 	<select id="selectHospitalSubjectList" resultType="HospitalSubjectVO">
 		select * from hospital_subject
 	</select>
+	
+	<select id="selectSiDoList" resultType="SiDoVO">
+		select * from si_do
+	</select>
+	
+	<select id="selectSggList" resultType="SiGoonGuVO">
+		select * from si_goon_gu
+	</select>
+	
+	<select id="selectEmdList" resultType="EupMyeonDongVO">
+		select * from eup_myeon_dong
+	</select>
 </mapper>

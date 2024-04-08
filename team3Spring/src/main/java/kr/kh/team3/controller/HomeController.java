@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -76,16 +74,21 @@ public class HomeController {
 	
 	//사업자 회원가입 페이지
 	@GetMapping("/hospital/signup")
-	public String hospitalSignup(HospitalVO hospital, Model model, String ho_id) {
+	public String hospitalSignup(
+			HospitalVO hospital, Model model, String ho_id, SiDoVO siDo) {
 		log.info("사업자 회원가입");
-		
 		//병원 진료과목 리스트
-		ArrayList<HospitalSubjectVO> list = hospitalService.getHospitalSubjectList();
+		ArrayList<HospitalSubjectVO> hospitalList = hospitalService.getHospitalSubjectList();
+		model.addAttribute("hospitalList", hospitalList);
+		
+		//시도
+		ArrayList<SiDoVO> sidoList = hospitalService.getSiDoList();
 		model.addAttribute("hospital", hospital);
-		model.addAttribute("list", list);
+		model.addAttribute("sidoList", sidoList);
 		return "/hospital/signup";
 	}
-	
+
+		
 	//사업자 회원가입 페이지(post)
 	@PostMapping("/hospital/signup")
 	public String hospitalSignupPost(HospitalVO hospital, SiteManagement site) {

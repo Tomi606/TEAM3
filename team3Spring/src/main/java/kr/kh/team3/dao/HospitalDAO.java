@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
+import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.SiDoVO;
+import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
 
 public interface HospitalDAO {
@@ -17,5 +20,11 @@ public interface HospitalDAO {
 	boolean insertSiteHospital(@Param("st") SiteManagement site);
 
 	ArrayList<HospitalSubjectVO> selectHospitalSubjectList();
+
+	ArrayList<SiDoVO> selectSiDoList();
+
+	ArrayList<SiGoonGuVO> selectSggList();
+
+	ArrayList<EupMyeonDongVO> selectEmdList();
 
 }

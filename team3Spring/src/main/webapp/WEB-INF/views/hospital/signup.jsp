@@ -45,7 +45,7 @@
 	<div>
 		<label for="subject">대표 진료과목</label>
 		<select id="subject" name="ho_hs_num" required>
-			<c:forEach items="${list}" var="hs">
+			<c:forEach items="${hospitalList}" var="hs">
 				<option value="${hs.hs_num}">${hs.hs_title}</option>
 			</c:forEach>
 		</select>
@@ -61,8 +61,27 @@
 		<label id="num-error" class="error text-danger" for="num"></label>
 	</div>
 	<div>
-		<label for="address">소재지(상세주소)</label>
-		<input type="text" id="address" name="ho_address" required placeholder="(DB추가 후 select)소재지 상세주소를 입력하세요."/>
+		<label for="address">소재지</label>
+		<select id="sido" name="sd_num" required>
+	      	<c:forEach items="${sidoList}" var="sd">
+	            <option value="${sd.sd_num}">${sd.sd_name}</option>
+	        </c:forEach>
+        </select>	
+		<select id="sgg" name="sgg_num">
+	 		<c:choose>
+		 		<c:when test="${sd_num == sgg_sd_num}">
+			        <c:forEach items="${sggList}" var="sgg">
+			                <option value="${sgg.sgg_num}">${sgg.sgg_name}</option>
+			        </c:forEach>
+		        </c:when>
+	       </c:choose>
+		</select>	
+		<select id="emd" name="emd_num">
+	        <c:forEach items="${emdList}" var="emd">
+	                <option value="${emd.emd_num}">${emd.emd_name}</option>
+	        </c:forEach>
+	    </select>
+		<input type="text" id="address" name="ho_address" required placeholder="소재지 상세주소를 입력하세요."/>
 		<label id="address-error" class="error text-danger" for="address"></label>
 	</div>
 	<div>
@@ -229,6 +248,11 @@ function hoIdForm() {
 		return false;
 	}
 }
+</script>
+
+<!-- 시도, 시군구, 읍면동 Ajax -->
+<script type="text/javascript">
+
 </script>
 </body>
 </html>
