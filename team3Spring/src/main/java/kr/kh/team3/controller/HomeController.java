@@ -70,7 +70,7 @@ public class HomeController {
 
 	@PostMapping("/member/login")
 	public String memberLoginPost(Model model, MemberVO member) {
-		//member정보를 주고 아이디 비번 맞는지 확인 후 
+		//member정보를 주고 아이디 비번 맞는지 확인 후
 		SiteManagement user = memberService.login(member);
 		log.info(user);
 		model.addAttribute("user", user);//user라는 이름으로 전송
@@ -84,4 +84,23 @@ public class HomeController {
 		return "message";
 	}
 	
+	@PostMapping("/hospital/login")
+	public String hospitalLoginPost(Model model, MemberVO member) {
+
+		/*
+		//member정보를 주고 아이디 비번 맞는지 확인 후
+		SiteManagement user = memberService.login(member);
+		log.info(user);
+		model.addAttribute("user", user);//user라는 이름으로 전송
+		if(user != null) {
+			model.addAttribute("url", "/");
+			model.addAttribute("msg", "로그인이 완료되었습니다.");
+		}else {
+			model.addAttribute("url", "/main/login");
+			model.addAttribute("msg", "로그인에 실패했습니다.");
+		}
+		*/
+		return "message";
+	}
+
 }

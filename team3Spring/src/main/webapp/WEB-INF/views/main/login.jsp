@@ -114,7 +114,7 @@
 		</div>
 		<div class="form-box hospital-form-box">
 			<div class="login-form">
-				<form action="" method="post">
+				<form action="<c:url value="/hospital/login"/>" method="post">
 					<div class="input-group">
 						<input type="text" placeholder="사업자번호" name="ho_num" class="input-box">
 						<input type="text" placeholder="아이디" name="ho_id" class="input-box">
