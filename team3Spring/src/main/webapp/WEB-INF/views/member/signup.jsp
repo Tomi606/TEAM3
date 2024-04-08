@@ -25,7 +25,7 @@
     </select>
 <div>
 		<label for="subject">관심 과목</label>
-		<select id="subject" name="me_hs_num" required >
+		<select id="subject" name="me_hs_num"  >
 			<c:forEach items="${list}" var="hs">
 				<option value="${hs.hs_num}">${hs.hs_title}</option>
 			</c:forEach>

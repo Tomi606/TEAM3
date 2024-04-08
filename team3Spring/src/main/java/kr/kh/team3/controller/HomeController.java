@@ -51,9 +51,10 @@ public class HomeController {
 	//개인 회원가입 페이지
 	@GetMapping("/member/signup")
 	public String memberSignup(Model model, SiDoVO sido,SiGoonGuVO sgg,EupMyeonDongVO emd) {
-
+		ArrayList<HospitalSubjectVO> list = hospitalService.getHospitalSubjectList();
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
 		model.addAttribute("sidoList",sidoList);
+		model.addAttribute("list",list);
 		return "/member/signup";
 	}
 	
