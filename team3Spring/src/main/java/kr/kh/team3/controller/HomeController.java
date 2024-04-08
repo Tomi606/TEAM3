@@ -7,13 +7,11 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.team3.model.vo.EupMyeonDongVO;
@@ -53,9 +51,10 @@ public class HomeController {
 	//개인 회원가입 페이지
 	@GetMapping("/member/signup")
 	public String memberSignup(Model model, SiDoVO sido,SiGoonGuVO sgg,EupMyeonDongVO emd) {
-
+		ArrayList<HospitalSubjectVO> list = hospitalService.getHospitalSubjectList();
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
 		model.addAttribute("sidoList",sidoList);
+		model.addAttribute("list",list);
 		return "/member/signup";
 	}
 	
@@ -94,16 +93,21 @@ public class HomeController {
 	
 	//사업자 회원가입 페이지
 	@GetMapping("/hospital/signup")
-	public String hospitalSignup(HospitalVO hospital, Model model, String ho_id) {
+	public String hospitalSignup(
+			HospitalVO hospital, Model model, String ho_id, SiDoVO siDo) {
 		log.info("사업자 회원가입");
-		
 		//병원 진료과목 리스트
-		ArrayList<HospitalSubjectVO> list = hospitalService.getHospitalSubjectList();
+		ArrayList<HospitalSubjectVO> hospitalList = hospitalService.getHospitalSubjectList();
+		model.addAttribute("hospitalList", hospitalList);
+		
+		//시도
+		ArrayList<SiDoVO> sidoList = hospitalService.getSiDoList();
 		model.addAttribute("hospital", hospital);
-		model.addAttribute("list", list);
+		model.addAttribute("sidoList", sidoList);
 		return "/hospital/signup";
 	}
-	
+
+		
 	//사업자 회원가입 페이지(post)
 	@PostMapping("/hospital/signup")
 	public String hospitalSignupPost(HospitalVO hospital, SiteManagement site) {
@@ -119,22 +123,14 @@ public class HomeController {
 		return "/main/home";
 	}
 	
-	//사업자 회원가입 아이디 중복 체크(안됨)
+	//사업자 회원가입 아이디 중복 체크
 	@ResponseBody
-	@GetMapping("/dup/check/id")
-	public ResponseEntity<Boolean> idCheckDup(HospitalVO ho_id) {
-//		boolean result = hospitalService.idCheck(ho_id);
-		boolean result = true;
-		
-			if (hospitalService.idCheck(ho_id)) {
-				log.info("false : " + ho_id);
-				result = false;
-			} else {
-				log.info("true : " + ho_id);
-				result = true;
-			}
-		
-		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+	@GetMapping("/id/check/dup")
+	public Map<String, Object> idCheckDup(@RequestParam("id") String ho_id){
+		Map<String, Object> map = new HashMap<String, Object>();
+		HospitalVO res = hospitalService.idCheck(ho_id);
+		map.put("result", res);
+		return map;
 	}
 	
 	//로그인 메인 페이지
@@ -146,36 +142,66 @@ public class HomeController {
 
 	@PostMapping("/member/login")
 	public String memberLoginPost(Model model, MemberVO member) {
+		MemberVO me = memberService.getMember(member);
+		
+		//입력한 아이디가 존재하지 않는 아이디일 때
+		if(me == null) {
+			model.addAttribute("url", "/main/login");
+			model.addAttribute("msg", "로그인에 실패했습니다.");
+			return "message";
+		}
+		//로그인 실패 횟수가 5회일 때
+		if(me.getMe_fail() == 5) {
+			model.addAttribute("url", "/main/login");
+			model.addAttribute("msg", "로그인 시도 횟수 5회를 초과하였습니다. 비밀번호 찾기를 통해 로그인해주세요.");
+			return "message";
+		}
 		//member정보를 주고 아이디 비번 맞는지 확인 후
 		SiteManagement user = memberService.login(member);
-		log.info(user);
-		model.addAttribute("user", user);//user라는 이름으로 전송
 		if(user != null) {
+			model.addAttribute("user", user);//user라는 이름으로 전송
 			model.addAttribute("url", "/");
 			model.addAttribute("msg", "로그인이 완료되었습니다.");
 		}else {
+			memberService.setLoginFail(member.getMe_id());
 			model.addAttribute("url", "/main/login");
-			model.addAttribute("msg", "로그인에 실패했습니다.");
+			if(me.getMe_fail() == 4) {
+				model.addAttribute("msg", "로그인에 실패했습니다. 5/5 회 시도하였습니다. 비밀번호 찾기를 통해 로그인해주세요.");
+			}else {
+			model.addAttribute("msg", "로그인에 실패했습니다. " + (me.getMe_fail()+1) + "/5 회 시도하였습니다.");
+			}
 		}
 		return "message";
 	}
 	
 	@PostMapping("/hospital/login")
-	public String hospitalLoginPost(Model model, MemberVO member) {
+	public String hospitalLoginPost(Model model, HospitalVO hospital) {
+		//hospital정보를 주고 아이디 비번 맞는지 확인 후
+		SiteManagement user = hospitalService.login(hospital);
 
-		/*
-		//member정보를 주고 아이디 비번 맞는지 확인 후
-		SiteManagement user = memberService.login(member);
-		log.info(user);
-		model.addAttribute("user", user);//user라는 이름으로 전송
-		if(user != null) {
-			model.addAttribute("url", "/");
-			model.addAttribute("msg", "로그인이 완료되었습니다.");
-		}else {
+		//가입 대기 상태 확인하기 위해 hospital 값 가져옴
+		try {
+			HospitalVO ho = hospitalService.getHospital(user.getSite_id());
+			
+			if(ho.getHo_ms_state().equals("가입대기")) {
+				model.addAttribute("url", "/main/login");
+				model.addAttribute("msg", "승인 확인 전입니다.");
+			}
+			else if(ho.getHo_ms_state().equals("이용중") && user != null) {
+				model.addAttribute("user", user);//user라는 이름으로 전송
+				model.addAttribute("url", "/");
+				model.addAttribute("msg", "로그인이 완료되었습니다.");
+			}else {
+				model.addAttribute("url", "/main/login");
+				model.addAttribute("msg", "로그인에 실패했습니다.");
+			}
+			
+		} catch (Exception e) {
 			model.addAttribute("url", "/main/login");
 			model.addAttribute("msg", "로그인에 실패했습니다.");
 		}
-		*/
+		
+
 		return "message";
 	}
 

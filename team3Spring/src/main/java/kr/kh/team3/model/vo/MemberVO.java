@@ -19,6 +19,7 @@ public class MemberVO {
 	private String me_address;
 	private String me_authority;
 	private String me_ms_state;
+	private int me_fail;
 	private String me_cookie;
 	private String me_cookie_limit;
 	 

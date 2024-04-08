@@ -2,9 +2,11 @@ package kr.kh.team3.service;
 
 import java.util.ArrayList;
 
+import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
-import kr.kh.team3.model.vo.MemberVO;
+import kr.kh.team3.model.vo.SiDoVO;
+import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
 
 public interface HospitalService {
@@ -15,6 +17,16 @@ public interface HospitalService {
 
 	ArrayList<HospitalSubjectVO> getHospitalSubjectList();
 
-	boolean idCheck(HospitalVO ho_id);
+	HospitalVO idCheck(String ho_id);
+
+	ArrayList<SiDoVO> getSiDoList();
+
+	ArrayList<SiGoonGuVO> getSggList();
+
+	ArrayList<EupMyeonDongVO> getEmdList();
+
+	SiteManagement login(HospitalVO hospital);
+
+	HospitalVO getHospital(String site_id);
 
 }

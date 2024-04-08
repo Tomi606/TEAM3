@@ -50,6 +50,16 @@
 	<!-- 클래스들을 읽어 올 수 있게 기본 패키지를 지정해줌/ ".*" 으로 모든 패키지 지정 -->
 	<context:component-scan base-package="kr.kh.team3.*" />
 
-
+	<!-- 인터셉터 등록 -->
+	<beans:bean id="loginInterceptor" 
+		class="kr.kh.team3.interceptor.LoginInterceptor"/>
+	<!-- 인터셉터 맵핑 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/member/login"/>
+			<mapping path="/hospital/login"/>
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+	</interceptors>
 
 </beans:beans>

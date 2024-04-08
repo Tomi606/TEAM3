@@ -15,7 +15,6 @@ import kr.kh.team3.model.vo.SiteManagement;
 
 @Service
 public class MemberServiceImp implements MemberService {
-
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
 
@@ -52,9 +51,11 @@ public class MemberServiceImp implements MemberService {
 		MemberVO user = memberDao.selectMember(member.getMe_id());
 		if (user == null)
 			return null;
-		// 비번 확인
-		// 맞으면 site 정보 return
-		if (member.getMe_pw().equals(user.getMe_pw())) {
+
+		//비번 확인
+		//맞으면 site 정보 return
+		if(member.getMe_pw().equals(user.getMe_pw())) {
+			memberDao.updateLoginFailZero(user.getMe_id());
 
 			return memberDao.selectSite(user.getMe_id());
 		}
@@ -74,5 +75,18 @@ public class MemberServiceImp implements MemberService {
 	@Override
 	public ArrayList<EupMyeonDongVO> getEmd(int sggNum) {
 		return  memberDao.selectEmd(sggNum);
+	}
+
+	@Override
+	public void setLoginFail(String me_id) {
+		memberDao.updateLoginFail(me_id);
+	}
+
+	@Override
+	public MemberVO getMember(MemberVO member) {
+		if( member == null || 
+			member.getMe_id() == null)
+			return null;
+		return memberDao.selectMember(member.getMe_id());
 	}
 }
