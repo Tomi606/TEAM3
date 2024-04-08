@@ -14,21 +14,20 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<!-- 수정 후 -->
-		<property name="driverClassName"
-			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
 		<property name="url"
 			value="jdbc:log4jdbc:mysql://localhost:3306/hospital_mediation?useSSL=false&amp;serverTimezone=Asia/Seoul" />
 		<property name="username" value="root"></property>
 		<property name="password" value="root"></property>
 	</bean>
+	
 	<!-- mapper 정보 -->
-	<bean id="sqlSessionFactory"
-		class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations"
-			value="classpath:mappers/**/*Mapper.xml"></property>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	    <property name="dataSource" ref="dataSource" />
+	    <property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"/>
+	    <property name="configLocation" value="/WEB-INF/spring/mybatis-config.xml"/>
 	</bean>
-	<!-- dao 패키지 연결 -->
-	<mybatis-spring:scan
-		base-package="kr.kh.team3.dao" />
+	<mybatis-spring:scan base-package="kr.kh.team3.dao"/>
+	
 </beans>
+	

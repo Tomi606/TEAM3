@@ -1,10 +1,15 @@
 package kr.kh.team3.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.kh.team3.dao.MemberDAO;
+import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.MemberVO;
+import kr.kh.team3.model.vo.SiDoVO;
+import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
 
 @Service
@@ -16,8 +21,8 @@ public class MemberServiceImp implements MemberService {
 	MemberDAO memberDao;
 
 	public boolean memberSignup(MemberVO member) {
-//		if(member==null ||member.getMe_id()==null)
-//			return false;
+		if(member == null || member.getMe_id().length()==0)
+			return false;
 		
 		return memberDao.insertMember(member);
 	}
@@ -26,7 +31,6 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.insertSiteMember(site);
 	}
 
-	
 	@Override
 	public SiteManagement login(MemberVO member) {
 		//매개변수 null 처리
@@ -45,5 +49,19 @@ public class MemberServiceImp implements MemberService {
 			return memberDao.selectSite(user.getMe_id());
 		}
 		return null;
+
+	@Override
+	public ArrayList<SiDoVO> getSiDo() {
+		return memberDao.selectSiDo();
+	}
+
+	@Override
+	public ArrayList<SiDoVO> getSgg() {
+		return  memberDao.selectSgg();
+	}
+
+	@Override
+	public ArrayList<SiDoVO> getEmd() {
+		return  memberDao.selectEmd();
 	}
 }
