@@ -17,7 +17,7 @@ public interface MemberDAO {
 	boolean insertMember(@Param("me")MemberVO member);
 
 	boolean insertSiteMember(@Param("si")SiteManagement site);
-
+	//ajax로도 사용함
 	MemberVO selectMember(@Param("me_id")String me_id);
 
 	ArrayList<SiDoVO> selectSiDo();
@@ -31,5 +31,9 @@ public interface MemberDAO {
 	void updateLoginFail(@Param("me_id")String me_id);
 
 	void updateLoginFailZero(@Param("me_id")String me_id);
+	//ajax용 이메일
+	MemberVO selectMemberEmail(@Param("me_email")String me_email);
+	//ajax용 폰번호 
+	MemberVO selectMemberPhone(@Param("me_phone")String me_phone);
 
 }
