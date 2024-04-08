@@ -22,9 +22,9 @@ public interface MemberDAO {
 
 	ArrayList<SiDoVO> selectSiDo();
 
-	ArrayList<SiGoonGuVO> selectSgg();
+	ArrayList<SiGoonGuVO> selectSgg(@Param("sd_num") int sd_num);
 
-	ArrayList<EupMyeonDongVO> selectEmd();
+	ArrayList<EupMyeonDongVO> selectEmd(@Param("sgg_num")int sggNum);
 	
 	SiteManagement selectSite(@Param("me_id")String me_id);
 

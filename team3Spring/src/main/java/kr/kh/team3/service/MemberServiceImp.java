@@ -67,12 +67,12 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public ArrayList<SiGoonGuVO> getSgg() {
-		return memberDao.selectSgg();
+	public ArrayList<SiGoonGuVO> getSgg(int sd_num) {
+		return  memberDao.selectSgg(sd_num);
 	}
 
 	@Override
-	public ArrayList<EupMyeonDongVO> getEmd() {
-		return memberDao.selectEmd();
+	public ArrayList<EupMyeonDongVO> getEmd(int sggNum) {
+		return  memberDao.selectEmd(sggNum);
 	}
 }

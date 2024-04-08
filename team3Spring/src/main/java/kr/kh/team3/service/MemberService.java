@@ -18,8 +18,8 @@ public interface MemberService {
 
 	ArrayList<SiDoVO> getSiDo();
 
-	ArrayList<SiGoonGuVO> getSgg();
+	ArrayList<SiGoonGuVO> getSgg(int sd_num);
 
-	ArrayList<EupMyeonDongVO> getEmd();
+	ArrayList<EupMyeonDongVO> getEmd(int sgg_num);
 
 }
