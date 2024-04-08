@@ -13,6 +13,7 @@
 <body>
 <form id="myForm" action="<c:url value="/member/signup"/>" method="post">
 	 <select name="sd_num">
+	 		<option value="none">선택해주세요</option>
         <c:forEach items="${sidoList}" var="sd">
             <option value="${sd.sd_num}">${sd.sd_name}</option>
         </c:forEach>
@@ -23,7 +24,7 @@
  	<select name="emd_num" class="emd_num">
          <option value="none">군구를 선택해주세요</option>
     </select>
-<div>
+		<div>
 		<label for="subject">관심 과목</label>
 		<select id="subject" name="me_hs_num"  >
 			<c:forEach items="${list}" var="hs">
@@ -235,7 +236,7 @@ function hoIdForm() {
 
 
 /* 군 구 리스트 select로 띄우기 시작 */
-$("[name=sd_num]").change(function(){
+$("[name=sd_num]").click(function(){
 	let sd_num = $("[name=sd_num]").val();
 	$.ajax({
 		method : "post",
@@ -258,7 +259,7 @@ $("[name=sd_num]").change(function(){
 /* 읍면동 리스트 select로 띄우기 끝 */
 
 /* 읍면동 리스트 select로 띄우기 시작 */
-$("[name=sgg_num]").change(function(){
+$("[name=sgg_num]").click(function(){
 	let sgg_num = $("[name=sgg_num]").val();
 	$.ajax({
 		method : "post",
@@ -267,7 +268,6 @@ $("[name=sgg_num]").change(function(){
 		success : function (data){
 			let str =""
 			for(let tmp in data){
-				console.log(data[tmp].emd_name);
 				str += ` <option value='\${data[tmp].emd_num}'>\${data[tmp].emd_name}</option>`;
 			}
 			$(".emd_num").html(str);
