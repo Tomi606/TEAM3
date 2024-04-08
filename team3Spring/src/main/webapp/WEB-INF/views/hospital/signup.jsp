@@ -82,7 +82,7 @@
 		<input type="text" id="phone" name="ho_phone" required placeholder="'-'제외한 대표 전화번호를 입력하세요."/>
 		<label id="phone-error" class="error text-danger" for="phone"></label>
 	</div>
-	<button type="button" onclick="hoIdForm()">회원가입</button>
+	<button type="submit" onclick="hoIdForm()">회원가입</button>
 </form>
 <!-- 정규표현식 -->
 <script type="text/javascript">
@@ -223,7 +223,7 @@ function hoIdForm() {
 	
 	var hoId = document.getElementById("id").value;
 	document.getElementById("id2").value = hoId;
-	document.getElementById("myForm").submit(); 
+	return true;
 	
 	//비번 일치 확인
 	var pw = document.getElementById("pw").value;
