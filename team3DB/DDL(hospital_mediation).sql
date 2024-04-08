@@ -1,4 +1,4 @@
-#DROP DATABASE IF EXISTS `hospital_mediation`;
+DROP DATABASE IF EXISTS `hospital_mediation`;
 
 CREATE DATABASE IF NOT EXISTS `hospital_mediation`;
 
@@ -134,7 +134,7 @@ DROP TABLE IF EXISTS `hospital`;
 CREATE TABLE `hospital` (
 	`ho_id`	varchar(13)	primary key,
 	`ho_ms_state`	VARCHAR(20)	NOT NULL,
-	`ho_cs_num`	int	NOT NULL,
+	`ho_hs_num`	int	NOT NULL,
 	`ho_pw`	varchar(255) NOT NULL,
 	`ho_name`	varchar(50)	NOT NULL unique,
 	`ho_ceo`	varchar(5)	NOT NULL,
@@ -475,13 +475,14 @@ REFERENCES `hospital_subject` (
 	`hs_num`
 );
 
-select * from si_do join si_goon_gu on sd_num = sgg_sd_num join eup_myeon_dong on sgg_num = emd_sgg_num order by sd_num ;
 #지역설정 및 회원 상태 더미데이터 
- INSERT INTO MEMBER_STATE VALUES('이용중'), ('기간정지'), ('영구정지'), ('탈퇴');
+INSERT INTO MEMBER_STATE VALUES('이용중'), ('기간정지'), ('영구정지'), ('탈퇴');
+
+-- 지역설정 넣기 전까지 사용
 -- insert into si_do value(1,'서울시');
 -- insert into si_goon_gu value(1,'강남구','1');
 -- insert into eup_myeon_dong value(1,'역삼동','1');
- insert into land value(1,1);
+insert into land value(1,1);
 
 # 병원 과목
 insert into hospital_subject(hs_title) 
