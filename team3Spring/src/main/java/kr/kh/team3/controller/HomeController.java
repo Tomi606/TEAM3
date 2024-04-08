@@ -146,36 +146,66 @@ public class HomeController {
 
 	@PostMapping("/member/login")
 	public String memberLoginPost(Model model, MemberVO member) {
+		MemberVO me = memberService.getMember(member);
+		
+		//입력한 아이디가 존재하지 않는 아이디일 때
+		if(me == null) {
+			model.addAttribute("url", "/main/login");
+			model.addAttribute("msg", "로그인에 실패했습니다.");
+			return "message";
+		}
+		//로그인 실패 횟수가 5회일 때
+		if(me.getMe_fail() == 5) {
+			model.addAttribute("url", "/main/login");
+			model.addAttribute("msg", "로그인 시도 횟수 5회를 초과하였습니다. 비밀번호 찾기를 통해 로그인해주세요.");
+			return "message";
+		}
 		//member정보를 주고 아이디 비번 맞는지 확인 후
 		SiteManagement user = memberService.login(member);
-		log.info(user);
-		model.addAttribute("user", user);//user라는 이름으로 전송
 		if(user != null) {
+			model.addAttribute("user", user);//user라는 이름으로 전송
 			model.addAttribute("url", "/");
 			model.addAttribute("msg", "로그인이 완료되었습니다.");
 		}else {
+			memberService.setLoginFail(member.getMe_id());
 			model.addAttribute("url", "/main/login");
-			model.addAttribute("msg", "로그인에 실패했습니다.");
+			if(me.getMe_fail() == 4) {
+				model.addAttribute("msg", "로그인에 실패했습니다. 5/5 회 시도하였습니다. 비밀번호 찾기를 통해 로그인해주세요.");
+			}else {
+			model.addAttribute("msg", "로그인에 실패했습니다. " + (me.getMe_fail()+1) + "/5 회 시도하였습니다.");
+			}
 		}
 		return "message";
 	}
 	
 	@PostMapping("/hospital/login")
-	public String hospitalLoginPost(Model model, MemberVO member) {
+	public String hospitalLoginPost(Model model, HospitalVO hospital) {
+		//hospital정보를 주고 아이디 비번 맞는지 확인 후
+		SiteManagement user = hospitalService.login(hospital);
 
-		/*
-		//member정보를 주고 아이디 비번 맞는지 확인 후
-		SiteManagement user = memberService.login(member);
-		log.info(user);
-		model.addAttribute("user", user);//user라는 이름으로 전송
-		if(user != null) {
-			model.addAttribute("url", "/");
-			model.addAttribute("msg", "로그인이 완료되었습니다.");
-		}else {
+		//가입 대기 상태 확인하기 위해 hospital 값 가져옴
+		try {
+			HospitalVO ho = hospitalService.getHospital(user.getSite_id());
+			
+			if(ho.getHo_ms_state().equals("가입대기")) {
+				model.addAttribute("url", "/main/login");
+				model.addAttribute("msg", "승인 확인 전입니다.");
+			}
+			else if(ho.getHo_ms_state().equals("이용중") && user != null) {
+				model.addAttribute("user", user);//user라는 이름으로 전송
+				model.addAttribute("url", "/");
+				model.addAttribute("msg", "로그인이 완료되었습니다.");
+			}else {
+				model.addAttribute("url", "/main/login");
+				model.addAttribute("msg", "로그인에 실패했습니다.");
+			}
+			
+		} catch (Exception e) {
 			model.addAttribute("url", "/main/login");
 			model.addAttribute("msg", "로그인에 실패했습니다.");
 		}
-		*/
+		
+
 		return "message";
 	}
 

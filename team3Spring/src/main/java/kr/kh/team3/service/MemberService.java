@@ -22,4 +22,8 @@ public interface MemberService {
 
 	ArrayList<EupMyeonDongVO> getEmd(int sgg_num);
 
+	void setLoginFail(String me_id);
+
+	MemberVO getMember(MemberVO member);
+
 }

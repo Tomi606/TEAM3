@@ -18,4 +18,8 @@ public interface HospitalDAO {
 
 	ArrayList<HospitalSubjectVO> selectHospitalSubjectList();
 
+	HospitalVO selectHospital(@Param("ho_id")String ho_id);
+
+	SiteManagement selectSite(@Param("ho_id")String ho_id);
+
 }

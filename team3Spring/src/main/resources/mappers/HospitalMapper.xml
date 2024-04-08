@@ -21,4 +21,14 @@
 	<select id="selectHospitalSubjectList" resultType="HospitalSubjectVO">
 		select * from hospital_subject order by hs_title
 	</select>
+	
+	<!-- 로그인 -->
+	<select id="selectHospital" resultType="kr.kh.team3.model.vo.HospitalVO">
+		SELECT * FROM hospital
+		WHERE ho_id = #{ho_id}
+	</select>
+	<select id="selectSite" resultType="kr.kh.team3.model.vo.SiteManagement">
+		SELECT * FROM site_management
+		WHERE site_id = #{ho_id}
+	</select>
 </mapper>
