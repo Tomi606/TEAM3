@@ -38,8 +38,6 @@ public class HomeController {
 	//개인 회원가입 페이지
 	@GetMapping("/member/signup")
 	public String memberSignup(Model model, SiDoVO sido,SiGoonGuVO sgg,EupMyeonDongVO emd) {
-		log.info("개인 회원가입");
-		
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
 		ArrayList<SiDoVO> sggList = memberService.getSgg();
 		ArrayList<SiDoVO> emdList = memberService.getEmd();
