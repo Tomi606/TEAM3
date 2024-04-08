@@ -375,13 +375,12 @@ REFERENCES `member_state` (
 );
 
 ALTER TABLE `hospital` ADD CONSTRAINT `FK_hospital_subject_TO_hospital_1` FOREIGN KEY (
-	`ho_cs_num`
+	`ho_hs_num`
 )
 REFERENCES `hospital_subject` (
 	`hs_num`
 );
 
-#error
 ALTER TABLE `site_management` ADD CONSTRAINT `FK_land_TO_site_management_1` FOREIGN KEY (
 	`site_la_num`
 )
@@ -417,7 +416,6 @@ REFERENCES `si_do` (
 	`sd_num`
 );
 
-#error
 ALTER TABLE `land` ADD CONSTRAINT `FK_eup_myeon_dong_TO_land_1` FOREIGN KEY (
 	`la_emd_num`
 )
@@ -432,7 +430,6 @@ REFERENCES `site_management` (
 	`site_num`
 );
 
-#error
 ALTER TABLE `chat` ADD CONSTRAINT `FK_chat_room_TO_chat_1` FOREIGN KEY (
 	`ct_cr_num`
 )
