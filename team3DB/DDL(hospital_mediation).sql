@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS `hospital_mediation`;
+#DROP DATABASE IF EXISTS `hospital_mediation`;
 
 CREATE DATABASE IF NOT EXISTS `hospital_mediation`;
 
@@ -475,13 +475,13 @@ REFERENCES `hospital_subject` (
 	`hs_num`
 );
 
+select * from si_do join si_goon_gu on sd_num = sgg_sd_num join eup_myeon_dong on sgg_num = emd_sgg_num order by sd_num ;
 #지역설정 및 회원 상태 더미데이터 
-INSERT INTO MEMBER_STATE VALUES('이용중'), ('기간정지'), ('영구정지'), ('탈퇴');
-
-insert into si_do value(1,'서울시');
-insert into si_goon_gu value(1,'강남구','1');
-insert into eup_myeon_dong value(1,'역삼동','1');
-insert into land value(1,1);
+ INSERT INTO MEMBER_STATE VALUES('이용중'), ('기간정지'), ('영구정지'), ('탈퇴');
+-- insert into si_do value(1,'서울시');
+-- insert into si_goon_gu value(1,'강남구','1');
+-- insert into eup_myeon_dong value(1,'역삼동','1');
+ insert into land value(1,1);
 
 # 병원 과목
 insert into hospital_subject(hs_title) 

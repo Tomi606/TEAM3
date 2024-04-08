@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.MemberVO;
+import kr.kh.team3.model.vo.SiDoVO;
+import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
 import kr.kh.team3.service.HospitalService;
 import kr.kh.team3.service.MemberService;
@@ -45,20 +48,20 @@ public class HomeController {
 	
 	//개인 회원가입 페이지
 	@GetMapping("/member/signup")
-	public String memberSignup(MemberVO member,Model model) {
-		log.info("개인 회원가입");
-		log.info(member);
-	
-		model.addAttribute("member",member);
+	public String memberSignup(Model model, SiDoVO sido,SiGoonGuVO sgg,EupMyeonDongVO emd) {
+		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
+		ArrayList<SiDoVO> sggList = memberService.getSgg();
+		ArrayList<SiDoVO> emdList = memberService.getEmd();
+		model.addAttribute("sidoList",sidoList);
+		model.addAttribute("sggList",sggList);
+		model.addAttribute("emdList",emdList);
 		return "/member/signup";
 	}
 	
 	//개인 회원가입 페이지
 	@PostMapping("/member/signup")
-	public String postPemberSignup(MemberVO member,SiteManagement site) {
+	public String postPemberSignup(Model model,MemberVO member,SiteManagement site,SiDoVO sido,SiGoonGuVO sgg) {
 		log.info("개인 회원가입");
-		log.info(member);
-		log.info(site);
 		boolean memberRes = memberService.memberSignup(member);
 		boolean siteRes = memberService.siteSignup(site);
 		if (!memberRes||!siteRes) {
