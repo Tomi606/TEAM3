@@ -49,7 +49,7 @@ public class MemberServiceImp implements MemberService {
 			return memberDao.selectSite(user.getMe_id());
 		}
 		return null;
-
+	}
 	@Override
 	public ArrayList<SiDoVO> getSiDo() {
 		return memberDao.selectSiDo();

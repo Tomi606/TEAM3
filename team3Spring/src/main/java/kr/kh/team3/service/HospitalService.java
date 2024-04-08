@@ -17,4 +17,8 @@ public interface HospitalService {
 
 	boolean idCheck(HospitalVO ho_id);
 
+	SiteManagement login(HospitalVO hospital);
+
+	HospitalVO getHospital(String site_id);
+
 }

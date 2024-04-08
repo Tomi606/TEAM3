@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import kr.kh.team3.dao.HospitalDAO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiteManagement;
 import lombok.extern.log4j.Log4j;
 
@@ -50,6 +51,34 @@ public class HospitalServiceImp implements HospitalService {
 	public boolean idCheck(HospitalVO ho_id) {
 //		return hospitalDao.selectHospitalId(ho_id);
 		return false;
+	}
+
+	@Override
+	public SiteManagement login(HospitalVO hospital) {
+		//log.info(hospital);
+		//매개변수 null 처리
+		if( hospital == null || 
+			hospital.getHo_id() == null || 
+			hospital.getHo_pw() == null)
+			return null;
+		//아이디 확인
+
+		
+		HospitalVO user = hospitalDao.selectHospital(hospital.getHo_id());
+		if(user == null) {
+			return null;
+		}
+		//비번 확인
+		//맞으면 site 정보 return
+		if(hospital.getHo_pw().equals(user.getHo_pw())) {
+			return hospitalDao.selectSite(user.getHo_id());
+		}
+		return null;
+	}
+
+	@Override
+	public HospitalVO getHospital(String site_id) {
+		return hospitalDao.selectHospital(site_id);
 	}
 
 }
