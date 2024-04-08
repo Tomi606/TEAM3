@@ -2,7 +2,8 @@ package kr.kh.team3.controller;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.team3.model.vo.HospitalSubjectVO;
@@ -99,22 +101,14 @@ public class HomeController {
 		return "/main/home";
 	}
 	
-	//사업자 회원가입 아이디 중복 체크(안됨)
+	//사업자 회원가입 아이디 중복 체크
 	@ResponseBody
-	@GetMapping("/dup/check/id")
-	public ResponseEntity<Boolean> idCheckDup(HospitalVO ho_id) {
-//		boolean result = hospitalService.idCheck(ho_id);
-		boolean result = true;
-		
-			if (hospitalService.idCheck(ho_id)) {
-				log.info("false : " + ho_id);
-				result = false;
-			} else {
-				log.info("true : " + ho_id);
-				result = true;
-			}
-		
-		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+	@GetMapping("/id/check/dup")
+	public Map<String, Object> idCheckDup(@RequestParam("id") String ho_id){
+		Map<String, Object> map = new HashMap<String, Object>();
+		HospitalVO res = hospitalService.idCheck(ho_id);
+		map.put("result", res);
+		return map;
 	}
 	
 	//로그인 메인 페이지

@@ -15,6 +15,5 @@ public interface HospitalService {
 
 	ArrayList<HospitalSubjectVO> getHospitalSubjectList();
 
-	boolean idCheck(HospitalVO ho_id);
-
+	HospitalVO idCheck(String ho_id);
 }

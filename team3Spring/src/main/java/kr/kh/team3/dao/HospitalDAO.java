@@ -10,7 +10,7 @@ import kr.kh.team3.model.vo.SiteManagement;
 
 public interface HospitalDAO {
 
-	String selectHospitalId(@Param("ho_id") HospitalVO ho_id);
+	HospitalVO selectHospitalId(@Param("ho_id") String ho_id);
 
 	boolean insertHospital(@Param("ho") HospitalVO hospital);
 

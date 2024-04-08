@@ -166,27 +166,29 @@ $.validator.addMethod(
 <!-- 아이디 중복 검사 -->
 <script type="text/javascript">
 function idCheckDup() {
-
 	//입력된 아이디를 가져옴
-	let id = $('[name=ho_id]').val();
+	let ho_id = $('[name=ho_id]').val();
 	let obj = {
-		id : id
+		//id는 Controller에 @RequestParam("id")과 일치해야 함
+		//ho_id는 위의 ho_id
+		id : ho_id
 	}
 	let idRegex = /^\w{8,15}$/;
-	if(!idRegex.test(id)) {
-		return false;
-	}
+	
 	let result = false;
 	//서버에 아이디를 전송해서 사용 가능.불가능 처리
 	$.ajax({
 		async : false,
-		url : '<c:url value="/hospital/signup"/>', 
-		type : 'post', 
+		url : '<c:url value="/id/check/dup"/>', 
+		type : 'get', 
 		data : obj, 
 		dataType : "json", 
 		success : function (data){
 			result = data.result;
 			if(!result) {
+				$('#id-error2').show();
+			}
+			else {
 				$('#id-error2').text('이미 사용중인 아이디입니다.');
 				$('#id-error2').show();
 			}
