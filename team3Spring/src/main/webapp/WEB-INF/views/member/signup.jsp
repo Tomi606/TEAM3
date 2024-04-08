@@ -59,17 +59,19 @@ function meIdForm() {
  <script>
 function checkGender() {
 	    var backNum = document.getElementById("back-num").value;
-	    var genderRadioMale = document.getElementById("male");
-	    var genderRadioFemale = document.getElementById("female");
+	    var male = document.getElementById("male");
+	    var female = document.getElementById("female");
 	
 	    if (backNum.charAt(0) === '1' || backNum.charAt(0) === '3') {
-	        genderRadioMale.checked = true;
-	        genderRadioFemale.checked = false;
-	        genderRadioFemale.disabled = true;
+	    	male.checked = true;
+	    	female.checked = false;
+	    	female.disabled = true;
+	    	male.disabled = false;
 	    } else if (backNum.charAt(0) === '2' || backNum.charAt(0) === '4') {
-	        genderRadioMale.checked = false;
-	        genderRadioFemale.checked = true;
-	        genderRadioMale.disabled = true;
+	    	male.checked = false;
+	    	female.checked = true;
+	        male.disabled = true;
+	        female.disabled = false;
 	    }
 }
 </script>
