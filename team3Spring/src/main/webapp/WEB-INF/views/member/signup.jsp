@@ -46,8 +46,8 @@
 	<input type="text" id="front-num" name="me_frontNum" placeholder="주민등록번호 앞자리" maxlength="6">
 	<input type="text" id="back-num" name="me_backNum" placeholder="주민등록번호 뒷자리" maxlength="7" oninput="checkGender()"><br>
 	<label for="me_gender">성별:</label>
-    <input type="radio" id="male" name="me_gender" value="남자" checked>남자
-    <input type="radio" id="female" name="me_gender" value="여자" checked>여자<br>
+    <input type="radio" id="male" name="me_gender" value="남자" >남자
+    <input type="radio" id="female" name="me_gender" value="여자" >여자<br>
 	<input type="text" id="" name="me_job" placeholder="직업"><br>
 	<input type="text" id="" name="me_phone" placeholder="폰번호"><br>
 	<input type="text" id="" name="me_email" placeholder="이메일"><br>
@@ -78,6 +78,13 @@ function checkGender() {
 	    	male.checked = false;
 	    	female.checked = true;
 	        male.disabled = true;
+	        female.disabled = false;
+	    }
+	     else if (backNum.charAt(0) === '0' || backNum.charAt(0) === '5' ||backNum.charAt(0) === '6' || backNum.charAt(0) === '7'
+	    		||backNum.charAt(0) === '8' || backNum.charAt(0) === '9') {
+	    	male.checked = false;
+	    	female.checked = false;
+	        male.disabled = false;
 	        female.disabled = false;
 	    }
 }
