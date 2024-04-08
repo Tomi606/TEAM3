@@ -2,6 +2,7 @@ package kr.kh.team3.service;
 
 import java.util.ArrayList;
 
+import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
@@ -17,8 +18,8 @@ public interface MemberService {
 
 	ArrayList<SiDoVO> getSiDo();
 
-	ArrayList<SiDoVO> getSgg();
+	ArrayList<SiGoonGuVO> getSgg(int sd_num);
 
-	ArrayList<SiDoVO> getEmd();
+	ArrayList<EupMyeonDongVO> getEmd(int sgg_num);
 
 }

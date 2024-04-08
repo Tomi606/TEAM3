@@ -49,19 +49,19 @@ public class MemberServiceImp implements MemberService {
 			return memberDao.selectSite(user.getMe_id());
 		}
 		return null;
-
+	}
 	@Override
 	public ArrayList<SiDoVO> getSiDo() {
 		return memberDao.selectSiDo();
 	}
 
 	@Override
-	public ArrayList<SiDoVO> getSgg() {
-		return  memberDao.selectSgg();
+	public ArrayList<SiGoonGuVO> getSgg(int sd_num) {
+		return  memberDao.selectSgg(sd_num);
 	}
 
 	@Override
-	public ArrayList<SiDoVO> getEmd() {
-		return  memberDao.selectEmd();
+	public ArrayList<EupMyeonDongVO> getEmd(int sggNum) {
+		return  memberDao.selectEmd(sggNum);
 	}
 }
