@@ -27,4 +27,9 @@ public interface HospitalDAO {
 
 	ArrayList<EupMyeonDongVO> selectEmdList();
 
+	HospitalVO selectHospital(@Param("ho_id")String ho_id);
+
+	SiteManagement selectSite(@Param("ho_id")String ho_id);
+
+
 }

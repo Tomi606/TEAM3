@@ -17,9 +17,19 @@
 	<select id="selectHospitalId" resultType="HospitalVO">
 		select * from hospital where ho_id = #{ho_id}
 	</select>
-		
+		<!-- 정경호 : 과목 ㄱㄴㄷㄹ순으로 정렬을 위해 order by hs_title 추가 -->
 	<select id="selectHospitalSubjectList" resultType="HospitalSubjectVO">
-		select * from hospital_subject
+		select * from hospital_subject order by hs_title
+	</select>
+	
+	<!-- 로그인 -->
+	<select id="selectHospital" resultType="kr.kh.team3.model.vo.HospitalVO">
+		SELECT * FROM hospital
+		WHERE ho_id = #{ho_id}
+	</select>
+	<select id="selectSite" resultType="kr.kh.team3.model.vo.SiteManagement">
+		SELECT * FROM site_management
+		WHERE site_id = #{ho_id}
 	</select>
 	
 	<select id="selectSiDoList" resultType="SiDoVO">

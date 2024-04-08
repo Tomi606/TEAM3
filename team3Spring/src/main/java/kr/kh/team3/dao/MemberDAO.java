@@ -22,10 +22,14 @@ public interface MemberDAO {
 
 	ArrayList<SiDoVO> selectSiDo();
 
-	ArrayList<SiDoVO> selectSgg();
+	ArrayList<SiGoonGuVO> selectSgg(@Param("sd_num") int sd_num);
 
-	ArrayList<SiDoVO> selectEmd();
+	ArrayList<EupMyeonDongVO> selectEmd(@Param("sgg_num")int sggNum);
 	
 	SiteManagement selectSite(@Param("me_id")String me_id);
+
+	void updateLoginFail(@Param("me_id")String me_id);
+
+	void updateLoginFailZero(@Param("me_id")String me_id);
 
 }

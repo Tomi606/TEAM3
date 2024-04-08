@@ -24,4 +24,9 @@ public interface HospitalService {
 	ArrayList<SiGoonGuVO> getSggList();
 
 	ArrayList<EupMyeonDongVO> getEmdList();
+
+	SiteManagement login(HospitalVO hospital);
+
+	HospitalVO getHospital(String site_id);
+
 }

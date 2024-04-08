@@ -18,11 +18,11 @@
 	</select>
 	
 	<select id="selectSgg" resultType="kr.kh.team3.model.vo.SiGoonGuVO">
-			select * from si_goon_gu 
+			select * from si_goon_gu where sgg_sd_num = #{sd_num}
 	</select>
 	
 	<select id="selectEmd" resultType="kr.kh.team3.model.vo.EupMyeonDongVO">
-			select * from eup_myeon_dong
+			select * from eup_myeon_dong where emd_sgg_num = #{sgg_num}
 	</select>
 
 
@@ -35,4 +35,14 @@
 		SELECT * FROM site_management
 		WHERE site_id = #{me_id}
 	</select>
+	<update id="updateLoginFail">
+		UPDATE member
+		SET me_fail = me_fail + 1
+		WHERE me_id = #{me_id}
+	</update>
+	<update id="updateLoginFailZero">
+		UPDATE member
+		SET me_fail = 0
+		WHERE me_id = #{me_id}
+	</update>
 </mapper>
