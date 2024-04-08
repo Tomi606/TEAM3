@@ -21,4 +21,8 @@ public interface MemberService {
 
 	ArrayList<SiDoVO> getEmd();
 
+	void setLoginFail(String me_id);
+
+	MemberVO getMember(MemberVO member);
+
 }

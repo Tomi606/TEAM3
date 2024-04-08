@@ -35,4 +35,14 @@
 		SELECT * FROM site_management
 		WHERE site_id = #{me_id}
 	</select>
+	<update id="updateLoginFail">
+		UPDATE member
+		SET me_fail = me_fail + 1
+		WHERE me_id = #{me_id}
+	</update>
+	<update id="updateLoginFailZero">
+		UPDATE member
+		SET me_fail = 0
+		WHERE me_id = #{me_id}
+	</update>
 </mapper>

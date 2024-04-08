@@ -28,4 +28,8 @@ public interface MemberDAO {
 	
 	SiteManagement selectSite(@Param("me_id")String me_id);
 
+	void updateLoginFail(@Param("me_id")String me_id);
+
+	void updateLoginFailZero(@Param("me_id")String me_id);
+
 }
