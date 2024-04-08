@@ -7,12 +7,11 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -94,16 +93,21 @@ public class HomeController {
 	
 	//사업자 회원가입 페이지
 	@GetMapping("/hospital/signup")
-	public String hospitalSignup(HospitalVO hospital, Model model, String ho_id) {
+	public String hospitalSignup(
+			HospitalVO hospital, Model model, String ho_id, SiDoVO siDo) {
 		log.info("사업자 회원가입");
-		
 		//병원 진료과목 리스트
-		ArrayList<HospitalSubjectVO> list = hospitalService.getHospitalSubjectList();
+		ArrayList<HospitalSubjectVO> hospitalList = hospitalService.getHospitalSubjectList();
+		model.addAttribute("hospitalList", hospitalList);
+		
+		//시도
+		ArrayList<SiDoVO> sidoList = hospitalService.getSiDoList();
 		model.addAttribute("hospital", hospital);
-		model.addAttribute("list", list);
+		model.addAttribute("sidoList", sidoList);
 		return "/hospital/signup";
 	}
-	
+
+		
 	//사업자 회원가입 페이지(post)
 	@PostMapping("/hospital/signup")
 	public String hospitalSignupPost(HospitalVO hospital, SiteManagement site) {
@@ -119,22 +123,14 @@ public class HomeController {
 		return "/main/home";
 	}
 	
-	//사업자 회원가입 아이디 중복 체크(안됨)
+	//사업자 회원가입 아이디 중복 체크
 	@ResponseBody
-	@GetMapping("/dup/check/id")
-	public ResponseEntity<Boolean> idCheckDup(HospitalVO ho_id) {
-//		boolean result = hospitalService.idCheck(ho_id);
-		boolean result = true;
-		
-			if (hospitalService.idCheck(ho_id)) {
-				log.info("false : " + ho_id);
-				result = false;
-			} else {
-				log.info("true : " + ho_id);
-				result = true;
-			}
-		
-		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+	@GetMapping("/id/check/dup")
+	public Map<String, Object> idCheckDup(@RequestParam("id") String ho_id){
+		Map<String, Object> map = new HashMap<String, Object>();
+		HospitalVO res = hospitalService.idCheck(ho_id);
+		map.put("result", res);
+		return map;
 	}
 	
 	//로그인 메인 페이지

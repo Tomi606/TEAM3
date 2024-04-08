@@ -4,13 +4,16 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
+import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.SiDoVO;
+import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
 
 public interface HospitalDAO {
 
-	String selectHospitalId(@Param("ho_id") HospitalVO ho_id);
+	HospitalVO selectHospitalId(@Param("ho_id") String ho_id);
 
 	boolean insertHospital(@Param("ho") HospitalVO hospital);
 
@@ -18,8 +21,15 @@ public interface HospitalDAO {
 
 	ArrayList<HospitalSubjectVO> selectHospitalSubjectList();
 
+	ArrayList<SiDoVO> selectSiDoList();
+
+	ArrayList<SiGoonGuVO> selectSggList();
+
+	ArrayList<EupMyeonDongVO> selectEmdList();
+
 	HospitalVO selectHospital(@Param("ho_id")String ho_id);
 
 	SiteManagement selectSite(@Param("ho_id")String ho_id);
+
 
 }

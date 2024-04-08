@@ -31,4 +31,16 @@
 		SELECT * FROM site_management
 		WHERE site_id = #{ho_id}
 	</select>
+	
+	<select id="selectSiDoList" resultType="SiDoVO">
+		select * from si_do
+	</select>
+	
+	<select id="selectSggList" resultType="SiGoonGuVO">
+		select * from si_goon_gu
+	</select>
+	
+	<select id="selectEmdList" resultType="EupMyeonDongVO">
+		select * from eup_myeon_dong
+	</select>
 </mapper>
