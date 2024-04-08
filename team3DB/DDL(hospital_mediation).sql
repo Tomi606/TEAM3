@@ -479,11 +479,11 @@ INSERT INTO MEMBER_STATE VALUES('이용중'), ('기간정지'), ('영구정지')
 -- insert into si_do value(1,'서울시');
 -- insert into si_goon_gu value(1,'강남구','1');
 -- insert into eup_myeon_dong value(1,'역삼동','1');
-insert into land value(1,1);
+-- insert into land value(1,1);
 
 # 병원 과목
 insert into hospital_subject(hs_title) 
-values('내과'), ('외과'), ('정형외과'),('site_management이비인후과'),('치과'),('산부인과'), ('신경과'), ('신경외과'),('성형외과'),('피부과'),('비뇨기과'),('건강검진');
-
+values('내과'), ('외과'), ('정형외과'), ('이비인후과'),('치과'), ('산부인과'), 
+('신경과'), ('신경외과'), ('성형외과'), ('피부과'), ('비뇨기과'), ('건강검진');
 
 select * from member join site_management on site_id = me_id;
