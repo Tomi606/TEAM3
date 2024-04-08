@@ -7,6 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import kr.kh.team3.model.vo.MemberVO;
+import kr.kh.team3.model.vo.SiteManagement;
 
 public class LoginInterceptor extends HandlerInterceptorAdapter{
 	
@@ -17,7 +18,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	    Object handler, 
 	    ModelAndView modelAndView)
 	    throws Exception {
-		MemberVO user = (MemberVO)modelAndView.getModel().get("user");//1
+		SiteManagement user = (SiteManagement)modelAndView.getModel().get("user");//1
 		if(user == null) {
 			return;
 		}

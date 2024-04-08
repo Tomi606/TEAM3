@@ -62,12 +62,15 @@ public class HospitalServiceImp implements HospitalService {
 			hospital.getHo_pw() == null)
 			return null;
 		//아이디 확인
-
-		
 		HospitalVO user = hospitalDao.selectHospital(hospital.getHo_id());
 		if(user == null) {
 			return null;
 		}
+		//사업자번호 확인
+		if(!hospital.getHo_num().equals(user.getHo_num())) {
+			return null;
+		}
+		
 		//비번 확인
 		//맞으면 site 정보 return
 		if(hospital.getHo_pw().equals(user.getHo_pw())) {
