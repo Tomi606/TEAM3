@@ -53,6 +53,7 @@ public class HomeController {
 	//개인 회원가입 페이지
 	@GetMapping("/member/signup")
 	public String memberSignup(Model model, SiDoVO sido,SiGoonGuVO sgg,EupMyeonDongVO emd) {
+
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
 		model.addAttribute("sidoList",sidoList);
 		return "/member/signup";
@@ -61,7 +62,7 @@ public class HomeController {
 	//개인 회원가입 페이지
 	@PostMapping("/member/signup")
 	public String postPemberSignup(Model model,MemberVO member,SiteManagement site,SiDoVO sido,SiGoonGuVO sgg) {
-		log.info("개인 회원가입");
+
 		boolean memberRes = memberService.memberSignup(member);
 		boolean siteRes = memberService.siteSignup(site);
 		if (!memberRes||!siteRes) {
