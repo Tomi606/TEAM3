@@ -4,7 +4,7 @@ CREATE DATABASE IF NOT EXISTS `hospital_mediation`;
 
 use `hospital_mediation`;
 
-#DROP TABLE IF EXISTS `member`;
+DROP TABLE IF EXISTS `member`;
 
 CREATE TABLE `member` (
 	`me_id`	varchar(13) primary key,
@@ -136,14 +136,15 @@ CREATE TABLE `hospital` (
 	`ho_ms_state`	VARCHAR(20)	NOT NULL,
 	`ho_cs_num`	int	NOT NULL,
 	`ho_pw`	varchar(255) NOT NULL,
-	`ho_name`	varchar(50)	NOT NULL,
+	`ho_name`	varchar(50)	NOT NULL unique,
 	`ho_ceo`	varchar(5)	NOT NULL,
 	`ho_num`	char(10) NOT NULL,
 	`ho_address`	varchar(100) NOT NULL,
 	`ho_phone`	char(11) NOT NULL,
 	`ho_authority`	varchar(10) NOT NULL,
 	`ho_cookie`	varchar(255) NULL,
-	`ho_cookie_limit`	datetime NULL
+	`ho_cookie_limit`	datetime NULL,
+    `ho_email` varchar(100) not null
 );
 
 DROP TABLE IF EXISTS `site_management`;
@@ -481,5 +482,7 @@ select * from si_do join si_goon_gu on sd_num = sgg_sd_num join eup_myeon_dong o
 -- insert into si_goon_gu value(1,'강남구','1');
 -- insert into eup_myeon_dong value(1,'역삼동','1');
  insert into land value(1,1);
--- select * from member join site_;
 
+# 병원 과목
+insert into hospital_subject(hs_title) 
+values('내과'), ('외과'), ('정형외과'), ('산부인과'), ('신경과'), ('신경외과'), ('건강검진');

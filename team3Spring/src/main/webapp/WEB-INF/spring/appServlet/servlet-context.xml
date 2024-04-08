@@ -18,19 +18,24 @@
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
-		in the /WEB-INF/views directory -->
+	<!-- 파일 다운로드 외부경로(첨부파일) -->
+	<resources mapping="/download/**" location="file:///D:/uploads/"/>
+	
+	<!-- 컨트롤러에서 문자열을 리턴하면 뷰리졸버에서 어떤 화면을 연결할지를 설정해주는 코드 -->
 	<beans:bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+	 
+	<!-- 타일즈 뷰 리졸버 추가 -->
 	<beans:bean id="tilesViewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<beans:property name="viewClass"
 			value="org.springframework.web.servlet.view.tiles3.TilesView" />
 		<beans:property name="order" value="1" /><!-- 순서를 우선으로 지정 -->
 	</beans:bean>
+	
 	<!-- 타일즈 설정 -->
 	<beans:bean id="tilesConfigurer"
 		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
@@ -42,8 +47,8 @@
 	</beans:bean>
 	<!-- 타일즈 설정 끝 -->
 	
-	<context:component-scan
-		base-package="kr.kh.team3.*" />
+	<!-- 클래스들을 읽어 올 수 있게 기본 패키지를 지정해줌/ ".*" 으로 모든 패키지 지정 -->
+	<context:component-scan base-package="kr.kh.team3.*" />
 
 
 
