@@ -123,21 +123,43 @@ public class HomeController {
 		log.info("메인 로그인");
 		return "/main/login";
 	}
-	//개인 로그인 페이지
-	@GetMapping("/member/login")
-	public String memberLogin() {
-		log.info("개인 로그인");
-		return "/member/login";
+
+	@PostMapping("/member/login")
+	public String memberLoginPost(Model model, MemberVO member) {
+		//member정보를 주고 아이디 비번 맞는지 확인 후
+		SiteManagement user = memberService.login(member);
+		log.info(user);
+		model.addAttribute("user", user);//user라는 이름으로 전송
+		if(user != null) {
+			model.addAttribute("url", "/");
+			model.addAttribute("msg", "로그인이 완료되었습니다.");
+		}else {
+			model.addAttribute("url", "/main/login");
+			model.addAttribute("msg", "로그인에 실패했습니다.");
+		}
+		return "message";
 	}
-	//사업자 로그인 페이지
-	@GetMapping("/hospital/login")
-	public String hospitalLogin(HospitalVO hospital) {
-		log.info("사업자 로그인");
-		log.info(hospital.getHo_id());
-		log.info(hospital.getHo_pw());
-		log.info(hospital.getHo_num());
-		return "/hospital/login";
+	
+	@PostMapping("/hospital/login")
+	public String hospitalLoginPost(Model model, MemberVO member) {
+
+		/*
+		//member정보를 주고 아이디 비번 맞는지 확인 후
+		SiteManagement user = memberService.login(member);
+		log.info(user);
+		model.addAttribute("user", user);//user라는 이름으로 전송
+		if(user != null) {
+			model.addAttribute("url", "/");
+			model.addAttribute("msg", "로그인이 완료되었습니다.");
+		}else {
+			model.addAttribute("url", "/main/login");
+			model.addAttribute("msg", "로그인에 실패했습니다.");
+		}
+		*/
+		return "message";
 	}
+
+
 	//로그아웃 기능
 	@GetMapping("/logout")
 	public String logout(Model model, HttpSession session) {

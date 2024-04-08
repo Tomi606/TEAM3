@@ -18,10 +18,14 @@ public interface MemberDAO {
 
 	boolean insertSiteMember(@Param("si")SiteManagement site);
 
+	MemberVO selectMember(@Param("me_id")String me_id);
+
 	ArrayList<SiDoVO> selectSiDo();
 
 	ArrayList<SiDoVO> selectSgg();
 
 	ArrayList<SiDoVO> selectEmd();
 	
+	SiteManagement selectSite(@Param("me_id")String me_id);
+
 }
