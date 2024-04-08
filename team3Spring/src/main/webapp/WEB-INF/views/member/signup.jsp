@@ -29,7 +29,14 @@
                 <option value="${emd.emd_num}">${emd.emd_name}</option>
         </c:forEach>
     </select>
-
+<div>
+		<label for="subject">관심 과목</label>
+		<select id="subject" name="ho_hs_num" required >
+			<c:forEach items="${list}" var="hs">
+				<option value="${hs.hs_num}">${hs.hs_title}</option>
+			</c:forEach>
+		</select>
+	</div>
 
 	<input type="text" id="id" name="me_id" placeholder="아이디"><br>
 	<input type="hidden" id="id2" name="site_id" >

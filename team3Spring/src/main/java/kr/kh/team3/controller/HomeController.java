@@ -51,8 +51,10 @@ public class HomeController {
 	@GetMapping("/member/signup")
 	public String memberSignup(Model model, SiDoVO sido,SiGoonGuVO sgg,EupMyeonDongVO emd) {
  		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
-		ArrayList<SiDoVO> sggList = memberService.getSgg();
-		ArrayList<SiDoVO> emdList = memberService.getEmd();
+		ArrayList<SiGoonGuVO> sggList = memberService.getSgg();
+		ArrayList<EupMyeonDongVO> emdList = memberService.getEmd();
+		ArrayList<HospitalSubjectVO> list = hospitalService.getHospitalSubjectList();
+		model.addAttribute("list",list);
 		model.addAttribute("sidoList",sidoList);
 		model.addAttribute("sggList",sggList);
 		model.addAttribute("emdList",emdList);
@@ -62,6 +64,7 @@ public class HomeController {
 	//개인 회원가입 페이지
 	@PostMapping("/member/signup")
 	public String postPemberSignup(Model model,MemberVO member,SiteManagement site,SiDoVO sido,SiGoonGuVO sgg) {
+
 		boolean memberRes = memberService.memberSignup(member);
 		boolean siteRes = memberService.siteSignup(site);
 		if (!memberRes||!siteRes) {
