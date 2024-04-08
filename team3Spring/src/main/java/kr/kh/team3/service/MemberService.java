@@ -13,6 +13,8 @@ public interface MemberService {
 
 	boolean siteSignup(SiteManagement site);
 
+	SiteManagement login(MemberVO member);
+
 	ArrayList<SiDoVO> getSiDo();
 
 	ArrayList<SiDoVO> getSgg();
