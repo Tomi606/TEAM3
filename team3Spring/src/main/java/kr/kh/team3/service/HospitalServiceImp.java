@@ -11,9 +11,6 @@ import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
-
-import kr.kh.team3.model.vo.MemberVO;
-
 import kr.kh.team3.model.vo.SiteManagement;
 import lombok.extern.log4j.Log4j;
 
@@ -53,7 +50,7 @@ public class HospitalServiceImp implements HospitalService {
 		return hospitalDao.selectHospitalSubjectList();
 	}
 
-	//아이디 중복 체크(안됨)
+	//아이디 중복 체크
 	public HospitalVO idCheck(String ho_id) {
 		return hospitalDao.selectHospitalId(ho_id);
 	}
