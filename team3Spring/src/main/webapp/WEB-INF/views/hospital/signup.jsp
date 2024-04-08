@@ -62,25 +62,18 @@
 	</div>
 	<div>
 		<label for="address">소재지</label>
-		<select id="sido" name="sd_num" required>
-	      	<c:forEach items="${sidoList}" var="sd">
-	            <option value="${sd.sd_num}">${sd.sd_name}</option>
-	        </c:forEach>
+		 <select name="sd_num">
+		 <option value="none">선택해주세요</option>
+        <c:forEach items="${sidoList}" var="sd">
+            <option value="${sd.sd_num}">${sd.sd_name}</option>
+        </c:forEach>
         </select>	
-		<select id="sgg" name="sgg_num">
-	 		<c:choose>
-		 		<c:when test="${sd_num == sgg_sd_num}">
-			        <c:forEach items="${sggList}" var="sgg">
-			                <option value="${sgg.sgg_num}">${sgg.sgg_name}</option>
-			        </c:forEach>
-		        </c:when>
-	       </c:choose>
-		</select>	
-		<select id="emd" name="emd_num">
-	        <c:forEach items="${emdList}" var="emd">
-	                <option value="${emd.emd_num}">${emd.emd_name}</option>
-	        </c:forEach>
-	    </select>
+	 <select name="sgg_num" class="sgg_num">
+           <option value="none">시를 선택해주세요</option>
+     </select>	
+ 	<select name="emd_num" class="emd_num">
+         <option value="none">군구를 선택해주세요</option>
+    </select>
 		<input type="text" id="address" name="ho_address" required placeholder="소재지 상세주소를 입력하세요."/>
 		<label id="address-error" class="error text-danger" for="address"></label>
 	</div>
@@ -248,6 +241,52 @@ function hoIdForm() {
 		return false;
 	}
 }
+
+/* 군 구 리스트 select로 띄우기 시작 */
+$("[name=sd_num]").click(function(){
+	let sd_num = $("[name=sd_num]").val();
+	$.ajax({
+		method : "post",
+		url : '<c:url value="/member/signup/gungoo"/>', 
+		data : {"sd_num" : sd_num}, 
+		success : function (data){
+			let str =""
+			for(let tmp in data){
+				str += ` <option value='\${data[tmp].sgg_num}'>\${data[tmp].sgg_name}</option>`;
+			}
+			$(".sgg_num").html(str);
+			
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+})
+
+/* 읍면동 리스트 select로 띄우기 끝 */
+
+/* 읍면동 리스트 select로 띄우기 시작 */
+$("[name=sgg_num]").click(function(){
+	let sgg_num = $("[name=sgg_num]").val();
+	$.ajax({
+		method : "post",
+		url : '<c:url value="/member/signup/eupmyeondong"/>', 
+		data : {"sgg_num" : sgg_num}, 
+		success : function (data){
+			let str =""
+			for(let tmp in data){
+				console.log(data[tmp].emd_name);
+				str += ` <option value='\${data[tmp].emd_num}'>\${data[tmp].emd_name}</option>`;
+			}
+			$(".emd_num").html(str);
+			
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+})
+	/* 읍면동 리스트 select로 띄우기 끝 */
 </script>
 
 <!-- 시도, 시군구, 읍면동 Ajax -->
