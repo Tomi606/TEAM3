@@ -72,7 +72,6 @@ public class HospitalServiceImp implements HospitalService {
 
 	@Override
 	public SiteManagement login(HospitalVO hospital) {
-		//log.info(hospital);
 		//매개변수 null 처리
 		if( hospital == null || 
 			hospital.getHo_id() == null || 
@@ -91,14 +90,33 @@ public class HospitalServiceImp implements HospitalService {
 		//비번 확인
 		//맞으면 site 정보 return
 		if(hospital.getHo_pw().equals(user.getHo_pw())) {
+			hospitalDao.updateLoginFailZero(user.getHo_id());
+			
 			return hospitalDao.selectSite(user.getHo_id());
 		}
 		return null;
 	}
 
 	@Override
-	public HospitalVO getHospital(String site_id) {
-		return hospitalDao.selectHospital(site_id);
+	public HospitalVO getHospital(SiteManagement user) {
+		if(user == null ||
+			user.getSite_id() == null) {
+			return null;
+		}
+		return hospitalDao.selectHospital(user.getSite_id());
+	}
+
+	@Override
+	public void setLoginFail(String ho_id) {
+		hospitalDao.updateLoginFail(ho_id);
+	}
+	
+	@Override
+	public HospitalVO getHospitalId(HospitalVO hospital) {
+		if( hospital == null || 
+			hospital.getHo_id() == null)
+			return null;
+		return hospitalDao.selectHospital(hospital.getHo_id());
 	}
 
 }

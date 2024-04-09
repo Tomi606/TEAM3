@@ -45,7 +45,9 @@ public class MemberServiceImp implements MemberService {
 	@Override
 	public SiteManagement login(MemberVO member) {
 		// 매개변수 null 처리
-		if (member == null || member.getMe_id() == null || member.getMe_pw() == null)
+		if (member == null ||
+			member.getMe_id() == null ||
+			member.getMe_pw() == null)
 			return null;
 		// 아이디 확인
 		MemberVO user = memberDao.selectMember(member.getMe_id());

@@ -27,6 +27,10 @@ public interface HospitalService {
 
 	SiteManagement login(HospitalVO hospital);
 
-	HospitalVO getHospital(String site_id);
+	HospitalVO getHospital(SiteManagement user);
+
+	HospitalVO getHospitalId(HospitalVO hospital);
+
+	void setLoginFail(String ho_id);
 
 }
