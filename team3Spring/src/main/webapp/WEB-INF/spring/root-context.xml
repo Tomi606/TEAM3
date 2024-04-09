@@ -28,6 +28,5 @@
 	    <property name="configLocation" value="/WEB-INF/spring/mybatis-config.xml"/>
 	</bean>
 	<mybatis-spring:scan base-package="kr.kh.team3.dao"/>
-	
 </beans>
 	
