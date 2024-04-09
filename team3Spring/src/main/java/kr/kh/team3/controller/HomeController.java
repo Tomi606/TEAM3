@@ -67,8 +67,6 @@ public class HomeController {
 
 		boolean memberRes = memberService.memberSignup(member, str);
 		boolean siteRes = memberService.siteSignup(site);
-		MemberVO check = memberService.getMemberId(member);
-		
 		return !memberRes||!siteRes;
 	}
 	
@@ -129,7 +127,7 @@ public class HomeController {
 		return !memberRes||!siteRes;*/
 		
 		
-		boolean hospitalRes = hospitalService.signup(hospital,str);
+		boolean hospitalRes = hospitalService.signup(hospital);
 		boolean siteRes = hospitalService.signup(site);
 		if(!hospitalRes || !siteRes) {
 			return "/hospital/signup";

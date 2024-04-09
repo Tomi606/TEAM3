@@ -7,18 +7,30 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
  <!-- 제이쿼리 CDN 방식 -->
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" ></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" ></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.js" ></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.min.js" ></script>
+<style type="text/css">
+.input-tag{
+    border: 1px solid #ccc; 
+    outline: none; 
+}
+.input-tag:focus {
+    border-bottom-color: blue; 
+}
+
+</style>
 </head>
 <body>
-<form id="myForm" action="" method="post">
+<form id="myForm" action="<c:url value="/member/signup"/>" method="post">
 	 <select name="sd_num" required>
 	 		<option value="none">시/도를 선택해주세요</option>
         <c:forEach items="${sidoList}" var="sd">
             <option value="${sd.sd_num}">${sd.sd_name}</option>
         </c:forEach>
      </select>   
-    <select name="sgg_num" class="sgg_num" required>
+	 <select name="sgg_num" class="sgg_num" required>
            <option value="none">시/군/구를 선택해주세요</option>
      </select>   
     <select name="emd_num" class="emd_num" required>
@@ -35,86 +47,87 @@
 		</select>
 	</div>
 	<div>
-		<input type="text" id="id" name="me_id" placeholder="아이디" autofocus="autofocus">
-	  	<button type="button"class="check-duplicate">중복 확인</button><br>
-   		<!-- 아이디는 8~15자의 영문자와 숫자로 이루어져야 함-->
+	    <input type="text" id="id" name="me_id" placeholder="아이디" autofocus="autofocus" class="input-tag">
+	    <button type="button" class="check-duplicate">중복 확인</button><br>
+	    <label for="id" class="text-danger" id="laId"></label>
 	</div>
 	<div>
-		<input type="hidden" id="id2" name="site_id" >
+    	<input type="hidden" id="id2" name="site_id">
 	</div>
 	<div>
-		<input type="password" id="pw" name="me_pw" placeholder="비밀번호" autofocus="autofocus"><br>
-		<!-- 비밀번호는 8~18자의 영문자, 숫자, 특수문자(!@#$)로 이루어져야 함 비밀번호 형식이나 글자수가 채워지지 않으면 빨간글씨로 비밀번호 형식이 틀렸다고 해주고 
-		사용 가능하면 초록색글씨로 사용가능한 비밀번호라고 해줘-->
+    	<input type="password" id="pw" name="me_pw" placeholder="비밀번호" autofocus="autofocus" class="input-tag"><br>
+    	<label for="me_pw" class="text-danger"></label>
 	</div>
 	<div>
-		<input type="password" id="pw2" name="me_pw2" placeholder="비밀번호 확인" autofocus="autofocus" ><br>
-		<!-- 비밀번호랑 같아야함 틀리면 실시간으로 빨간글씨로 같지 않다고 해주고 맞으면 비밀번호가 같습니다라고 초록색 글씨로 출력 -->
+   	 	<input type="password" id="pw2" name="me_pw2" placeholder="비밀번호 확인" autofocus="autofocus" class="input-tag"><br>
+   	 	<label for="me_pw2" class="text-danger"></label>
 	</div>
 	<div>
-		<input type="text" id="name" name="me_name" placeholder="이름" required autofocus="autofocus"><br>
-		<!--이름은 2~5글자의 한글로 이루어져야 함 영어나 숫자 특수문자가 들어가면 실시간으로 경고 -->
+    	<input type="text" id="name" name="me_name" placeholder="이름" autofocus="autofocus" class="input-tag"><br>
+    	<label for="me_name" class="text-danger"></label>
 	</div>
 	<div>
-		<!-- 이메일 형식이어야함 중복체크 후 사용가능하면 초록색으로 사용가능한 이메일 -->
-		<input type="text" id="email" name="me_email" placeholder="이메일" autofocus="autofocus">
-		<button type="button" class="email-btn">중복확인</button><br>
-		<span id="email-text"></span><br>
+    	<input type="text" id="email" name="me_email" placeholder="이메일" autofocus="autofocus" class="input-tag">
+    	<button type="button" class="email-btn">중복확인</button><br>
+    	<label for="me_email" class="text-danger"></label>
 	</div>
 	<div>
-		<label for="me_gender">성별:</label>
-	    <input type="radio" id="male" name="me_gender" value="남자" required>남자
-	    <input type="radio" id="female" name="me_gender" value="여자" required>여자<br>
-   	</div>
-    <div>
-		<input type="text" id="job" name="me_job" placeholder="직업" autofocus="autofocus"><br>
-		<!-- // 직업은 2~10글자의 한글로 이루어져야 함 -->
+    	<label for="me_gender">성별:</label>
+    	<input type="radio" id="male" name="me_gender" value="남자" checked="checked">남자
+    	<input type="radio" id="female" name="me_gender" value="여자">여자<br>
 	</div>
 	<div>
-		<input type="text" id="phone" name="me_phone" placeholder="폰번호" autofocus="autofocus"><br>
+   	 	<input type="text" id="job" name="me_job" placeholder="직업" autofocus="autofocus" class="input-tag"><br>
+    	<label for="me_job" class="text-danger"></label>
+	</div>
+	<div>
+    	<input type="text" id="phone" name="me_phone" placeholder="폰번호" autofocus="autofocus" class="input-tag"><br>
+    	<label for="me_phone" class="text-danger"></label>
+	</div>
+	<div>
+    	<button type="submit" id="land1" onclick="meIdForm()" class="check">회원가입</button>
 	</div>
 
-	<div>
-		<button type="submit" id="land1" onclick="meIdForm()" class="check">회원가입</button>
-	</div>
 </form>
 
 
 
 <!-- me_id입력 시 site_id값도 me_id랑 같은 값 입력 -->
- <script type="text/javascript">
-function meIdForm() {
-   var meId = $("#id").val();
-    $("#id2").val(meId);
-    return true;
-}
+<script type="text/javascript">
+    function meIdForm() {
+       var meId = $("#id").val(); 
+        $("#id2").val(meId);
+      return true;
+    }
 </script>
 <!-- 회원가입 정규 표현식 -->
+ 
 <script type="text/javascript">
+var sm = {};
 $("form").validate({
     rules: {
         me_id: {
             required: true,
-            regex: /^\w{8,15}$/ 
+            pattern: /^\w{8,15}$/ // 아이디는 8~15자의 영문자와 숫자로 이루어져야 함
         },
         me_pw: {
             required: true,
-            regex: /^[a-zA-Z0-9!@#$]{8,18}$/ 
+            pattern: /^[a-zA-Z0-9!@#$]{8,18}$/ // 비밀번호는 8~18자의 영문자, 숫자, 특수문자(!@#$)로 이루어져야 함
         },
         me_pw2: {
-            equalTo:pw
+            equalTo: pw // 비밀번호 확인은 이전 비밀번호와 일치해야 함
+        },
         me_name: {
             required: true,
-            regex: /^[ㄱ-힣]{2,5}$/ 
+            pattern: /^[ㄱ-힣]{2,5}$/ // 이름은 2~5글자의 한글로 이루어져야 함
         },
-
         me_job: {
             required: true,
-            regex: /^[ㄱ-힣]{2,10}$/ 
+            pattern: /^[ㄱ-힣]{2,10}$/ // 직업은 2~10글자의 한글로 이루어져야 함
         },
         me_phone: {
             required: true,
-            regex: /^[0-9]{11}$/ // 전화번호는 11자리의 숫자로 이루어져야 함
+            pattern: /^[0-9]{11}$/ // 전화번호는 11자리의 숫자로 이루어져야 함
         },
         me_email: {
             required: true,
@@ -122,79 +135,58 @@ $("form").validate({
         },
         me_address: {
             required: true,
-            regex: /^[ㄱ-힣0-9]{1,100}$/ // 주소는 한글과 숫자로 이루어진 최대 100자여야 함
+            pattern: /^[ㄱ-힣0-9]{1,100}$/ // 주소는 한글과 숫자로 이루어진 최대 100자여야 함
         }
     },
     messages: {
         me_id: {
-            required: "아이디 중복확인을 해주세요.",
-            regex: "아이디는 최소 8자에서 15자로 입력해주세요."
+            required: "아이디를 입력하세요.",
+            pattern: "영문 숫자 2가지 이상 조합 (8~15자)"
         },
         me_pw: {
-            required: "필수 항목입니다.",
-            regex: "비밀번호는 숫자, 영문, !@#$ 8~18자 입니다."
+            required: "비밀번호를 입력하세요.",
+            pattern: "영문/숫자/특수문자 2가지 이상 조합 (8~18자)"
         },
         me_pw2: {
-            equalTo: "비밀번호와 일치하지 않습니다."
+            equalTo: "새 비밀번호가 일치하지 않습니다."
         },
         me_name: {
-            required: "필수 항목입니다.",
-            regex: "이름은 최대 5자 입니다."
+            required: "이름을 입력하세요",
+            pattern: "이름을 정확히 입력하세요."
         },
-
         me_job: {
-            required: "필수 항목입니다.",
-            regex: "한글로 입력하세요. 직업은 최대 10자까지 가능합니다."
+            required: "직업을 입력하세요.(없으면 무직)",
+            pattern: "직업을 정확히 입력하세요."
         },
         me_phone: {
-            required: "필수 항목입니다.",
-            regex: "전화번호는 '-'제외한 번호를 입력하세요."
+            required: "휴대폰 번호를 정확하게 입력하세요.",
+            pattern: "휴대폰 번호를 정확하게 입력하세요."
         },
         me_email: {
-            required: "필수 항목입니다.",
-            email: "올바른 이메일 주소를 입력하세요."
+            required: "이메일을 입력하세요",
+            email: "이메일을 올바르게 입력하세요."
         },
         me_address: {
             required: "필수 항목입니다.",
-            regex: "주소를 제대로 입력하세요."
+            pattern: "주소를 올바르게 입력하세요."
         }
     },
     errorPlacement: function(error, element) {
-        element.addClass("shake-error");
-        error.addClass("text-danger");
-        error.appendTo(element.parent());
-    },
-    success: function(label) {
-        var element = $(label).closest('div').find('#pw, #id, #email, #phone');
-        element.removeClass("shake-error");
-        element.siblings(".text-danger").remove();
-        element.siblings(".text-success").remove();
-        if (element.val() && !element.next(".text-success").length) {
-            element.after('<span class="text-success">사용 가능합니다.</span>');
-        }
+        error.addClass("text-danger"); // 오류 메시지에 클래스 추가
+        error.appendTo(element.parent()); // 오류 메시지를 부모 요소에 추가
+       return;
     }
 });
-
-$.validator.addMethod(
-    "regex",
-    function(value, element, regexp) {
-        var re = RegExp(regexp);
-        var valid = re.test(value);
-        if (!valid) {
-            return false;
-        } else {
-            return true;
-        }
-    },
-    "입력이 잘못되었습니다."
-);
-
-
+$.validator.addMethod("customRegex", function(value, element, regexp) {
+    var re = new RegExp(regexp);
+    return this.optional(element) || re.test(value);
+}, "정규표현식에 맞지 않습니다.");
 </script>
 
+
 <script type="text/javascript">
-$("form").submit(function(){
-	event.preventDefault(); // 기본 form 제출 이벤트를 막습니다.
+$("form").submit(function(event){
+    event.preventDefault(); // 기본 form 제출 이벤트를 막습니다.
     
     var sd_num = $("select[name='sd_num'] option:selected").text();
     var sgg_num = $("select[name='sgg_num'] option:selected").text();
@@ -204,23 +196,23 @@ $("form").submit(function(){
     // Serialize된 form 데이터를 직접 사용하고 str 파라미터를 추가합니다.
     var formData = $(this).serialize();
     formData += '&str=' + str; // str 파라미터 추가
-	$.ajax({
-		async:true,
-		url : '<c:url value="/member/signup"/>',
-		type : 'post',
-		data : formData,
-		success:function(data){
-			if (data === false) {
-		        location.href = '<c:url value="/message"/>?res=' + data;
-		    } else {
-		        location.href = '<c:url value="/message"/>?res=' + data;
-		    }
-			
-		}
-	});
-	return false;
+    $.ajax({
+        async:true,
+        url : '<c:url value="/member/signup"/>', // URL을 직접 지정
+        type : 'post',
+        data : formData,
+        success:function(data){
+            if (data === false) {
+                location.href = '<c:url value="/message?res="/>' + data; // URL을 직접 지정
+            } else {
+                location.href = '<c:url value="/message?res="/>' + data; // URL을 직접 지정
+            }
+        }
+    });
+    return false;
 })
 </script>
+
 
 <!-- 시/도,시/군/구,읍/면/동 ajax -->
 <script type="text/javascript">
@@ -287,38 +279,6 @@ $("[name=sgg_num]").click(function(){
 });
 /* 읍면동 리스트 select로 띄우기 끝 */
 
-</script>
- <!-- 회원가입 불필요한 문자 제거하기 -->
-<!-- <script>
-    $(document).ready(function() {
-    	 $("#id").on("input", function() {
-             var inputValue = $(this).val();
-             $(this).val(inputValue.replace(/[^\w]/g, '')); 
-         });
-        $("#name").on("input", function() {
-            var inputValue = $(this).val();
-            $(this).val(inputValue.replace(/[^ㄱ-ㅎㅏ-ㅣ가-힣]/g, ''));
-        });
-        $("#phone").on("input", function() {
-            var inputValue = $(this).val();
-            $(this).val(inputValue.replace(/[^\d]/g, '')); 
-        });
-        $("#address").on("input", function() {
-            var inputValue = $(this).val();
-            $(this).val(inputValue.replace(/[^ㄱ-힣]/g, '')); 
-        });
-        $("#email").on("input", function() {
-            var inputValue = $(this).val();
-            $(this).val(inputValue.replace(/[^a-zA-Z0-9@.]/g, '')); 
-        });
-        $("#job").on("input", function() {
-            var inputValue = $(this).val();
-            var regex = /^[ㄱ-ㅎ가-힣]*$/;
-            if (!regex.test(inputValue)) {
-                $(this).val(inputValue.replace(/[^ㄱ-ㅎ가-힣]/g, '')); 
-            }
-        });
-    }); -->
 </script>
  <!-- 아이디,이메일 중복체크 ajax 정규표현식 적용 시키기-->
 <script type="text/javascript">
@@ -430,7 +390,7 @@ $(document).ready(function() {
             type: "get",
             data: { me_phone: phone }, 
             success: function(response) {
-                if (response.checkPhone == null&) {
+                if (response.checkPhone == null) {
                     $("#checkPhone").text("사용가능한 전화번호입니다.").css("color","green");
                     phoneCheck = true;
                     return true;

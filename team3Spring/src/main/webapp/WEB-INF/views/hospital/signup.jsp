@@ -27,22 +27,30 @@ input {
 	width:50%;
 }
 
-.error {
-	text-align:left;
-	width:50%;
+.text-danger {
+	text-align:center;
+	width:100%;
 	font-weight:bold;
+}
+.fofo{
+	width : 100%;
+	text-align: center;
+}
+.fofo label{
+	width: 300px;
 }
 </style>
 </head>
 <body>
 <form class="container" action='<c:url value="/hospital/signup"/>' id="myForm" method="post">
+<div class="fofo">
 	<fieldset>
 		<legend class="mt-3">사업자 회원가입</legend>
-			<div>
+			<div >
 				<label class="title" for="id">아이디</label>
 				<input type="text" id="id" name="ho_id" maxlength="15" placeholder="아이디를 입력하세요."/>
-				<label id="id-error" class="error text-danger" for="id"></label>
 				<button type="button"class="check-duplicate">중복 확인</button>
+				<label id="id-error" class="error text-danger" for="id"></label>
 			</div>
 			<div>
 				<label class="title" for="pw">비밀번호</label>
@@ -57,8 +65,8 @@ input {
 			<div>
 				<label class="title" for="email">이메일</label>
 				<input type="email" id="email" name="ho_email" required placeholder="이메일을 입력하세요."/>
-				<label id="email-error" class="error text-danger" for="email"></label>
 				<button type="button" class="email-btn">중복확인</button>
+				<label id="email-error" class="error text-danger" for="email"></label>
 			</div>
 			<div>
 				<label class="title" for="name">상호명</label>
@@ -113,6 +121,7 @@ input {
 	</fieldset>
 	<input type="hidden" id="id2" name="site_id">
 	<button class="btn btn-outline-success mt-3 col-10 center" type="submit" onclick="hoIdForm()">회원가입</button>
+</div>
 </form>
 <!-- 정규표현식 -->
 <script type="text/javascript">
