@@ -17,11 +17,11 @@
         <c:forEach items="${sidoList}" var="sd">
             <option value="${sd.sd_num}">${sd.sd_name}</option>
         </c:forEach>
-     </select>	
-	 <select name="sgg_num" class="sgg_num" required>
+     </select>   
+    <select name="sgg_num" class="sgg_num" required>
            <option value="none">시/군/구를 선택해주세요</option>
-     </select>	
-	 <select name="emd_num" class="emd_num" required>
+     </select>   
+    <select name="emd_num" class="emd_num" required>
          <option value="none">읍/면/동을 선택해주세요</option>
 	 </select>
 	 <div>
@@ -78,13 +78,11 @@
 <!-- me_id입력 시 site_id값도 me_id랑 같은 값 입력 -->
  <script type="text/javascript">
 function meIdForm() {
-	var meId = $("#id").val();
+   var meId = $("#id").val();
     $("#id2").val(meId);
     return true;
 }
 </script>
-<!-- 주민 뒷 자리 1,2,3,4로 시작하면 알맞은 성별 자동 체크 -->	
-
 <!-- 회원가입 정규 표현식 -->
 <script type="text/javascript">
 $(document).ready(function() {
@@ -99,7 +97,7 @@ $(document).ready(function() {
                 regex: /^[a-zA-Z0-9!@#$]{8,18}$/ // 비밀번호는 8~18자의 영문자, 숫자, 특수문자(!@#$)로 이루어져야 함
             },
             me_pw2: {
-                equalTo: pw // 비밀번호 확인은 이전 비밀번호와 일치해야 함
+                equalTo: "#me_pw" // 비밀번호 확인은 이전 비밀번호와 일치해야 함
             },
             me_name: {
                 required: true,
@@ -150,7 +148,7 @@ $(document).ready(function() {
             },
             me_email: {
                 required: "필수 항목입니다.",
-                email: ""
+                email: "올바른 이메일 주소를 입력하세요."
             },
             me_address: {
                 required: "필수 항목입니다.",
@@ -163,7 +161,7 @@ $(document).ready(function() {
             error.appendTo(element.parent());
         },
         success: function(label) {
-            var element = $(label).closest('div').find('#pw','#id','#email','#phone');
+            var element = $(label).closest('div').find('#pw, #id, #email, #phone');
             element.removeClass("shake-error");
             element.siblings(".text-danger").remove();
             element.siblings(".text-success").remove();
@@ -172,16 +170,17 @@ $(document).ready(function() {
             }
         }
     });
-   
 });
+
 $.validator.addMethod(
-		"regex",
-		function (value, element, regexp) {
-			var re = RegExp(regexp);
-			return this.optional(element) || re.test(value);
-		},
-		"정규표현식에 맞지 않습니다."
-	)
+    "regex",
+    function(value, element, regexp) {
+        var re = RegExp(regexp);
+        return this.optional(element) || re.test(value);
+    },
+    "정규표현식에 맞지 않습니다."
+);
+
 </script>
 <!-- 아이디 중복체크 ajax -->
 <script type="text/javascript">
@@ -224,28 +223,24 @@ $("form").submit(function(){
 <!-- 시/도,시/군/구,읍/면/동 ajax -->
 <script type="text/javascript">
 function hoIdForm() {
-	
-	var hoId = document.getElementById("id").value;
-	document.getElementById("id2").value = hoId;
-	document.getElementById("myForm").submit(); 
-	
-	//비번 일치 확인
-	var pw = document.getElementById("pw").value;
-	var pw2 = document.getElementById("pw2").value;
+    var hoId = document.getElementById("id").value;
+    document.getElementById("id2").value = hoId;
+    document.getElementById("myForm").submit();
 
-	if(pw !== pw2) {
-		console.log("비번 불일치");
-		return false;
-	}
-	else if(pw === pw2) {
-		console.log("비번 일치");
-		return true;
-	}
-	else {
-		return false;
-	}
+    // 비번 일치 확인
+    var pw = document.getElementById("pw").value;
+    var pw2 = document.getElementById("pw2").value;
+
+    if (pw !== pw2) {
+        console.log("비번 불일치");
+        return false;
+    } else if (pw === pw2) {
+        console.log("비번 일치");
+        return true;
+    } else {
+        return false;
+    }
 }
-
 
 /* 군 구 리스트 select로 띄우기 시작 */
 $("[name=sd_num]").click(function(){
@@ -262,13 +257,11 @@ $("[name=sd_num]").click(function(){
 			$(".sgg_num").html(str);
 			
 		}, 
-		error : function(jqXHR, textStatus, errorThrown){
+        error: function(jqXHR, textStatus, errorThrown) {
 
-		}
-	});
-})
-
-/* 읍면동 리스트 select로 띄우기 끝 */
+        }
+    });
+});
 
 /* 읍면동 리스트 select로 띄우기 시작 */
 $("[name=sgg_num]").click(function(){
@@ -285,12 +278,12 @@ $("[name=sgg_num]").click(function(){
 			$(".emd_num").html(str);
 			
 		}, 
-		error : function(jqXHR, textStatus, errorThrown){
+        error: function(jqXHR, textStatus, errorThrown) {
 
-		}
-	});
-})
-	/* 읍면동 리스트 select로 띄우기 끝 */
+        }
+    });
+});
+/* 읍면동 리스트 select로 띄우기 끝 */
 
 </script>
  <!-- 회원가입 불필요한 문자 제거하기 -->
@@ -323,27 +316,25 @@ $("[name=sgg_num]").click(function(){
                 $(this).val(inputValue.replace(/[^ㄱ-ㅎ가-힣]/g, '')); 
             }
         });
-       
     });
-     
 </script>
- <!-- 이메일 중복체크 ajax 미구현-->
+ <!-- 아이디,이메일 중복체크 ajax 정규표현식 적용 시키기-->
 <script type="text/javascript">
 $(document).ready(function() {
-	var idCheck = false;
+   var idCheck = false;
     $(".check-duplicate").click(function() {
         var id = $("#id").val();
         if(id.length == 0){
-    		alert("아이디를 입력해주세요.");
-    		return;
-    	}
+          alert("아이디를 입력해주세요.");
+          return;
+       }
         if (/[\u3131-\uD79D]/.test(id) || /[!@#$%^&*(),.?":{}|<>]/.test(id)) {
             alert("한글이나 특수문자는 아이디로 사용할 수 없습니다.");
             return; 
         }
         if(!/^\w{8,15}$/.test(id)){
-        	alert("아이디는 최소 8자에서 15자로 입력 해주세요.")
-        	return;
+           alert("아이디는 최소 8자에서 15자로 입력 해주세요.")
+           return;
         }
 
         $.ajax({
@@ -351,7 +342,7 @@ $(document).ready(function() {
             type: "get",
             data: { me_id: id }, 
             success: function(response) {
-            	
+               
                 if (response.check == null) {
                     alert("사용 가능한 아이디입니다.");
                     idCheck = true;
@@ -368,11 +359,11 @@ $(document).ready(function() {
         });
     });
 
-	var emailCheck = false;
+   var emailCheck = false;
     $(".email-btn").click( function() {
         var email = $("#email").val();
         if (email.length == 0 || email == "") {
-        	alert("이메일을 입력 하세요.");
+           alert("이메일을 입력 하세요.");
             return;
         }
         if (/[\u3131-\uD79D]/.test(email) || /[!#$%^&*(),?":{}|<>]/.test(email)) {
@@ -385,42 +376,71 @@ $(document).ready(function() {
             data: { me_email: email }, 
             success: function(response) {
                 if (response.checkEmail == null) {
-                	alert("사용 가능한 이메일입니다.");
-                	emailCheck = true;
+                   alert("사용 가능한 이메일입니다.");
+                   emailCheck = true;
                     return;
                 } else {
-                	alert("이미 사용중인 이메일입니다.");
-                	emailCheck = false;
+                   alert("이미 사용중인 이메일입니다.");
+                   emailCheck = false;
                     return;
                 }
             },
             error: function(xhr, status, error) {
-            	alert("이미 사용중인 이메일입니다.");
-            	emailCheck = false;
+               alert("이미 사용중인 이메일입니다.");
+               emailCheck = false;
                 return;
             }
         }); // ajax end;
     });
     $(".check").click(function(){
-    	if(!idCheck){
-    		alert("아이디 중복 확인을 해주세요.");
-    		$("#id").focus();
-    		return false;
-    	}
-    	if(!emailCheck){
-    		alert("이메일 중복 확인을 해주세요.");
-    		$("#email").focus();
-    		return false;
-    	}
+       if(!idCheck){
+          alert("아이디 중복 확인을 해주세요.");
+          $("#id").focus();
+          return false;
+       }
+       if(!emailCheck){
+          alert("이메일 중복 확인을 해주세요.");
+          $("#email").focus();
+          return false;
+       }
     });
 });
-
-
-
 </script>
-<!-- 폰번호 중복체크 ajax -->
+<!-- 폰번호 중복체크 ajax 정규표현식 적용 시키기-->
 <script type="text/javascript">
-
+$(document).ready(function() {
+   var phoneCheck = false;
+    $("#phone").on("keyup",function() {
+        var phone = $("#phone").val();
+        if(phone.length == 0 || phone == ""){
+          alert("전화번호를 입력해 주세요.");
+          return;
+       }
+        if (/[\u3131-\uD79D]/.test(id) || /[!@#$%^&*(),.?":{}|<>]/.test(id)) {
+            alert("한글이나 특수문자는 전화번호로 사용할 수 없습니다.");
+            return; 
+        }
+        $.ajax({
+            url: '<c:url value="/checkPhone"/>',
+            type: "get",
+            data: { me_phone: phone }, 
+            success: function(response) {
+                if (response.checkPhone == null&) {
+                    $("#checkPhone").text("사용가능한 전화번호입니다.").css("color","green");
+                    phoneCheck = true;
+                    return true;
+                } else {
+                	 $("#checkPhone").text("이미 사용중인 전화번호입니다.").css("color","red");
+               	 	phoneCheck = false;
+                    return false;
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("에러에러", error);
+            }
+        });
+    });
+});
 </script>
 </body>
 </html>
