@@ -43,4 +43,16 @@
 	<select id="selectEmdList" resultType="EupMyeonDongVO">
 		select * from eup_myeon_dong
 	</select>
+	
+	<update id="updateLoginFail">
+		UPDATE hospital
+		SET ho_fail = ho_fail + 1
+		WHERE ho_id = #{ho_id}
+	</update>
+	
+	<update id="updateLoginFailZero">
+		UPDATE hospital
+		SET ho_fail = 0
+		WHERE ho_id = #{ho_id}
+	</update>
 </mapper>
