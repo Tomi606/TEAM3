@@ -3,10 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team3.dao.MemberDAO">
-
+	
+	<!-- 회원가입 -->
 	<insert id="insertMember">
-		insert into member(me_id,me_pw,me_name,me_gender,me_job,me_frontNum,me_backNum,me_phone,me_email,me_address,me_authority,me_ms_state)
-		values(#{me.me_id},#{me.me_pw},#{me.me_name},#{me.me_gender},#{me.me_job},#{me.me_frontNum},#{me.me_backNum},#{me.me_phone},#{me.me_email},#{me.me_address},"USER","이용중")
+		insert into member(me_hs_num,me_id,me_pw,me_name,me_gender,me_job,me_frontNum,me_backNum,me_phone,me_email,me_address,me_authority,me_ms_state)
+		values(#{me.me_hs_num},#{me.me_id},#{me.me_pw},#{me.me_name},#{me.me_gender},#{me.me_job},#{me.me_frontNum},#{me.me_backNum},#{me.me_phone},#{me.me_email},#{me.me_address},"USER","이용중")
 	</insert>
 	<insert id="insertSiteMember">
 		insert into site_management(site_la_num,site_id,site_authority)
@@ -45,4 +46,14 @@
 		SET me_fail = 0
 		WHERE me_id = #{me_id}
 	</update>
+	
+	<select id="selectMemberEmail" 
+		resultType="kr.kh.team3.model.vo.MemberVO">
+		select * from member where me_email = #{me_email}
+	</select>
+	
+	<select id="selectMemberPhone" 
+		resultType="kr.kh.team3.model.vo.MemberVO">
+		select * from member where me_phone = #{me_phone}
+	</select>
 </mapper>
