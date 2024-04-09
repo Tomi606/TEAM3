@@ -52,8 +52,10 @@ public class HospitalServiceImp implements HospitalService {
 	@Autowired
 	private HospitalDAO hospitalDao;
 	
+
 	@Autowired 
 	private PasswordEncoder passwordEncoder;
+
 	
 	private boolean checkStr(String str) {
 		return str != null && str.length() != 0;
