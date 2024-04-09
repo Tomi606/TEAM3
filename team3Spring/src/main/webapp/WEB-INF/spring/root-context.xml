@@ -28,8 +28,7 @@
 	    <property name="configLocation" value="/WEB-INF/spring/mybatis-config.xml"/>
 	</bean>
 	<mybatis-spring:scan base-package="kr.kh.team3.dao"/>
-	
-	
+
 	<!-- 이메일 인증 -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 	    <property name="host" value="smtp.gmail.com" />
@@ -46,5 +45,6 @@
 	        </props>
 	    </property>
 	</bean>
+
 </beans>
 	
