@@ -226,30 +226,6 @@ public class HomeController {
 				model.addAttribute("msg", "로그인에 실패했습니다. " + (ho.getHo_fail()+1) + "/5 회 시도하였습니다.");
 			}
 		}
-		/*
-		//가입 대기 상태 확인하기 위해 hospital 값 가져옴
-		try {
-			HospitalVO ho = hospitalService.getHospital(user.getSite_id());
-			
-			if(ho.getHo_ms_state().equals("가입대기")) {
-				model.addAttribute("url", "/main/login");
-				model.addAttribute("msg", "승인 확인 전입니다.");
-			}
-			else if(ho.getHo_ms_state().equals("이용중") && user != null) {
-				model.addAttribute("user", user);//user라는 이름으로 전송
-				model.addAttribute("url", "/");
-				model.addAttribute("msg", "로그인이 완료되었습니다.");
-			}else {
-				model.addAttribute("url", "/main/login");
-				model.addAttribute("msg", "로그인에 실패했습니다.");
-			}
-			
-		} catch (Exception e) {
-			model.addAttribute("url", "/main/login");
-			model.addAttribute("msg", "로그인에 실패했습니다.");
-		}
-		*/
-		
 
 		return "message";
 	}
