@@ -64,11 +64,16 @@ public class HomeController {
 
 		boolean memberRes = memberService.memberSignup(member);
 		boolean siteRes = memberService.siteSignup(site);
-		if (!memberRes||!siteRes) {
-			return "/";
-		}
+		MemberVO check = memberService.getMemberId(member);
 		
-		return "/member/signup";
+		if (!memberRes||!siteRes) {
+			model.addAttribute("msg","회원가입에 실패 했습니다.");
+			model.addAttribute("url","/member/signup");
+		}else {
+			model.addAttribute("msg","회원가입을 완료했습니다.");
+			model.addAttribute("url","/");
+		}
+		return "message";
 	}
 	
 	//개인 회원가입 페이지
@@ -116,6 +121,8 @@ public class HomeController {
 		boolean hospitalRes = hospitalService.signup(hospital);
 		boolean siteRes = hospitalService.signup(site);
 		if(!hospitalRes || !siteRes) {
+//			log.info(site);
+//			log.info(hospital);
 			System.out.println("회원가입 실패");
 			return "/hospital/signup";
 		}
@@ -238,5 +245,32 @@ public class HomeController {
 		model.addAttribute("msg", "로그아웃 했습니다.");
 		model.addAttribute("url", "/");
 		return "message";
+	}
+	//아이디 중복확인 ajax
+	@ResponseBody
+	@GetMapping("/checkId")
+	public HashMap<String, Object> checkId(MemberVO member) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		MemberVO check = memberService.getMemberId(member);
+		map.put("check", check);
+		return map;
+	}
+	//이메일 중복확인 ajax
+	@ResponseBody
+	@GetMapping("/checkEmail")
+	public HashMap<String, Object> checkEmail(MemberVO member) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		MemberVO check = memberService.getMemberEmail(member);
+		map.put("checkEmail", check);
+		return map;
+	}
+	//폰번호 중복확인 ajax
+	@ResponseBody
+	@GetMapping("/checkPhone")
+	public HashMap<String, Object> checkPhone(MemberVO member) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		MemberVO check = memberService.getMemberPhone(member);
+		map.put("check", check);
+		return map;
 	}
 }

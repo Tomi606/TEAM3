@@ -57,7 +57,8 @@
 	</div>
 	<div>
 		<label for="num">사업자번호</label>
-		<input type="number" id="num" name="ho_num" required placeholder="'-'제외한 사업자번호를 입력하세요."/>
+		<input type="text" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="10"
+		id="num" name="ho_num" required placeholder="'-'제외한 사업자번호를 입력하세요."/>
 		<label id="num-error" class="error text-danger" for="num"></label>
 	</div>
 	<div>
@@ -79,7 +80,8 @@
 	</div>
 	<div>
 		<label for="phone">대표 전화번호</label>
-		<input type="number" id="phone" name="ho_phone" required placeholder="'-'제외한 대표 전화번호를 입력하세요."/>
+		<input type="text" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="11"
+		id="phone" name="ho_phone" required placeholder="'-'제외한 대표 전화번호를 입력하세요."/>
 		<label id="phone-error" class="error text-danger" for="phone"></label>
 	</div>
 	<button type="submit" onclick="hoIdForm()">회원가입</button>
@@ -122,7 +124,7 @@ $("form").validate({
 		},
 		ho_phone : {
 			required : true,
-			regex : /^[0-9]{1,11}$/
+			regex : /^[0-9]{8,11}$/
 		}
 	},
 	//규칙에 대한 메세지
@@ -289,11 +291,6 @@ $("[name=sgg_num]").click(function(){
 	});
 })
 	/* 읍면동 리스트 select로 띄우기 끝 */
-</script>
-
-<!-- 시도, 시군구, 읍면동 Ajax -->
-<script type="text/javascript">
-
 </script>
 </body>
 </html>

@@ -233,12 +233,7 @@ $.validator.addMethod(
 		"정규표현식에 맞지 않습니다."
 	)
 </script>
-<!-- 아이디 중복체크 ajax -->
-<script type="text/javascript">
-$(document).ready(function() {
-	
-});
-</script> 
+
 <!-- 시/도,시/군/구,읍/면/동 ajax -->
 <script type="text/javascript">
 function hoIdForm() {
