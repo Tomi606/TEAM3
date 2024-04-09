@@ -67,7 +67,7 @@ public class MemberServiceImp implements MemberService {
 		MemberVO user = memberDao.selectMember(member.getMe_id());
 		if (user == null) {
 			return null;
- 
+
 		}
 		// 비번 확인
 		// 맞으면 site 정보 return
