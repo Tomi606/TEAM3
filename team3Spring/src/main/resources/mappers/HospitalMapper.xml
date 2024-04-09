@@ -10,14 +10,15 @@
 	</insert>
 	
 	<insert id="insertSiteHospital">
-		insert into site_management(site_la_num, site_id, site_authority)
-		value(1, #{st.site_id}, "USER")
+		insert into site_management(#{st.site_la_num}, #{st.site_id}, #{st.site_authority})
+		select la_emd_num, site_id, "USER" from land
 	</insert>
 	
 	<select id="selectHospitalId" resultType="HospitalVO">
 		select * from hospital where ho_id = #{ho_id}
 	</select>
-		<!-- 정경호 : 과목 ㄱㄴㄷㄹ순으로 정렬을 위해 order by hs_title 추가 -->
+	
+	<!-- 정경호 : 과목 ㄱㄴㄷㄹ순으로 정렬을 위해 order by hs_title 추가 -->
 	<select id="selectHospitalSubjectList" resultType="HospitalSubjectVO">
 		select * from hospital_subject order by hs_title
 	</select>
@@ -43,4 +44,16 @@
 	<select id="selectEmdList" resultType="EupMyeonDongVO">
 		select * from eup_myeon_dong
 	</select>
+	
+	<update id="updateLoginFail">
+		UPDATE hospital
+		SET ho_fail = ho_fail + 1
+		WHERE ho_id = #{ho_id}
+	</update>
+	
+	<update id="updateLoginFailZero">
+		UPDATE hospital
+		SET ho_fail = 0
+		WHERE ho_id = #{ho_id}
+	</update>
 </mapper>

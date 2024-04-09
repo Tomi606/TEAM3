@@ -3,6 +3,7 @@ package kr.kh.team3.service;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.kh.team3.dao.HospitalDAO;
@@ -19,22 +20,32 @@ import lombok.extern.log4j.Log4j;
 public class HospitalServiceImp implements HospitalService {
 
 	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
 	private HospitalDAO hospitalDao;
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
+	private boolean checkStr(String str) {
+		return str != null && str.length() != 0;
+	}
 	
 	//회원가입
 	public boolean signup(HospitalVO hospital) {
-		if(hospital == null || hospital.getHo_id().length() == 0) {
+		if(hospital == null 
+		|| hospital.getHo_id().length() == 0
+		|| !checkStr(hospital.getHo_id()) 
+		|| !checkStr(hospital.getHo_pw())) {
 			return false;
 		}
 		
-		//아이디 중복 체크
-//		String dbHospitalId = hospitalDao.selectHospitalId(hospital);
-//		if(hospital.getHo_id().equals(dbHospitalId)) {
-//			System.out.println("중복된 병원 아이디");
-//			return false;
-//		}
+		//비번 암호화
+		String endPw = passwordEncoder.encode(hospital.getHo_pw());
+		hospital.setHo_pw(endPw);
 		
-		return hospitalDao.insertHospital(hospital);
+			return hospitalDao.insertHospital(hospital);
 	}
 
 	//사이트 회원관리 아이디
@@ -72,7 +83,6 @@ public class HospitalServiceImp implements HospitalService {
 
 	@Override
 	public SiteManagement login(HospitalVO hospital) {
-		//log.info(hospital);
 		//매개변수 null 처리
 		if( hospital == null || 
 			hospital.getHo_id() == null || 
@@ -90,15 +100,34 @@ public class HospitalServiceImp implements HospitalService {
 		
 		//비번 확인
 		//맞으면 site 정보 return
-		if(hospital.getHo_pw().equals(user.getHo_pw())) {
+		if(passwordEncoder.matches(hospital.getHo_pw(), user.getHo_pw())) {
+			hospitalDao.updateLoginFailZero(user.getHo_id());
+			
 			return hospitalDao.selectSite(user.getHo_id());
 		}
 		return null;
 	}
 
 	@Override
-	public HospitalVO getHospital(String site_id) {
-		return hospitalDao.selectHospital(site_id);
+	public HospitalVO getHospital(SiteManagement user) {
+		if(user == null ||
+			user.getSite_id() == null) {
+			return null;
+		}
+		return hospitalDao.selectHospital(user.getSite_id());
+	}
+
+	@Override
+	public void setLoginFail(String ho_id) {
+		hospitalDao.updateLoginFail(ho_id);
+	}
+	
+	@Override
+	public HospitalVO getHospitalId(HospitalVO hospital) {
+		if( hospital == null || 
+			hospital.getHo_id() == null)
+			return null;
+		return hospitalDao.selectHospital(hospital.getHo_id());
 	}
 
 }

@@ -31,5 +31,9 @@ public interface HospitalDAO {
 
 	SiteManagement selectSite(@Param("ho_id")String ho_id);
 
+	void updateLoginFail(@Param("ho_id")String ho_id);
+
+	void updateLoginFailZero(@Param("ho_id")String ho_id);
+
 
 }

@@ -23,6 +23,7 @@ public class HospitalVO implements Serializable{
 	private String ho_phone;
 	private String ho_authority;
 	private String ho_ms_state; //회원 상태명('이용중'), ('기간정지'), ('영구정지');
+	private int ho_fail;
 	//자동로그인 때 사용
 	private String ho_cookie;
 	private Date ho_cookie_limit;

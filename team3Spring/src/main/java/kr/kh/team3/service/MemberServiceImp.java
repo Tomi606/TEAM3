@@ -13,7 +13,9 @@ import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
+import lombok.extern.log4j.Log4j;
 
+@Log4j
 @Service
 public class MemberServiceImp implements MemberService {
 	@Autowired
@@ -63,12 +65,13 @@ public class MemberServiceImp implements MemberService {
 			return null;
 		// 아이디 확인
 		MemberVO user = memberDao.selectMember(member.getMe_id());
-		if (user == null)
+		if (user == null) {
 			return null;
 
+		}
 		// 비번 확인
 		// 맞으면 site 정보 return
-		if (member.getMe_pw().equals(user.getMe_pw())) {
+		if (passwordEncoder.matches(member.getMe_pw(), user.getMe_pw())) {
 			memberDao.updateLoginFailZero(user.getMe_id());
 
 			return memberDao.selectSite(user.getMe_id());
