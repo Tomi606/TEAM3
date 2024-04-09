@@ -14,7 +14,7 @@ import kr.kh.team3.model.vo.SiteManagement;
 public interface MemberDAO {
 
 
-	boolean insertMember(@Param("me")MemberVO member);
+	boolean insertMember(@Param("me")MemberVO member, @Param("adress")String adress);
 
 	boolean insertSiteMember(@Param("si")SiteManagement site);
 	//ajax로도 사용함

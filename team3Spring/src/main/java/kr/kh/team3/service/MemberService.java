@@ -10,7 +10,7 @@ import kr.kh.team3.model.vo.SiteManagement;
 
 public interface MemberService {
 
-	boolean memberSignup(MemberVO member);
+	boolean memberSignup(MemberVO member, String str);
 
 	boolean siteSignup(SiteManagement site);
 
