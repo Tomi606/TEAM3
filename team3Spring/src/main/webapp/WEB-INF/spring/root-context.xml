@@ -29,7 +29,7 @@
 	</bean>
 	<mybatis-spring:scan base-package="kr.kh.team3.dao"/>
 
-	<!-- 이메일 인증 -->
+	<!-- 이메일 인증 정경호-->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 	    <property name="host" value="smtp.gmail.com" />
 	    <property name="port" value="587" />
