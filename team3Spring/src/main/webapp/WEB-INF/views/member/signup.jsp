@@ -35,8 +35,8 @@
 		</select>
 	</div>
 	<div>
-		<input type="text" id="id" name="me_id" placeholder="아이디" ><br>
-	  	<button type="button"class="check-duplicate">중복 확인</button>
+		<input type="text" id="id" name="me_id" placeholder="아이디" >
+	  	<button type="button"class="check-duplicate">중복 확인</button><br>
    		 
 	</div>
 	<div>
@@ -53,8 +53,6 @@
 	</div>
 	<div>
 		<input type="text" id="front-num" name="me_frontNum" placeholder="주민등록번호 앞자리" maxlength="6" >
-	</div>
-	<div>
 		<input type="text" id="back-num" name="me_backNum" placeholder="주민등록번호 뒷자리" 
 		maxlength="7" oninput="checkRRN()" ><br>
 	</div>
@@ -71,7 +69,8 @@
 	</div>
 	<div>
 		<input type="text" id="email" name="me_email" placeholder="이메일" >
-		<span id="email-text"></span>
+		<button type="button" class="email-btn">중복확인</button><br>
+		<span id="email-text"></span><br>
 		
 	</div>
 	<div>
@@ -169,7 +168,7 @@ $(document).ready(function() {
         },
         messages: {
             me_id: {
-                required: "필수 항목입니다.",
+                required: "아이디 중복확인을 해주세요.",
                 regex: "아이디는 최소 8자에서 15자로 입력해주세요."
             },
             me_pw: {
@@ -201,7 +200,7 @@ $(document).ready(function() {
             },
             me_email: {
                 required: "필수 항목입니다.",
-                email: "이메일 양식으로 입력하세요."
+                email: ""
             },
             me_address: {
                 required: "필수 항목입니다.",
@@ -219,7 +218,7 @@ $(document).ready(function() {
             element.siblings(".text-danger").remove();
             element.siblings(".text-success").remove();
             if (element.val() && !element.next(".text-success").length) {
-                element.after('<span class="text-success">유효합니다.</span>');
+                element.after('<span class="text-success">사용 가능합니다.</span>');
             }
         }
     });
@@ -386,48 +385,42 @@ $("[name=sgg_num]").click(function(){
  <!-- 이메일 중복체크 ajax 미구현-->
 <script type="text/javascript">
 $(document).ready(function() {
-    $("#email").on("keyup", function() {
-        var email = $(this).val();
-        if (email.length == 0||!email) {
+    $(".email-btn").click( function() {
+        var email = $("#email").val();
+        if (email.length == 0) {
+        	alert("이메일을 입력 하세요.");
             return;
         }
         if (/[\u3131-\uD79D]/.test(email) || /[!#$%^&*(),?":{}|<>]/.test(email)) {
-            alert("한글이나 @,.를 제외한 특수문자는 이메일로 사용할 수 없습니다.");
-            return;
+            $("#email-text").text("한글이나 @,.를 제외한 특수문자는 이메일로 사용할 수 없습니다.").css("color" , "red");
+            return false;
         }
-        if(!checkEmail(email)){
-        	 $("#email-text").text("");
-        	 return;
-        }
-
         $.ajax({
             url: '<c:url value="/checkEmail"/>',
             type: "get",
             data: { me_email: email }, 
             success: function(response) {
                 if (response.checkEmail == null) {
-                	 $("#email-text").text("사용 가능한 이메일입니다.");
+                	alert("사용 가능한 이메일입니다.");
                     return;
                 } else {
-                	 $("#email-text").text("이미 사용중인 이메일입니다.");
+                	alert("이미 사용중인 이메일입니다.");
                     return;
                 }
             },
             error: function(xhr, status, error) {
-            	$("#email-text").text("이미 사용중인 이메일입니다.");
+            	alert("이미 사용중인 이메일입니다.");
                 return;
             }
         }); // ajax end;
     });
 });
-function checkEmail(email) {
-    var pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{10,50}$/;
-    return pattern.test(email);
-}
+
 
 </script>
 <!-- 폰번호 중복체크 ajax -->
 <script type="text/javascript">
+
 </script>
 </body>
 </html>
