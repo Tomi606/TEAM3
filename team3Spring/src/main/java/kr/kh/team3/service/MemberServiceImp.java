@@ -24,7 +24,7 @@ public class MemberServiceImp implements MemberService {
 	@Autowired
 	MemberDAO memberDao;
 
-	public boolean memberSignup(MemberVO member) {
+	public boolean memberSignup(MemberVO member, String adress) {
 		if (member == null)
 			return false;
 
@@ -47,7 +47,7 @@ public class MemberServiceImp implements MemberService {
 		member.setMe_pw(encPw);
 
 		try {
-			return memberDao.insertMember(member);
+			return memberDao.insertMember(member, adress);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;

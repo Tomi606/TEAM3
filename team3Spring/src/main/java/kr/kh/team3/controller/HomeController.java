@@ -37,7 +37,7 @@ public class HomeController {
 	 
 	@GetMapping("/")
 	public String home() {
-		log.info("홈화면");
+		
 		return "/main/home";
 	}
 	
@@ -58,15 +58,22 @@ public class HomeController {
 		return "/member/signup";
 	}
 	
+	
 	//개인 회원가입 페이지
+	@ResponseBody
 	@PostMapping("/member/signup")
-	public String postPemberSignup(Model model,MemberVO member,SiteManagement site,SiDoVO sido,SiGoonGuVO sgg) {
+	public boolean postPemberSignup(Model model,@RequestParam Map<String, String> obj,MemberVO member,SiteManagement site,SiDoVO sido,SiGoonGuVO sgg, @RequestParam String str) {
 
-		boolean memberRes = memberService.memberSignup(member);
+		boolean memberRes = memberService.memberSignup(member, str);
 		boolean siteRes = memberService.siteSignup(site);
 		MemberVO check = memberService.getMemberId(member);
 		
-		if (!memberRes||!siteRes) {
+		return !memberRes||!siteRes;
+	}
+	
+	@GetMapping("/message")
+	public String message(Model model, boolean res) {
+		if (res) {
 			model.addAttribute("msg","회원가입에 실패 했습니다.");
 			model.addAttribute("url","/member/signup");
 		}else {
@@ -75,7 +82,6 @@ public class HomeController {
 		}
 		return "message";
 	}
-	
 	//개인 회원가입 페이지
 	@ResponseBody
 	@PostMapping("/member/signup/gungoo")
@@ -88,10 +94,7 @@ public class HomeController {
 	@ResponseBody
 	@PostMapping("/member/signup/eupmyeondong")
 	public ArrayList<EupMyeonDongVO> postEupMyeonDong(int sgg_num){
-		System.out.println("여기 잘들옴");
-		System.out.println(sgg_num);
 		ArrayList<EupMyeonDongVO> emdList = memberService.getEmd(sgg_num);
-		System.out.println(emdList);
 		return emdList;
 	}
 	

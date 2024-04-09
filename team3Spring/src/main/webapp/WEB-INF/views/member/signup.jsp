@@ -11,7 +11,7 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
 </head>
 <body>
-<form id="myForm" action="<c:url value="/member/signup"/>" method="post">
+<form id="myForm" action="" method="post">
 	 <select name="sd_num" required>
 	 		<option value="none">시/도를 선택해주세요</option>
         <c:forEach items="${sidoList}" var="sd">
@@ -52,11 +52,6 @@
 		<input type="text" id="name" name="me_name" placeholder="이름" required><br>
 	</div>
 	<div>
-		<input type="text" id="front-num" name="me_frontNum" placeholder="주민등록번호 앞자리" maxlength="6" >
-		<input type="text" id="back-num" name="me_backNum" placeholder="주민등록번호 뒷자리" 
-		maxlength="7" oninput="checkRRN()" ><br>
-	</div>
-	<div>
 		<label for="me_gender">성별:</label>
 	    <input type="radio" id="male" name="me_gender" value="남자" >남자
 	    <input type="radio" id="female" name="me_gender" value="여자" >여자<br>
@@ -74,12 +69,12 @@
 		
 	</div>
 	<div>
-		<input type="text" id="address" name="me_address" placeholder="주소" ><br>
-	</div>
-	<div>
 		<button type="submit" id="land1" onclick="meIdForm()" class="check">회원가입</button>
 	</div>
 </form>
+
+
+
 <!-- me_id입력 시 site_id값도 me_id랑 같은 값 입력 -->
  <script type="text/javascript">
 function meIdForm() {
@@ -89,38 +84,7 @@ function meIdForm() {
 }
 </script>
 <!-- 주민 뒷 자리 1,2,3,4로 시작하면 알맞은 성별 자동 체크 -->	
- <script>
- //뒷자리 1,2,3,4 입력시 알맞는 성별 자동 선택
- //주민번호에 숫자 외 다른 글자를 입력하면 입력 안되게 하기 구현 중 
- $(document).ready(function() {
-	    $("#male").prop("disabled", true);
-	    $("#female").prop("disabled", true);
 
-	    $("#back-num").on("input", function() {
-	        var backNum = $(this).val();
-	        var male = $("#male");
-	        var female = $("#female");
-
-	        male.prop("checked", false);
-	        female.prop("checked", false);
-	        male.prop("disabled", true);
-	        female.prop("disabled", true);
-
-	        if (backNum.charAt(0) === '1' || backNum.charAt(0) === '3') {
-	            male.prop("checked", true);
-	            female.prop("checked", false);
-	            female.prop("disabled", true);
-	            male.prop("disabled", false);
-	        } else if (backNum.charAt(0) === '2' || backNum.charAt(0) === '4') {
-	            male.prop("checked", false);
-	            female.prop("checked", true);
-	            male.prop("disabled", true);
-	            female.prop("disabled", false);
-	        }
-	    });
-	});
-
-</script>
 <!-- 회원가입 정규 표현식 -->
 <script type="text/javascript">
 $(document).ready(function() {
@@ -141,14 +105,7 @@ $(document).ready(function() {
                 required: true,
                 regex: /^[ㄱ-힣]{2,5}$/ // 이름은 2~5글자의 한글로 이루어져야 함
             },
-            me_frontNum: {
-                required: true,
-                regex: /^[0-9]{6}$/ // 주민등록번호 앞자리는 6자리의 숫자로 이루어져야 함
-            },
-            me_backNum: {
-                required: true,
-                regex: /^[0-9]{7}$/ // 주민등록번호 뒷자리는 7자리의 숫자로 이루어져야 함
-            },
+   
             me_job: {
                 required: true,
                 regex: /^[ㄱ-힣]{2,10}$/ // 직업은 2~10글자의 한글로 이루어져야 함
@@ -182,14 +139,7 @@ $(document).ready(function() {
                 required: "필수 항목입니다.",
                 regex: "이름은 최대 5자 입니다."
             },
-            me_frontNum: {
-                required: "필수 항목입니다.",
-                regex: "주민번호 앞 자리는 최대 6자이고 숫자만 가능합니다."
-            },
-            me_backNum: {
-                required: "필수 항목입니다.",
-                regex: "주민번호 뒷 자리는 최대 7자이고 숫자만 가능합니다."
-            },
+       
             me_job: {
                 required: "필수 항목입니다.",
                 regex: "한글로 입력하세요. 직업은 최대 10자까지 가능합니다."
@@ -233,6 +183,43 @@ $.validator.addMethod(
 		"정규표현식에 맞지 않습니다."
 	)
 </script>
+<!-- 아이디 중복체크 ajax -->
+<script type="text/javascript">
+$(document).ready(function() {
+   
+});
+</script> 
+
+<script type="text/javascript">
+
+$("form").submit(function(){
+	event.preventDefault(); // 기본 form 제출 이벤트를 막습니다.
+    
+    var sd_num = $("select[name='sd_num'] option:selected").text();
+    var sgg_num = $("select[name='sgg_num'] option:selected").text();
+    var emd_num = $("select[name='emd_num'] option:selected").text();
+    var str = sd_num + sgg_num + emd_num;
+    
+    // Serialize된 form 데이터를 직접 사용하고 str 파라미터를 추가합니다.
+    var formData = $(this).serialize();
+    formData += '&str=' + str; // str 파라미터 추가
+	$.ajax({
+		async:true,
+		url : '<c:url value="/member/signup"/>',
+		type : 'post',
+		data : formData,
+		success:function(data){
+			if (data === false) {
+		        location.href = '<c:url value="/message"/>?res=' + data;
+		    } else {
+		        location.href = '<c:url value="/message"/>?res=' + data;
+		    }
+			
+		}
+	});
+	return false;
+})
+</script>
 
 <!-- 시/도,시/군/구,읍/면/동 ajax -->
 <script type="text/javascript">
@@ -270,7 +257,7 @@ $("[name=sd_num]").click(function(){
 		success : function (data){
 			let str =""
 			for(let tmp in data){
-				str += ` <option value='\${data[tmp].sgg_num}'>\${data[tmp].sgg_name}</option>`;
+				str += ` <option value='\${data[tmp].sgg_num}' selected>\${data[tmp].sgg_name}</option>`;
 			}
 			$(".sgg_num").html(str);
 			
@@ -293,7 +280,7 @@ $("[name=sgg_num]").click(function(){
 		success : function (data){
 			let str =""
 			for(let tmp in data){
-				str += ` <option value='\${data[tmp].emd_num}'>\${data[tmp].emd_name}</option>`;
+				str += ` <option value='\${data[tmp].emd_num}' selected>\${data[tmp].emd_name}</option>`;
 			}
 			$(".emd_num").html(str);
 			
@@ -316,10 +303,6 @@ $("[name=sgg_num]").click(function(){
         $("#name").on("input", function() {
             var inputValue = $(this).val();
             $(this).val(inputValue.replace(/[^ㄱ-ㅎㅏ-ㅣ가-힣]/g, ''));
-        });
-        $("#front-num, #back-num").on("input", function() {
-            var inputValue = $(this).val();
-            $(this).val(inputValue.replace(/[^\d]/g, ''));
         });
         $("#phone").on("input", function() {
             var inputValue = $(this).val();
@@ -431,6 +414,7 @@ $(document).ready(function() {
     	}
     });
 });
+
 
 
 </script>
