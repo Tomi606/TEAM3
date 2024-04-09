@@ -119,18 +119,21 @@ public class HomeController {
 		
 	//사업자 회원가입 페이지(post)
 	@PostMapping("/hospital/signup")
-	public String hospitalSignupPost(HospitalVO hospital, SiteManagement site) {
+	public String hospitalSignupPost(HospitalVO hospital, SiteManagement site,
+			@RequestParam Map<String, String> obj,SiDoVO sido,SiGoonGuVO sgg, 
+			@RequestParam String str) {
 		log.info("사업자 회원가입 post");
 		
-		boolean hospitalRes = hospitalService.signup(hospital);
+	/*	boolean memberRes = memberService.memberSignup(member, str);
+		boolean siteRes = memberService.siteSignup(site);
+		return !memberRes||!siteRes;*/
+		
+		
+		boolean hospitalRes = hospitalService.signup(hospital,str);
 		boolean siteRes = hospitalService.signup(site);
 		if(!hospitalRes || !siteRes) {
-//			log.info(site);
-//			log.info(hospital);
-			System.out.println("회원가입 실패");
 			return "/hospital/signup";
 		}
-		System.out.println("회원가입 성공");
 		return "/main/home";
 	}
 	
@@ -215,8 +218,6 @@ public class HomeController {
 			}
 			return "message";
 		}
-		
-		
 		//가입 대기 상태 확인하기 위해 hospital 값 가져옴
 		HospitalVO ho = hospitalService.getHospital(user);
 		
@@ -240,7 +241,6 @@ public class HomeController {
 
 		return "message";
 	}
-
 
 	//로그아웃 기능
 	@GetMapping("/logout")
