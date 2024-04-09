@@ -18,9 +18,6 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Service
 public class HospitalServiceImp implements HospitalService {
-
-	@Autowired
-	BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private HospitalDAO hospitalDao;
