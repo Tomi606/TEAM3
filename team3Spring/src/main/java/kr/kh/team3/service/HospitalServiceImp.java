@@ -3,6 +3,7 @@ package kr.kh.team3.service;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.kh.team3.dao.HospitalDAO;
@@ -18,6 +19,9 @@ import lombok.extern.log4j.Log4j;
 @Service
 public class HospitalServiceImp implements HospitalService {
 
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
+	
 	@Autowired
 	private HospitalDAO hospitalDao;
 	
@@ -89,7 +93,7 @@ public class HospitalServiceImp implements HospitalService {
 		
 		//비번 확인
 		//맞으면 site 정보 return
-		if(hospital.getHo_pw().equals(user.getHo_pw())) {
+		if(passwordEncoder.matches(hospital.getHo_pw(), user.getHo_pw())) {
 			hospitalDao.updateLoginFailZero(user.getHo_id());
 			
 			return hospitalDao.selectSite(user.getHo_id());

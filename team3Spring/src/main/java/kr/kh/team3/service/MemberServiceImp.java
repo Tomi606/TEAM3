@@ -12,7 +12,9 @@ import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
+import lombok.extern.log4j.Log4j;
 
+@Log4j
 @Service
 public class MemberServiceImp implements MemberService {
 	@Autowired
@@ -45,18 +47,17 @@ public class MemberServiceImp implements MemberService {
 	@Override
 	public SiteManagement login(MemberVO member) {
 		// 매개변수 null 처리
-		if (member == null ||
-			member.getMe_id() == null ||
-			member.getMe_pw() == null)
+		if (member == null || member.getMe_id() == null || member.getMe_pw() == null)
 			return null;
 		// 아이디 확인
 		MemberVO user = memberDao.selectMember(member.getMe_id());
-		if (user == null)
+		if (user == null) {
 			return null;
 
-		//비번 확인
-		//맞으면 site 정보 return
-		if(member.getMe_pw().equals(user.getMe_pw())) {
+		}
+		// 비번 확인
+		// 맞으면 site 정보 return
+		if (passwordEncoder.matches(member.getMe_pw(), user.getMe_pw())) {
 			memberDao.updateLoginFailZero(user.getMe_id());
 
 			return memberDao.selectSite(user.getMe_id());
