@@ -205,7 +205,7 @@ $.validator.addMethod(
 )
 </script>
 
-<!-- 아이디 중복 검사 -->
+ <!-- 아이디 중복 검사 -->
 <script type="text/javascript">
 function idCheckDup() {
 	//입력된 아이디를 가져옴
@@ -270,7 +270,10 @@ function hoIdForm() {
 		return false;
 	}
 }
+</script>
 
+<!-- 시군구, 읍면동 select 띄우기 -->
+<script type="text/javascript">
 /* 군 구 리스트 select로 띄우기 시작 */
 $("[name=sd_num]").click(function(){
 	let sd_num = $("[name=sd_num]").val();
