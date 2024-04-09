@@ -14,12 +14,12 @@
 		select la_emd_num, site_id, "USER" from land
 	</insert>
 	
-	<select id="selectHospitalId" resultType="HospitalVO">
+	<select id="selectHospitalId" resultType="kr.kh.team3.model.vo.HospitalVO">
 		select * from hospital where ho_id = #{ho_id}
 	</select>
 	
 	<!-- 정경호 : 과목 ㄱㄴㄷㄹ순으로 정렬을 위해 order by hs_title 추가 -->
-	<select id="selectHospitalSubjectList" resultType="HospitalSubjectVO">
+	<select id="selectHospitalSubjectList" resultType="kr.kh.team3.model.vo.HospitalSubjectVO">
 		select * from hospital_subject order by hs_title
 	</select>
 	
