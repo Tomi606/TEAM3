@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.kh.team3.dao.HospitalDAO;
@@ -18,13 +19,12 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Service
 public class HospitalServiceImp implements HospitalService {
-
-	@Autowired
-	BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private HospitalDAO hospitalDao;
 	
+	@Autowired 
+	private PasswordEncoder passwordEncoder;
 	
 	private boolean checkStr(String str) {
 		return str != null && str.length() != 0;

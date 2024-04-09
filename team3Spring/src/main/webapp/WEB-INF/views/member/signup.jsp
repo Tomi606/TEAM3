@@ -83,8 +83,6 @@ function meIdForm() {
     return true;
 }
 </script>
-<!-- 주민 뒷 자리 1,2,3,4로 시작하면 알맞은 성별 자동 체크 -->	
-
 <!-- 회원가입 정규 표현식 -->
 <script type="text/javascript">
 $(document).ready(function() {
@@ -259,9 +257,6 @@ $("[name=sd_num]").click(function(){
 			$(".sgg_num").html(str);
 			
 		}, 
-		error : function(jqXHR, textStatus, errorThrown){
-
-        },
         error: function(jqXHR, textStatus, errorThrown) {
 
         }
@@ -283,9 +278,6 @@ $("[name=sgg_num]").click(function(){
 			$(".emd_num").html(str);
 			
 		}, 
-		error : function(jqXHR, textStatus, errorThrown){
-
-        },
         error: function(jqXHR, textStatus, errorThrown) {
 
         }
@@ -324,7 +316,6 @@ $("[name=sgg_num]").click(function(){
                 $(this).val(inputValue.replace(/[^ㄱ-ㅎ가-힣]/g, '')); 
             }
         });
-       
     });
 </script>
  <!-- 아이디,이메일 중복체크 ajax 정규표현식 적용 시키기-->
