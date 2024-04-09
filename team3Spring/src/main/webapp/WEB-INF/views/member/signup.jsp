@@ -406,6 +406,7 @@ $(document).ready(function() {
     });
 });
 </script>
+
 <!-- 폰번호 중복체크 ajax 정규표현식 적용 시키기-->
 <script type="text/javascript">
 $(document).ready(function() {

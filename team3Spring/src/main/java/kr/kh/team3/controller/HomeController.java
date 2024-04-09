@@ -216,7 +216,6 @@ public class HomeController {
 			return "message";
 		}
 		
-		
 		//가입 대기 상태 확인하기 위해 hospital 값 가져옴
 		HospitalVO ho = hospitalService.getHospital(user);
 		
@@ -241,7 +240,6 @@ public class HomeController {
 		return "message";
 	}
 
-
 	//로그아웃 기능
 	@GetMapping("/logout")
 	public String logout(Model model, HttpSession session) {
@@ -259,6 +257,7 @@ public class HomeController {
 		map.put("check", check);
 		return map;
 	}
+	
 	//이메일 중복확인 ajax
 	@ResponseBody
 	@GetMapping("/checkEmail")
@@ -268,6 +267,7 @@ public class HomeController {
 		map.put("checkEmail", check);
 		return map;
 	}
+	
 	//폰번호 중복확인 ajax
 	@ResponseBody
 	@GetMapping("/checkPhone")
@@ -275,6 +275,26 @@ public class HomeController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		MemberVO checkPhone = memberService.getMemberPhone(member);
 		map.put("checkPhone", checkPhone);
+		return map;
+	}
+	
+	//사업자 회원가입 : 아이디 중복확인 ajax
+	@ResponseBody
+	@GetMapping("/hospital/checkId")
+	public HashMap<String, Object> checkId(HospitalVO hospital) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		HospitalVO check = hospitalService.ajaxHospitalId(hospital);
+		map.put("hoIdCheck", check);
+		return map;
+	}
+	
+	//사업자 회원가입 : 이메일 중복확인 ajax
+	@ResponseBody
+	@GetMapping("/hospital/checkEmail")
+	public HashMap<String, Object> checkEmail(HospitalVO hospital) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		HospitalVO check = hospitalService.ajaxHospitalEmail(hospital);
+		map.put("hoEmailCheck", check);
 		return map;
 	}
 }

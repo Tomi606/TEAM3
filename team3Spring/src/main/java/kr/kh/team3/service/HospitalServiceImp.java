@@ -10,6 +10,7 @@ import kr.kh.team3.dao.HospitalDAO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -126,6 +127,40 @@ public class HospitalServiceImp implements HospitalService {
 			hospital.getHo_id() == null)
 			return null;
 		return hospitalDao.selectHospital(hospital.getHo_id());
+	}
+
+	@Override
+	public HospitalVO ajaxHospitalId(HospitalVO hospital) {
+		if (hospital == null || hospital.getHo_id() == null || hospital.getHo_id().isEmpty()) {
+			return null;
+		}
+
+		// 입력된 아이디로 회원 조회
+		HospitalVO user = hospitalDao.selectHospital(hospital.getHo_id());
+
+		// user가 null이 아니면 중복
+		if (user != null) {
+			return user;
+		}
+
+		return null;
+	}
+
+	@Override
+	public HospitalVO ajaxHospitalEmail(HospitalVO hospital) {
+		if (hospital == null || hospital.getHo_email() == null || hospital.getHo_email().isEmpty()) {
+			return null;
+		}
+
+		// 입력된 아이디로 회원 조회
+		HospitalVO user = hospitalDao.selectHospitalEmail(hospital.getHo_email());
+
+		// user가 null이 아니면 중복
+		if (user != null) {
+			return user;
+		}
+
+		return null;
 	}
 
 }
