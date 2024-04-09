@@ -37,7 +37,7 @@ public class HomeController {
 	 
 	@GetMapping("/")
 	public String home() {
-		log.info("홈화면");
+		
 		return "/main/home";
 	}
 	
@@ -57,6 +57,7 @@ public class HomeController {
 		model.addAttribute("list",list);
 		return "/member/signup";
 	}
+	
 	
 	//개인 회원가입 페이지
 	@PostMapping("/member/signup")
@@ -83,10 +84,7 @@ public class HomeController {
 	@ResponseBody
 	@PostMapping("/member/signup/eupmyeondong")
 	public ArrayList<EupMyeonDongVO> postEupMyeonDong(int sgg_num){
-		System.out.println("여기 잘들옴");
-		System.out.println(sgg_num);
 		ArrayList<EupMyeonDongVO> emdList = memberService.getEmd(sgg_num);
-		System.out.println(emdList);
 		return emdList;
 	}
 	
