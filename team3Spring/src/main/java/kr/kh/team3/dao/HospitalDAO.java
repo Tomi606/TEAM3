@@ -35,5 +35,7 @@ public interface HospitalDAO {
 
 	void updateLoginFailZero(@Param("ho_id")String ho_id);
 
+	HospitalVO selectHospitalEmail(@Param("ho_email") String ho_email);
+
 
 }

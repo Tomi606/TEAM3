@@ -42,6 +42,7 @@ input {
 				<label class="title" for="id">아이디</label>
 				<input type="text" id="id" name="ho_id" maxlength="15" placeholder="아이디를 입력하세요."/>
 				<label id="id-error" class="error text-danger" for="id"></label>
+				<button type="button"class="check-duplicate">중복 확인</button>
 			</div>
 			<div>
 				<label class="title" for="pw">비밀번호</label>
@@ -57,6 +58,7 @@ input {
 				<label class="title" for="email">이메일</label>
 				<input type="email" id="email" name="ho_email" required placeholder="이메일을 입력하세요."/>
 				<label id="email-error" class="error text-danger" for="email"></label>
+				<button type="button" class="email-btn">중복확인</button>
 			</div>
 			<div>
 				<label class="title" for="name">상호명</label>
@@ -319,6 +321,95 @@ $("[name=sgg_num]").click(function(){
 	});
 })
 /* 읍면동 리스트 select로 띄우기 끝 */
+</script>
+
+<!-- 아이디,이메일 중복체크 ajax 정규표현식 적용 시키기-->
+<script type="text/javascript">
+$(document).ready(function() {
+   var idCheck = false;
+    $(".check-duplicate").click(function() {
+        var id = $("#id").val();
+        if(id.length == 0){
+          alert("아이디를 입력해주세요.");
+          return;
+       }
+        if (/[\u3131-\uD79D]/.test(id) || /[!@#$%^&*(),.?":{}|<>]/.test(id)) {
+            alert("한글이나 특수문자는 아이디로 사용할 수 없습니다.");
+            return; 
+        }
+        if(!/^\w{8,15}$/.test(id)){
+           alert("아이디는 최소 8자에서 15자로 입력 해주세요.")
+           return;
+        }
+
+        $.ajax({
+            url: '<c:url value="/hospital/checkId"/>',
+            type: "get",
+            data: { ho_id: id }, 
+            success: function(response) {
+               
+                if (response.hoIdCheck == null) {
+                    alert("사용 가능한 아이디입니다.");
+                    idCheck = true;
+                    return true;
+                } else {
+                    alert("이미 사용 중인 아이디입니다.");
+                    idCheck = false;
+                    return false;
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("에러에러", error);
+            }
+        });
+    });
+
+   var emailCheck = false;
+    $(".email-btn").click( function() {
+        var email = $("#email").val();
+        if (email.length == 0 || email == "") {
+           alert("이메일을 입력 하세요.");
+            return;
+        }
+        if (/[\u3131-\uD79D]/.test(email) || /[!#$%^&*(),?":{}|<>]/.test(email)) {
+            $("#email-text").text("한글이나 @,.를 제외한 특수문자는 이메일로 사용할 수 없습니다.").css("color" , "red");
+            return false;
+        }
+        $.ajax({
+            url: '<c:url value="/hospital/checkEmail"/>',
+            type: "get",
+            data: { ho_email: email }, 
+            success: function(response) {
+                if (response.hoEmailCheck == null) {
+                   alert("사용 가능한 이메일입니다.");
+                   emailCheck = true;
+                    return;
+                } else {
+                   alert("이미 사용중인 이메일입니다.");
+                   emailCheck = false;
+                    return;
+                }
+            },
+            error: function(xhr, status, error) {
+               alert("이미 사용중인 이메일입니다.");
+               emailCheck = false;
+                return;
+            }
+        }); // ajax end;
+    });
+    $(".check").click(function(){
+       if(!idCheck){
+          alert("아이디 중복 확인을 해주세요.");
+          $("#id").focus();
+          return false;
+       }
+       if(!emailCheck){
+          alert("이메일 중복 확인을 해주세요.");
+          $("#email").focus();
+          return false;
+       }
+    });
+});
 </script>
 </body>
 </html>
