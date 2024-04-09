@@ -29,6 +29,7 @@ import lombok.extern.log4j.Log4j;
 @Controller
 public class HomeController {
 	
+	
 	@Autowired
 	MemberService memberService;
 	
@@ -267,8 +268,8 @@ public class HomeController {
 	@GetMapping("/checkPhone")
 	public HashMap<String, Object> checkPhone(MemberVO member) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		MemberVO check = memberService.getMemberPhone(member);
-		map.put("check", check);
+		MemberVO checkPhone = memberService.getMemberPhone(member);
+		map.put("checkPhone", checkPhone);
 		return map;
 	}
 }

@@ -28,15 +28,6 @@ public class MemberServiceImp implements MemberService {
 		if (member == null)
 			return false;
 
-//		if(!checkPwRegex(member.getMe_pw())
-//				||!checkAddressRegex(member.getMe_address())
-//				||!checkPhoneRegex(member.getMe_phone())
-//				||!checkbackNumRegex(member.getMe_backNum())
-//				||!checkIdRegex(member.getMe_id())
-//				||!checkfrontNumRegex(member.getMe_frontNum())
-//				||!checkEmailRegex(member.getMe_email())
-//				||!checkNameRegex(member.getMe_name()))
-//			return false;
 
 		MemberVO user = memberDao.selectMember(member.getMe_id());
 		if (user != null)
@@ -153,61 +144,3 @@ public class MemberServiceImp implements MemberService {
 		return null;
 	}
 }
-//	private boolean checkIdRegex(String me_id) {
-//		String idRegex = "^[a-zA-Z0-9]{8,15}$";
-//		if(me_id == null) {
-//			return false;
-//		}
-//		return Pattern.matches(idRegex, me_id);
-//	}
-//	private boolean checkPwRegex(String me_pw) {
-//		String pwRegex = "^[a-zA-Z0-9!@#$]{8,18}$";
-//		if(me_pw == null) {
-//			return false;
-//		}
-//		return Pattern.matches(pwRegex, me_pw);
-//	}
-//
-//	private boolean checkEmailRegex(String me_email) {
-//		String emailRegex = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$";
-//		if(me_email == null) {
-//			return false;
-//		}
-//		return Pattern.matches(emailRegex, me_email);
-//	}
-//	private boolean checkNameRegex(String me_name) {
-//		String ceoRegex = "^[ㄱ-힣]{2,5}$";
-//		if(me_name == null) {
-//			return false;
-//		}
-//		return Pattern.matches(ceoRegex, me_name);
-//	}
-//	private boolean checkfrontNumRegex(String me_frontNum) {
-//		String numRegex = "^[0-9]{6}$";
-//		if(me_frontNum == null) {
-//			return false;
-//		}
-//		return Pattern.matches(numRegex, me_frontNum);
-//	}
-//	private boolean checkbackNumRegex(String me_backNum) {
-//		String numRegex = "^[0-9]{7}$";
-//		if(me_backNum == null) {
-//			return false;
-//		}
-//		return Pattern.matches(numRegex, me_backNum);
-//	}
-//	private boolean checkAddressRegex(String me_address) {
-//		String addressRegex = "^[a-zA-Zㄱ-힣0-9]{1,100}$";
-//		if(me_address == null) {
-//			return false;
-//		}
-//		return Pattern.matches(addressRegex, me_address);
-//	}
-//
-//	private boolean checkPhoneRegex(String me_phone) {
-//		String phoneRegex = "^[0-9]{11}$";
-//		if(me_phone == null) {
-//			return false;
-//		}
-//		return Pattern.matches(phoneRegex, me_phone);
-//	}
