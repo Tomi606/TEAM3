@@ -233,45 +233,7 @@ $.validator.addMethod(
 		"정규표현식에 맞지 않습니다."
 	)
 </script>
-<!-- 아이디 중복체크 ajax -->
-<script type="text/javascript">
-$(document).ready(function() {
-    $(".check-duplicate").click(function() {
-        var id = $("#id").val();
-        if(id.length == 0){
-    		alert("아이디를 입력해주세요.");
-    		return;
-    	}
-        if (/[\u3131-\uD79D]/.test(id) || /[!@#$%^&*(),.?":{}|<>]/.test(id)) {
-            alert("한글이나 특수문자는 아이디로 사용할 수 없습니다.");
-            return; 
-        }
-        if(!/^\w{8,15}$/.test(id)){
-        	alert("아이디는 최소 8자에서 15자로 입력 해주세요.")
-        	return;
-        }
 
-        $.ajax({
-            url: '<c:url value="/checkId"/>',
-            type: "get",
-            data: { me_id: id }, 
-            success: function(response) {
-            	
-                if (response.check == null) {
-                    alert("사용 가능한 아이디입니다.");
-                    return true;
-                } else {
-                    alert("이미 사용 중인 아이디입니다.");
-                    return false;
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error("에러에러", error);
-            }
-        });
-    });
-});
-</script> 
 <!-- 시/도,시/군/구,읍/면/동 ajax -->
 <script type="text/javascript">
 function hoIdForm() {
@@ -385,9 +347,48 @@ $("[name=sgg_num]").click(function(){
  <!-- 이메일 중복체크 ajax 미구현-->
 <script type="text/javascript">
 $(document).ready(function() {
+	var idCheck = false;
+    $(".check-duplicate").click(function() {
+        var id = $("#id").val();
+        if(id.length == 0){
+    		alert("아이디를 입력해주세요.");
+    		return;
+    	}
+        if (/[\u3131-\uD79D]/.test(id) || /[!@#$%^&*(),.?":{}|<>]/.test(id)) {
+            alert("한글이나 특수문자는 아이디로 사용할 수 없습니다.");
+            return; 
+        }
+        if(!/^\w{8,15}$/.test(id)){
+        	alert("아이디는 최소 8자에서 15자로 입력 해주세요.")
+        	return;
+        }
+
+        $.ajax({
+            url: '<c:url value="/checkId"/>',
+            type: "get",
+            data: { me_id: id }, 
+            success: function(response) {
+            	
+                if (response.check == null) {
+                    alert("사용 가능한 아이디입니다.");
+                    idCheck = true;
+                    return true;
+                } else {
+                    alert("이미 사용 중인 아이디입니다.");
+                    idCheck = false;
+                    return false;
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("에러에러", error);
+            }
+        });
+    });
+
+	var emailCheck = false;
     $(".email-btn").click( function() {
         var email = $("#email").val();
-        if (email.length == 0) {
+        if (email.length == 0 || email == "") {
         	alert("이메일을 입력 하세요.");
             return;
         }
@@ -402,17 +403,32 @@ $(document).ready(function() {
             success: function(response) {
                 if (response.checkEmail == null) {
                 	alert("사용 가능한 이메일입니다.");
+                	emailCheck = true;
                     return;
                 } else {
                 	alert("이미 사용중인 이메일입니다.");
+                	emailCheck = false;
                     return;
                 }
             },
             error: function(xhr, status, error) {
             	alert("이미 사용중인 이메일입니다.");
+            	emailCheck = false;
                 return;
             }
         }); // ajax end;
+    });
+    $(".check").click(function(){
+    	if(!idCheck){
+    		alert("아이디 중복 확인을 해주세요.");
+    		$("#id").focus();
+    		return false;
+    	}
+    	if(!emailCheck){
+    		alert("이메일 중복 확인을 해주세요.");
+    		$("#email").focus();
+    		return false;
+    	}
     });
 });
 

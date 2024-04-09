@@ -20,6 +20,9 @@ import lombok.extern.log4j.Log4j;
 public class HospitalServiceImp implements HospitalService {
 
 	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
 	private HospitalDAO hospitalDao;
 	
 	@Autowired
@@ -97,7 +100,7 @@ public class HospitalServiceImp implements HospitalService {
 		
 		//비번 확인
 		//맞으면 site 정보 return
-		if(hospital.getHo_pw().equals(user.getHo_pw())) {
+		if(passwordEncoder.matches(hospital.getHo_pw(), user.getHo_pw())) {
 			hospitalDao.updateLoginFailZero(user.getHo_id());
 			
 			return hospitalDao.selectSite(user.getHo_id());
