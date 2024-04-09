@@ -318,8 +318,10 @@ $("[name=sgg_num]").click(function(){
                 $(this).val(inputValue.replace(/[^ㄱ-ㅎ가-힣]/g, '')); 
             }
         });
-    }); -->
+    });    
 </script>
+     -->
+     
  <!-- 아이디,이메일 중복체크 ajax 정규표현식 적용 시키기-->
 <script type="text/javascript">
 $(document).ready(function() {

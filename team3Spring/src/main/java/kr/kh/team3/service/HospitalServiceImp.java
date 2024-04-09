@@ -7,15 +7,14 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import kr.kh.team3.dao.HospitalDAO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
-import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -23,47 +22,36 @@ import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Service
+@Component
 public class HospitalServiceImp implements HospitalService {
 	
 	@Autowired
 	private JavaMailSender mailSender;
 
-	public boolean mailSend(String to, String title, String content) {
-
-	    String setfrom = "[선진님아이디]";
-	   try{
-	        MimeMessage message = mailSender.createMimeMessage();
-	        MimeMessageHelper messageHelper
-	            = new MimeMessageHelper(message, true, "UTF-8");
-
-	        messageHelper.setFrom(setfrom);// 보내는사람 생략하거나 하면 정상작동을 안함
-	        messageHelper.setTo(to);// 받는사람 이메일
-	        messageHelper.setSubject(title);// 메일제목은 생략이 가능하다
-	        messageHelper.setText(content, true);// 메일 내용
-
-	        mailSender.send(message);
-	        return true;
-	    } catch(Exception e){
-	        e.printStackTrace();
-	        return false;
-	    }
-	}
-	
-	
 	@Autowired
 	private HospitalDAO hospitalDao;
 	
-
 	@Autowired 
 	private PasswordEncoder passwordEncoder;
 
+	//랜덤 문자열
+	private String randomString(int size) {
+		String strs = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		String newCertification = "";
+		int min = 0, max = strs.length() - 1;
+		while(newCertification.length() < size) {
+			int r = (int)(Math.random() * (max - min + 1) + min);
+			newCertification += strs.charAt(r);
+		}
+		return newCertification;
+	}
 	
 	private boolean checkStr(String str) {
 		return str != null && str.length() != 0;
 	}
 	
 	//회원가입
-	public boolean signup(HospitalVO hospital) {
+	public boolean signup(HospitalVO hospital, String address) {
 		if(hospital == null 
 		|| hospital.getHo_id().length() == 0
 		|| !checkStr(hospital.getHo_id()) 
@@ -75,7 +63,7 @@ public class HospitalServiceImp implements HospitalService {
 		String endPw = passwordEncoder.encode(hospital.getHo_pw());
 		hospital.setHo_pw(endPw);
 		
-			return hospitalDao.insertHospital(hospital);
+			return hospitalDao.insertHospital(hospital, address);
 	}
 
 	//사이트 회원관리 아이디
@@ -192,6 +180,40 @@ public class HospitalServiceImp implements HospitalService {
 		}
 
 		return null;
+	}
+
+	@Override
+	public boolean ctfEmail(String me_email) {
+
+		//임시 새 비밀번호를 생성
+		String ctfEmail = randomString(10);
+		
+		//이메일을 전송
+		String title = "이메일 인증 입니다.";
+		String content = "인증 번호는 <b>"+ ctfEmail +"</b> 입니다.";
+		boolean res = mailSend(me_email, title, content);
+		return res;
+	}
+	
+	public boolean mailSend(String me_email, String title, String content) {
+
+	    String setfrom = "didtjswls98@gmail.com";
+	   try{
+	        MimeMessage message = mailSender.createMimeMessage();
+	        MimeMessageHelper messageHelper
+	            = new MimeMessageHelper(message, true, "UTF-8");
+
+	        messageHelper.setFrom(setfrom);// 보내는사람 생략하거나 하면 정상작동을 안함
+	        messageHelper.setTo(me_email);// 받는사람 이메일
+	        messageHelper.setSubject(title);// 메일제목은 생략이 가능하다
+	        messageHelper.setText(content, true);// 메일 내용, (,true) : 내용에 html 코드가 들어가면 문자열이 아니라 html 코드로 들어간다
+
+	        mailSender.send(message);
+	        return true;
+	    } catch(Exception e){
+	        e.printStackTrace();
+	        return false;
+	    }
 	}
 
 }

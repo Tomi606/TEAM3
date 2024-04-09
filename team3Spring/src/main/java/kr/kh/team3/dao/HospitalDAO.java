@@ -15,7 +15,7 @@ public interface HospitalDAO {
 
 	HospitalVO selectHospitalId(@Param("ho_id") String ho_id);
 
-	boolean insertHospital(@Param("ho") HospitalVO hospital);
+	boolean insertHospital(@Param("ho") HospitalVO hospital, @Param("address") String address);
 
 	boolean insertSiteHospital(@Param("st") SiteManagement site);
 
