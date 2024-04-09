@@ -35,39 +35,45 @@
 		</select>
 	</div>
 	<div>
-		<input type="text" id="id" name="me_id" placeholder="아이디" >
+		<input type="text" id="id" name="me_id" placeholder="아이디" autofocus="autofocus">
 	  	<button type="button"class="check-duplicate">중복 확인</button><br>
-   		 
+   		<!-- 아이디는 8~15자의 영문자와 숫자로 이루어져야 함-->
 	</div>
 	<div>
 		<input type="hidden" id="id2" name="site_id" >
 	</div>
 	<div>
-		<input type="password" id="pw" name="me_pw" placeholder="비밀번호" ><br>
+		<input type="password" id="pw" name="me_pw" placeholder="비밀번호" autofocus="autofocus"><br>
+		<!-- 비밀번호는 8~18자의 영문자, 숫자, 특수문자(!@#$)로 이루어져야 함 비밀번호 형식이나 글자수가 채워지지 않으면 빨간글씨로 비밀번호 형식이 틀렸다고 해주고 
+		사용 가능하면 초록색글씨로 사용가능한 비밀번호라고 해줘-->
 	</div>
 	<div>
-		<input type="password" id="pw2" name="me_pw2" placeholder="비밀번호 확인" ><br>
+		<input type="password" id="pw2" name="me_pw2" placeholder="비밀번호 확인" autofocus="autofocus" ><br>
+		<!-- 비밀번호랑 같아야함 틀리면 실시간으로 빨간글씨로 같지 않다고 해주고 맞으면 비밀번호가 같습니다라고 초록색 글씨로 출력 -->
 	</div>
 	<div>
-		<input type="text" id="name" name="me_name" placeholder="이름" required><br>
+		<input type="text" id="name" name="me_name" placeholder="이름" required autofocus="autofocus"><br>
+		<!--이름은 2~5글자의 한글로 이루어져야 함 영어나 숫자 특수문자가 들어가면 실시간으로 경고 -->
+	</div>
+	<div>
+		<!-- 이메일 형식이어야함 중복체크 후 사용가능하면 초록색으로 사용가능한 이메일 -->
+		<input type="text" id="email" name="me_email" placeholder="이메일" autofocus="autofocus">
+		<button type="button" class="email-btn">중복확인</button><br>
+		<span id="email-text"></span><br>
 	</div>
 	<div>
 		<label for="me_gender">성별:</label>
-	    <input type="radio" id="male" name="me_gender" value="남자" >남자
-	    <input type="radio" id="female" name="me_gender" value="여자" >여자<br>
+	    <input type="radio" id="male" name="me_gender" value="남자" required>남자
+	    <input type="radio" id="female" name="me_gender" value="여자" required>여자<br>
    	</div>
     <div>
-		<input type="text" id="job" name="me_job" placeholder="직업" ><br>
+		<input type="text" id="job" name="me_job" placeholder="직업" autofocus="autofocus"><br>
+		<!-- // 직업은 2~10글자의 한글로 이루어져야 함 -->
 	</div>
 	<div>
-		<input type="text" id="phone" name="me_phone" placeholder="폰번호" ><br>
+		<input type="text" id="phone" name="me_phone" placeholder="폰번호" autofocus="autofocus"><br>
 	</div>
-	<div>
-		<input type="text" id="email" name="me_email" placeholder="이메일" >
-		<button type="button" class="email-btn">중복확인</button><br>
-		<span id="email-text"></span><br>
-		
-	</div>
+
 	<div>
 		<button type="submit" id="land1" onclick="meIdForm()" class="check">회원가입</button>
 	</div>
@@ -85,112 +91,108 @@ function meIdForm() {
 </script>
 <!-- 회원가입 정규 표현식 -->
 <script type="text/javascript">
-$(document).ready(function() {
-    $("form").validate({
-        rules: {
-            me_id: {
-                required: true,
-                regex: /^\w{8,15}$/ // 아이디는 8~15자의 영문자와 숫자로 이루어져야 함
-            },
-            me_pw: {
-                required: true,
-                regex: /^[a-zA-Z0-9!@#$]{8,18}$/ // 비밀번호는 8~18자의 영문자, 숫자, 특수문자(!@#$)로 이루어져야 함
-            },
-            me_pw2: {
-                equalTo: "#me_pw" // 비밀번호 확인은 이전 비밀번호와 일치해야 함
-            },
-            me_name: {
-                required: true,
-                regex: /^[ㄱ-힣]{2,5}$/ // 이름은 2~5글자의 한글로 이루어져야 함
-            },
-   
-            me_job: {
-                required: true,
-                regex: /^[ㄱ-힣]{2,10}$/ // 직업은 2~10글자의 한글로 이루어져야 함
-            },
-            me_phone: {
-                required: true,
-                regex: /^[0-9]{11}$/ // 전화번호는 11자리의 숫자로 이루어져야 함
-            },
-            me_email: {
-                required: true,
-                email: true // 이메일 형식이어야 함
-            },
-            me_address: {
-                required: true,
-                regex: /^[ㄱ-힣0-9]{1,100}$/ // 주소는 한글과 숫자로 이루어진 최대 100자여야 함
-            }
+$("form").validate({
+    rules: {
+        me_id: {
+            required: true,
+            regex: /^\w{8,15}$/ 
         },
-        messages: {
-            me_id: {
-                required: "아이디 중복확인을 해주세요.",
-                regex: "아이디는 최소 8자에서 15자로 입력해주세요."
-            },
-            me_pw: {
-                required: "필수 항목입니다.",
-                regex: "비밀번호는 숫자, 영문, !@#$ 8~18자 입니다."
-            },
-            me_pw2: {
-                equalTo: "비밀번호와 일치하지 않습니다."
-            },
-            me_name: {
-                required: "필수 항목입니다.",
-                regex: "이름은 최대 5자 입니다."
-            },
-       
-            me_job: {
-                required: "필수 항목입니다.",
-                regex: "한글로 입력하세요. 직업은 최대 10자까지 가능합니다."
-            },
-            me_phone: {
-                required: "필수 항목입니다.",
-                regex: "전화번호는 '-'제외한 번호를 입력하세요."
-            },
-            me_email: {
-                required: "필수 항목입니다.",
-                email: "올바른 이메일 주소를 입력하세요."
-            },
-            me_address: {
-                required: "필수 항목입니다.",
-                regex: "주소를 제대로 입력하세요."
-            }
+        me_pw: {
+            required: true,
+            regex: /^[a-zA-Z0-9!@#$]{8,18}$/ 
         },
-        errorPlacement: function(error, element) {
-            element.addClass("shake-error");
-            error.addClass("text-danger");
-            error.appendTo(element.parent());
+        me_pw2: {
+            equalTo:pw
+        me_name: {
+            required: true,
+            regex: /^[ㄱ-힣]{2,5}$/ 
         },
-        success: function(label) {
-            var element = $(label).closest('div').find('#pw, #id, #email, #phone');
-            element.removeClass("shake-error");
-            element.siblings(".text-danger").remove();
-            element.siblings(".text-success").remove();
-            if (element.val() && !element.next(".text-success").length) {
-                element.after('<span class="text-success">사용 가능합니다.</span>');
-            }
+
+        me_job: {
+            required: true,
+            regex: /^[ㄱ-힣]{2,10}$/ 
+        },
+        me_phone: {
+            required: true,
+            regex: /^[0-9]{11}$/ // 전화번호는 11자리의 숫자로 이루어져야 함
+        },
+        me_email: {
+            required: true,
+            email: true // 이메일 형식이어야 함
+        },
+        me_address: {
+            required: true,
+            regex: /^[ㄱ-힣0-9]{1,100}$/ // 주소는 한글과 숫자로 이루어진 최대 100자여야 함
         }
-    });
+    },
+    messages: {
+        me_id: {
+            required: "아이디 중복확인을 해주세요.",
+            regex: "아이디는 최소 8자에서 15자로 입력해주세요."
+        },
+        me_pw: {
+            required: "필수 항목입니다.",
+            regex: "비밀번호는 숫자, 영문, !@#$ 8~18자 입니다."
+        },
+        me_pw2: {
+            equalTo: "비밀번호와 일치하지 않습니다."
+        },
+        me_name: {
+            required: "필수 항목입니다.",
+            regex: "이름은 최대 5자 입니다."
+        },
+
+        me_job: {
+            required: "필수 항목입니다.",
+            regex: "한글로 입력하세요. 직업은 최대 10자까지 가능합니다."
+        },
+        me_phone: {
+            required: "필수 항목입니다.",
+            regex: "전화번호는 '-'제외한 번호를 입력하세요."
+        },
+        me_email: {
+            required: "필수 항목입니다.",
+            email: "올바른 이메일 주소를 입력하세요."
+        },
+        me_address: {
+            required: "필수 항목입니다.",
+            regex: "주소를 제대로 입력하세요."
+        }
+    },
+    errorPlacement: function(error, element) {
+        element.addClass("shake-error");
+        error.addClass("text-danger");
+        error.appendTo(element.parent());
+    },
+    success: function(label) {
+        var element = $(label).closest('div').find('#pw, #id, #email, #phone');
+        element.removeClass("shake-error");
+        element.siblings(".text-danger").remove();
+        element.siblings(".text-success").remove();
+        if (element.val() && !element.next(".text-success").length) {
+            element.after('<span class="text-success">사용 가능합니다.</span>');
+        }
+    }
 });
 
 $.validator.addMethod(
     "regex",
     function(value, element, regexp) {
         var re = RegExp(regexp);
-        return this.optional(element) || re.test(value);
+        var valid = re.test(value);
+        if (!valid) {
+            return false;
+        } else {
+            return true;
+        }
     },
-    "정규표현식에 맞지 않습니다."
+    "입력이 잘못되었습니다."
 );
 
+
 </script>
-<!-- 아이디 중복체크 ajax -->
-<script type="text/javascript">
-$(document).ready(function() {
-   
-});
-</script> 
 
 <script type="text/javascript">
-
 $("form").submit(function(){
 	event.preventDefault(); // 기본 form 제출 이벤트를 막습니다.
     
@@ -287,7 +289,7 @@ $("[name=sgg_num]").click(function(){
 
 </script>
  <!-- 회원가입 불필요한 문자 제거하기 -->
-<script>
+<!-- <script>
     $(document).ready(function() {
     	 $("#id").on("input", function() {
              var inputValue = $(this).val();
@@ -316,7 +318,7 @@ $("[name=sgg_num]").click(function(){
                 $(this).val(inputValue.replace(/[^ㄱ-ㅎ가-힣]/g, '')); 
             }
         });
-    });
+    }); -->
 </script>
  <!-- 아이디,이메일 중복체크 ajax 정규표현식 적용 시키기-->
 <script type="text/javascript">
@@ -342,7 +344,6 @@ $(document).ready(function() {
             type: "get",
             data: { me_id: id }, 
             success: function(response) {
-               
                 if (response.check == null) {
                     alert("사용 가능한 아이디입니다.");
                     idCheck = true;
@@ -393,6 +394,8 @@ $(document).ready(function() {
         }); // ajax end;
     });
     $(".check").click(function(){
+    	
+   		var isValid = $("form").valid();
        if(!idCheck){
           alert("아이디 중복 확인을 해주세요.");
           $("#id").focus();
@@ -403,6 +406,7 @@ $(document).ready(function() {
           $("#email").focus();
           return false;
        }
+       return isValid; // 유효성 검사 결과 반환
     });
 });
 </script>
