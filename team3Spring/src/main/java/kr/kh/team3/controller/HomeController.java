@@ -193,7 +193,7 @@ public class HomeController {
 		//입력한 아이디가 존재하지 않는 아이디일 때
 		if(ho_exist == null) {
 			model.addAttribute("url", "/main/login");
-			model.addAttribute("msg", "로그인에 실패했습니다.");
+			model.addAttribute("msg", "존재하지 않는 아이디입니다.");
 			return "message";
 		}
 		//로그인 실패 횟수가 5회일 때
