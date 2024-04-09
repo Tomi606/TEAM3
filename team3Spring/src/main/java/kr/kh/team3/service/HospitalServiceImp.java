@@ -3,6 +3,7 @@ package kr.kh.team3.service;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.kh.team3.dao.HospitalDAO;
@@ -21,20 +22,27 @@ public class HospitalServiceImp implements HospitalService {
 	@Autowired
 	private HospitalDAO hospitalDao;
 	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
+	private boolean checkStr(String str) {
+		return str != null && str.length() != 0;
+	}
+	
 	//회원가입
 	public boolean signup(HospitalVO hospital) {
-		if(hospital == null || hospital.getHo_id().length() == 0) {
+		if(hospital == null 
+		|| hospital.getHo_id().length() == 0
+		|| !checkStr(hospital.getHo_id()) 
+		|| !checkStr(hospital.getHo_pw())) {
 			return false;
 		}
 		
-		//아이디 중복 체크
-//		String dbHospitalId = hospitalDao.selectHospitalId(hospital);
-//		if(hospital.getHo_id().equals(dbHospitalId)) {
-//			System.out.println("중복된 병원 아이디");
-//			return false;
-//		}
+		//비번 암호화
+		String endPw = passwordEncoder.encode(hospital.getHo_pw());
+		hospital.setHo_pw(endPw);
 		
-		return hospitalDao.insertHospital(hospital);
+			return hospitalDao.insertHospital(hospital);
 	}
 
 	//사이트 회원관리 아이디
