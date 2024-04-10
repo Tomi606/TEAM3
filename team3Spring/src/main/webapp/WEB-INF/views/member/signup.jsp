@@ -73,9 +73,13 @@ img{
 	border-radius:0;
 	height: 43px;
 }
+label {
+	margin-left: 30px;
+}
 </style>
 </head>
 <body>
+<!-- 중복확인 버튼 때문에 불 필요한 여백 발생하는중 고쳐야 함 -->
 <div class="body-tag">
 	<form id="myForm" action="<c:url value="/member/signup"/>" method="post">
 	<div class="input-box">	
@@ -94,7 +98,7 @@ img{
 	    	<label for="me_pw" class="text-danger"></label>
 		</div>
 		<div>
-				<img alt="아이디이미지" src="<c:url value="/resources/img/passwordcheck.svg"/>">
+			<img alt="아이디이미지" src="<c:url value="/resources/img/passwordcheck.svg"/>">
 	   	 	<input   type="password" id="pw2" name="me_pw2" placeholder="비밀번호 확인" autofocus="autofocus" class="input-tag">
 	   	 	<label for="me_pw2" class="text-danger"></label>
 		</div>
@@ -110,7 +114,7 @@ img{
 	    	<label for="me_email" class="text-danger"></label>
 		</div>
 		<div>
-	    	<label for="me_gender" style="margin-right: 15px">성별</label>
+	    	<span for="me_gender" style="margin-right: 15px">성별</span>
 	    	<input type="radio" id="male" name="me_gender" value="남자" >남자
 	    	<input type="radio" id="female" name="me_gender" value="여자" style="margin-left:13px">여자<br>
 		</div>
@@ -125,6 +129,7 @@ img{
 	    	<label for="me_phone" class="text-danger" id="idcheck-phone"></label>
 		</div>
 		<div class="subject">
+		<div class="hr" style="margin-top:30px;margin-bottom:40px;border: 1px solid #d2d2d2;width: 480px;"></div>
 			<select id="subject" name="me_hs_num" style="margin-bottom: 15px;width: 400px" >
 				<option value="none">관심 병원 과목을 선택하세요</option>
 				<option value="none">없음</option>
