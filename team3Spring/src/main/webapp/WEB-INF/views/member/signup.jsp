@@ -76,6 +76,33 @@ img{
 label {
 	margin-left: 30px;
 }
+.gender-buttons {
+     display: inline-block;
+     margin-right: 15px;
+ }
+ 
+ .gender-buttons label {
+ 	width:100px;text-align:center;
+ 	border:1px solid  #007bff;
+     display: inline-block;
+     padding: 8px 16px;
+     border-radius: 5px;
+     cursor: pointer;
+ }
+ 
+ #male:checked + label {
+     background-color: #007bff;
+     color: #fff;
+ }
+ 
+ #female:checked + label {
+     background-color: #ff69b4;
+     color: #fff;
+ }
+ 
+ .gender-buttons input[type="radio"] {
+     display: none;
+ }
 </style>
 </head>
 <body>
@@ -86,8 +113,8 @@ label {
 		<div>
 			<img  alt="아이디이미지" src="<c:url value="/resources/img/user.svg"/>">
 		    <input  type="text" id="id" name="me_id" placeholder="아이디" autofocus="autofocus" class="input-tag">
-		    <a type="button" class="check-duplicate btn duplicate">중복 확인</a>
-		    <label for="id" class="text-danger" id="laId"></label>
+		    <label class="text-danger textId" id="laId"></label>
+		  <!--   <a type="button" class="check-duplicate btn duplicate">중복 확인</a> -->
 		</div>
 		<div>
 	    	<input type="hidden" id="id2" name="site_id">
@@ -109,14 +136,19 @@ label {
 		</div>
 		<div>
 			<img alt="아이디이미지" src="<c:url value="/resources/img/mail.svg"/>">
-	    	<input   type="text" id="email" name="me_email" placeholder="이메일" autofocus="autofocus" class="input-tag">
-	    	<a type="button" class="email-btn btn duplicate">중복확인</a>
-	    	<label for="me_email" class="text-danger"></label>
+	    	<input  type="text" id="email" name="me_email" placeholder="이메일" autofocus="autofocus" class="input-tag">
+	    	<!-- <a type="button" class="email-btn btn duplicate">중복확인</a> -->
+	    	<label for="me_email" class="text-danger etext"></label>
 		</div>
-		<div>
-	    	<span for="me_gender" style="margin-right: 15px">성별</span>
-	    	<input type="radio" id="male" name="me_gender" value="남자" >남자
-	    	<input type="radio" id="female" name="me_gender" value="여자" style="margin-left:13px">여자<br>
+		<div class="gender-buttons">
+			<img alt="아이디이미지" src="<c:url value="/resources/img/gender.svg"/>">
+	   		 <input type="radio" id="male" name="me_gender" value="남자">
+	   		 <label for="male">남자</label>
+		</div>
+
+		<div class="gender-buttons">
+		    <input type="radio" id="female" name="me_gender" value="여자" >
+		    <label for="female"style="border:1px solid #ff69b4;">여자</label>
 		</div>
 		<div style="margin-top: 15px;">
 			<img alt="아이디이미지" src="<c:url value="/resources/img/job.svg"/>">
@@ -126,7 +158,7 @@ label {
 		<div>
 			<img alt="아이디이미지" src="<c:url value="/resources/img/phone.svg"/>">
 	    	<input   type="text" id="phone" name="me_phone" placeholder="핸드폰 번호" autofocus="autofocus" class="input-tag">
-	    	<label for="me_phone" class="text-danger" id="idcheck-phone"></label>
+	    	<label for="me_phone" class="text-danger textPhone" id="idcheck-phone"></label>
 		</div>
 		<div class="subject">
 		<div class="hr" style="margin-top:30px;margin-bottom:40px;border: 1px solid #d2d2d2;width: 480px;"></div>
@@ -154,7 +186,7 @@ label {
 		</div>
 		 
 		<div>
-	    	<a type="submit" id="land1" onclick="meIdForm()" class="check btn signup-btn">회원가입</a>
+	    	<button type="submit" id="land1" onclick="meIdForm()" class="check btn signup-btn">회원가입</button>
 		</div>
 	</div>	
 	</form>
@@ -216,8 +248,8 @@ $("form").validate({
     },
     messages: {
         me_id: {
-            required: "아이디를 입력하세요.",
-            pattern: "영문 숫자 2가지 이상 조합 (8~15자)"
+            required: "",
+            pattern: ""
         },
         me_pw: {
             required: "비밀번호를 입력하세요.",
@@ -235,12 +267,12 @@ $("form").validate({
             pattern: "직업을 정확히 입력하세요."
         },
         me_phone: {
-            required: "휴대폰 번호를 정확하게 입력하세요.",
-            pattern: "휴대폰 번호를 정확하게 입력하세요."
+            required: "",
+            pattern: ""
         },
         me_email: {
-            required: "이메일을 입력하세요",
-            email: "이메일을 올바르게 입력하세요."
+            required: "",
+            email: ""
         },
         me_address: {
             required: "필수 항목입니다.",
@@ -366,71 +398,92 @@ $("[name=sgg_num]").click(function(){
 <script type="text/javascript">
 $(document).ready(function() {
    var idCheck = false;
-    $(".check-duplicate").click(function() {
+    $("#id").keyup(function() {
         var id = $("#id").val();
-        if(id.length == 0){
-          alert("아이디를 입력해주세요.");
+        if(id.length == 0||id==""){
+          $(".textId").text("아이디를 입력해주세요.");
           return;
        }
+        if (!/^\w{8,15}$/.test(id)) {
+            $(".textId").text("영문 숫자 2가지 이상 조합 (8~15자)").css("color", "red");
+            return;
+        }
         if (/[\u3131-\uD79D]/.test(id) || /[!@#$%^&*(),.?":{}|<>]/.test(id)) {
-            alert("한글이나 특수문자는 아이디로 사용할 수 없습니다.");
-            return; 
+          $(".textId").text("한글이나 특수문자는 아이디로 사용할 수 없습니다.");
+          return;
         }
-        if(!/^\w{8,15}$/.test(id)){
-           alert("아이디는 최소 8자에서 15자로 입력 해주세요.")
-           return;
-        }
-
         $.ajax({
             url: '<c:url value="/checkId"/>',
             type: "get",
             data: { me_id: id }, 
             success: function(response) {
                 if (response.check == null) {
-                    alert("사용 가능한 아이디입니다.");
-                    idCheck = true;
-                    return true;
-                } else {
-                    alert("이미 사용 중인 아이디입니다.");
-                    idCheck = false;
-                    return false;
-                }
+                	 if (id.length >= 8) {
+                	        $(".textId").text("사용 가능한 아이디입니다.").css("color", "blue");
+                	        idCheck = true;
+                	        setTimeout(function() {
+                	            $(".textId").text("");
+                	        }, 2000);
+                	        return;
+                	    }
+                	
+                	}else if(response.check != null&&id.length >= 8){
+                		$(".textId").text("이미 사용중인 아이디입니다.");
+                		 idCheck = false;
+                } 
             },
             error: function(xhr, status, error) {
                 console.error("에러에러", error);
             }
         });
     });
- /* 	var phoneCheck = false;
-    $("#phone").on("keyup",function() {
+ 	var phoneCheck = false;
+    $("#phone").keyup(function() {
         var phone = $("#phone").val();
-        
+        if(phone.lenght == 0 || phone == "" ||phone.length != 11){
+        	$("#idcheck-phone").text("휴대폰 번호를 입력하세요(11자)");
+        	return;
+        }
         
         $.ajax({
             url: '<c:url value="/checkPhone"/>',
             type: "get",
             data: { me_phone: phone }, 
             success: function(response) {
-                if (response.checkPhone == null) {
-                    $("#idcheck-phone").text("사용가능한 전화번호입니다.").css("color","green");
+                if (response.checkNum == null) {
+                	if(phone.length == 11){
+                    $("#idcheck-phone").text("사용가능한 휴대폰 번호입니다.");
                     phoneCheck = true;
-                    return true;
-                } else {
-                	 $("#idcheck-phone").text("이미 사용중인 전화번호입니다.").css("color","red");
+                    setTimeout(function() {
+        	            $("#idcheck-phone").text("");
+        	        }, 2000);
+                    return;
+                	}
+                } else if(response.checkNum != null||phone.length == 11){
+                	 $("#idcheck-phone").text("이미 사용중인 휴대폰 번호입니다.");
                	 	phoneCheck = false;
-                    return false;
+                    return;
                 }
             },
             error: function(xhr, status, error) {
-                console.error("에러에러", error);
+            	 $("#idcheck-phone").text("휴대폰 번호를 제대로 입력해주세요.");
             }
         });
-    }); */
+    });  
    var emailCheck = false;
-    $(".email-btn").click( function() {
+    $("#email").on("keyup",function() {
         var email = $("#email").val();
         if (email.length == 0 || email == "") {
-           alert("이메일을 입력 하세요.");
+           $(".etext").text("이메일을 입력하세요.");
+            return;
+        }
+        if (email.length < 12) {
+           $(".etext").text("이메일을 올바르게 입력하세요.");
+            return;
+        }
+        if (!email.endsWith('.com')||
+        		email.indexOf('.com') != email.lastIndexOf('.com')) {
+            $(".etext").text("올바른 이메일 주소를 입력하세요 (예: example@example.com).");
             return;
         }
         $.ajax({
@@ -439,19 +492,21 @@ $(document).ready(function() {
             data: { me_email: email }, 
             success: function(response) {
                 if (response.checkEmail == null) {
-                   alert("사용 가능한 이메일입니다.");
-                   emailCheck = true;
-                    return;
-                } else {
-                   alert("이미 사용중인 이메일입니다.");
+                	if(email.length >= 12){
+                  	 $(".etext").text("사용 가능한 이메일입니다.");
+                  	 emailCheck = true;
+                  	setTimeout(function() {
+        	            $(".etext").text("");
+        	        }, 2000);
+        	        return;
+        	    }
+                } else if(response.checkEmail != null){
+               		$(".etext").text("이미 사용중인 이메일입니다.");
                    emailCheck = false;
-                    return;
+                   return;
                 }
             },
             error: function(xhr, status, error) {
-               alert("이미 사용중인 이메일입니다.");
-               emailCheck = false;
-                return;
             }
         }); // ajax end;
     });
@@ -472,7 +527,7 @@ $(document).ready(function() {
     	  $("#phone").focus();
     	  return false;
 	}
-       return isValid; // 유효성 검사 결과 반환
+       return isValid; 
     });
 });
 </script>

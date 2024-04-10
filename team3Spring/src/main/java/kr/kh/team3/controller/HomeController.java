@@ -122,10 +122,7 @@ public class HomeController {
 			@RequestParam String str) {
 		log.info("사업자 회원가입 post");
 		
-	/*	boolean memberRes = memberService.memberSignup(member, str);
-		boolean siteRes = memberService.siteSignup(site);
-		return !memberRes||!siteRes;*/
-		
+	 
 		
 		boolean hospitalRes = hospitalService.signup(hospital);
 		boolean siteRes = hospitalService.signup(site);
@@ -275,7 +272,7 @@ public class HomeController {
 	public HashMap<String, Object> checkPhone(MemberVO member) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		MemberVO checkPhone = memberService.getMemberPhone(member);
-		map.put("checkPhone", checkPhone);
+		map.put("checkNum", checkPhone);
 		return map;
 	}
 	
