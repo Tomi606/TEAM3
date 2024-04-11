@@ -39,7 +39,7 @@ public class HomeController {
 	@GetMapping("/")
 	public String home() {
 		
-		return "/main/home";
+		return "/home";
 	}
 	
 	//회원가입 메인페이지
