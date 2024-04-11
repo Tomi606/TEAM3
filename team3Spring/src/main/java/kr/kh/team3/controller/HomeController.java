@@ -67,8 +67,6 @@ public class HomeController {
 
 		boolean memberRes = memberService.memberSignup(member, str);
 		boolean siteRes = memberService.siteSignup(site);
-		MemberVO check = memberService.getMemberId(member);
-		
 		return !memberRes||!siteRes;
 	}
 	
@@ -140,6 +138,7 @@ public class HomeController {
 		log.info("사업자 회원가입 post");
 		
 		boolean hospitalRes = hospitalService.signup(hospital, str);
+
 		boolean siteRes = hospitalService.signup(site);
 
 		return !hospitalRes || !siteRes;
@@ -203,7 +202,7 @@ public class HomeController {
 		//입력한 아이디가 존재하지 않는 아이디일 때
 		if(ho_exist == null) {
 			model.addAttribute("url", "/main/login");
-			model.addAttribute("msg", "로그인에 실패했습니다.");
+			model.addAttribute("msg", "존재하지 않는 아이디입니다.");
 			return "message";
 		}
 		//로그인 실패 횟수가 5회일 때
@@ -285,7 +284,7 @@ public class HomeController {
 	public HashMap<String, Object> checkPhone(MemberVO member) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		MemberVO checkPhone = memberService.getMemberPhone(member);
-		map.put("checkPhone", checkPhone);
+		map.put("checkNum", checkPhone);
 		return map;
 	}
 	
