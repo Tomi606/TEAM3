@@ -38,7 +38,7 @@ public interface HospitalService {
 
 	HospitalVO ajaxHospitalEmail(HospitalVO hospital);
 
-	boolean ctfEmail(String me_email);
+	String ctfEmail(String me_email);
 
 	HospitalVO ajaxHospitalPhone(HospitalVO hospital,MemberVO member);
 

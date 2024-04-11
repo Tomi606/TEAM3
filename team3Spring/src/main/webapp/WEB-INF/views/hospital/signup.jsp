@@ -64,9 +64,9 @@ input {
 			</div>
 			<div>
 				<label class="title" for="email">이메일</label>
-				<input type="email" id="email" name="ho_email" required placeholder="이메일을 입력하세요."/>
-				<!-- <button type="button" class="email-btn">중복확인</button> -->
-				<label id="email-error" class="error text-danger etext" for="email"></label>
+				<input type="email" id="email" name="ho_email" readonly value="${email}"/>
+				<button type="button" class="email-btn">중복확인</button>
+				<label id="email-error" class="error text-danger" for="email"></label>
 			</div>
 			<div>
 				<label class="title" for="name">상호명</label>
