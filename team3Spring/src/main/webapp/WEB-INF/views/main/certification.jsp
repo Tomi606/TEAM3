@@ -11,7 +11,7 @@
 <h1>사업자 회원가입 이메일 인증</h1>
 <div class="form-group">
 	<label for="email">이메일 입력</label>
-	<input type="text" class="form-control" id="email" name="me_email" placeholder="이메일을 입력하세요." >
+	<input type="text" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요." >
 </div>
 <button class="btn btn-outline-success col-12 btn-email">이메일 인증</button>
 <div class="container-spinner">
@@ -32,7 +32,7 @@ $(".btn-email").click( function() {
     $.ajax({
         url: '<c:url value="/hospital/checkEmail"/>',
         type: "get",
-        data: { me_email: email }, 
+        data: { email: email }, 
         success: function(response) {
             if (response.hoEmailCheck == null) {
                alert("사용 가능한 이메일입니다.");
@@ -79,7 +79,7 @@ $('.btn-email').click(function() {
 		error : function(jqXHR, textStatus, errorThrown){
 
 		}
-	});
+	}); //ajax end
 });
 </script>
 </body>

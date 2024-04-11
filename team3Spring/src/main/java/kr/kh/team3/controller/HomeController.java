@@ -97,23 +97,24 @@ public class HomeController {
 		return emdList;
 	}
 	
-	//사업자 회원가입 인증(get)
+	//회원가입 이메일 인증 페이지(get)
 	@GetMapping("/main/certification")
 	public String certification() {
 		
 		return"/main/certification";
 	}
 	
+	//이메일 인증
 	@ResponseBody
 	@PostMapping("/certification/email")
-	public Map<String, Object> findPwPost(@RequestParam("email") String me_email) {
+	public Map<String, Object> ctfEmailPost(@RequestParam("email") String email) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		boolean ctfEmail = hospitalService.ctfEmail(me_email);
-		log.info(me_email);
+		boolean ctfEmail = hospitalService.ctfEmail(email);
+		log.info(email);
 		map.put("ctfEmail", ctfEmail);
 		return map;
 	}
-	
+
 	//사업자 회원가입 페이지(get)
 	@GetMapping("/hospital/signup")
 	public String hospitalSignup(HospitalVO hospital, Model model, String ho_id, SiDoVO siDo) {
