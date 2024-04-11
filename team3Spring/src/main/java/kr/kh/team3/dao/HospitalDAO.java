@@ -37,5 +37,7 @@ public interface HospitalDAO {
 
 	HospitalVO selectHospitalEmail(@Param("ho_email") String ho_email);
 
+	HospitalVO selectHospitalPhone(@Param("ho_phone") String ho_phone);
+
 
 }
