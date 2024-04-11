@@ -24,9 +24,18 @@
 	<a class="btn update-btn">게시판 수정</a>
 	<a class="btn delete-btn">게시판 삭제</a>
 	<div class="input-group mb-3">
-		<select name="post" class="form-control">
-			<option value="${list.bo_num}">${list.bo_title }</option>
-		</select>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>제목</th>
+					<th>작성자</th>
+				</tr>
+			</thead>
+			<tbody class="posttbody">
+				
+			</tbody>
+		</table>
 	</div>
 </div>
 
@@ -54,7 +63,19 @@ $('[name=type]').click(function(){
 		type : 'get',
 		data : {"bo_num" : bo_num},
 		success: function(data) {
-			alert(123);
+			let str = ``;
+			for(let tmp of data){
+				console.log(tmp)
+				str+=
+					`
+					<tr>
+						<th>\${tmp.po_num}</th>
+						<th>\${tmp.po_title}</th>
+						<th>\${tmp.sitemanagement.site_id}</th>
+					</tr>
+					`
+			}
+			$('.posttbody').html(str);
 		}
 	})
 })
