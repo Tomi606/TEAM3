@@ -25,6 +25,7 @@ public class MemberVO {
 	private String me_cookie;
 	private String me_cookie_limit;
 	private Date me_stop;
+	private int me_report_count;
 	 
 
 }

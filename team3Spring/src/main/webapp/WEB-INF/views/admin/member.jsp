@@ -66,7 +66,7 @@ function getWaitList(cri){
 function displayWaitList(list){
 	let str = '';
 	if(list == null || list.length == 0){
-		str = '<h3>대기중인 병원이 없습니다.</h3>';
+		str = '<h3>가입한 회원이 없습니다.</h3>';
 		$('.box-hospital-list').html(str);
 		return;
 	}
@@ -82,6 +82,7 @@ function displayWaitList(list){
 				<td>\${item.me_address}</td>
 				<td>\${item.me_job}</td>
 				<td>\${item.me_stop}</td>
+				<th>\${item.me_report_count}</th>
 				<td><button>정지</button></td>
 				<td><button class="btn-member-del" data-id="\${item.me_id}">탈퇴</button></td>
 			</tr>
