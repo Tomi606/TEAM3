@@ -155,17 +155,22 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public HospitalVO ajaxHospitalId(HospitalVO hospital, MemberVO member) {
-		if (hospital == null || hospital.getHo_id() == null || hospital.getHo_id().isEmpty()) {
+	public HospitalVO ajaxHospitalId(HospitalVO hospital) {
+		if(hospital == null || hospital.getHo_id() == null || hospital.getHo_id().isEmpty()) {
 			return null;
 		}
+		
+//		MemberVO member
+//		if(member == null || member.getMe_id() == null || member.getMe_id().isEmpty()) {
+//			return null;
+//		}
 
 		// 입력된 아이디로 회원 조회
 		HospitalVO user = hospitalDao.selectHospital(hospital.getHo_id());
-		MemberVO memberId = memberDao.selectMember(member.getMe_phone());
+//		MemberVO memberId = memberDao.selectMember(member.getMe_id());
 		
-		// user가 null이 아니면 중복
-		if (user != null || user.equals(memberId)) {
+		// user가 null이 아니면 중복 || user.equals(memberId)
+		if (user != null) {
 			return user;
 		}
 
@@ -208,7 +213,7 @@ public class HospitalServiceImp implements HospitalService {
 	
 	public boolean mailSend(String email, String title, String content) {
 
-	    String setfrom = "jom470702@gmail.com";
+	    String setfrom = "didtjswls98@gmail.com";
 	   try{
 	        MimeMessage message = mailSender.createMimeMessage();
 	        MimeMessageHelper messageHelper

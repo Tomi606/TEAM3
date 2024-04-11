@@ -10,6 +10,7 @@ import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
+import kr.kh.team3.pagination.Criteria;
 
 public interface MemberDAO {
 
@@ -35,5 +36,12 @@ public interface MemberDAO {
 	MemberVO selectMemberEmail(@Param("me_email")String me_email);
 	//ajax용 폰번호 
 	MemberVO selectMemberPhone(@Param("me_phone")String me_phone);
+	
+	//관리자 - 회원 관리
+	ArrayList<MemberVO> selectMemberList(@Param("cri") Criteria cri);
+
+	int selectMemberTotalCount(@Param("cri") Criteria cri);
+
+	boolean deleteMember(@Param("me_id") MemberVO me_id);
 
 }

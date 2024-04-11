@@ -24,11 +24,6 @@
 	<br><br><br><br>
 	
 	<a href='<c:url value="/admin/member"/>'>회원 관리</a>
-	<h2>선진</h2>
-	<h2>회원 관리</h2>
-	<p>회원조회</p>
-	<p>회원 정지 관리</p>
-	<p>회원 탈퇴 관리</p>
 	<br><br><br><br>
 	
 	<a href='<c:url value="/community"/>'>커뮤니티 관리</a>

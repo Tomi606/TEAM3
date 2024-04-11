@@ -35,7 +35,7 @@ public interface HospitalService {
 
 	void setLoginFail(String ho_id);
 
-	HospitalVO ajaxHospitalId(HospitalVO hospital, MemberVO member);
+	HospitalVO ajaxHospitalId(HospitalVO hospital);
 
 	HospitalVO ajaxHospitalEmail(HospitalVO hospital);
 

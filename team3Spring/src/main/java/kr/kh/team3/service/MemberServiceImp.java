@@ -16,6 +16,7 @@ import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
+import kr.kh.team3.pagination.Criteria;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -169,5 +170,32 @@ public class MemberServiceImp implements MemberService {
 		}
 
 		return null;
+	}
+
+
+	@Override
+	public ArrayList<MemberVO> getMemberList(Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		return memberDao.selectMemberList(cri);
+	}
+
+
+	@Override
+	public int getMemberTotalCount(Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		return memberDao.selectMemberTotalCount(cri);
+	}
+
+
+	@Override
+	public boolean deleteMember(MemberVO me_id) {
+		if(me_id == null) {
+			return false;
+		}
+		return memberDao.deleteMember(me_id);
 	}
 }
