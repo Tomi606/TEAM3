@@ -4,6 +4,11 @@
 <html>
 <head>
 <title>병원 중개 사이트</title>
+<style type="text/css">
+.btn-box{
+	margin: 0 auto;
+}
+</style>
 </head>
 <body>
 	<h1>관리자페이지입니다</h1>
