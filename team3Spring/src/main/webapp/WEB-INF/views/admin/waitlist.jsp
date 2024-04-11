@@ -68,7 +68,31 @@
 </div>
 
 <script type="text/javascript">
+let cri = {
+	page : 1
+}
+getWaitList(cri);
 
+function getWaitList(cri){
+	$.ajax({
+		async : true,
+		url : '<c:url value="/admin/waitlist"/>', 
+		type : 'post', 
+		data : JSON.stringify(cri),
+		//서버로 보낼 데이터 타입
+		contentType : "application/json; charset=utf-8",
+		//서버에서 보낸 데이터의 타입
+		dataType : "json", 
+		success : function (data){
+			//displayWaitList(data.list);
+			//displayWaitPagination(data.pm);
+			/* $('.comment-total').text(data.pm.totalCount); */
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+}
 </script>
 </body>
 </html>
