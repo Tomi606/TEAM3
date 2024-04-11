@@ -10,11 +10,14 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.team3.dao.HospitalDAO;
+import kr.kh.team3.dao.MemberDAO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -28,6 +31,8 @@ public class HospitalServiceImp implements HospitalService {
 	@Autowired
 	private JavaMailSender mailSender;
 
+	@Autowired
+	MemberDAO memberDao;
 	@Autowired
 	private HospitalDAO hospitalDao;
 	
@@ -149,16 +154,17 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public HospitalVO ajaxHospitalId(HospitalVO hospital) {
+	public HospitalVO ajaxHospitalId(HospitalVO hospital, MemberVO member) {
 		if (hospital == null || hospital.getHo_id() == null || hospital.getHo_id().isEmpty()) {
 			return null;
 		}
 
 		// 입력된 아이디로 회원 조회
 		HospitalVO user = hospitalDao.selectHospital(hospital.getHo_id());
-
+		MemberVO memberId = memberDao.selectMember(member.getMe_phone());
+		
 		// user가 null이 아니면 중복
-		if (user != null) {
+		if (user != null || user.equals(memberId)) {
 			return user;
 		}
 
@@ -183,19 +189,23 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public boolean ctfEmail(String me_email) {
-
+	public String ctfEmail(String email) {
 		//임시 새 비밀번호를 생성
 		String ctfEmail = randomString(10);
 		
 		//이메일을 전송
 		String title = "이메일 인증 입니다.";
 		String content = "인증 번호는 <b>"+ ctfEmail +"</b> 입니다.";
-		boolean res = mailSend(me_email, title, content);
-		return res;
+		boolean res = mailSend(email, title, content);
+		if(res) {
+			return ctfEmail;			
+		}
+		else {
+			return null;
+		}
 	}
 	
-	public boolean mailSend(String me_email, String title, String content) {
+	public boolean mailSend(String email, String title, String content) {
 
 	    String setfrom = "jom470702@gmail.com";
 	   try{
@@ -204,7 +214,7 @@ public class HospitalServiceImp implements HospitalService {
 	            = new MimeMessageHelper(message, true, "UTF-8");
 
 	        messageHelper.setFrom(setfrom);// 보내는사람 생략하거나 하면 정상작동을 안함
-	        messageHelper.setTo(me_email);// 받는사람 이메일
+	        messageHelper.setTo(email);// 받는사람 이메일
 	        messageHelper.setSubject(title);// 메일제목은 생략이 가능하다
 	        messageHelper.setText(content, true);// 메일 내용, (,true) : 내용에 html 코드가 들어가면 문자열이 아니라 html 코드로 들어간다
 
@@ -214,6 +224,25 @@ public class HospitalServiceImp implements HospitalService {
 	        e.printStackTrace();
 	        return false;
 	    }
+
+	}
+
+	@Override
+	public HospitalVO ajaxHospitalPhone(HospitalVO hospital, MemberVO member) {
+		if (hospital == null || hospital.getHo_phone() == null || hospital.getHo_phone().isEmpty()) {
+			return null;
+		}
+
+		// 입력된 아이디로 회원 조회
+		HospitalVO user = hospitalDao.selectHospitalPhone(hospital.getHo_phone());
+		MemberVO memberPhone = memberDao.selectMemberPhone(member.getMe_phone());
+
+		// user가 null이 아니면 중복
+		if (user != null || user.equals(memberPhone)) {
+			return user;
+		}
+
+		return null;
 	}
 
 }

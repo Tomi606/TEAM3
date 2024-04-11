@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -97,26 +98,40 @@ public class HomeController {
 		return emdList;
 	}
 	
-	//사업자 회원가입 인증(get)
+	//회원가입 이메일 인증 페이지(get)
 	@GetMapping("/main/certification")
 	public String certification() {
 		
 		return"/main/certification";
 	}
 	
+	//이메일 인증
 	@ResponseBody
 	@PostMapping("/certification/email")
-	public Map<String, Object> findPwPost(@RequestParam("email") String me_email) {
+	public Map<String, Object> ctfEmailPost(@RequestParam("email") String email) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		boolean ctfEmail = hospitalService.ctfEmail(me_email);
-		log.info(me_email);
-		map.put("ctfEmail", ctfEmail);
+		String ctfEmail = hospitalService.ctfEmail(email);
+		try {
+			map.put("ctfEmail", ctfEmail);			
+		} catch (Exception e) {
+			
+		}
 		return map;
 	}
 	
+	@ResponseBody
+	@PostMapping("/certification/num")
+	public boolean handleCertification(@RequestParam("newCeNum") String newCeNum ,@RequestParam("data") String data) {
+	    if(newCeNum.equals(data)) {
+	        return true;        
+	    }else {
+	        return false;
+	    }
+	}
+
 	//사업자 회원가입 페이지(get)
 	@GetMapping("/hospital/signup")
-	public String hospitalSignup(HospitalVO hospital, Model model, String ho_id, SiDoVO siDo) {
+	public String hospitalSignup(HospitalVO hospital, Model model, String ho_id, SiDoVO siDo, String email) {
 		log.info("사업자 회원가입");
 		//병원 진료과목 리스트
 		ArrayList<HospitalSubjectVO> hospitalList = hospitalService.getHospitalSubjectList();
@@ -126,11 +141,13 @@ public class HomeController {
 		ArrayList<SiDoVO> sidoList = hospitalService.getSiDoList();
 		model.addAttribute("hospital", hospital);
 		model.addAttribute("sidoList", sidoList);
+		model.addAttribute("email", email);
 		return "/hospital/signup";
 	}
 
 		
 	//사업자 회원가입 페이지(post)
+	@ResponseBody
 	@PostMapping("/hospital/signup")
 	public boolean hospitalSignupPost(
 			HospitalVO hospital, SiteManagement site, 
@@ -138,7 +155,6 @@ public class HomeController {
 		log.info("사업자 회원가입 post");
 		
 		boolean hospitalRes = hospitalService.signup(hospital, str);
-
 		boolean siteRes = hospitalService.signup(site);
 
 		return !hospitalRes || !siteRes;
@@ -291,9 +307,9 @@ public class HomeController {
 	//사업자 회원가입 : 아이디 중복확인 ajax
 	@ResponseBody
 	@GetMapping("/hospital/checkId")
-	public HashMap<String, Object> checkId(HospitalVO hospital) {
+	public HashMap<String, Object> checkId(HospitalVO hospital, MemberVO member) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		HospitalVO check = hospitalService.ajaxHospitalId(hospital);
+		HospitalVO check = hospitalService.ajaxHospitalId(hospital, member);
 		map.put("hoIdCheck", check);
 		return map;
 	}
@@ -305,6 +321,16 @@ public class HomeController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		HospitalVO check = hospitalService.ajaxHospitalEmail(hospital);
 		map.put("hoEmailCheck", check);
+		return map;
+	}
+	
+	//사업자 회원가입 : 폰번호 중복확인 ajax
+	@ResponseBody
+	@GetMapping("/hospital/checkPhone")
+	public HashMap<String, Object> checkPhone(HospitalVO hospital,MemberVO member) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		HospitalVO check = hospitalService.ajaxHospitalPhone(hospital,member);
+		map.put("hoPhoneCheck", check);
 		return map;
 	}
 }

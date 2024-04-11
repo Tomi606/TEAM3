@@ -6,20 +6,20 @@
 	<insert id="insertHospital">
 		insert into hospital(ho_id, ho_pw, ho_email, ho_name, ho_ceo, ho_hs_num, ho_num, ho_address, ho_phone, ho_authority, ho_ms_state) 
 		values(#{ho.ho_id}, #{ho.ho_pw}, #{ho.ho_email}, #{ho.ho_name}, #{ho.ho_ceo}, 
-				#{ho.ho_hs_num}, #{ho.ho_num}, #{ho.ho_address}, #{ho.ho_phone},"MANAGER","이용중")
+				#{ho.ho_hs_num}, #{ho.ho_num}, #{address}, #{ho.ho_phone},"MANAGER","이용중")
 	</insert>
 	
 	<insert id="insertSiteHospital">
-		insert into site_management(#{st.site_la_num}, #{st.site_id}, #{st.site_authority})
-		select la_emd_num, site_id, "USER" from land
+		insert into site_management(site_la_num, site_id, site_authority)
+		value(1, #{st.site_id}, "USER")
 	</insert>
 	
-	<select id="selectHospitalId" resultType="kr.kh.team3.model.vo.HospitalVO">
+	<select id="selectHospitalId" resultType="HospitalVO">
 		select * from hospital where ho_id = #{ho_id}
 	</select>
 	
 	<!-- 정경호 : 과목 ㄱㄴㄷㄹ순으로 정렬을 위해 order by hs_title 추가 -->
-	<select id="selectHospitalSubjectList" resultType="kr.kh.team3.model.vo.HospitalSubjectVO">
+	<select id="selectHospitalSubjectList" resultType="HospitalSubjectVO">
 		select * from hospital_subject order by hs_title
 	</select>
 	
@@ -60,5 +60,9 @@
 	
 	<select id="selectHospitalEmail" resultType="HospitalVO">
 		select * from hospital where ho_email = #{ho_email}
+	</select>
+	
+	<select id="selectHospitalPhone" resultType="HospitalVO">
+		select * from hospital where ho_phone = #{ho_phone}
 	</select>
 </mapper>
