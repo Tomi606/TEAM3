@@ -35,7 +35,7 @@ height: 150px;
 			</li>
 		</c:if>
 			<li class="nav-item">
-					<a class="nav-link" href='<c:url value="/adminpage"/>'>관리자 페이지</a>
+					<a class="nav-link" href='<c:url value="/adimn/adminpage"/>'>관리자 페이지</a>
 			</li>
 	</ul>
 	

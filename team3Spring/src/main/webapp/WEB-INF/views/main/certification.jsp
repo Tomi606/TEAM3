@@ -21,7 +21,7 @@
 
 <!-- 이메일 인증 보내기 -->
 <script type="text/javascript">
-var emailCheck = false;
+/* var emailCheck = false;
 $(".btn-email").click( function() {
     var email = $("#email").val();
     if (email.length == 0 || email == "") {
@@ -51,10 +51,10 @@ $(".btn-email").click( function() {
         }
     }); // ajax end;
 });
-    
+     */
 $('.btn-email').click(function() {
 	let obj = {
-		email : $('[name=email]').val()
+		email : $('[name=me_email]').val()
 	}
 	$('.container-spinner').show();
 	//서버로 전송
@@ -67,6 +67,7 @@ $('.btn-email').click(function() {
 		success : function (data){
 			if(data.ctfEmail) {
 				alert('인증 이메일이 전송되었습니다.');
+				location.href = '<c:url value="/hospital/signup" />';
 				return;
 			}
 			else {

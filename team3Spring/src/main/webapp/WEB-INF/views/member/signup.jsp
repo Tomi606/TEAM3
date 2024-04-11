@@ -7,87 +7,199 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
  <!-- 제이쿼리 CDN 방식 -->
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" ></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" ></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.js" ></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.min.js" ></script>
+<style type="text/css">
+.body-tag{
+width: 100%;
+display: felex;flex-direction: column;
+align-items: center;
+}
+.input-box{
+	border:1px solid white;
+	width: 547px;height:100%; 
+	margin: 0 auto;
+	padding: 5px;
+}
+.input-tag{
+    border: 1px solid #ccc; 
+    outline: none;
+    margin-bottom: 15px; 
+    width: 400px;
+    padding: 10px;
+}
+.input-tag:focus {
+    border-bottom-color: blue; 
+    box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
+}
+.btn{
+	text-decoration: none;
+	border:1px solid blue;
+	width: 100px;
+}
+.btn:hover {
+	background-color: blue;
+	color: white;
+}
+.signup-btn{
+text-align:center;font-size:20px;font-weight:bold;
+width: 400px;height:40px;border-radius:0;
+padding: 2px;border-bottom: 1px solid blue;
+margin-left:34px;
+}
+select {
+	margin-left:34px;
+    padding: 10px;
+    font-size: 16px; 
+    border: 1px solid #ccc; 
+    background-color: #ffff; 
+    outline: none; 
+    width: 200px; 
+}
+select:focus {
+    border-color: blue; 
+    box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
+}
+select:hover {
+    background-color: #eaeaea;
+}
+img{
+ width: 30px;
+}
+.duplicate{
+    float:right;
+	border-radius:0;
+	height: 43px;
+}
+label {
+	margin-left: 30px;
+}
+.gender-buttons {
+     display: inline-block;
+     margin-right: 15px;
+ }
+ 
+ .gender-buttons label {
+ 	width:100px;text-align:center;
+ 	border:1px solid  #007bff;
+     display: inline-block;
+     padding: 8px 16px;
+     border-radius: 5px;
+     cursor: pointer;
+ }
+ 
+ #male:checked + label {
+     background-color: #007bff;
+     color: #fff;
+ }
+ 
+ #female:checked + label {
+     background-color: #ff69b4;
+     color: #fff;
+ }
+ 
+ .gender-buttons input[type="radio"] {
+     display: none;
+ }
+</style>
 </head>
 <body>
-<form id="myForm" action="" method="post">
-	 <select name="sd_num" required>
-	 		<option value="none">시/도를 선택해주세요</option>
-        <c:forEach items="${sidoList}" var="sd">
-            <option value="${sd.sd_num}">${sd.sd_name}</option>
-        </c:forEach>
-     </select>   
-    <select name="sgg_num" class="sgg_num" required>
-           <option value="none">시/군/구를 선택해주세요</option>
-     </select>   
-    <select name="emd_num" class="emd_num" required>
-         <option value="none">읍/면/동을 선택해주세요</option>
-	 </select>
-	 <div>
-		<label for="subject">관심 과목</label>
-		<select id="subject" name="me_hs_num"  >
-			<option value="none">관심 과목을 선택하세요</option>
-			<option value="none">없음</option>
-			<c:forEach items="${list}" var="hs">
-				<option value="${hs.hs_num}">${hs.hs_title}</option>
-			</c:forEach>
-		</select>
-	</div>
-	<div>
-		<input type="text" id="id" name="me_id" placeholder="아이디" autofocus="autofocus">
-	  	<button type="button"class="check-duplicate">중복 확인</button><br>
-   		<!-- 아이디는 8~15자의 영문자와 숫자로 이루어져야 함-->
-	</div>
-	<div>
-		<input type="hidden" id="id2" name="site_id" >
-	</div>
-	<div>
-		<input type="password" id="pw" name="me_pw" placeholder="비밀번호" autofocus="autofocus"><br>
-		<!-- 비밀번호는 8~18자의 영문자, 숫자, 특수문자(!@#$)로 이루어져야 함 비밀번호 형식이나 글자수가 채워지지 않으면 빨간글씨로 비밀번호 형식이 틀렸다고 해주고 
-		사용 가능하면 초록색글씨로 사용가능한 비밀번호라고 해줘-->
-	</div>
-	<div>
-		<input type="password" id="pw2" name="me_pw2" placeholder="비밀번호 확인" autofocus="autofocus" ><br>
-		<!-- 비밀번호랑 같아야함 틀리면 실시간으로 빨간글씨로 같지 않다고 해주고 맞으면 비밀번호가 같습니다라고 초록색 글씨로 출력 -->
-	</div>
-	<div>
-		<input type="text" id="name" name="me_name" placeholder="이름" required autofocus="autofocus"><br>
-		<!--이름은 2~5글자의 한글로 이루어져야 함 영어나 숫자 특수문자가 들어가면 실시간으로 경고 -->
-	</div>
-	<div>
-		<!-- 이메일 형식이어야함 중복체크 후 사용가능하면 초록색으로 사용가능한 이메일 -->
-		<input type="text" id="email" name="me_email" placeholder="이메일" autofocus="autofocus">
-		<button type="button" class="email-btn">중복확인</button><br>
-		<span id="email-text"></span><br>
-	</div>
-	<div>
-		<label for="me_gender">성별:</label>
-	    <input type="radio" id="male" name="me_gender" value="남자" required>남자
-	    <input type="radio" id="female" name="me_gender" value="여자" required>여자<br>
-   	</div>
-    <div>
-		<input type="text" id="job" name="me_job" placeholder="직업" autofocus="autofocus"><br>
-		<!-- // 직업은 2~10글자의 한글로 이루어져야 함 -->
-	</div>
-	<div>
-		<input type="text" id="phone" name="me_phone" placeholder="폰번호" autofocus="autofocus"><br>
-	</div>
+<!-- 중복확인 버튼 때문에 불 필요한 여백 발생하는중 고쳐야 함 -->
+<div class="body-tag">
+	<form id="myForm" action="<c:url value="/member/signup"/>" method="post">
+	<div class="input-box">	
+		<div>
+			<img  alt="아이디이미지" src="<c:url value="/resources/img/user.svg"/>">
+		    <input  type="text" id="id" name="me_id" placeholder="아이디" autofocus="autofocus" class="input-tag">
+		    <label class="text-danger textId" id="laId"></label>
+		  <!--   <a type="button" class="check-duplicate btn duplicate">중복 확인</a> -->
+		</div>
+		<div>
+	    	<input type="hidden" id="id2" name="site_id">
+		</div>
+		<div>
+			<img alt="아이디이미지" src="<c:url value="/resources/img/password.svg"/>">
+	    	<input   type="password" id="pw" name="me_pw" placeholder="비밀번호" autofocus="autofocus" class="input-tag">
+	    	<label for="me_pw" class="text-danger"></label>
+		</div>
+		<div>
+			<img alt="아이디이미지" src="<c:url value="/resources/img/passwordcheck.svg"/>">
+	   	 	<input   type="password" id="pw2" name="me_pw2" placeholder="비밀번호 확인" autofocus="autofocus" class="input-tag">
+	   	 	<label for="me_pw2" class="text-danger"></label>
+		</div>
+		<div>
+			<img alt="아이디이미지" src="<c:url value="/resources/img/name.svg"/>">
+	    	<input   type="text" id="name" name="me_name" placeholder="이름" autofocus="autofocus" class="input-tag">
+	    	<label for="me_name" class="text-danger"></label>
+		</div>
+		<div>
+			<img alt="아이디이미지" src="<c:url value="/resources/img/mail.svg"/>">
+	    	<input  type="text" id="email" name="me_email" placeholder="이메일" autofocus="autofocus" class="input-tag">
+	    	<!-- <a type="button" class="email-btn btn duplicate">중복확인</a> -->
+	    	<label for="me_email" class="text-danger etext"></label>
+		</div>
+		<div class="gender-buttons">
+			<img alt="아이디이미지" src="<c:url value="/resources/img/gender.svg"/>">
+	   		 <input type="radio" id="male" name="me_gender" value="남자">
+	   		 <label for="male">남자</label>
+		</div>
 
-	<div>
-		<button type="submit" id="land1" onclick="meIdForm()" class="check">회원가입</button>
-	</div>
-</form>
-
+		<div class="gender-buttons">
+		    <input type="radio" id="female" name="me_gender" value="여자" >
+		    <label for="female"style="border:1px solid #ff69b4;">여자</label>
+		</div>
+		<div style="margin-top: 15px;">
+			<img alt="아이디이미지" src="<c:url value="/resources/img/job.svg"/>">
+	   	 	<input   type="text" id="job" name="me_job" placeholder="직업을 입력하세요" autofocus="autofocus" class="input-tag">
+	    	<label for="me_job" class="text-danger"></label>
+		</div>
+		<div>
+			<img alt="아이디이미지" src="<c:url value="/resources/img/phone.svg"/>">
+	    	<input   type="text" id="phone" name="me_phone" placeholder="핸드폰 번호" autofocus="autofocus" class="input-tag">
+	    	<label for="me_phone" class="text-danger textPhone" id="idcheck-phone"></label>
+		</div>
+		<div class="subject">
+		<div class="hr" style="margin-top:30px;margin-bottom:40px;border: 1px solid #d2d2d2;width: 480px;"></div>
+			<select id="subject" name="me_hs_num" style="margin-bottom: 15px;width: 400px" >
+				<option value="none">관심 병원 과목을 선택하세요</option>
+				<option value="none">없음</option>
+				<c:forEach items="${list}" var="hs">
+					<option value="${hs.hs_num}">${hs.hs_title}</option>
+				</c:forEach>
+			</select>
+		</div>
+		<div>
+		 <select name="sd_num" required class="sd_num" style="width: 400px;margin-bottom: 20px">
+		 		<option value="none">시/도를 선택해주세요</option>
+	        <c:forEach items="${sidoList}" var="sd">
+	            <option value="${sd.sd_num}">${sd.sd_name}</option>
+	        </c:forEach>
+	     </select>   
+		 <select name="sgg_num" class="sgg_num" required style="width: 400px;margin-bottom: 20px">
+	           <option value="none">시/군/구를 선택해주세요</option>
+	     </select>   
+	    <select name="emd_num" class="emd_num" required style="width: 400px;margin-bottom: 20px">
+	         <option value="none">읍/면/동을 선택해주세요</option>
+	 	</select>
+		</div>
+		 
+		<div>
+	    	<button type="submit" id="land1" onclick="meIdForm()" class="check btn signup-btn">회원가입</button>
+		</div>
+	</div>	
+	</form>
+</div>
 
 
 <!-- me_id입력 시 site_id값도 me_id랑 같은 값 입력 -->
- <script type="text/javascript">
-function meIdForm() {
-   var meId = $("#id").val();
-    $("#id2").val(meId);
-    return true;
-}
+<script type="text/javascript">
+    function meIdForm() {
+       var meId = $("#id").val(); 
+        $("#id2").val(meId);
+      return true;
+    }
 </script>
 <!-- 회원가입 정규 표현식 -->
 <script type="text/javascript">
@@ -95,26 +207,26 @@ $("form").validate({
     rules: {
         me_id: {
             required: true,
-            regex: /^\w{8,15}$/ 
+            pattern: /^\w{8,15}$/ // 아이디는 8~15자의 영문자와 숫자로 이루어져야 함
         },
         me_pw: {
             required: true,
-            regex: /^[a-zA-Z0-9!@#$]{8,18}$/ 
+            pattern: /^[a-zA-Z0-9!@#$]{8,18}$/ // 비밀번호는 8~18자의 영문자, 숫자, 특수문자(!@#$)로 이루어져야 함
         },
         me_pw2: {
-            equalTo:pw
+            equalTo: pw // 비밀번호 확인은 이전 비밀번호와 일치해야 함
+        },
         me_name: {
             required: true,
-            regex: /^[ㄱ-힣]{2,5}$/ 
+            pattern: /^[ㄱ-힣]{2,5}$/ // 이름은 2~5글자의 한글로 이루어져야 함
         },
-
         me_job: {
             required: true,
-            regex: /^[ㄱ-힣]{2,10}$/ 
+            pattern: /^[ㄱ-힣]{2,10}$/ // 직업은 2~10글자의 한글로 이루어져야 함
         },
         me_phone: {
             required: true,
-            regex: /^[0-9]{11}$/ // 전화번호는 11자리의 숫자로 이루어져야 함
+            pattern: /^[0-9]{11}$/ // 전화번호는 11자리의 숫자로 이루어져야 함
         },
         me_email: {
             required: true,
@@ -122,79 +234,76 @@ $("form").validate({
         },
         me_address: {
             required: true,
-            regex: /^[ㄱ-힣0-9]{1,100}$/ // 주소는 한글과 숫자로 이루어진 최대 100자여야 함
+            pattern: /^[ㄱ-힣0-9]{1,100}$/ // 주소는 한글과 숫자로 이루어진 최대 100자여야 함
+        },
+        sd_num :{
+        	required:true
+        },
+        sgg_num :{
+        	required:true
+        },
+        emd_num :{
+        	required:true
         }
     },
     messages: {
         me_id: {
-            required: "아이디 중복확인을 해주세요.",
-            regex: "아이디는 최소 8자에서 15자로 입력해주세요."
+            required: "",
+            pattern: ""
         },
         me_pw: {
-            required: "필수 항목입니다.",
-            regex: "비밀번호는 숫자, 영문, !@#$ 8~18자 입니다."
+            required: "비밀번호를 입력하세요.",
+            pattern: "영문/숫자/특수문자 2가지 이상 조합 (8~18자)"
         },
         me_pw2: {
-            equalTo: "비밀번호와 일치하지 않습니다."
+            equalTo: "새 비밀번호가 일치하지 않습니다."
         },
         me_name: {
-            required: "필수 항목입니다.",
-            regex: "이름은 최대 5자 입니다."
+            required: "이름을 입력하세요",
+            pattern: "이름을 정확히 입력하세요."
         },
-
         me_job: {
-            required: "필수 항목입니다.",
-            regex: "한글로 입력하세요. 직업은 최대 10자까지 가능합니다."
+            required: "직업을 입력하세요.(없으면 무직)",
+            pattern: "직업을 정확히 입력하세요."
         },
         me_phone: {
-            required: "필수 항목입니다.",
-            regex: "전화번호는 '-'제외한 번호를 입력하세요."
+            required: "",
+            pattern: ""
         },
         me_email: {
-            required: "필수 항목입니다.",
-            email: "올바른 이메일 주소를 입력하세요."
+            required: "",
+            email: ""
         },
         me_address: {
             required: "필수 항목입니다.",
-            regex: "주소를 제대로 입력하세요."
+            pattern: "주소를 올바르게 입력하세요."
+        },
+        sd_num :{
+        	required:"주소를 선택 해주세요"
+        },
+        sgg_num :{
+        	required:"주소를 선택 해주세요"
+        },
+        emd_num :{
+        	required:"주소를 선택 해주세요"
         }
     },
     errorPlacement: function(error, element) {
-        element.addClass("shake-error");
-        error.addClass("text-danger");
-        error.appendTo(element.parent());
-    },
-    success: function(label) {
-        var element = $(label).closest('div').find('#pw, #id, #email, #phone');
-        element.removeClass("shake-error");
-        element.siblings(".text-danger").remove();
-        element.siblings(".text-success").remove();
-        if (element.val() && !element.next(".text-success").length) {
-            element.after('<span class="text-success">사용 가능합니다.</span>');
-        }
+        error.addClass("text-danger"); 
+        error.appendTo(element.parent()); 
+       return;
     }
+    
 });
-
-$.validator.addMethod(
-    "regex",
-    function(value, element, regexp) {
-        var re = RegExp(regexp);
-        var valid = re.test(value);
-        if (!valid) {
-            return false;
-        } else {
-            return true;
-        }
-    },
-    "입력이 잘못되었습니다."
-);
-
-
+$.validator.addMethod("customRegex", function(value, element, regexp) {
+    var re = new RegExp(regexp);
+    return this.optional(element) || re.test(value);
+}, "정규표현식에 맞지 않습니다.");
 </script>
 
 <script type="text/javascript">
-$("form").submit(function(){
-	event.preventDefault(); // 기본 form 제출 이벤트를 막습니다.
+$("form").submit(function(event){
+    event.preventDefault(); // 기본 form 제출 이벤트를 막습니다.
     
     var sd_num = $("select[name='sd_num'] option:selected").text();
     var sgg_num = $("select[name='sgg_num'] option:selected").text();
@@ -204,21 +313,20 @@ $("form").submit(function(){
     // Serialize된 form 데이터를 직접 사용하고 str 파라미터를 추가합니다.
     var formData = $(this).serialize();
     formData += '&str=' + str; // str 파라미터 추가
-	$.ajax({
-		async:true,
-		url : '<c:url value="/member/signup"/>',
-		type : 'post',
-		data : formData,
-		success:function(data){
-			if (data === false) {
-		        location.href = '<c:url value="/message"/>?res=' + data;
-		    } else {
-		        location.href = '<c:url value="/message"/>?res=' + data;
-		    }
-			
-		}
-	});
-	return false;
+    $.ajax({
+        async:true,
+        url : '<c:url value="/member/signup"/>', // URL을 직접 지정
+        type : 'post',
+        data : formData,
+        success:function(data){
+            if (data === false) {
+                location.href = '<c:url value="/message?res="/>' + data; // URL을 직접 지정
+            } else {
+                location.href = '<c:url value="/message?res="/>' + data; // URL을 직접 지정
+            }
+        }
+    });
+    return false;
 })
 </script>
 
@@ -243,7 +351,6 @@ function hoIdForm() {
         return false;
     }
 }
-
 /* 군 구 리스트 select로 띄우기 시작 */
 $("[name=sd_num]").click(function(){
 	let sd_num = $("[name=sd_num]").val();
@@ -264,7 +371,6 @@ $("[name=sd_num]").click(function(){
         }
     });
 });
-
 /* 읍면동 리스트 select로 띄우기 시작 */
 $("[name=sgg_num]").click(function(){
 	let sgg_num = $("[name=sgg_num]").val();
@@ -288,90 +394,97 @@ $("[name=sgg_num]").click(function(){
 /* 읍면동 리스트 select로 띄우기 끝 */
 
 </script>
- <!-- 회원가입 불필요한 문자 제거하기 -->
-<!-- <script>
-    $(document).ready(function() {
-    	 $("#id").on("input", function() {
-             var inputValue = $(this).val();
-             $(this).val(inputValue.replace(/[^\w]/g, '')); 
-         });
-        $("#name").on("input", function() {
-            var inputValue = $(this).val();
-            $(this).val(inputValue.replace(/[^ㄱ-ㅎㅏ-ㅣ가-힣]/g, ''));
-        });
-        $("#phone").on("input", function() {
-            var inputValue = $(this).val();
-            $(this).val(inputValue.replace(/[^\d]/g, '')); 
-        });
-        $("#address").on("input", function() {
-            var inputValue = $(this).val();
-            $(this).val(inputValue.replace(/[^ㄱ-힣]/g, '')); 
-        });
-        $("#email").on("input", function() {
-            var inputValue = $(this).val();
-            $(this).val(inputValue.replace(/[^a-zA-Z0-9@.]/g, '')); 
-        });
-        $("#job").on("input", function() {
-            var inputValue = $(this).val();
-            var regex = /^[ㄱ-ㅎ가-힣]*$/;
-            if (!regex.test(inputValue)) {
-                $(this).val(inputValue.replace(/[^ㄱ-ㅎ가-힣]/g, '')); 
-            }
-        });
-    });    
-</script>
-     -->
-     
- <!-- 아이디,이메일 중복체크 ajax 정규표현식 적용 시키기-->
+
 <script type="text/javascript">
 $(document).ready(function() {
    var idCheck = false;
-    $(".check-duplicate").click(function() {
+    $("#id").keyup(function() {
         var id = $("#id").val();
-        if(id.length == 0){
-          alert("아이디를 입력해주세요.");
+        if(id.length == 0||id==""){
+          $(".textId").text("아이디를 입력해주세요.");
           return;
        }
+        if (!/^\w{8,15}$/.test(id)) {
+            $(".textId").text("영문 숫자 2가지 이상 조합 (8~15자)").css("color", "red");
+            return;
+        }
         if (/[\u3131-\uD79D]/.test(id) || /[!@#$%^&*(),.?":{}|<>]/.test(id)) {
-            alert("한글이나 특수문자는 아이디로 사용할 수 없습니다.");
-            return; 
+          $(".textId").text("한글이나 특수문자는 아이디로 사용할 수 없습니다.");
+          return;
         }
-        if(!/^\w{8,15}$/.test(id)){
-           alert("아이디는 최소 8자에서 15자로 입력 해주세요.")
-           return;
-        }
-
         $.ajax({
             url: '<c:url value="/checkId"/>',
             type: "get",
             data: { me_id: id }, 
             success: function(response) {
                 if (response.check == null) {
-                    alert("사용 가능한 아이디입니다.");
-                    idCheck = true;
-                    return true;
-                } else {
-                    alert("이미 사용 중인 아이디입니다.");
-                    idCheck = false;
-                    return false;
-                }
+                	 if (id.length >= 8) {
+                	        $(".textId").text("사용 가능한 아이디입니다.").css("color", "blue");
+                	        idCheck = true;
+                	        setTimeout(function() {
+                	            $(".textId").text("");
+                	        }, 2000);
+                	        return;
+                	    }
+                	
+                	}else if(response.check != null&&id.length >= 8){
+                		$(".textId").text("이미 사용중인 아이디입니다.");
+                		 idCheck = false;
+                } 
             },
             error: function(xhr, status, error) {
                 console.error("에러에러", error);
             }
         });
     });
-
+ 	var phoneCheck = false;
+    $("#phone").keyup(function() {
+        var phone = $("#phone").val();
+        if(phone.lenght == 0 || phone == "" ||phone.length != 11){
+        	$("#idcheck-phone").text("휴대폰 번호를 입력하세요(11자)");
+        	return;
+        }
+        
+        $.ajax({
+            url: '<c:url value="/checkPhone"/>',
+            type: "get",
+            data: { me_phone: phone }, 
+            success: function(response) {
+                if (response.checkNum == null) {
+                	if(phone.length == 11){
+                    $("#idcheck-phone").text("사용가능한 휴대폰 번호입니다.");
+                    phoneCheck = true;
+                    setTimeout(function() {
+        	            $("#idcheck-phone").text("");
+        	        }, 2000);
+                    return;
+                	}
+                } else if(response.checkNum != null||phone.length == 11){
+                	 $("#idcheck-phone").text("이미 사용중인 휴대폰 번호입니다.");
+               	 	phoneCheck = false;
+                    return;
+                }
+            },
+            error: function(xhr, status, error) {
+            	 $("#idcheck-phone").text("휴대폰 번호를 제대로 입력해주세요.");
+            }
+        });
+    });  
    var emailCheck = false;
-    $(".email-btn").click( function() {
+    $("#email").on("keyup",function() {
         var email = $("#email").val();
         if (email.length == 0 || email == "") {
-           alert("이메일을 입력 하세요.");
+           $(".etext").text("이메일을 입력하세요.");
             return;
         }
-        if (/[\u3131-\uD79D]/.test(email) || /[!#$%^&*(),?":{}|<>]/.test(email)) {
-            $("#email-text").text("한글이나 @,.를 제외한 특수문자는 이메일로 사용할 수 없습니다.").css("color" , "red");
-            return false;
+        if (email.length < 12) {
+           $(".etext").text("이메일을 올바르게 입력하세요.");
+            return;
+        }
+        if (!email.endsWith('.com')||
+        		email.indexOf('.com') != email.lastIndexOf('.com')) {
+            $(".etext").text("올바른 이메일 주소를 입력하세요 (예: example@example.com).");
+            return;
         }
         $.ajax({
             url: '<c:url value="/checkEmail"/>',
@@ -379,25 +492,26 @@ $(document).ready(function() {
             data: { me_email: email }, 
             success: function(response) {
                 if (response.checkEmail == null) {
-                   alert("사용 가능한 이메일입니다.");
-                   emailCheck = true;
-                    return;
-                } else {
-                   alert("이미 사용중인 이메일입니다.");
+                	if(email.length >= 12){
+                  	 $(".etext").text("사용 가능한 이메일입니다.");
+                  	 emailCheck = true;
+                  	setTimeout(function() {
+        	            $(".etext").text("");
+        	        }, 2000);
+        	        return;
+        	    }
+                } else if(response.checkEmail != null){
+               		$(".etext").text("이미 사용중인 이메일입니다.");
                    emailCheck = false;
-                    return;
+                   return;
                 }
             },
             error: function(xhr, status, error) {
-               alert("이미 사용중인 이메일입니다.");
-               emailCheck = false;
-                return;
             }
         }); // ajax end;
     });
     $(".check").click(function(){
-    	
-   		var isValid = $("form").valid();
+  	   var isValid = $("form").valid();
        if(!idCheck){
           alert("아이디 중복 확인을 해주세요.");
           $("#id").focus();
@@ -408,44 +522,12 @@ $(document).ready(function() {
           $("#email").focus();
           return false;
        }
-       return isValid; // 유효성 검사 결과 반환
-    });
-});
-</script>
-
-<!-- 폰번호 중복체크 ajax 정규표현식 적용 시키기-->
-<script type="text/javascript">
-$(document).ready(function() {
-   var phoneCheck = false;
-    $("#phone").on("keyup",function() {
-        var phone = $("#phone").val();
-        if(phone.length == 0 || phone == ""){
-          alert("전화번호를 입력해 주세요.");
-          return;
-       }
-        if (/[\u3131-\uD79D]/.test(id) || /[!@#$%^&*(),.?":{}|<>]/.test(id)) {
-            alert("한글이나 특수문자는 전화번호로 사용할 수 없습니다.");
-            return; 
-        }
-        $.ajax({
-            url: '<c:url value="/checkPhone"/>',
-            type: "get",
-            data: { me_phone: phone }, 
-            success: function(response) {
-                if (response.checkPhone == null&) {
-                    $("#checkPhone").text("사용가능한 전화번호입니다.").css("color","green");
-                    phoneCheck = true;
-                    return true;
-                } else {
-                	 $("#checkPhone").text("이미 사용중인 전화번호입니다.").css("color","red");
-               	 	phoneCheck = false;
-                    return false;
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error("에러에러", error);
-            }
-        });
+       if (!phoneCheck) {
+    	  alert("휴대폰 중복 확인을 해주세요.");
+    	  $("#phone").focus();
+    	  return false;
+	}
+       return isValid; 
     });
 });
 </script>
