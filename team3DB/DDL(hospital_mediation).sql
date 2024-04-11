@@ -479,7 +479,7 @@ REFERENCES `hospital_subject` (
 
 select * from si_do join si_goon_gu on sd_num = sgg_sd_numeup_myeon_dong join eup_myeon_dong on sgg_num = emd_sgg_num order by sd_num ;
 
- INSERT INTO MEMBER_STATE VALUES('승인대기'), ('이용중'), ('기간정지'), ('영구정지'), ('탈퇴');
+ INSERT INTO MEMBER_STATE VALUES('승인대기'), ('이용중'), ('기간정지'), ('영구정지'), ('탈퇴'),('가입대기');
 
 
 # 병원 과목

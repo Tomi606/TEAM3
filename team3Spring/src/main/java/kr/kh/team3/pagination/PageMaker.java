@@ -39,4 +39,5 @@ public class PageMaker {
 		this.totalCount = totalCount;
 		calculate();
 	}
+  
 }
