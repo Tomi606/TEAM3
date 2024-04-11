@@ -44,10 +44,13 @@ public interface HospitalService {
 	HospitalVO ajaxHospitalPhone(HospitalVO hospital,MemberVO member);
 
 	//정경호 이용중인 회원만 가져오는 메서드
-	ArrayList<HospitalVO> hospitalList();
+	ArrayList<HospitalVO> hospitalList(Criteria cri);
 	//관리자 병원 관리 =========================================================
 	ArrayList<HospitalVO> getWaitHospitalList(Criteria cri);
 
 	int getWHTotalCount(Criteria cri);
+
+	int getHospitalCount(Criteria cri);
+
 
 }
