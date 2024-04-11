@@ -155,28 +155,44 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public HospitalVO ajaxHospitalId(HospitalVO hospital) {
+	public HospitalVO ajaxHospitalId(HospitalVO hospital, MemberVO member) {
 		if(hospital == null || hospital.getHo_id() == null || hospital.getHo_id().isEmpty()) {
 			return null;
 		}
-		
-//		MemberVO member
-//		if(member == null || member.getMe_id() == null || member.getMe_id().isEmpty()) {
-//			return null;
-//		}
 
 		// 입력된 아이디로 회원 조회
 		HospitalVO user = hospitalDao.selectHospital(hospital.getHo_id());
-//		MemberVO memberId = memberDao.selectMember(member.getMe_id());
+		MemberVO memberId = memberDao.selectMember(member.getMe_id());
 		
-		// user가 null이 아니면 중복 || user.equals(memberId)
-		if (user != null) {
+		// user가 null이 아니면 중복
+		if (user != null || user.equals(memberId)) {
 			return user;
 		}
 
 		return null;
 	}
 
+	@Override
+    public HospitalVO ajaxHospitalPhone(HospitalVO hospital, MemberVO member) {
+        if (hospital == null || hospital.getHo_phone() == null || hospital.getHo_phone().isEmpty()) {
+            return null;
+        }
+
+        // 입력된 아이디로 회원 조회
+        HospitalVO user = hospitalDao.selectHospitalPhone(hospital.getHo_phone());
+        MemberVO memberPhone = memberDao.selectMemberPhone(member.getMe_phone());
+
+        // user가 null이 아니면 중복
+        if(hospital.getHo_phone().equals(member.getMe_phone())){
+            return user;
+        }
+        if (user != null || memberPhone != null) {
+            return user;
+        }
+
+        return null;
+    }
+	
 	@Override
 	public HospitalVO ajaxHospitalEmail(HospitalVO hospital) {
 		if (hospital == null || hospital.getHo_email() == null || hospital.getHo_email().isEmpty()) {
@@ -231,24 +247,6 @@ public class HospitalServiceImp implements HospitalService {
 	        return false;
 	    }
 
-	}
-
-	@Override
-	public HospitalVO ajaxHospitalPhone(HospitalVO hospital, MemberVO member) {
-		if (hospital == null || hospital.getHo_phone() == null || hospital.getHo_phone().isEmpty()) {
-			return null;
-		}
-
-		// 입력된 아이디로 회원 조회
-		HospitalVO user = hospitalDao.selectHospitalPhone(hospital.getHo_phone());
-		MemberVO memberPhone = memberDao.selectMemberPhone(member.getMe_phone());
-
-		// user가 null이 아니면 중복
-		if (user != null || user.equals(memberPhone)) {
-			return user;
-		}
-
-		return null;
 	}
 
 	@Override //이용중인 병원들만 조회하는 메서드 : 정경호
