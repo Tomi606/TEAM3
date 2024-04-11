@@ -12,13 +12,18 @@
 border: 1px solid black;
 width: 100%;
 height: 150px;
+display: flex;
+background-color:rgba(0,0,0,0);
+}
+.header-box:hover {
+	background-color: white;
 }
 
 </style>
 </head>
 <body>
 
-<div class="header-box navbar navbar-expand-sm bg-dark navbar-dark">
+<div class="header-box">
 	<h1><a class="nav-link" href="<c:url value='/'/>">병원 중개</a></h1>
 	<ul class="navbar-nav">
 		<c:if test="${user == null }">	

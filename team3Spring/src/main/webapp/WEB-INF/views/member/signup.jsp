@@ -161,7 +161,7 @@ label {
 	    	<label for="me_phone" class="text-danger textPhone" id="idcheck-phone"></label>
 		</div>
 		<div class="subject">
-		<div class="hr" style="margin-top:30px;margin-bottom:40px;border: 1px solid #d2d2d2;width: 480px;"></div>
+		<div class="hr" style="margin-top:30px;margin-bottom:40px;border: 1px solid #d2d2d2;width: 465px;"></div>
 			<select id="subject" name="me_hs_num" style="margin-bottom: 15px;width: 400px" >
 				<option value="none">관심 병원 과목을 선택하세요</option>
 				<option value="none">없음</option>
