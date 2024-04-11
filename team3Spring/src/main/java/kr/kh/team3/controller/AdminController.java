@@ -32,13 +32,15 @@ public class AdminController {
 	// ======================== 병원 관리 ==========================
 	//병원 관리 페이지
 	@GetMapping("/admin/hospital")
-	public String adminHospital(HospitalVO hospital,Model model) {
+	public String adminHospital(HospitalVO hospital,Model model,Criteria cri) {
 		//병원 전체 리스트 가져오기
-		ArrayList<HospitalVO> hoList = hospitalService.hospitalList();
-		log.info(hoList);
+		ArrayList<HospitalVO> hoList = hospitalService.hospitalList(cri);
+		int totalCount = hospitalService.getHospitalCount(cri);
+		PageMaker pm = new PageMaker(3, cri, totalCount);
 		//대기 병원 리스트 가져오기
 		//신고 병원 리스트 가져오기
 		model.addAttribute("hoList",hoList);
+		model.addAttribute("pm",pm);
 		return "/admin/hospital";
 	}
 	
