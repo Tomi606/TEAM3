@@ -132,6 +132,7 @@ public class HomeController {
 
 		
 	//사업자 회원가입 페이지(post)
+	@ResponseBody
 	@PostMapping("/hospital/signup")
 	public boolean hospitalSignupPost(
 			HospitalVO hospital, SiteManagement site, 
@@ -139,7 +140,6 @@ public class HomeController {
 		log.info("사업자 회원가입 post");
 		
 		boolean hospitalRes = hospitalService.signup(hospital, str);
-
 		boolean siteRes = hospitalService.signup(site);
 
 		return !hospitalRes || !siteRes;
@@ -292,9 +292,9 @@ public class HomeController {
 	//사업자 회원가입 : 아이디 중복확인 ajax
 	@ResponseBody
 	@GetMapping("/hospital/checkId")
-	public HashMap<String, Object> checkId(HospitalVO hospital) {
+	public HashMap<String, Object> checkId(HospitalVO hospital, MemberVO member) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		HospitalVO check = hospitalService.ajaxHospitalId(hospital);
+		HospitalVO check = hospitalService.ajaxHospitalId(hospital, member);
 		map.put("hoIdCheck", check);
 		return map;
 	}
@@ -306,6 +306,16 @@ public class HomeController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		HospitalVO check = hospitalService.ajaxHospitalEmail(hospital);
 		map.put("hoEmailCheck", check);
+		return map;
+	}
+	
+	//사업자 회원가입 : 폰번호 중복확인 ajax
+	@ResponseBody
+	@GetMapping("/hospital/checkPhone")
+	public HashMap<String, Object> checkPhone(HospitalVO hospital,MemberVO member) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		HospitalVO check = hospitalService.ajaxHospitalPhone(hospital,member);
+		map.put("hoPhoneCheck", check);
 		return map;
 	}
 }

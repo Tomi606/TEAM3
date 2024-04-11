@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -33,10 +34,12 @@ public interface HospitalService {
 
 	void setLoginFail(String ho_id);
 
-	HospitalVO ajaxHospitalId(HospitalVO hospital);
+	HospitalVO ajaxHospitalId(HospitalVO hospital, MemberVO member);
 
 	HospitalVO ajaxHospitalEmail(HospitalVO hospital);
 
 	boolean ctfEmail(String me_email);
+
+	HospitalVO ajaxHospitalPhone(HospitalVO hospital,MemberVO member);
 
 }
