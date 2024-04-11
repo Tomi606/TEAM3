@@ -13,7 +13,6 @@ display:flex;
 }
 .왼쪽여백,
 .오른쪽여백{
-border:1px solid black;
  width: 20%;
  height: 700px;
  }
@@ -21,25 +20,40 @@ border:1px solid black;
  text-align:center;
  margin:0 auto;
  margin-right: auto;
- border: 1px solid black;
 width: 100%;
 height: 700px;
  }
 .choice{
+display:flex;
 margin:0 auto;
-border: 1px solid blue;
 width: 800px;
 height: 700px;
 
 }
 .aTag-btn1{
 margin-right: auto;
-}
+} 
+.aTag-btn2{
+margin-left: auto;
+} 
 .aTag-btn1,
 .aTag-btn2{
-    width:200px;
-    background-color:#222;
-    color:#fff;
+	margin-top:100px;
+    display: inline-block;
+    width: 300px;
+    height: 400px;
+    color: black;
+    text-decoration:none;
+    text-align: center;
+    line-height: 350px;
+    text-decoration: none;
+}
+.aTag-btn1:hover,
+.aTag-btn2:hover{
+text-decoration:none;
+box-shadow: 1px 1px 1px 1px #C12DFF;
+
+	
 }
 
 </style>

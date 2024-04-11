@@ -13,6 +13,7 @@
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.min.js" ></script>
 <style type="text/css">
 .body-tag{
+padding:200px 0 200px;
 width: 100%;
 display: felex;flex-direction: column;
 align-items: center;
@@ -27,8 +28,8 @@ align-items: center;
     border: 1px solid #ccc; 
     outline: none;
     margin-bottom: 15px; 
-    width: 400px;
-    padding: 10px;
+    width: 500px;
+    padding: 20px;
 }
 .input-tag:focus {
     border-bottom-color: blue; 
@@ -45,7 +46,7 @@ align-items: center;
 }
 .signup-btn{
 text-align:center;font-size:20px;font-weight:bold;
-width: 400px;height:40px;border-radius:0;
+width: 500px;height:40px;border-radius:0;
 padding: 2px;border-bottom: 1px solid blue;
 margin-left:34px;
 }
@@ -56,7 +57,7 @@ select {
     border: 1px solid #ccc; 
     background-color: #ffff; 
     outline: none; 
-    width: 200px; 
+    width: 500px; 
 }
 select:focus {
     border-color: blue; 
@@ -103,6 +104,7 @@ label {
  .gender-buttons input[type="radio"] {
      display: none;
  }
+
 </style>
 </head>
 <body>
@@ -111,6 +113,7 @@ label {
 	<form id="myForm" action="<c:url value="/member/signup"/>" method="post">
 	<div class="input-box">	
 		<div>
+	
 			<img  alt="아이디이미지" src="<c:url value="/resources/img/user.svg"/>">
 		    <input  type="text" id="id" name="me_id" placeholder="아이디" autofocus="autofocus" class="input-tag">
 		    <label class="text-danger textId" id="laId"></label>
@@ -161,8 +164,8 @@ label {
 	    	<label for="me_phone" class="text-danger textPhone" id="idcheck-phone"></label>
 		</div>
 		<div class="subject">
-		<div class="hr" style="margin-top:30px;margin-bottom:40px;border: 1px solid #d2d2d2;width: 465px;"></div>
-			<select id="subject" name="me_hs_num" style="margin-bottom: 15px;width: 400px" >
+		<div class="hr" style="margin-top:30px;margin-bottom:40px;border: 1px solid #d2d2d2;width: 560px;"></div>
+			<select id="subject" name="me_hs_num" style="margin-bottom: 15px;width: 500px" >
 				<option value="none">관심 병원 과목을 선택하세요</option>
 				<option value="none">없음</option>
 				<c:forEach items="${list}" var="hs">
@@ -171,16 +174,16 @@ label {
 			</select>
 		</div>
 		<div>
-		 <select name="sd_num" required class="sd_num" style="width: 400px;margin-bottom: 20px">
+		 <select name="sd_num" required class="sd_num" style="width: 500px;margin-bottom: 20px">
 		 		<option value="none">시/도를 선택해주세요</option>
 	        <c:forEach items="${sidoList}" var="sd">
 	            <option value="${sd.sd_num}">${sd.sd_name}</option>
 	        </c:forEach>
 	     </select>   
-		 <select name="sgg_num" class="sgg_num" required style="width: 400px;margin-bottom: 20px">
+		 <select name="sgg_num" class="sgg_num" required style="width: 500px;margin-bottom: 20px">
 	           <option value="none">시/군/구를 선택해주세요</option>
 	     </select>   
-	    <select name="emd_num" class="emd_num" required style="width: 400px;margin-bottom: 20px">
+	    <select name="emd_num" class="emd_num" required style="width: 500px;margin-bottom: 20px">
 	         <option value="none">읍/면/동을 선택해주세요</option>
 	 	</select>
 		</div>
