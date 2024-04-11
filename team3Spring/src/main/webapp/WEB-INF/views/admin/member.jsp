@@ -101,10 +101,12 @@ let meStopClear = $('[name=meStopClear]').val();
 <!-- 탈퇴 -->
 <script type="text/javascript">
 $('.btn-member-del').click(function() {
+	console.log(1);
+})
+/* $('.btn-member-del').click(function() {
 	let meId = {
 			me_id : $(this).data('id');
 	}
-
 	//서버에 데이터를 전송
 	$.ajax({
 		async : false, 
@@ -126,7 +128,7 @@ $('.btn-member-del').click(function() {
 			console.error(textStatus);
 		}
 	}); //ajax end
-});
+}); */
 
 /* $(document).on('click', '.btn-member-del', function() {
 	//서버로 보낼 데이터 생성
