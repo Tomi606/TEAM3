@@ -125,7 +125,7 @@ $('.btn-member-del').click(function() {
 			console.error(xhr);
 			console.error(textStatus);
 		}
-	});
+	}); //ajax end
 });
 
 /* $(document).on('click', '.btn-member-del', function() {
