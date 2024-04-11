@@ -21,6 +21,7 @@ import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
+import kr.kh.team3.pagination.Criteria;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -243,6 +244,27 @@ public class HospitalServiceImp implements HospitalService {
 		}
 
 		return null;
+	}
+
+	@Override //이용중인 병원들만 조회하는 메서드 : 정경호
+	public ArrayList<HospitalVO> hospitalList() {
+		return hospitalDao.hospitalList();
+	}
+	//관리자 병원 관리 =========================================================
+	@Override
+	public ArrayList<HospitalVO> getWaitHospitalList(Criteria cri) {
+		if(cri == null) {
+			return null;
+		}
+		return hospitalDao.selectWaitHospitalList(cri);
+	}
+
+	@Override
+	public int getWHTotalCount(Criteria cri) {
+		if(cri == null) {
+			return 0;
+		}
+		return hospitalDao.selectWHTotalCount(cri);
 	}
 
 }

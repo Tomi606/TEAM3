@@ -32,7 +32,10 @@ background-color:rgba(0,0,0,0);
 <body>
 <div class="home-box">
 	<div class="header-box">
-		<h1><a class="nav-link" href="<c:url value='/'/>">병원 중개</a></h1>
+		<a class="nav-link" href="<c:url value='/'/>">
+			<img alt="로고이미지" style="width: 200px;" 
+			src="<c:url value='/resources/img/로고.png'/>">
+		</a>
 		<ul class="navbar-nav">
 			<c:if test="${user == null }">	
 				<li class="nav-item">
