@@ -1,10 +1,10 @@
-#DROP DATABASE IF EXISTS `hospital_mediation`;
+DROP DATABASE IF EXISTS `hospital_mediation`;
 
 CREATE DATABASE IF NOT EXISTS `hospital_mediation`;
 
 use `hospital_mediation`;
 
-#DROP TABLE IF EXISTS `member`;
+DROP TABLE IF EXISTS `member`;
 
 CREATE TABLE `member` (
 	`me_id`	varchar(13) primary key,
@@ -474,18 +474,18 @@ REFERENCES `hospital_subject` (
 	`hs_num`
 );
 
-#select * from si_do join si_goon_gu on sd_num = sgg_sd_numeup_myeon_dong join eup_myeon_dong on sgg_num = emd_sgg_num order by sd_num ;
+select * from si_do join si_goon_gu on sd_num = sgg_sd_numeup_myeon_dong join eup_myeon_dong on sgg_num = emd_sgg_num order by sd_num ;
 
  INSERT INTO MEMBER_STATE VALUES('이용중'), ('기간정지'), ('영구정지'), ('탈퇴');
 
 
 # 병원 과목
 insert into hospital_subject(hs_title) 
-values('내과'), ('외과'), ('정형외과'),('site_management이비인후과'),('치과'),('산부인과'), ('신경과'), ('신경외과'),('성형외과'),('피부과'),('비뇨기과'),('건강검진');
-select * from si_do;
+values('내과'), ('외과'), ('정형외과'), ('이비인후과'),('치과'), ('산부인과'), 
+('신경과'), ('신경외과'), ('성형외과'), ('피부과'), ('비뇨기과'), ('건강검진');
 
  insert into land value(1,1);
 
 #insert into land(la_emd_num) value (1);
 
-#select * from member join site_management on site_id = me_id;
+select * from member join site_management on site_id = me_id;

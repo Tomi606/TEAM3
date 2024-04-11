@@ -11,7 +11,7 @@ import kr.kh.team3.model.vo.SiteManagement;
 
 public interface HospitalService {
 
-	boolean signup(HospitalVO hospital);
+	boolean signup(HospitalVO hospital, String address);
 
 	boolean signup(SiteManagement site);
 
@@ -32,5 +32,11 @@ public interface HospitalService {
 	HospitalVO getHospitalId(HospitalVO hospital);
 
 	void setLoginFail(String ho_id);
+
+	HospitalVO ajaxHospitalId(HospitalVO hospital);
+
+	HospitalVO ajaxHospitalEmail(HospitalVO hospital);
+
+	boolean ctfEmail(String me_email);
 
 }

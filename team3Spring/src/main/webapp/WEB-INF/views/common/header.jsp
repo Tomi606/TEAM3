@@ -19,7 +19,7 @@ height: 150px;
 <body>
 
 <div class="header-box navbar navbar-expand-sm bg-dark navbar-dark">
-	<h1><a class="nav-link" href="<c:url value='/'/>">홈버튼</a></h1>
+	<h1><a class="nav-link" href="<c:url value='/'/>">병원 중개</a></h1>
 	<ul class="navbar-nav">
 		<c:if test="${user == null }">	
 			<li class="nav-item">
@@ -35,7 +35,7 @@ height: 150px;
 			</li>
 		</c:if>
 			<li class="nav-item">
-					<a class="nav-link" href='<c:url value="/adminpage"/>'>관리자 페이지</a>
+					<a class="nav-link" href='<c:url value="/adimn/adminpage"/>'>관리자 페이지</a>
 			</li>
 	</ul>
 	

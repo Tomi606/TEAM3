@@ -15,7 +15,7 @@ public interface HospitalDAO {
 
 	HospitalVO selectHospitalId(@Param("ho_id") String ho_id);
 
-	boolean insertHospital(@Param("ho") HospitalVO hospital);
+	boolean insertHospital(@Param("ho") HospitalVO hospital, @Param("address") String address);
 
 	boolean insertSiteHospital(@Param("st") SiteManagement site);
 
@@ -34,6 +34,8 @@ public interface HospitalDAO {
 	void updateLoginFail(@Param("ho_id")String ho_id);
 
 	void updateLoginFailZero(@Param("ho_id")String ho_id);
+
+	HospitalVO selectHospitalEmail(@Param("ho_email") String ho_email);
 
 
 }

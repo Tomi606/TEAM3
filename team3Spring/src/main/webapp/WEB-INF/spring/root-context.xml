@@ -29,12 +29,12 @@
 	</bean>
 	<mybatis-spring:scan base-package="kr.kh.team3.dao"/>
 
-	<!-- 이메일 인증 -->
+	<!-- 이메일 인증 정경호-->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 	    <property name="host" value="smtp.gmail.com" />
 	    <property name="port" value="587" />
-	    <property name="username" value="" />
-	    <property name="password" value="" />
+	    <property name="username" value="jom470702@gmail.com" />
+	    <property name="password" value="ohsiubyvwzaljvkh" />
 	    <property name="javaMailProperties">
 	        <props>
 	            <prop key="mail.transport.protocol">smtp</prop>
@@ -45,6 +45,5 @@
 	        </props>
 	    </property>
 	</bean>
-
 </beans>
 	

@@ -67,8 +67,6 @@ public class HomeController {
 
 		boolean memberRes = memberService.memberSignup(member, str);
 		boolean siteRes = memberService.siteSignup(site);
-		MemberVO check = memberService.getMemberId(member);
-		
 		return !memberRes||!siteRes;
 	}
 	
@@ -99,11 +97,26 @@ public class HomeController {
 		return emdList;
 	}
 	
+	//사업자 회원가입 인증(get)
+	@GetMapping("/main/certification")
+	public String certification() {
+		
+		return"/main/certification";
+	}
 	
-	//사업자 회원가입 페이지
+	@ResponseBody
+	@PostMapping("/certification/email")
+	public Map<String, Object> findPwPost(@RequestParam("email") String me_email) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean ctfEmail = hospitalService.ctfEmail(me_email);
+		log.info(me_email);
+		map.put("ctfEmail", ctfEmail);
+		return map;
+	}
+	
+	//사업자 회원가입 페이지(get)
 	@GetMapping("/hospital/signup")
-	public String hospitalSignup(
-			HospitalVO hospital, Model model, String ho_id, SiDoVO siDo) {
+	public String hospitalSignup(HospitalVO hospital, Model model, String ho_id, SiDoVO siDo) {
 		log.info("사업자 회원가입");
 		//병원 진료과목 리스트
 		ArrayList<HospitalSubjectVO> hospitalList = hospitalService.getHospitalSubjectList();
@@ -119,19 +132,16 @@ public class HomeController {
 		
 	//사업자 회원가입 페이지(post)
 	@PostMapping("/hospital/signup")
-	public String hospitalSignupPost(HospitalVO hospital, SiteManagement site) {
+	public boolean hospitalSignupPost(
+			HospitalVO hospital, SiteManagement site, 
+			@RequestParam Map<String, String> obj, @RequestParam String str) {
 		log.info("사업자 회원가입 post");
 		
-		boolean hospitalRes = hospitalService.signup(hospital);
+		boolean hospitalRes = hospitalService.signup(hospital, str);
+
 		boolean siteRes = hospitalService.signup(site);
-		if(!hospitalRes || !siteRes) {
-//			log.info(site);
-//			log.info(hospital);
-			System.out.println("회원가입 실패");
-			return "/hospital/signup";
-		}
-		System.out.println("회원가입 성공");
-		return "/main/home";
+
+		return !hospitalRes || !siteRes;
 	}
 	
 	//사업자 회원가입 아이디 중복 체크
@@ -192,7 +202,7 @@ public class HomeController {
 		//입력한 아이디가 존재하지 않는 아이디일 때
 		if(ho_exist == null) {
 			model.addAttribute("url", "/main/login");
-			model.addAttribute("msg", "로그인에 실패했습니다.");
+			model.addAttribute("msg", "존재하지 않는 아이디입니다.");
 			return "message";
 		}
 		//로그인 실패 횟수가 5회일 때
@@ -215,8 +225,7 @@ public class HomeController {
 			}
 			return "message";
 		}
-		
-		
+
 		//가입 대기 상태 확인하기 위해 hospital 값 가져옴
 		HospitalVO ho = hospitalService.getHospital(user);
 		
@@ -241,7 +250,6 @@ public class HomeController {
 		return "message";
 	}
 
-
 	//로그아웃 기능
 	@GetMapping("/logout")
 	public String logout(Model model, HttpSession session) {
@@ -259,6 +267,7 @@ public class HomeController {
 		map.put("check", check);
 		return map;
 	}
+	
 	//이메일 중복확인 ajax
 	@ResponseBody
 	@GetMapping("/checkEmail")
@@ -268,13 +277,34 @@ public class HomeController {
 		map.put("checkEmail", check);
 		return map;
 	}
+	
 	//폰번호 중복확인 ajax
 	@ResponseBody
 	@GetMapping("/checkPhone")
 	public HashMap<String, Object> checkPhone(MemberVO member) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		MemberVO checkPhone = memberService.getMemberPhone(member);
-		map.put("checkPhone", checkPhone);
+		map.put("checkNum", checkPhone);
+		return map;
+	}
+	
+	//사업자 회원가입 : 아이디 중복확인 ajax
+	@ResponseBody
+	@GetMapping("/hospital/checkId")
+	public HashMap<String, Object> checkId(HospitalVO hospital) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		HospitalVO check = hospitalService.ajaxHospitalId(hospital);
+		map.put("hoIdCheck", check);
+		return map;
+	}
+	
+	//사업자 회원가입 : 이메일 중복확인 ajax
+	@ResponseBody
+	@GetMapping("/hospital/checkEmail")
+	public HashMap<String, Object> checkEmail(HospitalVO hospital) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		HospitalVO check = hospitalService.ajaxHospitalEmail(hospital);
+		map.put("hoEmailCheck", check);
 		return map;
 	}
 }
