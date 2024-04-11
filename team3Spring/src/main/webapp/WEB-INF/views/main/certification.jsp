@@ -5,14 +5,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사업자 회원가입 이메일 인증</title>
+<title>회원가입 이메일 인증</title>
 </head>
 <body>
-	<h1>사업자 회원가입 이메일 인증</h1>
+	<h1>회원가입 이메일 인증</h1>
 	<div class="container">
 		<div class="form-group">
 			<label for="email">이메일 입력</label> <input type="text"
-				class="form-control" id="email" name="me_email"
+				class="form-control" id="email" name="email"
 				placeholder="이메일을 입력하세요.">
 		</div>
 		<button class="btn btn-outline-success col-12 btn-email">이메일
@@ -57,7 +57,7 @@ $(".btn-email").click( function() {
      */
 $('.btn-email').click(function() {
 	let obj = {
-		email : $('[name=me_email]').val()
+		email : $('[name=email]').val()
 	}
 	$('.container-spinner').show();
 	//서버로 전송
@@ -93,7 +93,7 @@ $('.btn-email').click(function() {
 				                alert("인증에 실패했습니다");
 				            }else{
 				                alert("인증에 성공했습니다. 회원가입 페이지로 이동합니다.");
-				               	let email= $("[name=me_email]").val();
+				               	let email= $("[name=email]").val();
 				               	location.href = '<c:url value="/hospital/signup"/>?email=' + encodeURIComponent(email);
 				            }
 				        },
