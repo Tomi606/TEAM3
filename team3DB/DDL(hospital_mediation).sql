@@ -21,7 +21,8 @@ CREATE TABLE `member` (
 	`me_address`	varchar(100) NOT NULL,
 	`me_authority`	varchar(10)	not null default 'USER',
 	`me_cookie`	varchar(255) NULL,
-	`me_cookie_limit` datetime NULL
+	`me_cookie_limit` datetime NULL,
+    `me_fail` int not null default '0'
 );
 
 DROP TABLE IF EXISTS `post`;
