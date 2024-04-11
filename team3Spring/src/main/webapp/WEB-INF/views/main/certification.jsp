@@ -21,6 +21,7 @@
 	</div>
 
 
+
 	<!-- 이메일 인증 보내기 -->
 	<script type="text/javascript">
 /* var emailCheck = false;
@@ -34,7 +35,7 @@ $(".btn-email").click( function() {
     $.ajax({
         url: '<c:url value="/hospital/checkEmail"/>',
         type: "get",
-        data: { me_email: email }, 
+        data: { email: email }, 
         success: function(response) {
             if (response.hoEmailCheck == null) {
                alert("사용 가능한 이메일입니다.");

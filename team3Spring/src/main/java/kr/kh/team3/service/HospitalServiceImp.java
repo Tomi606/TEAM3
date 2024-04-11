@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.team3.dao.HospitalDAO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
@@ -184,7 +185,6 @@ public class HospitalServiceImp implements HospitalService {
 
 	@Override
 	public String ctfEmail(String me_email) {
-
 		//임시 새 비밀번호를 생성
 		String ctfEmail = randomString(10);
 		
@@ -200,7 +200,7 @@ public class HospitalServiceImp implements HospitalService {
 		}
 	}
 	
-	public boolean mailSend(String me_email, String title, String content) {
+	public boolean mailSend(String email, String title, String content) {
 
 	    String setfrom = "jom470702@gmail.com";
 	   try{
@@ -209,7 +209,7 @@ public class HospitalServiceImp implements HospitalService {
 	            = new MimeMessageHelper(message, true, "UTF-8");
 
 	        messageHelper.setFrom(setfrom);// 보내는사람 생략하거나 하면 정상작동을 안함
-	        messageHelper.setTo(me_email);// 받는사람 이메일
+	        messageHelper.setTo(email);// 받는사람 이메일
 	        messageHelper.setSubject(title);// 메일제목은 생략이 가능하다
 	        messageHelper.setText(content, true);// 메일 내용, (,true) : 내용에 html 코드가 들어가면 문자열이 아니라 html 코드로 들어간다
 
@@ -219,6 +219,7 @@ public class HospitalServiceImp implements HospitalService {
 	        e.printStackTrace();
 	        return false;
 	    }
+
 	}
 
 }

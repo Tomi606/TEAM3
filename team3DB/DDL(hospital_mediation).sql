@@ -484,7 +484,7 @@ insert into hospital_subject(hs_title)
 values('내과'), ('외과'), ('정형외과'), ('이비인후과'),('치과'), ('산부인과'), 
 ('신경과'), ('신경외과'), ('성형외과'), ('피부과'), ('비뇨기과'), ('건강검진');
 
- insert into land value(1,1);
+insert into land value(1,1);
 
 #insert into land(la_emd_num) value (1);
 
