@@ -307,9 +307,9 @@ public class HomeController {
 	//사업자 회원가입 : 아이디 중복확인 ajax
 	@ResponseBody
 	@GetMapping("/hospital/checkId")
-	public HashMap<String, Object> checkId(HospitalVO hospital, MemberVO member) {
+	public HashMap<String, Object> checkId(HospitalVO hospital) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		HospitalVO check = hospitalService.ajaxHospitalId(hospital, member);
+		HospitalVO check = hospitalService.ajaxHospitalId(hospital);
 		map.put("hoIdCheck", check);
 		return map;
 	}

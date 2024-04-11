@@ -9,120 +9,152 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
 <title>사업자 회원가입</title>
 <style type="text/css">
-.title {
-	display:inline-block;
-	text-align:center;
-	width:200px;
-	font-weight:bold;
+.body-tag {
+width: 100%;
+display: felex;flex-direction: column;
+align-items: center;
 }
-
-legend {
-	margin-top: 30px;
-	font-weight : bold;
+.input-box {
+	border:1px solid white;
+	width: 547px;height:100%; 
+	margin: 0 auto;
+	padding: 5px;
 }
-
-input {
-	display:inline-block;
-	text-align:left;
-	width:50%;
+.input-tag {
+    border: 1px solid #ccc; 
+    outline: none;
+    margin-bottom: 15px; 
+    width: 400px;
+    padding: 10px;
 }
-
-.text-danger {
-	text-align:center;
-	width:100%;
-	font-weight:bold;
+.input-tag:focus {
+    border-bottom-color: blue; 
+    box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
 }
-.fofo{
-	width : 100%;
-	text-align: center;
+.btn {
+	text-decoration: none;
+	border:1px solid blue;
+	width: 100px;
 }
-.fofo label{
-	width: 300px;
+.btn:hover {
+	background-color: blue;
+	color: white;
+}
+.signup-btn {
+text-align:center;font-size:20px;font-weight:bold;
+width: 400px;height:40px;border-radius:0;
+padding: 2px;border-bottom: 1px solid blue;
+margin-left:34px;
+}
+select {
+	margin-left:34px;
+    padding: 10px;
+    font-size: 16px; 
+    border: 1px solid #ccc; 
+    background-color: #ffff; 
+    outline: none; 
+    width: 200px; 
+}
+select:focus {
+    border-color: blue; 
+    box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
+}
+select:hover {
+    background-color: #eaeaea;
+}
+img {
+ width: 30px;
+}
+.duplicate {
+    float:right;
+	border-radius:0;
+	height: 43px;
+}
+label {
+	margin-left: 30px;
 }
 </style>
 </head>
 <body>
-<form class="container" action='<c:url value="/hospital/signup"/>' id="myForm" method="post">
-<div class="fofo">
-	<fieldset>
-		<legend class="mt-3">사업자 회원가입</legend>
-			<div >
-				<label class="title" for="id">아이디</label>
-				<input type="text" id="id" name="ho_id" maxlength="15" placeholder="아이디를 입력하세요."/>
-			<!-- 	<button type="button"class="check-duplicate">중복 확인</button> -->
-				<label id="id-error" class="error text-danger textId" for="id"></label>
+<div class="body-tag">
+	<form action='<c:url value="/hospital/signup"/>' id="myForm" method="post">
+		<div class="input-box">
+			<div>
+				<img alt="아이디 이미지" src="<c:url value="/resources/img/ceo.svg"/>">
+				<input type="text" class="input-tag" id="id" name="ho_id" maxlength="15" required autofocus="autofocus" placeholder="아이디"/>
+				<label class="text-danger textId" id="laId"></label>
 			</div>
 			<div>
-				<label class="title" for="pw">비밀번호</label>
-				<input type="password" id="pw" name="ho_pw" maxlength="18"  required placeholder="비밀번호를 입력하세요."/>
+		    	<input type="hidden" id="id2" name="site_id">
+			</div>
+			<div>
+				<img alt="비번 이미지" src="<c:url value="/resources/img/password.svg"/>">
+				<input type="password" class="input-tag" id="pw" name="ho_pw" maxlength="18" required autofocus="autofocus" placeholder="비밀번호"/>
 				<label id="pw-error" class="error text-danger" for="pw"></label>
 			</div>
 			<div>
-				<label class="title" for="pw2">비밀번호 확인</label>
-				<input type="password" id="pw2" name="ho_pw2" maxlength="18"  required placeholder="비밀번호를 한번 더 입력하세요."/>
+				<img alt="비번확인 이미지" src="<c:url value="/resources/img/passwordcheck.svg"/>">
+				<input type="password" class="input-tag" id="pw2" name="ho_pw2" maxlength="18" required autofocus="autofocus" placeholder="비밀번호 확인"/>
 				<label id="pw2-error" class="error text-danger" for="pw2"></label>
 			</div>
 			<div>
-				<label class="title" for="email">이메일</label>
-				<input type="email" id="email" name="ho_email" readonly value="${email}"/>
-				<button type="button" class="email-btn">중복확인</button>
+				<img alt="이메일 이미지" src="<c:url value="/resources/img/email.svg"/>">
+				<input type="email" class="input-tag" id="email" name="ho_email" readonly value="${email}"/>
 				<label id="email-error" class="error text-danger" for="email"></label>
 			</div>
 			<div>
-				<label class="title" for="name">상호명</label>
-				<input type="text" id="name" name="ho_name" required placeholder="상호명을 입력하세요."/>
+				<img alt="상호명 이미지" src="<c:url value="/resources/img/quote.svg"/>">
+				<input type="text" class="input-tag" id="name" name="ho_name" required autofocus="autofocus" placeholder="상호명"/>
 				<label id="name-error" class="error text-danger" for="name"></label>
 			</div>
 			<div>
-				<label class="title" for="subject">대표 진료과목</label>
-				<select id="subject" name="ho_hs_num" required>
+				<img alt="대표자명 이미지" src="<c:url value="/resources/img/user.svg"/>">
+				<input type="text" class="input-tag" id="ceo" name="ho_ceo" 
+				required autofocus="autofocus" placeholder="대표자명"/>
+				<label id="ceo-error" class="error text-danger" for="ceo"></label>
+			</div>
+			<div>
+				<img alt="사업자번호 이미지" src="<c:url value="/resources/img/job.svg"/>">
+				<input type="text" class="input-tag" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="10"
+				id="num" name="ho_num" required autofocus="autofocus" placeholder="사업자번호('-'제외 10자)"/>
+				<label id="num-error" class="error text-danger" for="num"></label>
+			</div>
+			<div>
+				<img alt="대표 전화번호 이미지" src="<c:url value="/resources/img/phone2.svg"/>">
+				<input type="text" class="input-tag" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="11"
+				id="phone" name="ho_phone" required autofocus="autofocus" placeholder="대표 전화번호('-'제외 최대 11자)"/>
+				<label id="phone-error" class="error text-danger" for="phone"></label>
+			</div>
+			<div class="subject">
+			<div class="hr" style="margin-top:30px; margin-bottom:40px; border: 1px solid #d2d2d2; width: 480px;"></div>
+				<select id="subject" name="ho_hs_num" style="width: 400px; margin-bottom: 20px" required>
+					<option value="none">관심 병원 과목을 선택하세요</option>
+					<option value="none">없음</option>
 					<c:forEach items="${hospitalList}" var="hs">
 						<option value="${hs.hs_num}">${hs.hs_title}</option>
 					</c:forEach>
 				</select>
 			</div>
 			<div>
-				<label class="title" for="ceo">대표자명</label>
-				<input type="text" id="ceo" name="ho_ceo" required placeholder="대표자명을 입력하세요."/>
-				<label id="ceo-error" class="error text-danger" for="ceo"></label>
-			</div>
-			<div>
-				<label class="title" for="num">사업자번호</label>
-				<input type="text" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="10"
-				id="num" name="ho_num" required placeholder="'-'제외한 사업자번호를 입력하세요."/>
-				<label id="num-error" class="error text-danger" for="num"></label>
-			</div>
-			<div>
-				<label class="title" for="address">소재지</label>
-				<select name="sd_num">
-					<option value="none">선택해주세요</option>
-						<c:forEach items="${sidoList}" var="sd">
-							<option value="${sd.sd_num}">${sd.sd_name}</option>
-						</c:forEach>
+				<select name="sd_num" class="sd_num" style="width: 400px; margin-bottom: 20px" required>
+					<option value="none">시/도를 선택해주세요</option>
+					<c:forEach items="${sidoList}" var="sd">
+						<option value="${sd.sd_num}">${sd.sd_name}</option>
+					</c:forEach>
 				</select>	
-				<select name="sgg_num" class="sgg_num">
-					<option value="none">시를 선택해주세요</option>
+				<select name="sgg_num" class="sgg_num" style="width: 400px; margin-bottom: 20px" required>
+					<option value="none">시/군/구를 선택해주세요</option>
 				</select>	
-			 	<select name="emd_num" class="emd_num">
-			         <option value="none">군구를 선택해주세요</option>
+			 	<select name="emd_num" class="emd_num" style="width: 400px; margin-bottom: 20px" required>
+			         <option value="none">읍/면/동을 선택해주세요</option>
 			    </select>
 			</div>
 			<div>
-		    	<label class="title" for="address">상세 주소</label>
-				<input type="text" id="address" name="ho_address" required placeholder="상세주소를 입력하세요."/>
-				<label id="address-error" class="error text-danger" for="address"></label>			
+				<button class="check btn signup-btn" type="submit" onclick="hoIdForm()">회원가입</button>
 			</div>
-			<div>
-				<label class="title" for="phone">대표 전화번호</label>
-				<input type="text" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="11"
-				id="phone" name="ho_phone" required placeholder="'-'제외한 대표 전화번호를 입력하세요."/>
-				<label id="phone-error" class="error text-danger" for="phone"></label>
-			</div>
-	</fieldset>
-	<input type="hidden" id="id2" name="site_id">
-	<button class="btn btn-outline-success mt-3 col-10 center" type="submit" onclick="hoIdForm()">회원가입</button>
+		</div>
+	</form>
 </div>
-</form>
 <!-- 정규표현식 -->
 <script type="text/javascript">
 $("form").validate({
@@ -338,7 +370,7 @@ $(document).ready(function() {
 	   var idCheck = false;
 	    $("#id").keyup(function() {
 	        var id = $("#id").val();
-	        if(id.length == 0||id==""){
+	        if(id.length == 0 || id==""){
 	          $(".textId").text("아이디를 입력해주세요.");
 	          return;
 	       }
@@ -356,18 +388,16 @@ $(document).ready(function() {
 	            data: { ho_id: id }, 
 	            success: function(response) {
 	                if (response.hoIdCheck == null) {
-	                	 if (id.length >= 8) {
 	                	        $(".textId").text("사용 가능한 아이디입니다.").css("color", "blue");
 	                	        idCheck = true;
 	                	        setTimeout(function() {
 	                	            $(".textId").text("");
 	                	        }, 2000);
 	                	        return;
-	                	    }
 	                	
-	                	}else if(response.hoIdCheck != null&&id.length >= 8){
+	                	}else if(response.hoIdCheck != null && id.length >= 8){
 	                		$(".textId").text("이미 사용중인 아이디입니다.");
-	                		 idCheck = false;
+	                		idCheck = false;
 	                } 
 	            },
 	            error: function(xhr, status, error) {
@@ -384,11 +414,11 @@ $(document).ready(function() {
 	        }
 	        
 	        $.ajax({
-	            url: '<c:url value="/checkPhone"/>',
+	            url: '<c:url value="/hospital/checkPhone"/>',
 	            type: "get",
-	            data: { me_phone: phone }, 
+	            data: { ho_phone: phone }, 
 	            success: function(response) {
-	                if (response.checkNum == null) {
+	                if (response.hoPhoneCheck == null) {
 	                	if(phone.length == 11){
 	                    $("#idcheck-phone").text("사용가능한 휴대폰 번호입니다.");
 	                    phoneCheck = true;
@@ -397,7 +427,7 @@ $(document).ready(function() {
 	        	        }, 2000);
 	                    return;
 	                	}
-	                } else if(response.checkNum != null||phone.length == 11){
+	                } else if(response.hoPhoneCheck != null||phone.length == 11){
 	                	 $("#idcheck-phone").text("이미 사용중인 휴대폰 번호입니다.");
 	               	 	phoneCheck = false;
 	                    return;

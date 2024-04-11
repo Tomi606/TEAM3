@@ -1,5 +1,7 @@
 package kr.kh.team3.model.vo;
 
+import java.util.Date;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -22,6 +24,7 @@ public class MemberVO {
 	private int me_fail;
 	private String me_cookie;
 	private String me_cookie_limit;
+	private Date me_stop;
 	 
 
 }
