@@ -53,7 +53,7 @@
 				<th>승인/거절</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody class="box-hospital-list">
 			<tr>
 				<td>John</td>
 				<td>Doe</td>
@@ -65,6 +65,9 @@
 			</tr>
 		</tbody>
 	</table>
+	<div class="box-pagination">
+		<ul class="pagination justify-content-center"></ul>
+	</div>
 </div>
 
 <script type="text/javascript">
@@ -84,14 +87,64 @@ function getWaitList(cri){
 		//서버에서 보낸 데이터의 타입
 		dataType : "json", 
 		success : function (data){
-			//displayWaitList(data.list);
-			//displayWaitPagination(data.pm);
+			displayWaitList(data.list);
+			displayWaitPagination(data.pm);
 			/* $('.comment-total').text(data.pm.totalCount); */
 		}, 
 		error : function(jqXHR, textStatus, errorThrown){
 
 		}
 	});
+}
+
+function displayWaitList(list){
+	let str = '';
+	if(list == null || list.length == 0){
+		str = '<h3>대기중인 병원이 없습니다.</h3>';
+		$('.box-hospital-list').html(str);
+		return;
+	}
+	for(item of list){
+		str += 
+		`
+			<tr class="box-hospital">
+				<td>\${item.ho_id}</td>
+				<td>\${item.ho_name}</td>
+				<td>\${item.ho_num}</td>
+				<td>\${item.ho_phone}</td>
+				<td>\${item.ho_email}</td>
+				<td>\${item.ho_address}</td>
+				<td><button data-num="\${item.cm_num}">승인</button><button data-num="\${item.cm_num}">거절</button></td>
+			</tr>
+		`
+	}
+	$('.box-hospital-list').html(str);
+}
+
+function displayWaitPagination(pm){
+    
+	let str = '';
+	if(pm.prev){
+		str += `
+		<li class="page-item">
+			<a class="page-link" href="javascript:void(0);" data-page="\${pm.startPage - 1}">이전</a>
+		</li>`;		
+	}
+	for(let i = pm.startPage; i<= pm.endPage; i++){
+		let active = pm.cri.page == i ? 'active' : '';
+		str += `
+		<li class="page-item \${active}">
+			<a class="page-link" href="javascript:void(0);" data-page="\${i}">\${i}</a>
+		</li>`;	
+	}
+	
+	if(pm.next){
+		str += `
+		<li class="page-item">
+			<a class="page-link" href="javascript:void(0);" data-page="\${pm.endPage + 1}">다음</a>
+		</li>`;	
+	}
+	$('.box-pagination>ul').html(str);
 }
 </script>
 </body>
