@@ -110,7 +110,7 @@ public class HomeController {
 	@PostMapping("/certification/email")
 	public Map<String, Object> ctfEmailPost(@RequestParam("email") String email) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		String ctfEmail = hospitalService.ctfEmail(me_email);
+		String ctfEmail = hospitalService.ctfEmail(email);
 		try {
 			map.put("ctfEmail", ctfEmail);			
 		} catch (Exception e) {
@@ -147,6 +147,7 @@ public class HomeController {
 
 		
 	//사업자 회원가입 페이지(post)
+	@ResponseBody
 	@PostMapping("/hospital/signup")
 	public boolean hospitalSignupPost(
 			HospitalVO hospital, SiteManagement site, 
