@@ -42,6 +42,6 @@ public interface MemberDAO {
 
 	int selectMemberTotalCount(@Param("cri") Criteria cri);
 
-	boolean deleteMember(@Param("me_id") MemberVO me_id);
+	boolean deleteMember(@Param("me") MemberVO member);
 
 }

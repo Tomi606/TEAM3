@@ -8,22 +8,21 @@ DROP TABLE IF EXISTS `member`;
 
 CREATE TABLE `member` (
 	`me_id`	varchar(13) primary key,
-	`me_ms_state`	VARCHAR(20)	NOT NULL default '이용중',
+	`me_ms_state` VARCHAR(20) NOT NULL default '이용중',
     `me_hs_num`	int NULL,
 	`me_pw`	varchar(255) NOT NULL,
 	`me_name`	varchar(20)	NOT NULL,
 	`me_gender`	varchar(3)	NOT NULL,
 	`me_job`	varchar(20)	NOT NULL,
-	`me_frontNum`	char(6)	NOT NULL,
-	`me_backNum`	char(7)	NOT NULL,
 	`me_phone`	varchar(11)	NOT NULL,
 	`me_email`	varchar(50)	NOT NULL,
 	`me_address`	varchar(100) NOT NULL,
 	`me_authority`	varchar(10)	not null default 'USER',
 	`me_cookie`	varchar(255) NULL,
 	`me_cookie_limit` datetime NULL,
-    `me_fail` int not null default '0',
-    `me_stop` datetime default 'NULL'
+    `me_fail` int not null default 0,
+    `me_stop` datetime NULL,
+    `me_report_count` int not null default 0
 );
 
 DROP TABLE IF EXISTS `post`;
@@ -146,7 +145,9 @@ CREATE TABLE `hospital` (
 	`ho_authority`	varchar(10) NOT NULL,
 	`ho_cookie`	varchar(255) NULL,
 	`ho_cookie_limit`	datetime NULL,
-    `ho_email` varchar(100) not null
+    `ho_email` varchar(100) not null,
+    `ho_stop` datetime null, 
+    `ho_report_count` int not null default 0
 );
 
 DROP TABLE IF EXISTS `site_management`;
@@ -173,7 +174,6 @@ CREATE TABLE `eup_myeon_dong` (
 	`emd_name`	varchar(255) NOT NULL,
 	`emd_sgg_num`	int	NOT NULL
 );
-
 
 DROP TABLE IF EXISTS `si_goon_gu`;
 
@@ -377,7 +377,7 @@ REFERENCES `member_state` (
 );
 
 ALTER TABLE `hospital` ADD CONSTRAINT `FK_hospital_subject_TO_hospital_1` FOREIGN KEY (
-	`ho_cs_num`
+	`ho_hs_num`
 )
 REFERENCES `hospital_subject` (
 	`hs_num`
@@ -477,9 +477,9 @@ REFERENCES `hospital_subject` (
 	`hs_num`
 );
 
-select * from si_do join si_goon_gu on sd_num = sgg_sd_numeup_myeon_dong join eup_myeon_dong on sgg_num = emd_sgg_num order by sd_num ;
+# select * from si_do join si_goon_gu on sd_num = sgg_sd_numeup_myeon_dong join eup_myeon_dong on sgg_num = emd_sgg_num order by sd_num ;
 
- INSERT INTO MEMBER_STATE VALUES('승인대기'), ('이용중'), ('기간정지'), ('영구정지'), ('탈퇴'),('가입대기');
+INSERT INTO MEMBER_STATE VALUES ('이용중'), ('기간정지'), ('영구정지'), ('탈퇴'), ('가입대기');
 
 
 # 병원 과목
@@ -487,7 +487,8 @@ insert into hospital_subject(hs_title)
 values('내과'), ('외과'), ('정형외과'), ('이비인후과'),('치과'), ('산부인과'), 
 ('신경과'), ('신경외과'), ('성형외과'), ('피부과'), ('비뇨기과'), ('건강검진');
 
-insert into land value(1,1);
+# 지역 DB 넣고 실행하기
+insert into land value(1, 1);
 
 # insert into land(la_emd_num) value (1);
 
