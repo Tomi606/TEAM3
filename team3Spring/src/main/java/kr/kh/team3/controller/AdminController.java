@@ -15,9 +15,16 @@ public class AdminController {
  
 
 	//회원가입 메인페이지
-		@GetMapping("/admin/adminpage")
-		public String adminpage() {
-			log.info("관리자 화면");
-			return "/admin/adminpage";
-		}
+	@GetMapping("/admin/adminpage")
+	public String adminpage() {
+		log.info("관리자 화면");
+		return "/admin/adminpage";
+	}
+		
+	//회원 관리 페이지
+	@GetMapping("/admin/member")
+	public String adminMember() {
+		log.info("관리자 - 회원 관리");
+		return "/admin/member";
+	}
 }
