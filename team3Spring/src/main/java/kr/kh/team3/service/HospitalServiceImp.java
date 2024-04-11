@@ -197,7 +197,7 @@ public class HospitalServiceImp implements HospitalService {
 	
 	public boolean mailSend(String me_email, String title, String content) {
 
-	    String setfrom = "didtjswls98@gmail.com";
+	    String setfrom = "jom470702@gmail.com";
 	   try{
 	        MimeMessage message = mailSender.createMimeMessage();
 	        MimeMessageHelper messageHelper
