@@ -10,6 +10,7 @@ import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
+import kr.kh.team3.pagination.Criteria;
 
 public interface HospitalDAO {
 
@@ -38,8 +39,13 @@ public interface HospitalDAO {
 	HospitalVO selectHospitalEmail(@Param("ho_email") String ho_email);
 
 	HospitalVO selectHospitalPhone(@Param("ho_phone") String ho_phone);
-
+	
+	// ======================== 병원 관리 ==========================
+	//이용중인 병원만 호출
 	ArrayList<HospitalVO> hospitalList();
 
+	ArrayList<HospitalVO> selectWaitHospitalList(@Param("cri")Criteria cri);
+
+	int selectWHTotalCount(@Param("cri")Criteria cri);
 
 }
