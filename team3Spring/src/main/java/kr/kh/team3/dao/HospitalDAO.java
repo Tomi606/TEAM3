@@ -41,9 +41,14 @@ public interface HospitalDAO {
 	HospitalVO selectHospitalPhone(@Param("ho_phone") String ho_phone);
 	
 	// ======================== 병원 관리 ==========================
-
+	//이용중인 병원만 호출
+	ArrayList<HospitalVO> hospitalList(@Param("cri")Criteria cri);
+	//정경호 
+	int selectHospitalCount(@Param("cri")Criteria cri);
+	
 	ArrayList<HospitalVO> selectWaitHospitalList(@Param("cri")Criteria cri);
 
 	int selectWHTotalCount(@Param("cri")Criteria cri);
+
 
 }

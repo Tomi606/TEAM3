@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,10 +32,15 @@ public class AdminController {
 	// ======================== 병원 관리 ==========================
 	//병원 관리 페이지
 	@GetMapping("/admin/hospital")
-	public String adminHospital() {
+	public String adminHospital(HospitalVO hospital,Model model,Criteria cri) {
 		//병원 전체 리스트 가져오기
+		ArrayList<HospitalVO> hoList = hospitalService.hospitalList(cri);
+		int totalCount = hospitalService.getHospitalCount(cri);
+		PageMaker pm = new PageMaker(3, cri, totalCount);
 		//대기 병원 리스트 가져오기
 		//신고 병원 리스트 가져오기
+		model.addAttribute("hoList",hoList);
+		model.addAttribute("pm",pm);
 		return "/admin/hospital";
 	}
 	
