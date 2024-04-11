@@ -14,7 +14,7 @@
 	<h1>관리자페이지입니다</h1>
 	<br><br><br><br>
 	
-	<a href='<c:url value=""/>'>병원 관리</a>
+	<a href='<c:url value="/admin/hospital"/>'>병원 관리</a>
 	<h2>기은, 경호</h2>
 	<h2>병원 관리</h2>
 	<p>사업자 회원조회</p>

@@ -13,13 +13,28 @@ public class AdminController {
 	 * 메서드 위에 주석으로 무슨 기능인지 쓰기
 	 */
 	
-	@GetMapping("/admin/hospitallist")
-	public String hospitalList() {
-		
-		return "/admin/hospitallist";
+	// ======================== 병원 관리 ==========================
+	//병원 관리 페이지
+	@GetMapping("/admin/hospital")
+	public String adminHospital() {
+		//병원 전체 리스트 가져오기
+		//대기 병원 리스트 가져오기
+		//신고 병원 리스트 가져오기
+		return "/admin/hospital";
 	}
+	
+	//대기 병원 관리 페이지
+	@GetMapping("/admin/waitlist")
+	public String adminWaitlist() {
+		//대기 병원 리스트 가져오기
+		return "/admin/waitlist";
+	}
+	
+	
  
-
+	// ======================== 병원 관리 끝 ==========================
+	
+	
 	//회원가입 메인페이지
 	@GetMapping("/admin/adminpage")
 	public String adminpage() {
