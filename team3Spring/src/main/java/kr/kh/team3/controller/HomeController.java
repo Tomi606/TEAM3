@@ -97,11 +97,26 @@ public class HomeController {
 		return emdList;
 	}
 	
+	//사업자 회원가입 인증(get)
+	@GetMapping("/main/certification")
+	public String certification() {
+		
+		return"/main/certification";
+	}
 	
-	//사업자 회원가입 페이지
+	@ResponseBody
+	@PostMapping("/certification/email")
+	public Map<String, Object> findPwPost(@RequestParam("email") String me_email) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean ctfEmail = hospitalService.ctfEmail(me_email);
+		log.info(me_email);
+		map.put("ctfEmail", ctfEmail);
+		return map;
+	}
+	
+	//사업자 회원가입 페이지(get)
 	@GetMapping("/hospital/signup")
-	public String hospitalSignup(
-			HospitalVO hospital, Model model, String ho_id, SiDoVO siDo) {
+	public String hospitalSignup(HospitalVO hospital, Model model, String ho_id, SiDoVO siDo) {
 		log.info("사업자 회원가입");
 		//병원 진료과목 리스트
 		ArrayList<HospitalSubjectVO> hospitalList = hospitalService.getHospitalSubjectList();
@@ -117,19 +132,16 @@ public class HomeController {
 		
 	//사업자 회원가입 페이지(post)
 	@PostMapping("/hospital/signup")
-	public String hospitalSignupPost(HospitalVO hospital, SiteManagement site,
-			@RequestParam Map<String, String> obj,SiDoVO sido,SiGoonGuVO sgg, 
-			@RequestParam String str) {
+	public boolean hospitalSignupPost(
+			HospitalVO hospital, SiteManagement site, 
+			@RequestParam Map<String, String> obj, @RequestParam String str) {
 		log.info("사업자 회원가입 post");
 		
-	 
-		
-		boolean hospitalRes = hospitalService.signup(hospital);
+		boolean hospitalRes = hospitalService.signup(hospital, str);
+
 		boolean siteRes = hospitalService.signup(site);
-		if(!hospitalRes || !siteRes) {
-			return "/hospital/signup";
-		}
-		return "/main/home";
+
+		return !hospitalRes || !siteRes;
 	}
 	
 	//사업자 회원가입 아이디 중복 체크

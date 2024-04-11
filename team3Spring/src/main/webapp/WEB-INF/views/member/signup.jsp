@@ -394,7 +394,7 @@ $("[name=sgg_num]").click(function(){
 /* 읍면동 리스트 select로 띄우기 끝 */
 
 </script>
- <!-- 아이디,이메일,휴대폰 중복체크 ajax 정규표현식 적용 시키기-->
+
 <script type="text/javascript">
 $(document).ready(function() {
    var idCheck = false;

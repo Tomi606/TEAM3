@@ -420,5 +420,36 @@ $(document).ready(function() {
     });
 });
 </script>
+
+<!-- 시도/시군구/읍면동 select -->
+<script type="text/javascript">
+$("form").submit(function(){
+	event.preventDefault(); // 기본 form 제출 이벤트를 막습니다.
+    
+    var sd_num = $("select[name='sd_num'] option:selected").text();
+    var sgg_num = $("select[name='sgg_num'] option:selected").text();
+    var emd_num = $("select[name='emd_num'] option:selected").text();
+    var str = sd_num + sgg_num + emd_num;
+    
+    // Serialize된 form 데이터를 직접 사용하고 str 파라미터를 추가합니다.
+    var formData = $(this).serialize();
+    formData += '&str=' + str; // str 파라미터 추가
+	$.ajax({
+		async:true,
+		url : '<c:url value="/hospital/signup"/>',
+		type : 'post',
+		data : formData,
+		success:function(data){
+			if (data === false) {
+		        location.href = '<c:url value="/message"/>?res=' + data;
+		    } else {
+		        location.href = '<c:url value="/message"/>?res=' + data;
+		    }
+			
+		}
+	});
+	return false;
+})
+</script>
 </body>
 </html>
