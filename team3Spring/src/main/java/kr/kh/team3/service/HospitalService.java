@@ -42,4 +42,6 @@ public interface HospitalService {
 
 	HospitalVO ajaxHospitalPhone(HospitalVO hospital,MemberVO member);
 
+	ArrayList<HospitalVO> hospitalList();
+
 }

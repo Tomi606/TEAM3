@@ -39,5 +39,7 @@ public interface HospitalDAO {
 
 	HospitalVO selectHospitalPhone(@Param("ho_phone") String ho_phone);
 
+	ArrayList<HospitalVO> hospitalList();
+
 
 }
