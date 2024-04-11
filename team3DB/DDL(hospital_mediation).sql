@@ -21,7 +21,8 @@ CREATE TABLE `member` (
 	`me_address`	varchar(100) NOT NULL,
 	`me_authority`	varchar(10)	not null default 'USER',
 	`me_cookie`	varchar(255) NULL,
-	`me_cookie_limit` datetime NULL
+	`me_cookie_limit` datetime NULL,
+    `me_fail` int not null default '0'
 );
 
 DROP TABLE IF EXISTS `post`;
@@ -134,7 +135,7 @@ DROP TABLE IF EXISTS `hospital`;
 CREATE TABLE `hospital` (
 	`ho_id`	varchar(13)	primary key,
 	`ho_ms_state`	VARCHAR(20)	NOT NULL,
-	`ho_cs_num`	int	NOT NULL,
+	`ho_hs_num`	int	NOT NULL,
 	`ho_pw`	varchar(255) NOT NULL,
 	`ho_name`	varchar(50)	NOT NULL,
 	`ho_ceo`	varchar(5)	NOT NULL,
@@ -143,7 +144,8 @@ CREATE TABLE `hospital` (
 	`ho_phone`	char(11) NOT NULL,
 	`ho_authority`	varchar(10) NOT NULL,
 	`ho_cookie`	varchar(255) NULL,
-	`ho_cookie_limit`	datetime NULL
+	`ho_cookie_limit`	datetime NULL,
+    `ho_email` varchar(100) not null
 );
 
 DROP TABLE IF EXISTS `site_management`;
@@ -476,7 +478,7 @@ REFERENCES `hospital_subject` (
 
 select * from si_do join si_goon_gu on sd_num = sgg_sd_numeup_myeon_dong join eup_myeon_dong on sgg_num = emd_sgg_num order by sd_num ;
 
- INSERT INTO MEMBER_STATE VALUES('이용중'), ('기간정지'), ('영구정지'), ('탈퇴');
+ INSERT INTO MEMBER_STATE VALUES('승인대기'), ('이용중'), ('기간정지'), ('영구정지'), ('탈퇴');
 
 
 # 병원 과목
@@ -486,6 +488,6 @@ values('내과'), ('외과'), ('정형외과'), ('이비인후과'),('치과'), 
 
 insert into land value(1,1);
 
-#insert into land(la_emd_num) value (1);
+# insert into land(la_emd_num) value (1);
 
-select * from member join site_management on site_id = me_id;
+# select * from member join site_management on site_id = me_id;

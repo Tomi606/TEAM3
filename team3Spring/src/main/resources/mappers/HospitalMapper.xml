@@ -61,4 +61,8 @@
 	<select id="selectHospitalEmail" resultType="HospitalVO">
 		select * from hospital where ho_email = #{ho_email}
 	</select>
+	
+	<select id="selectHospitalPhone" resultType="HospitalVO">
+		select * from hospital where ho_phone = #{ho_phone}
+	</select>
 </mapper>
