@@ -31,6 +31,10 @@
 .all-box{
 
 }
+tr th,
+tr td{
+text-align: center;
+}
 </style>
 </head>
 <body>
@@ -54,8 +58,9 @@
 	<table class="table table-hover mt-3">
 		<thead>
 			<tr>
+				<th>아이디</th>
 				<th>상호명</th>
-				<th>아이디(사업자 번호)</th>
+				<th>사업자 번호</th>
 				<th>전화번호</th>
 				<th>이메일</th>
 				<th>소재지</th>
@@ -64,12 +69,15 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td>John</td>
-				<td>Doe</td>
-				<td>john@example.com</td>
-				<td>john@example.com</td>
-				<td>john@example.com</td>
-				<td>john@example.com</td>
+			<c:forEach items="${hoList}" var="ho">
+				<td>${ho.ho_id}</td>
+				<td>${ho.ho_name}</td>
+				<td>${ho.ho_num}</td>
+				<td>${ho.ho_phone}</td>
+				<td>${ho.ho_email}</td>
+				<td>${ho.ho_address}</td>
+				<td>999</td>
+			</c:forEach>
 			</tr>
 		</tbody>
 	</table>

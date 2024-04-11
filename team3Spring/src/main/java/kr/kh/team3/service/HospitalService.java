@@ -43,6 +43,8 @@ public interface HospitalService {
 
 	HospitalVO ajaxHospitalPhone(HospitalVO hospital,MemberVO member);
 
+	//정경호 이용중인 회원만 가져오는 메서드
+	ArrayList<HospitalVO> hospitalList();
 	//관리자 병원 관리 =========================================================
 	ArrayList<HospitalVO> getWaitHospitalList(Criteria cri);
 

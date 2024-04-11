@@ -66,6 +66,10 @@
 		select * from hospital where ho_phone = #{ho_phone}
 	</select>
 	
+	<!-- 정경호 이용중인 병원만 조회하는 쿼리 -->
+	<select id="hospitalList" resultType="HospitalVO">
+		select * from hospital where ho_ms_state = "이용중"
+	</select>	
 	<!-- 관리자 병원 관리 -->
 	<select id="selectWaitHospitalList" resultType="kr.kh.team3.model.vo.HospitalVO">
 		select * from hospital

@@ -246,6 +246,10 @@ public class HospitalServiceImp implements HospitalService {
 		return null;
 	}
 
+	@Override //이용중인 병원들만 조회하는 메서드 : 정경호
+	public ArrayList<HospitalVO> hospitalList() {
+		return hospitalDao.hospitalList();
+	}
 	//관리자 병원 관리 =========================================================
 	@Override
 	public ArrayList<HospitalVO> getWaitHospitalList(Criteria cri) {
