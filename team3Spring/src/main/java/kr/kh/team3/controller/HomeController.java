@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -108,15 +109,30 @@ public class HomeController {
 	@PostMapping("/certification/email")
 	public Map<String, Object> findPwPost(@RequestParam("email") String me_email) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		boolean ctfEmail = hospitalService.ctfEmail(me_email);
-		log.info(me_email);
-		map.put("ctfEmail", ctfEmail);
+		String ctfEmail = hospitalService.ctfEmail(me_email);
+		try {
+			map.put("ctfEmail", ctfEmail);			
+		} catch (Exception e) {
+			
+		}
 		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/certification/num")
+	public boolean handleCertification(@RequestParam("newCeNum") String newCeNum ,@RequestParam("data") String data) {
+	    System.out.println("잘 들어옴");
+	    
+	    if(newCeNum.equals(data)) {
+	        return true;        
+	    }else {
+	        return false;
+	    }
 	}
 	
 	//사업자 회원가입 페이지(get)
 	@GetMapping("/hospital/signup")
-	public String hospitalSignup(HospitalVO hospital, Model model, String ho_id, SiDoVO siDo) {
+	public String hospitalSignup(HospitalVO hospital, Model model, String ho_id, SiDoVO siDo, String email) {
 		log.info("사업자 회원가입");
 		//병원 진료과목 리스트
 		ArrayList<HospitalSubjectVO> hospitalList = hospitalService.getHospitalSubjectList();
@@ -126,6 +142,7 @@ public class HomeController {
 		ArrayList<SiDoVO> sidoList = hospitalService.getSiDoList();
 		model.addAttribute("hospital", hospital);
 		model.addAttribute("sidoList", sidoList);
+		model.addAttribute("email", email);
 		return "/hospital/signup";
 	}
 
