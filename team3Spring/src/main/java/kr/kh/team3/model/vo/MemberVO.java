@@ -2,11 +2,13 @@ package kr.kh.team3.model.vo;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class MemberVO {
 	private String me_id;
 	private String me_pw;
@@ -14,8 +16,6 @@ public class MemberVO {
 	private String me_name;
 	private String me_gender;
 	private String me_job;
-	private String me_frontNum;
-	private String me_backNum;
 	private String me_phone;
 	private String me_email;
 	private String me_address;

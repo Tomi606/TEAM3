@@ -192,10 +192,11 @@ public class MemberServiceImp implements MemberService {
 
 
 	@Override
-	public boolean deleteMember(MemberVO me_id) {
-		if(me_id == null) {
+	public boolean deleteMember(MemberVO member) {
+		if(member == null) {
 			return false;
 		}
-		return memberDao.deleteMember(me_id);
+		
+		return memberDao.deleteMember(member);
 	}
 }

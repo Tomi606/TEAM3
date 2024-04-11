@@ -35,6 +35,13 @@ public class AdminController {
 	@Autowired
 	private MemberService memberService;
 	
+	//회원가입 메인페이지
+	@GetMapping("/admin/adminpage")
+	public String adminpage() {
+		log.info("관리자 화면");
+		return "/admin/adminpage";
+	}
+	
 	// ======================== 병원 관리 ==========================
 	//병원 관리 페이지
 	@GetMapping("/admin/hospital")
@@ -73,36 +80,55 @@ public class AdminController {
 	// ======================== 병원 관리 끝 ==========================
 	
 	
-	//회원가입 메인페이지
-	@GetMapping("/admin/adminpage")
-	public String adminpage() {
-		log.info("관리자 화면");
-		return "/admin/adminpage";
-	}
+	
 		
-	//회원 관리 페이지
 	@GetMapping("/admin/member")
-	public String adminMember(Model model, MemberVO member, Criteria cri) {
+    public String adminMember() {
+
+		return "/admin/member";
+    }
+	
+	//회원 관리 페이지
+	@ResponseBody
+	@PostMapping("/admin/member")
+	public Map<String, Object> adminMemberPost(@RequestBody Criteria cri) {
 		log.info("관리자 - 회원 관리");
-		//회원 조회
+		Map<String, Object> map = new HashMap<String, Object>();		
 		cri.setPerPageNum(3);
 		ArrayList<MemberVO> list = memberService.getMemberList(cri);
 		//현재 페이지 정보(cri)를 주면서 총 게시글 개수를 가져오라 명령
 		int totalCount = memberService.getMemberTotalCount(cri);
 		PageMaker pm = new PageMaker(3, cri, totalCount);
-
-		model.addAttribute("list", list);
-		model.addAttribute("pm", pm);
-		return "/admin/member";
+		map.put("list", list);
+		map.put("pm", pm);
+		return map;
 	}
 	
+	
+//	@GetMapping("/admin/member")
+//	public String adminMember(Model model, MemberVO member, Criteria cri) {
+//		log.info("관리자 - 회원 관리");
+//		//회원 조회
+//		cri.setPerPageNum(3);
+//		ArrayList<MemberVO> list = memberService.getMemberList(cri);
+//		//현재 페이지 정보(cri)를 주면서 총 게시글 개수를 가져오라 명령
+//		int totalCount = memberService.getMemberTotalCount(cri);
+//		PageMaker pm = new PageMaker(3, cri, totalCount);
+//
+//		model.addAttribute("list", list);
+//		model.addAttribute("pm", pm);
+//		return "/admin/member";
+//	}
+	
 	//회원 관리 - 탈퇴
-	@GetMapping("/member/delete")
-	public Map<String, Object> memberDelete(@RequestBody MemberVO me_id){
+	@ResponseBody
+	@PostMapping("/member/delete")
+	public Map<String, Object> memberDelete(@RequestBody MemberVO member) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		boolean res = memberService.deleteMember(me_id);
+		boolean res = memberService.deleteMember(member);
 		map.put("result", res);
 		return map;
 	}
+	
 	
 }

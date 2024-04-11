@@ -25,68 +25,97 @@
 			<th>탈퇴</th>
 		</tr>
 	</thead>
-	<tbody>
-	<c:if test="${me.me_id == admin123}">	
-		<c:forEach items="${list}" var="me">			
-			<tr>
-			
-				<td>${me.me_id}</td>
-				<td>${me.me_name}</td>
-				<td>${me.me_gender}</td>
-				<td>${me.me_phone}</td>
-				<td>${me.me_email}</td>
-				<td>${me.me_address}</td>
-				<td>${me.me_job}</td>
-				<td>${me.me_stop}</td>
-				<td>정지누적횟수</td>
-				<td>
-					<c:choose>
-						<c:when test="${me.me_stop == null}">						
-							<button class="meStop" name="meStop">정지</button>
-						</c:when>
-						<c:otherwise>
-							<button class="meStopClear" name="meStopClear">정지 해제</button>
-						</c:otherwise>
-					</c:choose>
-				</td>
-				<td><button class="btn-outline-success btn-member-del" data-id="${me.me_id}" name="meDelete">탈퇴</button></td>
-			</tr>
-		</c:forEach>
-	</c:if>
+	<tbody class="box-hospital-list">
+		<tr>
+			<td></td>
+		</tr>
 	</tbody>
 </table>
+<div class="box-pagination">
+	<ul class="pagination justify-content-center"></ul>
+</div>
 
-<ul class="pagination justify-content-center">
-	<c:if test="${pm.prev}">
-		<c:url value="/admin/member" var="url">
-			<c:param name="page" value="${pm.startPage - 1}"/>
-			<c:param name="type" value="${pm.cri.type}"/>
-			<c:param name="search" value="${pm.cri.search}"/>
-		</c:url>
-		<li class="page-item">
-			<a class="page-link" href="${url}">이전</a>
-		</li>
-	</c:if>
-	<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
-		<c:url value="/admin/member" var="url">
-			<c:param name="page" value="${i}"/>
-		</c:url>
-		<li class="page-item <c:if test="${pm.cri.page == i}">active</c:if>">
-			<a class="page-link" href="${url}">${i}</a>
-		</li>
-	</c:forEach>
-	<c:if test="${pm.next}">
-		<c:url value="/admin/member" var="url">
-			<c:param name="page" value="${pm.endPage + 1}"/>
-			<c:param name="type" value="${pm.cri.type}"/>
-			<c:param name="search" value="${pm.cri.search}"/>
-		</c:url>
-		<li class="page-item">
-			<a class="page-link" href="${url}">다음</a>
-		</li>
-	</c:if>
-</ul>
+<!-- 회원 리스트 조회 -->
+<script type="text/javascript">
+let cri = {
+	page : 1
+}
+getWaitList(cri);
 
+function getWaitList(cri){
+	$.ajax({
+		async : true,
+		url : '<c:url value="/admin/member"/>', 
+		type : 'post', 
+		data : JSON.stringify(cri),
+		//서버로 보낼 데이터 타입
+		contentType : "application/json; charset=utf-8",
+		//서버에서 보낸 데이터의 타입
+		dataType : "json", 
+		success : function (data){
+			displayWaitList(data.list);
+			displayWaitPagination(data.pm);
+			/* $('.comment-total').text(data.pm.totalCount); */
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+}
+
+function displayWaitList(list){
+	let str = '';
+	if(list == null || list.length == 0){
+		str = '<h3>대기중인 병원이 없습니다.</h3>';
+		$('.box-hospital-list').html(str);
+		return;
+	}
+	for(item of list){
+		str += 
+		`
+			<tr class="box-hospital">
+				<td>\${item.me_id}</td>
+				<td>\${item.me_name}</td>
+				<td>\${item.me_gender}</td>
+				<td>\${item.me_phone}</td>
+				<td>\${item.me_email}</td>
+				<td>\${item.me_address}</td>
+				<td>\${item.me_job}</td>
+				<td>\${item.me_stop}</td>
+				<td><button>정지</button></td>
+				<td><button class="btn-member-del" data-id="\${item.me_id}">탈퇴</button></td>
+			</tr>
+		`
+	}
+	$('.box-hospital-list').html(str);
+}
+
+function displayWaitPagination(pm) {
+    let str = '';
+    if (pm.prev) {
+        str += `
+        <li class="page-item">
+            <a class="page-link" href="javascript:void(0);" data-page="${pm.startPage - 1}">이전</a>
+        </li>`;
+    }
+    for (let i = pm.startPage; i <= pm.endPage; i++) {
+        let active = pm.cri.page == i ? 'active' : '';
+        str += `
+        <li class="page-item ${active}">
+            <a class="page-link" href="javascript:void(0);" data-page="${i}">${i}</a>
+        </li>`;
+    }
+
+    if (pm.next) {
+        str += `
+        <li class="page-item">
+            <a class="page-link" href="javascript:void(0);" data-page="${pm.endPage + 1}">다음</a>
+        </li>`;
+    }
+    // 여기서 클래스를 잘못 선택했을 수 있습니다. 올바른 클래스를 선택해야 합니다.
+    $('.box-pagination ul').html(str);
+}
+</script>
 
 <!-- 정지 -->
 <script type="text/javascript">
@@ -100,19 +129,16 @@ let meStopClear = $('[name=meStopClear]').val();
 
 <!-- 탈퇴 -->
 <script type="text/javascript">
-$('.btn-member-del').click(function() {
-	console.log(1);
-})
-/* $('.btn-member-del').click(function() {
-	let meId = {
-			me_id : $(this).data('id');
+$(document).on('click', '.btn-member-del', function() {
+	let id = {
+		me_id : $(this).data('id')
 	}
 	//서버에 데이터를 전송
 	$.ajax({
-		async : false, 
+		async : true, 
 		url : '<c:url value="/member/delete"/>', 
-		type : 'get', 
-		data : JSON.stringify(meId), 
+		type : 'post', 
+		data : JSON.stringify(id), 
 		contentType : "application/json; charset=utf-8",
 		dataType : "json", 
 		success : function (data){
@@ -128,66 +154,7 @@ $('.btn-member-del').click(function() {
 			console.error(textStatus);
 		}
 	}); //ajax end
-}); */
-
-/* $(document).on('click', '.btn-member-del', function() {
-	//서버로 보낼 데이터 생성
-	let me_id = {
-		me_id : $(this).data('meid')
-	}
-	//서버로 데이터를 전송
-	$.ajax({
-		async : true, 
-		url : '<c:url value="/comment/delete"/>', 
-		type : 'get', 
-		data : JSON.stringify(comment), 
-		contentType : "application/json; charset=utf-8",
-		dataType : "json", 
-		success : function (data){
-			if(data.result) {
-				alert('회원 삭제 성공!!!');
-			}
-			else {
-				alert('회원 삭제 실패');
-			}
-		}, 
-		error : function(jqXHR, textStatus, errorThrown){
-
-		}
-	});
-}); */
-
-/* function memberDelete() {
-	let meDelete = $('[name=meDelete]').val();
-	let obj = {
-		id : meDelete
-	}
-	let result = false;
-	$.ajax({
-		async : false,
-		url : '<c:url value="/member/delete"/>', 
-		type : 'get', 
-		data : obj, 
-		dataType : "json", 
-		success : function (data){
-			meDelete = data.meDelete;
-			if(meDelete) {
-				alert("삭제");
-			}
-			else {
-				alert("삭제 실패");
-			}
-			
-		}, 
-		error : function(jqXHR, textStatus, errorThrown){
-	
-		}
-	});
-	return result;
-}
-$('[name=meDelete]').on('onclick', function() {
-	memberDelete();
-}); */
+});
 </script>
 </body>
 </html>
