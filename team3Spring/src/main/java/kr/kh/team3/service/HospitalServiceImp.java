@@ -184,16 +184,20 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public boolean ctfEmail(String email) {
-
+	public String ctfEmail(String me_email) {
 		//임시 새 비밀번호를 생성
 		String ctfEmail = randomString(10);
 		
 		//이메일을 전송
 		String title = "이메일 인증 입니다.";
 		String content = "인증 번호는 <b>"+ ctfEmail +"</b> 입니다.";
-		boolean res = mailSend(email, title, content);
-		return res;
+		boolean res = mailSend(me_email, title, content);
+		if(res) {
+			return ctfEmail;			
+		}
+		else {
+			return null;
+		}
 	}
 	
 	public boolean mailSend(String email, String title, String content) {
