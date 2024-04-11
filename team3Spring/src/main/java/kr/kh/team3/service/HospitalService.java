@@ -37,6 +37,6 @@ public interface HospitalService {
 
 	HospitalVO ajaxHospitalEmail(HospitalVO hospital);
 
-	String ctfEmail(String me_email);
+	String ctfEmail(String email);
 
 }
