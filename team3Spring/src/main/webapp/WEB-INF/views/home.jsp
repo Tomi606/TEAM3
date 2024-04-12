@@ -122,10 +122,11 @@ position: relative;
 }
 
 .footer-group {
-	border: 1px solid #a0a0a0;
-	background-color: #a0a0a0;
-	height: 300px;
-	margin-bottom: auto;
+	position: relative;
+    border: 1px solid #a0a0a0;
+    background-color: #a0a0a0;
+    height: 500px;
+    margin-bottom: auto;
 }
 
 .홈 {
@@ -138,7 +139,8 @@ position: relative;
 	display: flex;
 	border: 1px solid white;
 	width: 300px;
-	height: 2000px;
+	height: 100%;
+
 	background-color: white;
 }
 
@@ -185,7 +187,7 @@ position: relative;
 	display: flex;
 	margin: 0 auto;
 	width: 100%;
-	height: 1000px;
+	height: 100%;
 }
 
 /*검색창 시작*/
@@ -233,7 +235,7 @@ position: relative;
 	background-color: white;
 	text-align: center;
 	border-radius: 10px;
-	line-height: 40px;
+	line-height: 20px;
 	margin: 30px;
 	text-decoration: none;
 	color: black;
@@ -369,9 +371,9 @@ a {
 		<div class="여기부터내용">
 			<div class="롤링">
 				<div class="롤링-내용">
-					<h1>첫 번째 내용</h1>
-					<h1>두 번째 내용</h1>
-					<h1>세 번째 내용</h1>
+					<h1 style="background-color: orange;">첫 번째 내용</h1>
+					<h1 style="background-color: green;">두 번째 내용</h1>
+					<h1 style="background-color: yellow;">세 번째 내용</h1>
 				</div>
 			</div>
 			<div class="hot-new">
