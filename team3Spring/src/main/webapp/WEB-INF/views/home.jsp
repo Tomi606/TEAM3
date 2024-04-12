@@ -140,6 +140,7 @@ position: relative;
 	border: 1px solid white;
 	width: 300px;
 	height: 100%;
+
 	background-color: white;
 }
 
