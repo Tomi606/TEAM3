@@ -280,5 +280,25 @@ public class HospitalServiceImp implements HospitalService {
 		return hospitalDao.selectWHTotalCount(cri);
 	}
 
+	@Override
+	public boolean hospitalWaitOk(HospitalVO hospital) {
+		if(hospital == null ||
+			hospital.getHo_id() == null ||
+			hospital.getHo_id().length() == 0) {
+			return false;
+		}
+		return hospitalDao.updateWaitOk(hospital.getHo_id());
+	}
+
+	@Override
+	public boolean hospitalWaitNo(HospitalVO hospital) {
+		if(hospital == null ||
+			hospital.getHo_id() == null ||
+			hospital.getHo_id().length() == 0) {
+			return false;
+		}
+		return hospitalDao.updateWaitNo(hospital.getHo_id());
+	}
+
 
 }

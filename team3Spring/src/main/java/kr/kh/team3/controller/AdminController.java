@@ -74,6 +74,7 @@ public class AdminController {
 		return "/admin/waitlist";
 	}
 	
+	//대기 병원 리스트
 	@ResponseBody
 	@PostMapping("/admin/waitlist")
 	public Map<String, Object> waitList(@RequestBody Criteria cri){
@@ -86,7 +87,30 @@ public class AdminController {
 		map.put("pm", pm);
 		return map;
 	}
- 
+	
+	//대기 병원 승인
+	@ResponseBody
+	@PostMapping("/admin/waitok")
+	public Map<String, Object> waitOk(@RequestBody HospitalVO hospital){
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		boolean res = hospitalService.hospitalWaitOk(hospital);
+
+		map.put("res", res);
+		return map;
+	}
+	
+	//대기 병원 거절
+	@ResponseBody
+	@PostMapping("/admin/waitno")
+	public Map<String, Object> waitNo(@RequestBody HospitalVO hospital){
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		boolean res = hospitalService.hospitalWaitNo(hospital);
+
+		map.put("res", res);
+		return map;
+	}
 	// ======================== 병원 관리 끝 ==========================
 	
 	// ======================== 회원 관리 시작 ==========================

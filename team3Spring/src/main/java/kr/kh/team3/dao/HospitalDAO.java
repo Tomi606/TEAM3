@@ -50,5 +50,9 @@ public interface HospitalDAO {
 
 	int selectWHTotalCount(@Param("cri")Criteria cri);
 
+	boolean updateWaitOk(@Param("ho_id")String ho_id);
+
+	boolean updateWaitNo(@Param("ho_id")String ho_id);
+
 
 }
