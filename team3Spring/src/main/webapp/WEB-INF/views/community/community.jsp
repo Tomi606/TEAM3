@@ -40,8 +40,14 @@
     bottom: 10px; /* 하단 여백 조절 */
     left: 50%; /* 가운데 정렬을 위해 왼쪽 위치를 50%로 설정 */
     transform: translateX(-50%); /* 가운데 정렬을 위해 왼쪽 위치를 현재 요소의 가로 크기의 반만큼 왼쪽으로 이동 */
+    margin-top: 20px;
 }
-
+.delete-box{
+	margin-top: 20px;
+}
+.delete-box > a {
+    padding-top: 20px;
+}
 tr th,
 tr td{
 text-align: center;
@@ -53,7 +59,7 @@ text-align: center;
 <body>
 
 <div class="board-post-box">
-	<!-- 가입 대기 병원 조회 박스 -->
+
 	<div class="board-box">
 		<div class="input-group mb-3">
 			<select name="type" class="form-control">
@@ -67,16 +73,11 @@ text-align: center;
 		<a class="btn delete-btn">게시판 삭제</a>
 	</div>
 		
-	<!-- 신고받은 병원 조회 박스 -->
 	<div class="post-box">
 		<div class="input-group mb-3">
 			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>번호</th>
-						<th>제목</th>
-						<th>작성자</th>
-					</tr>
+				<thead class="postthead">
+					
 				</thead>
 				<tbody class="posttbody">
 					
@@ -93,6 +94,8 @@ text-align: center;
 		</div>
 	</div>
 </div>
+<div class="hr" style="margin-top:30px;margin-bottom:40px;border: 1px solid #d2d2d2;width: 1500px; margin: 0 auto"></div>
+
 
 <script type="text/javascript">
 
@@ -119,8 +122,8 @@ $('.delete-btn').click(function(){
 let page = 1;//지우지 마시오!!!
 //지우지마시오!!!
 
-//댓글을 불러와서 화면에 출력하는 함수 : 현재 댓글 페이지 정보
-function displayCommentAndPagination(){
+//게시글을 불러와서 페이지에 출력하는 함수
+function displayPostAndPagination(){
 	let bo_num = $("[name=type]").val();
 	//ajax를 이용해서 서버에 현재 댓글 페이지 정보를 보내고, 
 	//서버에서 보낸 댓글 리스트와 페이지네이션 정보를 받아와서 화면에 출력
@@ -130,7 +133,24 @@ function displayCommentAndPagination(){
 		data : {"bo_num" : bo_num,
 			"page" : page},
 		success : function(data){
-			displayComment(data.list);
+			displayPost(data.list);
+			displayCommentPagination(data.pm);
+		}
+	});
+}
+
+//댓을 불러와서 페이지에 출력하는 함수
+function displayCommentAndPagination(po_num){
+	//ajax를 이용해서 서버에 현재 댓글 페이지 정보를 보내고, 
+	//서버에서 보낸 댓글 리스트와 페이지네이션 정보를 받아와서 화면에 출력
+	page = 1;
+	$.ajax({
+		url : '<c:url value="/post"/>',
+		method : 'get',
+		data : {"po_num" : po_num,
+			"page" : page},
+		success : function(data){
+			displayPost(data.list);
 			displayCommentPagination(data.pm);
 		}
 	});
@@ -149,13 +169,31 @@ $(document).on('click', '.post-delete-btn', function(){
     } 
 });
 
+/* 댓글 조회 메서드 */
+$(document).on('click', '.post-select-btn', function(){
+    let po_num = prompt("댓글을 조회화고 싶은 게시글 번호를 입력하세요:");
+    let queryParams = "po_num=" + po_num + "&po_bo_num=" + bo_num;
+    if(po_num == null){
+        return;
+    } else {
+    	//displayCommentAndPagination(po_num);
+    } 
+});
 
-function displayComment(postList){
+
+function displayPost(postList){
 	/* 게시판이 바뀔떄마다 그 게시판에 맞는 게시글을 가지고 옴 */
 		let str = ``;
-		if(postList.length == 0){
-			$('.posttbody').html('<h3>등록된 게시글이 없습니다.</h3>');
-		}
+		let str2 = 
+			`
+				<tr>
+					<th>번호</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>신고 횟수</th>
+				</tr>
+			`;
+		$('.postthead').html(str2);
 		for(let tmp of postList){
 			str+=
 				`
@@ -163,11 +201,14 @@ function displayComment(postList){
 					<td>\${tmp.po_num}</td>
 					<td>\${tmp.po_title}</td>
 					<td>\${tmp.sitemanagement.site_id}</td>
+					<td>\${tmp.po_report_count}</td>
 				</tr>
 				`
 		}
 		$('.posttbody').html(str);	
-		$('.delete-box').html('<a class="btn post-delete-btn">게시글 삭제</a>')
+		$('.delete-box').empty(); // 기존 내용을 지우고 새로운 내용을 추가합니다.
+		$('.delete-box').append('<a class="btn post-delete-btn">게시글 삭제</a>');
+		$('.delete-box').append('<a class="btn post-select-btn">댓글 조회</a>');
 }
 
 //페이지네이션이 주어지면 댓글 페이지네이션을 화면에 출력하는 함수
@@ -199,13 +240,13 @@ function displayCommentPagination(pm){
 }
 
 $('[name=type]').click(function(){
-	displayCommentAndPagination();
+	displayPostAndPagination();
 })
 
 //페이지 클릭 이벤트
 $(document).on("click",".box-comment-pagination .page-link", function(){
 	page = $(this).data("page");
-	displayCommentAndPagination(page);
+	displayPostAndPagination(page);
 });
 
 

@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 public class PostVO {
 	private int po_num;
 	private String po_title;
-	private String po_content; 
+	private String po_content;
+	private int po_report_count;
 	private int po_bo_num; 
 	private int po_mg_num;
 	private SiteManagement sitemanagement;
