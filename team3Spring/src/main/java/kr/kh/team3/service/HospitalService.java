@@ -37,7 +37,7 @@ public interface HospitalService {
 
 	HospitalVO ajaxHospitalId(HospitalVO hospital, MemberVO member);
 
-	HospitalVO ajaxHospitalEmail(HospitalVO hospital);
+	HospitalVO ajaxHospitalEmail(HospitalVO hospital, MemberVO member);
 
 	String ctfEmail(String email);
 

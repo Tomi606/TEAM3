@@ -23,7 +23,7 @@
 	<p>사업자 회원 탈퇴 관리</p>
 	<br><br><br><br>
 	
-	<a href='<c:url value="/admin/member"/>'>회원 관리</a>
+	<a href='<c:url value="/admin/member/main"/>'>회원 관리</a>
 	<br><br><br><br>
 	
 	<a href='<c:url value="/community"/>'>커뮤니티 관리</a>
