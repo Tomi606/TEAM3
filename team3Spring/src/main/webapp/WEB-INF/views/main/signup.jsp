@@ -68,6 +68,6 @@ box-shadow: 1px 1px 1px 1px #C12DFF;
 		</div>
 	</div>
 	<div class="오른쪽여백"></div>
-</div>	
+</div>
 </body>
 </html>

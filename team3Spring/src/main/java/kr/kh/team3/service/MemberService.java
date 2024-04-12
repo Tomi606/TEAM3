@@ -8,6 +8,7 @@ import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
+import kr.kh.team3.pagination.Criteria;
 
 public interface MemberService {
 
@@ -33,5 +34,12 @@ public interface MemberService {
 	MemberVO getMemberEmail(MemberVO member);
 	//폰번호 중복확인 ajax
 	MemberVO getMemberPhone(MemberVO member);
+
+	//관리자 페이지 - 회원 관리
+	ArrayList<MemberVO> getMemberList(Criteria cri);
+
+	int getMemberTotalCount(Criteria cri);
+
+	boolean deleteMember(MemberVO me_id);
 
 }

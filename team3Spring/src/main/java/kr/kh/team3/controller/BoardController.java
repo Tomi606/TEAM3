@@ -28,7 +28,7 @@ public class BoardController {
 	@Autowired
 	BoardService boardService;
 	
-	
+	//게시판리스트를 보여주기 위한 메서드
 	@GetMapping("/community")
 	public String board(Model model) {
 		ArrayList<BoardVO> list = boardService.getBoardList();
@@ -36,7 +36,7 @@ public class BoardController {
 		return "/community/community";
 	}
 	
-
+	//수정 페이지를 보여주기 위한 메서드
 	@GetMapping("/community/insert")
 	public String boardInsert(Model model) {
 		ArrayList<BoardVO> list = boardService.getBoardList();
@@ -44,6 +44,7 @@ public class BoardController {
 		return "/community/communityinsert";
 	}
 	
+	//게시판을 추가 위한 메서드
 	@PostMapping("/community/insert")
 	public String boardInsertPost(Model model, String board) {
 		ArrayList<BoardVO> list = boardService.getBoardList();
@@ -59,6 +60,8 @@ public class BoardController {
 		return "message";
 	}
 	
+	
+	//게시판 수정 페이지를 보여주기 위한 메서드
 	@GetMapping("/community/update")
 	public String boardUpdate(Model model, int bo_num) {
 		BoardVO board = boardService.getBoard(bo_num);
@@ -66,6 +69,7 @@ public class BoardController {
 		return "/community/communityupdate";
 	}
 	
+	//게시판 수정을 위한 메서드
 	@PostMapping("/community/update")
 	public String boardUpdatePost(Model model, BoardVO boardVO, String new_BoardName) {
 		boolean res = boardService.updateBoard(boardVO, new_BoardName);
@@ -79,6 +83,7 @@ public class BoardController {
 		return "message";
 	}
 	
+	//게시판 삭제를 위한 메서드
 	@GetMapping("/community/delete")
 	public String boardDelete(Model model, int bo_num) {
 		boolean res = boardService.deleteBoard(bo_num);

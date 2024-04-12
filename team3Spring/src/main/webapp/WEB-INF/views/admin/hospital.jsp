@@ -35,6 +35,23 @@ tr th,
 tr td{
 text-align: center;
 }
+.page-group {
+	text-align:center;
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.page-design {
+    display: inline-block;
+    margin-right: 5px; 
+    border-radius: 3px; 
+}
+
+.page-design a {
+    color: black;
+    text-decoration: none; 
+}
 </style>
 </head>
 <body>
@@ -69,18 +86,57 @@ text-align: center;
 		</thead>
 		<tbody>
 			<tr>
-			<c:forEach items="${hoList}" var="ho">
-				<td>${ho.ho_id}</td>
-				<td>${ho.ho_name}</td>
-				<td>${ho.ho_num}</td>
-				<td>${ho.ho_phone}</td>
-				<td>${ho.ho_email}</td>
-				<td>${ho.ho_address}</td>
-				<td>999</td>
-			</c:forEach>
+			<c:choose>
+			   <c:when test="${empty hoList}">
+			       <tr>
+			           <td colspan="7"><h2>등록된 병원이 없습니다.</h2></td>
+			       </tr>
+			   </c:when>
+			   <c:otherwise>
+			       <c:forEach items="${hoList}" var="ho">
+			           <tr>
+			               <td>${ho.ho_id}</td>
+			               <td>${ho.ho_name}</td>
+			               <td>${ho.ho_num}</td>
+			               <td>${ho.ho_phone}</td>
+			               <td>${ho.ho_email}</td>
+			               <td>${ho.ho_address}</td>
+			               <td>999</td>
+			           </tr>
+			       </c:forEach>
+			   </c:otherwise>
+		</c:choose>
 			</tr>
 		</tbody>
 	</table>
+	<ul class="page-group">
+	    <c:if test="${pm.prev}">
+	        <li class="page-prev page-design">
+	            <c:url var="url" value="/admin/hospital">
+	                <c:param name="page" value="${pm.startPage - 1 }"/>
+	            </c:url>
+	            <a class="page-link" href="${url}">이전</a>
+	        </li>
+	    </c:if>
+	    <c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+	        <c:set var="active" value="${pm.cri.page == i ? 'active' : ''}" />
+	        <li class="page-now page-design ${active}">
+	            <c:url var="url" value="/admin/hospital">
+	                <c:param name="page" value="${i }"/>
+	            </c:url>
+	            <a class="page-link" href="${url }">${i}</a>
+	        </li>
+	    </c:forEach>
+	    <c:if test="${pm.next}">
+	        <li class="page-next page-design">
+	            <c:url var="url" value="/admin/hospital">
+	                <c:param name="page" value="${pm.endPage + 1}"/>
+	            </c:url>
+	            <a class="page-link" href="${url}">다음</a>
+	        </li>
+	    </c:if>
+	</ul>
+
 </div>
 	
 </body>
