@@ -14,8 +14,8 @@
 	text-align: center;
 }
 .board-box{
-	width: 30%;
-	height: 300px;
+	width: 40%;
+	height: 400px;
 	border: 1px solid gray;
 	border-radius: 20px;
 	display: inline-block;
@@ -23,15 +23,25 @@
 	padding: 10px;
 	text-align: center;
 }
-.post-box{
-	width: 30%;
-	height: 300px;
-	border: 1px solid gray;
-	border-radius: 20px;
-	display: inline-block;
-	padding: 50px;
-	text-align: center;
+.post-box {
+    width: 40%;
+    height: 400px;
+    border: 1px solid gray;
+    border-radius: 20px;
+    display: inline-block;
+    padding: 30px;
+    text-align: center;
+    vertical-align: top; /* 상단 정렬을 유지합니다. */
+    position: relative; /* 상대적 위치 설정 */
 }
+
+.box-comment-pagination {
+    position: absolute; /* 절대적 위치 설정 */
+    bottom: 10px; /* 하단 여백 조절 */
+    left: 50%; /* 가운데 정렬을 위해 왼쪽 위치를 50%로 설정 */
+    transform: translateX(-50%); /* 가운데 정렬을 위해 왼쪽 위치를 현재 요소의 가로 크기의 반만큼 왼쪽으로 이동 */
+}
+
 tr th,
 tr td{
 text-align: center;
@@ -77,6 +87,9 @@ text-align: center;
 					
 				</ul>
 			</div>
+			<div class="delete-box">
+			</div>
+				
 		</div>
 	</div>
 </div>
@@ -93,12 +106,19 @@ $('.update-btn').click(function(){
 /* 컨트롤러에게 현재 선택한 보드 번화가 뭔지 알려주기 위한 메서드 게시판 삭제*/
 $('.delete-btn').click(function(){
     let bo_num = $("[name=type]").val();
+    if(bo_num == null){
+    	alert("게시판을 선택해주세요");
+    }
     let url = '<c:url value="/community/delete"/>' + '?bo_num=' + bo_num;
     location.href = url;
 });
 
 
-let page = 1;
+
+//지우지마시오!!!
+let page = 1;//지우지 마시오!!!
+//지우지마시오!!!
+
 //댓글을 불러와서 화면에 출력하는 함수 : 현재 댓글 페이지 정보
 function displayCommentAndPagination(){
 	let bo_num = $("[name=type]").val();
@@ -115,6 +135,20 @@ function displayCommentAndPagination(){
 		}
 	});
 }
+
+/* 게시글 삭제 메서드 */
+$(document).on('click', '.post-delete-btn', function(){
+    let po_num = prompt("삭제하고 싶은 게시글 번호를 입력하세요:");
+    let bo_num = $("[name=type]").val();
+    let queryParams = "po_num=" + po_num + "&po_bo_num=" + bo_num;
+    if(po_num == null){
+        return;
+    } else {
+        let url = '<c:url value="/post/delete"/>' + '?' + queryParams;    
+        location.href = url;
+    } 
+});
+
 
 function displayComment(postList){
 	/* 게시판이 바뀔떄마다 그 게시판에 맞는 게시글을 가지고 옴 */
@@ -133,6 +167,7 @@ function displayComment(postList){
 				`
 		}
 		$('.posttbody').html(str);	
+		$('.delete-box').html('<a class="btn post-delete-btn">게시글 삭제</a>')
 }
 
 //페이지네이션이 주어지면 댓글 페이지네이션을 화면에 출력하는 함수
