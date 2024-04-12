@@ -477,19 +477,10 @@ REFERENCES `hospital_subject` (
 	`hs_num`
 );
 
-# select * from si_do join si_goon_gu on sd_num = sgg_sd_numeup_myeon_dong join eup_myeon_dong on sgg_num = emd_sgg_num order by sd_num ;
-
-INSERT INTO MEMBER_STATE VALUES ('이용중'), ('기간정지'), ('영구정지'), ('탈퇴'), ('가입대기');
-
-
+ INSERT INTO MEMBER_STATE VALUES('승인대기'), ('이용중'), ('기간정지'), ('영구정지'), ('탈퇴'),('가입대기');
 # 병원 과목
 insert into hospital_subject(hs_title) 
-values('내과'), ('외과'), ('정형외과'), ('이비인후과'),('치과'), ('산부인과'), 
-('신경과'), ('신경외과'), ('성형외과'), ('피부과'), ('비뇨기과'), ('건강검진');
-
-# 지역 DB 넣고 실행하기
-insert into land value(1, 1);
-
-# insert into land(la_emd_num) value (1);
-
-# select * from member join site_management on site_id = me_id;
+values('내과'), ('외과'),('안과'),('소아과'),('정형외과'), ('이비인후과'),('치과'), ('산부인과'), 
+('신경과'), ('신경외과'), ('성형외과'), ('피부과'), ('비뇨기과'), ('건강검진'),('마취통증학과'),('신경과');
+insert into land value(1,1);
+insert into report_state values('1일정지'),('3일정지'),('7일정지'),('15일정지'),('30일정지'),('60일정지'),('180일정지'),('365일정지');
