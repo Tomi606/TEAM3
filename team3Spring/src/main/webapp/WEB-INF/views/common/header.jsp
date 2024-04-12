@@ -11,7 +11,7 @@
 .header-box{
 border-bottom: 1px solid #c8c8c8;
 width: 100%;
-height: 100px;
+height: 80px;
 display: flex;
 background-color:rgba(0,0,0,0);
 }
@@ -20,10 +20,11 @@ background-color:rgba(0,0,0,0);
  width: 10%;
 }
 .로고{
-width: 20%;
+width: 25%;
+
 }
 .메뉴얼{
-padding:32px 0 10px;
+padding:32px 0 5px;
 margin:0 auto;
 width: 30%;
 }
@@ -36,7 +37,7 @@ margin-right: 30px;
 width: 20%;
 }
 .로그인{
-padding:25px 0 10px;
+padding:20px 0 5px;
 margin:0 auto;
 width: 25%;
 }
@@ -47,6 +48,9 @@ text-decoration: none;
 .join-groub{
 display: flex;
 }
+.Logo-img{
+width: 170px;height: 80px;
+}
 </style>
 </head>
 <body>
@@ -54,8 +58,8 @@ display: flex;
 	<div class="공백"></div>
 	<div class="로고">
 		<a class="nav-link" href="<c:url value='/'/>">
-			<img alt="로고이미지" style="width: 200px;"
-			src="<c:url value='/resources/img/로고.png'/>">
+			<img alt="로고이미지" style="width: 170px;height: 80px;" class="Logo-img"
+			src="<c:url value='/resources/img/Hospital.png'/>">
 		</a>
 	</div>
 	<div class="메뉴얼">
