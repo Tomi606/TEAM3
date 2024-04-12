@@ -92,3 +92,4 @@ node_modules/
 # ignore properties file
 MANIFEST.MF
 pom.properties
+config.properties
