@@ -7,29 +7,36 @@
 <meta charset="UTF-8">
 <title>신고 회원 관리</title>
 <style type="text/css">
-/* .report-box{
-	width: 30%;
-	height: 300px;
-	border: 1px solid gray;
-	border-radius: 20px;
-	padding: 10px;
-	margin: auto;
-	text-align: center;
-} */
+.page-group {
+	text-align:center;
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.page-design {
+    display: inline-block;
+    margin-right: 5px; 
+    border-radius: 3px; 
+}
+
+.page-design a {
+    color: black;
+    text-decoration: none; 
+}
 </style>
 </head>
 <body>
 <!-- 신고 회원 조회 : 아이디/이름/유형/사유/정지기간/누적정지횟수    정지(정지해제)버튼/탈퇴버튼 -->
-<div class="report-box all-box container mt-3">
+<div class="container mt-3">
 	<h1 style="text-align: center;">신고 회원 관리</h1>
 	<table class="table table-hover">
 		<thead style="text-align: center;">
 			<tr>
 				<th>아이디</th>
 				<th>이름</th>
-				<th>연락처</th>
-				<th>이메일</th>
-				<th>주소</th>
+				<th>신고 유형</th>
+				<th>신고 사유</th>
 				<th>정지기간</th>
 				<th>정지누적횟수</th>
 				<th>정지</th>
@@ -87,11 +94,10 @@ function displayWaitList(list){
 			<tr class="box-hospital" style="text-align: center;">
 				<td>\${item.me_id}</td>
 				<td>\${item.me_name}</td>
-				<td>\${item.me_phone}</td>
-				<td>\${item.me_email}</td>
-				<td>\${item.me_address}</td>
+				<td>\${item.report.rp_rs_name}</td>
+				<td>\${item.report.rp_name}</td>
 				<td>\${item.me_stop}</td>
-				<th>\${item.me_report_count}</th>
+				<td>\${item.me_report_count}</td>
 				<td><button>정지</button></td>
 				<td><button type="button" class="btn-member-del" data-id="\${item.me_id}">탈퇴</button></td>
 			</tr>
