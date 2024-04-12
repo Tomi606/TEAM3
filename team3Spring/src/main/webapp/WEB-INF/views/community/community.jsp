@@ -87,7 +87,9 @@ text-align: center;
 					
 				</ul>
 			</div>
-		<a class="btn post-delete-btn">게시글 삭제</a>
+			<div class="delete-box">
+			</div>
+				
 		</div>
 	</div>
 </div>
@@ -111,17 +113,6 @@ $('.delete-btn').click(function(){
     location.href = url;
 });
 
-/* 게시글 삭제 메서드 */
-$('.post-delete-btn').click(function(){
-    let po_num = prompt("삭제하고 싶은 게시글 번호를 입력하세요:");
-    let bo_num = $("[name=type]").val();
-    
-    let queryParams = "po_num=" + po_num + "&po_bo_num=" + bo_num;
-    
-    let url = '<c:url value="/post/delete"/>' + '?' + queryParams;
-    
-    location.href = url;
-});
 
 
 //지우지마시오!!!
@@ -145,6 +136,20 @@ function displayCommentAndPagination(){
 	});
 }
 
+/* 게시글 삭제 메서드 */
+$(document).on('click', '.post-delete-btn', function(){
+    let po_num = prompt("삭제하고 싶은 게시글 번호를 입력하세요:");
+    let bo_num = $("[name=type]").val();
+    let queryParams = "po_num=" + po_num + "&po_bo_num=" + bo_num;
+    if(po_num == null){
+        return;
+    } else {
+        let url = '<c:url value="/post/delete"/>' + '?' + queryParams;    
+        location.href = url;
+    } 
+});
+
+
 function displayComment(postList){
 	/* 게시판이 바뀔떄마다 그 게시판에 맞는 게시글을 가지고 옴 */
 		let str = ``;
@@ -162,6 +167,7 @@ function displayComment(postList){
 				`
 		}
 		$('.posttbody').html(str);	
+		$('.delete-box').html('<a class="btn post-delete-btn">게시글 삭제</a>')
 }
 
 //페이지네이션이 주어지면 댓글 페이지네이션을 화면에 출력하는 함수
