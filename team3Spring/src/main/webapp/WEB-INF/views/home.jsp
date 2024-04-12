@@ -47,10 +47,22 @@ position: relative;
 	height: 100px;
 	display: flex;
 	background-color: rgba(0, 0, 0, 0);
+	transition: background-color 0.3s ease;
+	
 }
 
 .header-box:hover {
 	background-color: white;
+	opacity: 0;
+	animation: fadeIn 0.7s forwards;
+}
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 .header-box {
@@ -139,7 +151,7 @@ position: relative;
 	display: flex;
 	border: 1px solid white;
 	width: 300px;
-	height: 100%;
+	height: 10000px;
 
 	background-color: white;
 }
@@ -153,11 +165,16 @@ position: relative;
 }
 
 .여기부터내용 {
-	padding: 100px 0 80px;
+	margin:0 auto;
+	margin-top: 180px;
+	margin-bottom: 180px;
+	height: 10000px;
 }
 
 .롤링 {
-	width: 1000px;
+	margin:0 auto;
+	display:flex;
+	max-width: 1000px;
 	height: 90px;
 	border: 1px solid black;
 	overflow: hidden;
@@ -178,7 +195,8 @@ position: relative;
 
 .hot-new {
 	text-align: center;
-	padding: 60px 0 20px
+	padding: 60px 0 10px;
+    margin-top: 180px;
 }
 
 /*hot group*/
@@ -187,7 +205,7 @@ position: relative;
 	display: flex;
 	margin: 0 auto;
 	width: 100%;
-	height: 100%;
+	height: 350px;
 }
 
 /*검색창 시작*/
@@ -203,11 +221,6 @@ position: relative;
 
 .search-main-right {
 	margin-left: auto; 
-}
-
-.hot-group {
-	display: flex;
-	justify-content: center; 
 }
 
 .hot-group a {
@@ -239,6 +252,38 @@ position: relative;
 	margin: 30px;
 	text-decoration: none;
 	color: black;
+	transition: transform 0.3s ease;
+}
+
+.btnbtnbtn a:hover {
+	transform: rotate(-4deg);
+	animation: shake 0.4s ease-in-out infinite alternate;
+}
+@keyframes shake {
+	from {
+		transform: rotate(-4deg);
+	}
+	to {
+		transform: rotate(4deg);
+	}
+}
+#scrollToTopButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    background-color: #c8c8c8;
+    color: white;
+    border: none;
+    border-radius: 50%; /* 동그라미 모양을 만들기 위해 border-radius 값을 50%로 설정합니다. */
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+    outline: none; /* 클릭했을 때 버튼 주위에 파란 테두리를 없애기 위해 outline을 none으로 설정합니다. */
+}
+
+#scrollToTopButton:hover {
+    background-color: #828282;
 }
 
 .main-area {
@@ -297,6 +342,25 @@ a {
 	text-decoration: inherit;
 	color: inherit;
 }
+.hospital-group{
+text-align: center;
+margin-top: 200px;
+
+}
+ .button-link {
+        width: 100px;
+        height: 40px;
+        border: 1px solid #a0a0a0;
+        line-height: 50px;
+        text-decoration: none;
+        color: #a0a0a0;
+        padding: 10px;
+    }
+
+  .button-link:hover {
+  	text-decoration:none;
+     border-color: #a0a0a0;
+  }
 </style>
 </head>
 <body>
@@ -369,7 +433,7 @@ a {
 	<div class="홈">
 		<div class="홈왼쪽"></div>
 		<div class="여기부터내용">
-			<div class="롤링">
+			<div class="롤링" >
 				<div class="롤링-내용">
 					<h1 style="background-color: orange;">첫 번째 내용</h1>
 					<h1 style="background-color: green;">두 번째 내용</h1>
@@ -377,26 +441,52 @@ a {
 				</div>
 			</div>
 			<div class="hot-new">
-				<h3>Hot & New</h3>
+				<h3>&lt;Hot & New&gt;</h3>
 				<p style="color: gray;">새롭고 재밌는 소식들을 여기서!</p>
 			</div>
-			<div class="hot-group">
+			<div class="hot-group" style="display: block;width: 80%;height:7%;text-align: center;">
 				<a href="#"></a> 
 				<a href="#"></a> 
 				<a href="#"></a> 
+				<a href="#"></a> 
+				<a href="#"></a> 
+				<a href="#"></a> 
+			</div>
+			<div style="text-align: center;width: 100%;" >
+				<a href="#" class="button-link" style="margin-top: 50px">더보기</a>
+				<p>누르면 커뮤니티로 이동하기</p>
+			</div>
+			<div class="hr" style="margin-top:30px;margin-bottom:40px;border: 1px solid #d2d2d2;width: 100%;"></div>
+			<div class="hospital-group">
+			<h3 style="font-weight: bold;">&lt;우리 지역 병원&gt;</h3>
+			<div class="hot-group" style="display: block;width: 80%;height:7%">
+				<a href="#"></a> 
+				<a href="#"></a> 
+				<a href="#"></a> 
+				<a href="#"></a> 
+				<a href="#"></a> 
+				<a href="#"></a> 
+			</div>
+			<div style="text-align: center;width: 100%;" >
+				<a href="#" class="button-link" style="margin-top: 50px">더보기</a>
+				<p>누르면 병원으로 이동하기</p>
+			</div>
+			<div class="hr" style="margin-top:30px;margin-bottom:40px;border: 1px solid #d2d2d2;width: 100%;"></div>
+			
 			</div>
 		</div>
 		<div class="홈오른쪽"></div>
 	</div>
 
 </body>
-<footer>
+<!-- <footer>
 	<div class="footer-group">
 		<div class="footer">
 			<h1>푸터푸터푸터푸터푸터푸터푸터푸터푸터푸터</h1>
 		</div>
 	</div>
-</footer>
+</footer> -->
+<button id="scrollToTopButton" onclick="scrollToTop()">위로가기</button>
 <script type="text/javascript">
 	$(document).ready(function() {
 		var interval = setInterval(roll, 3000); // n초마다 롤링
@@ -415,5 +505,26 @@ a {
 			});
 		}
 	});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    // 스크롤 이벤트 핸들러를 등록합니다.
+    $(window).scroll(function() {
+        // 스크롤 위치가 20px 이상인 경우에만 버튼을 표시합니다.
+        if ($(this).scrollTop() > 20) {
+            $("#scrollToTopButton").fadeIn();
+        } else {
+            $("#scrollToTopButton").fadeOut();
+        }
+    });
+
+    // 위로가기 버튼을 클릭하면 천천히 페이지의 맨 위로 스크롤됩니다.
+    $("#scrollToTopButton").click(function() {
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+        return false;
+    });
+});
 </script>
 </html>
