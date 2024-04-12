@@ -235,5 +235,14 @@ public class AdminController {
 			map.put("pm", pm);
 			return map;
 		}
+		
+		@GetMapping("/post/delete")
+		public Map<String, Object> postdelete(int po_bo_num, String po_num) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			int po_num1 = Integer.parseInt(po_num);
+			PostVO post = new PostVO(po_bo_num, po_num1);
+			System.out.println(post);
+			return map;
+		}
 		// ======================== 게시글 관리 끝 ==========================
 }

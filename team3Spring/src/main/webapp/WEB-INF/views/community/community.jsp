@@ -14,7 +14,7 @@
 	text-align: center;
 }
 .board-box{
-	width: 30%;
+	width: 40%;
 	height: 300px;
 	border: 1px solid gray;
 	border-radius: 20px;
@@ -24,7 +24,7 @@
 	text-align: center;
 }
 .post-box{
-	width: 30%;
+	width: 40%;
 	height: 300px;
 	border: 1px solid gray;
 	border-radius: 20px;
@@ -77,6 +77,7 @@ text-align: center;
 					
 				</ul>
 			</div>
+		<a class="btn post-delete-btn">게시글 삭제</a>
 		</div>
 	</div>
 </div>
@@ -93,12 +94,30 @@ $('.update-btn').click(function(){
 /* 컨트롤러에게 현재 선택한 보드 번화가 뭔지 알려주기 위한 메서드 게시판 삭제*/
 $('.delete-btn').click(function(){
     let bo_num = $("[name=type]").val();
+    if(bo_num == null){
+    	alert("게시판을 선택해주세요");
+    }
     let url = '<c:url value="/community/delete"/>' + '?bo_num=' + bo_num;
     location.href = url;
 });
 
+/* 게시글 삭제 메서드 */
+$('.post-delete-btn').click(function(){
+    let po_num = prompt("삭제하고 싶은 게시글 번호를 입력하세요:");
+    let bo_num = $("[name=type]").val();
+    
+    let queryParams = "po_num=" + po_num + "&po_bo_num=" + bo_num;
+    
+    let url = '<c:url value="/post/delete"/>' + '?' + queryParams;
+    
+    location.href = url;
+});
 
-let page = 1;
+
+//지우지마시오!!!
+let page = 1;//지우지 마시오!!!
+//지우지마시오!!!
+
 //댓글을 불러와서 화면에 출력하는 함수 : 현재 댓글 페이지 정보
 function displayCommentAndPagination(){
 	let bo_num = $("[name=type]").val();
