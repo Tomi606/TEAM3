@@ -31,8 +31,8 @@ DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post` (
 	`po_num`	int	 primary key auto_increment,
 	`po_title`	varchar(30) NOT	NULL,
-    `po_report_count` int not null default 0, 
-    `po_date` date not null,
+  `po_report_count` int not null default 0, 
+  `po_date` date not null,
 	`po_content`	TEXT NOT NULL,
 	`po_bo_num`	int	NOT NULL,
 	`po_mg_num`	int	NOT NULL
@@ -43,8 +43,8 @@ DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
 	`co_num`	int	primary key auto_increment,
 	`co_content`	TEXT NOT NULL,
-    `co_date` date not null,
-    `co_report_count` int not null default 0,
+  `co_date` date not null,
+  `co_report_count` int not null default 0,
 	`co_po_num`	int	NOT NULL,
 	`co_mg_num`	int	NOT NULL
 );
