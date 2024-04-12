@@ -23,14 +23,7 @@ public class PostController {
 	 * 메서드 위에 주석으로 무슨 기능인지 쓰기
 	 */
 	
-	@Autowired
-	PostService postService;
 	
-	@ResponseBody
-	@GetMapping("/post")
-	public ArrayList<PostVO> post(@RequestParam("bo_num")int bo_num) {
-		ArrayList<PostVO> list = postService.getPostList(bo_num);
-		log.info(list);
-		return list;
-	}
+	
+	
 }

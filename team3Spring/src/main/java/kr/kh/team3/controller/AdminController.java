@@ -14,11 +14,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.team3.model.vo.MemberVO;
+import kr.kh.team3.model.vo.PostVO;
+import kr.kh.team3.model.vo.BoardVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.pagination.Criteria;
 import kr.kh.team3.pagination.PageMaker;
+import kr.kh.team3.service.BoardService;
 import kr.kh.team3.service.HospitalService;
 import kr.kh.team3.service.MemberService;
+import kr.kh.team3.service.PostService;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -34,6 +38,12 @@ public class AdminController {
   
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	BoardService boardService;
+	
+	@Autowired
+	PostService postService;
 	
 	//회원가입 메인페이지
 	@GetMapping("/admin/adminpage")
@@ -113,4 +123,93 @@ public class AdminController {
 	}
 	
 	// ======================== 회원 관리 끝 ==========================
+	
+	// ======================== 게시판 관리 시작 ==========================
+	
+	//게시판리스트를 보여주기 위한 메서드
+		@GetMapping("/community")
+		public String board(Model model) {
+			ArrayList<BoardVO> list = boardService.getBoardList();
+			model.addAttribute("list", list);
+			return "/community/community";
+		}
+		
+		//수정 페이지를 보여주기 위한 메서드
+		@GetMapping("/community/insert")
+		public String boardInsert(Model model) {
+			ArrayList<BoardVO> list = boardService.getBoardList();
+			model.addAttribute("list", list);
+			return "/community/communityinsert";
+		}
+		
+		//게시판을 추가 위한 메서드
+		@PostMapping("/community/insert")
+		public String boardInsertPost(Model model, String board) {
+			ArrayList<BoardVO> list = boardService.getBoardList();
+			
+			boolean res = boardService.insertBoard(list, board);
+			if (res) {
+				model.addAttribute("msg","게시판 등록을 완료했습니다.");
+				model.addAttribute("url","/community");
+			}else {
+				model.addAttribute("msg","게시판 등록에 실패 했습니다.");
+				model.addAttribute("url","/community/insert");
+			}
+			return "message";
+		}
+		
+		
+		//게시판 수정 페이지를 보여주기 위한 메서드
+		@GetMapping("/community/update")
+		public String boardUpdate(Model model, int bo_num) {
+			BoardVO board = boardService.getBoard(bo_num);
+			model.addAttribute("board", board);
+			return "/community/communityupdate";
+		}
+		
+		//게시판 수정을 위한 메서드
+		@PostMapping("/community/update")
+		public String boardUpdatePost(Model model, BoardVO boardVO, String new_BoardName) {
+			boolean res = boardService.updateBoard(boardVO, new_BoardName);
+			if (res) {
+				model.addAttribute("msg","게시판 수정을 완료했습니다.");
+				model.addAttribute("url","/community");
+			}else {
+				model.addAttribute("msg","게시판 수정에 실패 했습니다.");
+				model.addAttribute("url","/community/update");
+			}
+			return "message";
+		}
+		
+		//게시판 삭제를 위한 메서드
+		@GetMapping("/community/delete")
+		public String boardDelete(Model model, int bo_num) {
+			boolean res = boardService.deleteBoard(bo_num);
+			if (res) {
+				model.addAttribute("msg","게시판 삭제를 완료했습니다.");
+				model.addAttribute("url","/community");
+			}else {
+				model.addAttribute("msg","게시판 삭제에 실패 했습니다.");
+				model.addAttribute("url","/community");
+			}
+			return "message";
+		}
+		
+		// ======================== 게시판 관리 끝 ==========================
+		
+		
+		// ======================== 게시글 관리 시작 ==========================
+		@ResponseBody
+		@GetMapping("/post")
+		public Map<String, Object> postPost(@RequestParam("bo_num") int bo_num, @RequestParam("page") int page) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			Criteria cri = new Criteria(page, 2);
+			int totalCount = postService.getPostCount(cri, bo_num);
+			ArrayList<PostVO> list = postService.getPostList(cri, bo_num);
+			PageMaker pm = new PageMaker(3, cri, totalCount);
+			map.put("list", list);
+			map.put("pm", pm);
+			return map;
+		}
+		// ======================== 게시글 관리 끝 ==========================
 }
