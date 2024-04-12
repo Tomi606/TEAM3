@@ -444,7 +444,7 @@ margin-top: 200px;
 				<h3>&lt;Hot & New&gt;</h3>
 				<p style="color: gray;">새롭고 재밌는 소식들을 여기서!</p>
 			</div>
-			<div class="hot-group" style="display: block;width: 80%;height:7%;text-align: center;">
+			<div class="hot-group" style="display: block;width: 100%;height:7%;text-align: center;">
 				<a href="#"></a> 
 				<a href="#"></a> 
 				<a href="#"></a> 
@@ -459,7 +459,7 @@ margin-top: 200px;
 			<div class="hr" style="margin-top:30px;margin-bottom:40px;border: 1px solid #d2d2d2;width: 100%;"></div>
 			<div class="hospital-group">
 			<h3 style="font-weight: bold;">&lt;우리 지역 병원&gt;</h3>
-			<div class="hot-group" style="display: block;width: 80%;height:7%">
+			<div class="hot-group" style="display: block;width: 100%;height:7%">
 				<a href="#"></a> 
 				<a href="#"></a> 
 				<a href="#"></a> 
