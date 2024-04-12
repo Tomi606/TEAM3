@@ -134,7 +134,7 @@ public class AdminController {
 		return "/admin/member/report";
     }
 	
-	//신고 회원 관리 리스트
+	//신고 회원 관리 리스트 https://wakestand.tistory.com/787
 	@ResponseBody
 	@PostMapping("/admin/member/report")
 	public Map<String, Object> adminMeReportPost(@RequestBody Criteria cri, MemberVO member) {
