@@ -7,27 +7,7 @@
 <meta charset="UTF-8">
 <title>사업자 대기 회원 조회</title>
 <style type="text/css">
-.wait-report-box{
-	padding: 50px;
-	text-align: center;
-}
-.waiting-box{
-	width: 30%;
-	height: 300px;
-	border: 1px solid gray;
-	border-radius: 20px;
-	display: inline-block;
-	margin-right: 50px;
-	padding: 10px;
-}
-.report-box{
-	width: 30%;
-	height: 300px;
-	border: 1px solid gray;
-	border-radius: 20px;
-	display: inline-block;
-	padding: 10px;
-}
+
 .all-box{
 
 }
@@ -37,10 +17,6 @@
 <!-- 전체 병원 조회 박스 -->
 <div class="all-box container mt-3">
 	<h2>대기 병원 리스트</h2>
-	<!-- 검색 -->
-	<div>
-		
-	</div>
 	<table class="table table-hover mt-3">
 		<thead>
 			<tr>
@@ -54,15 +30,7 @@
 			</tr>
 		</thead>
 		<tbody class="box-hospital-list">
-			<tr>
-				<td>John</td>
-				<td>Doe</td>
-				<td>Doe</td>
-				<td>john@example.com</td>
-				<td>john@example.com</td>
-				<td>john@example.com</td>
-				<td><button>승인</button><button>거절</button></td>
-			</tr>
+
 		</tbody>
 	</table>
 	<div class="box-pagination">
@@ -89,7 +57,7 @@ function getWaitList(cri){
 		success : function (data){
 			displayWaitList(data.list);
 			displayWaitPagination(data.pm);
-			/* $('.comment-total').text(data.pm.totalCount); */
+			/* $('.wait-total').text(data.pm.totalCount); */
 		}, 
 		error : function(jqXHR, textStatus, errorThrown){
 
@@ -114,7 +82,7 @@ function displayWaitList(list){
 				<td>\${item.ho_phone}</td>
 				<td>\${item.ho_email}</td>
 				<td>\${item.ho_address}</td>
-				<td><button data-num="\${item.cm_num}">승인</button><button data-num="\${item.cm_num}">거절</button></td>
+				<td><button class="btn-wait-ok" data-id="\${item.ho_id}">승인</button><button class="btn-wait-no" data-id="\${item.ho_id}">거절</button></td>
 			</tr>
 		`
 	}
@@ -146,6 +114,74 @@ function displayWaitPagination(pm){
 	}
 	$('.box-pagination>ul').html(str);
 }
+$(document).on('click','.box-pagination .page-link',function(){
+	cri.page = $(this).data('page');
+	getWaitList(cri);
+})
+</script>
+<!-- 승인 버튼 클릭 -->
+<script type="text/javascript">
+$(document).on('click','.btn-wait-ok',function(){
+	if(!confirm("승인하시겠습니까?")){
+		return;
+	}
+	//서버로 보낼 데이터
+	let wait = {
+		ho_id : $(this).data('id')
+	}
+	//서버로 데이터 전송
+	$.ajax({
+		async : true,
+		url : '<c:url value="/admin/waitok"/>', 
+		type : 'post',
+		data : JSON.stringify(wait),
+		contentType : "application/json; charset=utf-8",
+		dataType : "json", 
+		success : function (data){
+			if(data.res){
+				alert("회원 승인이 완료되었습니다.");
+				getWaitList(cri);
+			}else{
+				alert("회원 승인에 실패하였습니다.");
+			}
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+})
+</script>
+<!-- 거절 버튼 클릭 -->
+<script type="text/javascript">
+$(document).on('click','.btn-wait-no',function(){
+	if(!confirm("거절하시겠습니까?")){
+		return;
+	}
+	//서버로 보낼 데이터
+	let wait = {
+		ho_id : $(this).data('id')
+	}
+	//서버로 데이터 전송
+	$.ajax({
+		async : true,
+		url : '<c:url value="/admin/waitno"/>', 
+		type : 'post',
+		data : JSON.stringify(wait),
+		contentType : "application/json; charset=utf-8",
+		dataType : "json", 
+		success : function (data){
+			if(data.res){
+				alert("회원 거절이 완료되었습니다.");
+				getWaitList(cri);
+			}else{
+				alert("회원 거절에 실패하였습니다.");
+			}
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+})
 </script>
 </body>
 </html>
