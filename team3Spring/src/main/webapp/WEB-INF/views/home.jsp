@@ -34,6 +34,7 @@ body {
 }
 
 .search-box {
+position: relative;
 	margin: 0 auto;
 }
 
@@ -71,7 +72,7 @@ body {
 .메뉴얼 {
 	padding: 35px 0 5px;
 	margin: 0 auto;
-	width: 30%;
+	width: 40%;
 }
 
 .메뉴얼>a {
@@ -81,7 +82,7 @@ body {
 }
 
 .긴공백 {
-	width: 20%;
+	width: 10%;
 }
 
 .로그인 {
@@ -135,10 +136,10 @@ body {
 
 .홈왼쪽, .홈오른쪽 {
 	display: flex;
-	border: 1px solid black;
+	border: 1px solid white;
 	width: 300px;
 	height: 2000px;
-	background-color: silver;
+	background-color: white;
 }
 
 .홈왼쪽 {
@@ -157,7 +158,20 @@ body {
 	width: 1000px;
 	height: 90px;
 	border: 1px solid black;
-	background-color: green;
+	overflow: hidden;
+	position: relative;
+}
+
+.롤링-내용 {
+	display: flex;
+	transition: transform 0.5s ease;
+}
+
+.롤링-내용 h1 {
+	flex: 0 0 1000px;
+	text-align: center;
+	line-height: 90px;
+	margin: 0;
 }
 
 .hot-new {
@@ -167,103 +181,119 @@ body {
 
 /*hot group*/
 .hot-group {
-	border: 1px solid black;
+	border: 1px solid white;
 	display: flex;
 	margin: 0 auto;
 	width: 100%;
 	height: 1000px;
 }
 
-	
-	/*검색창 시작*/ 
-
-.search-main-left,
-.search-main-right {
-    display: flex;
-    width: 300px;
-    height: 100%;
+/*검색창 시작*/
+.search-main-left, .search-main-right {
+	display: flex;
+	width: 300px;
+	height: 100%;
 }
 
 .search-main-left {
-    margin-right: auto; /* 오른쪽으로 정렬 */
+	margin-right: auto;
 }
 
 .search-main-right {
-    margin-left: auto; /* 왼쪽으로 정렬 */
+	margin-left: auto; 
 }
+
 .hot-group {
-    display: flex;
-    justify-content: center; /* 내부 요소들 가운데 정렬 */
+	display: flex;
+	justify-content: center; 
 }
 
 .hot-group a {
-    display: inline-block;
-    width: 100px; 
-    height: 50px; 
-    background-color: white; 
-    border: 2px solid black; 
-    text-align: center; 
-    line-height: 50px;
-    margin: 10px; 
-    text-decoration: none;
-    color: black; 
+	display: inline-block;
+	width: 300px;
+	height: 300px;
+	background-color: white;
+	border: 2px solid black;
+	text-align: center;
+	line-height: 50px;
+	margin: 15px;
+	text-decoration: none;
+	color: black;
 }
-.btnbtnbtn{
-	padding-top: 70px; 
+
+.btnbtnbtn {
+	padding-top: 70px;
 }
+
 .btnbtnbtn a {
-    display: inline-block;width: 113px;height: 113px;  position: relative; 
-    background-color: white; text-align: center; border-radius:10px;
-    line-height: 30px;  margin: 30px; text-decoration: none; color: black; 
+	display: inline-block;
+	width: 113px;
+	height: 113px;
+	position: relative;
+	background-color: white;
+	text-align: center;
+	border-radius: 10px;
+	line-height: 40px;
+	margin: 30px;
+	text-decoration: none;
+	color: black;
 }
- 
-.main-area{
-display:flex;
-width: 100%;height: 100%;margin: 0 auto;text-align: center;
 
+.main-area {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+	text-align: center;
 }
-
 
 .btnbtnbtn a span {
-    position: absolute; 
-    bottom:10px;
-    left: 50%; 
-    transform: translateX(-50%); 
-    font-size: 13px; 
-    font-weight: bold;
+	position: absolute;
+	bottom: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 13px;
+	font-weight: bold;
 }
-.search { 
+
+.search {
 	width: 1000px;
-    height: 56px;
-    line-height: 56px;
-    background: rgba(255, 255, 255, .9);
-    font-size: 20px;
-    font-weight: 300;
-    color: #333;
-    padding: 0 68px 0 10px;
-    border-radius: 5px;
+	height: 56px;
+	line-height: 56px;
+	background: rgba(255, 255, 255, .9);
+	font-size: 20px;
+	font-weight: 300;
+	color: #333;
+	padding: 0 68px 0 10px;
+	border-radius: 5px;
 }
+
 .search-btn {
-    width: 50px;
-    height: 40px;
-    position: relative; 
-    bottom:-13px;
-    right:35px;
-    transform: translateX(-50%); 
-    font-size: 0;
-    transition: all 0.3s;
+	width: 50px;
+	height: 40px;
+	position: absolute;
+	bottom: 8px;
+	right: -14px; 
+	transform : translateX( -50%);
+	font-size: 0;
+	transition: all 0.3s;
+	transform: translateX(-50%);
 }
 
 .search-btn .search-btn {
-    width: 20px;
-    height: auto; 
+	width: 20px;
+	height: auto;
 }
-.btnbtnbtn img{
-margin-top: 15px;width: 60px; height: 60px;
+
+.btnbtnbtn img {
+	margin-top: 15px;
+	width: 60px;
+	height: 60px;
 }
-a{
-    text-decoration: inherit;
-	 color: inherit;
+
+a {
+	text-decoration: inherit;
+	color: inherit;
 }
 </style>
 </head>
@@ -310,61 +340,53 @@ a{
 		</div>
 		<div class="main-area">
 			<div class="search-main-left"></div>
-				<div class="main-search-area">
-					<div class="search-box">
-						<input type="search" class="search">
-						 <input type="image" value="" 
-						 	class="search-btn" src="<c:url value='/resources/img/search.png'/>">
-					</div>
-					<div class="btnbtnbtn">
-						<a href="#">
-							<img alt="로고이미지"
-								src="<c:url value='/resources/img/hpbuild.png'/>">
-						   <span>병원</span>
-						</a>
-						<a href="#">
-							<img alt="로고이미지" 
-								src="<c:url value='/resources/img/comment.png'/>">
-						 	<span>커뮤니티</span>
-						</a>
-						<a href="#">
-							<img alt="로고이미지"  
-								src="<c:url value='/resources/img/hpbuild.png'/>">
-						</a>
-						<a href="#">
-							<img alt="로고이미지"  
-								src="<c:url value='/resources/img/hpbuild.png'/>">
-						</a>
-						<a href="#">
-							<img alt="로고이미지"  
-								src="<c:url value='/resources/img/bookmark.png'/>">
-								 <span>북마크</span>
-						</a>
-						
-					</div>
+			<div class="main-search-area">
+				<div class="search-box">
+					<input type="search" class="search"> <input type="image"
+						value="" class="search-btn"
+						src="<c:url value='/resources/img/search.png'/>">
 				</div>
+				<div class="btnbtnbtn">
+					<a href="#"> <img alt="로고이미지"
+						src="<c:url value='/resources/img/hpbuild.png'/>"> <span>병원</span>
+					</a> <a href="#"> <img alt="로고이미지"
+						src="<c:url value='/resources/img/comment.png'/>"> <span>커뮤니티</span>
+					</a> <a href="#"> <img alt="로고이미지"
+						src="<c:url value='/resources/img/hpbuild.png'/>">
+					</a> <a href="#"> <img alt="로고이미지"
+						src="<c:url value='/resources/img/hpbuild.png'/>">
+					</a> <a href="#"> <img alt="로고이미지"
+						src="<c:url value='/resources/img/bookmark.png'/>"> <span>북마크</span>
+					</a>
+
+				</div>
+			</div>
 			<div class="search-main-right"></div>
 		</div>
 	</div>
 	<div class="홈">
-		<div class="홈왼쪽">왼쪽 여백입니다.</div>
+		<div class="홈왼쪽"></div>
 		<div class="여기부터내용">
 			<div class="롤링">
-				<h1 style="text-align: center;">홈화면</h1>
+				<div class="롤링-내용">
+					<h1>첫 번째 내용</h1>
+					<h1>두 번째 내용</h1>
+					<h1>세 번째 내용</h1>
+				</div>
 			</div>
 			<div class="hot-new">
 				<h3>Hot & New</h3>
 				<p style="color: gray;">새롭고 재밌는 소식들을 여기서!</p>
 			</div>
 			<div class="hot-group">
-				<a></a> 
-				<a></a> 
-				<a></a>
+				<a href="#"></a> 
+				<a href="#"></a> 
+				<a href="#"></a> 
 			</div>
 		</div>
-		<div class="홈오른쪽">오른쪽 여백입니다</div>
+		<div class="홈오른쪽"></div>
 	</div>
-	
+
 </body>
 <footer>
 	<div class="footer-group">
@@ -373,4 +395,23 @@ a{
 		</div>
 	</div>
 </footer>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var interval = setInterval(roll, 3000); // n초마다 롤링
+
+		function roll() {
+			var container = $('.롤링');
+			var firstItem = container.find('.롤링-내용 h1:first');
+			var itemWidth = firstItem.outerWidth(); // 롤링되는 각 내용의 너비
+
+			container.find('.롤링-내용').animate({
+				marginLeft : -itemWidth
+			}, 500, function() {
+				$(this).append(firstItem.remove()).css({
+					marginLeft : 0
+				});
+			});
+		}
+	});
+</script>
 </html>
