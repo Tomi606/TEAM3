@@ -37,7 +37,7 @@ public interface HospitalService {
 
 	HospitalVO ajaxHospitalId(HospitalVO hospital, MemberVO member);
 
-	HospitalVO ajaxHospitalEmail(HospitalVO hospital);
+	HospitalVO ajaxHospitalEmail(HospitalVO hospital, MemberVO member);
 
 	String ctfEmail(String email);
 
@@ -51,6 +51,10 @@ public interface HospitalService {
 	int getWHTotalCount(Criteria cri);
 
 	int getHospitalCount(Criteria cri);
+
+	boolean hospitalWaitOk(HospitalVO hospital);
+
+	boolean hospitalWaitNo(HospitalVO hospital);
 
 
 }

@@ -89,4 +89,15 @@
 	<select id="selectWHTotalCount" resultType="int">
 		select count(*) from hospital where ho_ms_state = "가입대기"
 	</select>
+	
+	<update id="updateWaitOk">
+		update hospital
+		set ho_ms_state = "이용중"
+		where ho_id = #{ho_id}
+	</update>
+	
+	<delete id="updateWaitNo">
+		delete from hospital
+		where ho_id = #{ho_id}
+	</delete>
 </mapper>

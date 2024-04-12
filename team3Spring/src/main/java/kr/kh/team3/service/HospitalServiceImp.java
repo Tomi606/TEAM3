@@ -164,9 +164,17 @@ public class HospitalServiceImp implements HospitalService {
 		HospitalVO user = hospitalDao.selectHospital(hospital.getHo_id());
 		MemberVO memberId = memberDao.selectMember(member.getMe_id());
 		
-		// user가 null이 아니면 중복
-		if (user != null || user.equals(memberId)) {
-			return user;
+//		// user가 null이 아니면 중복
+//		if (user != null || user.equals(memberId)) {
+//			return user;
+//		}
+		
+		try {
+			if(!user.equals(hospital) || !memberId.equals(hospital)) {
+				return user;
+			}			
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
 
 		return null;
@@ -194,16 +202,21 @@ public class HospitalServiceImp implements HospitalService {
     }
 	
 	@Override
-	public HospitalVO ajaxHospitalEmail(HospitalVO hospital) {
+	public HospitalVO ajaxHospitalEmail(HospitalVO hospital, MemberVO member) {
 		if (hospital == null || hospital.getHo_email() == null || hospital.getHo_email().isEmpty()) {
 			return null;
 		}
 
 		// 입력된 아이디로 회원 조회
 		HospitalVO user = hospitalDao.selectHospitalEmail(hospital.getHo_email());
+		MemberVO memberEmail = memberDao.selectMemberEmail(member.getMe_email());
+		
+		if(user.equals(memberEmail)) {
+			return user;
+		}
 
 		// user가 null이 아니면 중복
-		if (user != null) {
+		if (user != null || memberEmail != null) {
 			return user;
 		}
 
@@ -278,6 +291,26 @@ public class HospitalServiceImp implements HospitalService {
 			return 0;
 		}
 		return hospitalDao.selectWHTotalCount(cri);
+	}
+
+	@Override
+	public boolean hospitalWaitOk(HospitalVO hospital) {
+		if(hospital == null ||
+			hospital.getHo_id() == null ||
+			hospital.getHo_id().length() == 0) {
+			return false;
+		}
+		return hospitalDao.updateWaitOk(hospital.getHo_id());
+	}
+
+	@Override
+	public boolean hospitalWaitNo(HospitalVO hospital) {
+		if(hospital == null ||
+			hospital.getHo_id() == null ||
+			hospital.getHo_id().length() == 0) {
+			return false;
+		}
+		return hospitalDao.updateWaitNo(hospital.getHo_id());
 	}
 
 
