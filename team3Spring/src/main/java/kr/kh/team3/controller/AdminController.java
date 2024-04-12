@@ -81,18 +81,29 @@ public class AdminController {
 	
 	// ======================== 회원 관리 시작 =========================
 	
-	//회원 관리 페이지 - 이용중인 전체 회원 조회
+	//회원 관리 메인 페이지("이용중" 전체 회원 리스트)
 	@GetMapping("/admin/member/main")
-    public String adminMember() {
-
+	public String memberList(Model model, MemberVO member, Criteria cri) {
+		cri.setPerPageNum(3);
+		ArrayList<MemberVO> list = memberService.getMemberList(cri);
+		int totalCount = memberService.getMemberTotalCount(cri);
+		PageMaker pm = new PageMaker(3, cri, totalCount);
+		model.addAttribute("list", list);
+		model.addAttribute("pm", pm);
 		return "/admin/member/main";
+	}
+	
+	//신고 회원 관리 페이지
+	@GetMapping("/admin/member/report")
+    public String adminMeReport() {
+
+		return "/admin/member/report";
     }
 	
 	//신고 회원 관리 리스트
 	@ResponseBody
 	@PostMapping("/admin/member/report")
-	public Map<String, Object> adminMemberPost(@RequestBody Criteria cri) {
-		log.info("관리자 - 회원 관리");
+	public Map<String, Object> adminMeReportPost(@RequestBody Criteria cri) {
 		Map<String, Object> map = new HashMap<String, Object>();		
 		cri.setPerPageNum(3);
 		ArrayList<MemberVO> list = memberService.getMemberList(cri);
@@ -104,7 +115,7 @@ public class AdminController {
 		return map;
 	}
 	
-	//신고 회원 관리 리스트 - 탈퇴
+	//신고 회원 관리 - 탈퇴
 	@ResponseBody
 	@PostMapping("/admin/member/delete")
 	public Map<String, Object> memberDelete(@RequestBody MemberVO member) {
@@ -114,10 +125,10 @@ public class AdminController {
 		return map;
 	}
 	
-	//회원 관리 - 정지(댓글 수정)
+	//신고 회원 관리 - 정지(댓글 수정)
 //	@ResponseBody
-//	@PostMapping("/member/stop")
-//	public Map<String, Object> memberDelete(@RequestBody MemberVO member) {
+//	@PostMapping("/admin/member/stop")
+//	public Map<String, Object> memberStop(@RequestBody MemberVO member) {
 //		Map<String, Object> map = new HashMap<String, Object>();
 //		boolean res = memberService.deleteMember(member);
 //		map.put("result", res);

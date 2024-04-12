@@ -27,6 +27,6 @@ public class MemberVO {
 	private String me_cookie_limit;
 	private Date me_stop; //정지 기간
 	private int me_report_count; //정지 누적 횟수
-	 
+	private HospitalSubjectVO hospitalSubject;
 
 }
