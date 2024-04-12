@@ -59,8 +59,25 @@
 		select * from member where me_phone = #{me_phone}
 	</select>
 	
-	<!-- 관리자 - 회원 관리 -->
-	<select id="selectMemberList" resultType="MemberVO">
+	<!-- 관리자 - 회원 관리(양선진) -->
+	<resultMap type="kr.kh.team3.model.vo.MemberVO" id="MemberMap">
+		<id property="me_id" column="me_id"/>
+		<result property="me_name" column="me_name"/>
+		<result property="me_gender" column="me_gender"/>
+		<result property="me_job" column="me_job"/>
+		<result property="me_phone" column="me_phone"/>
+		<result property="me_email" column="me_email"/>
+		<result property="me_address" column="me_address"/>
+		<result property="me_hs_num" column="me_hs_num"/>
+		<collection property="hospitalSubject" ofType="HospitalSubjectVO"
+		column="me_hs_num" select="selectHospitalSubject"/>	
+	</resultMap>
+	
+	<select id="selectHospitalSubject" resultType="HospitalSubjectVO">
+		select * from hospital_subject where hs_num = #{me_hs_num}
+	</select>
+	
+	<select id="selectMemberList" resultMap="MemberMap">
 		select * from member 
 		where me_authority = "USER"
 		limit #{cri.pageStart}, #{cri.perPageNum}

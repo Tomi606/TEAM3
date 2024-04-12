@@ -40,7 +40,7 @@ public class HomeController {
 	@GetMapping("/")
 	public String home() {
 		
-		return "/home";
+		return "home";
 	}
 	
 	//회원가입 메인페이지
@@ -317,9 +317,9 @@ public class HomeController {
 	//사업자 회원가입 : 이메일 중복확인 ajax
 	@ResponseBody
 	@GetMapping("/hospital/checkEmail")
-	public HashMap<String, Object> checkEmail(HospitalVO hospital) {
+	public HashMap<String, Object> checkEmail(HospitalVO hospital, MemberVO member) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		HospitalVO check = hospitalService.ajaxHospitalEmail(hospital);
+		HospitalVO check = hospitalService.ajaxHospitalEmail(hospital, member);
 		map.put("hoEmailCheck", check);
 		return map;
 	}

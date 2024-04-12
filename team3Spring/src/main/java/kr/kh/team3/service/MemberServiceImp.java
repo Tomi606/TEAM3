@@ -173,6 +173,7 @@ public class MemberServiceImp implements MemberService {
 	}
 
 
+	//관리자 - 회원 관리
 	@Override
 	public ArrayList<MemberVO> getMemberList(Criteria cri) {
 		if(cri == null) {
