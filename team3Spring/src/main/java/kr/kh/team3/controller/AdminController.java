@@ -79,16 +79,18 @@ public class AdminController {
  
 	// ======================== 병원 관리 끝 ==========================
 	
-	// ======================== 회원 관리 시작 ==========================
-	@GetMapping("/admin/member")
+	// ======================== 회원 관리 시작 =========================
+	
+	//회원 관리 페이지 - 이용중인 전체 회원 조회
+	@GetMapping("/admin/member/main")
     public String adminMember() {
 
-		return "/admin/member";
+		return "/admin/member/main";
     }
 	
-	//회원 관리 페이지
+	//신고 회원 관리 리스트
 	@ResponseBody
-	@PostMapping("/admin/member")
+	@PostMapping("/admin/member/report")
 	public Map<String, Object> adminMemberPost(@RequestBody Criteria cri) {
 		log.info("관리자 - 회원 관리");
 		Map<String, Object> map = new HashMap<String, Object>();		
@@ -102,15 +104,25 @@ public class AdminController {
 		return map;
 	}
 	
-	//회원 관리 - 탈퇴
+	//신고 회원 관리 리스트 - 탈퇴
 	@ResponseBody
-	@PostMapping("/member/delete")
+	@PostMapping("/admin/member/delete")
 	public Map<String, Object> memberDelete(@RequestBody MemberVO member) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		boolean res = memberService.deleteMember(member);
 		map.put("result", res);
 		return map;
 	}
+	
+	//회원 관리 - 정지(댓글 수정)
+//	@ResponseBody
+//	@PostMapping("/member/stop")
+//	public Map<String, Object> memberDelete(@RequestBody MemberVO member) {
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		boolean res = memberService.deleteMember(member);
+//		map.put("result", res);
+//		return map;
+//	}
 	
 	// ======================== 회원 관리 끝 ==========================
 }
