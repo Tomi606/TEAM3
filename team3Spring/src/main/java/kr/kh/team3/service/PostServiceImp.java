@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.kh.team3.dao.PostDAO;
 import kr.kh.team3.model.vo.PostVO;
+import kr.kh.team3.pagination.Criteria;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -19,7 +20,13 @@ public class PostServiceImp implements PostService{
 	PostDAO postDao;
 
 	@Override
-	public ArrayList<PostVO> getPostList(int bo_num) {
-		return postDao.selectPostList(bo_num);
+	public ArrayList<PostVO> getPostList(Criteria cri, int bo_num) {
+		return postDao.selectPostList(cri, bo_num);
+	}
+
+	@Override
+	public int getPostCount(Criteria cri, int bo_num) {
+		// TODO Auto-generated method stub
+		return postDao.selectPostTotalCount(cri, bo_num);
 	}
 }

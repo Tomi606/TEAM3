@@ -25,75 +25,7 @@ public class BoardController {
 	 * 메서드 위에 주석으로 무슨 기능인지 쓰기
 	 */
 	
-	@Autowired
-	BoardService boardService;
-	
-	//게시판리스트를 보여주기 위한 메서드
-	@GetMapping("/community")
-	public String board(Model model) {
-		ArrayList<BoardVO> list = boardService.getBoardList();
-		model.addAttribute("list", list);
-		return "/community/community";
-	}
-	
-	//수정 페이지를 보여주기 위한 메서드
-	@GetMapping("/community/insert")
-	public String boardInsert(Model model) {
-		ArrayList<BoardVO> list = boardService.getBoardList();
-		model.addAttribute("list", list);
-		return "/community/communityinsert";
-	}
-	
-	//게시판을 추가 위한 메서드
-	@PostMapping("/community/insert")
-	public String boardInsertPost(Model model, String board) {
-		ArrayList<BoardVO> list = boardService.getBoardList();
-		
-		boolean res = boardService.insertBoard(list, board);
-		if (res) {
-			model.addAttribute("msg","게시판 등록을 완료했습니다.");
-			model.addAttribute("url","/community");
-		}else {
-			model.addAttribute("msg","게시판 등록에 실패 했습니다.");
-			model.addAttribute("url","/community/insert");
-		}
-		return "message";
-	}
 	
 	
-	//게시판 수정 페이지를 보여주기 위한 메서드
-	@GetMapping("/community/update")
-	public String boardUpdate(Model model, int bo_num) {
-		BoardVO board = boardService.getBoard(bo_num);
-		model.addAttribute("board", board);
-		return "/community/communityupdate";
-	}
 	
-	//게시판 수정을 위한 메서드
-	@PostMapping("/community/update")
-	public String boardUpdatePost(Model model, BoardVO boardVO, String new_BoardName) {
-		boolean res = boardService.updateBoard(boardVO, new_BoardName);
-		if (res) {
-			model.addAttribute("msg","게시판 수정을 완료했습니다.");
-			model.addAttribute("url","/community");
-		}else {
-			model.addAttribute("msg","게시판 수정에 실패 했습니다.");
-			model.addAttribute("url","/community/update");
-		}
-		return "message";
-	}
-	
-	//게시판 삭제를 위한 메서드
-	@GetMapping("/community/delete")
-	public String boardDelete(Model model, int bo_num) {
-		boolean res = boardService.deleteBoard(bo_num);
-		if (res) {
-			model.addAttribute("msg","게시판 삭제를 완료했습니다.");
-			model.addAttribute("url","/community");
-		}else {
-			model.addAttribute("msg","게시판 삭제에 실패 했습니다.");
-			model.addAttribute("url","/community");
-		}
-		return "message";
-	}
 }
