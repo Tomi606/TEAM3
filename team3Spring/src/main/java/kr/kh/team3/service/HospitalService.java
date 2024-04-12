@@ -52,5 +52,9 @@ public interface HospitalService {
 
 	int getHospitalCount(Criteria cri);
 
+	boolean hospitalWaitOk(HospitalVO hospital);
+
+	boolean hospitalWaitNo(HospitalVO hospital);
+
 
 }
