@@ -15,7 +15,7 @@
 }
 .board-box{
 	width: 40%;
-	height: 300px;
+	height: 400px;
 	border: 1px solid gray;
 	border-radius: 20px;
 	display: inline-block;
@@ -23,15 +23,25 @@
 	padding: 10px;
 	text-align: center;
 }
-.post-box{
-	width: 40%;
-	height: 300px;
-	border: 1px solid gray;
-	border-radius: 20px;
-	display: inline-block;
-	padding: 50px;
-	text-align: center;
+.post-box {
+    width: 40%;
+    height: 400px;
+    border: 1px solid gray;
+    border-radius: 20px;
+    display: inline-block;
+    padding: 30px;
+    text-align: center;
+    vertical-align: top; /* 상단 정렬을 유지합니다. */
+    position: relative; /* 상대적 위치 설정 */
 }
+
+.box-comment-pagination {
+    position: absolute; /* 절대적 위치 설정 */
+    bottom: 10px; /* 하단 여백 조절 */
+    left: 50%; /* 가운데 정렬을 위해 왼쪽 위치를 50%로 설정 */
+    transform: translateX(-50%); /* 가운데 정렬을 위해 왼쪽 위치를 현재 요소의 가로 크기의 반만큼 왼쪽으로 이동 */
+}
+
 tr th,
 tr td{
 text-align: center;
