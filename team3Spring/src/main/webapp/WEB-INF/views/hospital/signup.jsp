@@ -99,7 +99,8 @@ label {
 			</div>
 			<div>
 				<img alt="이메일 이미지" src="<c:url value="/resources/img/email.svg"/>">
-				<input type="email" class="input-tag" id="email" name="ho_email" readonly value="${email}"/>
+				<input type="email" class="input-tag" id="email" name="ho_email" maxlength="50" required autofocus="autofocus" placeholder="이메일"/>
+				<!-- 데이터 추가 후 풀기 <input type="email" class="input-tag" id="email" name="ho_email" readonly value="${email}"/> -->
 				<label id="email-error" class="error text-danger" for="email"></label>
 			</div>
 			<div>
