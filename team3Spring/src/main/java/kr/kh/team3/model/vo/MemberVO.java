@@ -2,13 +2,12 @@ package kr.kh.team3.model.vo;
 
 import java.util.Date;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class MemberVO {
 	private String me_id;
 	private int me_hs_num; //병원 과목 번호
