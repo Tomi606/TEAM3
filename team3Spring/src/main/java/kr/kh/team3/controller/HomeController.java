@@ -64,7 +64,9 @@ public class HomeController {
 	//개인 회원가입 페이지
 	@ResponseBody
 	@PostMapping("/member/signup")
-	public boolean postPemberSignup(Model model,@RequestParam Map<String, String> obj,MemberVO member,SiteManagement site,SiDoVO sido,SiGoonGuVO sgg, @RequestParam String str) {
+	public boolean postPemberSignup(Model model,@RequestParam Map<String, String> obj,
+			MemberVO member,SiteManagement site,SiDoVO sido,SiGoonGuVO sgg, @RequestParam String str) {
+		
 
 		boolean memberRes = memberService.memberSignup(member, str);
 		boolean siteRes = memberService.siteSignup(site);
