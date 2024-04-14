@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.MemberVO;
+import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -42,9 +43,16 @@ public interface MemberDAO {
 
 	int selectMemberTotalCount(@Param("cri") Criteria cri);
 
+	MemberVO selectMemberSiteId(@Param("me_id")String me_id);
+
+	ArrayList<MemberVO> selectReportMemberList(@Param("cri") Criteria cri);
+
+	int selectReportMemberTotalCount(@Param("cri") Criteria cri);
+
 	boolean deleteMember(@Param("me") MemberVO member);
 
-	MemberVO selectMemberSiteId(@Param("me_id")String me_id);
+	boolean updateStopMember
+	(@Param("rp_target") String rp_target, @Param("rp_rs_name") String rp_rs_name);
 	
 
 }

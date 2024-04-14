@@ -15,6 +15,7 @@ import kr.kh.team3.dao.MemberDAO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.MemberVO;
+import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -194,6 +195,22 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.selectMemberTotalCount(cri);
 	}
 
+	@Override
+	public ArrayList<MemberVO> getReportMemberList(Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		return memberDao.selectReportMemberList(cri);
+	}
+
+
+	@Override
+	public int getReportMemberTotalCount(Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		return memberDao.selectReportMemberTotalCount(cri);
+	}
 
 	@Override
 	public boolean deleteMember(MemberVO member) {
@@ -203,4 +220,13 @@ public class MemberServiceImp implements MemberService {
 		
 		return memberDao.deleteMember(member);
 	}
+
+	@Override
+	public boolean stopMember(ReportVO report) {
+		if(report == null) {
+			return false;
+		}
+		return memberDao.updateStopMember(report.getRp_target(), report.getRp_rs_name());
+	}
+	
 }
