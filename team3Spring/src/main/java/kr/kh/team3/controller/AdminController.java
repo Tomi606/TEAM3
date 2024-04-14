@@ -195,7 +195,7 @@ public class AdminController {
 		return map;
 	}
 	
-	//신고 회원 관리 - 탈퇴 -> ReportVO로 고쳐서 해야하나?
+	//신고 회원 관리 - 탈퇴
 	@ResponseBody
 	@PostMapping("/admin/member/delete")
 	public Map<String, Object> memberDelete(@RequestBody MemberVO member) {
