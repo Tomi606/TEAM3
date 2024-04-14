@@ -24,22 +24,23 @@ width: 25%;
 
 }
 .메뉴얼{
-padding:32px 0 5px;
+padding:35px 0 5px;
 margin:0 auto;
-width: 30%;
+width: 40%;
 }
 .메뉴얼>a{
 color:black;
 text-decoration:none;
-margin-right: 30px;
+margin: 30px;
+font-size: 18px;
 }
 .긴공백{
-width: 20%;
+width: 10%;
 }
 .로그인{
 padding:20px 0 5px;
 margin:0 auto;
-width: 25%;
+width: 35%;
 }
 .로그인 a{
 color: black;
@@ -58,7 +59,7 @@ width: 170px;height: 80px;
 	<div class="공백"></div>
 	<div class="로고">
 		<a class="nav-link" href="<c:url value='/'/>">
-			<img alt="로고이미지" style="width: 170px;height: 80px;" class="Logo-img"
+			<img alt="로고이미지"  class="Logo-img"
 			src="<c:url value='/resources/img/Hospital.png'/>">
 		</a>
 	</div>

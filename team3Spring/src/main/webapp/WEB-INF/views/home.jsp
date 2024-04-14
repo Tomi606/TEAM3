@@ -17,12 +17,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <style type="text/css">
 body {
-	font-family: "Noto Sans KR", "Nanum Gothic", arial, Dotum, 돋움;
 	font-size: 14px;
 	font-weight: 300;
 	letter-spacing: -0.075em;
 }
-
+a:hover{
+text-decoration: underline;
+}
 .home-box {
 	width: 100%;
 	height: 953px;
@@ -74,11 +75,11 @@ body {
 }
 
 .header-box {
-	border-bottom: 1px solid #c8c8c8;
-	width: 100%;
-	height: 80px;
-	display: flex;
-	background-color: rgba(0, 0, 0, 0);
+border-bottom: 1px solid #c8c8c8;
+width: 100%;
+height: 80px;
+display: flex;
+background-color: rgba(0, 0, 0, 0);
 }
 
 .공백 {
@@ -238,7 +239,11 @@ body {
 	text-decoration: none;
 	color: black;
 }
+.hot-group a:hover{
+color:#a0a0a0;
+text-decoration: underline;
 
+}
 .btnbtnbtn {
 	padding-top: 70px;
 }
@@ -351,18 +356,18 @@ margin-top: 200px;
 
 }
 .button-link {
-       width: 100px;
-       height: 40px;
-       border: 1px solid #a0a0a0;
-       line-height: 50px;
-       text-decoration: none;
-       color: #a0a0a0;
-       padding: 10px;
+width: 100px;
+height: 40px;
+border: 1px solid #a0a0a0;
+line-height: 50px;
+text-decoration: none;
+color: #a0a0a0;
+padding: 10px;
 }
 
 .button-link:hover {
-	text-decoration:none;
-   border-color: #a0a0a0;
+text-decoration:underline;
+ color: #a0a0a0;
 }
 .공지사항{
 display:flex;
@@ -370,14 +375,21 @@ border-top: 1px solid #c8c8c8;
 background-color:#fafafa;
 width: 100%;
 height: 50px;
-
 }
+.공지사항 a:hover{
+text-decoration: underline;
+}
+
 /* 푸터 입니다.*/
 .footer{
 width: 100%;border-top: 1px solid gray;height:400px;background-color: #5A5F5F;
 color: white;
-
 }
+.footer a:hover{
+color: white;
+text-decoration: underline;
+}
+
 .footer-info-area{
 list-style:none;
 display:flex;
@@ -387,17 +399,17 @@ width: 1350px;
 text-align: left
 }
 .footer-logo{
-    width: 200px;
-    height: 140px;
-    margin-right: 4px;
-    background-size: 100% auto;
+width: 200px;
+height: 140px;
+margin-right: 4px;
+background-size: 100% auto;
 
 }
 .footer-content{
-	width:23%;
-    border-right: 1px solid #989898;
-    padding-right: 15px;
-    margin-right: 50px;
+width:23%;
+border-right: 1px solid #989898;
+padding-right: 15px;
+margin-right: 50px;
 
 }
 .copy-disc{
@@ -411,13 +423,16 @@ margin-top: 15px;
 /*전체 예역 현황*/
 
 .total-reservation{
-padding:20px;display:flex;text-align:center;
-border:1px solid black;width: 700px;height: 280px;
- flex-wrap: wrap;
+padding:20px;display:flex;
+border:1px solid black;width: 700px;height: 400px;
 }
 .hos-sub{
-width:120px;height:70px;border:1px solid black;
+width:110px;height:70px;border:1px solid black;
 margin:10;
+}
+.reservation-box{
+display: flex;
+
 }
 </style>
 </head>
@@ -558,27 +573,29 @@ margin:10;
 				<div class="total-hos" style="margin-bottom: 150px;">
 					<h3>전체 예약 현황</h3>
 					<p></p>
-				</div>	
-					<div class="total-reservation">
-						<h4>최근 예약이 많은 병원</h4>
-						<div class="hos-sub">
-							<a>성형외과</a>
-							<p>125</p>
+				</div>
+					<div class="reservation-box">	
+						<div class="total-reservation">
+							<h4 >최근 예약이 많은 병원</h4>
+							<div class="hos-sub">
+								<a>성형외과</a>
+								<p>125</p>
+							</div>
+							<div class="hos-sub">
+								<a>피부과</a>
+								<p>76</p>
+							</div>
+							<div class="hos-sub">
+								<a>내과</a>
+								<p>26</p>
+							</div>
+							<div class="hos-sub">
+								<a>치과</a>
+								<p>25</p>
+							</div>
 						</div>
-						<div class="hos-sub">
-							<a>피부과</a>
-							<p>76</p>
-						</div>
-						<div class="hos-sub">
-							<a>내과</a>
-							<p>26</p>
-						</div>
-						<div class="hos-sub">
-							<a>치과</a>
-							<p>25</p>
-						</div>
-					</div>
-			
+						<hr>
+				  </div>
 			</div>
 			
 			</div>
@@ -587,7 +604,8 @@ margin:10;
 			 <div class="공지사항">
 				 <img alt="미니공지" style="width: 48px;margin-left: 100px"
 				 src="<c:url value='/resources/img/미니공지.png'/>">
-				 <span style="color: gray;margin-right:auto;line-height: 3.5;margin-left: 23px ">공지사항 : <a href="#">공지링크</a></span>
+				 <span style="color: gray;margin-right:auto;line-height: 3.5;margin-left: 23px ">공지사항 : 
+				 <a href="#" style="color:gray ">공지링크</a></span>
 				 <a href="#" 
 				 style="line-height: 3.5;margin-right: 50px;color: gray;border: 1px solid #fafafa;"
 				 >더보기</a>
