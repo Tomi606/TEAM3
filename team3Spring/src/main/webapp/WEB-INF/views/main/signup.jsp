@@ -47,11 +47,12 @@ margin-left: auto;
     text-align: center;
     line-height: 350px;
     text-decoration: none;
+    box-shadow: 1px 1px 2px 1px #C12DFF;
 }
 .aTag-btn1:hover,
 .aTag-btn2:hover{
 text-decoration:none;
-box-shadow: 1px 1px 1px 1px #C12DFF;
+  box-shadow: 2px 2px 4px 1px #C12DFF; /* 그림자 효과 추가 */
 
 	
 }

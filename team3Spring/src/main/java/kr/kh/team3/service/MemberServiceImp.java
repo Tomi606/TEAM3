@@ -10,8 +10,10 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import kr.kh.team3.dao.HospitalDAO;
 import kr.kh.team3.dao.MemberDAO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
+import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
@@ -26,6 +28,8 @@ public class MemberServiceImp implements MemberService {
 	BCryptPasswordEncoder passwordEncoder;
 	@Autowired
 	MemberDAO memberDao;
+	@Autowired
+	HospitalDAO hospitalDao;
 	
 	@Autowired
 	private JavaMailSender mailSender;
@@ -126,17 +130,16 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public MemberVO getMemberId(MemberVO member) {
-		if (member == null || member.getMe_id() == null || member.getMe_id().isEmpty()) {
+	public SiteManagement getMemberId(SiteManagement site) {
+		if (site == null || site.getSite_id() == null || site.getSite_id().isEmpty()) {
 			return null;
 		}
 
 		// 입력된 아이디로 회원 조회
-		MemberVO user = memberDao.selectMember(member.getMe_id());
-
+		SiteManagement ho = memberDao.selectSite(site.getSite_id());
 		// user가 null이 아니면 중복
-		if (user != null) {
-			return user;
+		if ( ho != null) {
+			return ho;
 		}
 
 		return null;

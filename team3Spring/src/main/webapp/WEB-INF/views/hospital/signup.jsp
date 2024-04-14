@@ -28,22 +28,22 @@ align-items: center;
     padding: 10px;
 }
 .input-tag:focus {
-    border-bottom-color: blue; 
+    border-bottom-color:  #C12DFF; 
     box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
 }
 .btn {
 	text-decoration: none;
-	border:1px solid blue;
+	border:1px solid  #C12DFF;
 	width: 100px;
 }
 .btn:hover {
-	background-color: blue;
+	background-color:  #C12DFF;
 	color: white;
 }
 .signup-btn {
 text-align:center;font-size:20px;font-weight:bold;
 width: 400px;height:40px;border-radius:0;
-padding: 2px;border-bottom: 1px solid blue;
+padding: 2px;border-bottom: 1px solid  #C12DFF;
 margin-left:34px;
 }
 select {
@@ -56,7 +56,7 @@ select {
     width: 200px; 
 }
 select:focus {
-    border-color: blue; 
+    border-color:  #C12DFF; 
     box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
 }
 select:hover {
@@ -389,7 +389,7 @@ $(document).ready(function() {
 	            data: { ho_id: id }, 
 	            success: function(response) {
 	                if (response.hoIdCheck == null) {
-	                	        $(".textId").text("사용 가능한 아이디입니다.").css("color", "blue");
+	                	        $(".textId").text("사용 가능한 아이디입니다.").css("color", " #C12DFF");
 	                	        idCheck = true;
 	                	        setTimeout(function() {
 	                	            $(".textId").text("");

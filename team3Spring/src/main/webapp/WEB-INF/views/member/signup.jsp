@@ -32,22 +32,22 @@ align-items: center;
     padding: 20px;
 }
 .input-tag:focus {
-    border-bottom-color: blue; 
+    border-bottom-color:  #C12DFF; 
     box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
 }
 .btn{
 	text-decoration: none;
-	border:1px solid blue;
+	border:1px solid  #C12DFF;
 	width: 100px;
 }
 .btn:hover {
-	background-color: blue;
+	background-color:  #C12DFF;
 	color: white;
 }
 .signup-btn{
 text-align:center;font-size:20px;font-weight:bold;
 width: 500px;height:40px;border-radius:0;
-padding: 2px;border-bottom: 1px solid blue;
+padding: 2px;border-bottom: 1px solid  #C12DFF;
 margin-left:34px;
 }
 select {
@@ -60,7 +60,7 @@ select {
     width: 500px; 
 }
 select:focus {
-    border-color: blue; 
+    border-color:  #C12DFF; 
     box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
 }
 select:hover {
@@ -115,12 +115,12 @@ label {
 		<div>
 	
 			<img  alt="아이디이미지" src="<c:url value="/resources/img/user.svg"/>">
-		    <input  type="text" id="id" name="me_id" placeholder="아이디" autofocus="autofocus" class="input-tag">
+		    <input  type="text" id="id" name="site_id" placeholder="아이디" autofocus="autofocus" class="input-tag">
 		    <label class="text-danger textId" id="laId"></label>
 		  <!--   <a type="button" class="check-duplicate btn duplicate">중복 확인</a> -->
 		</div>
 		<div>
-	    	<input type="hidden" id="id2" name="site_id">
+	    	<input type="hidden" id="id2" name="me_id">
 		</div>
 		<div>
 			<img alt="아이디이미지" src="<c:url value="/resources/img/password.svg"/>">
@@ -418,11 +418,11 @@ $(document).ready(function() {
         $.ajax({
             url: '<c:url value="/checkId"/>',
             type: "get",
-            data: { me_id: id }, 
+            data: { site_id: id }, 
             success: function(response) {
                 if (response.check == null) {
                 	 if (id.length >= 8) {
-                	        $(".textId").text("사용 가능한 아이디입니다.").css("color", "blue");
+                	        $(".textId").text("사용 가능한 아이디입니다.").css("color", " #C12DFF");
                 	        idCheck = true;
                 	        setTimeout(function() {
                 	            $(".textId").text("");
