@@ -313,5 +313,31 @@ public class HospitalServiceImp implements HospitalService {
 		return hospitalDao.updateWaitNo(hospital.getHo_id());
 	}
 
+	@Override
+	public ArrayList<HospitalVO> getReportHospitalList(Criteria cri) {
+		if(cri == null) {
+			return null;
+		}
+		return hospitalDao.selectReportHospitalList(cri);
+	}
+
+	@Override
+	public int getRHTotalCount(Criteria cri) {
+		if(cri == null) {
+			return 0;
+		}
+		return hospitalDao.selectRHTotalCount(cri);
+	}
+
+	@Override
+	public boolean hospitalOut(HospitalVO hospital) {
+		if(hospital == null ||
+			hospital.getHo_id() == null ||
+			hospital.getHo_id().length() == 0) {
+			return false;
+		}
+		return hospitalDao.deleteHospital(hospital.getHo_id());
+	}
+
 
 }

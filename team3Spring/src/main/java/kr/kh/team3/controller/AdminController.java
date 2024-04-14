@@ -111,6 +111,40 @@ public class AdminController {
 		map.put("res", res);
 		return map;
 	}
+	
+	//신고 병원 관리 페이지
+	@GetMapping("/admin/reportlist")
+	public String adminReportlist() {
+		//대기 병원 리스트 가져오기
+		return "/admin/reportlist";
+	}
+	
+	//신고 병원 리스트
+	@ResponseBody
+	@PostMapping("/admin/reportlist")
+	public Map<String, Object> reportList(@RequestBody Criteria cri){
+		Map<String, Object> map = new HashMap<String, Object>();
+		cri.setPerPageNum(3);
+		ArrayList<HospitalVO> hospitalList = hospitalService.getReportHospitalList(cri);
+		int totalCount = hospitalService.getRHTotalCount(cri);
+		PageMaker pm = new PageMaker(3, cri, totalCount);
+		map.put("list", hospitalList);
+		map.put("pm", pm);
+		return map;
+	}
+	
+	//병원 회원 탈퇴시킴
+	@ResponseBody
+	@PostMapping("/admin/hospitalout")
+	public Map<String, Object> hospitalOut(@RequestBody HospitalVO hospital){
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		boolean res = hospitalService.hospitalOut(hospital);
+
+		map.put("res", res);
+		return map;
+	}
+	
 	// ======================== 병원 관리 끝 ==========================
 	
 	// ======================== 회원 관리 시작 =========================

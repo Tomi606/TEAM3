@@ -56,5 +56,11 @@ public interface HospitalService {
 
 	boolean hospitalWaitNo(HospitalVO hospital);
 
+	ArrayList<HospitalVO> getReportHospitalList(Criteria cri);
+
+	int getRHTotalCount(Criteria cri);
+
+	boolean hospitalOut(HospitalVO hospital);
+
 
 }
