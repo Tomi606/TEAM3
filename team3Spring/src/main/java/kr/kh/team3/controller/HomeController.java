@@ -64,7 +64,9 @@ public class HomeController {
 	//개인 회원가입 페이지
 	@ResponseBody
 	@PostMapping("/member/signup")
-	public boolean postPemberSignup(Model model,@RequestParam Map<String, String> obj,MemberVO member,SiteManagement site,SiDoVO sido,SiGoonGuVO sgg, @RequestParam String str) {
+	public boolean postPemberSignup(Model model,@RequestParam Map<String, String> obj,
+			MemberVO member,SiteManagement site,SiDoVO sido,SiGoonGuVO sgg, @RequestParam String str) {
+		
 
 		boolean memberRes = memberService.memberSignup(member, str);
 		boolean siteRes = memberService.siteSignup(site);
@@ -230,7 +232,6 @@ public class HomeController {
 		
 		//hospital정보를 주고 아이디 비번 맞는지 확인
 		SiteManagement user = hospitalService.login(hospital);
-		
 		if(user == null) {
 			hospitalService.setLoginFail(ho_exist.getHo_id());
 			model.addAttribute("url", "/main/login");
@@ -277,9 +278,9 @@ public class HomeController {
 	//아이디 중복확인 ajax
 	@ResponseBody
 	@GetMapping("/checkId")
-	public HashMap<String, Object> checkId(MemberVO member) {
+	public HashMap<String, Object> checkId(SiteManagement site) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		MemberVO check = memberService.getMemberId(member);
+		SiteManagement check = memberService.getMemberId(site);
 		map.put("check", check);
 		return map;
 	}

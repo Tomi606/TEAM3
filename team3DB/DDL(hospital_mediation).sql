@@ -22,8 +22,10 @@ CREATE TABLE `member` (
 	`me_cookie`	varchar(255) NULL,
 	`me_cookie_limit` datetime NULL,
     `me_fail` int not null default 0,
+	`me_report_count` int not null default 0,
     `me_stop` datetime NULL,
-    `me_report_count` int not null default 0
+	`me_stop_count`	int	not NULL default 0
+    
 );
 
 DROP TABLE IF EXISTS `post`;
@@ -31,8 +33,8 @@ DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post` (
 	`po_num`	int	 primary key auto_increment,
 	`po_title`	varchar(30) NOT	NULL,
-  `po_report_count` int not null default 0, 
-  `po_date` date not null,
+	`po_report_count` int not null default 0, 
+	`po_date` date not null,
 	`po_content`	TEXT NOT NULL,
 	`po_bo_num`	int	NOT NULL,
 	`po_mg_num`	int	NOT NULL
@@ -43,8 +45,8 @@ DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
 	`co_num`	int	primary key auto_increment,
 	`co_content`	TEXT NOT NULL,
-  `co_date` date not null,
-  `co_report_count` int not null default 0,
+	`co_date` date not null,
+	`co_report_count` int not null default 0,
 	`co_po_num`	int	NOT NULL,
 	`co_mg_num`	int	NOT NULL
 );
@@ -150,8 +152,9 @@ CREATE TABLE `hospital` (
 	`ho_cookie`	varchar(255) NULL,
 	`ho_cookie_limit`	datetime NULL,
     `ho_email` varchar(100) not null,
-    `ho_stop` datetime null, 
-    `ho_report_count` int not null default 0
+    `ho_report_count` int not null default 0,
+    `ho_stop` datetime null,
+    `ho_stop_count`	int	not NULL default 0
 );
 
 DROP TABLE IF EXISTS `site_management`;
@@ -493,6 +496,9 @@ insert into land value(1,1);
 # 신고 상태
 insert into report_state values('1일정지'),('3일정지'),('7일정지'),('15일정지'),('30일정지'),('60일정지'),('180일정지'),('365일정지');
 
+# site_management 추가
+insert into site_management value(1, 1, qwer1234, "USER");
+
 # 신고 유형
 insert into report(rp_target,rp_name, rp_rs_name, rp_site_num) 
 values('qwer1234', '스팸홍보','1일정지', 1), 
@@ -507,4 +513,7 @@ values('qwer1234', '스팸홍보','1일정지', 1),
 ('qwer1234', '저작권 침해','1일정지', 1), 
 ('qwer1234', '불쾌한 표현 있음','1일정지', 1);
 
-select * from report;
+select * from member;
+select * from hospital;
+select * from site_management;
+SELECT * FROM member JOIN site_management ON site_num = me_id WHERE site_id = 'wldyd1234' 

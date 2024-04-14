@@ -8,15 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.kh.team3.model.vo.MemberVO;
-import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.BoardVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.MemberVO;
+import kr.kh.team3.model.vo.PostVO;
+import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.pagination.Criteria;
 import kr.kh.team3.pagination.PageMaker;
 import kr.kh.team3.service.BoardService;
@@ -111,6 +112,51 @@ public class AdminController {
 		map.put("res", res);
 		return map;
 	}
+	
+	//신고 병원 관리 페이지
+	@GetMapping("/admin/reportlist")
+	public String adminReportlist() {
+		//대기 병원 리스트 가져오기
+		return "/admin/reportlist";
+	}
+	
+	//신고 병원 리스트
+	@ResponseBody
+	@PostMapping("/admin/reportlist")
+	public Map<String, Object> reportList(@RequestBody Criteria cri){
+		Map<String, Object> map = new HashMap<String, Object>();
+		cri.setPerPageNum(3);
+		ArrayList<HospitalVO> hospitalList = hospitalService.getReportHospitalList(cri);
+		int totalCount = hospitalService.getRHTotalCount(cri);
+		PageMaker pm = new PageMaker(3, cri, totalCount);
+		map.put("list", hospitalList);
+		map.put("pm", pm);
+		return map;
+	}
+	
+	//신고 병원 정지
+	@ResponseBody
+	@PostMapping("/admin/hospitalstop")
+	public Map<String, Object> hospitalStop(@RequestBody ReportVO report){
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean res = hospitalService.hospitalStop(report);
+
+		map.put("res", res);
+		return map;
+	}
+	
+	//신고 병원 탈퇴
+	@ResponseBody
+	@PostMapping("/admin/hospitalout")
+	public Map<String, Object> hospitalOut(@RequestBody HospitalVO hospital){
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		boolean res = hospitalService.hospitalOut(hospital);
+
+		map.put("res", res);
+		return map;
+	}
+	
 	// ======================== 병원 관리 끝 ==========================
 	
 	// ======================== 회원 관리 시작 =========================
@@ -134,20 +180,19 @@ public class AdminController {
 		return "/admin/member/report";
     }
 	
-	//신고 회원 관리 리스트
-	@ResponseBody
-	@PostMapping("/admin/member/report")
-	public Map<String, Object> adminMeReportPost(@RequestBody Criteria cri) {
-		Map<String, Object> map = new HashMap<String, Object>();		
-		cri.setPerPageNum(3);
-		ArrayList<MemberVO> list = memberService.getMemberList(cri);
-		//현재 페이지 정보(cri)를 주면서 총 게시글 개수를 가져오라 명령
-		int totalCount = memberService.getMemberTotalCount(cri);
-		PageMaker pm = new PageMaker(3, cri, totalCount);
-		map.put("list", list);
-		map.put("pm", pm);
-		return map;
-	}
+	/*
+	 * //신고 회원 관리 리스트 https://wakestand.tistory.com/787
+	 * 
+	 * @ResponseBody
+	 * 
+	 * @PostMapping("/admin/member/report") public Map<String, Object>
+	 * adminMeReportPost(@RequestBody Criteria cri, MemberVO member) { Map<String,
+	 * Object> map = new HashMap<String, Object>(); cri.setPerPageNum(3);
+	 * ArrayList<MemberVO> list = memberService.getReportMemberList(cri); //현재 페이지
+	 * 정보(cri)를 주면서 총 게시글 개수를 가져오라 명령 int totalCount =
+	 * memberService.getReportMemberTotalCount(cri); PageMaker pm = new PageMaker(3,
+	 * cri, totalCount); map.put("list", list); map.put("pm", pm); return map; }
+	 */
 	
 	//신고 회원 관리 - 탈퇴
 	@ResponseBody

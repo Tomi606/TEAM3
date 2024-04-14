@@ -6,6 +6,7 @@ import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.MemberVO;
+import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -55,6 +56,14 @@ public interface HospitalService {
 	boolean hospitalWaitOk(HospitalVO hospital);
 
 	boolean hospitalWaitNo(HospitalVO hospital);
+
+	ArrayList<HospitalVO> getReportHospitalList(Criteria cri);
+
+	int getRHTotalCount(Criteria cri);
+
+	boolean hospitalOut(HospitalVO hospital);
+
+	boolean hospitalStop(ReportVO report);
 
 
 }

@@ -19,27 +19,32 @@ background-color:rgba(0,0,0,0);
 .공백{
  width: 10%;
 }
-.로고{
-width: 25%;
-
+.로고 {
+	display:flex;
+	width: 65%;
 }
-.메뉴얼{
-padding:32px 0 5px;
-margin:0 auto;
-width: 30%;
+.home-log{
+margin-right: auto;
+}
+
+.메뉴얼 {
+padding: 35px 0 6px;
+margin: 0 auto;
+font-size: 16px;
+font-weight: bold;
 }
 .메뉴얼>a{
 color:black;
 text-decoration:none;
-margin-right: 30px;
+margin: 30px;
 }
 .긴공백{
-width: 20%;
+width: 10%;
 }
 .로그인{
 padding:20px 0 5px;
 margin:0 auto;
-width: 25%;
+width: 35%;
 }
 .로그인 a{
 color: black;
@@ -57,16 +62,16 @@ width: 170px;height: 80px;
 <div class="header-box">
 	<div class="공백"></div>
 	<div class="로고">
-		<a class="nav-link" href="<c:url value='/'/>">
-			<img alt="로고이미지" style="width: 170px;height: 80px;" class="Logo-img"
+		<a class="nav-link home-log" href="<c:url value='/'/>">
+			<img alt="로고이미지"  class="Logo-img"
 			src="<c:url value='/resources/img/Hospital.png'/>">
 		</a>
-	</div>
-	<div class="메뉴얼">
+		<div class="메뉴얼">
 			<a href="#">게시판1</a>
 			<a href="#">게시판1</a>
 			<a href="#">게시판1</a>
 			<a href="#">게시판1</a>
+		</div>
 	</div>
 	<div class="긴공백"></div>
 	<div class="로그인">
@@ -75,7 +80,7 @@ width: 170px;height: 80px;
 				<div class="nav-item">
 					<a class="nav-link" href="<c:url value='/main/login'/>">
 					<img alt="로고이미지" style="width: 30px;"
-			src="<c:url value='/resources/img/user-white.svg'/>"> 로그인</a>
+					src="<c:url value='/resources/img/user-white.svg'/>"> 로그인</a>
 				</div>
 				<div>
 					<a class="nav-link" href="<c:url value='/main/signup'/>">회원가입</a>
@@ -86,9 +91,11 @@ width: 170px;height: 80px;
 					<a class="nav-link" href='<c:url value="/logout"/>'>로그아웃</a>
 				</div>
 			</c:if>
+		<%-- 	<c:if test='${user.getSite_authority().equals("admin") and user != null}'> --%>
 				<div class="nav-item">
 						<a class="nav-link" href='<c:url value="/admin/adminpage"/>'>관리자 페이지</a>
 				</div>
+			<%-- </c:if> --%>
 		</div>
 	</div>
 	<div class="공백"></div>
