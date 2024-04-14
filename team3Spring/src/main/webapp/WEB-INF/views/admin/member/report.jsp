@@ -35,7 +35,7 @@
 			<tr>
 				<th>아이디</th>
 				<th>이름</th>
-				<th>신고 유형</th>
+				<th>신고 일수</th>
 				<th>신고 사유</th>
 				<th>누적신고횟수</th>
 				<th>정지기간</th>
@@ -55,7 +55,7 @@
 	</div>
 </div>
 
-<!-- 회원 리스트 조회 -->
+<!-- 신고된 회원 리스트 조회 -->
 <script type="text/javascript">
 let cri = {
 	page : 1
