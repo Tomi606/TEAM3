@@ -507,4 +507,7 @@ values('qwer1234', '스팸홍보','1일정지', 1),
 ('qwer1234', '저작권 침해','1일정지', 1), 
 ('qwer1234', '불쾌한 표현 있음','1일정지', 1);
 
-select * from report;
+select * from member;
+select * from hospital;
+select * from site_management;
+SELECT * FROM member JOIN site_management ON site_num = me_id WHERE site_id = 'wldyd1234' 

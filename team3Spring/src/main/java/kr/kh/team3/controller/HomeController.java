@@ -279,9 +279,9 @@ public class HomeController {
 	//아이디 중복확인 ajax
 	@ResponseBody
 	@GetMapping("/checkId")
-	public HashMap<String, Object> checkId(MemberVO member) {
+	public HashMap<String, Object> checkId(SiteManagement site) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		MemberVO check = memberService.getMemberId(member);
+		SiteManagement check = memberService.getMemberId(site);
 		map.put("check", check);
 		return map;
 	}

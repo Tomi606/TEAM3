@@ -28,5 +28,6 @@ public class MemberVO {
 	private int me_report_count; //정지 누적 횟수
 	private HospitalSubjectVO hospitalSubject;
 	private ReportVO report;
+	SiteManagement siteManagement;
 
 }
