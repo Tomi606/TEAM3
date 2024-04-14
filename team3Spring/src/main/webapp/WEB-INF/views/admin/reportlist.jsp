@@ -44,7 +44,7 @@
 let cri = {
 	page : 1
 }
-window.onload = getReportList(cri);
+getReportList(cri);
 
 function getReportList(cri){
 	$.ajax({
