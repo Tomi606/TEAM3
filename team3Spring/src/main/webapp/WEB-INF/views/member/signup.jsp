@@ -115,12 +115,12 @@ label {
 		<div>
 	
 			<img  alt="아이디이미지" src="<c:url value="/resources/img/user.svg"/>">
-		    <input  type="text" id="id" name="me_id" placeholder="아이디" autofocus="autofocus" class="input-tag">
+		    <input  type="text" id="id" name="site_id" placeholder="아이디" autofocus="autofocus" class="input-tag">
 		    <label class="text-danger textId" id="laId"></label>
 		  <!--   <a type="button" class="check-duplicate btn duplicate">중복 확인</a> -->
 		</div>
 		<div>
-	    	<input type="hidden" id="id2" name="site_id">
+	    	<input type="hidden" id="id2" name="me_id">
 		</div>
 		<div>
 			<img alt="아이디이미지" src="<c:url value="/resources/img/password.svg"/>">
@@ -418,7 +418,7 @@ $(document).ready(function() {
         $.ajax({
             url: '<c:url value="/checkId"/>',
             type: "get",
-            data: { me_id: id }, 
+            data: { site_id: id }, 
             success: function(response) {
                 if (response.check == null) {
                 	 if (id.length >= 8) {

@@ -29,7 +29,7 @@ public interface MemberService {
 	MemberVO getMember(MemberVO member);
 
     //아이디 중복확인 ajax
-	MemberVO getMemberId(MemberVO member);
+	SiteManagement getMemberId(SiteManagement site);
 	//이메일 중복확인 ajax
 	MemberVO getMemberEmail(MemberVO member);
 	//폰번호 중복확인 ajax

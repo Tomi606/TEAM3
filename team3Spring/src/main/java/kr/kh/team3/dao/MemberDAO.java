@@ -44,4 +44,7 @@ public interface MemberDAO {
 
 	boolean deleteMember(@Param("me") MemberVO member);
 
+	MemberVO selectMemberSiteId(@Param("me_id")String me_id);
+	
+
 }
