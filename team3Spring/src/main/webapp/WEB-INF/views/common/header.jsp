@@ -87,9 +87,11 @@ width: 170px;height: 80px;
 					<a class="nav-link" href='<c:url value="/logout"/>'>로그아웃</a>
 				</div>
 			</c:if>
+		<%-- 	<c:if test='${user.getSite_authority().equals("admin") and user != null}'> --%>
 				<div class="nav-item">
 						<a class="nav-link" href='<c:url value="/admin/adminpage"/>'>관리자 페이지</a>
 				</div>
+			<%-- </c:if> --%>
 		</div>
 	</div>
 	<div class="공백"></div>
