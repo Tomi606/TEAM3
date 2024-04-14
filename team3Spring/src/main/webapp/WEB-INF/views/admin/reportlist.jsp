@@ -5,31 +5,30 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사업자 대기 회원 조회</title>
+<title>사업자 신고 회원 조회</title>
 <style type="text/css">
 
 .all-box{
+
 }
 </style>
 </head>
 <body>
 <!-- 전체 병원 조회 박스 -->
 <div class="all-box container mt-3">
-	<div style="display: flex; align-items: center;">
-	    <h2 style="margin-right: auto;">대기 병원 리스트</h2>
-	    <span><a style="margin-right: 100px;"
-	    href="<c:url value='/admin/hospital'/>">목록으로</a></span>
-	</div>
+	<h2>신고 병원 리스트(개발중)</h2>
 	<table class="table table-hover mt-3">
 		<thead>
 			<tr>
 				<th>아이디</th>
 				<th>상호명</th>
 				<th>사업자 번호</th>
-				<th>전화번호</th>
-				<th>이메일</th>
-				<th>소재지</th>
-				<th>승인/거절</th>
+				<th>신고 유형</th>
+				<th>신고 사유</th>
+				<th>신고 누적 횟수</th>
+				<th>정지 기간</th>
+				<th>정지</th>
+				<th>탈퇴</th>
 			</tr>
 		</thead>
 		<tbody class="box-hospital-list">
@@ -45,12 +44,12 @@
 let cri = {
 	page : 1
 }
-getWaitList(cri);
+getReportList(cri);
 
-function getWaitList(cri){
+function getReportList(cri){
 	$.ajax({
 		async : true,
-		url : '<c:url value="/admin/waitlist"/>', 
+		url : '<c:url value="/admin/reportlist"/>', 
 		type : 'post', 
 		data : JSON.stringify(cri),
 		//서버로 보낼 데이터 타입
@@ -58,9 +57,10 @@ function getWaitList(cri){
 		//서버에서 보낸 데이터의 타입
 		dataType : "json", 
 		success : function (data){
-			displayWaitList(data.list);
-			displayWaitPagination(data.pm);
-			/* $('.wait-total').text(data.pm.totalCount); */
+			console.log(data.list);
+			displayReportList(data.list);
+			displayReportPagination(data.pm);
+			/* $('.report-total').text(data.pm.totalCount); */
 		}, 
 		error : function(jqXHR, textStatus, errorThrown){
 
@@ -68,31 +68,48 @@ function getWaitList(cri){
 	});
 }
 
-function displayWaitList(list){
+function displayReportList(list){
 	let str = '';
 	if(list == null || list.length == 0){
-		str = '<h3>대기중인 병원이 없습니다.</h3>';
+		str = '<h3>신고된 병원이 없습니다.</h3>';
 		$('.box-hospital-list').html(str);
 		return;
 	}
 	for(item of list){
-		str += 
-		`
-			<tr class="box-hospital">
-				<td>\${item.ho_id}</td>
-				<td>\${item.ho_name}</td>
-				<td>\${item.ho_num}</td>
-				<td>\${item.ho_phone}</td>
-				<td>\${item.ho_email}</td>
-				<td>\${item.ho_address}</td>
-				<td><button class="btn-wait-ok" data-id="\${item.ho_id}">승인</button><button class="btn-wait-no" data-id="\${item.ho_id}">거절</button></td>
-			</tr>
-		`
+		if(item.hospital != null){
+		
+			str += 
+			`
+				<tr class="box-hospital">
+					<td>\${item.rp_target}</td>
+					<td>\${item.hospital.ho_name}</td>
+					<td>\${item.hospital.ho_num}</td>
+					<td>\${item.rp_name}</td>
+					<td>\${item.rp_name}</td>
+					<td>\${item.hospital.ho_report_count}</td>
+					<td>\${item.hospital.ho_stop}</td>
+					<td>
+						<select id="selectbox" data-gg="gg">
+							<option value="0">선택</option>
+							<option value="1">1일</option>
+							<option value="3">3일</option>
+							<option value="7">7일</option>
+							<option value="15">15일</option>
+							<option value="30">30일</option>
+							<option value="60">60일</option>
+							<option value="365">365일</option>
+						</select>
+						<button class="btn-ho-stop" data-id="\${item.hospital.ho_id}">정지</button>
+					</td>
+					<td><button class="btn-ho-out" data-id="\${item.ho_id}">탈퇴</button></td>
+				</tr>
+			`;
+		}
 	}
 	$('.box-hospital-list').html(str);
 }
 
-function displayWaitPagination(pm){
+function displayReportPagination(pm){
     
 	let str = '';
 	if(pm.prev){
@@ -119,33 +136,40 @@ function displayWaitPagination(pm){
 }
 $(document).on('click','.box-pagination .page-link',function(){
 	cri.page = $(this).data('page');
-	getWaitList(cri);
+	getReportList(cri);
 })
 </script>
-<!-- 승인 버튼 클릭 -->
+<!-- 정지 버튼 클릭 -->
 <script type="text/javascript">
-$(document).on('click','.btn-wait-ok',function(){
-	if(!confirm("승인하시겠습니까?")){
+$(document).on('click','.btn-ho-stop',function(){
+	//정지 버튼의 바로 이전에 있는 형제 요소인 select태그 값 가져옴
+	var rp_rs_name = $(this).prev().val();
+	if(rp_rs_name == "0"){
+		alert("정지일을 선택해주세요.");
+		return;
+	}
+	if(!confirm("정지 처리 하시겠습니까?")){
 		return;
 	}
 	//서버로 보낼 데이터
-	let wait = {
-		ho_id : $(this).data('id')
+	let stop = {
+		rp_target : $(this).data('id'),
+		rp_rs_name : rp_rs_name
 	}
 	//서버로 데이터 전송
 	$.ajax({
 		async : true,
-		url : '<c:url value="/admin/waitok"/>', 
+		url : '<c:url value="/admin/hospitalstop"/>', 
 		type : 'post',
-		data : JSON.stringify(wait),
+		data : JSON.stringify(stop),
 		contentType : "application/json; charset=utf-8",
 		dataType : "json", 
 		success : function (data){
 			if(data.res){
-				alert("회원 승인이 완료되었습니다.");
-				getWaitList(cri);
+				alert("회원 정지가 완료되었습니다.");
+				getReportList(cri);
 			}else{
-				alert("회원 승인에 실패하였습니다.");
+				alert("회원 정지에 실패하였습니다.");
 			}
 		}, 
 		error : function(jqXHR, textStatus, errorThrown){
@@ -154,30 +178,30 @@ $(document).on('click','.btn-wait-ok',function(){
 	});
 })
 </script>
-<!-- 거절 버튼 클릭 -->
+<!-- 탈퇴 버튼 클릭 -->
 <script type="text/javascript">
-$(document).on('click','.btn-wait-no',function(){
-	if(!confirm("거절하시겠습니까?")){
+$(document).on('click','.btn-ho-out',function(){
+	if(!confirm("탈퇴 시키시겠습니까?")){
 		return;
 	}
 	//서버로 보낼 데이터
-	let wait = {
+	let ho = {
 		ho_id : $(this).data('id')
 	}
 	//서버로 데이터 전송
 	$.ajax({
 		async : true,
-		url : '<c:url value="/admin/waitno"/>', 
+		url : '<c:url value="/admin/hospitalout"/>', 
 		type : 'post',
-		data : JSON.stringify(wait),
+		data : JSON.stringify(ho),
 		contentType : "application/json; charset=utf-8",
 		dataType : "json", 
 		success : function (data){
 			if(data.res){
-				alert("회원 거절이 완료되었습니다.");
-				getWaitList(cri);
+				alert("회원 탈퇴가 완료되었습니다.");
+				getReportList(cri);
 			}else{
-				alert("회원 거절에 실패하였습니다.");
+				alert("회원 탈퇴에 실패하였습니다.");
 			}
 		}, 
 		error : function(jqXHR, textStatus, errorThrown){

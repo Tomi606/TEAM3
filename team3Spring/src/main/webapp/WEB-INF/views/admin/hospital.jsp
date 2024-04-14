@@ -66,12 +66,16 @@ text-align: center;
 	
 	<!-- 신고받은 병원 조회 박스 -->
 	<div class="report-box">
-		<a href="">신고 병원 조회</a>
+		<a href="<c:url value="/admin/reportlist"/>">신고 병원 조회</a>
 	</div>
 </div>
 <!-- 전체 병원 조회 박스 -->
 <div class="all-box container mt-3">
-	<h2>병원 회원 조회</h2>          
+	<div style="display: flex; align-items: center;">
+	    <h2 style="margin-right: auto;">병원 회원 조회</h2>
+	    <span><a style="margin-right: 100px;"
+	    href="<c:url value='/admin/adminpage'/>">목록으로</a></span>
+	</div>    
 	<table class="table table-hover mt-3">
 		<thead>
 			<tr>
