@@ -17,8 +17,8 @@
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
 		<property name="url"
 			value="jdbc:log4jdbc:mysql://localhost:3306/hospital_mediation?useSSL=false&amp;serverTimezone=Asia/Seoul" />
-		<property name="username" value="${db.username}"></property>
-		<property name="password" value="${db.password}"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
 	</bean>
 	
 	<!-- mapper 정보 -->

@@ -496,6 +496,9 @@ insert into land value(1,1);
 # 신고 상태
 insert into report_state values('1일정지'),('3일정지'),('7일정지'),('15일정지'),('30일정지'),('60일정지'),('180일정지'),('365일정지');
 
+# site_management 추가
+insert into site_management value(1, 1, qwer1234, "USER");
+
 # 신고 유형
 insert into report(rp_target,rp_name, rp_rs_name, rp_site_num) 
 values('qwer1234', '스팸홍보','1일정지', 1), 
