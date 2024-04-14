@@ -232,7 +232,6 @@ public class HomeController {
 		
 		//hospital정보를 주고 아이디 비번 맞는지 확인
 		SiteManagement user = hospitalService.login(hospital);
-		
 		if(user == null) {
 			hospitalService.setLoginFail(ho_exist.getHo_id());
 			model.addAttribute("url", "/main/login");

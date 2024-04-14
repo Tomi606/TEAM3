@@ -87,13 +87,18 @@ background-color: rgba(0, 0, 0, 0);
 }
 
 .로고 {
-	width: 25%;
+	display:flex;
+	width: 65%;
+}
+.home-log{
+	margin-right: auto;
 }
 
 .메뉴얼 {
-	padding: 35px 0 5px;
+	padding: 35px 0 6px;
 	margin: 0 auto;
-	width: 40%;
+	font-size: 16px;
+	font-weight: bold;
 }
 
 .메뉴얼>a {
@@ -441,16 +446,17 @@ display: flex;
 		<div class="header-box">
 			<div class="공백"></div>
 			<div class="로고">
-				<a class="nav-link" href="<c:url value='/'/>"> <img alt="로고이미지"
+				<a class="nav-link home-log" href="<c:url value='/'/>"> <img alt="로고이미지"
 					style="width: 170px; height: 80px;" class="Logo-img"
 					src="<c:url value='/resources/img/Hospital.png'/>">
 				</a>
-			</div>
-			<div class="메뉴얼" style="font-size: 18px;">
-				<a href="#">게시판1</a> 
-				<a href="#">게시판1</a> 
-				<a href="#">게시판1</a> 
-				<a href="#">게시판1</a>
+				<div class="메뉴얼">
+					<a href="<c:url value="/hospital/list"/>">병원</a> 
+					<a href="#">커뮤니티</a> 
+					<a href="#">게시판1</a> 
+					<a href="#">공지사항</a>
+					<a href="#">북마크</a>
+				</div>
 			</div>
 			<div class="긴공백"></div>
 			<div class="로그인">
@@ -489,7 +495,7 @@ display: flex;
 						src="<c:url value='/resources/img/sarchbtn.png'/>">
 				</div>
 				<div class="btnbtnbtn">
-					<a href="#"> <img alt="병원이미지"
+					<a href="<c:url value="/hospital/list"/>"> <img alt="병원이미지"
 						src="<c:url value='/resources/img/hospital5.png'/>"> <span>병원</span>
 					</a> <a href="#"> <img alt="커뮤니티이미지"
 						src="<c:url value='/resources/img/comu.png'/>"> <span>커뮤니티</span>
