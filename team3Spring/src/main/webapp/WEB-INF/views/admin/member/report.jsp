@@ -92,15 +92,15 @@ function displayReportList(list){
 	for(item of list){
 		if(item.member != null){
 		str += 
-		`
+			` 
 			<tr class="box-report" style="text-align: center;">
 				<td>\${item.rp_target}</td>
-				<td>\${item.repotme_name}</td>
+				<td>\${item.member.me_name}</td>
 				<td>\${item.rp_rs_name}</td>
 				<td>\${item.rp_name}</td>
-				<td>\${item.me_report_count}</td>
-				<td>\${item.me_stop}</td>
-				<td>\${item.me_stop_count}</td>
+				<td>\${item.member.me_report_count}</td>
+				<td>\${item.member.me_stop}</td>
+				<td>\${item.member.me_stop_count}</td>
 				<td><button>정지</button></td>
 				<td><button type="button" class="btn-member-del" data-id="\${item.me_id}">탈퇴</button></td>
 			</tr>
@@ -137,34 +137,22 @@ function displayReportPagination(pm) {
 }
 </script>
 
-<!-- 정지 버튼 -->
+<!-- 정지 버튼 : 정지하고 자동으로 정지풀리게 -->
 <script type="text/javascript">
 let meStop = $('[name=meStop]').val();
-</script>
-
-<!-- 정지 해제 버튼 -->
-<script type="text/javascript">
-let meStopClear = $('[name=meStopClear]').val();
 </script>
 
 <!-- 탈퇴 버튼 -->
 <script type="text/javascript">
 $(document).on('click', '.btn-member-del', function() {
+	if(!confirm("탈퇴 시키시겠습니까?")) {
+		return;
+	}
+	
 	let id = {
 		me_id : $(this).data('id')
 	}
 	
-/* 
- * confirm 처리
-	function call_confirm(id) {
-		if(confirm(${id}+"회원을 정말 탈퇴시키겠습니까?")){
-			alert("탈퇴시켰습니다.");
-		}
-		else {
-			alert("탈퇴실패");
-		}
-		
-	} */
 	//서버에 데이터를 전송
 	$.ajax({
 		async : true, 
@@ -175,8 +163,8 @@ $(document).on('click', '.btn-member-del', function() {
 		dataType : "json", 
 		success : function (data){
 			if(data.result) {
-				alert('회원 삭제 성공!!!');
-				/* confirm(${id}+"회원을 정말 탈퇴시키겠습니까?"); */
+				alert('탈퇴되었습니다.');
+				getReportList(cri);
 			}
 			else {
 				alert('회원 삭제 실패');

@@ -183,7 +183,7 @@ public class AdminController {
 	//신고 회원 관리 리스트 https://wakestand.tistory.com/787
 	@ResponseBody
 	@PostMapping("/admin/member/report")
-	public Map<String, Object> adminReportPost(@RequestBody Criteria cri, MemberVO member) {
+	public Map<String, Object> adminReportPost(@RequestBody Criteria cri) {
 		Map<String, Object> map = new HashMap<String, Object>();		
 		cri.setPerPageNum(3);
 		ArrayList<MemberVO> list = memberService.getReportMemberList(cri);
@@ -195,7 +195,7 @@ public class AdminController {
 		return map;
 	}
 	
-	//신고 회원 관리 - 탈퇴
+	//신고 회원 관리 - 탈퇴 -> ReportVO로 고쳐서 해야하나?
 	@ResponseBody
 	@PostMapping("/admin/member/delete")
 	public Map<String, Object> memberDelete(@RequestBody MemberVO member) {

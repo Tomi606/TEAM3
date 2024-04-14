@@ -40,7 +40,7 @@ public interface MemberService {
 
 	int getMemberTotalCount(Criteria cri);
 
-	boolean deleteMember(MemberVO me_id);
+	boolean deleteMember(MemberVO member);
 
 	ArrayList<MemberVO> getReportMemberList(Criteria cri);
 
