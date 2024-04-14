@@ -29,7 +29,5 @@ public class HospitalVO implements Serializable{
 	//자동로그인 때 사용
 	private String ho_cookie;
 	private Date ho_cookie_limit;
-	//resultMap
-	private ReportVO report;
 	
 }

@@ -44,7 +44,7 @@
 let cri = {
 	page : 1
 }
-getReportList(cri);
+window.onload = getReportList(cri);
 
 function getReportList(cri){
 	$.ajax({
@@ -57,6 +57,7 @@ function getReportList(cri){
 		//서버에서 보낸 데이터의 타입
 		dataType : "json", 
 		success : function (data){
+			console.log(data.list);
 			displayReportList(data.list);
 			displayReportPagination(data.pm);
 			/* $('.report-total').text(data.pm.totalCount); */
@@ -75,15 +76,16 @@ function displayReportList(list){
 		return;
 	}
 	for(item of list){
+		console.log(item.hospital.ho_name);
 		str += 
 		`
 			<tr class="box-hospital">
-				<td>\${item.ho_id}</td>
-				<td>\${item.ho_name}</td>
-				<td>\${item.ho_num}</td>
-				<td>\${item.report.rp_name}</td>
-				<td>\${item.report.rp_name}</td>
-				<td>\${item.ho_report_count}</td>
+				<td>\${item.rp_target}</td>
+				<td>\${item.hospital.ho_name}</td>
+				<td>\${item.hospital.ho_num}</td>
+				<td>\${item.rp_name}</td>
+				<td>\${item.rp_name}</td>
+				<td>\${item.hospital.ho_report_count}</td>
 				<td></td>
 				<td>
 					<select>

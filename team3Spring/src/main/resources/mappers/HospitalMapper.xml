@@ -3,33 +3,6 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team3.dao.HospitalDAO">
-	<resultMap type="kr.kh.team3.model.vo.ReportVO" id="ReportMap">
-		<result property="rp_num" column="rp_num"/>
-		<result property="rp_target" column="rp_target"/>
-		<result property="rp_name" column="rp_name"/>
-		<result property="rp_rs_name" column="rp_rs_name"/>
-		<result property="rp_site_num" column="rp_site_num"/>
-	</resultMap>
-	<resultMap type="kr.kh.team3.model.vo.HospitalVO" id="HospitalMap">
-		<result property="ho_id" column="ho_id"/>
-		<result property="ho_ms_state" column="ho_ms_state"/>
-		<result property="ho_hs_num" column="ho_hs_num"/>
-		<result property="ho_pw" column="ho_pw"/>
-		<result property="ho_name" column="ho_name"/>
-		<result property="ho_ceo" column="ho_ceo"/>
-		<result property="ho_num" column="ho_num"/>
-		<result property="ho_address" column="ho_address"/>
-		<result property="ho_phone" column="ho_phone"/>
-		<result property="ho_authority" column="ho_authority"/>
-		<result property="ho_cookie" column="ho_cookie"/>
-		<result property="ho_cookie_limit" column="ho_cookie_limit"/>
-		<result property="ho_email" column="ho_email"/>
-		<result property="ho_stop" column="ho_stop"/>
-		<result property="ho_report_count" column="ho_report_count"/>
-		<collection property="report" resultMap="ReportMap"/>
-	</resultMap>
-	
-
 	<insert id="insertHospital">
 		insert into hospital(ho_id, ho_pw, ho_email, ho_name, ho_ceo, ho_hs_num, ho_num, ho_address, ho_phone, ho_authority, ho_ms_state) 
 		values(#{ho.ho_id}, #{ho.ho_pw}, #{ho.ho_email}, #{ho.ho_name}, #{ho.ho_ceo}, 
@@ -127,27 +100,29 @@
 		delete from hospital
 		where ho_id = #{ho_id}
 	</delete>
-
-
 	
-	<select id="selectReportHospitalList" resultMap="HospitalMap">
-		select * from hospital
-		right join report on ho_id = rp_target
-		where ho_ms_state = "이용중"
-        and ho_report_count > 0
-		order by ho_id
+	<resultMap type="kr.kh.team3.model.vo.ReportVO" id="ReportMap">
+		<result property="rp_num" column="rp_num"/>
+		<result property="rp_target" column="rp_target"/>
+		<result property="rp_name" column="rp_name"/>
+		<result property="rp_rs_name" column="rp_rs_name"/>
+		<result property="rp_site_num" column="rp_site_num"/>
+		<collection property="hospital" ofType="kr.kh.team3.model.vo.HospitalVO"
+			column="rp_target" select="selectHospitalReport"/>
+	</resultMap>
+	
+	<select id="selectHospitalReport" resultType="kr.kh.team3.model.vo.HospitalVO">
+		select * from hospital where ho_id = #{rp_target}
+	</select>
+	
+	<select id="selectReportHospitalList" resultMap="ReportMap">
+		select * from report
+		order by rp_target
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
 	<select id="selectRHTotalCount" resultType="int">
-		select count(*) from hospital
-		right join report on ho_id = rp_target
-		where ho_ms_state = "이용중"
-        and ho_report_count > 0
+		select count(*) from report
+		order by rp_target
 	</select>
-	
-	<delete id="deleteHospital">
-		delete from hospital
-		where ho_id = #{ho_id}
-	</delete>
 </mapper>
