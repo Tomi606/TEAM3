@@ -134,20 +134,19 @@ public class AdminController {
 		return "/admin/member/report";
     }
 	
-	//신고 회원 관리 리스트
-	@ResponseBody
-	@PostMapping("/admin/member/report")
-	public Map<String, Object> adminMeReportPost(@RequestBody Criteria cri) {
-		Map<String, Object> map = new HashMap<String, Object>();		
-		cri.setPerPageNum(3);
-		ArrayList<MemberVO> list = memberService.getMemberList(cri);
-		//현재 페이지 정보(cri)를 주면서 총 게시글 개수를 가져오라 명령
-		int totalCount = memberService.getMemberTotalCount(cri);
-		PageMaker pm = new PageMaker(3, cri, totalCount);
-		map.put("list", list);
-		map.put("pm", pm);
-		return map;
-	}
+	/*
+	 * //신고 회원 관리 리스트 https://wakestand.tistory.com/787
+	 * 
+	 * @ResponseBody
+	 * 
+	 * @PostMapping("/admin/member/report") public Map<String, Object>
+	 * adminMeReportPost(@RequestBody Criteria cri, MemberVO member) { Map<String,
+	 * Object> map = new HashMap<String, Object>(); cri.setPerPageNum(3);
+	 * ArrayList<MemberVO> list = memberService.getReportMemberList(cri); //현재 페이지
+	 * 정보(cri)를 주면서 총 게시글 개수를 가져오라 명령 int totalCount =
+	 * memberService.getReportMemberTotalCount(cri); PageMaker pm = new PageMaker(3,
+	 * cri, totalCount); map.put("list", list); map.put("pm", pm); return map; }
+	 */
 	
 	//신고 회원 관리 - 탈퇴
 	@ResponseBody
