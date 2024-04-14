@@ -100,4 +100,41 @@
 		delete from hospital
 		where ho_id = #{ho_id}
 	</delete>
+	
+	<delete id="deleteHospital">
+		delete from hospital
+		where ho_id = #{ho_id}
+	</delete>
+	
+	<resultMap type="kr.kh.team3.model.vo.ReportVO" id="ReportMap">
+		<result property="rp_num" column="rp_num"/>
+		<result property="rp_target" column="rp_target"/>
+		<result property="rp_name" column="rp_name"/>
+		<result property="rp_rs_name" column="rp_rs_name"/>
+		<result property="rp_site_num" column="rp_site_num"/>
+		<collection property="hospital" ofType="kr.kh.team3.model.vo.HospitalVO"
+			column="rp_target" select="selectHospitalReport"/>
+	</resultMap>
+	
+	<select id="selectHospitalReport" resultType="kr.kh.team3.model.vo.HospitalVO">
+		select * from hospital where ho_id = #{rp_target}
+	</select>
+	
+	<select id="selectReportHospitalList" resultMap="ReportMap">
+		select * from report
+		order by rp_target
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="selectRHTotalCount" resultType="int">
+		select count(*) from report
+		order by rp_target
+	</select>
+	
+	<update id="updateHospitalStop">
+		update hospital set
+		ho_stop = DATE_ADD(NOW(), INTERVAL #{rp_rs_name} DAY)
+		where ho_id = #{ho_id}
+	</update>
+	
 </mapper>

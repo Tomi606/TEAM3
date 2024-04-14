@@ -66,7 +66,7 @@ text-align: center;
 	
 	<!-- 신고받은 병원 조회 박스 -->
 	<div class="report-box">
-		<a href="">신고 병원 조회</a>
+		<a href="<c:url value="/admin/reportlist"/>">신고 병원 조회</a>
 	</div>
 </div>
 <!-- 전체 병원 조회 박스 -->
