@@ -206,14 +206,14 @@ public class AdminController {
 	}
 	
 	//신고 회원 관리 - 정지(댓글 수정)
-//	@ResponseBody
-//	@PostMapping("/admin/member/stop")
-//	public Map<String, Object> memberStop(@RequestBody MemberVO member) {
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		boolean res = memberService.deleteMember(member);
-//		map.put("result", res);
-//		return map;
-//	}
+	@ResponseBody
+	@PostMapping("/admin/member/stop")
+	public Map<String, Object> memberStop(@RequestBody ReportVO report) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean res = memberService.stopMember(report);
+		map.put("result", res);
+		return map;
+	}
 	
 	// ======================== 회원 관리 끝 ==========================
 	

@@ -116,4 +116,11 @@
 	<delete id="deleteMember">
 		delete from member where me_id = #{me.me_id}
 	</delete>
+	
+	<!-- 정지 버튼 -->
+	<update id="updateStopMember">
+		update member set 
+		me_stop = DATE_ADD(NOW(), INTERVAL #{rp_rs_name} DAY)
+		where me_id = #{rp_target}
+	</update>
 </mapper>

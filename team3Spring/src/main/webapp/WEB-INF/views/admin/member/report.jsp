@@ -85,12 +85,11 @@ function getReportList(cri){
 function displayReportList(list){
 	let str = '';
 	if(list == null || list.length == 0){
-		str = '<h3>가입한 회원이 없습니다.</h3>';
+		str = '<h3>신고된 회원이 없습니다.</h3>';
 		$('.report-list').html(str);
 		return;
 	}
 	for(item of list){
-		if(item.member != null){
 		str += 
 			` 
 			<tr class="box-report" style="text-align: center;">
@@ -105,7 +104,6 @@ function displayReportList(list){
 				<td><button type="button" class="btn-member-del" data-id="\${item.me_id}">탈퇴</button></td>
 			</tr>
 			`
-		}
 	}
 	$('.report-list').html(str);
 }
