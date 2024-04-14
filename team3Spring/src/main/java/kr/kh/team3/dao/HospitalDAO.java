@@ -54,5 +54,13 @@ public interface HospitalDAO {
 
 	boolean updateWaitNo(@Param("ho_id")String ho_id);
 
+	ArrayList<HospitalVO> selectReportHospitalList(@Param("cri")Criteria cri);
+
+	int selectRHTotalCount(@Param("cri")Criteria cri);
+
+	boolean deleteHospital(@Param("ho_id")String ho_id);
+
+	boolean updateHospitalStop(@Param("ho_id")String ho_id, @Param("rp_rs_name")String rp_rs_name);
+
 
 }
