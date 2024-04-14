@@ -9,6 +9,7 @@ DROP TABLE IF EXISTS `member`;
 CREATE TABLE `member` (
 	`me_id`	varchar(13) primary key,
 	`me_ms_state` VARCHAR(20) NOT NULL default '이용중',
+    `me_bmk_num` int null,
     `me_hs_num`	int NULL,
 	`me_pw`	varchar(255) NOT NULL,
 	`me_name`	varchar(20)	NOT NULL,
@@ -30,6 +31,8 @@ DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post` (
 	`po_num`	int	 primary key auto_increment,
 	`po_title`	varchar(30) NOT	NULL,
+  `po_report_count` int not null default 0, 
+  `po_date` date not null,
 	`po_content`	TEXT NOT NULL,
 	`po_bo_num`	int	NOT NULL,
 	`po_mg_num`	int	NOT NULL
@@ -40,6 +43,8 @@ DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
 	`co_num`	int	primary key auto_increment,
 	`co_content`	TEXT NOT NULL,
+  `co_date` date not null,
+  `co_report_count` int not null default 0,
 	`co_po_num`	int	NOT NULL,
 	`co_mg_num`	int	NOT NULL
 );
@@ -64,7 +69,6 @@ DROP TABLE IF EXISTS `bookmark`;
 
 CREATE TABLE `bookmark` (
 	`bmk_num`	int	primary key auto_increment,
-	`bmk_me_id`	varchar(13)	NOT NULL,
 	`bmk_ho_id`	varchar(13)	NOT NULL
 );
 
@@ -306,11 +310,11 @@ REFERENCES `reservation_schedule` (
 	`rs_num`
 );
 
-ALTER TABLE `bookmark` ADD CONSTRAINT `FK_member_TO_bookmark_1` FOREIGN KEY (
-	`bmk_me_id`
+ALTER TABLE `member` ADD CONSTRAINT `FK_bookmark_TO_member_1` FOREIGN KEY (
+	`me_bmk_num`
 )
-REFERENCES `member` (
-	`me_id`
+REFERENCES `bookmark` (
+	`bmk_num`
 );
 
 ALTER TABLE `bookmark` ADD CONSTRAINT `FK_hospital_TO_bookmark_1` FOREIGN KEY (
@@ -482,5 +486,25 @@ REFERENCES `hospital_subject` (
 insert into hospital_subject(hs_title) 
 values('내과'), ('외과'),('안과'),('소아과'),('정형외과'), ('이비인후과'),('치과'), ('산부인과'), 
 ('신경과'), ('신경외과'), ('성형외과'), ('피부과'), ('비뇨기과'), ('건강검진'),('마취통증학과'),('신경과');
+
+# 지역 DB 넣은 후 실행
 insert into land value(1,1);
+
+# 신고 상태
 insert into report_state values('1일정지'),('3일정지'),('7일정지'),('15일정지'),('30일정지'),('60일정지'),('180일정지'),('365일정지');
+
+# 신고 유형
+insert into report(rp_target,rp_name, rp_rs_name, rp_site_num) 
+values('qwer1234', '스팸홍보','1일정지', 1), 
+('qwer1234', '도배','1일정지', 1), 
+('qwer1234', '음란물','3일정지', 1), 
+('qwer1234', '불법정보를 포함','1일정지', 1), 
+('qwer1234', '청소년에게 유해한 내용','1일정지', 1), 
+('qwer1234', '욕설/혐오/차별 표현','1일정지', 1), 
+('qwer1234', '개인정보 유출','1일정지', 1), 
+('qwer1234', '불법촬영물등 포함','1일정지', 1), 
+('qwer1234', '명예훼손','1일정지', 1), 
+('qwer1234', '저작권 침해','1일정지', 1), 
+('qwer1234', '불쾌한 표현 있음','1일정지', 1);
+
+select * from report;

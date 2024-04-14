@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <html>
@@ -17,220 +17,730 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <style type="text/css">
 body {
-    font-family: "Noto Sans KR", "Nanum Gothic", arial, Dotum, 돋움;
-    font-size: 14px;
-    font-weight: 300;
-    letter-spacing: -0.075em;
+	font-size: 14px;
+	font-weight: 300;
+	letter-spacing: -0.075em;
+}
+a:hover{
+text-decoration: underline;
+}
+.home-box {
+	width: 100%;
+	height: 953px;
+	text-align: center;
+	background: url('<c:url value="/resources/img/doctor.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+	z-index: 9999;
 }
 
-.home-box{
-width: 100%;height: 1000px;
-text-align: center;
-background: url('<c:url value="/resources/img/backgroundimg.jpg"/>');
-background-repeat: no-repeat;
- background-size: cover;
-z-index: 9999;
-}
-.search-box{
-margin:0 auto;
-}
-.search{
-margin-top: 200px;
+.search-box {
+	margin: 0 auto;
+ 	position: relative;
+    overflow: hidden;
+    width: 800px; 
 }
 
-.header-box{
-width: 100%;
-height: 100px;
-display: flex;
-background-color:rgba(0,0,0,0);
+.search {
+	margin-top: 200px;
+	 border: none;
+     outline: none;
+     font-size: 16px;
+     padding: 8px;
+     width: 100%; 
+     position: relative; 
 }
+
+.header-box {
+	width: 100%;
+	height: 100px;
+	display: flex;
+	background-color: rgba(0, 0, 0, 0);
+	transition: background-color 0.3s ease;
+	
+}
+
 .header-box:hover {
 	background-color: white;
+	opacity: 0;
+	animation: fadeIn 0.7s forwards;
+}
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
-.header-box{
+.header-box {
 border-bottom: 1px solid #c8c8c8;
 width: 100%;
 height: 80px;
 display: flex;
-background-color:rgba(0,0,0,0);
+background-color: rgba(0, 0, 0, 0);
 }
 
-.공백{
- width: 10%;
+.공백 {
+	width: 10%;
 }
-.로고{
-width: 25%;
+
+.로고 {
+	width: 25%;
+}
+
+.메뉴얼 {
+	padding: 35px 0 5px;
+	margin: 0 auto;
+	width: 40%;
+}
+
+.메뉴얼>a {
+	color: black;
+	text-decoration: none;
+	margin: 30px;
+}
+
+.긴공백 {
+	width: 10%;
+}
+
+.로그인 {
+	padding: 20px 0 5px;
+	margin: 0 auto;
+	width: 35%;
+}
+
+.로그인 a {
+	color: black;
+	text-decoration: none;
+}
+
+.join-groub {
+	display: flex;
+}
+
+.Logo-img {
+	width: 170px;
+	height: 80px;
+}
+
+.header-box a {
+	color: white;
+}
+
+.header-box:hover a {
+	color: black;
+}
+
+.header-box img {
+	filter: invert(100%);
+}
+
+.header-box:hover img {
+	filter: none;
+}
+
+.홈 {
+	width: 100%;
+ 	height:100%;
+    height: auto;
+	display: flex;
+	text-align: center;
+    flex-direction: column;
+}
+
+.홈왼쪽, .홈오른쪽 {
+	display: flex;
+	border: 1px solid white;
+	width: 50px;
+	height: 100%;
+
+	background-color: white;
+}
+
+.홈왼쪽 {
+	margin-right: auto;
+}
+
+.홈오른쪽 {
+	margin-left: auto;
+}
+
+.여기부터내용 {
+	margin:0 auto;
+	margin-top: 180px;
+	margin-bottom: 180px;
+	min-height: calc(100vh - 100px); 
+}
+
+.롤링 {
+	margin:0 auto;
+	display:flex;
+	max-width: 1000px;
+	height: 90px;
+	border: 1px solid black;
+	overflow: hidden;
+	position: relative;
+}
+
+.롤링-내용 {
+	display: flex;
+	transition: transform 0.5s ease;
+}
+
+.롤링-내용 h1 {
+	flex: 0 0 1000px;
+	text-align: center;
+	line-height: 90px;
+	margin: 0;
+}
+
+.hot-new {
+	text-align: center;
+	padding: 60px 0 10px;
+    margin-top: 180px;
+}
+
+/*hot group*/
+.hot-group {
+	border: 1px solid white;
+	display: flex;
+	margin: 0 auto;
+	width: 100%;
+	height: 350px;
+}
+
+/*검색창 시작*/
+.search-main-left, .search-main-right {
+	display: flex;
+	width: 300px;
+	height: 100%;
+}
+
+.search-main-left {
+	margin-right: auto;
+}
+
+.search-main-right {
+	margin-left: auto; 
+}
+
+.hot-group a {
+	display: inline-block;
+	width: 300px;
+	height: 200px;
+	background-color: white;
+	border: 2px solid black;
+	text-align: center;
+	line-height: 50px;
+	margin: 15px;
+	text-decoration: none;
+	color: black;
+}
+.hot-group a:hover{
+color:#a0a0a0;
+text-decoration: underline;
 
 }
-.메뉴얼{
-padding:32px 0 5px;
-margin:0 auto;
-width: 30%;
+.btnbtnbtn {
+	padding-top: 70px;
 }
-.메뉴얼>a{
-color:black;
-text-decoration:none;
-margin-right: 30px;
+
+.btnbtnbtn a {
+	display: inline-block;
+	width: 113px;
+	height: 113px;
+	position: relative;
+	background-color: white;
+	text-align: center;
+	border-radius: 10px;
+	line-height: 20px;
+	margin: 30px;
+	text-decoration: none;
+	color: black;
+	transition: transform 0.3s ease;
 }
-.긴공백{
-width: 20%;
+
+.btnbtnbtn a:hover {
+	transform: rotate(-4deg);
+	animation: shake 0.4s ease-in-out infinite alternate;
 }
-.로그인{
-padding:20px 0 5px;
-margin:0 auto;
-width: 25%;
+@keyframes shake {
+	from {
+		transform: rotate(-4deg);
+	}
+	to {
+		transform: rotate(4deg);
+	}
 }
-.로그인 a{
-color: black;
+#scrollToTopButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    background-color: #c8c8c8;
+    color: white;
+    border: none;
+    border-radius: 50%; /* 동그라미 모양을 만들기 위해 border-radius 값을 50%로 설정합니다. */
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+    outline: none; /* 클릭했을 때 버튼 주위에 파란 테두리를 없애기 위해 outline을 none으로 설정합니다. */
+}
+
+#scrollToTopButton:hover {
+    background-color: #828282;
+}
+
+.main-area {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.btnbtnbtn a span {
+	position: absolute;
+	bottom: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 13px;
+	font-weight: bold;
+}
+
+.search {
+	width: 800px;
+	height: 56px;
+	line-height: 56px;
+	background: rgba(255, 255, 255, .9);
+	font-size: 20px;
+	font-weight: 300;
+	color: #333;
+	padding: 0 68px 0 10px;
+	border-radius: 5px;
+}
+
+.search-btn {
+	width: 50px;
+	height: 56px;
+	position: absolute;
+	bottom: 0;
+	right:-15px; 
+	transform : translateX( -50%);
+	transition: all 0.3s;
+	transform: translateX(-50%);
+	border-radius:0 6px 6px 0;
+}
+
+.search-btn .search-btn {
+	width: 20px;
+	height: auto;
+}
+
+.btnbtnbtn img {
+	margin-top: 15px;
+	width: 60px;
+	height: 60px;
+}
+
+a {
+	text-decoration: inherit;
+	color: inherit;
+}
+.hospital-group{
+text-align: center;
+margin-top: 200px;
+
+}
+.button-link {
+width: 100px;
+height: 40px;
+border: 1px solid #a0a0a0;
+line-height: 50px;
 text-decoration: none;
+color: #a0a0a0;
+padding: 10px;
 }
-.join-groub{
-display: flex;
+
+.button-link:hover {
+text-decoration:underline;
+ color: #a0a0a0;
 }
-.Logo-img{
-width: 170px;height: 80px;
+.공지사항{
+display:flex;
+border-top: 1px solid #c8c8c8;
+background-color:#fafafa;
+width: 100%;
+height: 50px;
 }
-.header-box a{
+.공지사항 a:hover{
+text-decoration: underline;
+}
+
+/* 푸터 입니다.*/
+.footer{
+width: 100%;border-top: 1px solid gray;height:400px;background-color: #5A5F5F;
 color: white;
 }
-.header-box:hover{
-color: black;
-}
-.header-box:hover a {
-    color: black;
-}
-.header-box img {filter: invert(100%);}
-.header-box:hover img {filter:none;}
-.footer-group{border: 1px solid #a0a0a0;background-color:#a0a0a0; height: 300px;margin-bottom: auto;}
-.홈 {width: 100%;height: 100%;display: flex;}
-.홈왼쪽, .홈오른쪽 {display: flex;border: 1px solid black;width: 300px;height: 1000px;background-color:silver; }
-.홈왼쪽 {margin-right: auto;}
-.홈오른쪽 {margin-left: auto;}
-.여기부터내용{padding:60px 0 80px;}
-.롤링{width:1000px;height: 90px;border: 1px solid black;background-color: green;}
-.hot-new{
-	text-align: center;padding:60px 0 20px
-
+.footer a:hover{
+color: white;
+text-decoration: underline;
 }
 
-<!-- -->
-.hot-group{
-border:1px solid black;
+.footer-info-area{
+list-style:none;
 display:flex;
-margin:0 auto;
-width: 1150px;
-height: 700px;
+margin: 0 auto;
+padding: 50px 0 90px;
+width: 1350px;
+text-align: left
+}
+.footer-logo{
+width: 200px;
+height: 140px;
+margin-right: 4px;
+background-size: 100% auto;
 
 }
-.aTag-btn1{
-margin-right: auto;
-} 
-.aTag-btn2{
-margin-left: auto;
-} 
-.aTag-btn1,
-.aTag-btn2{
-	margin-top:100px;
-    display: inline-block;
-    width: 300px;
-    height: 400px;
-    color: black;
-    text-decoration:none;
-    text-align: center;
-    line-height: 350px;
-    text-decoration: none;
+.footer-content{
+width:23%;
+border-right: 1px solid #989898;
+padding-right: 15px;
+margin-right: 50px;
+
 }
-.aTag-btn1:hover,
-.aTag-btn2:hover{
-text-decoration:none;
-box-shadow: 1px 1px 1px 1px #C12DFF;
+.copy-disc{
+bottom: 0;
+}
+.footer-content ul li a{
+margin-top: 15px;
+}
 
 
+/*전체 예역 현황*/
 
+.total-reservation{
+padding:20px;display:flex;
+border:1px solid black;width: 700px;height: 400px;
+}
+.hos-sub{
+width:110px;height:70px;border:1px solid black;
+margin:10;
+}
+.reservation-box{
+display: flex;
 
-
-
-
-
-
-
-
-
-
+}
 </style>
 </head>
 <body>
-<div class="home-box">
-	<div class="header-box">
-	<div class="공백"></div>
-	<div class="로고">
-		<a class="nav-link" href="<c:url value='/'/>">
-			<img alt="로고이미지" style="width: 170px;height: 80px;" class="Logo-img"
-			src="<c:url value='/resources/img/Hospital.png'/>">
-		</a>
-	</div>
-	<div class="메뉴얼">
-			<a href="#">게시판1</a>
-			<a href="#">게시판1</a>
-			<a href="#">게시판1</a>
-			<a href="#">게시판1</a>
-	</div>
-	<div class="긴공백"></div>
-	<div class="로그인">
-		<div class="join-groub">
-			<c:if test="${user == null }">	
-				<div class="nav-item">
-					<a class="nav-link a" href="<c:url value='/main/login'/>">
-					<img alt="로고이미지" style="width: 30px;" 
-			src="<c:url value='/resources/img/user-white.svg'/>"> 로그인</a>
+	<div class="home-box">
+		<div class="header-box">
+			<div class="공백"></div>
+			<div class="로고">
+				<a class="nav-link" href="<c:url value='/'/>"> <img alt="로고이미지"
+					style="width: 170px; height: 80px;" class="Logo-img"
+					src="<c:url value='/resources/img/Hospital.png'/>">
+				</a>
+			</div>
+			<div class="메뉴얼" style="font-size: 18px;">
+				<a href="#">게시판1</a> 
+				<a href="#">게시판1</a> 
+				<a href="#">게시판1</a> 
+				<a href="#">게시판1</a>
+			</div>
+			<div class="긴공백"></div>
+			<div class="로그인">
+				<div class="join-groub">
+					<c:if test="${user == null }">
+						<div class="nav-item">
+							<a class="nav-link a" href="<c:url value='/main/login'/>"> 
+							<img alt="로고이미지" style="width: 30px;"
+								src="<c:url value='/resources/img/user-white.svg'/>"> 로그인
+							</a>
+						</div>
+						<div style="line-height: 28px;">
+							<a class="nav-link a" href="<c:url value='/main/signup'/>">회원가입</a>
+						</div>
+					</c:if>
+					<c:if test="${user != null}">
+						<div class="nav-item" style="line-height: 28px;">
+							<a class="nav-link" href='<c:url value="/logout"/>'>로그아웃</a>
+						</div>
+					</c:if>
+					<div class="nav-item" style="line-height: 28px;">
+						<a class="nav-link" href='<c:url value="/admin/adminpage"/>'>관리자
+							페이지</a>
+					</div>
 				</div>
-				<div>
-					<a class="nav-link a" href="<c:url value='/main/signup'/>">회원가입</a>
+			</div>
+			<div class="공백"></div>
+		</div>
+		<div class="main-area">
+			<div class="search-main-left"></div>
+			<div class="main-search-area">
+				<div class="search-box">
+					<input type="search" class="search "  > 
+					  <span class="typing-placeholder"></span>
+					<input type="image" value="" class="search-btn"
+						src="<c:url value='/resources/img/sarchbtn.png'/>">
 				</div>
-			</c:if>
-			<c:if test="${user != null}">
-				<div class="nav-item">
-					<a class="nav-link" href='<c:url value="/logout"/>'>로그아웃</a>
+				<div class="btnbtnbtn">
+					<a href="#"> <img alt="병원이미지"
+						src="<c:url value='/resources/img/hospital5.png'/>"> <span>병원</span>
+					</a> <a href="#"> <img alt="커뮤니티이미지"
+						src="<c:url value='/resources/img/comu.png'/>"> <span>커뮤니티</span>
+					</a> <a href="#"> <img alt="로고이미지"
+						src="<c:url value='/resources/img/hpbuild.png'/>"> 
+					</a> <a href="#"> <img alt="로고이미지"
+						src="<c:url value='/resources/img/공지사항.png'/>"> <span>공지사항</span>
+					</a> <a href="#"> <img alt="로고이미지"
+						src="<c:url value='/resources/img/bookmark.png'/>"> <span>북마크</span>
+					</a>
+
 				</div>
-			</c:if>
-				<div class="nav-item">
-						<a class="nav-link" href='<c:url value="/admin/adminpage"/>'>관리자 페이지</a>
-				</div>
+			</div>
+			<div class="search-main-right"></div>
 		</div>
 	</div>
-	<div class="공백"></div>
-</div>
-	<div class="search-box">
-		<input type="search" class="search">
-		<button>검색</button>
-	</div>
-</div>
-<div class="홈">
-	<div class="홈왼쪽">왼쪽 여백입니다.</div>
+	<div class="홈">
+		<div class="홈왼쪽"></div>
 		<div class="여기부터내용">
 			<div class="롤링">
-				<h1 style="text-align: center;">홈화면</h1>
+			    <div class="롤링-내용">
+			        <h1 style="background-color: orange;">첫 번째 내용</h1>
+			        <h1 style="background-color: green;">두 번째 내용</h1>
+			        <h1 style="background-color: yellow;">세 번째 내용</h1>
+			    </div>
 			</div>
+ 
 			<div class="hot-new">
-				<h3>Hot & New</h3>
+				<h3>&lt;Hot & New&gt;</h3>
 				<p style="color: gray;">새롭고 재밌는 소식들을 여기서!</p>
 			</div>
-			<div class="hot-group">
-				<a></a>
-				<a></a>
-				<a></a>
+			<div class="hot-group" style="display: flex;margin:0 auto;width: 100%;text-align: center;margin-bottom: 15px">
+				<div>
+					<a href="#"></a>
+					<p style="display: block;">제목</p> 
+				</div>
+				<div>
+					<a href="#"></a>
+					<p style="display: block;">제목</p> 
+				</div>
+				<div>
+					<a href="#"></a>
+					<p style="display: block;">제목</p> 
+				</div>
+				<div>
+					<a href="#"></a>
+					<p style="display: block;">제목</p> 
+				</div>
 			</div>
-		</div>	
-	<div class="홈오른쪽">오른쪽 여백입니다</div>
-</div>
- 
+			<div style="text-align: center;width: 100%;margin: 0 auto;display: block;" >
+			<div class="hr" style="margin-bottom:40px;border: 1px solid #d2d2d2;width: 100%;"></div>
+				<a href="#" class="button-link" style="margin-top: 50px">더보기</a>
+				<p>누르면 커뮤니티로 이동하기</p>
+			</div>
+			<div class="hospital-group">
+			<h3 style="font-weight: bold;">&lt;우리 지역 병원&gt;</h3>
+			<div class="hot-group" style="display: flex;width: 100%;height:400px;text-align: center;margin-bottom: 15px">
+				<div>
+					<a href="#"></a>
+					<p style="display: block;">제목</p> 
+				</div>
+				<div>
+					<a href="#"></a>
+					<p style="display: block;">제목</p> 
+				</div>
+				<div>
+					<a href="#"></a>
+					<p style="display: block;">제목</p> 
+				</div>
+				<div>
+					<a href="#"></a>
+					<p style="display: block;">제목</p> 
+				</div>
+			</div>
+			<div style="text-align: center;width: 100%;" >
+			<div class="hr" style="margin-bottom:40px;border: 1px solid #d2d2d2;width: 100%;"></div>
+				<a href="#" class="button-link" style="margin-top: 50px">더보기</a>
+				<p>누르면 병원으로 이동하기</p>
+			</div>
+			<div class="hospital-reservation" style="margin-top: 150px">
+				<div class="total-hos" style="margin-bottom: 150px;">
+					<h3>전체 예약 현황</h3>
+					<p></p>
+				</div>
+					<div class="reservation-box">	
+						<div class="total-reservation">
+							<h4 >최근 예약이 많은 병원</h4>
+							<div class="hos-sub">
+								<a>성형외과</a>
+								<p>125</p>
+							</div>
+							<div class="hos-sub">
+								<a>피부과</a>
+								<p>76</p>
+							</div>
+							<div class="hos-sub">
+								<a>내과</a>
+								<p>26</p>
+							</div>
+							<div class="hos-sub">
+								<a>치과</a>
+								<p>25</p>
+							</div>
+						</div>
+						<hr>
+				  </div>
+			</div>
+			
+			</div>
+			<div class="홈오른쪽"></div>
+		</div>
+			 <div class="공지사항">
+				 <img alt="미니공지" style="width: 48px;margin-left: 100px"
+				 src="<c:url value='/resources/img/미니공지.png'/>">
+				 <span style="color: gray;margin-right:auto;line-height: 3.5;margin-left: 23px ">공지사항 : 
+				 <a href="#" style="color:gray ">공지링크</a></span>
+				 <a href="#" 
+				 style="line-height: 3.5;margin-right: 50px;color: gray;border: 1px solid #fafafa;"
+				 >더보기</a>
+			</div>
+		  <div class="footer">
+		  	<div class="footer-info-area">
+			  	<div class="footer-img">
+			  		<img alt="zz" class="footer-logo"
+			  		src="<c:url value='/resources/img/Hospital.png'/>">
+			  		<img alt="" src="">
+			  		<img alt="" src="">
+			  	</div>	
+			  	<div class="footer-content">
+			  		<ul>
+			  			<li>
+			  				<a href="#">회사소개</a>
+			  			</li>
+			  			<li>
+			  				<a href="#">이용약관</a>
+			  			</li>
+			  			<li>
+			  				<a href="#">위치기반서비스이용약관</a>
+			  			</li>
+			  			<li>
+			  				<a href="#">제휴문의</a>
+			  			</li>
+			  			<li>
+			  				<a href="#">개인정보처리방침</a>
+			  			</li>
+			  			<li>
+			  				<a href="#">익명신고센터</a>
+			  			</li>
+			  		</ul>
+			  	</div>
+			  	<div class="footer-content">
+			  		<ul>
+			  			<li>
+			  				<a href="#">저작권규약</a>
+			  			</li>
+			  			<li>
+			  				<a href="#">책임한계 및 법적고지</a>
+			  			</li>
+			  			<li>
+			  				<a href="#">이메일 무단수집거부</a>
+			  			</li>
+			  			<li>
+			  				<a href="#">기사배열방침</a>
+			  			</li>
+			  			<li>
+			  				<a href="#">고객센터문의</a>
+			  			</li>
+			  		</ul>
+		  	</div>	
+		  	<div class="company-info" >
+			  	<div style="font-size: 14px; line-height: 18px; margin-bottom: 8px;">
+			  		Hospital주식회사 | 대표 : 정경호<br>
+			  		서울특별시 강남구 강남구 테헤란로14길 6‎ 6층 (역삼동)<br>
+			  		사업자 번호 :123-456-7890 | 통신판매업:2024-서울강남-1234호<br>
+			  		인터넷뉴스서비스등록번호:서울,가12345(등록일자:2024.04.14)<br>
+			  		발행ㆍ편집인:정경호 | 기사배열책임자:정경호 | 청소년보호책임자 : 정경호<br>
+			  	</div>
+			  	<span>영업문의:<em>010-4407-1418</em></span>
+			  	<span>중개회원문의:<em>010-4407-1418</em></span>
+			  	<span>팩스:<em>02-123-4567</em></span>
+		 	</div> 	
+    	</div>
+		 	<div class="copy-disc" style="margin-top: 68px">
+	        	  <p>&copy; 2024 정경호. All rights reserved.</p>
+       	  	</div>
+	</div>
+</div>	
 </body>
-<footer>
-<div class="footer-group"  >
-  <div class="footer">
-  <h1>푸터푸터푸터푸터푸터푸터푸터푸터푸터푸터</h1>
-  </div>
-</div>
-</footer>
+<button id="scrollToTopButton" onclick="scrollToTop()">위로가기</button>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var interval = setInterval(roll, 3000); // n초마다 롤링
+
+		function roll() {
+			var container = $('.롤링');
+			var firstItem = container.find('.롤링-내용 h1:first');
+			var itemWidth = firstItem.outerWidth(); // 롤링되는 각 내용의 너비
+
+			container.find('.롤링-내용').animate({
+				marginLeft : -itemWidth
+			}, 500, function() {
+				$(this).append(firstItem.remove()).css({
+					marginLeft : 0
+				});
+			});
+		}
+	});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    // 스크롤 이벤트 핸들러를 등록합니다.
+    $(window).scroll(function() {
+        // 스크롤 위치가 20px 이상인 경우에만 버튼을 표시합니다.
+        if ($(this).scrollTop() > 20) {
+            $("#scrollToTopButton").fadeIn();
+        } else {
+            $("#scrollToTopButton").fadeOut();
+        }
+    });
+
+    // 위로가기 버튼을 클릭하면 천천히 페이지의 맨 위로 스크롤됩니다.
+    $("#scrollToTopButton").click(function() {
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+        return false;
+    });
+});
+</script>
+<script>
+    $(document).ready(function() {
+        var searchInput = $('.search');
+        var defaultTexts = [
+            "내과", "외과", "안과", "소아과", "정형외과", "이비인후과", "치과",
+            "산부인과", "신경과", "신경외과", "성형외과", "피부과", "비뇨기과", 
+            "건강검진", "마취통증학과", "신경과"
+        ];
+        let currentTextIndex = 0;
+        let currentIndex = 0;
+
+        function typeText() {
+            var currentWord = defaultTexts[currentTextIndex];
+            var currentTypedText = currentWord.substring(0, currentIndex);
+            searchInput.attr("placeholder", currentTypedText);
+            currentIndex = (currentIndex + 1) % (currentWord.length + 1);
+            if (currentIndex === 0) {
+                currentTextIndex = (currentTextIndex + 1) % defaultTexts.length;
+            }
+        }
+
+        setInterval(typeText, 400); 
+    });
+</script>
 </html>

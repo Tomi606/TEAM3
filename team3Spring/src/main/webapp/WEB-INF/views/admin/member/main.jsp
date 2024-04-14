@@ -34,6 +34,7 @@
     color: black;
     text-decoration: none; 
 }
+
 </style>
 </head>
 <body>
@@ -42,11 +43,11 @@
 	<a href="report">신고 회원 조회</a>
 </div>
 <hr style="border: 3px solid black;">
-<div class="all-box container mt-3">
+<div class="all-box mt-3">
 	<h2 style="text-align: center;">전체 회원 조회</h2>
 	<table class="table table-hover mt-3" style="text-align: center;">
 		<thead>
-			<tr>
+			<tr style="height: 30px;">
 				<th>아이디</th>
 				<th>이름</th>
 				<th>성별</th>
