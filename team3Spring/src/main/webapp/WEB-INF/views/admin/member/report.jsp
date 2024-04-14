@@ -27,8 +27,8 @@
 </style>
 </head>
 <body>
-<!-- 신고 회원 조회 : 아이디/이름/유형/사유/정지기간/누적정지횟수    정지(정지해제)버튼/탈퇴버튼 -->
-<div class="container mt-3">
+<!-- 신고 회원 조회 : 아이디/이름/유형/사유/정지기간/누적신고횟수/누적정지횟수    정지(정지해제)버튼/탈퇴버튼 -->
+<div class="mt-3">
 	<h1 style="text-align: center;">신고 회원 관리</h1>
 	<table class="table table-hover">
 		<thead style="text-align: center;">
@@ -37,13 +37,14 @@
 				<th>이름</th>
 				<th>신고 유형</th>
 				<th>신고 사유</th>
+				<th>누적신고횟수</th>
 				<th>정지기간</th>
-				<th>정지누적횟수</th>
+				<th>누적정지횟수</th>
 				<th>정지</th>
 				<th>탈퇴</th>
 			</tr>
 		</thead>
-		<tbody class="box-hospital-list">
+		<tbody class="report-list">
 			<tr>
 				<td></td>
 			</tr>
@@ -59,9 +60,9 @@
 let cri = {
 	page : 1
 }
-getWaitList(cri);
+getReportList(cri);
 
-function getWaitList(cri){
+function getReportList(cri){
 	$.ajax({
 		async : true,
 		url : '<c:url value="/admin/member/report"/>', 
@@ -72,8 +73,8 @@ function getWaitList(cri){
 		//서버에서 보낸 데이터의 타입
 		dataType : "json", 
 		success : function (data){
-			displayWaitList(data.list);
-			displayWaitPagination(data.pm);
+			displayReportList(data.list);
+			displayReportPagination(data.pm);
 		}, 
 		error : function(jqXHR, textStatus, errorThrown){
 
@@ -81,32 +82,35 @@ function getWaitList(cri){
 	});
 }
 
-function displayWaitList(list){
+function displayReportList(list){
 	let str = '';
 	if(list == null || list.length == 0){
 		str = '<h3>가입한 회원이 없습니다.</h3>';
-		$('.box-hospital-list').html(str);
+		$('.report-list').html(str);
 		return;
 	}
 	for(item of list){
+		if(item.member != null){
 		str += 
 		`
-			<tr class="box-hospital" style="text-align: center;">
-				<td>\${item.me_id}</td>
-				<td>\${item.me_name}</td>
-				<td>\${item.report.rp_rs_name}</td>
-				<td>\${item.report.rp_name}</td>
-				<td>\${item.me_stop}</td>
+			<tr class="box-report" style="text-align: center;">
+				<td>\${item.rp_target}</td>
+				<td>\${item.repotme_name}</td>
+				<td>\${item.rp_rs_name}</td>
+				<td>\${item.rp_name}</td>
 				<td>\${item.me_report_count}</td>
+				<td>\${item.me_stop}</td>
+				<td>\${item.me_stop_count}</td>
 				<td><button>정지</button></td>
 				<td><button type="button" class="btn-member-del" data-id="\${item.me_id}">탈퇴</button></td>
 			</tr>
-		`
+			`
+		}
 	}
-	$('.box-hospital-list').html(str);
+	$('.report-list').html(str);
 }
 
-function displayWaitPagination(pm) {
+function displayReportPagination(pm) {
     let str = '';
     if (pm.prev) {
         str += `
@@ -133,17 +137,17 @@ function displayWaitPagination(pm) {
 }
 </script>
 
-<!-- 정지 -->
+<!-- 정지 버튼 -->
 <script type="text/javascript">
 let meStop = $('[name=meStop]').val();
 </script>
 
-<!-- 정지 해제 -->
+<!-- 정지 해제 버튼 -->
 <script type="text/javascript">
 let meStopClear = $('[name=meStopClear]').val();
 </script>
 
-<!-- 탈퇴 -->
+<!-- 탈퇴 버튼 -->
 <script type="text/javascript">
 $(document).on('click', '.btn-member-del', function() {
 	let id = {

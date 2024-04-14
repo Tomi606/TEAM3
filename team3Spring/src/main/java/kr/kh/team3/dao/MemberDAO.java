@@ -45,6 +45,10 @@ public interface MemberDAO {
 	boolean deleteMember(@Param("me") MemberVO member);
 
 	MemberVO selectMemberSiteId(@Param("me_id")String me_id);
+
+	ArrayList<MemberVO> selectReportMemberList(@Param("cri") Criteria cri);
+
+	int selectReportMemberTotalCount(@Param("cri") Criteria cri);
 	
 
 }

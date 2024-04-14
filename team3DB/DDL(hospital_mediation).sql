@@ -497,14 +497,14 @@ insert into land value(1,1);
 insert into report_state values('1일정지'),('3일정지'),('7일정지'),('15일정지'),('30일정지'),('60일정지'),('180일정지'),('365일정지');
 
 # site_management 추가
-insert into site_management value(1, 1, qwer1234, "USER");
+insert into site_management value(1, 1, 'qqqq1111', "USER");
 
 # 신고 유형
-insert into report(rp_target,rp_name, rp_rs_name, rp_site_num) 
-values('qwer1234', '스팸홍보','1일정지', 1), 
-('qwer1234', '도배','1일정지', 1), 
-('qwer1234', '음란물','3일정지', 1), 
-('qwer1234', '불법정보를 포함','1일정지', 1), 
+insert into report(rp_target, rp_name, rp_rs_name, rp_site_num) 
+values('qqqq1111', '스팸홍보','1일정지', 1), 
+('qqqq1111', '도배','1일정지', 1), 
+('qqqq1111', '음란물','3일정지', 1), 
+('qqqq1111', '불법정보를 포함','1일정지', 1), 
 ('qwer1234', '청소년에게 유해한 내용','1일정지', 1), 
 ('qwer1234', '욕설/혐오/차별 표현','1일정지', 1), 
 ('qwer1234', '개인정보 유출','1일정지', 1), 

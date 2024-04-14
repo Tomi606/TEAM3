@@ -25,7 +25,8 @@ public class HospitalVO implements Serializable{
 	private String ho_ms_state; //회원 상태명('이용중'), ('기간정지'), ('영구정지');
 	private int ho_fail; //로그인 실패 횟수
 	private Date ho_stop; //정지기간
-	private int ho_report_count; //신고횟수
+	private int me_report_count; //신고 누적 횟수
+	private int me_stop_count; //정지 누적 횟수
 	//자동로그인 때 사용
 	private String ho_cookie;
 	private Date ho_cookie_limit;

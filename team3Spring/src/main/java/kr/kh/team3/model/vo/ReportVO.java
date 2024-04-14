@@ -12,4 +12,5 @@ public class ReportVO {
 	private String rp_name; //신고 사유명
 	private String rp_rs_name; //신고 상태명?
 	private int rp_site_num; //사이트 회원관리번호
+	private MemberVO member;
 }

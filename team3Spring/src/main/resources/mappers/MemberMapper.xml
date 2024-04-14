@@ -70,7 +70,7 @@
 		<result property="me_address" column="me_address"/>
 		<result property="me_hs_num" column="me_hs_num"/>
 		<collection property="hospitalSubject" ofType="HospitalSubjectVO"
-		column="me_hs_num" select="selectHospitalSubject"/>	
+		column="me_hs_num" select="selectHospitalSubject"/>
 	</resultMap>
 	
 	<select id="selectHospitalSubject" resultType="HospitalSubjectVO">
@@ -85,6 +85,31 @@
 	
 	<select id="selectMemberTotalCount" resultType="int">
 		select count(*) from member where me_authority = "USER"
+	</select>
+	
+	<resultMap type="kr.kh.team3.model.vo.ReportVO" id="ReportMap">
+		<result property="rp_target" column="rp_target"/>
+		<result property="rp_name" column="rp_name"/>
+		<result property="rp_rs_name" column="rp_rs_name"/>
+		<collection property="member" ofType="MemberVO" 
+		column="me_id" select="selectReportMember"/>
+	</resultMap>
+	
+	<select id="selectReportMember" resultType="MemberVO">
+		select * from member where me_id = #{rp_target}
+	</select>
+	
+	<select id="selectReportMemberList" resultMap="ReportMap">
+		select * from report
+		order by rp_target
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	
+	
+	
+	<select id="selectReportMemberTotalCount" resultType="int">
+		select count(*) from report
 	</select>
 	
 	<delete id="deleteMember">

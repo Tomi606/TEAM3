@@ -203,4 +203,22 @@ public class MemberServiceImp implements MemberService {
 		
 		return memberDao.deleteMember(member);
 	}
+
+
+	@Override
+	public ArrayList<MemberVO> getReportMemberList(Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		return memberDao.selectReportMemberList(cri);
+	}
+
+
+	@Override
+	public int getReportMemberTotalCount(Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		return memberDao.selectReportMemberTotalCount(cri);
+	}
 }
