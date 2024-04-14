@@ -60,5 +60,7 @@ public interface HospitalDAO {
 
 	boolean deleteHospital(@Param("ho_id")String ho_id);
 
+	boolean updateHospitalStop(@Param("ho_id")String ho_id, @Param("rp_rs_name")String rp_rs_name);
+
 
 }

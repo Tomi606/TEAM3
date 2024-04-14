@@ -8,15 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.kh.team3.model.vo.MemberVO;
-import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.BoardVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.MemberVO;
+import kr.kh.team3.model.vo.PostVO;
+import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.pagination.Criteria;
 import kr.kh.team3.pagination.PageMaker;
 import kr.kh.team3.service.BoardService;
@@ -133,7 +134,18 @@ public class AdminController {
 		return map;
 	}
 	
-	//병원 회원 탈퇴시킴
+	//신고 병원 정지
+	@ResponseBody
+	@PostMapping("/admin/hospitalstop")
+	public Map<String, Object> hospitalStop(@RequestBody ReportVO report){
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean res = hospitalService.hospitalStop(report);
+
+		map.put("res", res);
+		return map;
+	}
+	
+	//신고 병원 탈퇴
 	@ResponseBody
 	@PostMapping("/admin/hospitalout")
 	public Map<String, Object> hospitalOut(@RequestBody HospitalVO hospital){

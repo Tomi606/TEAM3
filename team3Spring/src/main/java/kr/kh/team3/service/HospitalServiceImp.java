@@ -18,6 +18,7 @@ import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.MemberVO;
+import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -337,6 +338,24 @@ public class HospitalServiceImp implements HospitalService {
 			return false;
 		}
 		return hospitalDao.deleteHospital(hospital.getHo_id());
+	}
+
+	@Override
+	public boolean hospitalStop(ReportVO report) {
+		if( report == null ||
+			report.getRp_rs_name() == null ||
+			report.getRp_rs_name().length() == 0) {
+			return false;
+		}
+//		//처음 정지인지 확인해서
+//		HospitalVO ho = hospitalDao.selectHospital(hospital.getHo_id());
+//		//처음이면
+//		if(ho.getHo_stop() == null)
+//		//아니면
+		//1. ho_stop이 현재시간 이후이면 이미 있던 ho_stop + 정지일
+		//2. ho_stop이 현재시간 이전이면 데이터 새로 넣기.
+		
+		return hospitalDao.updateHospitalStop(report.getRp_target(), report.getRp_rs_name());
 	}
 
 

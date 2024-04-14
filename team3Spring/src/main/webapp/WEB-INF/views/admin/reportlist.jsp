@@ -16,7 +16,7 @@
 <body>
 <!-- 전체 병원 조회 박스 -->
 <div class="all-box container mt-3">
-	<h2>신고 병원 리스트(미개발)</h2>
+	<h2>신고 병원 리스트(개발중)</h2>
 	<table class="table table-hover mt-3">
 		<thead>
 			<tr>
@@ -76,33 +76,35 @@ function displayReportList(list){
 		return;
 	}
 	for(item of list){
-		console.log(item.hospital.ho_name);
-		str += 
-		`
-			<tr class="box-hospital">
-				<td>\${item.rp_target}</td>
-				<td>\${item.hospital.ho_name}</td>
-				<td>\${item.hospital.ho_num}</td>
-				<td>\${item.rp_name}</td>
-				<td>\${item.rp_name}</td>
-				<td>\${item.hospital.ho_report_count}</td>
-				<td></td>
-				<td>
-					<select>
-						<option>선택</option>
-						<option>1일</option>
-						<option>3일</option>
-						<option>7일</option>
-						<option>15일</option>
-						<option>30일</option>
-						<option>60일</option>
-						<option>365일</option>
-					</select>
-					<button class="btn-ho-stop" data-id="\${item.ho_id}">정지</button>
-				</td>
-				<td><button class="btn-ho-out" data-id="\${item.ho_id}">탈퇴</button></td>
-			</tr>
-		`
+		if(item.hospital != null){
+		
+			str += 
+			`
+				<tr class="box-hospital">
+					<td>\${item.rp_target}</td>
+					<td>\${item.hospital.ho_name}</td>
+					<td>\${item.hospital.ho_num}</td>
+					<td>\${item.rp_name}</td>
+					<td>\${item.rp_name}</td>
+					<td>\${item.hospital.ho_report_count}</td>
+					<td>\${item.hospital.ho_stop}</td>
+					<td>
+						<select id="selectbox" data-gg="gg">
+							<option value="0">선택</option>
+							<option value="1">1일</option>
+							<option value="3">3일</option>
+							<option value="7">7일</option>
+							<option value="15">15일</option>
+							<option value="30">30일</option>
+							<option value="60">60일</option>
+							<option value="365">365일</option>
+						</select>
+						<button class="btn-ho-stop" data-id="\${item.hospital.ho_id}">정지</button>
+					</td>
+					<td><button class="btn-ho-out" data-id="\${item.ho_id}">탈퇴</button></td>
+				</tr>
+			`;
+		}
 	}
 	$('.box-hospital-list').html(str);
 }
@@ -137,30 +139,37 @@ $(document).on('click','.box-pagination .page-link',function(){
 	getReportList(cri);
 })
 </script>
-<!-- 승인 버튼 클릭 -->
+<!-- 정지 버튼 클릭 -->
 <script type="text/javascript">
-$(document).on('click','.btn-report-ok',function(){
-	if(!confirm("승인하시겠습니까?")){
+$(document).on('click','.btn-ho-stop',function(){
+	//정지 버튼의 바로 이전에 있는 형제 요소인 select태그 값 가져옴
+	var rp_rs_name = $(this).prev().val();
+	if(rp_rs_name == "0"){
+		alert("정지일을 선택해주세요.");
+		return;
+	}
+	if(!confirm("정지 처리 하시겠습니까?")){
 		return;
 	}
 	//서버로 보낼 데이터
-	let report = {
-		ho_id : $(this).data('id')
+	let stop = {
+		rp_target : $(this).data('id'),
+		rp_rs_name : rp_rs_name
 	}
 	//서버로 데이터 전송
 	$.ajax({
 		async : true,
-		url : '<c:url value="/admin/reportok"/>', 
+		url : '<c:url value="/admin/hospitalstop"/>', 
 		type : 'post',
-		data : JSON.stringify(report),
+		data : JSON.stringify(stop),
 		contentType : "application/json; charset=utf-8",
 		dataType : "json", 
 		success : function (data){
 			if(data.res){
-				alert("회원 승인이 완료되었습니다.");
+				alert("회원 정지가 완료되었습니다.");
 				getReportList(cri);
 			}else{
-				alert("회원 승인에 실패하였습니다.");
+				alert("회원 정지에 실패하였습니다.");
 			}
 		}, 
 		error : function(jqXHR, textStatus, errorThrown){
