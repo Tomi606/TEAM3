@@ -246,7 +246,11 @@ public class HomeController {
 		//가입 대기 상태 확인하기 위해 hospital 값 가져옴
 		HospitalVO ho = hospitalService.getHospital(user);
 		
-		if(ho.getHo_ms_state().equals("가입대기")) {
+		if(ho.getHo_ms_state().equals("기간정지")) {
+			model.addAttribute("url", "/main/login");
+			model.addAttribute("msg", ho.getHo_stop() + " 기간 정지 회원입니다.");
+		}
+		else if(ho.getHo_ms_state().equals("가입대기")) {
 			model.addAttribute("url", "/main/login");
 			model.addAttribute("msg", "승인 확인 전입니다.");
 		}

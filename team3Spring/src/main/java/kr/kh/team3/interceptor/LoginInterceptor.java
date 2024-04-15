@@ -18,11 +18,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	    Object handler, 
 	    ModelAndView modelAndView)
 	    throws Exception {
-		SiteManagement user = (SiteManagement)modelAndView.getModel().get("user");//1
+		SiteManagement user = (SiteManagement)modelAndView.getModel().get("user");
 		if(user == null) {
 			return;
 		}
-		request.getSession().setAttribute("user", user);//2
+		request.getSession().setAttribute("user", user);
 
 	}
 }

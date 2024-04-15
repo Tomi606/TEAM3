@@ -1,5 +1,6 @@
 package kr.kh.team3.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.mail.internet.MimeMessage;
@@ -10,7 +11,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.team3.dao.HospitalDAO;
 import kr.kh.team3.dao.MemberDAO;
@@ -342,17 +342,24 @@ public class HospitalServiceImp implements HospitalService {
 
 	@Override
 	public boolean hospitalStop(ReportVO report) {
+		//LocalDate now = LocalDate.now();
+		
 		if( report == null ||
 			report.getRp_rs_name() == null ||
 			report.getRp_rs_name().length() == 0) {
 			return false;
 		}
-//		//처음 정지인지 확인해서
-//		HospitalVO ho = hospitalDao.selectHospital(hospital.getHo_id());
-//		//처음이면
-//		if(ho.getHo_stop() == null)
-//		//아니면
+		//정지값이 null인지 확인해서
+		HospitalVO ho = hospitalDao.selectHospital(report.getRp_target());
+		//null 이면
+		if(ho.getHo_stop() == null) {
+			return hospitalDao.updateHospitalStop(report.getRp_target(), report.getRp_rs_name());
+		}
+		//아니면
 		//1. ho_stop이 현재시간 이후이면 이미 있던 ho_stop + 정지일
+//		if(ho.getHo_stop().after(null)) {
+//			
+//		}
 		//2. ho_stop이 현재시간 이전이면 데이터 새로 넣기.
 		
 		return hospitalDao.updateHospitalStop(report.getRp_target(), report.getRp_rs_name());
