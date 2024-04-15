@@ -36,11 +36,11 @@ public interface HospitalService {
 
 	void setLoginFail(String ho_id);
 
-	SiteManagement ajaxHospitalId(SiteManagement site);
+	SiteManagement ajaxHospitalId(String site_id);
 
-	SiteManagement ajaxHospitalEmail(SiteManagement site);
+	SiteManagement ajaxHospitalEmail(String site_email);
 
-	SiteManagement ajaxHospitalPhone(SiteManagement site);
+	SiteManagement ajaxHospitalPhone(String site_phone);
 	
 	String ctfEmail(String email);
 
