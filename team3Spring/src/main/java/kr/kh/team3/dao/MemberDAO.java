@@ -34,9 +34,9 @@ public interface MemberDAO {
 
 	void updateLoginFailZero(@Param("me_id")String me_id);
 	//ajax용 이메일
-	MemberVO selectMemberEmail(@Param("me_email")String me_email);
+	SiteManagement selectMemberEmail(@Param("email")String site_email);
 	//ajax용 폰번호 
-	MemberVO selectMemberPhone(@Param("me_phone")String me_phone);
+	SiteManagement selectMemberPhone(@Param("phone")String site_phone);
 	
 	//관리자 - 회원 관리
 	ArrayList<MemberVO> selectMemberList(@Param("cri") Criteria cri);
@@ -53,6 +53,7 @@ public interface MemberDAO {
 
 	boolean updateStopMember
 	(@Param("rp_target") String rp_target, @Param("rp_rs_name") String rp_rs_name);
+
 	
 
 }

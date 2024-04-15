@@ -96,6 +96,12 @@ width: 170px;height: 80px;
 						<a class="nav-link" href='<c:url value="/admin/adminpage"/>'>관리자 페이지</a>
 				</div>
 			<%-- </c:if> --%>
+				<div class="nav-item">
+						<a class="nav-link" href='<c:url value="/member/mypage"/>'>마이페이지</a>
+				</div>
+				<div class="nav-item">
+						<a class="nav-link" href='<c:url value="/hospital/mypage"/>'>병원페이지</a>
+				</div>
 		</div>
 	</div>
 	<div class="공백"></div>

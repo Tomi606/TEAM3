@@ -163,6 +163,8 @@ CREATE TABLE `site_management` (
 	`site_num`	int	primary key auto_increment,
 	`site_la_num`	int	not NULL,
 	`site_id`	varchar(13) NOT	NULL,
+	`site_phone`	varchar(11) NOT	NULL,
+	`site_email`	varchar(100) NOT NULL,
 	`site_authority`	varchar(10)	NOT NULL default 'USER'
 );
 
