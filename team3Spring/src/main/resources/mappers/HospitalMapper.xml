@@ -138,7 +138,22 @@
 	
 	<update id="updateHospitalStop">
 		update hospital set
-		ho_stop = DATE_ADD(NOW(), INTERVAL #{rp_rs_name} DAY)
+		ho_stop = DATE_ADD(NOW(), INTERVAL #{rp_rs_name} DAY),
+		ho_ms_state = "기간정지"
+		where ho_id = #{ho_id}
+	</update>
+	
+	<update id="updateHospitalStopPlus">
+		update hospital set
+		ho_stop = DATE_ADD(ho_stop, INTERVAL #{rp_rs_name} DAY),
+		ho_ms_state = "기간정지"
+		where ho_id = #{ho_id}
+	</update>
+	
+	<update id="updateHoStopCancel">
+		update hospital set
+		ho_stop = null,
+		ho_ms_state = "이용중"
 		where ho_id = #{ho_id}
 	</update>
 	

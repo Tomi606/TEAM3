@@ -69,8 +69,8 @@ text-decoration:none;
 	<div class="signup-select" >
 		<h1>관리 목록</h1>
 		<div class="choice">
-			<a class="aTag-btn1" href="<c:url value='/admin/hospital'/>">회원 관리</a>
-			<a class="aTag-btn1" style="margin-left: 26px;" href="<c:url value='/admin/member/main'/>">병원 관리</a>
+			<a class="aTag-btn1" href="<c:url value='/admin/hospital'/>">병원 관리</a>
+			<a class="aTag-btn1" style="margin-left: 26px;" href="<c:url value='/admin/member/main'/>">회원 관리</a>
 			<a class="aTag-btn2" href="<c:url value='/community'/>">커뮤니티 관리</a>
 		<!-- /main/certification 사업자 회원가입 데이터 저장 후 다시 바꿔넣기 -->
 		</div>
