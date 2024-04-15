@@ -40,6 +40,13 @@ public interface HospitalDAO {
 
 	HospitalVO selectHospitalPhone(@Param("ho_phone") String ho_phone);
 	
+	//회원가입 아이디, 이메일, 폰 중복 체크
+	SiteManagement selectSiteId(@Param("site_id") String site_id);
+	
+	SiteManagement selectSiteEmail(@Param("site_email") String site_email);
+	
+	SiteManagement selectSitePhone(@Param("site_phone") String site_phone);
+	
 	// ======================== 병원 관리 ==========================
 	//이용중인 병원만 호출
 	ArrayList<HospitalVO> hospitalList(@Param("cri")Criteria cri);
@@ -61,6 +68,5 @@ public interface HospitalDAO {
 	boolean deleteHospital(@Param("ho_id")String ho_id);
 
 	boolean updateHospitalStop(@Param("ho_id")String ho_id, @Param("rp_rs_name")String rp_rs_name);
-
 
 }

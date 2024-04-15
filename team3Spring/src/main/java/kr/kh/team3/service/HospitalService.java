@@ -35,14 +35,15 @@ public interface HospitalService {
 	HospitalVO getHospitalId(HospitalVO hospital);
 
 	void setLoginFail(String ho_id);
+
+	SiteManagement ajaxHospitalId(SiteManagement site);
+
+	SiteManagement ajaxHospitalEmail(SiteManagement site);
+
+	SiteManagement ajaxHospitalPhone(SiteManagement site);
 	
-	HospitalVO ajaxHospitalId(HospitalVO hospital, MemberVO member);
-
-	HospitalVO ajaxHospitalEmail(HospitalVO hospital, MemberVO member);
-
-	HospitalVO ajaxHospitalPhone(HospitalVO hospital,MemberVO member);
-
 	String ctfEmail(String email);
+
 	//정경호 이용중인 회원만 가져오는 메서드
 	ArrayList<HospitalVO> hospitalList(Criteria cri);
 	//관리자 병원 관리 =========================================================
