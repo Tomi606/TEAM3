@@ -139,19 +139,20 @@ function displayPostAndPagination(){
 	});
 }
 
-//댓을 불러와서 페이지에 출력하는 함수
+//댓글을 불러와서 페이지에 출력하는 함수
 function displayCommentAndPagination(po_num){
 	//ajax를 이용해서 서버에 현재 댓글 페이지 정보를 보내고, 
 	//서버에서 보낸 댓글 리스트와 페이지네이션 정보를 받아와서 화면에 출력
 	page = 1;
 	$.ajax({
-		url : '<c:url value="/post"/>',
-		method : 'get',
+		url : '<c:url value="/comment"/>',
+		method : 'post',
 		data : {"po_num" : po_num,
 			"page" : page},
 		success : function(data){
-			displayPost(data.list);
-			displayCommentPagination(data.pm);
+			console.log(data)
+			//displayPost(data.list);
+			//displayCommentPagination(data.pm);aker pm = new PageMaker(3, cri, totalCount);
 		}
 	});
 }
@@ -172,11 +173,10 @@ $(document).on('click', '.post-delete-btn', function(){
 /* 댓글 조회 메서드 */
 $(document).on('click', '.post-select-btn', function(){
     let po_num = prompt("댓글을 조회화고 싶은 게시글 번호를 입력하세요:");
-    let queryParams = "po_num=" + po_num + "&po_bo_num=" + bo_num;
     if(po_num == null){
         return;
     } else {
-    	//displayCommentAndPagination(po_num);
+    	displayCommentAndPagination(po_num);
     } 
 });
 

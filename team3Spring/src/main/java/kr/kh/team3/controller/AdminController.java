@@ -21,6 +21,7 @@ import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.pagination.Criteria;
 import kr.kh.team3.pagination.PageMaker;
 import kr.kh.team3.service.BoardService;
+import kr.kh.team3.service.CommentService;
 import kr.kh.team3.service.HospitalService;
 import kr.kh.team3.service.MemberService;
 import kr.kh.team3.service.PostService;
@@ -45,6 +46,9 @@ public class AdminController {
 	
 	@Autowired
 	PostService postService;
+	
+	@Autowired
+	CommentService commentService;
 	
 	//회원가입 메인페이지
 	@GetMapping("/admin/adminpage")
@@ -310,6 +314,21 @@ public class AdminController {
 			int po_num1 = Integer.parseInt(po_num);
 			PostVO post = new PostVO(po_bo_num, po_num1);
 			System.out.println(post);
+			return map;
+		}
+		
+		@ResponseBody
+		@PostMapping("/comment")
+		public Map<String, Object> CommentPost(@RequestParam("po_num") int po_num, @RequestParam("page") int page) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			System.out.println(po_num);
+			System.out.println(page);
+			Criteria cri = new Criteria(page, 2);
+			int totalCount = commentService.getCommentCount(cri, po_num);
+			//ArrayList<PostVO> list = commentService.getCommentByPostList(cri, po_num);
+			PageMaker pm = new PageMaker(3, cri, totalCount);
+			//map.put("list", list);
+			map.put("pm", pm);
 			return map;
 		}
 		// ======================== 게시글 관리 끝 ==========================
