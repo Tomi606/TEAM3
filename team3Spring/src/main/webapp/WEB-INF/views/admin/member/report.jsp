@@ -39,7 +39,6 @@
 				<th>신고 사유</th>
 				<th>누적신고횟수</th>
 				<th>누적정지횟수</th>
-				<th>정지기간</th>
 				<th>정지</th>
 				<th>탈퇴</th>
 			</tr>
@@ -100,7 +99,7 @@ function displayReportList(list){
 				<td>\${item.member.me_report_count}</td>
 				<td>\${item.member.me_stop_count}</td>
 				<td>
-					<select>
+					<select id="selectbox">
 						<option value="0">선택</option>
 						<option value="1">1일</option>
 						<option value="3">3일</option>
@@ -110,8 +109,8 @@ function displayReportList(list){
 						<option value="60">60일</option>
 						<option value="365">365일</option>
 					</select>
+					<button type="button" class="btn-member-stop" data-stop="\${item.rp_target}">정지</button>
 				</td>
-				<td><button type="button" class="btn-member-stop" data-stop="\${item.rp_target}">정지</button></td>
 				<td><button type="button" class="btn-member-del" data-del="\${item.member.me_id}">탈퇴</button></td>
 			</tr>
 			`
@@ -149,12 +148,18 @@ function displayReportPagination(pm) {
 <!-- 정지 버튼 : 정지하고 자동으로 정지풀리게 -->
 <script type="text/javascript">
 $(document).on('click', '.btn-member-stop', function() {
+	var rp_rs_name = $(this).prev().val();
+	if(rp_rs_name == "0") {
+		alert("정지일을 선택해주세요.");
+		return;
+	}
 	if(!confirm("정지 하겠습니까?")) {
 		return;
 	}
 	
-	let id = {
-		rp_target : $(this).data('stop')
+	let stop = {
+		rp_target : $(this).data('stop'),
+		rp_rs_name : rp_rs_name
 	}
 	
 	//서버에 데이터를 전송
@@ -162,7 +167,7 @@ $(document).on('click', '.btn-member-stop', function() {
 		async : true, 
 		url : '<c:url value="/admin/member/stop"/>', 
 		type : 'post', 
-		data : JSON.stringify(id), 
+		data : JSON.stringify(stop), 
 		contentType : "application/json; charset=utf-8",
 		dataType : "json", 
 		success : function (data){
@@ -185,12 +190,12 @@ $(document).on('click', '.btn-member-stop', function() {
 <!-- 탈퇴 버튼 -->
 <script type="text/javascript">
 $(document).on('click', '.btn-member-del', function() {
-	if(!confirm("탈퇴 시키시겠습니까?")) {
-		return;
-	}
-	
 	let id = {
 		me_id : $(this).data('del')
+	}
+	
+	if(!confirm("탈퇴 시키시겠습니까?")) {
+		return;
 	}
 	
 	//서버에 데이터를 전송
