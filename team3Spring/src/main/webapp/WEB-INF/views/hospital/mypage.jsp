@@ -90,7 +90,7 @@ width: 500px;height: 300px;border: 1px solid black;
 				<div>
 					<h1>병원 마이페이지입니다.</h1>
 					<img alt="아이디 이미지" src="<c:url value="/resources/img/ceo.svg"/>">
-					<input type="text" class="input-tag" id="id" name="ho_id"  readonly="readonly"/>
+					<input type="text" class="input-tag" id="id" name="ho_id"  readonly="readonly" placeholder="아이디 수정 불가능"/>
 					<label class="text-danger textId" id="laId"></label>
 				</div>
 				<div>
@@ -124,7 +124,7 @@ width: 500px;height: 300px;border: 1px solid black;
 				</div>
 				<div>
 					<img alt="사업자번호 이미지" src="<c:url value="/resources/img/job.svg"/>">
-					<input type="text" class="input-tag" id="num" name="ho_num" readonly="readonly"/>
+					<input type="text" class="input-tag" id="num" name="ho_num" readonly="readonly" placeholder="사업자번호 수정 불가능"/>
 					<label id="num-error" class="error text-danger" for="num"></label>
 				</div>
 				<div>
