@@ -1,6 +1,6 @@
 package kr.kh.team3.model.vo;
 
-import java.util.ArrayList;
+import java.util.Date;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +12,7 @@ public class PostVO {
 	private String po_title;
 	private String po_content;
 	private int po_report_count;
+	private Date po_date;
 	private int po_bo_num; 
 	private int po_mg_num;
 	private SiteManagement sitemanagement;
