@@ -36,13 +36,13 @@ public interface HospitalService {
 
 	void setLoginFail(String ho_id);
 
-	HospitalVO ajaxHospitalId(HospitalVO hospital, MemberVO member);
+	SiteManagement ajaxHospitalId(SiteManagement site);
 
-	HospitalVO ajaxHospitalEmail(HospitalVO hospital, MemberVO member);
+	SiteManagement ajaxHospitalEmail(SiteManagement site);
 
+	SiteManagement ajaxHospitalPhone(SiteManagement site);
+	
 	String ctfEmail(String email);
-
-	HospitalVO ajaxHospitalPhone(HospitalVO hospital,MemberVO member);
 
 	//정경호 이용중인 회원만 가져오는 메서드
 	ArrayList<HospitalVO> hospitalList(Criteria cri);
