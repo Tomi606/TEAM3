@@ -40,6 +40,8 @@ public class HomeController {
 	@GetMapping("/")
 	public String home() {
 		
+		
+		ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
 		return "home";
 	}
 	
@@ -66,12 +68,12 @@ public class HomeController {
 	@PostMapping("/member/signup")
 	public boolean postPemberSignup(Model model,@RequestParam Map<String, String> obj,
 			MemberVO member,SiteManagement site,SiDoVO sido,SiGoonGuVO sgg, @RequestParam String str) {
-		
-
 		boolean memberRes = memberService.memberSignup(member, str);
 		boolean siteRes = memberService.siteSignup(site);
 		return !memberRes||!siteRes;
 	}
+	
+	
 	
 	@GetMapping("/message")
 	public String message(Model model, boolean res) {
@@ -162,15 +164,19 @@ public class HomeController {
 		return !hospitalRes || !siteRes;
 	}
 	
-	//사업자 회원가입 아이디 중복 체크
-	@ResponseBody
-	@GetMapping("/id/check/dup")
-	public Map<String, Object> idCheckDup(@RequestParam("id") String ho_id){
-		Map<String, Object> map = new HashMap<String, Object>();
-		HospitalVO res = hospitalService.idCheck(ho_id);
-		map.put("result", res);
-		return map;
-	}
+//	//사업자 회원가입 아이디 중복 체크
+//	@ResponseBody
+//	@GetMapping("/id/check/dup")
+//	public Map<String, Object> idCheckDup(@RequestParam("id") String ho_id){
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		HospitalVO res = hospitalService.idCheck(ho_id);
+//		map.put("result", res);
+//		return map;
+//	}
+	
+	
+	
+	
 	
 	//로그인 메인 페이지
 	@GetMapping("/main/login")
@@ -246,7 +252,18 @@ public class HomeController {
 		//가입 대기 상태 확인하기 위해 hospital 값 가져옴
 		HospitalVO ho = hospitalService.getHospital(user);
 		
-		if(ho.getHo_ms_state().equals("가입대기")) {
+		if(ho.getHo_ms_state().equals("기간정지")) {
+			//정지기간 지났으면 초기화 후 권한 변경
+			String res = hospitalService.hoStopCancel(ho);
+			if(res.equals("cancel")) {
+				model.addAttribute("url", "/main/login");
+				model.addAttribute("msg", "기간 정지가 해제되었습니다.");
+			}else if(res.equals("stop")){
+				model.addAttribute("url", "/main/login");
+				model.addAttribute("msg", ho.getChangeDate() + " 기간 정지 회원입니다.");
+			}
+		}
+		else if(ho.getHo_ms_state().equals("가입대기")) {
 			model.addAttribute("url", "/main/login");
 			model.addAttribute("msg", "승인 확인 전입니다.");
 		}
@@ -288,9 +305,9 @@ public class HomeController {
 	//이메일 중복확인 ajax
 	@ResponseBody
 	@GetMapping("/checkEmail")
-	public HashMap<String, Object> checkEmail(MemberVO member) {
+	public HashMap<String, Object> checkEmail(SiteManagement site) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		MemberVO check = memberService.getMemberEmail(member);
+		SiteManagement check = memberService.getMemberEmail(site);
 		map.put("checkEmail", check);
 		return map;
 	}
@@ -298,9 +315,9 @@ public class HomeController {
 	//폰번호 중복확인 ajax
 	@ResponseBody
 	@GetMapping("/checkPhone")
-	public HashMap<String, Object> checkPhone(MemberVO member) {
+	public HashMap<String, Object> checkPhone(SiteManagement site) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		MemberVO checkPhone = memberService.getMemberPhone(member);
+		SiteManagement checkPhone = memberService.getMemberPhone(site);
 		map.put("checkNum", checkPhone);
 		return map;
 	}
@@ -308,9 +325,9 @@ public class HomeController {
 	//사업자 회원가입 : 아이디 중복확인 ajax
 	@ResponseBody
 	@GetMapping("/hospital/checkId")
-	public HashMap<String, Object> checkId(HospitalVO hospital, MemberVO member) {
+	public HashMap<String, Object> ajaxHospitalId(@RequestParam("site_id") String site_id) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		HospitalVO check = hospitalService.ajaxHospitalId(hospital, member);
+		SiteManagement check = hospitalService.ajaxHospitalId(site_id);
 		map.put("hoIdCheck", check);
 		return map;
 	}
@@ -318,9 +335,9 @@ public class HomeController {
 	//사업자 회원가입 : 이메일 중복확인 ajax
 	@ResponseBody
 	@GetMapping("/hospital/checkEmail")
-	public HashMap<String, Object> checkEmail(HospitalVO hospital, MemberVO member) {
+	public HashMap<String, Object> ajaxCheckEmail(@RequestParam("site_email") String site_email) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		HospitalVO check = hospitalService.ajaxHospitalEmail(hospital, member);
+		SiteManagement check = hospitalService.ajaxHospitalEmail(site_email);
 		map.put("hoEmailCheck", check);
 		return map;
 	}
@@ -328,9 +345,9 @@ public class HomeController {
 	//사업자 회원가입 : 폰번호 중복확인 ajax
 	@ResponseBody
 	@GetMapping("/hospital/checkPhone")
-	public HashMap<String, Object> checkPhone(HospitalVO hospital,MemberVO member) {
+	public HashMap<String, Object> ajaxCheckPhone(@RequestParam("site_phone") String site_phone) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		HospitalVO check = hospitalService.ajaxHospitalPhone(hospital,member);
+		SiteManagement check = hospitalService.ajaxHospitalPhone(site_phone);
 		map.put("hoPhoneCheck", check);
 		return map;
 	}

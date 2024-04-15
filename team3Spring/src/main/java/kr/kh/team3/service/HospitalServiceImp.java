@@ -1,6 +1,8 @@
 package kr.kh.team3.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.mail.internet.MimeMessage;
 
@@ -10,7 +12,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
 
 import kr.kh.team3.dao.HospitalDAO;
 import kr.kh.team3.dao.MemberDAO;
@@ -156,72 +157,21 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public HospitalVO ajaxHospitalId(HospitalVO hospital, MemberVO member) {
-		if(hospital == null || hospital.getHo_id() == null || hospital.getHo_id().isEmpty()) {
-			return null;
-		}
-
-		// 입력된 아이디로 회원 조회
-		HospitalVO user = hospitalDao.selectHospital(hospital.getHo_id());
-		MemberVO memberId = memberDao.selectMember(member.getMe_id());
+	public SiteManagement ajaxHospitalId(String site_id) {
 		
-//		// user가 null이 아니면 중복
-//		if (user != null || user.equals(memberId)) {
-//			return user;
-//		}
-		
-		try {
-			if(!user.equals(hospital) || !memberId.equals(hospital)) {
-				return user;
-			}			
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-
-		return null;
+		return hospitalDao.selectSiteId(site_id);
 	}
-
+	
 	@Override
-    public HospitalVO ajaxHospitalPhone(HospitalVO hospital, MemberVO member) {
-        if (hospital == null || hospital.getHo_phone() == null || hospital.getHo_phone().isEmpty()) {
-            return null;
-        }
+    public SiteManagement ajaxHospitalPhone(String site_phone) {
 
-        // 입력된 아이디로 회원 조회
-        HospitalVO user = hospitalDao.selectHospitalPhone(hospital.getHo_phone());
-        MemberVO memberPhone = memberDao.selectMemberPhone(member.getMe_phone());
-
-        // user가 null이 아니면 중복
-        if(hospital.getHo_phone().equals(member.getMe_phone())){
-            return user;
-        }
-        if (user != null || memberPhone != null) {
-            return user;
-        }
-
-        return null;
+        return hospitalDao.selectHospitalPhone(site_phone);
     }
 	
 	@Override
-	public HospitalVO ajaxHospitalEmail(HospitalVO hospital, MemberVO member) {
-		if (hospital == null || hospital.getHo_email() == null || hospital.getHo_email().isEmpty()) {
-			return null;
-		}
+	public SiteManagement ajaxHospitalEmail(String site_email) {
 
-		// 입력된 아이디로 회원 조회
-		HospitalVO user = hospitalDao.selectHospitalEmail(hospital.getHo_email());
-		MemberVO memberEmail = memberDao.selectMemberEmail(member.getMe_email());
-		
-		if(user.equals(memberEmail)) {
-			return user;
-		}
-
-		// user가 null이 아니면 중복
-		if (user != null || memberEmail != null) {
-			return user;
-		}
-
-		return null;
+		return hospitalDao.selectHospitalEmail(site_email);
 	}
 
 	@Override
@@ -342,21 +292,44 @@ public class HospitalServiceImp implements HospitalService {
 
 	@Override
 	public boolean hospitalStop(ReportVO report) {
+		LocalDate localdate = LocalDate.now();
+		Date now = java.sql.Date.valueOf(localdate);
+		
 		if( report == null ||
 			report.getRp_rs_name() == null ||
 			report.getRp_rs_name().length() == 0) {
 			return false;
 		}
-//		//처음 정지인지 확인해서
-//		HospitalVO ho = hospitalDao.selectHospital(hospital.getHo_id());
-//		//처음이면
-//		if(ho.getHo_stop() == null)
-//		//아니면
+		//정지값이 null인지 확인해서
+		HospitalVO ho = hospitalDao.selectHospital(report.getRp_target());
+		//null 이면
+		if(ho.getHo_stop() == null) {
+			return hospitalDao.updateHospitalStop(report.getRp_target(), report.getRp_rs_name());
+		}
+		//아니면
 		//1. ho_stop이 현재시간 이후이면 이미 있던 ho_stop + 정지일
+		if(ho.getHo_stop().after(now)) {
+			return hospitalDao.updateHospitalStopPlus(report.getRp_target(), report.getRp_rs_name());
+		}
 		//2. ho_stop이 현재시간 이전이면 데이터 새로 넣기.
-		
 		return hospitalDao.updateHospitalStop(report.getRp_target(), report.getRp_rs_name());
 	}
 
+	@Override
+	public String hoStopCancel(HospitalVO ho) {
+		LocalDate localdate = LocalDate.now();
+		Date now = java.sql.Date.valueOf(localdate);
+		if(ho.getHo_stop().before(now)) {
+			hospitalDao.updateHoStopCancel(ho.getHo_id());
+			return "cancel";
+		}else {
+			return "stop";
+		}
+	}
+	
+
+	public ArrayList<HospitalSubjectVO> selectSubject() {
+		return hospitalDao.selectHospitalSubjectList();
+	}
 
 }

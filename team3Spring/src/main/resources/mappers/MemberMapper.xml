@@ -12,8 +12,8 @@
 	
 	<!--site_la_num을 1로 고정시켜놓으면 회원가입 됨.  -->
 	<insert id="insertSiteMember">
-		insert into site_management(site_la_num,site_id,site_authority)
-		value(1,#{si.site_id},"USER")
+		insert into site_management(site_la_num,site_id,site_email,site_phone,site_authority)
+		value(1,#{si.site_id},#{si.site_email},#{si.site_phone},"USER")
 	</insert>
 	
 	<select id="selectSiDo" resultType="kr.kh.team3.model.vo.SiDoVO">
@@ -50,13 +50,13 @@
 	</update>
 	
 	<select id="selectMemberEmail" 
-		resultType="kr.kh.team3.model.vo.MemberVO">
-		select * from member where me_email = #{me_email}
+		resultType="kr.kh.team3.model.vo.SiteManagement">
+		select * from site_management where site_email = #{email}
 	</select>
 	
 	<select id="selectMemberPhone" 
-		resultType="kr.kh.team3.model.vo.MemberVO">
-		select * from member where me_phone = #{me_phone}
+		resultType="kr.kh.team3.model.vo.SiteManagement">
+		select * from site_management where site_phone = #{phone}
 	</select>
 	
 	<!-- 관리자 - 회원 관리(양선진) -->
@@ -103,13 +103,13 @@
 	</select>
 	
 	<select id="selectReportMemberList" resultMap="ReportMap">
-		select * from report
-		order by rp_num
+		select * from report 
+		order by rp_num 
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
 	<select id="selectReportMemberTotalCount" resultType="int">
-		select count(*) from report
+		select count(*) from report order by rp_num
 	</select>
 	
 	<!-- 삭제 버튼 -->

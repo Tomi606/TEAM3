@@ -81,6 +81,7 @@ text-align: center;
 			<tr>
 				<th>아이디</th>
 				<th>상호명</th>
+				<th>대표자명</th>
 				<th>사업자 번호</th>
 				<th>전화번호</th>
 				<th>이메일</th>
@@ -101,11 +102,12 @@ text-align: center;
 			           <tr>
 			               <td>${ho.ho_id}</td>
 			               <td>${ho.ho_name}</td>
+			               <td>${ho.ho_ceo}</td>
 			               <td>${ho.ho_num}</td>
 			               <td>${ho.ho_phone}</td>
 			               <td>${ho.ho_email}</td>
 			               <td>${ho.ho_address}</td>
-			               <td>999</td>
+			               <td>${ho.ho_report_count}</td>
 			           </tr>
 			       </c:forEach>
 			   </c:otherwise>

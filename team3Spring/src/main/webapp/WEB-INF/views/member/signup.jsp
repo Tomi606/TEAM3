@@ -113,11 +113,10 @@ label {
 	<form id="myForm" action="<c:url value="/member/signup"/>" method="post">
 	<div class="input-box">	
 		<div>
-	
 			<img  alt="아이디이미지" src="<c:url value="/resources/img/user.svg"/>">
 		    <input  type="text" id="id" name="site_id" placeholder="아이디" autofocus="autofocus" class="input-tag">
 		    <label class="text-danger textId" id="laId"></label>
-		  <!--   <a type="button" class="check-duplicate btn duplicate">중복 확인</a> -->
+		  <!--<a type="button" class="check-duplicate btn duplicate">중복 확인</a> -->
 		</div>
 		<div>
 	    	<input type="hidden" id="id2" name="me_id">
@@ -137,11 +136,15 @@ label {
 	    	<input   type="text" id="name" name="me_name" placeholder="이름" autofocus="autofocus" class="input-tag">
 	    	<label for="me_name" class="text-danger"></label>
 		</div>
+		<!-- 이메일  -->
 		<div>
 			<img alt="아이디이미지" src="<c:url value="/resources/img/mail.svg"/>">
-	    	<input  type="text" id="email" name="me_email" placeholder="이메일" autofocus="autofocus" class="input-tag">
+	    	<input  type="text" id="email" name="site_email" placeholder="이메일" autofocus="autofocus" class="input-tag">
 	    	<!-- <a type="button" class="email-btn btn duplicate">중복확인</a> -->
 	    	<label for="me_email" class="text-danger etext"></label>
+		</div>
+		<div>
+	    	<input type="hidden" id="email2" name="me_email">
 		</div>
 		<div class="gender-buttons">
 			<img alt="아이디이미지" src="<c:url value="/resources/img/gender.svg"/>">
@@ -160,8 +163,12 @@ label {
 		</div>
 		<div>
 			<img alt="아이디이미지" src="<c:url value="/resources/img/phone.svg"/>">
-	    	<input   type="text" id="phone" name="me_phone" placeholder="핸드폰 번호" autofocus="autofocus" class="input-tag">
+	    	<input   type="text" id="phone" name="site_phone" placeholder="핸드폰 번호" autofocus="autofocus" class="input-tag">
 	    	<label for="me_phone" class="text-danger textPhone" id="idcheck-phone"></label>
+		</div>
+		<!-- 핸드폰  -->
+		<div>
+	    	<input type="hidden" id="phone2" name="me_phone">
 		</div>
 		<div class="subject">
 		<div class="hr" style="margin-top:30px;margin-bottom:40px;border: 1px solid #d2d2d2;width: 560px;"></div>
@@ -198,11 +205,28 @@ label {
 
 <!-- me_id입력 시 site_id값도 me_id랑 같은 값 입력 -->
 <script type="text/javascript">
-    function meIdForm() {
-       var meId = $("#id").val(); 
+$(document).ready(function(){
+    $("#id").keyup(function() {
+        var meId = $(this).val(); 
         $("#id2").val(meId);
-      return true;
-    }
+    });
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#email").keyup(function() {
+        var meId = $(this).val(); 
+        $("#email2").val(meId);
+    });
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#phone").keyup(function() {
+        var meId = $(this).val(); 
+        $("#phone2").val(meId);
+    });
+});
 </script>
 <!-- 회원가입 정규 표현식 -->
 <script type="text/javascript">
@@ -451,7 +475,7 @@ $(document).ready(function() {
         $.ajax({
             url: '<c:url value="/checkPhone"/>',
             type: "get",
-            data: { me_phone: phone }, 
+            data: { site_phone: phone }, 
             success: function(response) {
                 if (response.checkNum == null) {
                 	if(phone.length == 11){
@@ -492,7 +516,7 @@ $(document).ready(function() {
         $.ajax({
             url: '<c:url value="/checkEmail"/>',
             type: "get",
-            data: { me_email: email }, 
+            data: { site_email: email }, 
             success: function(response) {
                 if (response.checkEmail == null) {
                 	if(email.length >= 12){
