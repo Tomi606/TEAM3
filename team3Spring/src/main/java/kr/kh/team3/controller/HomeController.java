@@ -251,8 +251,9 @@ public class HomeController {
 			//정지기간 지났으면 초기화 후 권한 변경
 			String res = hospitalService.hoStopCancel(ho);
 			if(res.equals("cancel")) {
-				model.addAttribute("url", "/main/login");
-				model.addAttribute("msg", "기간 정지가 해제되었습니다.");
+				model.addAttribute("user", user);//user라는 이름으로 전송
+				model.addAttribute("url", "/");
+				model.addAttribute("msg", "기간 정지가 해제되었습니다. 로그인이 완료되었습니다.");
 			}else if(res.equals("stop")){
 				model.addAttribute("url", "/main/login");
 				model.addAttribute("msg", ho.getChangeDate() + " 기간 정지 회원입니다.");

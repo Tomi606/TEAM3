@@ -77,9 +77,6 @@ function displayReportList(list){
 	}
 	for(item of list){
 		if(item.hospital != null){
-			var date = item.hospital.ho_stop;
-			var date2 = date.toString();
-			console.log(date2);
 			str += 
 			`
 				<tr class="box-hospital">
