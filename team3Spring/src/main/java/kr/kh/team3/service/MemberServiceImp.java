@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import kr.kh.team3.dao.HospitalDAO;
 import kr.kh.team3.dao.MemberDAO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
-import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.model.vo.SiDoVO;
@@ -218,7 +217,23 @@ public class MemberServiceImp implements MemberService {
 			return false;
 		}
 		
-		return memberDao.deleteMember(member);
+		//member id와 같은 site_management의 아이디를 가져옴
+		SiteManagement stId = memberDao.selectSiteMemberId(member.getMe_id());
+		
+		//사이트 아이디가 비었거나 멤버의 아이디와 같지 않으면 false
+		if(stId == null || !member.getMe_id().equals(stId.getSite_id())) {
+			return false;
+		}
+		
+		//같으면 member와 site_management 둘 다 삭제
+		if(member.getMe_id().equals(stId.getSite_id())) {
+			boolean deleteMember = memberDao.deleteMember(member.getMe_id());
+			boolean deleteSiteManagement = memberDao.deleteSiteManagement(stId.getSite_id());
+			
+			return deleteMember && deleteSiteManagement;
+		}
+		
+		return false;
 	}
 
 	@Override
