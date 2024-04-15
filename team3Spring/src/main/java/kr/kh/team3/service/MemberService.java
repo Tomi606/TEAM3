@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.MemberVO;
+import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -40,6 +41,12 @@ public interface MemberService {
 
 	int getMemberTotalCount(Criteria cri);
 
-	boolean deleteMember(MemberVO me_id);
+	boolean deleteMember(MemberVO member);
+
+	ArrayList<MemberVO> getReportMemberList(Criteria cri);
+
+	int getReportMemberTotalCount(Criteria cri);
+
+	boolean stopMember(ReportVO report);
 
 }
