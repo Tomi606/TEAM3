@@ -128,7 +128,17 @@
 	<!-- 정지 버튼 -->
 	<update id="updateStopMember">
 		update member set 
-		me_stop = DATE_ADD(NOW(), INTERVAL #{rp_rs_name} DAY)
-		where me_id = #{rp_target}
+		me_stop = DATE_ADD(NOW(), INTERVAL #{rp_rs_name} DAY), 
+		me_ms_state = "기간정지"
+		where me_id = #{me_id}
 	</update>
+	
+	<update id="updatePlusStopMember">
+		update member set 
+		me_stop = DATE_ADD(me_stop, INTERVAL #{rp_rs_name} DAY), 
+		me_ms_state = "기간정지" 
+		where me_id = #{me_id}
+	</update>
+	
+	
 </mapper>

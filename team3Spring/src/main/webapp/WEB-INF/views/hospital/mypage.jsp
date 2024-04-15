@@ -89,7 +89,7 @@ width: 500px;height: 300px;border: 1px solid black;
 				<div>
 					<h1>병원 마이페이지입니다.</h1>
 					<img alt="아이디 이미지" src="<c:url value="/resources/img/ceo.svg"/>">
-					<input type="text" class="input-tag" id="id" name="ho_id"  readonly="readonly" placeholder="아이디 수정 불가능"/>
+					<input type="text" class="input-tag" id="id" name="ho_id"  readonly="readonly" value="${huser.ho_id}" placeholder="아이디 수정 불가능"/>
 					<label class="text-danger textId" id="laId"></label>
 				</div>
 				<div>
@@ -97,57 +97,51 @@ width: 500px;height: 300px;border: 1px solid black;
 				</div>
 				<div>
 					<img alt="비번 이미지" src="<c:url value="/resources/img/password.svg"/>">
-					<input type="password" class="input-tag" id="pw" name="ho_pw"  readonly="readonly"/>
+					<input type="password" class="input-tag" id="pw" name="ho_pw" value="${huser.ho_pw}" readonly="readonly"/>
 					<label id="pw-error" class="error text-danger" for="pw"></label>
 				</div>
 				<div>
-					<img alt="비번확인 이미지" src="<c:url value="/resources/img/passwordcheck.svg"/>">
-					<input type="password" class="input-tag" id="pw2" name="ho_pw2" readonly="readonly"/>
-					<label id="pw2-error" class="error text-danger" for="pw2"></label>
-				</div>
-				<div>
 					<img alt="이메일 이미지" src="<c:url value="/resources/img/email.svg"/>">
-					<input type="email" class="input-tag" id="email" name="ho_email" readonly="readonly"/>
+					<input type="email" class="input-tag" id="email" name="ho_email" readonly="readonly" value="${huser.ho_email}"/>
 					<!-- 데이터 추가 후 풀기 <input type="email" class="input-tag" id="email" name="ho_email" readonly value="${email}"/> -->
 					<label id="email-error" class="error text-danger" for="email"></label>
 				</div>
 				<div>
 					<img alt="상호명 이미지" src="<c:url value="/resources/img/quote.svg"/>">
-					<input type="text" class="input-tag" id="name" name="ho_name" readonly="readonly"/>
+					<input type="text" class="input-tag" id="name" name="ho_name" readonly="readonly" value="${huser.ho_name}"/>
 					<label id="name-error" class="error text-danger" for="name"></label>
 				</div>
 				<div>
 					<img alt="대표자명 이미지" src="<c:url value="/resources/img/user.svg"/>">
-					<input type="text" class="input-tag" id="ceo" name="ho_ceo" readonly="readonly"/>
+					<input type="text" class="input-tag" id="ceo" name="ho_ceo" readonly="readonly" value="${huser.ho_ceo}"/>
 					<label id="ceo-error" class="error text-danger" for="ceo"></label>
 				</div>
 				<div>
 					<img alt="사업자번호 이미지" src="<c:url value="/resources/img/job.svg"/>">
-					<input type="text" class="input-tag" id="num" name="ho_num" readonly="readonly" placeholder="사업자번호 수정 불가능"/>
+					<input type="text" class="input-tag" id="num" name="ho_num" readonly="readonly" value="${huser.ho_num}"/>
 					<label id="num-error" class="error text-danger" for="num"></label>
 				</div>
 				<div>
 					<img alt="대표 전화번호 이미지" src="<c:url value="/resources/img/phone2.svg"/>">
-					<input type="text" class="input-tag" id="phone" name="ho_phone"readonly="readonly"/>
+					<input type="text" class="input-tag" id="phone" name="ho_phone"readonly="readonly"value="${huser.ho_phone}"/>
 					<label id="phone-error" class="error text-danger" for="phone"></label>
 				</div>
-				
+				<p>각 인풋태그마다 비동기로 수정할건지 하고싶은거만 골라서 수정할건지 정하기</p>
 			</div>
-				
-				
 			<div class="program_check_wrap">
 				<div class="program">
-					<a href="#">프로그램 관리</a>
-					
+				2
+					<a href="<c:url value="/hospital/program"/>">프로그램 관리</a>
 				</div>
 				<div class="program">
-					<a href="#">예약 관리</a>
+				3
+					<a href="<c:url value="/hospital/book"/>">예약 관리</a>
 				</div>
 				<div class="program">
-				 	<a href="#">병원 상세 페이지 수정</a>
+				1
+				 	<a href="<c:url value="/hospital/detail"/>">병원 상세 페이지 수정</a>
 				</div>
 				<div class="program">
-				
 				</div>
 			</div>
 		</div>
