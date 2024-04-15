@@ -146,7 +146,6 @@ CREATE TABLE `hospital` (
 	`ho_name`	varchar(50)	NOT NULL,
 	`ho_ceo`	varchar(5)	NOT NULL,
 	`ho_num`	char(10) NOT NULL,
-	`ho_fail`	int NOT NULL default 0,
 	`ho_address`	varchar(100) NOT NULL,
 	`ho_phone`	char(11) NOT NULL,
 	`ho_authority`	varchar(10) NOT NULL,
