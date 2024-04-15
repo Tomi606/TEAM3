@@ -146,7 +146,6 @@ CREATE TABLE `hospital` (
 	`ho_name`	varchar(50)	NOT NULL,
 	`ho_ceo`	varchar(5)	NOT NULL,
 	`ho_num`	char(10) NOT NULL,
-	`ho_fail`	int NOT NULL default 0,
 	`ho_address`	varchar(100) NOT NULL,
 	`ho_phone`	char(11) NOT NULL,
 	`ho_authority`	varchar(10) NOT NULL,
@@ -506,17 +505,17 @@ select * from site_management;
 
 # 신고 유형
 insert into report(rp_target, rp_name, rp_rs_name, rp_site_num) 
-values('wkdrn002', '스팸홍보','1', 1),
-('qqqq1111', '도배','1', 1), 
-('qqqq1111', '음란물','3', 1), 
-('qqqq1111', '불법정보를 포함','1', 1), 
-('qwer1234', '청소년에게 유해한 내용','1', 1), 
-('qwer1234', '욕설/혐오/차별 표현','1', 1), 
-('qwer1234', '개인정보 유출','1', 1), 
-('qwer1234', '불법촬영물등 포함','1', 1), 
-('qwer1234', '명예훼손','1', 1), 
-('qwer1234', '저작권 침해','1', 1), 
-('qwer1234', '불쾌한 표현 있음','1', 1);
+values('qqqq1111', '스팸홍보','1', 3),
+('qqqq1111', '도배','1', 3), 
+('qqqq1111', '음란물','3', 3), 
+('qqqq1111', '불법정보를 포함','1', 3), 
+('qwer1234', '청소년에게 유해한 내용','1', 3), 
+('qwer1234', '욕설/혐오/차별 표현','1', 3), 
+('qwer1234', '개인정보 유출','1', 3), 
+('qwer1234', '불법촬영물등 포함','1', 3), 
+('qwer1234', '명예훼손','1', 3), 
+('qwer1234', '저작권 침해','1', 3), 
+('qwer1234', '불쾌한 표현 있음','1', 3);
 
 select * from member;
 select * from hospital;
