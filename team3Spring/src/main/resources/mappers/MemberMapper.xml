@@ -103,13 +103,13 @@
 	</select>
 	
 	<select id="selectReportMemberList" resultMap="ReportMap">
-		select * from report
-		order by rp_num
+		select * from report 
+		order by rp_num 
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
 	<select id="selectReportMemberTotalCount" resultType="int">
-		select count(*) from report
+		select count(*) from report order by rp_num
 	</select>
 	
 	<!-- 삭제 버튼 -->
