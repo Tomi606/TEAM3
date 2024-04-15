@@ -205,25 +205,28 @@ label {
 
 <!-- me_id입력 시 site_id값도 me_id랑 같은 값 입력 -->
 <script type="text/javascript">
-    function meIdForm() {
-       var meId = $("#id").val(); 
+$(document).ready(function(){
+    $("#id").keyup(function() {
+        var meId = $(this).val(); 
         $("#id2").val(meId);
-      return true;
-    }
+    });
+});
 </script>
 <script type="text/javascript">
-    function meEmailForm() {
-       var meEmail = $("#email").val(); 
-        $("#email2").val(meEmail);
-      return true;
-    }
+$(document).ready(function(){
+    $("#email").keyup(function() {
+        var meId = $(this).val(); 
+        $("#email2").val(meId);
+    });
+});
 </script>
 <script type="text/javascript">
-    function mePhoneForm() {
-       var mePhone = $("#phone").val(); 
-        $("#phone2").val(mePhone);
-      return true;
-    }
+$(document).ready(function(){
+    $("#phone").keyup(function() {
+        var meId = $(this).val(); 
+        $("#phone2").val(meId);
+    });
+});
 </script>
 <!-- 회원가입 정규 표현식 -->
 <script type="text/javascript">
