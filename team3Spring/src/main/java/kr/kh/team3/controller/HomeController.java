@@ -66,12 +66,12 @@ public class HomeController {
 	@PostMapping("/member/signup")
 	public boolean postPemberSignup(Model model,@RequestParam Map<String, String> obj,
 			MemberVO member,SiteManagement site,SiDoVO sido,SiGoonGuVO sgg, @RequestParam String str) {
-		
-
 		boolean memberRes = memberService.memberSignup(member, str);
 		boolean siteRes = memberService.siteSignup(site);
 		return !memberRes||!siteRes;
 	}
+	
+	
 	
 	@GetMapping("/message")
 	public String message(Model model, boolean res) {
@@ -288,9 +288,9 @@ public class HomeController {
 	//이메일 중복확인 ajax
 	@ResponseBody
 	@GetMapping("/checkEmail")
-	public HashMap<String, Object> checkEmail(MemberVO member) {
+	public HashMap<String, Object> checkEmail(SiteManagement site) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		MemberVO check = memberService.getMemberEmail(member);
+		SiteManagement check = memberService.getMemberEmail(site);
 		map.put("checkEmail", check);
 		return map;
 	}
@@ -298,9 +298,9 @@ public class HomeController {
 	//폰번호 중복확인 ajax
 	@ResponseBody
 	@GetMapping("/checkPhone")
-	public HashMap<String, Object> checkPhone(MemberVO member) {
+	public HashMap<String, Object> checkPhone(SiteManagement site) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		MemberVO checkPhone = memberService.getMemberPhone(member);
+		SiteManagement checkPhone = memberService.getMemberPhone(site);
 		map.put("checkNum", checkPhone);
 		return map;
 	}
