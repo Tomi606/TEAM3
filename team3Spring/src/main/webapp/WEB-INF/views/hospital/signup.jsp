@@ -216,8 +216,8 @@ $("form").validate({
 			equalTo : "비밀번호와 일치하지 않습니다."
 		},
 		ho_email : {
-			required : "이메일1",
-			email : "이메일2"
+			required : "",
+			email : ""
 		},
 		ho_name : {
 			required : "필수 항목입니다.",
@@ -298,46 +298,31 @@ $('[name=site_id]').on('input', function() {
 });
 </script> -->
 
-<!-- 사이트 이메일 중복 -->
+
 <script type="text/javascript">
-	var hoEmail = document.getElementById("email").value;
-	document.getElementById("email2").value = hoEmail;
-	return true;
+$(document).ready(function(){
+    $("#id").keyup(function() {
+        var meId = $(this).val(); 
+        $("#id2").val(meId);
+    });
+});
 </script>
-
-<!-- 사이트 폰번호 중복 -->
 <script type="text/javascript">
-	var hoPhone = document.getElementById("phone").value;
-	document.getElementById("phone2").value = hoPhone;
-	return true;
+$(document).ready(function(){
+    $("#email").keyup(function() {
+        var meId = $(this).val(); 
+        $("#email2").val(meId);
+    });
+});
 </script>
-
-<!-- 사이트 회원 관리 아이디 + 비번 일치 확인 -->
 <script type="text/javascript">
-function hoIdForm() {
-	
-	var hoId = document.getElementById("id").value;
-	document.getElementById("id2").value = hoId;
-	return true;
-	
-	//비번 일치 확인
-	var pw = document.getElementById("pw").value;
-	var pw2 = document.getElementById("pw2").value;
-
-	if(pw !== pw2) {
-		console.log("비번 불일치");
-		return false;
-	}
-	else if(pw === pw2) {
-		console.log("비번 일치");
-		return true;
-	}
-	else {
-		return false;
-	}
-}
+$(document).ready(function(){
+    $("#phone").keyup(function() {
+        var meId = $(this).val(); 
+        $("#phone2").val(meId);
+    });
+});
 </script>
-
 <!-- 시군구, 읍면동 select 띄우기 -->
 <script type="text/javascript">
 /* 군 구 리스트 select로 띄우기 시작 */
@@ -501,7 +486,7 @@ $(document).ready(function() {
 	            }
 	        }); // ajax end;
 	    });
-   /*  $(".check").click(function(){
+     $(".check").click(function(){
        if(!idCheck){
           alert("아이디 중복 확인을 해주세요.");
           $("#id").focus();
@@ -512,7 +497,12 @@ $(document).ready(function() {
           $("#email").focus();
           return false;
        }
-    }); */
+       if(!phoneCheck){
+          alert("휴대폰 번호 중복 확인을 해주세요.");
+          $("#phone").focus();
+          return false;
+       }
+    }); 
 });
 </script>
 

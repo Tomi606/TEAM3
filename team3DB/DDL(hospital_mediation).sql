@@ -501,6 +501,7 @@ insert into report_state values('1'),('3'),('7'),('15'),('30'),('60'),('180'),('
 
 # site_management 추가
 insert into site_management value(1, 1, 'qqqq1111', "01011111111", "qqqq1111@naver.com", "USER");
+select * from site_management;
 
 # 신고 유형
 insert into report(rp_target, rp_name, rp_rs_name, rp_site_num) 

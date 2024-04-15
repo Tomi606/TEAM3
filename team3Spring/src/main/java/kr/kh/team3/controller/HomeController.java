@@ -38,10 +38,9 @@ public class HomeController {
 	private HospitalService hospitalService;
 	 
 	@GetMapping("/")
-	public String home() {
-		
-		
+	public String home(Model model) {
 		ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
+		model.addAttribute("list",list);
 		return "home";
 	}
 	
@@ -173,10 +172,6 @@ public class HomeController {
 //		map.put("result", res);
 //		return map;
 //	}
-	
-	
-	
-	
 	
 	//로그인 메인 페이지
 	@GetMapping("/main/login")

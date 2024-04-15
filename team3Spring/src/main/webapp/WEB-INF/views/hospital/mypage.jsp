@@ -83,14 +83,13 @@ width: 500px;height: 300px;border: 1px solid black;
 </head>
 <body>
 <div class="body-tag">
-
 		<div class="input-box">
 		<div class="hos_my_page_inner">
 			<div class="hos_my_page_input_wrap">
 				<div>
 					<h1>병원 마이페이지입니다.</h1>
 					<img alt="아이디 이미지" src="<c:url value="/resources/img/ceo.svg"/>">
-					<input type="text" class="input-tag" id="id" name="ho_id"  readonly="readonly"/>
+					<input type="text" class="input-tag" id="id" name="ho_id"  readonly="readonly" placeholder="아이디 수정 불가능"/>
 					<label class="text-danger textId" id="laId"></label>
 				</div>
 				<div>
@@ -124,7 +123,7 @@ width: 500px;height: 300px;border: 1px solid black;
 				</div>
 				<div>
 					<img alt="사업자번호 이미지" src="<c:url value="/resources/img/job.svg"/>">
-					<input type="text" class="input-tag" id="num" name="ho_num" readonly="readonly"/>
+					<input type="text" class="input-tag" id="num" name="ho_num" readonly="readonly" placeholder="사업자번호 수정 불가능"/>
 					<label id="num-error" class="error text-danger" for="num"></label>
 				</div>
 				<div>
@@ -145,7 +144,7 @@ width: 500px;height: 300px;border: 1px solid black;
 					<a href="#">예약 관리</a>
 				</div>
 				<div class="program">
-				 
+				 	<a href="#">병원 상세 페이지 수정</a>
 				</div>
 				<div class="program">
 				
