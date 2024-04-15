@@ -32,9 +32,9 @@ public interface MemberService {
     //아이디 중복확인 ajax
 	SiteManagement getMemberId(SiteManagement site);
 	//이메일 중복확인 ajax
-	MemberVO getMemberEmail(MemberVO member);
+	SiteManagement getMemberEmail(SiteManagement site);
 	//폰번호 중복확인 ajax
-	MemberVO getMemberPhone(MemberVO member);
+	SiteManagement getMemberPhone(SiteManagement site);
 
 	//관리자 페이지 - 회원 관리
 	ArrayList<MemberVO> getMemberList(Criteria cri);
@@ -48,5 +48,6 @@ public interface MemberService {
 	int getReportMemberTotalCount(Criteria cri);
 
 	boolean stopMember(ReportVO report);
+
 
 }

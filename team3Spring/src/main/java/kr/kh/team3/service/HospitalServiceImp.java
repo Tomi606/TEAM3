@@ -180,46 +180,46 @@ public class HospitalServiceImp implements HospitalService {
 
 		return null;
 	}
-
+	
 	@Override
     public HospitalVO ajaxHospitalPhone(HospitalVO hospital, MemberVO member) {
-        if (hospital == null || hospital.getHo_phone() == null || hospital.getHo_phone().isEmpty()) {
-            return null;
-        }
-
-        // 입력된 아이디로 회원 조회
-        HospitalVO user = hospitalDao.selectHospitalPhone(hospital.getHo_phone());
-        MemberVO memberPhone = memberDao.selectMemberPhone(member.getMe_phone());
-
-        // user가 null이 아니면 중복
-        if(hospital.getHo_phone().equals(member.getMe_phone())){
-            return user;
-        }
-        if (user != null || memberPhone != null) {
-            return user;
-        }
+//        if (hospital == null || hospital.getHo_phone() == null || hospital.getHo_phone().isEmpty()) {
+//            return null;
+//        }
+//
+//        // 입력된 아이디로 회원 조회
+//        HospitalVO user = hospitalDao.selectHospitalPhone(hospital.getHo_phone());
+//        MemberVO memberPhone = memberDao.selectMemberPhone(member.getMe_phone());
+//
+//        // user가 null이 아니면 중복
+//        if(hospital.getHo_phone().equals(member.getMe_phone())){
+//            return user;
+//        }
+//        if (user != null || memberPhone != null) {
+//            return user;
+//        }
 
         return null;
     }
 	
 	@Override
 	public HospitalVO ajaxHospitalEmail(HospitalVO hospital, MemberVO member) {
-		if (hospital == null || hospital.getHo_email() == null || hospital.getHo_email().isEmpty()) {
-			return null;
-		}
-
-		// 입력된 아이디로 회원 조회
-		HospitalVO user = hospitalDao.selectHospitalEmail(hospital.getHo_email());
-		MemberVO memberEmail = memberDao.selectMemberEmail(member.getMe_email());
-		
-		if(user.equals(memberEmail)) {
-			return user;
-		}
-
-		// user가 null이 아니면 중복
-		if (user != null || memberEmail != null) {
-			return user;
-		}
+//		if (hospital == null || hospital.getHo_email() == null || hospital.getHo_email().isEmpty()) {
+//			return null;
+//		}
+//
+//		// 입력된 아이디로 회원 조회
+//		HospitalVO user = hospitalDao.selectHospitalEmail(hospital.getHo_email());
+//		MemberVO memberEmail = memberDao.selectMemberEmail(member.getMe_email());
+//		
+//		if(user.equals(memberEmail)) {
+//			return user;
+//		}
+//
+//		// user가 null이 아니면 중복
+//		if (user != null || memberEmail != null) {
+//			return user;
+//		}
 
 		return null;
 	}

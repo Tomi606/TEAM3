@@ -129,8 +129,7 @@ label {
 			<div class="subject">
 			<div class="hr" style="margin-top:30px; margin-bottom:40px; border: 1px solid #d2d2d2; width: 480px;"></div>
 				<select id="subject" name="ho_hs_num" style="width: 400px; margin-bottom: 20px" required>
-					<option value="none">관심 병원 과목을 선택하세요</option>
-					<option value="none">없음</option>
+					<option value="none">진료과목을 선택하세요</option>
 					<c:forEach items="${hospitalList}" var="hs">
 						<option value="${hs.hs_num}">${hs.hs_title}</option>
 					</c:forEach>

@@ -16,7 +16,14 @@ public class HospitalController {
 	 * 메서드 위에 주석으로 무슨 기능인지 쓰기
 	 */
 	
-	@GetMapping
+	@GetMapping("/hospital/mypage")//병원 마이페이지
+	public String hospitalMypage() {
+		
+		return "/hospital/mypage";
+	}
+	
+	
+	@GetMapping("/hospital/list")//병원리스트
 	public String hospitalList() {
 		
 		return "/hospital/list";
