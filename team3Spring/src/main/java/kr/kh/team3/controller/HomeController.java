@@ -247,8 +247,15 @@ public class HomeController {
 		HospitalVO ho = hospitalService.getHospital(user);
 		
 		if(ho.getHo_ms_state().equals("기간정지")) {
-			model.addAttribute("url", "/main/login");
-			model.addAttribute("msg", ho.getHo_stop() + " 기간 정지 회원입니다.");
+			//정지기간 지났으면 초기화 후 권한 변경
+			String res = hospitalService.hoStopCancel(ho);
+			if(res.equals("cancel")) {
+				model.addAttribute("url", "/main/login");
+				model.addAttribute("msg", "기간 정지가 해제되었습니다.");
+			}else if(res.equals("stop")){
+				model.addAttribute("url", "/main/login");
+				model.addAttribute("msg", ho.getHo_stop() + " 기간 정지 회원입니다.");
+			}
 		}
 		else if(ho.getHo_ms_state().equals("가입대기")) {
 			model.addAttribute("url", "/main/login");
