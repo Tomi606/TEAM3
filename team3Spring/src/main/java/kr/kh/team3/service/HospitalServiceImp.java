@@ -156,70 +156,45 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public HospitalVO ajaxHospitalId(HospitalVO hospital, MemberVO member) {
-		if(hospital == null || hospital.getHo_id() == null || hospital.getHo_id().isEmpty()) {
+	public SiteManagement ajaxHospitalId(SiteManagement site) {
+		if (site == null || site.getSite_id() == null || site.getSite_id().isEmpty()) {
 			return null;
 		}
 
-		// 입력된 아이디로 회원 조회
-		HospitalVO user = hospitalDao.selectHospital(hospital.getHo_id());
-		MemberVO memberId = memberDao.selectMember(member.getMe_id());
-		
-//		// user가 null이 아니면 중복
-//		if (user != null || user.equals(memberId)) {
-//			return user;
-//		}
-		
-		try {
-			if(!user.equals(hospital) || !memberId.equals(hospital)) {
-				return user;
-			}			
-		} catch(Exception e) {
-			e.printStackTrace();
+		SiteManagement stId = hospitalDao.selectSiteId(site.getSite_id());
+		if ( stId != null) {
+			return stId;
 		}
 
 		return null;
 	}
 	
 	@Override
-    public HospitalVO ajaxHospitalPhone(HospitalVO hospital, MemberVO member) {
-//        if (hospital == null || hospital.getHo_phone() == null || hospital.getHo_phone().isEmpty()) {
-//            return null;
-//        }
-//
-//        // 입력된 아이디로 회원 조회
-//        HospitalVO user = hospitalDao.selectHospitalPhone(hospital.getHo_phone());
-//        MemberVO memberPhone = memberDao.selectMemberPhone(member.getMe_phone());
-//
-//        // user가 null이 아니면 중복
-//        if(hospital.getHo_phone().equals(member.getMe_phone())){
-//            return user;
-//        }
-//        if (user != null || memberPhone != null) {
-//            return user;
-//        }
+    public SiteManagement ajaxHospitalPhone(SiteManagement site) {
+		if (site == null || site.getSite_id() == null || site.getSite_id().isEmpty()) {
+			return null;
+		}
+
+		SiteManagement stPhone = hospitalDao.selectSitePhone(site.getSite_phone());
+
+		if (stPhone != null) {
+			return stPhone;
+		}
 
         return null;
     }
 	
 	@Override
-	public HospitalVO ajaxHospitalEmail(HospitalVO hospital, MemberVO member) {
-//		if (hospital == null || hospital.getHo_email() == null || hospital.getHo_email().isEmpty()) {
-//			return null;
-//		}
-//
-//		// 입력된 아이디로 회원 조회
-//		HospitalVO user = hospitalDao.selectHospitalEmail(hospital.getHo_email());
-//		MemberVO memberEmail = memberDao.selectMemberEmail(member.getMe_email());
-//		
-//		if(user.equals(memberEmail)) {
-//			return user;
-//		}
-//
-//		// user가 null이 아니면 중복
-//		if (user != null || memberEmail != null) {
-//			return user;
-//		}
+	public SiteManagement ajaxHospitalEmail(SiteManagement site) {
+		if (site == null || site.getSite_id() == null || site.getSite_id().isEmpty()) {
+			return null;
+		}
+
+		SiteManagement stEmail = hospitalDao.selectSiteEmail(site.getSite_email());
+		
+		if(stEmail != null) {
+			return stEmail;
+		}
 
 		return null;
 	}

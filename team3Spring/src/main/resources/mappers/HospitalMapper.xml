@@ -10,12 +10,25 @@
 	</insert>
 	
 	<insert id="insertSiteHospital">
-		insert into site_management(site_la_num, site_id, site_authority)
-		value(1, #{st.site_id}, "USER")
+		insert into site_management(site_la_num, site_id, site_email, site_phone, site_authority)
+		value(1, #{st.site_id}, #{st.site_email}, #{st.site_phone}, "USER")
 	</insert>
 	
 	<select id="selectHospitalId" resultType="HospitalVO">
 		select * from hospital where ho_id = #{ho_id}
+	</select>
+	
+	<!-- site management 중복 확인 -->
+	<select id="selectSiteId" resultType="kr.kh.team3.model.vo.SiteManagement">
+		select * from site_management where site_id = #{site_id}
+	</select>
+	
+	<select id="selectSiteEmail" resultType="kr.kh.team3.model.vo.SiteManagement">
+		select * from site_management where site_email = #{site_email}
+	</select>
+	
+	<select id="selectSitePhone" resultType="kr.kh.team3.model.vo.SiteManagement">
+		select * from site_management where site_phone = #{site_phone}
 	</select>
 	
 	<!-- 정경호 : 과목 ㄱㄴㄷㄹ순으로 정렬을 위해 order by hs_title 추가 -->
