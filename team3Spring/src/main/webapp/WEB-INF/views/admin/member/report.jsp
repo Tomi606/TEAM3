@@ -109,7 +109,7 @@ function displayReportList(list){
 						<option value="60">60일</option>
 						<option value="365">365일</option>
 					</select>
-					<button type="button" class="btn-member-stop" data-stop="\${item.rp_target}">정지</button>
+					<button type="button" class="btn-member-stop" data-stop="\${item.member.me_id}">정지</button>
 				</td>
 				<td><button type="button" class="btn-member-del" data-del="\${item.member.me_id}">탈퇴</button></td>
 			</tr>
@@ -145,20 +145,22 @@ function displayReportPagination(pm) {
 }
 </script>
 
-<!-- 정지 버튼 : 정지하고 자동으로 정지풀리게 -->
+<!-- 정지 버튼 -->
 <script type="text/javascript">
 $(document).on('click', '.btn-member-stop', function() {
+	//정지 버튼의 바로 이전에 있는 형제 요소인 select태그 값 가져옴
 	var rp_rs_name = $(this).prev().val();
+	
 	if(rp_rs_name == "0") {
 		alert("정지일을 선택해주세요.");
 		return;
 	}
-	if(!confirm("정지 하겠습니까?")) {
+	if(!confirm("정지 하시겠습니까?")) {
 		return;
 	}
 	
 	let stop = {
-		rp_target : $(this).data('stop'),
+		rp_target : $(this).data('stop'), 
 		rp_rs_name : rp_rs_name
 	}
 	

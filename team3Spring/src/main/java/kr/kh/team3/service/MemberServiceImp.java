@@ -1,6 +1,8 @@
 package kr.kh.team3.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.mail.internet.MimeMessage;
 
@@ -238,9 +240,27 @@ public class MemberServiceImp implements MemberService {
 
 	@Override
 	public boolean stopMember(ReportVO report) {
-		if(report == null) {
+		LocalDate localdate = LocalDate.now();
+		Date now = java.sql.Date.valueOf(localdate);
+		if( report == null ||
+			report.getRp_rs_name() == null ||
+			report.getRp_rs_name().length() == 0) {
 			return false;
 		}
+		
+		//ReportVO객체의 rp_target을 넣어서 member 생성
+		MemberVO member = memberDao.selectMember(report.getRp_target());
+		//member의 정지기간이 null이면 
+		if(member.getMe_stop() == null) {
+			return memberDao.updateStopMember(report.getRp_target(), report.getRp_rs_name());			 
+		}
+		
+		//이미 정지기간이면 + 이미 있는 me_stop + 정지일
+		if(member.getMe_stop().after(now)) {
+			return memberDao.updatePlusStopMember(report.getRp_target(), report.getRp_rs_name());
+		}
+		
+		//ho_stop이 현재시간 이전이면 새데이터 넣기
 		return memberDao.updateStopMember(report.getRp_target(), report.getRp_rs_name());
 	}
 
