@@ -40,6 +40,8 @@ public class HomeController {
 	@GetMapping("/")
 	public String home() {
 		
+		
+		ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
 		return "home";
 	}
 	

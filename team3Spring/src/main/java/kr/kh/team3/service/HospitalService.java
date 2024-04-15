@@ -65,5 +65,7 @@ public interface HospitalService {
 
 	boolean hospitalStop(ReportVO report);
 
+	ArrayList<HospitalSubjectVO> selectSubject();
+
 
 }

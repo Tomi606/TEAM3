@@ -333,5 +333,10 @@ public class HospitalServiceImp implements HospitalService {
 		return hospitalDao.updateHospitalStop(report.getRp_target(), report.getRp_rs_name());
 	}
 
+	@Override
+	public ArrayList<HospitalSubjectVO> selectSubject() {
+		return hospitalDao.selectHospitalSubjectList();
+	}
+
 
 }
