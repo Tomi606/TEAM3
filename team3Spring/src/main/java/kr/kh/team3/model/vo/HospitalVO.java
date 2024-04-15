@@ -1,16 +1,18 @@
 package kr.kh.team3.model.vo;
 
-import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class HospitalVO implements Serializable{
+@JsonFormat
+public class HospitalVO {
 
-	private static final long serialVersionUID = 5178450285865368295L;
 	
 	private String ho_id;
 	private int ho_hs_num; //병원 검진과목 번호
@@ -31,4 +33,8 @@ public class HospitalVO implements Serializable{
 	private String ho_cookie;
 	private Date ho_cookie_limit;
 	
+	public String getChangeDate() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		return format.format(this.ho_stop);
+	}
 }

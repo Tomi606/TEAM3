@@ -77,7 +77,9 @@ function displayReportList(list){
 	}
 	for(item of list){
 		if(item.hospital != null){
-		
+			var date = item.hospital.ho_stop;
+			var date2 = date.toString();
+			console.log(date2);
 			str += 
 			`
 				<tr class="box-hospital">
@@ -87,7 +89,7 @@ function displayReportList(list){
 					<td>\${item.rp_name}</td>
 					<td>\${item.rp_name}</td>
 					<td>\${item.hospital.ho_report_count}</td>
-					<td>\${item.hospital.ho_stop}</td>
+					<td>\${item.hospital.changeDate}</td>
 					<td>
 						<select id="selectbox" data-gg="gg">
 							<option value="0">선택</option>

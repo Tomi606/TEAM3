@@ -254,7 +254,7 @@ public class HomeController {
 				model.addAttribute("msg", "기간 정지가 해제되었습니다.");
 			}else if(res.equals("stop")){
 				model.addAttribute("url", "/main/login");
-				model.addAttribute("msg", ho.getHo_stop() + " 기간 정지 회원입니다.");
+				model.addAttribute("msg", ho.getChangeDate() + " 기간 정지 회원입니다.");
 			}
 		}
 		else if(ho.getHo_ms_state().equals("가입대기")) {
