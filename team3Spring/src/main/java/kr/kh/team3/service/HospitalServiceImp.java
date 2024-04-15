@@ -156,47 +156,21 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public SiteManagement ajaxHospitalId(SiteManagement site) {
-		if (site == null || site.getSite_id() == null || site.getSite_id().isEmpty()) {
-			return null;
-		}
-
-		SiteManagement stId = hospitalDao.selectSiteId(site.getSite_id());
-		if ( stId != null) {
-			return stId;
-		}
-
-		return null;
+	public SiteManagement ajaxHospitalId(String site_id) {
+		
+		return hospitalDao.selectSiteId(site_id);
 	}
 	
 	@Override
-    public SiteManagement ajaxHospitalPhone(SiteManagement site) {
-		if (site == null || site.getSite_id() == null || site.getSite_id().isEmpty()) {
-			return null;
-		}
+    public SiteManagement ajaxHospitalPhone(String site_phone) {
 
-		SiteManagement stPhone = hospitalDao.selectSitePhone(site.getSite_phone());
-
-		if (stPhone != null) {
-			return stPhone;
-		}
-
-        return null;
+        return hospitalDao.selectHospitalPhone(site_phone);
     }
 	
 	@Override
-	public SiteManagement ajaxHospitalEmail(SiteManagement site) {
-		if (site == null || site.getSite_id() == null || site.getSite_id().isEmpty()) {
-			return null;
-		}
+	public SiteManagement ajaxHospitalEmail(String site_email) {
 
-		SiteManagement stEmail = hospitalDao.selectSiteEmail(site.getSite_email());
-		
-		if(stEmail != null) {
-			return stEmail;
-		}
-
-		return null;
+		return hospitalDao.selectHospitalEmail(site_email);
 	}
 
 	@Override

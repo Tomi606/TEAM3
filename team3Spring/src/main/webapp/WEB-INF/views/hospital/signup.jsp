@@ -82,7 +82,7 @@ label {
 			<div>
 				<img alt="아이디 이미지" src="<c:url value="/resources/img/ceo.svg"/>">
 				<input type="text" class="input-tag" id="id" name="site_id" maxlength="15" required autofocus="autofocus" placeholder="아이디"/>
-				<label class="text-danger textId" id="laId"></label>
+				<label class="itext text-danger textId" id="id-error"></label>
 			</div>
 			<div>
 		    	<input type="hidden" id="id2" name="ho_id">
@@ -101,7 +101,7 @@ label {
 				<img alt="이메일 이미지" src="<c:url value="/resources/img/email.svg"/>">
 				<input type="email" class="input-tag" id="email" name="site_email" maxlength="50" required autofocus="autofocus" placeholder="이메일"/>
 				<!-- 데이터 추가 후 풀기 <input type="email" class="input-tag" id="email" name="ho_email" readonly value="${email}"/> -->
-				<label id="email-error" class="error text-danger" for="email"></label>
+				<label id="email-error" class="etext error text-danger" for="email"></label>
 			</div>
 			<div>
 		    	<input type="hidden" id="email2" name="ho_email">
@@ -125,9 +125,9 @@ label {
 			</div>
 			<div>
 				<img alt="대표 전화번호 이미지" src="<c:url value="/resources/img/phone2.svg"/>">
-				<input type="text" class="input-tag" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="11"
+				<input type="text" class="input-tag" maxlength="11"
 				id="phone" name="site_phone" required autofocus="autofocus" placeholder="대표 전화번호('-'제외 최대 11자)"/>
-				<label id="phone-error" class="error text-danger" for="phone"></label>
+				<label id="phone-error" class="ptext error text-danger" for="phone"></label>
 			</div>
 			<div>
 		    	<input type="hidden" id="phone2" name="ho_phone">
@@ -216,8 +216,8 @@ $("form").validate({
 			equalTo : "비밀번호와 일치하지 않습니다."
 		},
 		ho_email : {
-			required : "",
-			email : ""
+			required : "이메일1",
+			email : "이메일2"
 		},
 		ho_name : {
 			required : "필수 항목입니다.",
@@ -254,14 +254,14 @@ $.validator.addMethod(
 )
 </script>
 
- <!-- 아이디 중복 검사 -->
-<script type="text/javascript">
+<!-- 아이디 중복 검사 -->
+<!-- <script type="text/javascript">
 function idCheckDup() {
 	//입력된 아이디를 가져옴
 	let site_id = $('[name=site_id]').val();
 	let obj = {
 		//id는 Controller에 @RequestParam("id")과 일치해야 함
-		//ho_id는 위의 let ho_id
+		//site_id는 위의 let site_id
 		id : site_id
 	}
 
@@ -276,11 +276,14 @@ function idCheckDup() {
 		success : function (data){
 			result = data.result;
 			if(!result) {
+				$('#id-error').text('사용 가능한 아이디입니다.');
 				$('#id-error').show();
+				result = true;
 			}
 			else {
 				$('#id-error').text('이미 사용중인 아이디입니다.');
 				$('#id-error').show();
+				result = false;
 			}
 			
 		}, 
@@ -293,18 +296,22 @@ function idCheckDup() {
 $('[name=site_id]').on('input', function() {
 	idCheckDup();
 });
+</script> -->
+
+<!-- 사이트 이메일 중복 -->
+<script type="text/javascript">
+	var hoEmail = document.getElementById("email").value;
+	document.getElementById("email2").value = hoEmail;
+	return true;
 </script>
 
+<!-- 사이트 폰번호 중복 -->
 <script type="text/javascript">
-var hoId = document.getElementById("email").value;
-document.getElementById("email2").value = hoId;
-return true;
+	var hoPhone = document.getElementById("phone").value;
+	document.getElementById("phone2").value = hoPhone;
+	return true;
 </script>
-<script type="text/javascript">
-var hoId = document.getElementById("phone").value;
-document.getElementById("phone2").value = hoId;
-return true;
-</script>
+
 <!-- 사이트 회원 관리 아이디 + 비번 일치 확인 -->
 <script type="text/javascript">
 function hoIdForm() {
@@ -380,39 +387,39 @@ $("[name=sgg_num]").click(function(){
 /* 읍면동 리스트 select로 띄우기 끝 */
 </script>
 
-<!-- 아이디,이메일 중복체크 ajax 정규표현식 적용 시키기-->
+<!-- 아이디, 이메일, 폰번호 중복체크 ajax 정규표현식 적용 시키기 -->
 <script type="text/javascript">
 $(document).ready(function() {
 	   var idCheck = false;
 	    $("#id").keyup(function() {
 	        var id = $("#id").val();
 	        if(id.length == 0 || id==""){
-	          $(".textId").text("아이디를 입력해주세요.");
+	          $(".itext").text("아이디를 입력해주세요.");
 	          return;
 	       }
 	        if (!/^\w{8,15}$/.test(id)) {
-	            $(".textId").text("영문 숫자 2가지 이상 조합 (8~15자)").css("color", "red");
+	            $(".itext").text("영문 숫자 2가지 이상 조합 (8~15자)").css("color", "red");
 	            return;
 	        }
 	        if (/[\u3131-\uD79D]/.test(id) || /[!@#$%^&*(),.?":{}|<>]/.test(id)) {
-	          $(".textId").text("한글이나 특수문자는 아이디로 사용할 수 없습니다.");
+	          $(".itext").text("한글이나 특수문자는 아이디로 사용할 수 없습니다.");
 	          return;
 	        }
 	        $.ajax({
 	            url: '<c:url value="/hospital/checkId"/>',
 	            type: "get",
-	            data: { site_id: id }, 
+	            data: {site_id : id}, 
 	            success: function(response) {
 	                if (response.hoIdCheck == null) {
-	                	        $(".textId").text("사용 가능한 아이디입니다.").css("color", " #C12DFF");
+	                	        $(".itext").text("사용 가능한 아이디입니다.").css("color", " #C12DFF");
 	                	        idCheck = true;
 	                	        setTimeout(function() {
-	                	            $(".textId").text("");
+	                	            $(".itext").text("");
 	                	        }, 2000);
 	                	        return;
 	                	
 	                	}else if(response.hoIdCheck != null && id.length >= 8){
-	                		$(".textId").text("이미 사용중인 아이디입니다.");
+	                		$(".itext").text("이미 사용중인 아이디입니다.");
 	                		idCheck = false;
 	                } 
 	            },
@@ -425,26 +432,26 @@ $(document).ready(function() {
 	    $("#phone").keyup(function() {
 	        var phone = $("#phone").val();
 	        if(phone.lenght == 0 || phone == "" ||phone.length != 11){
-	        	$("#idcheck-phone").text("휴대폰 번호를 입력하세요(11자)");
+	        	$(".ptext").text("휴대폰 번호를 입력하세요(11자)");
 	        	return;
 	        }
 	        
 	        $.ajax({
 	            url: '<c:url value="/hospital/checkPhone"/>',
 	            type: "get",
-	            data: { site_phone: phone }, 
+	            data: { site_phone: phone}, 
 	            success: function(response) {
 	                if (response.hoPhoneCheck == null) {
-	                	if(phone.length == 11){
-	                    $("#idcheck-phone").text("사용가능한 휴대폰 번호입니다.");
+	                	if(1<= phone.length <= 11){
+	                    $(".ptext").text("사용가능한 휴대폰 번호입니다.");
 	                    phoneCheck = true;
 	                    setTimeout(function() {
-	        	            $("#idcheck-phone").text("");
+	        	            $(".ptext").text("");
 	        	        }, 2000);
 	                    return;
 	                	}
-	                } else if(response.hoPhoneCheck != null||phone.length == 11){
-	                	 $("#idcheck-phone").text("이미 사용중인 휴대폰 번호입니다.");
+	                } else if(response.hoPhoneCheck != null || phone.length == 11){
+	                	 $(".ptext").text("이미 사용중인 휴대폰 번호입니다.");
 	               	 	phoneCheck = false;
 	                    return;
 	                }
@@ -473,7 +480,7 @@ $(document).ready(function() {
 	        $.ajax({
 	            url: '<c:url value="/hospital/checkEmail"/>',
 	            type: "get",
-	            data: { site_email: email }, 
+	            data: {site_email: email}, 
 	            success: function(response) {
 	                if (response.hoEmailCheck == null) {
 	                	if(email.length >= 12){
@@ -494,7 +501,7 @@ $(document).ready(function() {
 	            }
 	        }); // ajax end;
 	    });
-    $(".check").click(function(){
+   /*  $(".check").click(function(){
        if(!idCheck){
           alert("아이디 중복 확인을 해주세요.");
           $("#id").focus();
@@ -505,7 +512,7 @@ $(document).ready(function() {
           $("#email").focus();
           return false;
        }
-    });
+    }); */
 });
 </script>
 

@@ -164,15 +164,19 @@ public class HomeController {
 		return !hospitalRes || !siteRes;
 	}
 	
-	//사업자 회원가입 아이디 중복 체크
-	@ResponseBody
-	@GetMapping("/id/check/dup")
-	public Map<String, Object> idCheckDup(@RequestParam("id") String ho_id){
-		Map<String, Object> map = new HashMap<String, Object>();
-		HospitalVO res = hospitalService.idCheck(ho_id);
-		map.put("result", res);
-		return map;
-	}
+//	//사업자 회원가입 아이디 중복 체크
+//	@ResponseBody
+//	@GetMapping("/id/check/dup")
+//	public Map<String, Object> idCheckDup(@RequestParam("id") String ho_id){
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		HospitalVO res = hospitalService.idCheck(ho_id);
+//		map.put("result", res);
+//		return map;
+//	}
+	
+	
+	
+	
 	
 	//로그인 메인 페이지
 	@GetMapping("/main/login")
@@ -310,9 +314,9 @@ public class HomeController {
 	//사업자 회원가입 : 아이디 중복확인 ajax
 	@ResponseBody
 	@GetMapping("/hospital/checkId")
-	public HashMap<String, Object> ajaxHospitalId(SiteManagement site) {
+	public HashMap<String, Object> ajaxHospitalId(@RequestParam("site_id") String site_id) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		SiteManagement check = hospitalService.ajaxHospitalId(site);
+		SiteManagement check = hospitalService.ajaxHospitalId(site_id);
 		map.put("hoIdCheck", check);
 		return map;
 	}
@@ -320,9 +324,9 @@ public class HomeController {
 	//사업자 회원가입 : 이메일 중복확인 ajax
 	@ResponseBody
 	@GetMapping("/hospital/checkEmail")
-	public HashMap<String, Object> ajaxCheckEmail(SiteManagement site) {
+	public HashMap<String, Object> ajaxCheckEmail(@RequestParam("site_email") String site_email) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		SiteManagement check = hospitalService.ajaxHospitalEmail(site);
+		SiteManagement check = hospitalService.ajaxHospitalEmail(site_email);
 		map.put("hoEmailCheck", check);
 		return map;
 	}
@@ -330,9 +334,9 @@ public class HomeController {
 	//사업자 회원가입 : 폰번호 중복확인 ajax
 	@ResponseBody
 	@GetMapping("/hospital/checkPhone")
-	public HashMap<String, Object> ajaxCheckPhone(SiteManagement site) {
+	public HashMap<String, Object> ajaxCheckPhone(@RequestParam("site_phone") String site_phone) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		SiteManagement check = hospitalService.ajaxHospitalPhone(site);
+		SiteManagement check = hospitalService.ajaxHospitalPhone(site_phone);
 		map.put("hoPhoneCheck", check);
 		return map;
 	}
