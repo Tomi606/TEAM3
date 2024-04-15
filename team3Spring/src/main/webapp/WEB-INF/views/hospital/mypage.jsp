@@ -71,8 +71,13 @@ img {
 label {
 	margin-left: 30px;
 }
+.program{
+width: 500px;height: 300px;border: 1px solid black;
 
+}
  
+ .hos_my_page_inner{width: 100%; display:flex; flex-wrap: wrap;}
+ .program_check_wrap{display: grid; grid-template-columns: 1fr 1fr; grid-gap: 20px;}
 </style>
 
 </head>
@@ -80,55 +85,73 @@ label {
 <div class="body-tag">
 
 		<div class="input-box">
-			<div>
-				<h1>병원 마이페이지입니다.</h1>
-				<img alt="아이디 이미지" src="<c:url value="/resources/img/ceo.svg"/>">
-				<input type="text" class="input-tag" id="id" name="ho_id"  readonly="readonly"/>
-				<label class="text-danger textId" id="laId"></label>
+		<div class="hos_my_page_inner">
+			<div class="hos_my_page_input_wrap">
+				<div>
+					<h1>병원 마이페이지입니다.</h1>
+					<img alt="아이디 이미지" src="<c:url value="/resources/img/ceo.svg"/>">
+					<input type="text" class="input-tag" id="id" name="ho_id"  readonly="readonly"/>
+					<label class="text-danger textId" id="laId"></label>
+				</div>
+				<div>
+			    	<input type="hidden" id="id2" name="site_id">
+				</div>
+				<div>
+					<img alt="비번 이미지" src="<c:url value="/resources/img/password.svg"/>">
+					<input type="password" class="input-tag" id="pw" name="ho_pw"  readonly="readonly"/>
+					<label id="pw-error" class="error text-danger" for="pw"></label>
+				</div>
+				<div>
+					<img alt="비번확인 이미지" src="<c:url value="/resources/img/passwordcheck.svg"/>">
+					<input type="password" class="input-tag" id="pw2" name="ho_pw2" readonly="readonly"/>
+					<label id="pw2-error" class="error text-danger" for="pw2"></label>
+				</div>
+				<div>
+					<img alt="이메일 이미지" src="<c:url value="/resources/img/email.svg"/>">
+					<input type="email" class="input-tag" id="email" name="ho_email" readonly="readonly"/>
+					<!-- 데이터 추가 후 풀기 <input type="email" class="input-tag" id="email" name="ho_email" readonly value="${email}"/> -->
+					<label id="email-error" class="error text-danger" for="email"></label>
+				</div>
+				<div>
+					<img alt="상호명 이미지" src="<c:url value="/resources/img/quote.svg"/>">
+					<input type="text" class="input-tag" id="name" name="ho_name" readonly="readonly"/>
+					<label id="name-error" class="error text-danger" for="name"></label>
+				</div>
+				<div>
+					<img alt="대표자명 이미지" src="<c:url value="/resources/img/user.svg"/>">
+					<input type="text" class="input-tag" id="ceo" name="ho_ceo" readonly="readonly"/>
+					<label id="ceo-error" class="error text-danger" for="ceo"></label>
+				</div>
+				<div>
+					<img alt="사업자번호 이미지" src="<c:url value="/resources/img/job.svg"/>">
+					<input type="text" class="input-tag" id="num" name="ho_num" readonly="readonly"/>
+					<label id="num-error" class="error text-danger" for="num"></label>
+				</div>
+				<div>
+					<img alt="대표 전화번호 이미지" src="<c:url value="/resources/img/phone2.svg"/>">
+					<input type="text" class="input-tag" id="phone" name="ho_phone"readonly="readonly"/>
+					<label id="phone-error" class="error text-danger" for="phone"></label>
+				</div>
+				
 			</div>
-			<div>
-		    	<input type="hidden" id="id2" name="site_id">
+				
+				
+			<div class="program_check_wrap">
+				<div class="program">
+					<a href="#">프로그램 관리</a>
+					
+				</div>
+				<div class="program">
+					<a href="#">예약 관리</a>
+				</div>
+				<div class="program">
+				 
+				</div>
+				<div class="program">
+				
+				</div>
 			</div>
-			<div>
-				<img alt="비번 이미지" src="<c:url value="/resources/img/password.svg"/>">
-				<input type="password" class="input-tag" id="pw" name="ho_pw"  readonly="readonly"/>
-				<label id="pw-error" class="error text-danger" for="pw"></label>
-			</div>
-			<div>
-				<img alt="비번확인 이미지" src="<c:url value="/resources/img/passwordcheck.svg"/>">
-				<input type="password" class="input-tag" id="pw2" name="ho_pw2" readonly="readonly"/>
-				<label id="pw2-error" class="error text-danger" for="pw2"></label>
-			</div>
-			<div>
-				<img alt="이메일 이미지" src="<c:url value="/resources/img/email.svg"/>">
-				<input type="email" class="input-tag" id="email" name="ho_email" readonly="readonly"/>
-				<!-- 데이터 추가 후 풀기 <input type="email" class="input-tag" id="email" name="ho_email" readonly value="${email}"/> -->
-				<label id="email-error" class="error text-danger" for="email"></label>
-			</div>
-			<div>
-				<img alt="상호명 이미지" src="<c:url value="/resources/img/quote.svg"/>">
-				<input type="text" class="input-tag" id="name" name="ho_name" readonly="readonly"/>
-				<label id="name-error" class="error text-danger" for="name"></label>
-			</div>
-			<div>
-				<img alt="대표자명 이미지" src="<c:url value="/resources/img/user.svg"/>">
-				<input type="text" class="input-tag" id="ceo" name="ho_ceo" readonly="readonly"/>
-				<label id="ceo-error" class="error text-danger" for="ceo"></label>
-			</div>
-			<div>
-				<img alt="사업자번호 이미지" src="<c:url value="/resources/img/job.svg"/>">
-				<input type="text" class="input-tag" id="num" name="ho_num" readonly="readonly"/>
-				<label id="num-error" class="error text-danger" for="num"></label>
-			</div>
-			<div>
-				<img alt="대표 전화번호 이미지" src="<c:url value="/resources/img/phone2.svg"/>">
-				<input type="text" class="input-tag" id="phone" name="ho_phone"readonly="readonly"/>
-				<label id="phone-error" class="error text-danger" for="phone"></label>
-			</div>
-			<div class="prgram">
-				<a href="#">프로그램등록</a>
-				<a href="#">예약확인</a>
-			</div>
+		</div>
 			
 			
 			<div class="subject">
