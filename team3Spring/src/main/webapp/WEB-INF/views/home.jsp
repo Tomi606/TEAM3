@@ -439,6 +439,10 @@ margin:10;
 display: flex;
 
 }
+.category{
+height:35px;width:100%;background-color: #fafafa;
+
+}
 </style>
 </head>
 <body>
@@ -485,6 +489,12 @@ display: flex;
 			</div>
 			<div class="공백"></div>
 		</div>
+		<div class="category">
+		
+		
+		
+		
+		</div>
 		<div class="main-area">
 			<div class="search-main-left"></div>
 			<div class="main-search-area">
@@ -512,6 +522,7 @@ display: flex;
 			<div class="search-main-right"></div>
 		</div>
 	</div>
+	
 	<div class="홈">
 		<div class="홈왼쪽"></div>
 		<div class="여기부터내용">

@@ -35,15 +35,14 @@ public interface HospitalService {
 	HospitalVO getHospitalId(HospitalVO hospital);
 
 	void setLoginFail(String ho_id);
-
+	
 	HospitalVO ajaxHospitalId(HospitalVO hospital, MemberVO member);
 
 	HospitalVO ajaxHospitalEmail(HospitalVO hospital, MemberVO member);
 
-	String ctfEmail(String email);
-
 	HospitalVO ajaxHospitalPhone(HospitalVO hospital,MemberVO member);
 
+	String ctfEmail(String email);
 	//정경호 이용중인 회원만 가져오는 메서드
 	ArrayList<HospitalVO> hospitalList(Criteria cri);
 	//관리자 병원 관리 =========================================================
@@ -64,6 +63,8 @@ public interface HospitalService {
 	boolean hospitalOut(HospitalVO hospital);
 
 	boolean hospitalStop(ReportVO report);
+
+	ArrayList<HospitalSubjectVO> selectSubject();
 
 
 }
