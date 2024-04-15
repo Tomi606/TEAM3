@@ -176,14 +176,16 @@ width: 500px;height: 300px;border: 1px solid black;
 			</div>
 			<div class="program_check_wrap">
 				<div class="program">
-					<a href="#">프로그램 관리</a>
-					
+				1
+					<a href="#">예약관리</a>
 				</div>
 				<div class="program">
-					<a href="#">예약 관리</a>
+				2
+					<a href="#">커뮤니티 관리</a>
 				</div>
 				<div class="program">
-				 	<a href="#">병원 상세 페이지 수정</a>
+				3
+				 	<a href="#">북마크</a>
 				</div>
 				<div class="program">
 				

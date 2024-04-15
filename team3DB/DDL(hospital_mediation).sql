@@ -146,6 +146,7 @@ CREATE TABLE `hospital` (
 	`ho_name`	varchar(50)	NOT NULL,
 	`ho_ceo`	varchar(5)	NOT NULL,
 	`ho_num`	char(10) NOT NULL,
+	`ho_fail`	int NOT NULL default 0,
 	`ho_address`	varchar(100) NOT NULL,
 	`ho_phone`	char(11) NOT NULL,
 	`ho_authority`	varchar(10) NOT NULL,
@@ -496,7 +497,7 @@ values('내과'), ('외과'),('안과'),('소아과'),('정형외과'), ('이비
 insert into land value(1,1);
 
 # 신고 상태
-insert into report_state values('1일정지'),('3일정지'),('7일정지'),('15일정지'),('30일정지'),('60일정지'),('180일정지'),('365일정지');
+insert into report_stahospitalte values('1일정지'),('3일정지'),('7일정지'),('15일정지'),('30일정지'),('60일정지'),('180일정지'),('365일정지');
 
 # site_management 추가
 insert into site_management value(1, 1, 'qqqq1111', "USER");
