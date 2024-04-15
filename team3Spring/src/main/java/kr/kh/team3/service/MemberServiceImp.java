@@ -147,12 +147,12 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public MemberVO getMemberEmail(MemberVO member) {
-		if (member == null || member.getMe_email() == null || member.getMe_email().isEmpty()) {
+	public SiteManagement getMemberEmail(SiteManagement site) {
+		if (site == null || site.getSite_email() == null || site.getSite_email().isEmpty()) {
 			return null;
 		}
 		// 입력된 이메일로 회원 조회
-		MemberVO user = memberDao.selectMemberEmail(member.getMe_email());
+		SiteManagement user = memberDao.selectMemberEmail(site.getSite_email());
 		// user가 null이 아니면 중복
 		if (user != null) {
 			return user;
@@ -162,12 +162,12 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public MemberVO getMemberPhone(MemberVO member) {
-		if (member == null || member.getMe_phone() == null || member.getMe_phone().isEmpty()) {
+	public SiteManagement getMemberPhone(SiteManagement site) {
+		if (site == null || site.getSite_phone() == null || site.getSite_phone().isEmpty()) {
 			return null;
 		}
 		// 입력된 폰번호로 회원 조회
-		MemberVO user = memberDao.selectMemberPhone(member.getMe_phone());
+		SiteManagement user = memberDao.selectMemberPhone(site.getSite_phone());
 		// user가 null이 아니면 중복
 		if (user != null) {
 			return user;
@@ -228,5 +228,6 @@ public class MemberServiceImp implements MemberService {
 		}
 		return memberDao.updateStopMember(report.getRp_target(), report.getRp_rs_name());
 	}
+
 	
 }

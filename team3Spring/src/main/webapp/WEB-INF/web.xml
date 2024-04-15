@@ -38,13 +38,6 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
-	<servlet-mapping>
-		<servlet-name>default</servlet-name>
-		<url-pattern>*.jpg</url-pattern>
-		<url-pattern>*.png</url-pattern>
-		<url-pattern>*.svg</url-pattern>
-	</servlet-mapping>
-
 	<!-- 인코딩 코드 추가 정경호 -->
 	<filter>
 		<filter-name>encoding</filter-name>
