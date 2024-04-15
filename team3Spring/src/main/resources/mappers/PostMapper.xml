@@ -25,4 +25,8 @@
 	<select id="selectPostTotalCount" resultType="int">
 		select count(*) from post where po_bo_num = #{bo_num}
 	</select>
+	
+	<delete id="deletePost">
+		delete from post where po_num = #{post.po_num}
+	</delete>
 </mapper>

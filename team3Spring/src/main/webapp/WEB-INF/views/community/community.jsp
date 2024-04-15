@@ -59,7 +59,6 @@ text-align: center;
 <body>
 
 <div class="board-post-box">
-
 	<div class="board-box">
 		<div class="input-group mb-3">
 			<select name="type" class="form-control">
@@ -89,6 +88,7 @@ text-align: center;
 				</ul>
 			</div>
 			<div class="delete-box">
+			
 			</div>
 				
 		</div>
@@ -96,6 +96,38 @@ text-align: center;
 </div>
 <div class="hr" style="margin-top:30px;margin-bottom:40px;border: 1px solid #d2d2d2;width: 1500px; margin: 0 auto"></div>
 
+<div class="board-post-box">
+	<div class="board-box">
+		<div class="input-group mb-3">
+			<select name="type" class="form-control">
+				<c:forEach items="${list}" var="list">
+					<option value="${list.bo_num}">${list.bo_title }</option>
+				</c:forEach>
+			</select>
+		</div>
+	</div>
+		
+	<div class="post-box">
+		<div class="input-group mb-3">
+			<table class="table table-striped">
+				<thead class="postthead">
+					
+				</thead>
+				<tbody class="posttbody">
+					
+				</tbody>
+			</table>
+			<div class="box-comment-pagination">
+				<ul class="pagination justify-content-center">
+					
+				</ul>
+			</div>
+			<div class="delete-box">
+			
+			</div>
+		</div>
+	</div>
+</div>
 
 <script type="text/javascript">
 
@@ -119,7 +151,8 @@ $('.delete-btn').click(function(){
 
 
 //지우지마시오!!!
-let page = 1;//지우지 마시오!!!
+let postpage = 1;//지우지 마시오!!!
+let commentpage=1//지우지 마시오!!!
 //지우지마시오!!!
 
 //게시글을 불러와서 페이지에 출력하는 함수
@@ -131,28 +164,31 @@ function displayPostAndPagination(){
 		url : '<c:url value="/post"/>',
 		method : 'get',
 		data : {"bo_num" : bo_num,
-			"page" : page},
+			"page" : postpage},
 		success : function(data){
 			displayPost(data.list);
-			displayCommentPagination(data.pm);
+			displayPostPagination(data.pm);
 		}
 	});
 }
 
+
+let previous_po_num = null; // 이전 po_num 값을 저장하기 위한 변수
 //댓글을 불러와서 페이지에 출력하는 함수
 function displayCommentAndPagination(po_num){
-	//ajax를 이용해서 서버에 현재 댓글 페이지 정보를 보내고, 
-	//서버에서 보낸 댓글 리스트와 페이지네이션 정보를 받아와서 화면에 출력
-	page = 1;
+	 // po_num 값이 이전 값과 다를 경우에만 page 값을 초기화합니다.
+    if (po_num !== previous_po_num) {
+    	commentpage = 1; // po_num이 변경되면 page 값을 1로 초기화합니다.
+        previous_po_num = po_num; // 현재 po_num 값을 이전 값으로 업데이트합니다.
+    }
 	$.ajax({
 		url : '<c:url value="/comment"/>',
 		method : 'post',
 		data : {"po_num" : po_num,
-			"page" : page},
+			"page" : commentpage},
 		success : function(data){
-			console.log(data)
-			//displayPost(data.list);
-			//displayCommentPagination(data.pm);aker pm = new PageMaker(3, cri, totalCount);
+			displayComment(data.list);
+			displayCommentPagination(data.pm, po_num);
 		}
 	});
 }
@@ -170,16 +206,54 @@ $(document).on('click', '.post-delete-btn', function(){
     } 
 });
 
-/* 댓글 조회 메서드 */
-$(document).on('click', '.post-select-btn', function(){
-    let po_num = prompt("댓글을 조회화고 싶은 게시글 번호를 입력하세요:");
-    if(po_num == null){
+/* 댓글 삭제 메서드 */
+$(document).on('click', '.comment-delete-btn', function(){
+    let co_num = prompt("삭제하고 싶은 댓글의 번호를 입력하세요:");
+    let queryParams = "co_num=" + co_num;
+    if(co_num == null){
         return;
     } else {
-    	displayCommentAndPagination(po_num);
+        let url = '<c:url value="/comment/delete"/>' + '?' + queryParams;    
+        location.href = url;
     } 
 });
 
+
+//게시글 링크 클릭 시 댓글 조회 함수 호출
+$(document).on("click", ".comment-link", function(e){
+    e.preventDefault(); // 링크 기본 동작 중단
+    let po_num = $(this).data("po-num");
+    displayCommentAndPagination(po_num);
+});
+
+function displayComment(CommentList){
+	/* 게시판이 바뀔떄마다 그 게시판에 맞는 게시글을 가지고 옴 */
+		let str = ``;
+		let str2 = 
+			`
+				<tr>
+					<th>번호</th>
+					<th>내용</th>
+					<th>작성자</th>
+					<th>신고 횟수</th>
+				</tr>
+			`;
+		$('.postthead').html(str2);
+		for(let tmp of CommentList){
+			str+=
+				`
+				<tr>
+					<td>\${tmp.co_num}</td>
+					<td>\${tmp.co_content}</td>
+					<td>\${tmp.sitemanagement.site_id}</td>
+					<td>\${tmp.co_report_count}</td>
+				</tr>
+				`
+		}
+		$('.posttbody').html(str);	
+		$('.delete-box').empty(); // 기존 내용을 지우고 새로운 내용을 추가합니다.
+		$('.delete-box').append('<a class="btn comment-delete-btn">댓글 삭제</a>');
+}
 
 function displayPost(postList){
 	/* 게시판이 바뀔떄마다 그 게시판에 맞는 게시글을 가지고 옴 */
@@ -198,7 +272,7 @@ function displayPost(postList){
 			str+=
 				`
 				<tr>
-					<td>\${tmp.po_num}</td>
+					<td><a href="#" class="comment-link" data-po-num="\${tmp.po_num}">\${tmp.po_num}</a	></td>
 					<td>\${tmp.po_title}</td>
 					<td>\${tmp.sitemanagement.site_id}</td>
 					<td>\${tmp.po_report_count}</td>
@@ -208,17 +282,16 @@ function displayPost(postList){
 		$('.posttbody').html(str);	
 		$('.delete-box').empty(); // 기존 내용을 지우고 새로운 내용을 추가합니다.
 		$('.delete-box').append('<a class="btn post-delete-btn">게시글 삭제</a>');
-		$('.delete-box').append('<a class="btn post-select-btn">댓글 조회</a>');
 }
 
 //페이지네이션이 주어지면 댓글 페이지네이션을 화면에 출력하는 함수
-function displayCommentPagination(pm){
+function displayPostPagination(pm){
 	let str = '';
 	//이전 버튼 활성화
 	if(pm.prev){
 		str += `
 		<li class="page-item">
-			<a class="page-link" href="javascript:void(0);" data-page="\${pm.startPage-1}">이전</a>
+			<a class="page-link post-page-link" href="javascript:void(0);" data-page="\${pm.startPage-1}">이전</a>
 		</li>`;
 	}
 	
@@ -226,14 +299,42 @@ function displayCommentPagination(pm){
 		let active = pm.cri.page == i ? "active" : "";
 		str += 
 		`<li class="page-item \${active}">
-			<a class="page-link" href="javascript:void(0);" data-page="\${i}">\${i}</a>
+			<a class="page-link post-page-link" href="javascript:void(0);" data-page="\${i}">\${i}</a>
 		</li>`
 	}
 	
 	if(pm.next){
 		str += `
 		<li class="page-item">
-			<a class="page-link" href="javascript:void(0);" data-page="\${pm.endPage+1}">다음</a>
+			<a class="page-link post-page-link" href="javascript:void(0);" data-page="\${pm.endPage+1}">다음</a>
+		</li>`;
+	}
+	$(".box-comment-pagination>ul").html(str);
+}
+
+//페이지네이션이 주어지면 댓글 페이지네이션을 화면에 출력하는 함수
+function displayCommentPagination(pm, po_num){
+	let str = '';
+	//이전 버튼 활성화
+	if(pm.prev){
+		str += `
+		<li class="page-item">
+			<a class="page-link comment-page-link" href="javascript:void(0);" data-page="\${pm.startPage-1}">이전</a>
+		</li>`;
+	}
+	
+	for(i = pm.startPage; i<= pm.endPage; i++){
+		let active = pm.cri.page == i ? "active" : "";
+		str += 
+		`<li class="page-item \${active}">
+			<a class="page-link comment-page-link" href="javascript:void(0);" data-page="\${i}" data-po-num="\${po_num}">\${i}</a>
+		</li>`
+	}
+	
+	if(pm.next){
+		str += `
+		<li class="page-item">
+			<a class="page-link comment-page-link" href="javascript:void(0);" data-page="\${pm.endPage+1}">다음</a>
 		</li>`;
 	}
 	$(".box-comment-pagination>ul").html(str);
@@ -244,12 +345,17 @@ $('[name=type]').click(function(){
 })
 
 //페이지 클릭 이벤트
-$(document).on("click",".box-comment-pagination .page-link", function(){
-	page = $(this).data("page");
-	displayPostAndPagination(page);
+$(document).on("click",".box-comment-pagination .post-page-link", function(){
+	postpage = $(this).data("page");
+	displayPostAndPagination(postpage);
 });
 
-
+//페이지 클릭 이벤트
+$(document).on("click",".box-comment-pagination .comment-page-link", function(){
+	commentpage = $(this).data("page");
+	let po_num = $(this).data("po-num");
+	displayCommentAndPagination(po_num, commentpage);
+});
 </script>
 </body>
 </html>

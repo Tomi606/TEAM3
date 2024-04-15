@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.team3.model.vo.BoardVO;
+import kr.kh.team3.model.vo.CommentVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.PostVO;
@@ -310,27 +311,45 @@ public class AdminController {
 		}
 		
 		@GetMapping("/post/delete")
-		public Map<String, Object> postdelete(int po_bo_num, String po_num) {
-			Map<String, Object> map = new HashMap<String, Object>();
+		public String postdelete(Model model, int po_bo_num, String po_num) {
 			int po_num1 = Integer.parseInt(po_num);
-			PostVO post = new PostVO(po_bo_num, po_num1);
-			System.out.println(post);
-			return map;
+			PostVO post = new PostVO(po_num1, po_bo_num);
+			boolean res = postService.deletePost(post);
+			if (res) {
+				model.addAttribute("msg","게시글 삭제를 완료했습니다.");
+				model.addAttribute("url","/community");
+			}else {
+				model.addAttribute("msg","게시글 삭제에 실패 했습니다.");
+				model.addAttribute("url","/community");
+			}
+			return "message";
 		}
 		
 		@ResponseBody
 		@PostMapping("/comment")
 		public Map<String, Object> CommentPost(@RequestParam("po_num") int po_num, @RequestParam("page") int page) {
 			Map<String, Object> map = new HashMap<String, Object>();
-			System.out.println(po_num);
-			System.out.println(page);
 			Criteria cri = new Criteria(page, 2);
 			int totalCount = commentService.getCommentCount(cri, po_num);
-			//ArrayList<PostVO> list = commentService.getCommentByPostList(cri, po_num);
+			ArrayList<CommentVO> list = commentService.getCommentByPostList(cri, po_num);
 			PageMaker pm = new PageMaker(3, cri, totalCount);
-			//map.put("list", list);
+			map.put("list", list);
 			map.put("pm", pm);
 			return map;
+		}
+		
+		@GetMapping("/comment/delete")
+		public String CommentDelete(Model model, int co_num) {
+			CommentVO comment = new CommentVO(co_num);
+			boolean res = commentService.deleteComment(comment);
+			if (res) {
+				model.addAttribute("msg","댓글 삭제를 완료했습니다.");
+				model.addAttribute("url","/community");
+			}else {
+				model.addAttribute("msg","댓글 삭제에 실패 했습니다.");
+				model.addAttribute("url","/community");
+			}
+			return "message";
 		}
 		// ======================== 게시글 관리 끝 ==========================
 }

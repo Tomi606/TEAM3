@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.team3.dao.CommentDAO">
+
+		<resultMap type="kr.kh.team3.model.vo.CommentVO" id="CommentMap">
+			<id property="co_num" column="co_num"/>
+			<result property="co_content" column="co_content"/>
+			<result property="co_date" column = "co_date"/>
+			<result property="co_report_count" column="co_report_count"/>
+			<result property="co_po_num" column="co_po_num"/>		
+			<result property="co_mg_num" column="co_mg_num"/>
+			<collection property="sitemanagement" ofType="kr.kh.team3.model.vo.SiteManagement"
+				column="co_mg_num" select="selectCommentSiteManagement"/>
+		</resultMap>
+
+		<select id="selectCommentList" resultMap="CommentMap">
+			select * from comment where co_po_num = #{po_num} and co_report_count >= 1 order by co_num limit #{cri.pageStart}, #{cri.perPageNum}
+		</select>
+		
+		<select id="selectCommentSiteManagement" resultType="kr.kh.team3.model.vo.SiteManagement">
+				select * from site_management where site_num = #{co_mg_num}
+		</select>
+		
+		<select id="selectCommentTotalCount" resultType="int">
+				select count(*) from comment where co_po_num = #{po_num}
+		</select>
+		
+		<delete id="deleteComment">
+			delete from comment where co_num = #{comment.co_num};
+		</delete>
+</mapper>

@@ -29,4 +29,13 @@ public class PostServiceImp implements PostService{
 		// TODO Auto-generated method stub
 		return postDao.selectPostTotalCount(cri, bo_num);
 	}
+
+	@Override
+	public boolean deletePost(PostVO post) {
+		if(post.getPo_num() == 0) {
+				return false;
+			}
+			
+		return postDao.deletePost(post);
+	}
 }

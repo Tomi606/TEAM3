@@ -14,4 +14,10 @@ public class CommentVO {
 	private int co_report_count;
 	private int co_po_num;
 	private int co_mg_num;
+	private SiteManagement sitemanagement;
+
+	
+	public CommentVO(int co_num) {
+		this.co_num = co_num;
+	}
 }

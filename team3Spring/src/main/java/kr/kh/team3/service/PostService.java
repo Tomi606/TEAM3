@@ -11,4 +11,6 @@ public interface PostService {
 
 	int getPostCount(Criteria cri, int bo_num);
 
+	boolean deletePost(PostVO post);
+
 }
