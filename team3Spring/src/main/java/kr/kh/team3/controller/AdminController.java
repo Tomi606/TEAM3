@@ -351,5 +351,18 @@ public class AdminController {
 			}
 			return "message";
 		}
+		
+		@ResponseBody
+		@GetMapping("/post/declaration")
+		public Map<String, Object> postnodeclaration(@RequestParam("bo_num") int bo_num, @RequestParam("page") int page) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			Criteria cri = new Criteria(page, 2);
+			int totalCount = postService.getPostCount(cri, bo_num);
+			ArrayList<PostVO> list = postService.getPostList(cri, bo_num);
+			PageMaker pm = new PageMaker(3, cri, totalCount);
+			map.put("list", list);
+			map.put("pm", pm);
+			return map;
+		}
 		// ======================== 게시글 관리 끝 ==========================
 }

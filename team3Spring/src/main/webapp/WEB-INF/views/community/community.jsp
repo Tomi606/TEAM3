@@ -42,6 +42,14 @@
     transform: translateX(-50%); /* 가운데 정렬을 위해 왼쪽 위치를 현재 요소의 가로 크기의 반만큼 왼쪽으로 이동 */
     margin-top: 20px;
 }
+
+.box-comment-pagination2 {
+    position: absolute; /* 절대적 위치 설정 */
+    bottom: 10px; /* 하단 여백 조절 */
+    left: 50%; /* 가운데 정렬을 위해 왼쪽 위치를 50%로 설정 */
+    transform: translateX(-50%); /* 가운데 정렬을 위해 왼쪽 위치를 현재 요소의 가로 크기의 반만큼 왼쪽으로 이동 */
+    margin-top: 20px;
+}
 .delete-box{
 	margin-top: 20px;
 }
@@ -94,12 +102,13 @@ text-align: center;
 		</div>
 	</div>
 </div>
+
 <div class="hr" style="margin-top:30px;margin-bottom:40px;border: 1px solid #d2d2d2;width: 1500px; margin: 0 auto"></div>
 
 <div class="board-post-box">
 	<div class="board-box">
 		<div class="input-group mb-3">
-			<select name="type" class="form-control">
+			<select name="type2" class="form-control">
 				<c:forEach items="${list}" var="list">
 					<option value="${list.bo_num}">${list.bo_title }</option>
 				</c:forEach>
@@ -110,20 +119,22 @@ text-align: center;
 	<div class="post-box">
 		<div class="input-group mb-3">
 			<table class="table table-striped">
-				<thead class="postthead">
-					
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>작성일</th>
+					</tr>
 				</thead>
-				<tbody class="posttbody">
-					
+				<tbody class="postNo">
+				
 				</tbody>
 			</table>
-			<div class="box-comment-pagination">
-				<ul class="pagination justify-content-center">
-					
+			<div class="box-comment-pagination2">
+				<ul class="page-group">
+
 				</ul>
-			</div>
-			<div class="delete-box">
-			
 			</div>
 		</div>
 	</div>
@@ -148,7 +159,36 @@ $('.delete-btn').click(function(){
     location.href = url;
 });
 
+$("[name=type2]").click(function(){
+	let bo_num = $("[name=type]").val();
+	$.ajax({
+		url : '<c:url value="/post/declaration"/>',
+		method : 'get',
+		data : {"bo_num" : bo_num,
+			"page" : postpage},
+		success : function(data){
+			displayPostNoDeclaration(data.list);
+			displayPostPagination(data.pm);
+		}
+	});
+})
 
+function displayPostNoDeclaration(postList){
+		let str = ``;
+		for(let tmp of postList){
+			str+=
+				`
+					<tr>
+						<td>\${tmp.po_num}</td>
+						<td>\${tmp.po_title}</td>
+						<td>\${tmp.sitemanagement.site_id}</td>
+						<td>\${tmp.po_date}</td>
+					</tr>
+				`
+		}
+		$('.postNo').html(str);	
+		$('.delete-box').empty(); // 기존 내용을 지우고 새로운 내용을 추가합니다.
+}
 
 //지우지마시오!!!
 let postpage = 1;//지우지 마시오!!!
