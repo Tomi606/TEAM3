@@ -18,19 +18,6 @@
 		select * from hospital where ho_id = #{ho_id}
 	</select>
 	
-	<!-- site management 중복 확인 -->
-	<select id="selectSiteId" resultType="kr.kh.team3.model.vo.SiteManagement">
-		select * from site_management where site_id = #{site_id}
-	</select>
-	
-	<select id="selectSiteEmail" resultType="kr.kh.team3.model.vo.SiteManagement">
-		select * from site_management where site_email = #{site_email}
-	</select>
-	
-	<select id="selectSitePhone" resultType="kr.kh.team3.model.vo.SiteManagement">
-		select * from site_management where site_phone = #{site_phone}
-	</select>
-	
 	<!-- 정경호 : 과목 ㄱㄴㄷㄹ순으로 정렬을 위해 order by hs_title 추가 -->
 	<select id="selectHospitalSubjectList" resultType="HospitalSubjectVO">
 		select * from hospital_subject order by hs_title
@@ -71,12 +58,17 @@
 		WHERE ho_id = #{ho_id}
 	</update>
 	
-	<select id="selectHospitalEmail" resultType="HospitalVO">
-		select * from hospital where ho_email = #{ho_email}
+	<!-- 사이트 매니지먼트 아이디, 이메일, 폰 중복 체크 -->
+	<select id="selectSiteId" resultType="kr.kh.team3.model.vo.SiteManagement">
+		select * from site_management where site_id = #{site_id}
 	</select>
 	
-	<select id="selectHospitalPhone" resultType="HospitalVO">
-		select * from hospital where ho_phone = #{ho_phone}
+	<select id="selectHospitalEmail" resultType="kr.kh.team3.model.vo.SiteManagement">
+		select * from site_management where site_email = #{site_email}
+	</select>
+	
+	<select id="selectHospitalPhone" resultType="kr.kh.team3.model.vo.SiteManagement">
+		select * from site_management where site_phone = #{site_phone}
 	</select>
 	
 	<!-- 정경호 이용중인 병원만 조회하는 쿼리 -->
