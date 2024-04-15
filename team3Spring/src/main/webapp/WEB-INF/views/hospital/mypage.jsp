@@ -133,21 +133,17 @@ width: 500px;height: 300px;border: 1px solid black;
 				</div>
 				
 			</div>
-				
-				
 			<div class="program_check_wrap">
 				<div class="program">
-					<a href="#">프로그램 관리</a>
-					
+					<a href="<c:url value="/hospital/program"/>">프로그램 관리</a>
 				</div>
 				<div class="program">
-					<a href="#">예약 관리</a>
+					<a href="<c:url value="/hospital/book"/>">예약 관리</a>
 				</div>
 				<div class="program">
-				 	<a href="#">병원 상세 페이지 수정</a>
+				 	<a href="<c:url value="/hospital/detail"/>">병원 상세 페이지 수정</a>
 				</div>
 				<div class="program">
-				
 				</div>
 			</div>
 		</div>
