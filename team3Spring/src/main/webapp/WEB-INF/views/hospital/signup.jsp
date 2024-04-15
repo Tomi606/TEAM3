@@ -81,11 +81,11 @@ label {
 		<div class="input-box">
 			<div>
 				<img alt="아이디 이미지" src="<c:url value="/resources/img/ceo.svg"/>">
-				<input type="text" class="input-tag" id="id" name="ho_id" maxlength="15" required autofocus="autofocus" placeholder="아이디"/>
+				<input type="text" class="input-tag" id="id" name="site_id" maxlength="15" required autofocus="autofocus" placeholder="아이디"/>
 				<label class="text-danger textId" id="laId"></label>
 			</div>
 			<div>
-		    	<input type="hidden" id="id2" name="site_id">
+		    	<input type="hidden" id="id2" name="ho_id">
 			</div>
 			<div>
 				<img alt="비번 이미지" src="<c:url value="/resources/img/password.svg"/>">
@@ -99,9 +99,12 @@ label {
 			</div>
 			<div>
 				<img alt="이메일 이미지" src="<c:url value="/resources/img/email.svg"/>">
-				<input type="email" class="input-tag" id="email" name="ho_email" maxlength="50" required autofocus="autofocus" placeholder="이메일"/>
+				<input type="email" class="input-tag" id="email" name="site_email" maxlength="50" required autofocus="autofocus" placeholder="이메일"/>
 				<!-- 데이터 추가 후 풀기 <input type="email" class="input-tag" id="email" name="ho_email" readonly value="${email}"/> -->
 				<label id="email-error" class="error text-danger" for="email"></label>
+			</div>
+			<div>
+		    	<input type="hidden" id="email2" name="ho_email">
 			</div>
 			<div>
 				<img alt="상호명 이미지" src="<c:url value="/resources/img/quote.svg"/>">
@@ -123,8 +126,11 @@ label {
 			<div>
 				<img alt="대표 전화번호 이미지" src="<c:url value="/resources/img/phone2.svg"/>">
 				<input type="text" class="input-tag" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');" maxlength="11"
-				id="phone" name="ho_phone" required autofocus="autofocus" placeholder="대표 전화번호('-'제외 최대 11자)"/>
+				id="phone" name="site_phone" required autofocus="autofocus" placeholder="대표 전화번호('-'제외 최대 11자)"/>
 				<label id="phone-error" class="error text-danger" for="phone"></label>
+			</div>
+			<div>
+		    	<input type="hidden" id="phone2" name="ho_phone">
 			</div>
 			<div class="subject">
 			<div class="hr" style="margin-top:30px; margin-bottom:40px; border: 1px solid #d2d2d2; width: 480px;"></div>
@@ -252,11 +258,11 @@ $.validator.addMethod(
 <script type="text/javascript">
 function idCheckDup() {
 	//입력된 아이디를 가져옴
-	let ho_id = $('[name=ho_id]').val();
+	let site_id = $('[name=site_id]').val();
 	let obj = {
 		//id는 Controller에 @RequestParam("id")과 일치해야 함
 		//ho_id는 위의 let ho_id
-		id : ho_id
+		id : site_id
 	}
 
 	let result = false;
@@ -284,11 +290,21 @@ function idCheckDup() {
 	});
 	return result;
 }
-$('[name=ho_id]').on('input', function() {
+$('[name=site_id]').on('input', function() {
 	idCheckDup();
 });
 </script>
 
+<script type="text/javascript">
+var hoId = document.getElementById("email").value;
+document.getElementById("email2").value = hoId;
+return true;
+</script>
+<script type="text/javascript">
+var hoId = document.getElementById("phone").value;
+document.getElementById("phone2").value = hoId;
+return true;
+</script>
 <!-- 사이트 회원 관리 아이디 + 비번 일치 확인 -->
 <script type="text/javascript">
 function hoIdForm() {
@@ -385,7 +401,7 @@ $(document).ready(function() {
 	        $.ajax({
 	            url: '<c:url value="/hospital/checkId"/>',
 	            type: "get",
-	            data: { ho_id: id }, 
+	            data: { site_id: id }, 
 	            success: function(response) {
 	                if (response.hoIdCheck == null) {
 	                	        $(".textId").text("사용 가능한 아이디입니다.").css("color", " #C12DFF");
@@ -416,7 +432,7 @@ $(document).ready(function() {
 	        $.ajax({
 	            url: '<c:url value="/hospital/checkPhone"/>',
 	            type: "get",
-	            data: { ho_phone: phone }, 
+	            data: { site_phone: phone }, 
 	            success: function(response) {
 	                if (response.hoPhoneCheck == null) {
 	                	if(phone.length == 11){
@@ -457,7 +473,7 @@ $(document).ready(function() {
 	        $.ajax({
 	            url: '<c:url value="/hospital/checkEmail"/>',
 	            type: "get",
-	            data: { ho_email: email }, 
+	            data: { site_email: email }, 
 	            success: function(response) {
 	                if (response.hoEmailCheck == null) {
 	                	if(email.length >= 12){
