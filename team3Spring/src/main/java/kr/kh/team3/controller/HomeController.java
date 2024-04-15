@@ -174,10 +174,6 @@ public class HomeController {
 //		return map;
 //	}
 	
-	
-	
-	
-	
 	//로그인 메인 페이지
 	@GetMapping("/main/login")
 	public String mainLogin() {

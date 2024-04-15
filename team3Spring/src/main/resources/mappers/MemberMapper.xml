@@ -114,7 +114,15 @@
 	
 	<!-- 삭제 버튼 -->
 	<delete id="deleteMember">
-		delete from member where me_id = #{me.me_id}
+		delete from member where me_id = #{me_id}
+	</delete>
+	
+	<select id="selectSiteMemberId" resultType="SiteManagement">
+		select * from site_management where site_id = #{site_id}
+	</select>
+	
+	<delete id="deleteSiteManagement">
+		delete from site_management where site_id = #{site_id}
 	</delete>
 	
 	<!-- 정지 버튼 -->

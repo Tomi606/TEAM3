@@ -49,10 +49,15 @@ public interface MemberDAO {
 
 	int selectReportMemberTotalCount(@Param("cri") Criteria cri);
 
-	boolean deleteMember(@Param("me") MemberVO member);
-
 	boolean updateStopMember
 	(@Param("rp_target") String rp_target, @Param("rp_rs_name") String rp_rs_name);
+
+	boolean deleteMember(@Param("me_id") String me_id);
+	
+	SiteManagement selectSiteMemberId(@Param("site_id") String site_id);
+
+	boolean deleteSiteManagement(@Param("site_id") String site_id);
+
 
 	
 

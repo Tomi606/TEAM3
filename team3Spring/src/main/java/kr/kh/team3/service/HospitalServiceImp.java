@@ -326,7 +326,6 @@ public class HospitalServiceImp implements HospitalService {
 			return "stop";
 		}
 	}
-	
 
 	public ArrayList<HospitalSubjectVO> selectSubject() {
 		return hospitalDao.selectHospitalSubjectList();
