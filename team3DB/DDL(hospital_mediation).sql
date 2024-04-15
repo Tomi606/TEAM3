@@ -151,6 +151,7 @@ CREATE TABLE `hospital` (
 	`ho_authority`	varchar(10) NOT NULL,
 	`ho_cookie`	varchar(255) NULL,
 	`ho_cookie_limit`	datetime NULL,
+    `ho_fail` int not null default 0,
     `ho_email` varchar(100) not null,
     `ho_report_count` int not null default 0,
     `ho_stop` datetime null,
@@ -496,24 +497,24 @@ values('내과'), ('외과'),('안과'),('소아과'),('정형외과'), ('이비
 insert into land value(1,1);
 
 # 신고 상태
-insert into report_state values('1일정지'),('3일정지'),('7일정지'),('15일정지'),('30일정지'),('60일정지'),('180일정지'),('365일정지');
+insert into report_state values('1'),('3'),('7'),('15'),('30'),('60'),('180'),('365');
 
 # site_management 추가
-insert into site_management value(1, 1, 'qqqq1111', "USER");
+insert into site_management value(1, 1, 'qqqq1111', "01011111111", "qqqq1111@naver.com", "USER");
 
 # 신고 유형
 insert into report(rp_target, rp_name, rp_rs_name, rp_site_num) 
-values('qqqq1111', '스팸홍보','1일정지', 1), 
-('qqqq1111', '도배','1일정지', 1), 
-('qqqq1111', '음란물','3일정지', 1), 
-('qqqq1111', '불법정보를 포함','1일정지', 1), 
-('qwer1234', '청소년에게 유해한 내용','1일정지', 1), 
-('qwer1234', '욕설/혐오/차별 표현','1일정지', 1), 
-('qwer1234', '개인정보 유출','1일정지', 1), 
-('qwer1234', '불법촬영물등 포함','1일정지', 1), 
-('qwer1234', '명예훼손','1일정지', 1), 
-('qwer1234', '저작권 침해','1일정지', 1), 
-('qwer1234', '불쾌한 표현 있음','1일정지', 1);
+values('wkdrn002', '스팸홍보','1', 1),
+('qqqq1111', '도배','1', 1), 
+('qqqq1111', '음란물','3', 1), 
+('qqqq1111', '불법정보를 포함','1', 1), 
+('qwer1234', '청소년에게 유해한 내용','1', 1), 
+('qwer1234', '욕설/혐오/차별 표현','1', 1), 
+('qwer1234', '개인정보 유출','1', 1), 
+('qwer1234', '불법촬영물등 포함','1', 1), 
+('qwer1234', '명예훼손','1', 1), 
+('qwer1234', '저작권 침해','1', 1), 
+('qwer1234', '불쾌한 표현 있음','1', 1);
 
 select * from member;
 select * from hospital;
