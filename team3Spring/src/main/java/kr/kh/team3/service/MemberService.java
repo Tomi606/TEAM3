@@ -3,7 +3,6 @@ package kr.kh.team3.service;
 import java.util.ArrayList;
 
 import kr.kh.team3.model.vo.EupMyeonDongVO;
-import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.model.vo.SiDoVO;
@@ -36,7 +35,7 @@ public interface MemberService {
 	//폰번호 중복확인 ajax
 	SiteManagement getMemberPhone(SiteManagement site);
 
-	//관리자 페이지 - 회원 관리
+	//관리자 페이지 - 회원 관리(양선진)
 	ArrayList<MemberVO> getMemberList(Criteria cri);
 
 	int getMemberTotalCount(Criteria cri);

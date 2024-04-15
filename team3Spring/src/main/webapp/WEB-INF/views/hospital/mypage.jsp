@@ -83,7 +83,6 @@ width: 500px;height: 300px;border: 1px solid black;
 </head>
 <body>
 <div class="body-tag">
-
 		<div class="input-box">
 		<div class="hos_my_page_inner">
 			<div class="hos_my_page_input_wrap">
@@ -145,7 +144,7 @@ width: 500px;height: 300px;border: 1px solid black;
 					<a href="#">예약 관리</a>
 				</div>
 				<div class="program">
-				 
+				 	<a href="#">병원 상세 페이지 수정</a>
 				</div>
 				<div class="program">
 				

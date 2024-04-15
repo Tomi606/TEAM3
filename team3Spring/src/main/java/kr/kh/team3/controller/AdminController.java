@@ -134,6 +134,7 @@ public class AdminController {
 		ArrayList<HospitalVO> hospitalList = hospitalService.getReportHospitalList(cri);
 		int totalCount = hospitalService.getRHTotalCount(cri);
 		PageMaker pm = new PageMaker(3, cri, totalCount);
+		System.out.println(hospitalList+"dddddddddddddddddddddddddddddddddd");
 		map.put("list", hospitalList);
 		map.put("pm", pm);
 		return map;

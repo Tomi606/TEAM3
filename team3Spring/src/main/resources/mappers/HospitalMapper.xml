@@ -6,7 +6,7 @@
 	<insert id="insertHospital">
 		insert into hospital(ho_id, ho_pw, ho_email, ho_name, ho_ceo, ho_hs_num, ho_num, ho_address, ho_phone, ho_authority, ho_ms_state) 
 		values(#{ho.ho_id}, #{ho.ho_pw}, #{ho.ho_email}, #{ho.ho_name}, #{ho.ho_ceo}, 
-				#{ho.ho_hs_num}, #{ho.ho_num}, #{address}, #{ho.ho_phone},"MANAGER","이용중")
+				#{ho.ho_hs_num}, #{ho.ho_num}, #{address}, #{ho.ho_phone},"MANAGER","가입대기")
 	</insert>
 	
 	<insert id="insertSiteHospital">

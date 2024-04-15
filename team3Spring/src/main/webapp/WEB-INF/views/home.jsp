@@ -443,6 +443,13 @@ display: flex;
 height:35px;width:100%;background-color: #fafafa;
 
 }
+.category .hidden-list {
+    display: none;
+}
+
+.category:hover .hidden-list {
+    display: block;
+}
 </style>
 </head>
 <body>
@@ -467,7 +474,7 @@ height:35px;width:100%;background-color: #fafafa;
 				<div class="join-groub">
 					<c:if test="${user == null }">
 						<div class="nav-item">
-							<a class="nav-link a" href="<c:url value='/main/login'/>"> 
+							<a class="nav-link a " href="<c:url value='/main/login'/>"> 
 							<img alt="로고이미지" style="width: 30px;"
 								src="<c:url value='/resources/img/user-white.svg'/>"> 로그인
 							</a>
@@ -490,11 +497,12 @@ height:35px;width:100%;background-color: #fafafa;
 			<div class="공백"></div>
 		</div>
 		<div class="category">
-		
-		
-		
-		
-		</div>
+	        <c:forEach items="${list}" var="hs">
+	            <tr>
+	                <th><a href="#">${hs.hs_title}</a></th>
+	            </tr>
+	        </c:forEach>
+  		</div>
 		<div class="main-area">
 			<div class="search-main-left"></div>
 			<div class="main-search-area">
