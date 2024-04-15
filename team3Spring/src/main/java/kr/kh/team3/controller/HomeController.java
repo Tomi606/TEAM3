@@ -38,10 +38,9 @@ public class HomeController {
 	private HospitalService hospitalService;
 	 
 	@GetMapping("/")
-	public String home() {
-		
-		
+	public String home(Model model) {
 		ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
+		model.addAttribute("list",list);
 		return "home";
 	}
 	

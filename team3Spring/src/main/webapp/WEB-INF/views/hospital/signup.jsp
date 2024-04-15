@@ -85,7 +85,7 @@ label {
 				<label class="itext text-danger textId" id="id-error"></label>
 			</div>
 			<div>
-		    	<input type="text" id="id2" name="ho_id">
+		    	<input type="hidden" id="id2" name="ho_id">
 			</div>
 			<div>
 				<img alt="비번 이미지" src="<c:url value="/resources/img/password.svg"/>">
@@ -216,8 +216,8 @@ $("form").validate({
 			equalTo : "비밀번호와 일치하지 않습니다."
 		},
 		ho_email : {
-			required : "이메일1",
-			email : "이메일2"
+			required : "",
+			email : ""
 		},
 		ho_name : {
 			required : "필수 항목입니다.",
@@ -486,7 +486,7 @@ $(document).ready(function() {
 	            }
 	        }); // ajax end;
 	    });
-   /*  $(".check").click(function(){
+     $(".check").click(function(){
        if(!idCheck){
           alert("아이디 중복 확인을 해주세요.");
           $("#id").focus();
@@ -497,7 +497,12 @@ $(document).ready(function() {
           $("#email").focus();
           return false;
        }
-    }); */
+       if(!phoneCheck){
+          alert("휴대폰 번호 중복 확인을 해주세요.");
+          $("#phone").focus();
+          return false;
+       }
+    }); 
 });
 </script>
 
