@@ -125,7 +125,7 @@ label {
 			</div>
 			<div>
 				<img alt="대표 전화번호 이미지" src="<c:url value="/resources/img/phone2.svg"/>">
-				<input type="text" class="input-tag" maxlength="11"
+				<input type="text" class="input-tag" maxlength="11" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
 				id="phone" name="site_phone" required autofocus="autofocus" placeholder="대표 전화번호('-'제외 최대 11자)"/>
 				<label id="phone-error" class="ptext error text-danger" for="phone"></label>
 			</div>

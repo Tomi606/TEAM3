@@ -35,11 +35,11 @@
 			<tr>
 				<th>아이디</th>
 				<th>이름</th>
-				<th>신고 일수</th>
+				<th>정지 일수</th>
 				<th>신고 사유</th>
 				<th>누적신고횟수</th>
-				<th>정지기간</th>
 				<th>누적정지횟수</th>
+				<th>정지기간</th>
 				<th>정지</th>
 				<th>탈퇴</th>
 			</tr>
@@ -98,10 +98,21 @@ function displayReportList(list){
 				<td>\${item.rp_rs_name}</td>
 				<td>\${item.rp_name}</td>
 				<td>\${item.member.me_report_count}</td>
-				<td>\${item.member.me_stop}</td>
 				<td>\${item.member.me_stop_count}</td>
-				<td><button>정지</button></td>
-				<td><button type="button" class="btn-member-del" data-id="\${item.me_id}">탈퇴</button></td>
+				<td>
+					<select>
+						<option value="0">선택</option>
+						<option value="1">1일</option>
+						<option value="3">3일</option>
+						<option value="7">7일</option>
+						<option value="15">15일</option>
+						<option value="30">30일</option>
+						<option value="60">60일</option>
+						<option value="365">365일</option>
+					</select>
+				</td>
+				<td><button type="button" class="btn-member-stop" data-stop="\${item.rp_target}">정지</button></td>
+				<td><button type="button" class="btn-member-del" data-del="\${item.member.me_id}">탈퇴</button></td>
 			</tr>
 			`
 	}
@@ -137,7 +148,38 @@ function displayReportPagination(pm) {
 
 <!-- 정지 버튼 : 정지하고 자동으로 정지풀리게 -->
 <script type="text/javascript">
-let meStop = $('[name=meStop]').val();
+$(document).on('click', '.btn-member-stop', function() {
+	if(!confirm("정지 하겠습니까?")) {
+		return;
+	}
+	
+	let id = {
+		rp_target : $(this).data('stop')
+	}
+	
+	//서버에 데이터를 전송
+	$.ajax({
+		async : true, 
+		url : '<c:url value="/admin/member/stop"/>', 
+		type : 'post', 
+		data : JSON.stringify(id), 
+		contentType : "application/json; charset=utf-8",
+		dataType : "json", 
+		success : function (data){
+			if(data.result) {
+				alert('정지되었습니다.');
+				getReportList(cri);
+			}
+			else {
+				alert('회원 정지 실패');
+			}
+		}, 
+		error : function(xhr, textStatus, errorThrown){
+			console.error(xhr);
+			console.error(textStatus);
+		}
+	}); //ajax end
+});
 </script>
 
 <!-- 탈퇴 버튼 -->
@@ -148,7 +190,7 @@ $(document).on('click', '.btn-member-del', function() {
 	}
 	
 	let id = {
-		me_id : $(this).data('id')
+		me_id : $(this).data('del')
 	}
 	
 	//서버에 데이터를 전송
