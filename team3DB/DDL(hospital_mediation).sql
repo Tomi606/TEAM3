@@ -260,6 +260,24 @@ CREATE TABLE `hospital_subject` (
 	`hs_title`	varchar(100) NOT NULL
 );
 
+DROP TABLE IF EXISTS `hospital_detail`;
+
+CREATE TABLE `hospital_detail` (
+	`hd_num`	int	primary key auto_increment,
+	`hd_ho_id`	varchar(13)	NOT NULL,
+	`hd_info`	text	NULL,
+	`hd_detail`	text	NULL
+);
+
+DROP TABLE IF EXISTS `review`;
+
+CREATE TABLE `review` (
+	`vw_num`	int	primary key auto_increment,
+	`vw_hd_num`	int	NOT NULL,
+	`vw_me_id`	varchar(13)	NOT NULL,
+	`vw_content`	text	NULL
+);
+
 ALTER TABLE `member` ADD CONSTRAINT `FK_member_state_TO_member_1` FOREIGN KEY (
 	`me_ms_state`
 )
@@ -485,6 +503,27 @@ ALTER TABLE `member` ADD CONSTRAINT `FK_hospital_subject_TO_member_1` FOREIGN KE
 )
 REFERENCES `hospital_subject` (
 	`hs_num`
+);
+
+ALTER TABLE `hospital_detail` ADD CONSTRAINT `FK_hospital_TO_hospital_detail_1` FOREIGN KEY (
+	`hd_ho_id`
+)
+REFERENCES `hospital` (
+	`ho_id`
+);
+
+ALTER TABLE `review` ADD CONSTRAINT `FK_hospital_detail_TO_review_1` FOREIGN KEY (
+	`vw_hd_num`
+)
+REFERENCES `hospital_detail` (
+	`hd_num`
+);
+
+ALTER TABLE `review` ADD CONSTRAINT `FK_member_TO_review_1` FOREIGN KEY (
+	`vw_me_id`
+)
+REFERENCES `member` (
+	`me_id`
 );
 
  INSERT INTO MEMBER_STATE VALUES('승인대기'), ('이용중'), ('기간정지'), ('영구정지'), ('탈퇴'),('가입대기');
