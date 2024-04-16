@@ -1,25 +1,24 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>마이페이지</title>
+<title>회원 마이페이지</title>
 <style type="text/css">
-.body-tag{
-padding:200px 0 200px;
+.body-tag {
 width: 100%;
 display: felex;flex-direction: column;
 align-items: center;
 }
-.input-box{
+ .input-box {
 	border:1px solid white;
 	width: 100%;height:100%; 
 	margin: 0 auto;
 	padding: 5px;
-}
-.input-tag{
+} 
+.input-tag {
     border: 1px solid #ccc; 
     outline: none;
     margin-bottom: 15px; 
@@ -30,7 +29,7 @@ align-items: center;
     border-bottom-color:  #C12DFF; 
     box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
 }
-.btn{
+.btn {
 	text-decoration: none;
 	border:1px solid  #C12DFF;
 	width: 100px;
@@ -39,7 +38,7 @@ align-items: center;
 	background-color:  #C12DFF;
 	color: white;
 }
-.signup-btn{
+.signup-btn {
 text-align:center;font-size:20px;font-weight:bold;
 width: 400px;height:40px;border-radius:0;
 padding: 2px;border-bottom: 1px solid  #C12DFF;
@@ -61,10 +60,10 @@ select:focus {
 select:hover {
     background-color: #eaeaea;
 }
-img{
+img {
  width: 30px;
 }
-.duplicate{
+.duplicate {
     float:right;
 	border-radius:0;
 	height: 43px;
@@ -72,154 +71,129 @@ img{
 label {
 	margin-left: 30px;
 }
-.gender-buttons {
-     display: inline-block;
-     margin-right: 15px;
- }
- 
- .gender-buttons label {
- 	width:100px;text-align:center;
- 	border:1px solid  #007bff;
-     display: inline-block;
-     padding: 8px 16px;
-     border-radius: 5px;
-     cursor: pointer;
- }
- 
- #male:checked + label {
-     background-color: #007bff;
-     color: #fff;
- }
- 
- #female:checked + label {
-     background-color: #ff69b4;
-     color: #fff;
- }
- 
- .gender-buttons input[type="radio"] {
-     display: none;
- }
- 
- .program{
+.program{
 width: 500px;height: 300px;border: 1px solid black;
 
 }
  
- .mem_my_page_inner{width: 100%; display:flex; flex-wrap: wrap;}
+ .hos_my_page_inner{width: 100%; display:flex; flex-wrap: wrap;}
  .program_check_wrap{display: grid; grid-template-columns: 1fr 1fr; grid-gap: 20px;}
-
+ /*아래부터 병원 마이페이지 구현
+ 패딩,마진은 상 우 하 좌 시계 방향으로 설정 하면 됨.
+ */
+ .mypage-container{width: 1905px;height:800px;padding: 0 300px 0 300px;border: 1px solid black;display: flex;}
+ .mypage-profile{width: 400px;height: 100%;border: 1px solid black;}
+ .profile-img{width: 250px;height: 250px;border:1px solid black;margin: 0 auto;margin-top: 50px;border-radius:100%;  }
+ .profile-name{margin: 0 auto;text-align: center;}
+ .profile-anything{border: 1px solid black;width: 300px;height: 400px;margin: 0 auto;}
+ 
+ .profile-container{width: 1000px;height: 800px;border: 1px solid black; display: block;background-color: lightgray;}
+ .mypage-profile-info{width: 600px;height: 325px;border: 1px solid black;margin: 40px 20px 40px 250px;background-color: pink;border-radius:30px; }
+ .mypage-profile-detail{width: 600px;height:325px;border: 1px solid black; margin: 0px 20px 80px 250px;background-color: pink;border-radius:30px; }
+ 
+ .profile-img-name-container{width: 600px;height: 150px;display: flex;}
+ .mypage-img{display:flex;width: 125px;height: 125px;border:1px solid white;margin: 30px 0 0 30px;border-radius:100%;background-color: white;}
+ .mypage-img-name{flex-direction: column;flex-wrap: wrap;align-content: space-between;display:flex; width: 400px;margin: 30px 0;height: 125px;padding: 20px;}
+ .hr{width: 500px;border:1px solid black;margin:10px auto}
+ 
+ 
+ .mypage-phone{width: 500px;margin: 0 auto;display: flex;}
+ .mypage-email{width: 500px;margin: 0 auto;display: flex;}
+ 
+ .mypage-hospital-name{display: flex;margin: 40px 48px 0 47px;}
+ .mypage-hospital-num{display:flex;margin: 20px 48px 0 47px;}
+ .mypage-hospital-address{display:flex;margin: 20px 48px 0 47px;}
+ 
 </style>
 </head>
 <body>
-<h1>마이페이지입니다.</h1>
-
-<div class="input-box">
-	<div class="mem_my_page_inner">
-			<div class="mem_my_page_input_wrap">
-			<div>
-				<img  alt="아이디이미지" src="<c:url value="/resources/img/user.svg"/>">
-			    <input  type="text" id="id" name="site_id" class="input-tag" readonly="readonly">
-			    <label class="text-danger textId" id="laId"></label>
-			  <!--<a type="button" class="check-duplicate btn duplicate">중복 확인</a> -->
+<div class="mypage-container">
+	<div class="mypage-profile">
+		
+			<div class="profile-img">
 			</div>
-			<div>
-		    	<input type="hidden" id="id2" name="me_id">
+			<div class="profile-name">
+				<!-- 화면에서 아이디랑 이메일 가져와서 입력하시면 됩니다 -->
+				<h4>${huser.ho_id}</h4>
+				<p>${huser.ho_email}</p>
 			</div>
-			<div>
-				<img alt="아이디이미지" src="<c:url value="/resources/img/password.svg"/>">
-		    	<input   type="password" id="pw" name="me_pw"  readonly="readonly" class="input-tag">
-		    	<label for="me_pw" class="text-danger"></label>
-			</div>
-			<div>
-				<img alt="아이디이미지" src="<c:url value="/resources/img/passwordcheck.svg"/>">
-		   	 	<input   type="password" id="pw2" name="me_pw2"  readonly="readonly" class="input-tag">
-		   	 	<label for="me_pw2" class="text-danger"></label>
-			</div>
-			<div>
-				<img alt="아이디이미지" src="<c:url value="/resources/img/name.svg"/>">
-		    	<input   type="text" id="name" name="me_name"  readonly="readonly" class="input-tag">
-		    	<label for="me_name" class="text-danger"></label>
-			</div>
-			<!-- 이메일  -->
-			<div>
-				<img alt="아이디이미지" src="<c:url value="/resources/img/mail.svg"/>">
-		    	<input  type="text" id="email" name="site_email"  readonly="readonly" class="input-tag">
-		    	<!-- <a type="button" class="email-btn btn duplicate">중복확인</a> -->
-		    	<label for="me_email" class="text-danger etext"></label>
-			</div>
-			<div>
-		    	<input type="hidden" id="email2" name="me_email">
-			</div>
-			<div class="gender-buttons">
-				<img alt="아이디이미지" src="<c:url value="/resources/img/gender.svg"/>">
-		   		 <input type="radio" id="male" name="me_gender" value="남자" readonly="readonly">
-		   		 <label for="male">남자</label>
-			</div>
-	
-			<div class="gender-buttons">
-			    <input type="radio" id="female" name="me_gender" value="여자" readonly="readonly">
-			    <label for="female"style="border:1px solid #ff69b4;">여자</label>
-			</div>
-			<div style="margin-top: 15px;">
-				<img alt="아이디이미지" src="<c:url value="/resources/img/job.svg"/>">
-		   	 	<input   type="text" id="job" name="me_job" readonly="readonly" class="input-tag">
-		    	<label for="me_job" class="text-danger"></label>
-			</div>
-			<div>
-				<img alt="아이디이미지" src="<c:url value="/resources/img/phone.svg"/>">
-		    	<input   type="text" id="phone" name="site_phone" readonly="readonly" class="input-tag">
-		    	<label for="me_phone" class="text-danger textPhone" id="idcheck-phone"></label>
-			</div>
-			<!-- 핸드폰  -->
-			<div>
-		    	<input type="hidden" id="phone2" name="me_phone">
-			</div>
-			<div class="program_check_wrap">
-				<div class="program">
-				1
-					<a href="#">예약관리</a>
+			<div class="profile-anything">
+				<div>				
+					<a href='<c:url value=""/>'>1. 예약 관리</a><br>
+					<a href='<c:url value=""/>'>2. 북마크</a><br>
+					<a href='<c:url value=""/>'>3. 내 커뮤니티</a>
 				</div>
-				<div class="program">
-				2
-					<a href="#">커뮤니티 관리</a>
-				</div>
-				<div class="program">
-				3
-				 	<a href="#">북마크</a>
-				</div>
-				<div class="program">
-				
-				</div>
+			</div>
+	</div>
+	<div class="profile-container">
+		<h3>회원 정보 수정</h3>
+		<div class="mypage-profile-info">
+		<div class="profile-img-name-container">
+			<div class="mypage-img">
+			</div>
+			<div class="mypage-img-name">
+				<h4 style="display: flex;">${huser.ho_ceo}</h4>
+				<p style="margin-right: auto;">${huser.ho_email}</p>
+				<span ><a href="#">실명수정</a></span>
+				<span ><a href="#">비밀번호 변경</a></span>
 			</div>
 		</div>
-			<div class="subject">
-			<div class="hr" style="margin-top:30px;margin-bottom:40px;border: 1px solid #d2d2d2;width: 100%;"></div>
-				<select id="subject" name="me_hs_num" style="margin-bottom: 15px;width: 500px" >
-					<option value="none">관심 병원 과목을 선택하세요</option>
-					<option value="none">없음</option>
-					<c:forEach items="${list}" var="hs">
-						<option value="${hs.hs_num}">${hs.hs_title}</option>
-					</c:forEach>
-				</select>
+			<div class="hr"></div>
+			<div class="mypage-phone">
+				<p style="margin-right: auto">${huser.ho_phone}</p>
+				<span><a href="#">변경</a></span>
 			</div>
-			
-			<div>
-			 <select name="sd_num" required class="sd_num" style="width: 500px;margin-bottom: 20px">
-			 		<option value="none">시/도를 선택해주세요</option>
-		        <c:forEach items="${sidoList}" var="sd">
-		            <option value="${sd.sd_num}">${sd.sd_name}</option>
-		        </c:forEach>
-		     </select>   
-			 <select name="sgg_num" class="sgg_num" required style="width: 500px;margin-bottom: 20px">
-		           <option value="none">시/군/구를 선택해주세요</option>
-		     </select>   
-		    <select name="emd_num" class="emd_num" required style="width: 500px;margin-bottom: 20px">
+			<div class="hr"></div>
+			<div class="mypage-email">
+				<p style="margin-right: auto">${huser.ho_email}</p>
+				<span><a href="#">변경</a></span>
+			</div>
+		
+		</div>
+		<div class="mypage-profile-detail">
+				<div class="mypage-hospital-name" >
+					<h5 style="margin-right: auto">${huser.ho_name}</h5>
+					<span><a href="#">변경</a></span>
+				</div>
+				<div class="hr"></div>
+				<div class="mypage-hospital-num">
+					<h5>사업자번호 : </h5><span>${huser.ho_num}</span>
+				</div>
+				<div class="hr"></div>
+				<div class="mypage-hospital-address">
+					<p style="margin-right: auto">${huser.ho_address}</p>
+					<span><a href="#">변경</a></span>
+				</div>
+			</div>
+ 		</div>
+</div>
+<div class="body-tag">
+	<div class="input-box">
+		<div class="subject">
+		<div class="hr" style="margin-top:30px; margin-bottom:40px; border: 1px solid #d2d2d2; width: 100%;"></div> 
+			<select id="subject" name="ho_hs_num" style="width: 400px; margin-bottom: 20px" required>
+				<option value="none">진료과목을 선택하세요</option>
+				<c:forEach items="${hospitalList}" var="hs">
+					<option value="${hs.hs_num}">${hs.hs_title}</option>
+				</c:forEach>
+			</select>
+		</div>
+		<div>
+			<select name="sd_num" class="sd_num" style="width: 400px; margin-bottom: 20px" required>
+				<option value="none">시/도를 선택해주세요</option>
+				<c:forEach items="${sidoList}" var="sd">
+					<option value="${sd.sd_num}">${sd.sd_name}</option>
+				</c:forEach>
+			</select>	
+			<select name="sgg_num" class="sgg_num" style="width: 400px; margin-bottom: 20px" required>
+				<option value="none">시/군/구를 선택해주세요</option>
+			</select>	
+		 	<select name="emd_num" class="emd_num" style="width: 400px; margin-bottom: 20px" required>
 		         <option value="none">읍/면/동을 선택해주세요</option>
-		 	</select>
-			</div>
+		    </select>
 		</div>
 	</div>
-
+</div>
 
 </body>
 </html>
