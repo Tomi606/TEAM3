@@ -13,4 +13,11 @@ public interface PostDAO {
 
 	int selectPostTotalCount(@Param("cri")Criteria cri, @Param("bo_num")int bo_num);
 
+	boolean deletePost(@Param("post")PostVO post);
+
+	ArrayList<PostVO> selectPostNoList(@Param("cri") Criteria cri, @Param("bo_num")int bo_num);
+
+	int selectPostNoTotalCount(@Param("cri")Criteria cri, @Param("bo_num")int bo_num);
+
+
 }
