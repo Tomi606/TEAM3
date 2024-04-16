@@ -18,6 +18,10 @@
 		select * from post where po_bo_num = #{bo_num} and po_report_count >= 1 order by po_num limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
+	<select id="selectPostNoList" resultMap="PostMap">
+		select * from post where po_bo_num = #{bo_num} and po_report_count = 0 order by po_num limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
 	<select id="selectSiteManagement" resultType="kr.kh.team3.model.vo.SiteManagement">
 		select * from site_management where site_num = #{po_mg_num}
 	</select>
@@ -26,7 +30,11 @@
 		select count(*) from post where po_bo_num = #{bo_num}
 	</select>
 	
+
+	
 	<delete id="deletePost">
 		delete from post where po_num = #{post.po_num}
 	</delete>
+	
+	
 </mapper>

@@ -1,5 +1,6 @@
 package kr.kh.team3.model.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import lombok.Data;
@@ -23,4 +24,14 @@ public class PostVO {
 		this.po_num = po_num;
 		this.po_bo_num = po_bo_num;
 	}
+	
+	public String getChangeDate() {
+		if (this.po_date != null) {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			return format.format(this.po_date);
+		} else {
+			return "없당ㅎㅎ";
+		}
+	}
+	
 }

@@ -359,7 +359,7 @@ public class AdminController {
 			Map<String, Object> map = new HashMap<String, Object>();
 			Criteria cri = new Criteria(page, 2);
 			int totalCount = postService.getPostCount(cri, bo_num);
-			ArrayList<PostVO> list = postService.getPostList(cri, bo_num);
+			ArrayList<PostVO> list = postService.getPostNoList(cri, bo_num);
 			PageMaker pm = new PageMaker(3, cri, totalCount);
 			map.put("list", list);
 			map.put("pm", pm);

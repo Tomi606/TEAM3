@@ -13,4 +13,6 @@ public interface PostService {
 
 	boolean deletePost(PostVO post);
 
+	ArrayList<PostVO> getPostNoList(Criteria cri, int bo_num);
+
 }

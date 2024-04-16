@@ -20,10 +20,22 @@
 	border-radius: 20px;
 	display: inline-block;
 	margin-right: 50px;
-	padding: 10px;
+	padding: 30px;
 	text-align: center;
 }
 .post-box {
+    width: 40%;
+    height: 400px;
+    border: 1px solid gray;
+    border-radius: 20px;
+    display: inline-block;
+    padding: 30px;
+    text-align: center;
+    vertical-align: top; /* 상단 정렬을 유지합니다. */
+    position: relative; /* 상대적 위치 설정 */
+}
+
+.post-box2 {
     width: 40%;
     height: 400px;
     border: 1px solid gray;
@@ -68,6 +80,7 @@ text-align: center;
 
 <div class="board-post-box">
 	<div class="board-box">
+		<h5>게시판을 선택해 주세요</h3>
 		<div class="input-group mb-3">
 			<select name="type" class="form-control">
 				<c:forEach items="${list}" var="list">
@@ -81,6 +94,7 @@ text-align: center;
 	</div>
 		
 	<div class="post-box">
+		<h5>신고를 1회 이상 받은 게시글/댓글입니다.</h3>
 		<div class="input-group mb-3">
 			<table class="table table-striped">
 				<thead class="postthead">
@@ -113,11 +127,6 @@ text-align: center;
 					<option value="${list.bo_num}">${list.bo_title }</option>
 				</c:forEach>
 			</select>
-		</div>
-	</div>
-		
-	<div class="post-box">
-		<div class="input-group mb-3">
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -136,6 +145,13 @@ text-align: center;
 
 				</ul>
 			</div>
+		</div>
+	</div>
+		
+	<div class="post-box">
+		<div class="input-group mb-3">
+			
+			
 		</div>
 	</div>
 </div>
@@ -159,19 +175,7 @@ $('.delete-btn').click(function(){
     location.href = url;
 });
 
-$("[name=type2]").click(function(){
-	let bo_num = $("[name=type]").val();
-	$.ajax({
-		url : '<c:url value="/post/declaration"/>',
-		method : 'get',
-		data : {"bo_num" : bo_num,
-			"page" : postpage},
-		success : function(data){
-			displayPostNoDeclaration(data.list);
-			displayPostPagination(data.pm);
-		}
-	});
-})
+
 
 function displayPostNoDeclaration(postList){
 		let str = ``;
@@ -182,17 +186,17 @@ function displayPostNoDeclaration(postList){
 						<td>\${tmp.po_num}</td>
 						<td>\${tmp.po_title}</td>
 						<td>\${tmp.sitemanagement.site_id}</td>
-						<td>\${tmp.po_date}</td>
+						<td>\${tmp.changeDate}</td>
 					</tr>
 				`
 		}
 		$('.postNo').html(str);	
-		$('.delete-box').empty(); // 기존 내용을 지우고 새로운 내용을 추가합니다.
 }
 
 //지우지마시오!!!
 let postpage = 1;//지우지 마시오!!!
-let commentpage=1//지우지 마시오!!!
+let postnopage = 1;
+let commentpage=1;//지우지 마시오!!!
 //지우지마시오!!!
 
 //게시글을 불러와서 페이지에 출력하는 함수
@@ -324,7 +328,7 @@ function displayPost(postList){
 		$('.delete-box').append('<a class="btn post-delete-btn">게시글 삭제</a>');
 }
 
-//페이지네이션이 주어지면 댓글 페이지네이션을 화면에 출력하는 함수
+//신고 받은 페이지네이션이 주어지면 게시글 페이지네이션을 화면에 출력하는 함수
 function displayPostPagination(pm){
 	let str = '';
 	//이전 버튼 활성화
@@ -352,7 +356,35 @@ function displayPostPagination(pm){
 	$(".box-comment-pagination>ul").html(str);
 }
 
-//페이지네이션이 주어지면 댓글 페이지네이션을 화면에 출력하는 함수
+//신고 받지 않은 페이지네이션이 주어지면 게시글 페이지네이션을 화면에 출력하는 함수
+function displayPostNoPagination(pm){
+	let str = '';
+	//이전 버튼 활성화
+	if(pm.prev){
+		str += `
+		<li class="page-item">
+			<a class="page-link post-page-link" href="javascript:void(0);" data-page="\${pm.startPage-1}">이전</a>
+		</li>`;
+	}
+	
+	for(i = pm.startPage; i<= pm.endPage; i++){
+		let active = pm.cri.page == i ? "active" : "";
+		str += 
+		`<li class="page-item \${active}">
+			<a class="page-link post-page-link" href="javascript:void(0);" data-page="\${i}">\${i}</a>
+		</li>`
+	}
+	
+	if(pm.next){
+		str += `
+		<li class="page-item">
+			<a class="page-link post-page-link" href="javascript:void(0);" data-page="\${pm.endPage+1}">다음</a>
+		</li>`;
+	}
+	$(".box-comment-pagination2>ul").html(str);
+}
+
+//신고 받은 페이지네이션이 주어지면 댓글 페이지네이션을 화면에 출력하는 함수
 function displayCommentPagination(pm, po_num){
 	let str = '';
 	//이전 버튼 활성화
@@ -384,13 +416,33 @@ $('[name=type]').click(function(){
 	displayPostAndPagination();
 })
 
-//페이지 클릭 이벤트
+$("[name=type2]").click(function(){
+	let bo_num = $("[name=type]").val();
+	$.ajax({
+		url : '<c:url value="/post/declaration"/>',
+		method : 'get',
+		data : {"bo_num" : bo_num,
+			"page" : postnopage},
+		success : function(data){
+			displayPostNoDeclaration(data.list);
+			displayPostNoPagination(data.pm);
+		}
+	});
+})
+
+//신고받은 게시글 페이지네이션 클릭 이벤트
 $(document).on("click",".box-comment-pagination .post-page-link", function(){
 	postpage = $(this).data("page");
 	displayPostAndPagination(postpage);
 });
 
-//페이지 클릭 이벤트
+//신고 받은 댓글 페이지네이션 클릭 이벤트
+$(document).on("click",".box-comment-pagination .post-page-link", function(){
+	postnopage = $(this).data("page");
+	displayPostNoPagination(postnopage);
+});
+
+//신고 받지 않은 게시글 페이지네이션 클릭 이벤트
 $(document).on("click",".box-comment-pagination .comment-page-link", function(){
 	commentpage = $(this).data("page");
 	let po_num = $(this).data("po-num");

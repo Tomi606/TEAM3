@@ -38,4 +38,12 @@ public class PostServiceImp implements PostService{
 			
 		return postDao.deletePost(post);
 	}
+
+
+	@Override
+	public ArrayList<PostVO> getPostNoList(Criteria cri, int bo_num) {
+		// TODO Auto-generated method stub
+		return postDao.selectPostNoList(cri, bo_num);
+	}
+
 }
