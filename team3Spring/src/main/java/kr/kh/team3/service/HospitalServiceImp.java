@@ -333,21 +333,15 @@ public class HospitalServiceImp implements HospitalService {
 	}
 	//병원 상세 페이지 - 선진, 민석 ==============================================
 	@Override
-	public boolean updateHospitalSubject(HospitalVO hospital) {
-		if(hospital == null 
-		|| hospital.getHo_id() == null 
-		|| hospital.getHo_id().length() == 0) {
+	public boolean insertDetail(HospitalDetailVO detail, HospitalVO hospital) {
+		if(detail == null || detail.getHd_info() == null || detail.getHd_time() == null
+		|| detail.getHd_park() == null || detail.getHd_ho_id() == null) {
 			return false;
 		}
-		return hospitalDao.updateHospitalSubject(hospital.getHo_hs_num());
-	}
-
-	@Override
-	public boolean insertDetail(HospitalDetailVO hoDetail) {
-		if(hoDetail.getHd_ho_id() == null || hoDetail.getHd_ho_id().length() == 0) {
+		if(hospital == null || hospital.getHo_id() == null) {
 			return false;
 		}
-		return hospitalDao.insertDetail(hoDetail.getHd_detail());
+		return hospitalDao.insertDetail(detail, hospital.getHo_id());
 	}
 	
 }

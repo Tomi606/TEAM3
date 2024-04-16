@@ -158,11 +158,8 @@
 	</update>
 	
 	<!-- 병원 페이지 : 선진, 민석 -->
-	<update id="updateHospitalSubject">
-		update hospital_subject set ho_hs_num = #{ho_hs_num}
-	</update>
-	
 	<insert id="insertDetail">
-		insert into hospital_detail(ho_detail) value(#{hd_detail})
+		insert into hospital_detail(hd_ho_id, hd_info, hd_time, hd_park, hd_announce, hd_etc)
+		values (#{ho_id}, #{detail.hd_info}, #{detail.hd_time}, #{detail.hd_park}, #{detail.hd_announce}, #{detail.hd_etc})
 	</insert>
 </mapper>

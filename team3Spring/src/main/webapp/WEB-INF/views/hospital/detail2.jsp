@@ -33,20 +33,65 @@
 	<button id="btn3" class="toggle-button">리뷰</button>
 </div>
 <div class="toggle-page">
-	<form action='<c:url value="/hospital/info"/>' method="post" id="page1" class="page active">
-        <h1>병원 소개 페이지</h1>
-        <div class="hospital-info">
-        	<label for="hospital-info">병원 소개</label>
-        	<textarea id="hospital-info" rows="4" cols="70"></textarea>
+	<form action='<c:url value="/hospital/info"/>' method="post" name="page1" id="page1" class="page active">
+        <h1>1. 병원 소개 페이지</h1>
+        <div class="info">
+        	<label for="hd_info" style="font-weight: bold">병원 소개</label>
+        	<input type="text" class="hd_info" id="hd_info" name="hd_info" readonly placeholder="병원 소개"/>
         </div>
-        <div class="hospital-map">
-        	<label for="hospital-map">지도</label>
+        <table class="hd_time" id="hd_time">
+	    <thead>
+	        <tr>
+	            <th>진료 시간</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr>
+	            <td>월요일</td>
+	            <td><input type="text" class="mon" name="mon" readonly placeholder="9:00~18:00"></td>
+	        </tr>
+	        <tr>
+	            <td>화요일</td>
+	            <td><input type="text" class="tue" name="tue" readonly placeholder="9:00~18:00"></td>
+	        </tr>
+	        <tr>
+	            <td>수요일</td>
+	            <td><input type="text" class="wed" name="wed" readonly placeholder="9:00~18:00"></td>
+	        </tr>
+	        <tr>
+	            <td>목요일</td>
+	            <td><input type="text" class="thu" name="thu" readonly placeholder="9:00~18:00"></td>
+	        </tr>
+	        <tr>
+	            <td>금요일</td>
+	            <td><input type="text" class="fri" name="fri" readonly placeholder="9:00~18:00"></td>
+	        </tr>
+	        <tr>
+	            <td>토요일</td>
+	            <td><input type="text" class="sat" name="sat" readonly placeholder="9:00~18:00"></td>
+	        </tr>
+	        <tr>
+	            <td>일요일</td> 
+	            <td><input type="text" class="sun" name="sun" readonly placeholder="9:00~18:00"></td>
+	        </tr>
+	    </tbody>
+	</table>
+        <div class="hd_park" id="hd_park">
+        	<label for="hd_park" style="font-weight: bold">주차 정보</label>
+        	<input type="text" class="input-tag" id="hd_park" name="hd_park" readonly placeholder="주차 정보"/>
         </div>
-        	<button type="submit">병원 소개 등록</button>
+        <div class="hd_announce">
+        	<label for="hd_announce" style="font-weight: bold">공지 사항</label>
+        	<input type="text" class="input-tag" id="hd_announce" name="hd_announce" readonly placeholder="공지 사항"/>
+        </div>
+        <div class="hd_etc">
+        	<label for="hd_etc" style="font-weight: bold">기타 사항</label>
+        	<input type="text" class="input-tag" id="hd_etc" name="hd_etc" readonly placeholder="기타 사항"/>
+        </div>
     </form>
 
     <form action='<c:url value="/hospital/subject"/>' method="post" id="page2" class="page">
-        <h1>진료 과목 페이지</h1>
+        <h1>2. 진료 과목 페이지</h1>
         <div class="subject-represent">        
 	        <label for="subject-represent">대표 진료 과목</label>
 	        <div class="subject-checkbox">
@@ -57,20 +102,21 @@
         </div>
         <div>
         	<label for="subject-detail">상세 진료 항목</label>
-	       	<textarea id="subject-detail" rows="4" cols="70" 
-	       	placeholder="감염성 질환 / 알레르기 / 만성 질환 / 호흡기 질환 / 피부 질환..."></textarea>
+	       	<input type="text" class="input-tag" id="hd_etc" name="hd_etc" readonly style="width: 80%"
+	       	placeholder="상세 진료 항목 : 감염성 질환 / 알레르기 / 만성 질환 / 호흡기 질환 / 피부 질환..."/>
         </div>
-       	<button type="submit" class="subject-btn" name="subject-btn">진료 과목 등록</button>
     </form>
 
     <form action='<c:url value="/hospital/review"/>' method="post" id="page3" class="page">
-        <h1>리뷰 페이지</h1>
-        <label for="review">리뷰 등록</label>
-      	<textarea id="review" rows="4" cols="70"></textarea>
-      	<button type="submit">리뷰 등록</button>
+        <h1>3. 리뷰</h1>
+        <h3>등록된 리뷰가 없습니다.</h3>
+        <label for="review">회원 아이디</label>
+        <textarea id="review" rows="4" cols="70"></textarea>
+        <button type="submit" class="review-btn" name="review-btn">리뷰 등록</button>
     </form>
 </div>
 </body>
+
 <!-- 토글 버튼 -->
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', function() {
@@ -100,25 +146,5 @@ document.addEventListener('DOMContentLoaded', function() {
 		page.classList.add('active');
 	}
 });
-</script>
-
-<!-- 진료 과목 등록 -->
-<script type="text/javascript">
-$("[name=subject-btn]").click(function(){
-	let subject-btn = $("[name=subject-btn]").val();
-	$.ajax({
-		method : "post",
-		url : '<c:url value="/hospital/subject"/>', 
-		data : {
-			
-		}, 
-		success : function (data){
-			
-		}, 
-		error : function(jqXHR, textStatus, errorThrown){
-
-		}
-	});
-})
 </script>
 </html>
