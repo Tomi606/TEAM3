@@ -87,9 +87,9 @@ width: 500px;height: 300px;border: 1px solid black;
  .profile-name{margin: 0 auto;text-align: center;}
  .profile-anything{border: 1px solid black;width: 300px;height: 400px;margin: 0 auto;}
  
- .profile-container{width: 1000px;height: 800px;border: 1px solid black; display: block;background-color: gray;}
- .mypage-profile-info{width: 600px;height: 325px;border: 1px solid black;margin: 40px 20px 40px 250px;background-color: green;border-radius:30px; }
- .mypage-profile-detail{width: 600px;height:325px;border: 1px solid black; margin: 0px 20px 80px 250px;background-color: green;border-radius:30px; }
+ .profile-container{width: 1000px;height: 800px;border: 1px solid black; display: block;background-color: lightgray;}
+ .mypage-profile-info{width: 600px;height: 325px;border: 1px solid black;margin: 40px 20px 40px 250px;background-color: pink;border-radius:30px; }
+ .mypage-profile-detail{width: 600px;height:325px;border: 1px solid black; margin: 0px 20px 80px 250px;background-color: pink;border-radius:30px; }
  
  .profile-img-name-container{width: 600px;height: 150px;display: flex;}
  .mypage-img{display:flex;width: 125px;height: 125px;border:1px solid white;margin: 30px 0 0 30px;border-radius:100%;background-color: white;}
@@ -114,8 +114,8 @@ width: 500px;height: 300px;border: 1px solid black;
 			</div>
 			<div class="profile-name">
 				<!-- 화면에서 아이디랑 이메일 가져와서 입력하시면 됩니다 -->
-				<h4>qwe1234</h4>
-				<p>qwer1234@naver.com</p>
+				<h4>${huser.ho_id}</h4>
+				<p>${huser.ho_email}</p>
 			</div>
 			<div class="profile-anything">
 				<div>				
@@ -140,35 +140,36 @@ width: 500px;height: 300px;border: 1px solid black;
 			<div class="mypage-img">
 			</div>
 			<div class="mypage-img-name">
-				<h4 style="display: flex;">정경호</h4>
-				<p style="margin-right: auto;">qwer1234@naver.com</p>
+				<h4 style="display: flex;">${huser.ho_ceo}</h4>
+				<p style="margin-right: auto;">${huser.ho_email}</p>
 				<span ><a href="#">실명수정</a></span>
+				<span ><a href="#">비밀번호 변경</a></span>
 			</div>
 		</div>
 			<div class="hr"></div>
 			<div class="mypage-phone">
-				<p style="margin-right: auto">010-1234-5678</p>
+				<p style="margin-right: auto">${huser.ho_phone}</p>
 				<span><a href="#">변경</a></span>
 			</div>
 			<div class="hr"></div>
 			<div class="mypage-email">
-				<p style="margin-right: auto">qwer1234@naver.com</p>
+				<p style="margin-right: auto">${huser.ho_email}</p>
 				<span><a href="#">변경</a></span>
 			</div>
 		
 		</div>
 		<div class="mypage-profile-detail">
 				<div class="mypage-hospital-name" >
-					<h5 style="margin-right: auto">푸른빛 행복 피부과</h5>
+					<h5 style="margin-right: auto">${huser.ho_name}</h5>
 					<span><a href="#">변경</a></span>
 				</div>
 				<div class="hr"></div>
 				<div class="mypage-hospital-num">
-					<h5>사업자번호 : </h5><span>123-456-7890</span>
+					<h5>사업자번호 : </h5><span>${huser.ho_num}</span>
 				</div>
 				<div class="hr"></div>
 				<div class="mypage-hospital-address">
-					<p style="margin-right: auto">서울시 강남구 역삼동 523-5</p>
+					<p style="margin-right: auto">${huser.ho_address}</p>
 					<span><a href="#">변경</a></span>
 				</div>
 			</div>
