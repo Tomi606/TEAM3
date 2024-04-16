@@ -35,8 +35,6 @@ public interface HospitalDAO {
 	void updateLoginFail(@Param("ho_id")String ho_id);
 
 	void updateLoginFailZero(@Param("ho_id")String ho_id);
-
-	
 	
 	//회원가입 아이디, 이메일, 폰 사이트 매니지먼트 중복 체크
 	SiteManagement selectSiteId(@Param("site_id") String site_id);
@@ -72,5 +70,9 @@ public interface HospitalDAO {
 	void updateHoStopCancel(@Param("ho_id")String ho_id);
 
 	boolean updateHospitalStopPlus(@Param("ho_id")String ho_id, @Param("rp_rs_name")String rp_rs_name);
+
+	//============================= 병원 페이지 ===============================
+	
+	ArrayList<HospitalSubjectVO> selectHospitalSubjectList(@Param("ho_id") String ho_id);
 
 }

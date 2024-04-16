@@ -69,4 +69,6 @@ public interface HospitalService {
 
 	ArrayList<HospitalSubjectVO> selectSubject();
 
+	ArrayList<HospitalSubjectVO> getHospitalSubjectList(String ho_id);
+
 }
