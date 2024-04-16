@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import kr.kh.team3.model.vo.EupMyeonDongVO;
+import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.SiDoVO;
@@ -74,5 +75,8 @@ public interface HospitalDAO {
 	//============================= 병원 페이지 ===============================
 	
 	ArrayList<HospitalSubjectVO> selectHospitalSubjectList(@Param("ho_id") String ho_id);
+
+	boolean insertDetail(@Param("detail") HospitalDetailVO detail, @Param("ho_id") String ho_id);
+
 
 }
