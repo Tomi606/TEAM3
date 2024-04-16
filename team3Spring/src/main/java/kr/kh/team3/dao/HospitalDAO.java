@@ -73,4 +73,8 @@ public interface HospitalDAO {
 	
 	ArrayList<HospitalSubjectVO> selectHospitalSubjectList(@Param("ho_id") String ho_id);
 
+	boolean updateHospitalSubject(@Param("ho_hs_num") int ho_hs_num);
+
+	boolean insertDetail(@Param("hd_detail") String hd_detail);
+
 }

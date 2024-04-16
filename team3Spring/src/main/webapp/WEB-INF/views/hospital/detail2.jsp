@@ -37,7 +37,7 @@
         <h1>병원 소개 페이지</h1>
         <div class="hospital-info">
         	<label for="hospital-info">병원 소개</label>
-        	<textarea id="hospital-info" rows="4" cols="50"></textarea>
+        	<textarea id="hospital-info" rows="4" cols="70"></textarea>
         </div>
         <div class="hospital-map">
         	<label for="hospital-map">지도</label>
@@ -57,16 +57,16 @@
         </div>
         <div>
         	<label for="subject-detail">상세 진료 항목</label>
-	       	<textarea id="subject-detail" rows="4" cols="50" 
+	       	<textarea id="subject-detail" rows="4" cols="70" 
 	       	placeholder="감염성 질환 / 알레르기 / 만성 질환 / 호흡기 질환 / 피부 질환..."></textarea>
         </div>
-       	<button class="subject-btn" type="submit">진료 과목 등록</button>
+       	<button type="submit" class="subject-btn" name="subject-btn">진료 과목 등록</button>
     </form>
 
     <form action='<c:url value="/hospital/review"/>' method="post" id="page3" class="page">
         <h1>리뷰 페이지</h1>
         <label for="review">리뷰 등록</label>
-      	<textarea id="review" rows="4" cols="50"></textarea>
+      	<textarea id="review" rows="4" cols="70"></textarea>
       	<button type="submit">리뷰 등록</button>
     </form>
 </div>
@@ -102,4 +102,23 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<!-- 진료 과목 등록 -->
+<script type="text/javascript">
+$("[name=subject-btn]").click(function(){
+	let subject-btn = $("[name=subject-btn]").val();
+	$.ajax({
+		method : "post",
+		url : '<c:url value="/hospital/subject"/>', 
+		data : {
+			
+		}, 
+		success : function (data){
+			
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+})
+</script>
 </html>

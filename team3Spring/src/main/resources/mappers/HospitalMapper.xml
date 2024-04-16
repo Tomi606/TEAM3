@@ -158,7 +158,11 @@
 	</update>
 	
 	<!-- 병원 페이지 : 선진, 민석 -->
-<!-- 	<select id="selectHospitalSubjectList" resultType="HospitalSubjectVO">
-		select * from hospital_subject where ho_id = #{ho_id}
-	</select> -->
+	<update id="updateHospitalSubject">
+		update hospital_subject set ho_hs_num = #{ho_hs_num}
+	</update>
+	
+	<insert id="insertDetail">
+		insert into hospital_detail(ho_detail) value(#{hd_detail})
+	</insert>
 </mapper>

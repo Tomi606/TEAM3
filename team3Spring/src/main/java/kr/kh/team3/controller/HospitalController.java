@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.kh.spring.model.vo.CommentVO;
+import kr.kh.spring.model.vo.MemberVO;
+import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.ReportVO;
@@ -40,22 +43,33 @@ public class HospitalController {
 
 	@GetMapping("/hospital/detail2")
 	public String hospitalDetail2(Model model) {
-		
 		//대표 진료 과목
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
 		model.addAttribute("hsList", hsList);
 		return "/hospital/detail2";
 	}
 	
+	//1. 병원 소개
+	@PostMapping("/hospital/info")
+	public Map<String, Object> hoInfoPost(@RequestBody HospitalDetailVO detail, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		HospitalVO user = (HospitalVO) session.getAttribute("user");
+		log.info(user);
+		boolean res = commentService.insertComment(comment, user);
+		//success의 console.log(data.result);에서 사용
+		map.put("result", res);
+		return map;
+	}
+	
 	//2. 병원 과목
 	@ResponseBody
 	@PostMapping("/hospital/subject")
-	public Map<String, Object> memberStop(@RequestBody HospitalVO hospital) {
+	public Map<String, Object> hoSubject(@RequestBody HospitalVO hospital, HospitalDetailVO hoDetail) {
 		Map<String, Object> map = new HashMap<String, Object>();
-//		boolean hsUpdate = hospitalService.updateHospitalSubject(hospital.getHo_hs_num());
-//		boolean detailUpdate = hospitalService.updateHospitalDetail();
-//		map.put("hsUpdate", hsUpdate);
-//		map.put("detailUpdate", detailUpdate);
+		boolean updateHoSub = hospitalService.updateHospitalSubject(hospital);
+		boolean insertDetail = hospitalService.insertDetail(hoDetail);
+		map.put("updateHoSub", updateHoSub);
+		map.put("insertDetail", insertDetail);
 		return map;
 	}
 	
