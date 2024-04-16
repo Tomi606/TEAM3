@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.team3.model.vo.BoardVO;
+import kr.kh.team3.model.vo.CommentVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.PostVO;
@@ -21,6 +22,7 @@ import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.pagination.Criteria;
 import kr.kh.team3.pagination.PageMaker;
 import kr.kh.team3.service.BoardService;
+import kr.kh.team3.service.CommentService;
 import kr.kh.team3.service.HospitalService;
 import kr.kh.team3.service.MemberService;
 import kr.kh.team3.service.PostService;
@@ -45,6 +47,9 @@ public class AdminController {
 	
 	@Autowired
 	PostService postService;
+	
+	@Autowired
+	CommentService commentService;
 	
 	//회원가입 메인페이지
 	@GetMapping("/admin/adminpage")
@@ -307,11 +312,72 @@ public class AdminController {
 		}
 		
 		@GetMapping("/post/delete")
-		public Map<String, Object> postdelete(int po_bo_num, String po_num) {
-			Map<String, Object> map = new HashMap<String, Object>();
+		public String postdelete(Model model, int po_bo_num, String po_num) {
 			int po_num1 = Integer.parseInt(po_num);
-			PostVO post = new PostVO(po_bo_num, po_num1);
-			System.out.println(post);
+			PostVO post = new PostVO(po_num1, po_bo_num);
+			boolean res = postService.deletePost(post);
+			if (res) {
+				model.addAttribute("msg","게시글 삭제를 완료했습니다.");
+				model.addAttribute("url","/community");
+			}else {
+				model.addAttribute("msg","게시글 삭제에 실패 했습니다.");
+				model.addAttribute("url","/community");
+			}
+			return "message";
+		}
+		
+		@ResponseBody
+		@PostMapping("/comment")
+		public Map<String, Object> CommentPost(@RequestParam("po_num") int po_num, @RequestParam("page") int page) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			Criteria cri = new Criteria(page, 2);
+			int totalCount = commentService.getCommentCount(cri, po_num);
+			ArrayList<CommentVO> list = commentService.getCommentByPostList(cri, po_num);
+			PageMaker pm = new PageMaker(3, cri, totalCount);
+			map.put("list", list);
+			map.put("pm", pm);
+			return map;
+		}
+		
+		@ResponseBody
+		@PostMapping("/commentno")
+		public Map<String, Object> CommentNoPost(@RequestParam("po_num") int po_num, @RequestParam("page") int page) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			Criteria cri = new Criteria(page, 2);
+			int totalCount = commentService.getCommentNoCount(cri, po_num);
+			ArrayList<CommentVO> list = commentService.getCommentNoByPostList(cri, po_num);
+			System.out.println(list);
+			System.out.println(page);
+			PageMaker pm = new PageMaker(3, cri, totalCount);
+			map.put("list", list);
+			map.put("pm", pm);
+			return map;
+		}
+		
+		@GetMapping("/comment/delete")
+		public String CommentDelete(Model model, int co_num) {
+			CommentVO comment = new CommentVO(co_num);
+			boolean res = commentService.deleteComment(comment);
+			if (res) {
+				model.addAttribute("msg","댓글 삭제를 완료했습니다.");
+				model.addAttribute("url","/community");
+			}else {
+				model.addAttribute("msg","댓글 삭제에 실패 했습니다.");
+				model.addAttribute("url","/community");
+			}
+			return "message";
+		}
+		
+		@ResponseBody
+		@GetMapping("/post/declaration")
+		public Map<String, Object> postnodeclaration(@RequestParam("bo_num") int bo_num, @RequestParam("page") int page) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			Criteria cri = new Criteria(page, 2);
+			int totalCount = postService.getPostNoCount(cri, bo_num);
+			ArrayList<PostVO> list = postService.getPostNoList(cri, bo_num);
+			PageMaker pm = new PageMaker(3, cri, totalCount);
+			map.put("list", list);
+			map.put("pm", pm);
 			return map;
 		}
 		// ======================== 게시글 관리 끝 ==========================

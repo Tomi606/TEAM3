@@ -15,7 +15,11 @@
 	</resultMap>
 	
 	<select id="selectPostList" resultMap="PostMap">
-		select * from post where po_bo_num = #{bo_num} order by po_num limit #{cri.pageStart}, #{cri.perPageNum}
+		select * from post where po_bo_num = #{bo_num} and po_report_count >= 1 order by po_num limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="selectPostNoList" resultMap="PostMap">
+		select * from post where po_bo_num = #{bo_num} and po_report_count = 0 order by po_num limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
 	<select id="selectSiteManagement" resultType="kr.kh.team3.model.vo.SiteManagement">
@@ -23,6 +27,16 @@
 	</select>
 	
 	<select id="selectPostTotalCount" resultType="int">
-		select count(*) from post where po_bo_num = #{bo_num}
+		select count(*) from post where po_bo_num = #{bo_num} and po_report_count >= 1;
 	</select>
+	
+	<select id="selectPostNoTotalCount" resultType="int">
+		select count(*) from post where po_bo_num = #{bo_num} and po_report_count = 0;
+	</select>
+	
+	<delete id="deletePost">
+		delete from post where po_num = #{post.po_num}
+	</delete>
+	
+	
 </mapper>
