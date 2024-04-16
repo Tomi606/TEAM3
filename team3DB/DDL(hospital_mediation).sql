@@ -266,7 +266,10 @@ CREATE TABLE `hospital_detail` (
 	`hd_num`	int	primary key auto_increment,
 	`hd_ho_id`	varchar(13)	NOT NULL,
 	`hd_info`	text	NULL,
-	`hd_detail`	text	NULL
+	`hd_time`	text	NULL,
+	`hd_park`	text	NULL,
+	`hd_announce`	text	NULL,
+	`hd_etc`	text	NULL
 );
 
 DROP TABLE IF EXISTS `review`;
