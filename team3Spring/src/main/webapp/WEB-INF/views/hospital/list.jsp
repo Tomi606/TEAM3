@@ -36,11 +36,11 @@ margin: 30px auto 50px auto;
 
 
 
-.hospital-list-home{width: 1903px;height: 1200px;border: 1px solid black;}
-.hospital-list-box{width: 1400px;height: 100%;border:1px solid blue;margin: 0 auto;text-align: center;}
-.hospital-like-list{width: 100%;height: 400px;border: 1px solid green;}
+.hospital-list-home{width: 1903px;height: 1500px;}
+.hospital-list-box{width: 1400px;height: 100%;margin: 0 auto;text-align: center;
+.hospital-like-list{width: 100%;height: 450px;border: 1px solid green;margin-bottom: 50px;}
 .hospital-area-list{
-width: 100%;height: 800px;border: 1px solid pink;}
+width: 100%;height: 850px;border: 1px solid pink;}
 </style>
 </head>
 <body>
