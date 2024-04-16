@@ -157,4 +157,8 @@
 		where ho_id = #{ho_id}
 	</update>
 	
+	<!-- 병원 페이지 : 선진, 민석 -->
+<!-- 	<select id="selectHospitalSubjectList" resultType="HospitalSubjectVO">
+		select * from hospital_subject where ho_id = #{ho_id}
+	</select> -->
 </mapper>
