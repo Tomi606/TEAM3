@@ -291,6 +291,58 @@ public class MemberServiceImp implements MemberService {
 	}
 
 
+	@Override
+	public boolean updatePhone(SiteManagement user, MemberVO member) {
+		if(user == null
+				||member == null 
+				|| member.getMe_phone() == null 
+				|| member.getMe_phone().isEmpty()
+				||member.getMe_phone().length() == 0)
+			return false;
+		MemberVO dbMember = memberDao.selectMember(user.getSite_id());
+		if(dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
+			return false;
+		
+		
+		return  memberDao.updatePhone(member);
+	}
+
+
+	@Override
+	public boolean updateEmail(SiteManagement user, MemberVO member) {
+		if(user == null
+				||member == null 
+				|| member.getMe_email() == null 
+				|| member.getMe_email().isEmpty()
+				||member.getMe_email().length() == 0)
+			return false;
+		MemberVO dbMember = memberDao.selectMember(user.getSite_id());
+		if(dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
+			return false;
+		
+		
+		return  memberDao.updateEmail(member);
+	}
+
+
+	@Override
+	public boolean updateJob(SiteManagement user, MemberVO member) {
+		if(user == null
+				||member == null 
+				|| member.getMe_job() == null 
+				|| member.getMe_job().isEmpty()
+				||member.getMe_job().length() == 0)
+			return false;
+		MemberVO dbMember = memberDao.selectMember(user.getSite_id());
+		if(dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
+			return false;
+		
+		
+		return  memberDao.updateJob(member);
+	}
+
+
+
 	 
 
 	
