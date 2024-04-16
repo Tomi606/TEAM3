@@ -118,23 +118,23 @@ width: 500px;height: 300px;border: 1px solid black;
 				<p>${huser.ho_email}</p>
 			</div>
 			<div class="profile-anything">
-			<!-- 내용 입력하시면 됩니다 (구상하기)-->
-				<div class="program3">
-				1
-				 	<a href="<c:url value="/hospital/detail"/>">병원 상세 페이지 수정</a>
+				<div>				
+					<a href='<c:url value="/hospital/detail1"/>'>1. 병원 상세 페이지1</a><br>
+					<a href='<c:url value="/hospital/detail2"/>'>1. 병원 상세 페이지2</a>
 				</div>
-				 
-				<div class="program1">
-				2
-					<a href="<c:url value="/hospital/program"/>">프로그램 관리</a>
+				<div>				
+					<a>2. 프로그램 등록/수정/삭제</a>
 				</div>
-				<div class="program2">
-				3
-					<a href="<c:url value="/hospital/book"/>">예약 관리</a>
+				<div>
+					<a>3. 예약 관리(변경, 취소(삭제))</a>
+				</div>
+				<div>				
+					<a>4. 커뮤니티 관리(게시글, 댓글 조회/수정/삭제)</a>
 				</div>
 			</div>
 	</div>
 	<div class="profile-container">
+		<h3>5. 병원 정보 수정</h3>
 		<div class="mypage-profile-info">
 		<div class="profile-img-name-container">
 			<div class="mypage-img">
@@ -175,104 +175,33 @@ width: 500px;height: 300px;border: 1px solid black;
 			</div>
  		</div>
 </div>
-<%-- <div class="body-tag">
-		<div class="input-box">
-		<div class="hos_my_page_inner">
-			<div class="hos_my_page_input_wrap">
-				<div>
-					<h1>병원 마이페이지입니다.</h1>
-					<img alt="아이디 이미지" src="<c:url value="/resources/img/ceo.svg"/>">
-					<input type="text" class="input-tag" id="id" name="ho_id"  readonly="readonly" value="" placeholder="아이디 수정 불가능"/>
-					<label class="text-danger textId" id="laId"></label>
-				</div>
-				<div>
-			    	<input type="hidden" id="id2" name="site_id">
-				</div>
-				<div>
-					<img alt="비번 이미지" src="<c:url value="/resources/img/password.svg"/>">
-					<input type="password" class="input-tag" id="pw" name="ho_pw" value="${huser.ho_pw}" readonly="readonly"/>
-					<label id="pw-error" class="error text-danger" for="pw"></label>
-				</div>
-				<div>
-					<img alt="이메일 이미지" src="<c:url value="/resources/img/email.svg"/>">
-					<input type="email" class="input-tag" id="email" name="ho_email" readonly="readonly" value="${huser.ho_email}"/>
-					<!-- 데이터 추가 후 풀기 <input type="email" class="input-tag" id="email" name="ho_email" readonly value="${email}"/> -->
-					<label id="email-error" class="error text-danger" for="email"></label>
-				</div>
-				<div>
-					<img alt="상호명 이미지" src="<c:url value="/resources/img/quote.svg"/>">
-					<input type="text" class="input-tag" id="name" name="ho_name" readonly="readonly" value="${huser.ho_name}"/>
-					<label id="name-error" class="error text-danger" for="name"></label>
-				</div>
-				<div>
-					<img alt="대표자명 이미지" src="<c:url value="/resources/img/user.svg"/>">
-					<input type="text" class="input-tag" id="ceo" name="ho_ceo" readonly="readonly" value="${huser.ho_ceo}"/>
-					<label id="ceo-error" class="error text-danger" for="ceo"></label>
-				</div>
-				<div>
-					<img alt="사업자번호 이미지" src="<c:url value="/resources/img/job.svg"/>">
-					<input type="text" class="input-tag" id="num" name="ho_num" readonly="readonly" value="${huser.ho_num}"/>
-					<label id="num-error" class="error text-danger" for="num"></label>
-				</div>
-				<div>
-					<img alt="대표 전화번호 이미지" src="<c:url value="/resources/img/phone2.svg"/>">
-					<input type="text" class="input-tag" id="phone" name="ho_phone"readonly="readonly"value="${huser.ho_phone}"/>
-					<label id="phone-error" class="error text-danger" for="phone"></label>
-				</div>
-				<p>각 인풋태그마다 비동기로 수정할건지 하고싶은거만 골라서 수정할건지 정하기</p>
-			</div>
-			<div class="program_check_wrap">
-				<div class="program">
-				2
-					<a href="<c:url value="/hospital/program"/>">프로그램 관리</a>
-				</div>
-				<div class="program">
-				3
-					<a href="<c:url value="/hospital/book"/>">예약 관리</a>
-				</div>
-				<div class="program">
-				1
-				 	<a href="<c:url value="/hospital/detail"/>">병원 상세 페이지 수정</a>
-				</div>
-				<div class="program">
-				</div>
-			</div>
+<div class="body-tag">
+	<div class="input-box">
+		<div class="subject">
+		<div class="hr" style="margin-top:30px; margin-bottom:40px; border: 1px solid #d2d2d2; width: 100%;"></div> 
+			<select id="subject" name="ho_hs_num" style="width: 400px; margin-bottom: 20px" required>
+				<option value="none">진료과목을 선택하세요</option>
+				<c:forEach items="${hospitalList}" var="hs">
+					<option value="${hs.hs_num}">${hs.hs_title}</option>
+				</c:forEach>
+			</select>
 		</div>
-			
-			
-			<div class="subject">
-			 <div class="hr" style="margin-top:30px; margin-bottom:40px; border: 1px solid #d2d2d2; width: 100%;"></div> 
-				<select id="subject" name="ho_hs_num" style="width: 400px; margin-bottom: 20px" required>
-					<option value="none">진료과목을 선택하세요</option>
-					<c:forEach items="${hospitalList}" var="hs">
-						<option value="${hs.hs_num}">${hs.hs_title}</option>
-					</c:forEach>
-				</select>
-			</div>
-			<div>
-				<select name="sd_num" class="sd_num" style="width: 400px; margin-bottom: 20px" required>
-					<option value="none">시/도를 선택해주세요</option>
-					<c:forEach items="${sidoList}" var="sd">
-						<option value="${sd.sd_num}">${sd.sd_name}</option>
-					</c:forEach>
-				</select>	
-				<select name="sgg_num" class="sgg_num" style="width: 400px; margin-bottom: 20px" required>
-					<option value="none">시/군/구를 선택해주세요</option>
-				</select>	
-			 	<select name="emd_num" class="emd_num" style="width: 400px; margin-bottom: 20px" required>
-			         <option value="none">읍/면/동을 선택해주세요</option>
-			    </select>
-			</div>
+		<div>
+			<select name="sd_num" class="sd_num" style="width: 400px; margin-bottom: 20px" required>
+				<option value="none">시/도를 선택해주세요</option>
+				<c:forEach items="${sidoList}" var="sd">
+					<option value="${sd.sd_num}">${sd.sd_name}</option>
+				</c:forEach>
+			</select>	
+			<select name="sgg_num" class="sgg_num" style="width: 400px; margin-bottom: 20px" required>
+				<option value="none">시/군/구를 선택해주세요</option>
+			</select>	
+		 	<select name="emd_num" class="emd_num" style="width: 400px; margin-bottom: 20px" required>
+		         <option value="none">읍/면/동을 선택해주세요</option>
+		    </select>
 		</div>
-		
+	</div>
 </div>
- --%>
-
-
-
-
-
-
 
 </body>
 </html>
