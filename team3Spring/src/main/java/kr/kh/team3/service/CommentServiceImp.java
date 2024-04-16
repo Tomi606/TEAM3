@@ -42,5 +42,21 @@ public class CommentServiceImp implements CommentService {
 		return commentDao.deleteComment(comment);
 	}
 
+	@Override
+	public int getCommentNoCount(Criteria cri, int po_num) {
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		return commentDao.selectCommentNoTotalCount(cri, po_num);
+	}
+
+	@Override
+	public ArrayList<CommentVO> getCommentNoByPostList(Criteria cri, int po_num) {
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		return commentDao.selectCommentNoList(cri, po_num);
+	}
+
 
 }

@@ -46,4 +46,10 @@ public class PostServiceImp implements PostService{
 		return postDao.selectPostNoList(cri, bo_num);
 	}
 
+	@Override
+	public int getPostNoCount(Criteria cri, int bo_num) {
+		// TODO Auto-generated method stub
+		return postDao.selectPostNoTotalCount(cri, bo_num);
+	}
+
 }

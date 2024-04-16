@@ -15,4 +15,6 @@ public interface PostService {
 
 	ArrayList<PostVO> getPostNoList(Criteria cri, int bo_num);
 
+	int getPostNoCount(Criteria cri, int bo_num);
+
 }

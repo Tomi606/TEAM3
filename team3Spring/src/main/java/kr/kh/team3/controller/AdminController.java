@@ -339,6 +339,21 @@ public class AdminController {
 			return map;
 		}
 		
+		@ResponseBody
+		@PostMapping("/commentno")
+		public Map<String, Object> CommentNoPost(@RequestParam("po_num") int po_num, @RequestParam("page") int page) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			Criteria cri = new Criteria(page, 2);
+			int totalCount = commentService.getCommentNoCount(cri, po_num);
+			ArrayList<CommentVO> list = commentService.getCommentNoByPostList(cri, po_num);
+			System.out.println(list);
+			System.out.println(page);
+			PageMaker pm = new PageMaker(3, cri, totalCount);
+			map.put("list", list);
+			map.put("pm", pm);
+			return map;
+		}
+		
 		@GetMapping("/comment/delete")
 		public String CommentDelete(Model model, int co_num) {
 			CommentVO comment = new CommentVO(co_num);
@@ -358,7 +373,7 @@ public class AdminController {
 		public Map<String, Object> postnodeclaration(@RequestParam("bo_num") int bo_num, @RequestParam("page") int page) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			Criteria cri = new Criteria(page, 2);
-			int totalCount = postService.getPostCount(cri, bo_num);
+			int totalCount = postService.getPostNoCount(cri, bo_num);
 			ArrayList<PostVO> list = postService.getPostNoList(cri, bo_num);
 			PageMaker pm = new PageMaker(3, cri, totalCount);
 			map.put("list", list);

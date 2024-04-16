@@ -13,4 +13,8 @@ public interface CommentService {
 
 	boolean deleteComment(CommentVO comment);
 
+	int getCommentNoCount(Criteria cri, int po_num);
+
+	ArrayList<CommentVO> getCommentNoByPostList(Criteria cri, int po_num);
+
 }
