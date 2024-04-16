@@ -213,11 +213,10 @@ $('.mypage-container').html(str);
 <script type="text/javascript">
 $(document).on('click','.name-update', function(){
 	  initComment();
-	  getMypageInfo();
 	  let nameBox = $(".box-name");
 	  //댓글을 수정할 수 있는 textarea로 변경
 	  let me_name = nameBox.text();
-	  let str = `<input class="form-control box-name2" value="${member.me_name}">`;
+	  let str = `<input class="form-control box-name2" value="\${me_name}">`;
 	  nameBox.after(str);
 	  nameBox.hide();
 	  
