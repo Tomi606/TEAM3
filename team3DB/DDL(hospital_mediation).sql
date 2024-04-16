@@ -158,6 +158,7 @@ CREATE TABLE `hospital` (
     `ho_stop_count`	int	not NULL default 0
 );
 
+
 DROP TABLE IF EXISTS `site_management`;
 
 CREATE TABLE `site_management` (
