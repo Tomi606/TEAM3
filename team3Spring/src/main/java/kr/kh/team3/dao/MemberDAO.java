@@ -59,6 +59,11 @@ public interface MemberDAO {
 
 	boolean updatePlusStopMember(@Param("me_id") String me_id, @Param("rp_rs_name") String rp_rs_name);
 
+	MemberVO getMemberInfo(@Param("id") String site_id);
+
+
+	boolean updateName(@Param("me")MemberVO member);
+
 
 	
 

@@ -1,14 +1,23 @@
 package kr.kh.team3.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiDoVO;
+import kr.kh.team3.model.vo.SiteManagement;
 import kr.kh.team3.service.MemberService;
 import lombok.extern.log4j.Log4j;
 
@@ -26,11 +35,49 @@ public class MemberController {
 	 * 메서드 위에 주석으로 무슨 기능인지 쓰기
 	 */
 	@GetMapping("/member/mypage")
-	public String myPageGet(Model model,MemberVO member) {
-		
+	public String myPageGet(Model model,MemberVO member,HttpSession session) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
+		MemberVO muser = memberService.getMemberInfo(user);
+		
+		model.addAttribute("member",muser);
 		model.addAttribute("sidoList",sidoList);
 		return "/member/mypage";
+	}
+	
+	//실명 수정 메서드 비동기
+	@ResponseBody
+	@PostMapping("/member/name")
+	public HashMap<String, Object> nameUpdate(@RequestBody MemberVO member,HttpSession session){
+		HashMap<String, Object> map= new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement)session.getAttribute("user");
+		boolean res = memberService.updateName(user,member);
+		MemberVO me = memberService.getMember(member);
+		map.put("me",me);
+		map.put("res",res);
+		return map;
+	}
+	// 메서드 비동기
+	@ResponseBody
+	@PostMapping("/member/phone")
+	public HashMap<String, Object> phoneUpdate(@RequestBody MemberVO member,HttpSession session){
+		HashMap<String, Object> map= new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement)session.getAttribute("user");
+//		boolean res = memberService.updatePhone(user,member);
+//		map.put("res",res);
+		return map;
+	}
+	
+	
+	//회원 마이페이지 비동기 
+	@ResponseBody
+	@PostMapping("/member/list")
+	public HashMap<String, Object> nameList(HttpSession session){
+		HashMap<String, Object> map= new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement)session.getAttribute("user");
+		MemberVO muser = memberService.getMemberInfo(user);
+		map.put("member",muser);
+		return map;
 	}
 
 }

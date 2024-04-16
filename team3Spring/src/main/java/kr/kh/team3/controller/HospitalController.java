@@ -31,9 +31,7 @@ public class HospitalController {
 	@GetMapping("/hospital/mypage")//병원 마이페이지
 	public String hospitalMypage(Model model, HospitalVO hospital, HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		log.info(user);
 		HospitalVO huser = hospitalService.getHospital(user);
-		log.info(huser);
 		model.addAttribute("huser",huser);
 		return "/hospital/mypage";
 	}
