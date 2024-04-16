@@ -108,14 +108,50 @@ width: 500px;height: 300px;border: 1px solid black;
 </head>
 <body>
 <div class="mypage-container">
-	<div class="mypage-profile">
+
+
+
+
+
+
+
+	
+</div>
+<!-- 마이페이지 리스트 -->
+<script type="text/javascript">
+
+getMypage();
+function getMypage() {
+	  $.ajax({
+	    async: true,
+	    url: '<c:url value="/member/list"/>',
+	    type: 'post',
+	    // 데이터가 JSON 형식이라면 JSON.stringify()를 사용하여 객체를 문자열로 변환
+	    // 서버로 보낼 데이터 타입
+	    contentType: "application/json; charset=utf-8",
+	    // 서버에서 보낸 데이터의 타입
+	    dataType: "json",
+	    success: function(data) {
+	      console.log(data.member);
+	      getMypageInfo(data.member);
+	    },
+	    error: function(jqXHR, textStatus, errorThrown) {
+
+	    }
+	  });
+}
+function getMypageInfo(member) {
+	if(member == null || member.length == 0)
+		return;
+	var str =
+		`
+		<div class="mypage-profile">
 		
 			<div class="profile-img">
 			</div>
 			<div class="profile-name">
-				<!-- 화면에서 아이디랑 이메일 가져와서 입력하시면 됩니다 -->
-				<h4>${huser.ho_id}</h4>
-				<p>${huser.ho_email}</p>
+				<h4>${member.me_id}</h4>
+				<p>${member.me_email}</p>
 			</div>
 			<div class="profile-anything">
 				<div>				
@@ -124,7 +160,7 @@ width: 500px;height: 300px;border: 1px solid black;
 					<a href='<c:url value=""/>'>3. 내 커뮤니티</a>
 				</div>
 			</div>
-	</div>
+		</div>
 	<div class="profile-container">
 		<h3>회원 정보 수정</h3>
 		<div class="mypage-profile-info">
@@ -132,68 +168,111 @@ width: 500px;height: 300px;border: 1px solid black;
 			<div class="mypage-img">
 			</div>
 			<div class="mypage-img-name">
-				<h4 style="display: flex;">${huser.ho_ceo}</h4>
-				<p style="margin-right: auto;">${huser.ho_email}</p>
-				<span ><a href="#">실명수정</a></span>
-				<span ><a href="#">비밀번호 변경</a></span>
+				<h4 style="display: flex;" class="box-name">\${member.me_name}</h4>
+				<p style="margin-right: auto;">\${member.me_email}</p>
+				<span ><button type="button" class="name-update">실명수정</button></span>
+				<span ><a href="#" class="pw-update">비밀번호 변경</a></span>
 			</div>
 		</div>
 			<div class="hr"></div>
 			<div class="mypage-phone">
-				<p style="margin-right: auto">${huser.ho_phone}</p>
+				<p style="margin-right: auto">\${member.me_phone}</p>
 				<span><a href="#">변경</a></span>
 			</div>
 			<div class="hr"></div>
 			<div class="mypage-email">
-				<p style="margin-right: auto">${huser.ho_email}</p>
+				<p style="margin-right: auto">\${member.me_email}</p>
 				<span><a href="#">변경</a></span>
 			</div>
 		
 		</div>
 		<div class="mypage-profile-detail">
 				<div class="mypage-hospital-name" >
-					<h5 style="margin-right: auto">${huser.ho_name}</h5>
+					<h5 style="margin-right: auto">\${member.me_name}</h5>
 					<span><a href="#">변경</a></span>
 				</div>
 				<div class="hr"></div>
-				<div class="mypage-hospital-num">
-					<h5>사업자번호 : </h5><span>${huser.ho_num}</span>
+				 <div class="mypage-hospital-address">
+				 	<h5>직업 : </h5>
+					<span style="margin-right: auto">\${member.me_job}</span>
+					<span><a href="#">변경</a></span>
 				</div>
 				<div class="hr"></div>
 				<div class="mypage-hospital-address">
-					<p style="margin-right: auto">${huser.ho_address}</p>
+					<p style="margin-right: auto">\${member.me_address}</p>
 					<span><a href="#">변경</a></span>
 				</div>
 			</div>
  		</div>
-</div>
-<div class="body-tag">
-	<div class="input-box">
-		<div class="subject">
-		<div class="hr" style="margin-top:30px; margin-bottom:40px; border: 1px solid #d2d2d2; width: 100%;"></div> 
-			<select id="subject" name="ho_hs_num" style="width: 400px; margin-bottom: 20px" required>
-				<option value="none">진료과목을 선택하세요</option>
-				<c:forEach items="${hospitalList}" var="hs">
-					<option value="${hs.hs_num}">${hs.hs_title}</option>
-				</c:forEach>
-			</select>
-		</div>
-		<div>
-			<select name="sd_num" class="sd_num" style="width: 400px; margin-bottom: 20px" required>
-				<option value="none">시/도를 선택해주세요</option>
-				<c:forEach items="${sidoList}" var="sd">
-					<option value="${sd.sd_num}">${sd.sd_name}</option>
-				</c:forEach>
-			</select>	
-			<select name="sgg_num" class="sgg_num" style="width: 400px; margin-bottom: 20px" required>
-				<option value="none">시/군/구를 선택해주세요</option>
-			</select>	
-		 	<select name="emd_num" class="emd_num" style="width: 400px; margin-bottom: 20px" required>
-		         <option value="none">읍/면/동을 선택해주세요</option>
-		    </select>
-		</div>
-	</div>
-</div>
+		`;	
+$('.mypage-container').html(str);
+}
+
+</script>
+<!--이름 수정 -->
+<script type="text/javascript">
+$(document).on('click','.name-update', function(){
+	  initComment();
+	  getMypageInfo();
+	  let nameBox = $(".box-name");
+	  //댓글을 수정할 수 있는 textarea로 변경
+	  let me_name = nameBox.text();
+	  let str = `<input class="form-control box-name2" value="${member.me_name}">`;
+	  nameBox.after(str);
+	  nameBox.hide();
+	  
+	  //수정/삭제 버튼을 감추고
+	  $(".name-update").hide();
+	  
+	  //수정 완료 버튼을 추가
+	  let me_id = '${member.me_id}';
+	  str = `<button class="btn btn-outline-warning btn-complete">수정 완료</button>`;
+	  $(".box-name").after(str);
+	});
+
+	$(document).on('click', '.btn-complete', function(){
+	  //전송할 데이터를 생성 => 댓글 수정 => 댓글 번호, 댓글 내용
+	  let member = {
+	    me_name : $('.box-name2').val(),
+	    me_id : '${member.me_id}'
+	  };
+	  console.log(member);
+	  //서버에 ajax로 데이터를 전송 후 처리
+	  $.ajax({
+	    async : true,
+	    url : '<c:url value="/member/name"/>',
+	    type : 'post',
+	    data : JSON.stringify(member),
+	    contentType : "application/json; charset=utf-8",
+	    dataType : "json",
+	    success : function (data){
+	      if(data.res){
+	        alert("이름을 수정했습니다.");
+	        initComment();
+	        getMypageInfo(data.me);
+			return;	        
+	      }else{
+	        alert("이름을 수정하지 못했습니다.");
+	        return;
+	      }
+	    },
+	    error : function(jqXHR, textStatus, errorThrown){
+
+	    }
+	  });
+	});
+
+//수정 버튼을 누른 상태에서 다른 수정 버튼을 누르면 기존에 누른 댓글을 원상태로 돌려주는 함수
+function initComment(){
+	  $('.btn-complete').remove();
+	  $('.box-name2').remove();
+	  $('.box-btn').show();
+	  $('.box-name').show();
+	  $(".name-update").show();
+}
+
+
+</script>
 
 </body>
 </html>

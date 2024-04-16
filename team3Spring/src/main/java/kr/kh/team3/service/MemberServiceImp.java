@@ -264,5 +264,34 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.updateStopMember(report.getRp_target(), report.getRp_rs_name());
 	}
 
+
+	@Override
+	public MemberVO getMemberInfo(SiteManagement user) {
+		if(user == null ||
+				user.getSite_id() == null) {
+				return null;
+			}
+		return memberDao.getMemberInfo(user.getSite_id());
+	}
+
+
+	@Override
+	public boolean updateName(SiteManagement user, MemberVO member) {
+		if(user == null
+				||member == null 
+				|| member.getMe_name() == null 
+				|| member.getMe_name().isEmpty()
+				||member.getMe_name().length() == 0)
+			return false;
+		MemberVO dbMember = memberDao.selectMember(user.getSite_id());
+		if(dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
+			return false;
+		
+		return memberDao.updateName(member);
+	}
+
+
+	 
+
 	
 }

@@ -48,5 +48,9 @@ public interface MemberService {
 
 	boolean stopMember(ReportVO report);
 
+	MemberVO getMemberInfo(SiteManagement user);
+
+	boolean updateName(SiteManagement user, MemberVO member);
+
 
 }
