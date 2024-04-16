@@ -38,6 +38,13 @@ public class HospitalController {
 		return "/hospital/mypage";
 	}
 
+	
+	@GetMapping("/hospital/detail1")
+	public String hospitalDetail1(Model model) {
+		
+		return "/hospital/detail1";
+	}
+	
 	@GetMapping("/hospital/detail2")
 	public String hospitalDetail2(Model model) {
 		
