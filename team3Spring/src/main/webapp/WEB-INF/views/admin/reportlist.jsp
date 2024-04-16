@@ -100,7 +100,7 @@ function displayReportList(list){
 						</select>
 						<button class="btn-ho-stop" data-id="\${item.hospital.ho_id}">정지</button>
 					</td>
-					<td><button class="btn-ho-out" data-id="\${item.ho_id}">탈퇴</button></td>
+					<td><button class="btn-ho-out" data-id="\${item.hospital.ho_id}">탈퇴</button></td>
 				</tr>
 			`;
 		}

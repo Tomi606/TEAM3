@@ -287,7 +287,13 @@ public class HospitalServiceImp implements HospitalService {
 			hospital.getHo_id().length() == 0) {
 			return false;
 		}
-		return hospitalDao.deleteHospital(hospital.getHo_id());
+		boolean res1 = hospitalDao.deleteHospital(hospital.getHo_id());
+		boolean res2 = hospitalDao.deleteSite(hospital.getHo_id());
+		if(res1 && res2) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 
 	@Override
@@ -329,6 +335,11 @@ public class HospitalServiceImp implements HospitalService {
 
 	public ArrayList<HospitalSubjectVO> selectSubject() {
 		return hospitalDao.selectHospitalSubjectList();
+	}
+
+	@Override
+	public ArrayList<HospitalSubjectVO> getHospitalSubjectList(String ho_id) {
+		return hospitalDao.selectHospitalSubjectList(ho_id);
 	}
 
 }
