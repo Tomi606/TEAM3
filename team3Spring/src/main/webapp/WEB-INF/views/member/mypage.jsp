@@ -102,24 +102,25 @@ width: 500px;height: 300px;border: 1px solid black;
  
  .mypage-hospital-name{display: flex;margin: 40px 48px 0 47px;}
  .mypage-hospital-num{display:flex;margin: 20px 48px 0 47px;}
- .mypage-job{width:500px;display:flex;margin: 20px 48px 0 47px;flex-direction: row;justify-content: space-between;}
+ .mypage-job{display:flex;margin: 20px 48px 0 47px;flex-direction: row;justify-content: space-between;}
  .mypage-hospital-address{display:flex;margin: 20px 48px 0 47px;}
  
  .new_me_name_hidden{width:180px;display:none;}
- .new_me_name_hidden input{width: 100%; font-size: 1.5rem;}
+ .new_me_name_hidden input{width:250px; /* font-size: 1.5rem; */}
  .name_save_btn_wrap{display:none;}
  
  .new_me_phone_hidden{width:180px;display:none;}
- .new_me_phone_hidden input{width: 100%; font-size: 1.5rem;}
+/*  .new_me_phone_hidden input{ font-size: 1.5rem;} */
  .phone_save_btn_wrap{display:none;} 
  
  .new_me_email_hidden{width:180px;display:none;}
- .new_me_email_hidden input{width: 100%; font-size: 1.5rem;}
+ /* .new_me_email_hidden input{} */
  .email_save_btn_wrap{display:none;} 
  
  .new_me_job_hidden{width:180px;display:none;}
- .new_me_job_hidden input{width: 100%; font-size: 1.5rem;}
+ .new_me_job_hidden input{ width:300px;position: relative;}
  .job_save_btn_wrap{display:none;} 
+ .box-name2{position: relative;}
 </style>
 </head>
 <body>
@@ -214,10 +215,10 @@ function getMypageInfo(member) {
 		</div>
 		<div class="mypage-profile-detail">
 				 <div class="mypage-job">
+				 	<h5>직업 : </h5>
 					 <div class="new_me_job_hidden">
 						<input type='text' id="new_me_job" class="box-job2" value="\${member.me_job}"/>
 					</div>	
-				 	<h5>직업 : </h5>
 					<span style="margin-right: auto" class"box-job">\${member.me_job}</span>
 					<span class="job_update_btn_wrap"><button type="button" class="job-update">변경</button></span>
 					<span class="job_save_btn_wrap"><button type="button" class="job_save_btn">수정완료</button></span>
