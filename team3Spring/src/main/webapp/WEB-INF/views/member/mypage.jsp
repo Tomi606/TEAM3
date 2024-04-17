@@ -121,6 +121,11 @@ width: 500px;height: 300px;border: 1px solid black;
  .new_me_job_hidden input{ width:300px;position: relative;}
  .job_save_btn_wrap{display:none;} 
  .box-name2{position: relative;}
+ 
+ 
+ /*모달창*/
+ 
+ 
 </style>
 </head>
 <body>
@@ -131,6 +136,9 @@ width: 500px;height: 300px;border: 1px solid black;
 
 	
 </div>
+ 
+
+
 <!-- 마이페이지 리스트 -->
 <script type="text/javascript">
 
@@ -190,9 +198,9 @@ function getMypageInfo(member) {
 				<p style="margin-right: auto;">\${member.me_email}</p>
 				<span class="name_update_btn_wrap"><button type="button" class="name-update">실명수정</button></span>
 				<span class="name_save_btn_wrap"><button type="button" class="name_save_btn">수정완료</button></span>
-				<span ><a href="#" class="pw-update">비밀번호 변경</a></span>
 			</div>
 		</div>
+				<span class="pw_update_btn_wrap"><button type="button" class="pw-update">비밀번호 변경</button></span>
 			<div class="hr"></div>
 			<div class="mypage-phone">
 				<div class="new_me_phone_hidden">
@@ -264,6 +272,11 @@ $(document).on('click','.name-update', function(){
     $('.name_update_btn_wrap').css('display', 'none');
     $('.new_me_name_hidden').css('display', 'block');
     $('.name_save_btn_wrap').css('display', 'block');
+});
+/*비밀번호 수정 모델창 띄우기 하기*/
+$(document).on('click','.pw-update', function(){
+    resetAll();
+    $('.name_update_btn_wrap').css('display', 'none');
 });
 
 $(document).on('click','.phone-update', function(){
@@ -468,6 +481,25 @@ function initComment(){
 
 
 </script>
+<script>
+var btnOpen  = document.getElementById('btnOpen');
+var btnCheck = document.getElementById('btnCheck');
+var btnClose = document.getElementById('btnClose');
 
+// modal 창을 감춤
+var closeRtn = function(){
+  var modal = document.getElementById('modal');
+  modal.style.display = 'none';
+}
+
+// modal 창을 보여줌
+btnOpen.onclick = function(){
+  var modal = document.getElementById('modal');
+  modal.style.display = 'block';
+}
+
+btnCheck.onclick = closeRtn;
+btnClose.onclick = closeRtn;
+</script>
 </body>
 </html>
