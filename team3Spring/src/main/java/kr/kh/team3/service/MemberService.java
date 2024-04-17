@@ -58,5 +58,10 @@ public interface MemberService {
 
 	boolean updateJob(SiteManagement user, MemberVO member);
 
+	boolean updatePw(SiteManagement user, MemberVO member);
+
+
+	MemberVO getMemberPassword(MemberVO member, SiteManagement user);
+
 
 }

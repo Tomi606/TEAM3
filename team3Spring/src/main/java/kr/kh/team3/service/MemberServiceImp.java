@@ -32,36 +32,37 @@ public class MemberServiceImp implements MemberService {
 	MemberDAO memberDao;
 	@Autowired
 	HospitalDAO hospitalDao;
-	
+
 	@Autowired
 	private JavaMailSender mailSender;
 
 	public boolean mailSend(String to, String title, String content) {
 
-	    String setfrom = "gksrbqmffn@gmail.com";
-	   try{
-	        MimeMessage message = mailSender.createMimeMessage();
-	        MimeMessageHelper messageHelper
-	            = new MimeMessageHelper(message, true, "UTF-8");
+		String setfrom = "gksrbqmffn@gmail.com";
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 
-	        messageHelper.setFrom(setfrom);// 보내는사람 생략하거나 하면 정상작동을 안함
-	        messageHelper.setTo(to);// 받는사람 이메일
-	        messageHelper.setSubject(title);// 메일제목은 생략이 가능하다
-	        messageHelper.setText(content, true);// 메일 내용
+			messageHelper.setFrom(setfrom);// 보내는사람 생략하거나 하면 정상작동을 안함
+			messageHelper.setTo(to);// 받는사람 이메일
+			messageHelper.setSubject(title);// 메일제목은 생략이 가능하다
+			messageHelper.setText(content, true);// 메일 내용
 
-	        mailSender.send(message);
-	        return true;
-	    } catch(Exception e){
-	        e.printStackTrace();
-	        return false;
-	    }
+			mailSender.send(message);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
-	
+
+	private boolean checkString(String str) {
+		return str != null && str.length() != 0;
+	}
 
 	public boolean memberSignup(MemberVO member, String adress) {
 		if (member == null)
 			return false;
-
 
 		MemberVO user = memberDao.selectMember(member.getMe_id());
 		if (user != null)
@@ -140,7 +141,7 @@ public class MemberServiceImp implements MemberService {
 		// 입력된 아이디로 회원 조회
 		SiteManagement ho = memberDao.selectSite(site.getSite_id());
 		// user가 null이 아니면 중복
-		if ( ho != null) {
+		if (ho != null) {
 			return ho;
 		}
 
@@ -177,20 +178,18 @@ public class MemberServiceImp implements MemberService {
 		return null;
 	}
 
-
-	//관리자 - 회원 관리
+	// 관리자 - 회원 관리
 	@Override
 	public ArrayList<MemberVO> getMemberList(Criteria cri) {
-		if(cri == null) {
+		if (cri == null) {
 			cri = new Criteria();
 		}
 		return memberDao.selectMemberList(cri);
 	}
 
-
 	@Override
 	public int getMemberTotalCount(Criteria cri) {
-		if(cri == null) {
+		if (cri == null) {
 			cri = new Criteria();
 		}
 		return memberDao.selectMemberTotalCount(cri);
@@ -198,16 +197,15 @@ public class MemberServiceImp implements MemberService {
 
 	@Override
 	public ArrayList<MemberVO> getReportMemberList(Criteria cri) {
-		if(cri == null) {
+		if (cri == null) {
 			cri = new Criteria();
 		}
 		return memberDao.selectReportMemberList(cri);
 	}
 
-
 	@Override
 	public int getReportMemberTotalCount(Criteria cri) {
-		if(cri == null) {
+		if (cri == null) {
 			cri = new Criteria();
 		}
 		return memberDao.selectReportMemberTotalCount(cri);
@@ -215,26 +213,26 @@ public class MemberServiceImp implements MemberService {
 
 	@Override
 	public boolean deleteMember(MemberVO member) {
-		if(member == null) {
+		if (member == null) {
 			return false;
 		}
-		
-		//member id와 같은 site_management의 아이디를 가져옴
+
+		// member id와 같은 site_management의 아이디를 가져옴
 		SiteManagement stId = memberDao.selectSiteMemberId(member.getMe_id());
-		
-		//사이트 아이디가 비었거나 멤버의 아이디와 같지 않으면 false
-		if(stId == null || !member.getMe_id().equals(stId.getSite_id())) {
+
+		// 사이트 아이디가 비었거나 멤버의 아이디와 같지 않으면 false
+		if (stId == null || !member.getMe_id().equals(stId.getSite_id())) {
 			return false;
 		}
-		
-		//같으면 member와 site_management 둘 다 삭제
-		if(member.getMe_id().equals(stId.getSite_id())) {
+
+		// 같으면 member와 site_management 둘 다 삭제
+		if (member.getMe_id().equals(stId.getSite_id())) {
 			boolean deleteMember = memberDao.deleteMember(member.getMe_id());
 			boolean deleteSiteManagement = memberDao.deleteSiteManagement(stId.getSite_id());
-			
+
 			return deleteMember && deleteSiteManagement;
 		}
-		
+
 		return false;
 	}
 
@@ -242,108 +240,124 @@ public class MemberServiceImp implements MemberService {
 	public boolean stopMember(ReportVO report) {
 		LocalDate localdate = LocalDate.now();
 		Date now = java.sql.Date.valueOf(localdate);
-		if( report == null ||
-			report.getRp_rs_name() == null ||
-			report.getRp_rs_name().length() == 0) {
+		if (report == null || report.getRp_rs_name() == null || report.getRp_rs_name().length() == 0) {
 			return false;
 		}
-		
-		//ReportVO객체의 rp_target을 넣어서 member 생성
+
+		// ReportVO객체의 rp_target을 넣어서 member 생성
 		MemberVO member = memberDao.selectMember(report.getRp_target());
-		//member의 정지기간이 null이면 
-		if(member.getMe_stop() == null) {
-			return memberDao.updateStopMember(report.getRp_target(), report.getRp_rs_name());			 
+		// member의 정지기간이 null이면
+		if (member.getMe_stop() == null) {
+			return memberDao.updateStopMember(report.getRp_target(), report.getRp_rs_name());
 		}
-		
-		//이미 정지기간이면 + 이미 있는 me_stop + 정지일
-		if(member.getMe_stop().after(now)) {
+
+		// 이미 정지기간이면 + 이미 있는 me_stop + 정지일
+		if (member.getMe_stop().after(now)) {
 			return memberDao.updatePlusStopMember(report.getRp_target(), report.getRp_rs_name());
 		}
-		
-		//ho_stop이 현재시간 이전이면 새데이터 넣기
+
+		// ho_stop이 현재시간 이전이면 새데이터 넣기
 		return memberDao.updateStopMember(report.getRp_target(), report.getRp_rs_name());
 	}
 
-
 	@Override
 	public MemberVO getMemberInfo(SiteManagement user) {
-		if(user == null ||
-				user.getSite_id() == null) {
-				return null;
-			}
+		if (user == null || user.getSite_id() == null) {
+			return null;
+		}
 		return memberDao.getMemberInfo(user.getSite_id());
 	}
 
-
 	@Override
 	public boolean updateName(SiteManagement user, MemberVO member) {
-		if(user == null
-				||member == null 
-				|| member.getMe_name() == null 
-				|| member.getMe_name().isEmpty()
-				||member.getMe_name().length() == 0)
+		if (user == null || member == null || member.getMe_name() == null || member.getMe_name().isEmpty()
+				|| member.getMe_name().length() == 0)
 			return false;
 		MemberVO dbMember = memberDao.selectMember(user.getSite_id());
-		if(dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
+		if (dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
 			return false;
-		
+
 		return memberDao.updateName(member);
 	}
 
-
 	@Override
 	public boolean updatePhone(SiteManagement user, MemberVO member) {
-		if(user == null
-				||member == null 
-				|| member.getMe_phone() == null 
-				|| member.getMe_phone().isEmpty()
-				||member.getMe_phone().length() == 0)
+		if (user == null || member == null || member.getMe_phone() == null || member.getMe_phone().isEmpty()
+				|| member.getMe_phone().length() == 0)
 			return false;
 		MemberVO dbMember = memberDao.selectMember(user.getSite_id());
-		if(dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
+		if (dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
 			return false;
-		
-		
-		return  memberDao.updatePhone(member);
-	}
 
+		return memberDao.updatePhone(member);
+	}
 
 	@Override
 	public boolean updateEmail(SiteManagement user, MemberVO member) {
-		if(user == null
-				||member == null 
-				|| member.getMe_email() == null 
-				|| member.getMe_email().isEmpty()
-				||member.getMe_email().length() == 0)
+		if (user == null || member == null || member.getMe_email() == null || member.getMe_email().isEmpty()
+				|| member.getMe_email().length() == 0)
 			return false;
 		MemberVO dbMember = memberDao.selectMember(user.getSite_id());
-		if(dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
+		if (dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
 			return false;
-		
-		
-		return  memberDao.updateEmail(member);
-	}
 
+		return memberDao.updateEmail(member);
+	}
 
 	@Override
 	public boolean updateJob(SiteManagement user, MemberVO member) {
-		if(user == null
-				||member == null 
-				|| member.getMe_job() == null 
-				|| member.getMe_job().isEmpty()
-				||member.getMe_job().length() == 0)
+		if (user == null || member == null || member.getMe_job() == null || member.getMe_job().isEmpty()
+				|| member.getMe_job().length() == 0)
 			return false;
 		MemberVO dbMember = memberDao.selectMember(user.getSite_id());
-		if(dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
+		if (dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
 			return false;
-		
-		
-		return  memberDao.updateJob(member);
+
+		return memberDao.updateJob(member);
 	}
 
+	@Override
+	public boolean updatePw(SiteManagement user, MemberVO member) {
+		// 사용자 정보나 회원 정보가 null이거나 비밀번호가 비어 있으면 수정하지 않음
+		if (user == null || member == null || member.getMe_pw() == null || member.getMe_pw().isEmpty()) {
+		    return false;
+		}
+
+		// 데이터베이스에서 해당 회원 정보 조회
+		MemberVO dbMember = memberDao.selectMember(user.getSite_id());
+		if (dbMember == null || !dbMember.getMe_id().equals(user.getSite_id())) {
+		    return false; 
+		}
+
+		// 입력한 비밀번호와 저장된 암호화된 비밀번호를 비교하여 일치 여부 확인 
+		//왼쪽이 입력한 값 오른쪽이 디비 값
+		if (!passwordEncoder.matches(member.getMe_pw(), dbMember.getMe_pw())) {
+		    return false;
+		}
+		// 비밀번호 업데이트
+		boolean res = memberDao.updatePw(member);
+		if (!res) {
+		    return false; 
+		}
+		return true; // 비밀번호 업데이트 성공
+
+	}
+
+	 
+
+	@Override
+	public MemberVO getMemberPassword(MemberVO member, SiteManagement user) {
+		if (user == null || member == null || member.getMe_job() == null || member.getMe_job().isEmpty()
+				|| member.getMe_job().length() == 0)
+			return null;
+		MemberVO dbMember = memberDao.selectMember(user.getSite_id());
+		if (dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
+			return null;		
+		
+		return memberDao.selectMember(member.getMe_id());
+	}
 
 
 	 
 
-	
 }

@@ -70,6 +70,13 @@ public interface MemberDAO {
 
 	boolean updateJob(@Param("me")MemberVO member);
 
+	boolean updatePw(@Param("me")MemberVO member);
+
+	MemberVO getMemberPw(@Param("pw")String me_pw);
+
+	MemberVO getMemberById(@Param("me_id") String me_id);
+
+
 
 	
 
