@@ -1,6 +1,7 @@
 package kr.kh.team3.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
-import kr.kh.team3.model.vo.ReportVO;
+import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.SiteManagement;
 import kr.kh.team3.service.HospitalService;
 import lombok.extern.log4j.Log4j;
@@ -51,6 +52,12 @@ public class HospitalController {
 		//대표 진료 과목
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
 		model.addAttribute("hsList", hsList);
+		
+		//예약 날짜와 시간 보내기 
+		ArrayList<ReservationScheduleVO> reservationScheduleList = hospitalService.getReservationScheduleList();
+		int i = reservationScheduleList.size();
+		model.addAttribute("dateList", reservationScheduleList);
+		model.addAttribute("dateListnum", i);
 		return "/hospital/detail2";
 	}
 	
