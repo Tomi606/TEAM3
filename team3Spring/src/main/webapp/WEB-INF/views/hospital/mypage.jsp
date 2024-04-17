@@ -123,6 +123,9 @@ width: 500px;height: 300px;border: 1px solid black;
 					<a href='<c:url value="/hospital/detail2"/>'>1. 병원 상세 페이지2</a>
 				</div>
 				<div>				
+					<a href='<c:url value="/hospital/detail/insert"/>'>병원 상세 페이지 등록</a>
+				</div>
+				<div>				
 					<a>2. 프로그램 등록/수정/삭제</a>
 				</div>
 				<div>

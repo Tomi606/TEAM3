@@ -74,4 +74,7 @@ public interface HospitalService {
 	boolean insertDetail(HospitalDetailVO detail, HospitalVO hospital);
 
 
+	HospitalVO getHospitalInfo();
+
+
 }

@@ -78,5 +78,7 @@ public interface HospitalDAO {
 
 	boolean insertDetail(@Param("detail") HospitalDetailVO detail, @Param("ho_id") String ho_id);
 
+	HospitalVO selectHospitalInfo();
+
 
 }

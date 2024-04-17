@@ -1,95 +1,91 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title></title>
+<title>ìƒì„¸ íŽ˜ì´ì§€ ë“±ë¡</title>
 </head>
 <body>
-<div class="toggle-page">
-	<form action='<c:url value="/hospital/info"/>' method="post" name="page1" id="page1" class="page active">
-        <h1>1. º´¿ø ¼Ò°³ ÆäÀÌÁö</h1>
-        <div class="info">
-        	<label for="hd_info" style="font-weight: bold">º´¿ø ¼Ò°³</label>
-        	<input type="text" class="hd_info" id="hd_info" name="hd_info" readonly placeholder="º´¿ø ¼Ò°³"/>
-        </div>
-        <table class="hd_time" id="hd_time">
+<form action='<c:url value="/hospital/detail/insert"/>' method="post">
+	<div id="page1" class="page">
+	    <h2>ë³‘ì› ì†Œê°œ</h2>
+	    <div class="info">
+	    	<label for="hd_info" style="font-weight: bold">ë³‘ì› ì†Œê°œ</label>
+	       	<input type="text" class="hd_info" id="hd_info" name="hd_info" readonly placeholder="ë³‘ì› ì†Œê°œ"/>
+	       </div>
+	       <table class="hd_time" id="hd_time">
 	    <thead>
 	        <tr>
-	            <th>Áø·á ½Ã°£</th>
+	            <th>ì§„ë£Œ ì‹œê°„</th>
 	        </tr>
 	    </thead>
 	    <tbody>
 	        <tr>
-	            <td>¿ù¿äÀÏ</td>
+	            <td>ì›”ìš”ì¼</td>
 	            <td><input type="text" class="mon" name="mon" readonly placeholder="9:00~18:00"></td>
 	        </tr>
 	        <tr>
-	            <td>È­¿äÀÏ</td>
+	            <td>í™”ìš”ì¼</td>
 	            <td><input type="text" class="tue" name="tue" readonly placeholder="9:00~18:00"></td>
 	        </tr>
 	        <tr>
-	            <td>¼ö¿äÀÏ</td>
+	            <td>ìˆ˜ìš”ì¼</td>
 	            <td><input type="text" class="wed" name="wed" readonly placeholder="9:00~18:00"></td>
 	        </tr>
 	        <tr>
-	            <td>¸ñ¿äÀÏ</td>
+	            <td>ëª©ìš”ì¼</td>
 	            <td><input type="text" class="thu" name="thu" readonly placeholder="9:00~18:00"></td>
 	        </tr>
 	        <tr>
-	            <td>±Ý¿äÀÏ</td>
+	            <td>ê¸ˆìš”ì¼</td>
 	            <td><input type="text" class="fri" name="fri" readonly placeholder="9:00~18:00"></td>
 	        </tr>
 	        <tr>
-	            <td>Åä¿äÀÏ</td>
+	            <td>í† ìš”ì¼</td>
 	            <td><input type="text" class="sat" name="sat" readonly placeholder="9:00~18:00"></td>
 	        </tr>
 	        <tr>
-	            <td>ÀÏ¿äÀÏ</td> 
+	            <td>ì¼ìš”ì¼</td> 
 	            <td><input type="text" class="sun" name="sun" readonly placeholder="9:00~18:00"></td>
 	        </tr>
 	    </tbody>
 	</table>
-        <div class="hd_park" id="hd_park">
-        	<label for="hd_park" style="font-weight: bold">ÁÖÂ÷ Á¤º¸</label>
-        	<input type="text" class="input-tag" id="hd_park" name="hd_park" readonly placeholder="ÁÖÂ÷ Á¤º¸"/>
-        </div>
-        <div class="hd_announce">
-        	<label for="hd_announce" style="font-weight: bold">°øÁö »çÇ×</label>
-        	<input type="text" class="input-tag" id="hd_announce" name="hd_announce" readonly placeholder="°øÁö »çÇ×"/>
-        </div>
-        <div class="hd_etc">
-        	<label for="hd_etc" style="font-weight: bold">±âÅ¸ »çÇ×</label>
-        	<input type="text" class="input-tag" id="hd_etc" name="hd_etc" readonly placeholder="±âÅ¸ »çÇ×"/>
-        </div>
-        	<button type="submit" class="info-btn">º´¿ø ¼Ò°³ µî·Ï</button>
-    </form>
+	       <div class="hd_park" id="hd_park">
+	       	<label for="hd_park" style="font-weight: bold">ì£¼ì°¨ ì •ë³´</label>
+	    	<input type="text" class="input-tag" id="hd_park" name="hd_park" readonly placeholder="ì£¼ì°¨ ì •ë³´"/>
+	    </div>
+	    <div class="hd_announce">
+	    	<label for="hd_announce" style="font-weight: bold">ê³µì§€ ì‚¬í•­</label>
+	    	<input type="text" class="input-tag" id="hd_announce" name="hd_announce" readonly placeholder="ê³µì§€ ì‚¬í•­"/>
+	    </div>
+	    <div class="hd_etc">
+	    	<label for="hd_etc" style="font-weight: bold">ê¸°íƒ€ ì‚¬í•­</label>
+	    	<input type="text" class="input-tag" id="hd_etc" name="hd_etc" readonly placeholder="ê¸°íƒ€ ì‚¬í•­"/>
+	    </div>
+	    	<button type="submit" class="info-btn">ë³‘ì› ì†Œê°œ ë“±ë¡</button>
+	</div>
+	
+	<div id="page2" class="page">
+	    <h2>ì§„ë£Œ ê³¼ëª©</h2>
+	    <div class="subject-represent">        
+	     <label for="subject-represent">ëŒ€í‘œ ì§„ë£Œ ê³¼ëª©</label>
+	     <div class="subject-checkbox">
+	     	<c:forEach items="${hsList}" var="hs">
+	   	<input type="checkbox" name="subject" value="${hs.hs_num}">${hs.hs_title}
+	     	</c:forEach>
+	     </div>
+	    </div>
+	    <div>
+	    	<label for="subject-detail">ìƒì„¸ ì§„ë£Œ í•­ëª©</label>
+	    	<input type="text" class="input-tag" id="hd_etc" name="hd_etc" readonly 
+	    	placeholder="ìƒì„¸ ì§„ë£Œ í•­ëª© : ê°ì—¼ì„± ì§ˆí™˜ / ì•Œë ˆë¥´ê¸° / ë§Œì„± ì§ˆí™˜ / í˜¸í¡ê¸° ì§ˆí™˜ / í”¼ë¶€ ì§ˆí™˜..."/>
+	    </div>
+	   	<button type="submit" class="subject-btn" name="subject-btn">ì§„ë£Œ ê³¼ëª© ë“±ë¡</button>
+	</div>
+</form>
 
-    <form action='<c:url value="/hospital/subject"/>' method="post" id="page2" class="page">
-        <h1>2. Áø·á °ú¸ñ ÆäÀÌÁö</h1>
-        <div class="subject-represent">        
-	        <label for="subject-represent">´ëÇ¥ Áø·á °ú¸ñ</label>
-	        <div class="subject-checkbox">
-	        	<c:forEach items="${hsList}" var="hs">
-			    	<input type="checkbox" name="subject" value="${hs.hs_num}">${hs.hs_title}
-	        	</c:forEach>
-	        </div>
-        </div>
-        <div>
-        	<label for="subject-detail">»ó¼¼ Áø·á Ç×¸ñ</label>
-	       	<input type="text" class="input-tag" id="hd_etc" name="hd_etc" readonly 
-	       	placeholder="»ó¼¼ Áø·á Ç×¸ñ : °¨¿°¼º ÁúÈ¯ / ¾Ë·¹¸£±â / ¸¸¼º ÁúÈ¯ / È£Èí±â ÁúÈ¯ / ÇÇºÎ ÁúÈ¯..."/>
-        </div>
-       	<button type="submit" class="subject-btn" name="subject-btn">Áø·á °ú¸ñ µî·Ï</button>
-    </form>
 
-    <form action='<c:url value="/hospital/review"/>' method="post" id="page3" class="page">
-        <h1>3. ¸®ºä Á¶È¸</h1>
-        <label for="review">È¸¿ø ¾ÆÀÌµð</label>
-        <textarea id="review" rows="4" cols="70"></textarea>
-        <button type="submit" class="review-btn" name="review-btn">¸®ºä µî·Ï</button>
-    </form>
-</div>
 </body>
 </html>

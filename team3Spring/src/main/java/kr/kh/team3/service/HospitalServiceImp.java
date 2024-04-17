@@ -349,5 +349,10 @@ public class HospitalServiceImp implements HospitalService {
 		}
 		return hospitalDao.insertDetail(detail, hospital.getHo_id());
 	}
+
+	@Override
+	public HospitalVO getHospitalInfo() {
+		return hospitalDao.selectHospitalInfo();
+	}
 	
 }

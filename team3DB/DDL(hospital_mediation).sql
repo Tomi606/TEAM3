@@ -466,7 +466,6 @@ REFERENCES `site_management` (
 	`site_num`
 );
 
-#error
 ALTER TABLE `chat` ADD CONSTRAINT `FK_chat_room_TO_chat_1` FOREIGN KEY (
 	`ct_cr_num`
 )

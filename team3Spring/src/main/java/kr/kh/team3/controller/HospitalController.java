@@ -48,15 +48,26 @@ public class HospitalController {
 		return "/hospital/detail2";
 	}
 	
+	//병원 상세 페이지 등록
+	@GetMapping("/hospital/detail/insert")
+	public  String detailInsert(Model model) {
+		//병원의 정보
+		HospitalVO hoInfo = hospitalService.getHospitalInfo();
+		//과목
+		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
+		model.addAttribute("hoInfo", hoInfo);
+		model.addAttribute("hsList", hsList);
+		return "/hospital/detail/insert";
+	}
+
 	//병원 상세 페이지 등록(insert)
 	@ResponseBody
 	@PostMapping("/hospital/detail/insert")
 	public String hospitalDetailPost(Model model, HospitalDetailVO detail, HttpSession session) {
-		
-		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
-		model.addAttribute("hsList", hsList);
-		
+		//현재 로그인된 병원을 가져온다.
 		HospitalVO hospital = (HospitalVO)session.getAttribute("hospital");
+		
+		
 		boolean res = hospitalService.insertDetail(detail, hospital);
 		
 		log.info(hospital);
@@ -71,15 +82,6 @@ public class HospitalController {
 		return "message";
 	}
 	
-	//병원 상세 페이지 등록(spring3 : /post/insert)
-//	@GetMapping("/post/insert")
-//	public String postInsert(Model model) {
-//		ArrayList<CommunityVO> list = boardService.getCommunityList();
-//		log.info(list);
-//		model.addAttribute("list", list);
-//		model.addAttribute("title", "게시글 등록");
-//		return "/post/insert";
-//	}
 //	
 //	@PostMapping("/post/insert")
 //	public String postInsertPost(Model model, BoardVO board, HttpSession session, MultipartFile [] files) {
