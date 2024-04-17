@@ -103,7 +103,6 @@ width: 500px;height: 300px;border: 1px solid black;
  .mypage-hospital-name{display: flex;margin: 40px 48px 0 47px;}
  .mypage-hospital-num{display:flex;margin: 20px 48px 0 47px;}
  .mypage-hospital-address{display:flex;margin: 20px 48px 0 47px;}
- 
 </style>
 </head>
 <body>
@@ -216,7 +215,7 @@ $(document).on('click','.name-update', function(){
 	  let nameBox = $(".box-name");
 	  //댓글을 수정할 수 있는 textarea로 변경
 	  let me_name = nameBox.text();
-	  let str = `<input class="form-control box-name2" value="\${me_name}">`;
+	  let str = `<input class="form-control box-name2"  value="\${me_name}">`;
 	  nameBox.after(str);
 	  nameBox.hide();
 	  

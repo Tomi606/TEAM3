@@ -52,5 +52,11 @@ public interface MemberService {
 
 	boolean updateName(SiteManagement user, MemberVO member);
 
+	boolean updatePhone(SiteManagement user, MemberVO member);
+
+	boolean updateEmail(SiteManagement user, MemberVO member);
+
+	boolean updateJob(SiteManagement user, MemberVO member);
+
 
 }

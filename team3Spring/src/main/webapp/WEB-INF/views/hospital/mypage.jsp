@@ -109,7 +109,6 @@ width: 500px;height: 300px;border: 1px solid black;
 <body>
 <div class="mypage-container">
 	<div class="mypage-profile">
-		
 			<div class="profile-img">
 			</div>
 			<div class="profile-name">
