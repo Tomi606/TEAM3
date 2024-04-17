@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import kr.kh.team3.dao.HospitalDAO;
 import kr.kh.team3.dao.MemberDAO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
+import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.MemberVO;
@@ -336,10 +337,17 @@ public class HospitalServiceImp implements HospitalService {
 	public ArrayList<HospitalSubjectVO> selectSubject() {
 		return hospitalDao.selectHospitalSubjectList();
 	}
-
+	//병원 상세 페이지 - 선진, 민석 ==============================================
 	@Override
-	public ArrayList<HospitalSubjectVO> getHospitalSubjectList(String ho_id) {
-		return hospitalDao.selectHospitalSubjectList(ho_id);
+	public boolean insertDetail(HospitalDetailVO detail, HospitalVO hospital) {
+		if(detail == null || detail.getHd_info() == null || detail.getHd_time() == null
+		|| detail.getHd_park() == null || detail.getHd_ho_id() == null) {
+			return false;
+		}
+		if(hospital == null || hospital.getHo_id() == null) {
+			return false;
+		}
+		return hospitalDao.insertDetail(detail, hospital.getHo_id());
 	}
-
+	
 }

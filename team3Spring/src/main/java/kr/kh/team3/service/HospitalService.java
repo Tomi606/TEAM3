@@ -3,6 +3,7 @@ package kr.kh.team3.service;
 import java.util.ArrayList;
 
 import kr.kh.team3.model.vo.EupMyeonDongVO;
+import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.MemberVO;
@@ -66,9 +67,11 @@ public interface HospitalService {
 	boolean hospitalStop(ReportVO report);
 
 	String hoStopCancel(HospitalVO ho);
-
+	
 	ArrayList<HospitalSubjectVO> selectSubject();
 
-	ArrayList<HospitalSubjectVO> getHospitalSubjectList(String ho_id);
+	//병원 상세 페이지==========================================
+	boolean insertDetail(HospitalDetailVO detail, HospitalVO hospital);
+
 
 }
