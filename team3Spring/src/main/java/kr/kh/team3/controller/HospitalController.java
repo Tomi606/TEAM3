@@ -48,22 +48,6 @@ public class HospitalController {
 		return "/hospital/detail2";
 	}
 	
-	//병원 상세 페이지 조회(detail2, spring3 : /post/detail)
-//	@GetMapping("/post/detail")
-//	public String postDetail(Model model, int num) {
-//		log.info(num);
-//		//조회수 증가
-//		boardService.updateView(num);
-//		//상세 페이지 조회
-//		BoardVO board = boardService.getPostDetail(num);
-//		//첨부파일
-//		ArrayList<FileVO> list = boardService.getFileList(num);
-//		//화면에 게시글, 첨부파일 전송
-//		model.addAttribute("board", board);
-//		model.addAttribute("list", list);
-//		return "/post/detail";
-//	}
-	
 	//병원 상세 페이지 등록(insert)
 	@ResponseBody
 	@PostMapping("/hospital/detail/insert")

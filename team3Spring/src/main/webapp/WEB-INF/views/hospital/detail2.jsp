@@ -68,11 +68,11 @@
 	        </tr>
 	        <tr>
 	            <td>토요일</td>
-	            <td><input type="text" class="sat" name="sat" readonly placeholder="9:00~18:00"></td>
+	            <td><input type="text" class="sat" name="sat" readonly placeholder="9:00~13:00"></td>
 	        </tr>
 	        <tr>
 	            <td>일요일</td> 
-	            <td><input type="text" class="sun" name="sun" readonly placeholder="9:00~18:00"></td>
+	            <td><input type="text" class="sun" name="sun" readonly placeholder="휴무"></td>
 	        </tr>
 	    </tbody>
 	</table>
