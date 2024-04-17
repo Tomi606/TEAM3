@@ -69,30 +69,31 @@ public class MemberController {
 		map.put("res",res);
 		return map;
 	}
-//	//이메일 수정 메서드 비동기
-//	@ResponseBody
-//	@PostMapping("/member/email")
-//	public HashMap<String, Object> emailUpdate(@RequestBody MemberVO member,HttpSession session){
-//		HashMap<String, Object> map= new HashMap<String, Object>();
-//		SiteManagement user = (SiteManagement)session.getAttribute("user");
-//		boolean res = memberService.updateEmail(user,member);
-//		MemberVO me = memberService.getMember(member);
-//		map.put("me",me);
-//		map.put("res",res);
-//		return map;
-//	}
-//	//직업 수정 메서드 비동기
-//	@ResponseBody
-//	@PostMapping("/member/phone")
-//	public HashMap<String, Object> jobUpdate(@RequestBody MemberVO member,HttpSession session){
-//		HashMap<String, Object> map= new HashMap<String, Object>();
-//		SiteManagement user = (SiteManagement)session.getAttribute("user");
-//		boolean res = memberService.updateJob(user,member);
-//		MemberVO me = memberService.getMember(member);
-//		map.put("me",me);
-//		map.put("res",res);
-//		return map;
-//	}
+	
+	//이메일 수정 메서드 비동기
+/*	@ResponseBody
+	@PostMapping("/member/email")
+	public HashMap<String, Object> emailUpdate(@RequestBody MemberVO member,HttpSession session){
+		HashMap<String, Object> map= new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement)session.getAttribute("user");
+		boolean res = memberService.updateEmail(user,member);
+		MemberVO me = memberService.getMember(member);
+		map.put("me",me);
+		map.put("res",res);
+		return map;
+	}*/
+	//직업 수정 메서드 비동기
+/*	@ResponseBody
+	@PostMapping("/member/phone")
+	public HashMap<String, Object> jobUpdate(@RequestBody MemberVO member,HttpSession session){
+		HashMap<String, Object> map= new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement)session.getAttribute("user");
+		boolean res = memberService.updateJob(user,member);
+		MemberVO me = memberService.getMember(member);
+		map.put("me",me);
+		map.put("res",res);
+		return map;
+	}*/
 	
 	
 	//회원 마이페이지 비동기 
