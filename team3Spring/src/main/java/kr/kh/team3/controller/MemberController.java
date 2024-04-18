@@ -102,18 +102,6 @@ public class MemberController {
 		return map;
 	}
 
-//	// 비번 체크 메서드 비동기
-//	@ResponseBody
-//	@PostMapping("/member/check")
-//	public HashMap<String, Object> pwCheck(@RequestBody MemberVO member, HttpSession session) {
-//		HashMap<String, Object> map = new HashMap<String, Object>();
-//		SiteManagement user = (SiteManagement) session.getAttribute("user");
-//		MemberVO me = memberService.getMember(member);
-//		log.info(me+"여기다아아");
-//		log.info(user+"여기다아아");
-//		map.put("res", me);
-//		return map;
-//	}
 
 	// 비번 수정 메서드 비동기
 	@ResponseBody
