@@ -15,13 +15,26 @@
 		and la_emd_num = #{la.la_emd_num}
 	</select>
 	
+	<select id="getMyLand" resultType="kr.kh.team3.model.vo.LandVO">
+		select * from land where la_num = #{me.me_la_num}
+	</select>
+	
+	<select id="selectSdName" resultType="String">
+		select sd_name from si_do where sd_num = #{la.la_sd_num}
+	</select>
+	<select id="selectSggName" resultType="String">
+		select sgg_name from si_goon_gu where sgg_num = #{la.la_sgg_num}
+	</select>
+	<select id="selectEmdName" resultType="String">
+		select emd_name from eup_myeon_dong where emd_num = #{la.la_emd_num}
+	</select>
 	
 	
 	
 	<!-- 회원가입 -->
 	<insert id="insertMember">
 		insert into member(me_hs_num,me_id,me_pw,me_name,me_gender,me_job,me_phone,me_email,me_authority,me_ms_state,me_la_num)
-		values(#{me.me_hs_num},#{me.me_id},#{me.me_pw},#{me.me_name},#{me.me_gender},#{me.me_job},#{me.me_phone},#{me.me_email},"USER","이용중",#{me.me_la_num})
+		values(#{me.me_hs_num},#{me.me_id},#{me.me_pw},#{me.me_name},#{me.me_gender},#{me.me_job},#{me.me_phone},#{me.me_email},"USER","이용중",#{la.la_num})
 	</insert>
 	
 	<insert id="insertSiteMember">

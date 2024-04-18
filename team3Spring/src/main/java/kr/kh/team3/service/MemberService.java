@@ -13,7 +13,7 @@ import kr.kh.team3.pagination.Criteria;
 
 public interface MemberService {
 
-	boolean memberSignup(MemberVO member);
+	boolean memberSignup(MemberVO member, LandVO getLand);
 
 	boolean siteSignup(SiteManagement site, LandVO getLand);
 
@@ -69,6 +69,14 @@ public interface MemberService {
 	boolean insertLand(LandVO land);
 
 	LandVO getLand(LandVO land);
+
+	LandVO getMyLand(MemberVO muser);
+
+	String getSdName(LandVO land);
+
+	String getSggName(LandVO land);
+
+	String getEmdName(LandVO land);
 
 
 }

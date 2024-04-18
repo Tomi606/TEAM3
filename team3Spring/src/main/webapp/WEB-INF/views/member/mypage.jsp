@@ -119,7 +119,16 @@ width: 500px;height: 300px;border: 1px solid black;
  .new_me_job_hidden{width:180px;display:none;}
  .new_me_job_hidden input{ width:300px;position: relative;}
  .job_save_btn_wrap{display:none;} 
- .box-name2{position: relative;}
+ 
+ 
+ .new_me_address_hidden{width:180px;display:none;}
+ .new_me_address_hidden input{ width:300px;position: relative;}
+ .address_save_btn_wrap{display:none;} 
+ 
+ 
+ 
+ 
+.box-name2{position: relative;}
 .modal {
   display: none; 
   position: fixed; 
@@ -173,14 +182,14 @@ function getMypage() {
 	    dataType: "json",
 	    success: function(data) {
 	      console.log(data.member);
-	      getMypageInfo(data.member);
+	      getMypageInfo(data.member,data.land,data.sgg_name,data.sd_name,data.emd_name);
 	    },
 	    error: function(jqXHR, textStatus, errorThrown) {
 
 	    }
 	  });
 }
-function getMypageInfo(member) {
+function getMypageInfo(member,land,sgg_name,sd_name,emd_name) {
 	if(member == null || member.length == 0)
 		return;
 	var str =
@@ -273,8 +282,23 @@ function getMypageInfo(member) {
 				</div>
 				<div class="hr"></div>
 				<div class="mypage-hospital-address">
-					<p style="margin-right: auto">\${member.me_address}</p>
-					<span><a href="#">변경</a></span>
+					<p style="margin-right: auto" class="box-address">\${sd_name} \${sgg_name} \${emd_name}</p>
+					<div class="new_me_address_hidden">
+						 <select name="sd_num" required class="sd_num" style="width: 500px;margin-bottom: 20px">
+						 		<option value="none">시/도를 선택해주세요</option>
+					        <c:forEach items="${sidoList}" var="sd">
+					            <option value="${sd.sd_num}">${sd.sd_name}</option>
+					        </c:forEach>
+					     </select>   
+						 <select name="sgg_num" class="sgg_num" required style="width: 500px;margin-bottom: 20px">
+					           <option value="none">시/군/구를 선택해주세요</option>
+					     </select>   
+					    <select name="emd_num" class="emd_num" required style="width: 500px;margin-bottom: 20px">
+					         <option value="none">읍/면/동을 선택해주세요</option>
+					 	</select>
+					</div>
+					<span class="address_update_btn_wrap"><button type="button" class="address-update">변경</button></span>
+					<span class="address_save_btn_wrap"><button type="button" class="address_save_btn">수정완료</button></span>
 				</div>
 			</div>
  		</div>
@@ -338,6 +362,13 @@ $(document).on('click','.job-update', function(){
     $('.job_update_btn_wrap').css('display', 'none');
     $('.new_me_job_hidden').css('display', 'block');
     $('.job_save_btn_wrap').css('display', 'block');
+});
+$(document).on('click','.address-update', function(){
+    resetAll();
+    $('.box-address').css('display', 'none');
+    $('.address_update_btn_wrap').css('display', 'none');
+    $('.new_me_address_hidden').css('display', 'block');
+    $('.address_save_btn_wrap').css('display', 'block');
 });
 
 	$(document).on('click', '.name_save_btn', function(){
@@ -518,6 +549,105 @@ function initComment(){
 
 
 </script>
+
+<!-- 주소 수정 -->
+<script type="text/javascript">
+	$(document).on('click', '.address_save_btn', function(){
+		
+	  //전송할 데이터를 생성 => 댓글 수정 => 댓글 번호, 댓글 내용
+	  let member = {
+	    me_address : $('.box-job2').val(),
+	    me_id : '${member.me_id}'
+	  };
+	  console.log(member);
+	  //서버에 ajax로 데이터를 전송 후 처리
+	  $.ajax({
+	    async : true,
+	    url : '<c:url value="/member/address"/>',
+	    type : 'post',
+	    data : JSON.stringify(member),
+	    contentType : "application/json; charset=utf-8",
+	    dataType : "json",
+	    success : function (data){
+	      if(data.res){
+	        alert("주소를 수정했습니다.");
+	        initComment();
+	        getMypageInfo(data.me);
+			return;	        
+	      }else{
+	        alert("주소를 수정하지 못했습니다.");
+	        return;
+	      }
+	    },
+	    error : function(jqXHR, textStatus, errorThrown){
+
+	    }
+	  });
+	});
+//수정 버튼을 누른 상태에서 다른 수정 버튼을 누르면 기존에 누른 댓글을 원상태로 돌려주는 함수
+function initComment(){
+	  $('.btn-complete').remove();
+	  $('.box-job2').remove();
+	  $('.box-btn').show();
+	  $('.box-job').show();
+	  $(".job-update").show();
+}
+
+
+</script>
+
+<!-- 시/도,시/군/구,읍/면/동 ajax -->
+<script type="text/javascript">
+/* 군 구 리스트 select로 띄우기 시작 */
+$("[name=sd_num]").change(function(){
+	let sd_num = $("[name=sd_num]").val();
+	if(sd_num == 'none'){
+		sd_num = 0;
+	}
+	$.ajax({
+		method : "post",
+		url : '<c:url value="/member/gungoo"/>', 
+		data : {"sd_num" : sd_num}, 
+		success : function (data){
+			let str =""
+			for(let tmp in data){
+				str += ` <option value='\${data[tmp].sgg_num}' selected>\${data[tmp].sgg_name}</option>`;
+			}
+			$(".sgg_num").html(str);
+		}, 
+        error: function(jqXHR, textStatus, errorThrown) {
+
+        }
+    });
+});
+/* 읍면동 리스트 select로 띄우기 시작 */
+$("[name=sgg_num]").change(function(){
+	let sgg_num = $("[name=sgg_num]").val();
+	if(sgg_num == 'none'){
+		sgg_num = 0;
+	}
+	$.ajax({
+		method : "post",
+		url : '<c:url value="/member/eupmyeondong"/>', 
+		data : {"sgg_num" : sgg_num}, 
+		success : function (data){
+			let str =""
+			for(let tmp in data){
+				str += ` <option value='\${data[tmp].emd_num}' selected>\${data[tmp].emd_name}</option>`;
+			}
+			$(".emd_num").html(str);
+			
+		}, 
+        error: function(jqXHR, textStatus, errorThrown) {
+
+        }
+    });
+});
+/* 읍면동 리스트 select로 띄우기 끝 */
+
+</script>
+
+<!-- 비밀번호 변경 -->
 <script type="text/javascript">
 $(document).ready(function() {
 	  // 비밀번호 변경 버튼 클릭 시

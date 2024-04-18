@@ -17,7 +17,7 @@ import kr.kh.team3.pagination.Criteria;
 public interface MemberDAO {
 
 
-	boolean insertMember(@Param("me")MemberVO member);
+	boolean insertMember(@Param("me")MemberVO member, @Param("la")LandVO getLand);
 
 	boolean insertSiteMember(@Param("si")SiteManagement site, @Param("la")LandVO getLand);
 	//ajax로도 사용함
@@ -80,6 +80,14 @@ public interface MemberDAO {
 	boolean insertLand(@Param("la")LandVO land);
 
 	LandVO selectLand(@Param("la")LandVO land);
+
+	LandVO getMyLand(@Param("me")MemberVO muser);
+
+	String selectSdName(@Param("la")LandVO land);
+
+	String selectSggName(@Param("la")LandVO land);
+
+	String selectEmdName(@Param("la")LandVO land);
 
 
 

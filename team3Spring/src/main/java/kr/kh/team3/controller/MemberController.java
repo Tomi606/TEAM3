@@ -18,9 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy.PascalCaseStrategy;
 
+import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiDoVO;
+import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
 import kr.kh.team3.service.MemberService;
 import lombok.extern.log4j.Log4j;
@@ -40,7 +43,7 @@ public class MemberController {
 	 * 메서드 위에 주석으로 무슨 기능인지 쓰기
 	 */
 	@GetMapping("/member/mypage")
-	public String myPageGet(Model model, MemberVO member, HttpSession session) {
+	public String myPageGet(Model model, MemberVO member, HttpSession session,  SiDoVO sido, SiGoonGuVO sgg, EupMyeonDongVO emd) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
 		MemberVO muser = memberService.getMemberInfo(user);
@@ -102,7 +105,6 @@ public class MemberController {
 		return map;
 	}
 
-
 	// 비번 수정 메서드 비동기
 	@ResponseBody
 	@PostMapping("/member/pw")
@@ -117,6 +119,28 @@ public class MemberController {
 		return map;
 	}
 
+	// 주소 수정 메서드 비동기
+	@ResponseBody
+	@PostMapping("/member/address")
+	public HashMap<String, Object> addressUpdate(@RequestBody MemberVO member, HttpSession session,
+			@RequestBody LandVO land) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		MemberVO me = memberService.getMember(member);
+		boolean res = memberService.updateJob(user, member);
+
+		LandVO getLand = memberService.getLand(land);
+		/*
+		 * if (getLand == null) { return false; }
+		 */
+		boolean memberRes = memberService.memberSignup(member, getLand);
+		//boolean siteRes = memberService.siteSignup(site, getLand);
+
+		map.put("me", me);
+		map.put("res", res);
+		return map;
+	}
+
 	// 회원 마이페이지 비동기
 	@ResponseBody
 	@PostMapping("/member/list")
@@ -124,8 +148,32 @@ public class MemberController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO muser = memberService.getMemberInfo(user);
+		LandVO land = memberService.getMyLand(muser);
+		String sd_name = memberService.getSdName(land);
+		String sgg_name = memberService.getSggName(land);
+		String emd_name = memberService.getEmdName(land);
+		map.put("sd_name", sd_name);
+		map.put("sgg_name", sgg_name);
+		map.put("emd_name", emd_name);
+		map.put("land", land);
 		map.put("member", muser);
 		return map;
+	}
+	
+	
+	@ResponseBody
+	@PostMapping("/member/gungoo")
+	public ArrayList<SiGoonGuVO> postgoongoo(int sd_num) {
+		ArrayList<SiGoonGuVO> sggList = memberService.getSgg(sd_num);
+		return sggList;
+	}
+
+	// 시군구 번호를 읍면동한테 넘겨줘서 시군구에 있는 읍면동들을 가져오는 메서드
+	@ResponseBody
+	@PostMapping("/member/eupmyeondong")
+	public ArrayList<EupMyeonDongVO> postEupMyeonDong(int sgg_num) {
+		ArrayList<EupMyeonDongVO> emdList = memberService.getEmd(sgg_num);
+		return emdList;
 	}
 
 }

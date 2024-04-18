@@ -334,19 +334,28 @@ $.validator.addMethod("customRegex", function(value, element, regexp) {
 $("form").submit(function(event){
     event.preventDefault(); // 기본 form 제출 이벤트를 막습니다.
     
-    var sd_num = $("select[name='sd_num'] option:selected").val();
-    var sgg_num = $("select[name='sgg_num'] option:selected").val();
-    var emd_num = $("select[name='emd_num'] option:selected").val();
-    alert(emd_num);
-    console.log(emd_num);
-    var str = sd_num + sgg_num + emd_num;
+    var la_sd_num = $("select[name='sd_num'] option:selected").val();
+    console.log("시"+la_sd_num);
+    var la_sgg_num = $("select[name='sgg_num'] option:selected").val();
+    console.log("군 구"+la_sgg_num);
+    var la_emd_num = $("select[name='emd_num'] option:selected").val();
+    console.log("읍 면 동"+la_emd_num	);
+    
+ // Serialize된 form 데이터를 직접 사용하고 str 파라미터를 추가합니다.
+    var formData = $(this).serialize();
+    formData += '&la_sd_num=' + la_sd_num + '&la_sgg_num=' + la_sgg_num + '&la_emd_num=' + la_emd_num; // str 파라미터 추가
+    
     $.ajax({
-    	   async : true|false, //비동기 : true(비동기), false(동기)
+    	   async : true, //비동기 : true(비동기), false(동기)
     	   url : '<c:url value="/member/signup"/>', 
     	   type : 'post', 
-    	   data : {la_sd_num,la_sgg_num,la_emd_num}
+    	   data : formData,
     	   success : function (data){
-    	      console.log(data);
+    		   if(data == false){
+    			   location.href = '<c:url value="/message?res="/>' + data;
+    		   }else{
+    			   location.href = '<c:url value="/message?res="/>' + data;
+    		   }
     	   }, 
     	   error : function(jqXHR, textStatus, errorThrown){
 
@@ -359,8 +368,11 @@ $("form").submit(function(event){
 <!-- 시/도,시/군/구,읍/면/동 ajax -->
 <script type="text/javascript">
 /* 군 구 리스트 select로 띄우기 시작 */
-$("[name=sd_num]").click(function(){
+$("[name=sd_num]").change(function(){
 	let sd_num = $("[name=sd_num]").val();
+	if(sd_num == 'none'){
+		sd_num = 0;
+	}
 	$.ajax({
 		method : "post",
 		url : '<c:url value="/member/signup/gungoo"/>', 
@@ -378,8 +390,11 @@ $("[name=sd_num]").click(function(){
     });
 });
 /* 읍면동 리스트 select로 띄우기 시작 */
-$("[name=sgg_num]").click(function(){
+$("[name=sgg_num]").change(function(){
 	let sgg_num = $("[name=sgg_num]").val();
+	if(sgg_num == 'none'){
+		sgg_num = 0;
+	}
 	$.ajax({
 		method : "post",
 		url : '<c:url value="/member/signup/eupmyeondong"/>', 
