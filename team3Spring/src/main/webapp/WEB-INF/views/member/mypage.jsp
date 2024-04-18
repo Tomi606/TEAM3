@@ -79,15 +79,16 @@ width: 500px;height: 300px;border: 1px solid black;
  /*아래부터 병원 마이페이지 구현
  패딩,마진은 상 우 하 좌 시계 방향으로 설정 하면 됨.
  */
- .mypage-container{width: 1905px;height:800px;padding: 0 300px 0 300px;border: 1px solid black;display: flex;}
- .mypage-profile{width: 400px;height: 100%;border: 1px solid black;}
+ .mypage-container{width: 1905px;height:800px;padding: 0 300px 0 300px;display: flex;}
+ .mypage-profile{width: 400px;height: 100%;    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;}
  .profile-img{width: 250px;height: 250px;border:1px solid black;margin: 0 auto;margin-top: 50px;border-radius:100%;  }
  .profile-name{margin: 0 auto;text-align: center;}
  .profile-anything{border: 1px solid black;width: 300px;height: 400px;margin: 0 auto;}
  
- .profile-container{width: 1000px;height: 800px;border: 1px solid black; display: block;background-color: lightgray;}
- .mypage-profile-info{width: 600px;height: 325px;border: 1px solid black;margin: 40px 20px 40px 250px;background-color: pink;border-radius:30px; }
- .mypage-profile-detail{width: 600px;height:325px;border: 1px solid black; margin: 0px 20px 80px 250px;background-color: pink;border-radius:30px; }
+ .profile-container{width: 1000px;height: 800px; display: block;}
+ .mypage-profile-info{width: 600px;height: 325px;border: 1px solid black;margin: 40px 20px 40px 250px;background-color: #FFE1E6;border-radius:30px; }
+ .mypage-profile-detail{width: 600px;height:325px;border: 1px solid black; margin: 0px 20px 80px 250px;background-color: #FFE1E6;border-radius:30px; }
  
  .profile-img-name-container{width: 600px;height: 150px;display: flex;}
  .mypage-img{display:flex;width: 125px;height: 125px;border:1px solid white;margin: 30px 0 0 30px;border-radius:100%;background-color: white;}
@@ -150,6 +151,7 @@ width: 500px;height: 300px;border: 1px solid black;
 .close:focus {
   color: black; 
   text-decoration: none; 
+  cursor: pointer;
 }
 .new_me_pw_hidden input{
 width: 300px;
@@ -200,7 +202,6 @@ function getMypageInfo(member) {
 			</div>
 		</div>
 	<div class="profile-container">
-		<h3>회원 정보 수정</h3>
 		<div class="mypage-profile-info">
 		<div class="profile-img-name-container">
 			<div class="mypage-img">
