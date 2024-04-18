@@ -74,4 +74,6 @@ public interface HospitalService {
 
 	ArrayList<ReservationScheduleVO> getReservationScheduleList();
 
+	ArrayList<ReservationScheduleVO> getReservationScheduleTimeList(String str);
+
 }

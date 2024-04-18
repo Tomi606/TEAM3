@@ -78,4 +78,6 @@ public interface HospitalDAO {
 
 	ArrayList<ReservationScheduleVO> selectReservationScheduleList();
 
+	ArrayList<ReservationScheduleVO> selectReservationScheduleTimeList(@Param("rs_date")String str);
+
 }

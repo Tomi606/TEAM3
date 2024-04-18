@@ -24,4 +24,13 @@ public class ReservationScheduleVO {
 	    }
 	}
 	
+	public String getRsTime() {
+	    if (this.rs_time != null) {
+	        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+	        return format.format(this.rs_time);
+	    } else {
+	        return "없당ㅎㅎ";
+	    }
+	}
+	
 }

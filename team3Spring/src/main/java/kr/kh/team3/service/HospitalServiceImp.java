@@ -349,4 +349,12 @@ public class HospitalServiceImp implements HospitalService {
 		return hospitalDao.selectReservationScheduleList();
 	}
 
+	@Override
+	public ArrayList<ReservationScheduleVO> getReservationScheduleTimeList(String str) {
+		if(str == null) {
+			return null;
+		}
+		return hospitalDao.selectReservationScheduleTimeList(str);
+	}
+
 }

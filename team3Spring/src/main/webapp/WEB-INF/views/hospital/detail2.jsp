@@ -18,7 +18,7 @@ li {
 }
 
 a {
-    /* text-decoration: none; */
+    text-decoration: none;
 }
 
 table {
@@ -36,6 +36,13 @@ table {
 	width: 580px;height: 100%;display:flex; 
 	margin: auto;
 }
+
+.time-box{
+	width: 500px;
+	height: 500px;
+	border: solid 1px red;
+}
+
 .topWrap {
     width: 100%;
     height: 70px;
@@ -47,6 +54,10 @@ table {
     font-weight: bold;
     font-size: 30px;
     position: relative;
+}
+
+.calbox{
+	background-color: red;
 }
 
 .topWrap span {
@@ -161,6 +172,8 @@ table {
 .detail-home{
 text-align: center;
 }
+
+
 </style>
 </head>
 <body>
@@ -176,7 +189,9 @@ text-align: center;
 		</div>
 		<div class="table"></div>
 	</div>
+	<div class = "time-box">
 	</div>
+</div>
 	<div class="hr"
 		style="margin-top: 30px; margin-bottom: 40px; border: 1px solid #d2d2d2; width: 1500px; margin: 0 auto"></div>
 	<h1>병원 상세 페이지 - 하단</h1>
@@ -232,156 +247,162 @@ text-align: center;
 
 <script type="text/javascript">
 
-$(document).ready(function(){
-	//monthWrap
-	var today = new Date();
-	var tYear = today.getFullYear();
-	var tMonth = today.getMonth()+1;
-	var tDate = today.getDate();
-	var endDay= [31,28,31,30,31,30,31,31,30,31,30,31]; //각달의 마지막 날짜
-	var week = ['일','월','화','수','목','금','토'];
-	var numMonth = tMonth;
-	var numYear = tYear;
-	let a = ``
-	function cal(mon,ye){
-		var sDate = new Date(ye,mon-1,1); //이번달의 1일
-		var sDay = sDate.getDay(); //이번달 1일의 요일
-		var last = endDay[mon-1]; //이번달 마지막 날짜
-		var dateListnum = ${dateListnum};
-		
-		//윤달일 경우의 마지막 날짜
-		//윤달 계산 4년마다 29일, 100년는 28일, 400년 째는 29일
-		if(mon==2 && (ye%400==0 || (ye%4==00 && ye%100!=0) )){
-			last = 29;
-		}
-		var last2 = endDay[mon-2]; //전달 마지막 날짜
-		if(mon==1){ //1월이라면 전월이 12월의 마지막 날짜인 31일로 처리
-			last2 = 31;
-		}
+$.ajax({
+    url: '<c:url value="/detail2"/>',
+    type: 'post',
+    success: function(data) {
+    	displaycal(data); // 받은 데이터를 표시하는 함수 호출
+    },
+    error: function(xhr, status, error) {
+        console.error('요청에 실패했습니다.');
+    }
+});
 
-		var etc = 42 - sDay - last;
-		
-		$('.calendar .year').html(ye);
-		if(mon<10){
-			mon = '0' + mon;
-		}
-		$('.calendar .month').html(mon);
-		
-		//요일을 담는 배열변수
+function displaycal(data){
+	
+	$(document).ready(function(){
+		//monthWrap
+		var today = new Date();
+		var tYear = today.getFullYear();
+		var tMonth = today.getMonth()+1;
+		var tDate = today.getDate();
+		var endDay= [31,28,31,30,31,30,31,31,30,31,30,31]; //각달의 마지막 날짜
 		var week = ['일','월','화','수','목','금','토'];
+		var numMonth = tMonth;
+		var numYear = tYear;
+		function cal(mon,ye){
+			var sDate = new Date(ye,mon-1,1); //이번달의 1일
+			var sDay = sDate.getDay(); //이번달 1일의 요일
+			var last = endDay[mon-1]; //이번달 마지막 날짜
+			
+			//윤달일 경우의 마지막 날짜
+			//윤달 계산 4년마다 29일, 100년는 28일, 400년 째는 29일
+			if(mon==2 && (ye%400==0 || (ye%4==00 && ye%100!=0) )){
+				last = 29;
+			}
+			var last2 = endDay[mon-2]; //전달 마지막 날짜
+			if(mon==1){ //1월이라면 전월이 12월의 마지막 날짜인 31일로 처리
+				last2 = 31;
+			}
 
-		//div태그를 담는 변수
-		var output = ``;
-		
-		for(var i=0;i<=6;i++){
-			output += '<div class="week">'+ week[i] +'</div>';
+			var etc = 42 - sDay - last;
+			
+			$('.calendar .year').html(ye);
+			if(mon<10){
+				mon = '0' + mon;
+			}
+			$('.calendar .month').html(mon);
+			
+			//요일을 담는 배열변수
+			var week = ['일','월','화','수','목','금','토'];
+
+			//div태그를 담는 변수
+			var output = ``;
+			
+			for(var i=0;i<=6;i++){
+				output += '<div class="week">'+ week[i] +'</div>';
+			}
+			
+			for(var i=0;i<sDay;i++){
+				output += '<div class="gray">'+ (last2-sDay+(i+1)) +'</div>';
+			}
+			
+			 for (var i = 1; i <= 42 - sDay; i++) {
+			    var str = ye + "/" + mon + "/" + i;
+			    var bool = false;
+			    for(let tmp of data.dateList){
+			        if (tmp.rsDate === str) {
+			            output += `<div class="calbox">` + `<a href="#" name="rsDate" class="rsDate" data-str="\${str}">` + i + `</a>` + `</div>`;
+			            bool = true;
+			            break; // 내부 반복문 종료
+			        }
+			    }
+				if(!bool){
+			    	output += '<div>' + i + '</div>';					
+				}
+			    if (i == last) {
+			        break;
+			    }
+			} 
+			
+			for(var i=1;i<=etc;i++){
+				output += '<div class="gray">' + i +'</div>';
+			}
+
+			$('.table').append(output);
+			$('.table > div').each(function(index){
+				if(index%7==0){
+					$(this).addClass('first');
+				}
+				if( index==6 || index==13 || index==20 || index==27 || index==34 || index==41 || index==48){
+					$(this).addClass('last');
+				}
+				if(index>=42){
+					$(this).addClass('bottom');
+				}
+				var num = $(this).html();
+				var c = $(this).attr('class');
+				if(num==tDate && c!='gray' && c!='gray first' && c!='gray last' && c!='gray last bottom' && mon==tMonth && ye==tYear){
+					$(this).addClass('today');
+				}
+			});
+			
 		}
 		
-		for(var i=0;i<sDay;i++){
-			output += '<div class="gray">'+ (last2-sDay+(i+1)) +'</div>';
-		}
-		console.log(`${dateList[1].rsDate}`.indexOf('2024/04/18') !== -1)
-		if($`{dateList[1].rsDate}` == '2024/04/18'){
-			console.log("들어옴")
-		}
-
-
-		for (var i = 1; i <= 42 - sDay; i++) {
-		    var str = ye + "/" + mon + "/" + i;
-		    for (let j = 0; j <= dateListnum; j++) {
-		        if (`${dateList[j].rsDate}`.indexOf(str) !== -1) {
-		            output += `<div>` + `<a href="#">` + i + `</a>` + `</div>`;
-		            break; // 내부 반복문 종료
+		$(document).on('click', '.rsDate',function(event) {
+		    event.preventDefault(); // 기본 동작(링크 이동) 막기
+		    // 클릭된 a 태그의 data-str 속성에서 str 값을 가져와서 href에 설정
+		    var strValue = $(this).data('str');
+		    $.ajax({
+		        url: '<c:url value="/detail/date"/>',
+		        type: 'get',
+		        data : {"str" : strValue},
+		        success: function(data) {
+		        	for(let tmp of data.timeList){
+		        		console.log(tmp.rsTime);
+		        	}
+		        	//displaycal(data); // 받은 데이터를 표시하는 함수 호출
+		        },
+		        error: function(xhr, status, error) {
+		            console.error('요청에 실패했습니다.');
 		        }
-		    }
+		    });
 
-		    output += '<div>' + i + '</div>';
-		    if (i == last) {
-		        break;
-		    }
-		}
-		
-		for(var i=1;i<=etc;i++){
-			output += '<div class="gray">' + i +'</div>';
-		}
-
-		$('.table').append(output);
-		$('.table > div').each(function(index){
-			if(index%7==0){
-				$(this).addClass('first');
-			}
-			if( index==6 || index==13 || index==20 || index==27 || index==34 || index==41 || index==48){
-				$(this).addClass('last');
-			}
-			if(index>=42){
-				$(this).addClass('bottom');
-			}
-			var num = $(this).html();
-			var c = $(this).attr('class');
-			if(num==tDate && c!='gray' && c!='gray first' && c!='gray last' && c!='gray last bottom' && mon==tMonth && ye==tYear){
-				$(this).addClass('today');
-			}
 		});
 		
-		/* //클릭한 날의 날짜 경고창
-		$('.table > div:not(.gray)').click(function(){
-			var dateText = $(this).html();
-			var monthText = numMonth;
-			if(monthText<10){
-				monthText = '0' + monthText;
+		cal(numMonth,numYear);
+		
+		
+		//이전버튼 클릭
+		$('.prevBtn').click(function(){
+			$('.table').empty();
+			if(numMonth==1){
+				numMonth = 12;
+				numYear--;
+			}else{
+				numMonth--;
 			}
-			if(dateText<10){
-				dateText = '0' + dateText;
+			cal(numMonth,numYear);
+		});
+		
+		//다음버튼 클릭
+		$('.nextBtn').click(function(){
+			$('.table').empty();
+			if(numMonth==12){
+				numMonth = 1;
+				numYear++;
+			}else{
+				numMonth++;
 			}
+			cal(numMonth,numYear);
+		});
+		
+	});
+}
 
-				
-			
-			if(dateText>=tDate && ye==tYear && mon==tMonth){
-				$('.table > div').removeClass('on');
-				$(this).addClass('on');
-				alert(numYear + '년 ' + monthText + '월 ' + dateText + '일');
-			}else if(ye>tYear){
-				$('.table > div').removeClass('on');
-				$(this).addClass('on');
-				alert(numYear + '년 ' + monthText + '월 ' + dateText + '일');
-			}else if(mon>tMonth){
-				$('.table > div').removeClass('on');
-				$(this).addClass('on');
-				alert(numYear + '년 ' + monthText + '월 ' + dateText + '일');
-			}
-		}); */
-	}
-	
-	
-	cal(numMonth,numYear);
-	
-	
-	//이전버튼 클릭
-	$('.prevBtn').click(function(){
-		$('.table').empty();
-		if(numMonth==1){
-			numMonth = 12;
-			numYear--;
-		}else{
-			numMonth--;
-		}
-		cal(numMonth,numYear);
-	});
-	
-	//다음버튼 클릭
-	$('.nextBtn').click(function(){
-		$('.table').empty();
-		if(numMonth==12){
-			numMonth = 1;
-			numYear++;
-		}else{
-			numMonth++;
-		}
-		cal(numMonth,numYear);
-	});
-	
-});
 </script>
+
+
 
 <!-- 토글 버튼 -->
 <script type="text/javascript">

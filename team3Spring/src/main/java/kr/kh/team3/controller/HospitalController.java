@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.team3.model.vo.HospitalSubjectVO;
@@ -59,6 +60,32 @@ public class HospitalController {
 		model.addAttribute("dateList", reservationScheduleList);
 		model.addAttribute("dateListnum", i);
 		return "/hospital/detail2";
+	}
+	
+	@PostMapping("/detail2")
+	@ResponseBody
+	public Map<String, Object> detail2Post(Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		//대표 진료 과목
+		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
+		map.put("hsList", hsList);
+		
+		//예약 날짜가져와서 보내기 
+		ArrayList<ReservationScheduleVO> reservationScheduleList = hospitalService.getReservationScheduleList();
+		map.put("dateList", reservationScheduleList);
+		return map;
+	}
+	
+	@GetMapping("/detail/date")
+	@ResponseBody
+	public Map<String, Object> hospitalDate(Model model, @RequestParam("str") String str) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		//예약 날짜가져와서 보내기 
+		ArrayList<ReservationScheduleVO> reservationScheduleTimeList = hospitalService.getReservationScheduleTimeList(str);
+		log.info(reservationScheduleTimeList);
+		map.put("timeList", reservationScheduleTimeList);
+		return map;
 	}
 	
 	//2. 병원 과목
