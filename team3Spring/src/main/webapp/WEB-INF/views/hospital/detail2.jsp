@@ -37,7 +37,7 @@
         <h1>1. 병원 소개 페이지</h1>
         <div class="info">
         	<label for="hd_info" style="font-weight: bold">병원 소개</label>
-        	<input type="text" class="hd_info" id="hd_info" name="hd_info" readonly placeholder="병원 소개"/>
+        	<textarea class="hd_info col-10 row-10" id="hd_info" name="hd_info" readonly placeholder="병원 소개"></textarea>
         </div>
         <table class="hd_time" id="hd_time">
 	    <thead>
@@ -78,15 +78,15 @@
 	</table>
         <div class="hd_park" id="hd_park">
         	<label for="hd_park" style="font-weight: bold">주차 정보</label>
-        	<input type="text" class="input-tag" id="hd_park" name="hd_park" readonly placeholder="주차 정보"/>
+        	<textarea class="hd_park col-10 row-10" id="hd_park" name="hd_park" readonly placeholder="주차 정보"></textarea>
         </div>
         <div class="hd_announce">
         	<label for="hd_announce" style="font-weight: bold">공지 사항</label>
-        	<input type="text" class="input-tag" id="hd_announce" name="hd_announce" readonly placeholder="공지 사항"/>
+        	<textarea class="hd_announce col-10 row-10" id="hd_announce" name="hd_announce" readonly placeholder="공지 사항"></textarea>
         </div>
         <div class="hd_etc">
         	<label for="hd_etc" style="font-weight: bold">기타 사항</label>
-        	<input type="text" class="input-tag" id="hd_etc" name="hd_etc" readonly placeholder="기타 사항"/>
+        	<textarea class="hd_etc col-10 row-10" id="hd_etc" name="hd_etc" readonly placeholder="기타 사항"></textarea>
         </div>
     </form>
 
@@ -101,9 +101,9 @@
 	        </div>
         </div>
         <div>
-        	<label for="subject-detail">상세 진료 항목</label>
-	       	<input type="text" class="input-tag" id="hd_etc" name="hd_etc" readonly style="width: 80%"
-	       	placeholder="상세 진료 항목 : 감염성 질환 / 알레르기 / 만성 질환 / 호흡기 질환 / 피부 질환..."/>
+        	<label for="hd_etc">상세 진료 항목</label>
+	       	<textarea class="hd_etc col-10 row-10" id="hd_etc" name="hd_etc" readonly style="width: 80%"
+	       	placeholder="상세 진료 항목 : 감염성 질환 / 알레르기 / 만성 질환 / 호흡기 질환 / 피부 질환..."></textarea>
         </div>
     </form>
 

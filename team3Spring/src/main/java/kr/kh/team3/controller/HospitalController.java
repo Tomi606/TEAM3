@@ -31,10 +31,13 @@ public class HospitalController {
 	@Autowired
 	HospitalService hospitalService;
 
+	
 	@GetMapping("/hospital/mypage")//병원 마이페이지
 	public String hospitalMypage(Model model, HospitalVO hospital, HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO huser = hospitalService.getHospital(user);
+		log.info(user);
+		log.info(huser);
 		model.addAttribute("huser",huser);
 		return "/hospital/mypage";
 	}
@@ -50,34 +53,36 @@ public class HospitalController {
 	
 	//병원 상세 페이지 등록
 	@GetMapping("/hospital/detail/insert")
-	public  String detailInsert(Model model) {
-		//병원의 정보
-		HospitalVO hoInfo = hospitalService.getHospitalInfo();
-		//과목
+	public  String detailInsert(Model model, HttpSession session) {
+		//현재 로그인한 병원
+		SiteManagement user = (SiteManagement)session.getAttribute("user");
+		HospitalVO hospital = hospitalService.getHospital(user);
+		//병원과목 리스트
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
-		model.addAttribute("hoInfo", hoInfo);
+		//현재 로그인한 병원이 선택했던 병원과목 가져오기
+		HospitalSubjectVO selectedSubject = hospitalService.getSelectedSubject(hospital);
+		
+		model.addAttribute("hospital", hospital);
 		model.addAttribute("hsList", hsList);
+		model.addAttribute("selectedSubject", selectedSubject);
 		return "/hospital/detail/insert";
 	}
 
 	//병원 상세 페이지 등록(insert)
-	@ResponseBody
 	@PostMapping("/hospital/detail/insert")
 	public String hospitalDetailPost(Model model, HospitalDetailVO detail, HttpSession session) {
-		//현재 로그인된 병원을 가져온다.
-		HospitalVO hospital = (HospitalVO)session.getAttribute("hospital");
-		
-		
-		boolean res = hospitalService.insertDetail(detail, hospital);
-		
-		log.info(hospital);
-		log.info(res);
+		//현재 로그인한 병원
+		SiteManagement user = (SiteManagement)session.getAttribute("user");
+		HospitalVO hospital = hospitalService.getHospital(user);
+		//병원 페이지 등록
+		boolean res = hospitalService.insertHospitalDetail(detail, hospital);
+
 		if(res) {
 			model.addAttribute("msg", "게시글 등록 완료");
 			model.addAttribute("url", "/hospital/mypage");
 		}else {
 			model.addAttribute("msg", "게시글 등록 실패");
-			model.addAttribute("url", "/hospital/info");
+			model.addAttribute("url", "/hospital/detail/insert");
 		}
 		return "message";
 	}
