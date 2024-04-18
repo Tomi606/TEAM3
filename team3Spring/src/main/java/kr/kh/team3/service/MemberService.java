@@ -58,10 +58,12 @@ public interface MemberService {
 
 	boolean updateJob(SiteManagement user, MemberVO member);
 
-	boolean updatePw(SiteManagement user, MemberVO member);
+	boolean updatePw(SiteManagement user, String me_id, String oldPw, String newPw);
 
 
 	MemberVO getMemberPassword(MemberVO member, SiteManagement user);
+
+	MemberVO getMeId(String me_id);
 
 
 }

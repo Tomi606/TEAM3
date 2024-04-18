@@ -224,6 +224,7 @@ function getMypageInfo(member) {
 				    <div class="new_me_pw_hidden">
 				      <input type='text' id="old_me_pw" name="me_pw" class="box-pw2"/>
 				    </div>
+				    
 				    <label for="new_me_pw">새 비밀번호를 입력하세요</labe>
 				    <div class="new_me_pw_hidden">
 				      <input type='password' id="new_me_pw" name="me_pw" class="box-pw2"/>
@@ -232,6 +233,7 @@ function getMypageInfo(member) {
 				    <div class="new_me_pw_hidden">
 				      <input type='password' id="new_me_pw2"name="me_pw2" class="box-pw2"/>
 				    </div>
+				    
 				    <button type="button" class="pw-update-success-btn">비밀번호 변경하기</button>
 			  	</div>
 				  <!-- 모달 끝 -->
@@ -545,18 +547,20 @@ $(document).ready(function() {
 	});
 	function updatePassword(oldPw, newPw) {
 	  let member = {
-	    old_pw: oldPw,
-	    new_pw: newPw,
-	    me_id: '${member.me_id}'
+		  oldPw: oldPw,
+		  newPw: newPw,
+    	  me_id: '${member.me_id}'
 	  };
 	  // 비밀번호 업데이트 AJAX 요청
 	  $.ajax({
 	    async: true,
 	    url: '<c:url value="/member/pw"/>',
 	    type: 'post',
-	    data: JSON.stringify(member),
-	    contentType: "application/json; charset=utf-8",
-	    dataType: "json",
+	    data:  {
+	    	oldPw: oldPw,
+	    	newPw: newPw,
+		    me_id: '${member.me_id}'
+		  },
 	    success: function(data) {
 	      if (data.res) {
 	        alert("비밀번호를 수정했습니다.");
@@ -580,8 +584,6 @@ $(document).ready(function() {
 	  $('.box-pw').show();
 	  $(".job-update").show();
 	}
-
 </script>
- 
 </body>
 </html>

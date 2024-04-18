@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -101,29 +102,28 @@ public class MemberController {
 		return map;
 	}
 
-	// 비번 체크 메서드 비동기
-	@ResponseBody
-	@PostMapping("/member/check")
-	public HashMap<String, Object> pwCheck(@RequestBody MemberVO member, HttpSession session) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		MemberVO me = memberService.getMember(member);
-		log.info(me+"여기다아아");
-		log.info(user+"여기다아아");
-		map.put("res", me);
-		return map;
-	}
+//	// 비번 체크 메서드 비동기
+//	@ResponseBody
+//	@PostMapping("/member/check")
+//	public HashMap<String, Object> pwCheck(@RequestBody MemberVO member, HttpSession session) {
+//		HashMap<String, Object> map = new HashMap<String, Object>();
+//		SiteManagement user = (SiteManagement) session.getAttribute("user");
+//		MemberVO me = memberService.getMember(member);
+//		log.info(me+"여기다아아");
+//		log.info(user+"여기다아아");
+//		map.put("res", me);
+//		return map;
+//	}
 
 	// 비번 수정 메서드 비동기
 	@ResponseBody
 	@PostMapping("/member/pw")
-	public HashMap<String, Object> pwUpdate(@RequestBody MemberVO member, HttpSession session) {
+	public HashMap<String, Object> pwUpdate(@RequestParam("me_id") String me_id, HttpSession session,
+			@RequestParam("oldPw") String oldPw, @RequestParam("newPw") String newPw) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		MemberVO me = memberService.getMember(member);
-		boolean res = memberService.updatePw(user, member);
-		log.info(me+"dddddddddddddddddddddddddddddddddddddddddddddddddd");
-		log.info(res+"dddddddddddddddddddddddddddddddddddddddddddddddddd");
+		MemberVO me = memberService.getMeId(me_id);
+		boolean res = memberService.updatePw(user, me_id, oldPw, newPw);
 		map.put("me", me);
 		map.put("res", res);
 		return map;

@@ -317,9 +317,11 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public boolean updatePw(SiteManagement user, MemberVO member) {
+	public boolean updatePw(SiteManagement user,String me_id, String oldPw, String newPw) {
 		// 사용자 정보나 회원 정보가 null이거나 비밀번호가 비어 있으면 수정하지 않음
-		if (user == null || member == null || member.getMe_pw() == null || member.getMe_pw().isEmpty()) {
+		log.info(me_id+" 멤버멤버멤버멤버멤버멤버멤버멤버멤버멤버멤버멤버멤버멤버멤버멤버멤버멤버"+oldPw+"fdsfddd"+newPw);
+		log.info(user+" 유저유저유저유저유저유저유저유저유저유저유저유저유저유저유저유저유저유저유저"+oldPw+"fdsfddd"+newPw);
+		if (user == null || me_id == null) {
 		    return false;
 		}
 
@@ -331,11 +333,12 @@ public class MemberServiceImp implements MemberService {
 
 		// 입력한 비밀번호와 저장된 암호화된 비밀번호를 비교하여 일치 여부 확인 
 		//왼쪽이 입력한 값 오른쪽이 디비 값
-		if (!passwordEncoder.matches(member.getMe_pw(), dbMember.getMe_pw())) {
+		if (!passwordEncoder.matches(oldPw,dbMember.getMe_pw())) {
 		    return false;
 		}
+		String encPw = passwordEncoder.encode(newPw);
 		// 비밀번호 업데이트
-		boolean res = memberDao.updatePw(member);
+		boolean res = memberDao.updatePw(encPw,me_id);
 		if (!res) {
 		    return false; 
 		}
@@ -355,6 +358,12 @@ public class MemberServiceImp implements MemberService {
 			return null;		
 		
 		return memberDao.selectMember(member.getMe_id());
+	}
+
+	@Override
+	public MemberVO getMeId(String me_id) {
+		log.info(me_id);
+		return memberDao.getMemberInfo(me_id);
 	}
 
 
