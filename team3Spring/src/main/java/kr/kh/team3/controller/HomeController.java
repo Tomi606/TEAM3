@@ -68,13 +68,19 @@ public class HomeController {
 	@PostMapping("/member/signup")
 	public boolean postPemberSignup(MemberVO member,SiteManagement site,LandVO land) {
 		boolean addLand = memberService.insertLand(land);
-		if(!addLand)
+		if(!addLand) {
+			log.info(addLand+"에드 랜드에드 랜드에드 랜드에드 랜드에드 랜드에드 랜드에드 랜드에드 랜드에드 랜드에드 랜드");
 			return false;
+		}
 		LandVO getLand = memberService.getLand(land);
-		if(getLand == null)
+		if(getLand == null) {
+			log.info(getLand + "겟 랜드겟 랜드겟 랜드겟 랜드겟 랜드겟 랜드겟 랜드겟 랜드겟 랜드");
 			return false;
+		}
 		boolean memberRes = memberService.memberSignup(member);
 		boolean siteRes = memberService.siteSignup(site,getLand);
+		log.info(memberRes+ "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+		log.info(siteRes+ "sssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
 		return !memberRes||!siteRes;
 	}
 	

@@ -198,7 +198,7 @@ label {
 		</div>
 		 
 		<div>
-	    	<button type="submit" id="land1" onclick="meIdForm()" class="check btn signup-btn">회원가입</button>
+	    	<button type="submit" id="land1" class="check btn signup-btn">회원가입</button>
 		</div>
 	</div>	
 	</form>
@@ -337,6 +337,8 @@ $("form").submit(function(event){
     var sd_num = $("select[name='sd_num'] option:selected").val();
     var sgg_num = $("select[name='sgg_num'] option:selected").val();
     var emd_num = $("select[name='emd_num'] option:selected").val();
+    alert(emd_num);
+    console.log(emd_num);
     var str = sd_num + sgg_num + emd_num;
     $.ajax({
     	   async : true|false, //비동기 : true(비동기), false(동기)
