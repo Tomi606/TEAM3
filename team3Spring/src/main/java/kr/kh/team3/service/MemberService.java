@@ -3,6 +3,7 @@ package kr.kh.team3.service;
 import java.util.ArrayList;
 
 import kr.kh.team3.model.vo.EupMyeonDongVO;
+import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.model.vo.SiDoVO;
@@ -12,9 +13,9 @@ import kr.kh.team3.pagination.Criteria;
 
 public interface MemberService {
 
-	boolean memberSignup(MemberVO member, String str);
+	boolean memberSignup(MemberVO member);
 
-	boolean siteSignup(SiteManagement site);
+	boolean siteSignup(SiteManagement site, LandVO getLand);
 
 	SiteManagement login(MemberVO member);
 
@@ -57,6 +58,17 @@ public interface MemberService {
 	boolean updateEmail(SiteManagement user, MemberVO member);
 
 	boolean updateJob(SiteManagement user, MemberVO member);
+
+	boolean updatePw(SiteManagement user, String me_id, String oldPw, String newPw);
+
+
+	MemberVO getMemberPassword(MemberVO member, SiteManagement user);
+
+	MemberVO getMeId(String me_id);
+
+	boolean insertLand(LandVO land);
+
+	LandVO getLand(LandVO land);
 
 
 }

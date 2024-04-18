@@ -68,9 +68,7 @@ img {
 	border-radius:0;
 	height: 43px;
 }
-label {
-	margin-left: 30px;
-}
+ 
 .program{
 width: 500px;height: 300px;border: 1px solid black;
 
@@ -81,15 +79,16 @@ width: 500px;height: 300px;border: 1px solid black;
  /*아래부터 병원 마이페이지 구현
  패딩,마진은 상 우 하 좌 시계 방향으로 설정 하면 됨.
  */
- .mypage-container{width: 1905px;height:800px;padding: 0 300px 0 300px;border: 1px solid black;display: flex;}
- .mypage-profile{width: 400px;height: 100%;border: 1px solid black;}
+ .mypage-container{width: 1905px;height:800px;padding: 0 300px 0 300px;display: flex;}
+ .mypage-profile{width: 400px;height: 100%;    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;}
  .profile-img{width: 250px;height: 250px;border:1px solid black;margin: 0 auto;margin-top: 50px;border-radius:100%;  }
  .profile-name{margin: 0 auto;text-align: center;}
  .profile-anything{border: 1px solid black;width: 300px;height: 400px;margin: 0 auto;}
  
- .profile-container{width: 1000px;height: 800px;border: 1px solid black; display: block;background-color: lightgray;}
- .mypage-profile-info{width: 600px;height: 325px;border: 1px solid black;margin: 40px 20px 40px 250px;background-color: pink;border-radius:30px; }
- .mypage-profile-detail{width: 600px;height:325px;border: 1px solid black; margin: 0px 20px 80px 250px;background-color: pink;border-radius:30px; }
+ .profile-container{width: 1000px;height: 800px; display: block;}
+ .mypage-profile-info{width: 600px;height: 325px;border: 1px solid black;margin: 40px 20px 40px 250px;background-color: #FFE1E6;border-radius:30px; }
+ .mypage-profile-detail{width: 600px;height:325px;border: 1px solid black; margin: 0px 20px 80px 250px;background-color: #FFE1E6;border-radius:30px; }
  
  .profile-img-name-container{width: 600px;height: 150px;display: flex;}
  .mypage-img{display:flex;width: 125px;height: 125px;border:1px solid white;margin: 30px 0 0 30px;border-radius:100%;background-color: white;}
@@ -121,30 +120,56 @@ width: 500px;height: 300px;border: 1px solid black;
  .new_me_job_hidden input{ width:300px;position: relative;}
  .job_save_btn_wrap{display:none;} 
  .box-name2{position: relative;}
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 990; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.7);
+}
+.modal-content {
+  background-color: #fefefe; 
+  margin: 15% auto; 
+  padding: 20px;
+  border: 1px solid #888;
+  width: 500px;
+  text-align: center;
+}
+
+.close {
+  color: #aaa; 
+  margin: 0 24px 8px auto;
+  font-size: 50px;
+  font-weight: bold; 
+}
+
+.close:hover,
+.close:focus {
+  color: black; 
+  text-decoration: none; 
+  cursor: pointer;
+}
+.new_me_pw_hidden input{
+width: 300px;
+}
 </style>
 </head>
 <body>
 <div class="mypage-container">
-
-
-
-
-	
 </div>
 <!-- 마이페이지 리스트 -->
 <script type="text/javascript">
-
-
 getMypage();
 function getMypage() {
 	  $.ajax({
 	    async: true,
 	    url: '<c:url value="/member/list"/>',
 	    type: 'post',
-	    // 데이터가 JSON 형식이라면 JSON.stringify()를 사용하여 객체를 문자열로 변환
-	    // 서버로 보낼 데이터 타입
 	    contentType: "application/json; charset=utf-8",
-	    // 서버에서 보낸 데이터의 타입
 	    dataType: "json",
 	    success: function(data) {
 	      console.log(data.member);
@@ -177,7 +202,6 @@ function getMypageInfo(member) {
 			</div>
 		</div>
 	<div class="profile-container">
-		<h3>회원 정보 수정</h3>
 		<div class="mypage-profile-info">
 		<div class="profile-img-name-container">
 			<div class="mypage-img">
@@ -190,7 +214,31 @@ function getMypageInfo(member) {
 				<p style="margin-right: auto;">\${member.me_email}</p>
 				<span class="name_update_btn_wrap"><button type="button" class="name-update">실명수정</button></span>
 				<span class="name_save_btn_wrap"><button type="button" class="name_save_btn">수정완료</button></span>
-				<span ><a href="#" class="pw-update">비밀번호 변경</a></span>
+				<span class="pw_update_btn_wrap"><button type="button" class="pw-update">비밀번호 변경</button></span>
+				<!-- 모달 창 -->
+				<div id="myModal" class="modal">
+				  <div class="modal-content">
+				    <span class="close">&times;</span>
+				    <h2>비밀번호 변경</h2>
+				    <!-- 비밀번호 입력 필드가 모달 안으로 이동 -->
+				    <label for="old_me_pw">현재 비밀번호를 입력하세요</labe>
+				    <div class="new_me_pw_hidden">
+				      <input type='text' id="old_me_pw" name="me_pw" class="box-pw2"/>
+				    </div>
+				    
+				    <label for="new_me_pw">새 비밀번호를 입력하세요</labe>
+				    <div class="new_me_pw_hidden">
+				      <input type='password' id="new_me_pw" name="me_pw" class="box-pw2"/>
+				    </div>
+				    <label for="new_me_pw">새 비밀번호 확인</labe>
+				    <div class="new_me_pw_hidden">
+				      <input type='password' id="new_me_pw2"name="me_pw2" class="box-pw2"/>
+				    </div>
+				    
+				    <button type="button" class="pw-update-success-btn">비밀번호 변경하기</button>
+			  	</div>
+				  <!-- 모달 끝 -->
+				</div>
 			</div>
 		</div>
 			<div class="hr"></div>
@@ -265,7 +313,9 @@ $(document).on('click','.name-update', function(){
     $('.new_me_name_hidden').css('display', 'block');
     $('.name_save_btn_wrap').css('display', 'block');
 });
-
+/*비밀번호 수정 모델창 띄우기 하기*/
+ 
+  
 $(document).on('click','.phone-update', function(){
     resetAll();
     $('.box-phone').css('display', 'none');
@@ -468,6 +518,73 @@ function initComment(){
 
 
 </script>
+<script type="text/javascript">
+$(document).ready(function() {
+	  // 비밀번호 변경 버튼 클릭 시
+	  $(document).on('click', '.pw-update', function() {
+	    resetAll();
+	    // 모달 창 보이기
+	    $("#myModal").css("display", "block");
+	  });
 
+	  // 닫기 버튼 클릭 시 모달 닫기
+	  $(document).on('click', '.close', function() {
+	    $("#myModal").css("display", "none");
+	  });
+
+	  // 비밀번호 변경 확인 버튼 클릭 시
+	  $(document).on('click', '.pw-update-success-btn', function() {
+	    var oldPw = $('#old_me_pw').val();
+	    var newPw = $('#new_me_pw').val();
+	    var newPwCheck = $('#new_me_pw2').val();
+
+	    if (newPw == newPwCheck) {
+	      updatePassword(oldPw, newPw);
+	    } else {
+	      alert("새로운 비밀번호가 일치하지 않습니다.");
+	    }
+	  });
+
+	});
+	function updatePassword(oldPw, newPw) {
+	  let member = {
+		  oldPw: oldPw,
+		  newPw: newPw,
+    	  me_id: '${member.me_id}'
+	  };
+	  // 비밀번호 업데이트 AJAX 요청
+	  $.ajax({
+	    async: true,
+	    url: '<c:url value="/member/pw"/>',
+	    type: 'post',
+	    data:  {
+	    	oldPw: oldPw,
+	    	newPw: newPw,
+		    me_id: '${member.me_id}'
+		  },
+	    success: function(data) {
+	      if (data.res) {
+	        alert("비밀번호를 수정했습니다.");
+	        initComment();
+	        getMypageInfo(data.me);
+	      } else {
+	        alert("비밀번호를 수정하지 못했습니다.");
+	      }
+	    },
+	    error: function(jqXHR, textStatus, errorThrown) {
+	      // 오류 처리
+	    }
+	  });
+	}
+
+	// 수정 버튼을 누른 상태에서 다른 수정 버튼을 누르면 기존에 누른 댓글을 원상태로 돌려주는 함수
+	function initComment() {
+	  $('.btn-complete').remove();
+	  $('.box-pw2').remove();
+	  $('.box-btn').show();
+	  $('.box-pw').show();
+	  $(".job-update").show();
+	}
+</script>
 </body>
 </html>

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
@@ -51,7 +52,7 @@ public class HomeController {
 		return "/main/signup";
 	}
 	
-	//개인 회원가입 페이지
+	//개인 회원가입 페이지 GET
 	@GetMapping("/member/signup")
 	public String memberSignup(Model model, SiDoVO sido,SiGoonGuVO sgg,EupMyeonDongVO emd) {
 		ArrayList<HospitalSubjectVO> list = hospitalService.getHospitalSubjectList();
@@ -62,15 +63,28 @@ public class HomeController {
 	}
 	
 	
-	//개인 회원가입 페이지
+	//개인 회원가입 페이지 POST
 	@ResponseBody
 	@PostMapping("/member/signup")
-	public boolean postPemberSignup(Model model,@RequestParam Map<String, String> obj,
-			MemberVO member,SiteManagement site,SiDoVO sido,SiGoonGuVO sgg, @RequestParam String str) {
-		boolean memberRes = memberService.memberSignup(member, str);
-		boolean siteRes = memberService.siteSignup(site);
+	public boolean postPemberSignup(MemberVO member,SiteManagement site,LandVO land) {
+		boolean addLand = memberService.insertLand(land);
+		if(!addLand) {
+			log.info(addLand+"에드 랜드에드 랜드에드 랜드에드 랜드에드 랜드에드 랜드에드 랜드에드 랜드에드 랜드에드 랜드");
+			return false;
+		}
+		LandVO getLand = memberService.getLand(land);
+		if(getLand == null) {
+			log.info(getLand + "겟 랜드겟 랜드겟 랜드겟 랜드겟 랜드겟 랜드겟 랜드겟 랜드겟 랜드");
+			return false;
+		}
+		boolean memberRes = memberService.memberSignup(member);
+		boolean siteRes = memberService.siteSignup(site,getLand);
+		log.info(memberRes+ "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+		log.info(siteRes+ "sssssssssssssssssssssssssssssssssssssssssssssssssssssssss");
 		return !memberRes||!siteRes;
 	}
+	
+	
 	
 	
 	
@@ -85,7 +99,7 @@ public class HomeController {
 		}
 		return "message";
 	}
-	//개인 회원가입 페이지
+	//시도 번호를 시군구한테 넘겨줘서 시도에 있는 시군구들을 가져오는 메서드
 	@ResponseBody
 	@PostMapping("/member/signup/gungoo")
 	public ArrayList<SiGoonGuVO> postgoongoo(int sd_num){
@@ -93,7 +107,7 @@ public class HomeController {
 		return sggList;
 	}
 	
-	//개인 회원가입 페이지
+	//시군구 번호를 읍면동한테 넘겨줘서 시군구에 있는 읍면동들을 가져오는 메서드
 	@ResponseBody
 	@PostMapping("/member/signup/eupmyeondong")
 	public ArrayList<EupMyeonDongVO> postEupMyeonDong(int sgg_num){
