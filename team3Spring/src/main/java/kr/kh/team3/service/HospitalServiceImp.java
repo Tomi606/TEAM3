@@ -125,14 +125,15 @@ public class HospitalServiceImp implements HospitalService {
 			return null;
 		}
 		
+		//!!!!!!!!!!!! la_num 수정중이라서 로그인 안되서 일단 주석처리 다하면 해제하기!!!!!!!!!!
 		//비번 확인
 		//맞으면 site 정보 return
-		if(passwordEncoder.matches(hospital.getHo_pw(), user.getHo_pw())) {
-			hospitalDao.updateLoginFailZero(user.getHo_id());
-			
-			return hospitalDao.selectSite(user.getHo_id());
-		}
-		return null;
+//		if(passwordEncoder.matches(hospital.getHo_pw(), user.getHo_pw())) {
+//			hospitalDao.updateLoginFailZero(user.getHo_id());
+//			
+//		}
+		return hospitalDao.selectSite(user.getHo_id());
+//		return null;
 	}
 
 	@Override
