@@ -34,10 +34,10 @@ public class HospitalController {
 	
 	@GetMapping("/hospital/mypage")//병원 마이페이지
 	public String hospitalMypage(Model model, HospitalVO hospital, HttpSession session) {
+		//로그인한 회원 정보(SiteManagement에서 로그인 session 가져오고 -> HospitalVO로 가져오기)
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO huser = hospitalService.getHospital(user);
-		log.info(user);
-		log.info(huser);
+
 		model.addAttribute("huser",huser);
 		return "/hospital/mypage";
 	}
@@ -87,24 +87,10 @@ public class HospitalController {
 		return "message";
 	}
 	
-//	
-//	@PostMapping("/post/insert")
-//	public String postInsertPost(Model model, BoardVO board, HttpSession session, MultipartFile [] files) {
-//		MemberVO user = (MemberVO)session.getAttribute("user");
-//		boolean res = boardService.insertBoard(board, user, files);
-//		log.info(user);
-//		log.info(board);
-//		log.info(files);
-//		if(res) {
-//			model.addAttribute("msg", "게시글 등록 완료");
-//			model.addAttribute("url", "/post/list");
-//		}else {
-//			model.addAttribute("msg", "게시글 등록 실패");
-//			model.addAttribute("url", "/post/insert");
-//		}
-//		
-//		return "message";
-//	}
+	
+	
+	
+	
 	
 	
 	
