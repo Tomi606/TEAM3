@@ -9,7 +9,6 @@ DROP TABLE IF EXISTS `member`;
 CREATE TABLE `member` (
 	`me_id`	varchar(13) primary key,
 	`me_ms_state` VARCHAR(20) NOT NULL default '이용중',
-    `me_bmk_num` int null,
     `me_hs_num`	int NULL,
 	`me_pw`	varchar(255) NOT NULL,
 	`me_name`	varchar(20)	NOT NULL,
@@ -17,15 +16,14 @@ CREATE TABLE `member` (
 	`me_job`	varchar(20)	NOT NULL,
 	`me_phone`	varchar(11)	NOT NULL,
 	`me_email`	varchar(50)	NOT NULL,
-	`me_address`	varchar(100) NOT NULL,
 	`me_authority`	varchar(10)	not null default 'USER',
 	`me_cookie`	varchar(255) NULL,
 	`me_cookie_limit` datetime NULL,
     `me_fail` int not null default 0,
 	`me_report_count` int not null default 0,
     `me_stop` datetime NULL,
-	`me_stop_count`	int	not NULL default 0
-    
+	`me_stop_count`	int	not NULL default 0,
+    `me_la_num`	int	NOT NULL
 );
 
 DROP TABLE IF EXISTS `post`;
@@ -71,7 +69,9 @@ DROP TABLE IF EXISTS `bookmark`;
 
 CREATE TABLE `bookmark` (
 	`bmk_num`	int	primary key auto_increment,
-	`bmk_ho_id`	varchar(13)	NOT NULL
+	`bmk_ho_id`	varchar(13)	NOT NULL,
+    `bmk_me_id`	varchar(13)	NOT NULL
+
 );
 
 DROP TABLE IF EXISTS `payment`;
@@ -155,7 +155,8 @@ CREATE TABLE `hospital` (
     `ho_email` varchar(100) not null,
     `ho_report_count` int not null default 0,
     `ho_stop` datetime null,
-    `ho_stop_count`	int	not NULL default 0
+    `ho_stop_count`	int	not NULL default 0,
+    `ho_la_num`	int	NOT NULL
 );
 
 DROP TABLE IF EXISTS `site_management`;
@@ -197,6 +198,8 @@ DROP TABLE IF EXISTS `land`;
 
 CREATE TABLE `land` (
 	`la_num`	int	primary key auto_increment,
+    `la_sd_num`	int	NOT NULL,
+	`la_sgg_num`	int	NOT NULL,
 	`la_emd_num`	int	NOT NULL
 );
 
@@ -338,12 +341,7 @@ REFERENCES `reservation_schedule` (
 	`rs_num`
 );
 
-ALTER TABLE `member` ADD CONSTRAINT `FK_bookmark_TO_member_1` FOREIGN KEY (
-	`me_bmk_num`
-)
-REFERENCES `bookmark` (
-	`bmk_num`
-);
+ 
 
 ALTER TABLE `bookmark` ADD CONSTRAINT `FK_hospital_TO_bookmark_1` FOREIGN KEY (
 	`bmk_ho_id`
@@ -530,6 +528,43 @@ REFERENCES `member` (
 	`me_id`
 );
 
+ALTER TABLE `member` ADD CONSTRAINT `FK_land_TO_member_1` FOREIGN KEY (
+	`me_la_num`
+)
+REFERENCES `land` (
+	`la_num`
+);
+
+ALTER TABLE `hospital` ADD CONSTRAINT `FK_land_TO_hospital_1` FOREIGN KEY (
+	`ho_la_num`
+)
+REFERENCES `land` (
+	`la_num`
+);
+
+ALTER TABLE `land` ADD CONSTRAINT `FK_si_do_TO_land_1` FOREIGN KEY (
+	`la_sd_num`
+)
+REFERENCES `si_do` (
+	`sd_num`
+);
+
+ALTER TABLE `land` ADD CONSTRAINT `FK_si_goon_gu_TO_land_1` FOREIGN KEY (
+	`la_sgg_num`
+)
+REFERENCES `si_goon_gu` (
+	`sgg_num`
+);
+
+ 
+
+ALTER TABLE `bookmark` ADD CONSTRAINT `FK_member_TO_bookmark_1` FOREIGN KEY (
+	`bmk_me_id`
+)
+REFERENCES `member` (
+	`me_id`
+);
+
  INSERT INTO MEMBER_STATE VALUES('승인대기'), ('이용중'), ('기간정지'), ('영구정지'), ('탈퇴'),('가입대기');
 # 병원 과목
 insert into hospital_subject(hs_title) 
@@ -537,7 +572,7 @@ values('내과'), ('외과'),('안과'),('소아과'),('정형외과'), ('이비
 ('신경과'), ('신경외과'), ('성형외과'), ('피부과'), ('비뇨기과'), ('건강검진'),('마취통증학과'),('신경과');
 
 # 지역 DB 넣은 후 실행
-insert into land value(1,1);
+-- insert into land value(1,1);
 
 # 신고 상태
 insert into report_state values('1'),('3'),('7'),('15'),('30'),('60'),('180'),('365');
