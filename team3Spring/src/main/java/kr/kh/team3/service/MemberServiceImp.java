@@ -319,8 +319,6 @@ public class MemberServiceImp implements MemberService {
 	@Override
 	public boolean updatePw(SiteManagement user,String me_id, String oldPw, String newPw) {
 		// 사용자 정보나 회원 정보가 null이거나 비밀번호가 비어 있으면 수정하지 않음
-		log.info(me_id+" 멤버멤버멤버멤버멤버멤버멤버멤버멤버멤버멤버멤버멤버멤버멤버멤버멤버멤버"+oldPw+"fdsfddd"+newPw);
-		log.info(user+" 유저유저유저유저유저유저유저유저유저유저유저유저유저유저유저유저유저유저유저"+oldPw+"fdsfddd"+newPw);
 		if (user == null || me_id == null) {
 		    return false;
 		}
