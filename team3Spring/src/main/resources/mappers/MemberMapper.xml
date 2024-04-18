@@ -3,17 +3,31 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team3.dao.MemberDAO">
+
+	<!-- 지역설정 쿼리문 작성 -->
+	<insert id="insertLand">
+		insert into land(la_sd_num,la_sgg_num,la_emd_num)
+		values(#{la.la_sd_num},#{la.la_sgg_num},#{la.la_emd_num})
+	</insert>
+	<select id="selectLand" resultType="kr.kh.team3.model.vo.LandVO">	
+		select * from land where la_sd_num = #{la.la_sd_num}
+		and la_sgg_num = #{la.la_sgg_num}
+		and la_emd_num = #{la.la_emd_num}
+	</select>
+	
+	
+	
 	
 	<!-- 회원가입 -->
 	<insert id="insertMember">
-		insert into member(me_hs_num,me_id,me_pw,me_name,me_gender,me_job,me_phone,me_email,me_address,me_authority,me_ms_state)
-		values(#{me.me_hs_num},#{me.me_id},#{me.me_pw},#{me.me_name},#{me.me_gender},#{me.me_job},#{me.me_phone},#{me.me_email},#{adress},"USER","이용중")
+		insert into member(me_hs_num,me_id,me_pw,me_name,me_gender,me_job,me_phone,me_email,me_authority,me_ms_state)
+		values(#{me.me_hs_num},#{me.me_id},#{me.me_pw},#{me.me_name},#{me.me_gender},#{me.me_job},#{me.me_phone},#{me.me_email},"USER","이용중")
 	</insert>
 	
 	<!--site_la_num을 1로 고정시켜놓으면 회원가입 됨.  -->
 	<insert id="insertSiteMember">
 		insert into site_management(site_la_num,site_id,site_email,site_phone,site_authority)
-		value(1,#{si.site_id},#{si.site_email},#{si.site_phone},"USER")
+		value(#{la.la_num},#{si.site_id},#{si.site_email},#{si.site_phone},"USER")
 	</insert>
 	
 	<select id="selectSiDo" resultType="kr.kh.team3.model.vo.SiDoVO">

@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LandVO {
 	private int la_num;
+	private int la_sd_num;
+	private int la_sgg_num;
 	private int la_emd_num;
 	 
 }

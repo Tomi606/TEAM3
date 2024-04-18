@@ -180,6 +180,8 @@ label {
 				</c:forEach>
 			</select>
 		</div>
+		
+		<!-- 여기 수정하기 -->
 		<div>
 		 <select name="sd_num" required class="sd_num" style="width: 500px;margin-bottom: 20px">
 		 		<option value="none">시/도를 선택해주세요</option>
@@ -332,52 +334,28 @@ $.validator.addMethod("customRegex", function(value, element, regexp) {
 $("form").submit(function(event){
     event.preventDefault(); // 기본 form 제출 이벤트를 막습니다.
     
-    var sd_num = $("select[name='sd_num'] option:selected").text();
-    var sgg_num = $("select[name='sgg_num'] option:selected").text();
-    var emd_num = $("select[name='emd_num'] option:selected").text();
+    var sd_num = $("select[name='sd_num'] option:selected").val();
+    var sgg_num = $("select[name='sgg_num'] option:selected").val();
+    var emd_num = $("select[name='emd_num'] option:selected").val();
     var str = sd_num + sgg_num + emd_num;
-    
-    // Serialize된 form 데이터를 직접 사용하고 str 파라미터를 추가합니다.
-    var formData = $(this).serialize();
-    formData += '&str=' + str; // str 파라미터 추가
     $.ajax({
-        async:true,
-        url : '<c:url value="/member/signup"/>', // URL을 직접 지정
-        type : 'post',
-        data : formData,
-        success:function(data){
-            if (data === false) {
-                location.href = '<c:url value="/message?res="/>' + data; // URL을 직접 지정
-            } else {
-                location.href = '<c:url value="/message?res="/>' + data; // URL을 직접 지정
-            }
-        }
-    });
+    	   async : true|false, //비동기 : true(비동기), false(동기)
+    	   url : '<c:url value="/member/signup"/>', 
+    	   type : 'post', 
+    	   data : {la_sd_num,la_sgg_num,la_emd_num}
+    	   success : function (data){
+    	      console.log(data);
+    	   }, 
+    	   error : function(jqXHR, textStatus, errorThrown){
+
+    	   }
+    	});
     return false;
 })
 </script>
 
 <!-- 시/도,시/군/구,읍/면/동 ajax -->
 <script type="text/javascript">
-function hoIdForm() {
-    var hoId = document.getElementById("id").value;
-    document.getElementById("id2").value = hoId;
-    document.getElementById("myForm").submit();
-
-    // 비번 일치 확인
-    var pw = document.getElementById("pw").value;
-    var pw2 = document.getElementById("pw2").value;
-
-    if (pw !== pw2) {
-        console.log("비번 불일치");
-        return false;
-    } else if (pw === pw2) {
-        console.log("비번 일치");
-        return true;
-    } else {
-        return false;
-    }
-}
 /* 군 구 리스트 select로 띄우기 시작 */
 $("[name=sd_num]").click(function(){
 	let sd_num = $("[name=sd_num]").val();
@@ -391,7 +369,6 @@ $("[name=sd_num]").click(function(){
 				str += ` <option value='\${data[tmp].sgg_num}' selected>\${data[tmp].sgg_name}</option>`;
 			}
 			$(".sgg_num").html(str);
-			
 		}, 
         error: function(jqXHR, textStatus, errorThrown) {
 
