@@ -78,5 +78,7 @@ public interface MemberService {
 
 	String getEmdName(LandVO land);
 
+	boolean updateAddress(SiteManagement user, MemberVO me, LandVO la);
+
 
 }

@@ -549,25 +549,31 @@ function initComment(){
 
 
 </script>
-
 <!-- 주소 수정 -->
 <script type="text/javascript">
-	$(document).on('click', '.address_save_btn', function(){
-		
+$(document).on('click', '.address_save_btn', function(){
+   		var la_sd_num = $("select[name='sd_num'] option:selected").val();
+    	console.log("시"+la_sd_num);
+	    var la_sgg_num = $("select[name='sgg_num'] option:selected").val();
+	    console.log("군 구"+la_sgg_num);
+	    var la_emd_num = $("select[name='emd_num'] option:selected").val();
+	    console.log("읍 면 동"+la_emd_num	);
+	   
 	  //전송할 데이터를 생성 => 댓글 수정 => 댓글 번호, 댓글 내용
 	  let member = {
-	    me_address : $('.box-job2').val(),
+	    la_sd_num : la_sd_num,
+	    la_sgg_num: la_sgg_num,
+	    la_emd_num: la_emd_num,
 	    me_id : '${member.me_id}'
 	  };
 	  console.log(member);
+	  
 	  //서버에 ajax로 데이터를 전송 후 처리
 	  $.ajax({
 	    async : true,
 	    url : '<c:url value="/member/address"/>',
 	    type : 'post',
-	    data : JSON.stringify(member),
-	    contentType : "application/json; charset=utf-8",
-	    dataType : "json",
+	    data : member,
 	    success : function (data){
 	      if(data.res){
 	        alert("주소를 수정했습니다.");
@@ -599,8 +605,10 @@ function initComment(){
 <!-- 시/도,시/군/구,읍/면/동 ajax -->
 <script type="text/javascript">
 /* 군 구 리스트 select로 띄우기 시작 */
-$("[name=sd_num]").change(function(){
+ 
+$(document).on('change', '[name=sd_num]', function(){
 	let sd_num = $("[name=sd_num]").val();
+	console.log(sd_num);
 	if(sd_num == 'none'){
 		sd_num = 0;
 	}
@@ -621,7 +629,7 @@ $("[name=sd_num]").change(function(){
     });
 });
 /* 읍면동 리스트 select로 띄우기 시작 */
-$("[name=sgg_num]").change(function(){
+ $(document).on('change', '[name=sgg_num]', function(){
 	let sgg_num = $("[name=sgg_num]").val();
 	if(sgg_num == 'none'){
 		sgg_num = 0;

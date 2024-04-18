@@ -410,4 +410,18 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.selectEmdName(land);
 	}
 
+	@Override
+	public boolean updateAddress(SiteManagement user,MemberVO me, LandVO la) {
+		if(me == null||me.getMe_id() == null ||la == null ||user == null||user.getSite_id()==null||user.getSite_id().length()==0||me.getMe_id().length()==0)
+			return false;
+		
+		 
+		MemberVO dbMember = memberDao.selectMember(user.getSite_id());
+		if (dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
+			return false;
+		//sitemanagement도 수정해야됨
+		//return memberDao.updateAddress(me,la);
+		return true;
+	}
+
 }

@@ -122,22 +122,19 @@ public class MemberController {
 	// 주소 수정 메서드 비동기
 	@ResponseBody
 	@PostMapping("/member/address")
-	public HashMap<String, Object> addressUpdate(@RequestBody MemberVO member, HttpSession session,
-			@RequestBody LandVO land) {
+	public HashMap<String, Object> addressUpdate(@RequestParam("me_id") String me_id, HttpSession session,
+			@RequestParam("la_sd_num")int la_sd_num,@RequestParam("la_sgg_num")int la_sgg_num ,@RequestParam("la_emd_num")int la_emd_num) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		MemberVO me = memberService.getMember(member);
-		boolean res = memberService.updateJob(user, member);
+		LandVO land = new LandVO(la_emd_num, la_sgg_num, la_emd_num);
+		MemberVO me = memberService.getMeId(me_id);
+		LandVO la = memberService.getLand(land);
+		boolean res = memberService.updateAddress(user,me, la);
+		//boolean res = memberService.updateSite(me_id, )
 
-		LandVO getLand = memberService.getLand(land);
-		/*
-		 * if (getLand == null) { return false; }
-		 */
-		boolean memberRes = memberService.memberSignup(member, getLand);
-		//boolean siteRes = memberService.siteSignup(site, getLand);
-
+		 
 		map.put("me", me);
-		map.put("res", res);
+		//map.put("res", res);
 		return map;
 	}
 
