@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class MemberVO {
+	
 	private String me_id;
 	private int me_hs_num; //병원 과목 번호
 	private String me_ms_state; //회원 상태명
@@ -31,4 +32,5 @@ public class MemberVO {
 	private ReportVO report;
 	private SiteManagement siteManagement;
 
+	 
 }

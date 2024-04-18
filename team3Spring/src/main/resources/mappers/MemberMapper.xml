@@ -157,5 +157,9 @@
 	<update id="updateJob">
 		 update member set me_job = #{me.me_job} where me_id =#{me.me_id}
 	</update>
+	<update id="updatePw">
+		 update member set me_pw = #{pw} where me_id =#{id}
+	</update>
+	
 	
 </mapper>
