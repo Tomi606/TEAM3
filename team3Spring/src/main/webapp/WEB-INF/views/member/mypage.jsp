@@ -97,13 +97,30 @@ width: 500px;height: 300px;border: 1px solid black;
  .hr{width: 500px;border:1px solid black;margin:10px auto}
  
  
- .mypage-phone{width: 500px;margin: 0 auto;display: flex;}
- .mypage-email{width: 500px;margin: 0 auto;display: flex;}
+ .mypage-phone{width: 500px;margin: 0 auto;display: flex;flex-direction: row;justify-content: space-between;}
+ .mypage-email{width: 500px;margin: 0 auto;display: flex;flex-direction: row;justify-content: space-between;}
  
  .mypage-hospital-name{display: flex;margin: 40px 48px 0 47px;}
  .mypage-hospital-num{display:flex;margin: 20px 48px 0 47px;}
+ .mypage-job{display:flex;margin: 20px 48px 0 47px;flex-direction: row;justify-content: space-between;}
  .mypage-hospital-address{display:flex;margin: 20px 48px 0 47px;}
  
+ .new_me_name_hidden{width:180px;display:none;}
+ .new_me_name_hidden input{width:250px; /* font-size: 1.5rem; */}
+ .name_save_btn_wrap{display:none;}
+ 
+ .new_me_phone_hidden{width:180px;display:none;}
+/*  .new_me_phone_hidden input{ font-size: 1.5rem;} */
+ .phone_save_btn_wrap{display:none;} 
+ 
+ .new_me_email_hidden{width:180px;display:none;}
+ /* .new_me_email_hidden input{} */
+ .email_save_btn_wrap{display:none;} 
+ 
+ .new_me_job_hidden{width:180px;display:none;}
+ .new_me_job_hidden input{ width:300px;position: relative;}
+ .job_save_btn_wrap{display:none;} 
+ .box-name2{position: relative;}
 </style>
 </head>
 <body>
@@ -112,13 +129,11 @@ width: 500px;height: 300px;border: 1px solid black;
 
 
 
-
-
-
 	
 </div>
 <!-- 마이페이지 리스트 -->
 <script type="text/javascript">
+
 
 getMypage();
 function getMypage() {
@@ -169,33 +184,44 @@ function getMypageInfo(member) {
 			</div>
 			<div class="mypage-img-name">
 				<h4 style="display: flex;" class="box-name">\${member.me_name}</h4>
+				<div class="new_me_name_hidden">
+					<input type='text' id="new_me_name" class="box-name2" value="\${member.me_name}"/>
+				</div>
 				<p style="margin-right: auto;">\${member.me_email}</p>
-				<span ><button type="button" class="name-update">실명수정</button></span>
+				<span class="name_update_btn_wrap"><button type="button" class="name-update">실명수정</button></span>
+				<span class="name_save_btn_wrap"><button type="button" class="name_save_btn">수정완료</button></span>
 				<span ><a href="#" class="pw-update">비밀번호 변경</a></span>
 			</div>
 		</div>
 			<div class="hr"></div>
 			<div class="mypage-phone">
-				<p style="margin-right: auto">\${member.me_phone}</p>
-				<span><a href="#">변경</a></span>
+				<div class="new_me_phone_hidden">
+					<input type='text' id="new_me_phone" class="box-phone2" value="\${member.me_phone}"/>
+				</div>	
+				<p style="margin-right: auto" class="box-phone">\${member.me_phone}</p>
+				<span class="phone_update_btn_wrap"><button type="button" class="phone-update">변경</button></span>
+				<span class="phone_save_btn_wrap"><button type="button" class="phone_save_btn">수정완료</button></span>
 			</div>
 			<div class="hr"></div>
 			<div class="mypage-email">
-				<p style="margin-right: auto">\${member.me_email}</p>
-				<span><a href="#">변경</a></span>
+				<div class="new_me_email_hidden">
+					<input type='text' id="new_me_email" class="box-email2" value="\${member.me_email}"/>
+				</div>	
+				<p style="margin-right: auto"  class="box-email">\${member.me_email}</p>
+				<span class="email_update_btn_wrap"><button type="button" class="email-update">변경</button></span>
+				<span class="email_save_btn_wrap"><button type="button" class="email_save_btn">수정완료</button></span>
 			</div>
 		
 		</div>
 		<div class="mypage-profile-detail">
-				<div class="mypage-hospital-name" >
-					<h5 style="margin-right: auto">\${member.me_name}</h5>
-					<span><a href="#">변경</a></span>
-				</div>
-				<div class="hr"></div>
-				 <div class="mypage-hospital-address">
+				 <div class="mypage-job">
 				 	<h5>직업 : </h5>
-					<span style="margin-right: auto">\${member.me_job}</span>
-					<span><a href="#">변경</a></span>
+					 <div class="new_me_job_hidden">
+						<input type='text' id="new_me_job" class="box-job2" value="\${member.me_job}"/>
+					</div>	
+					<span style="margin-right: auto" class"box-job">\${member.me_job}</span>
+					<span class="job_update_btn_wrap"><button type="button" class="job-update">변경</button></span>
+					<span class="job_save_btn_wrap"><button type="button" class="job_save_btn">수정완료</button></span>
 				</div>
 				<div class="hr"></div>
 				<div class="mypage-hospital-address">
@@ -207,29 +233,64 @@ function getMypageInfo(member) {
 		`;	
 $('.mypage-container').html(str);
 }
-
 </script>
 <!--이름 수정 -->
 <script type="text/javascript">
-$(document).on('click','.name-update', function(){
-	  initComment();
-	  let nameBox = $(".box-name");
-	  //댓글을 수정할 수 있는 textarea로 변경
-	  let me_name = nameBox.text();
-	  let str = `<input class="form-control box-name2" value="\${me_name}">`;
-	  nameBox.after(str);
-	  nameBox.hide();
-	  
-	  //수정/삭제 버튼을 감추고
-	  $(".name-update").hide();
-	  
-	  //수정 완료 버튼을 추가
-	  let me_id = '${member.me_id}';
-	  str = `<button class="btn btn-outline-warning btn-complete">수정 완료</button>`;
-	  $(".box-name").after(str);
-	});
+function resetAll() {
+    $('.box-name').css('display', 'block');
+    $('.name_update_btn_wrap').css('display', 'block');
+    $('.new_me_name_hidden').css('display', 'none');
+    $('.name_save_btn_wrap').css('display', 'none');
 
-	$(document).on('click', '.btn-complete', function(){
+    $('.box-phone').css('display', 'block');
+    $('.phone_update_btn_wrap').css('display', 'block');
+    $('.new_me_phone_hidden').css('display', 'none');
+    $('.phone_save_btn_wrap').css('display', 'none');
+
+    $('.box-email').css('display', 'block');
+    $('.email_update_btn_wrap').css('display', 'block');
+    $('.new_me_email_hidden').css('display', 'none');
+    $('.email_save_btn_wrap').css('display', 'none');
+
+    $('.box-job').css('display', 'block');
+    $('.job_update_btn_wrap').css('display', 'block');
+    $('.new_me_job_hidden').css('display', 'none');
+    $('.job_save_btn_wrap').css('display', 'none');
+}
+
+$(document).on('click','.name-update', function(){
+    resetAll();
+    $('.box-name').css('display', 'none');
+    $('.name_update_btn_wrap').css('display', 'none');
+    $('.new_me_name_hidden').css('display', 'block');
+    $('.name_save_btn_wrap').css('display', 'block');
+});
+
+$(document).on('click','.phone-update', function(){
+    resetAll();
+    $('.box-phone').css('display', 'none');
+    $('.phone_update_btn_wrap').css('display', 'none');
+    $('.new_me_phone_hidden').css('display', 'block');
+    $('.phone_save_btn_wrap').css('display', 'block');
+});
+
+$(document).on('click','.email-update', function(){
+    resetAll();
+    $('.box-email').css('display', 'none');
+    $('.email_update_btn_wrap').css('display', 'none');
+    $('.new_me_email_hidden').css('display', 'block');
+    $('.email_save_btn_wrap').css('display', 'block');
+});
+
+$(document).on('click','.job-update', function(){
+    resetAll();
+    $('.box-job').css('display', 'none');
+    $('.job_update_btn_wrap').css('display', 'none');
+    $('.new_me_job_hidden').css('display', 'block');
+    $('.job_save_btn_wrap').css('display', 'block');
+});
+
+	$(document).on('click', '.name_save_btn', function(){
 	  //전송할 데이터를 생성 => 댓글 수정 => 댓글 번호, 댓글 내용
 	  let member = {
 	    me_name : $('.box-name2').val(),
@@ -268,6 +329,141 @@ function initComment(){
 	  $('.box-btn').show();
 	  $('.box-name').show();
 	  $(".name-update").show();
+}
+
+
+</script>
+<!-- 폰 번호 수정 -->
+<script type="text/javascript">
+
+	$(document).on('click', '.phone_save_btn', function(){
+	  //전송할 데이터를 생성 => 댓글 수정 => 댓글 번호, 댓글 내용
+	  let member = {
+	    me_phone : $('.box-phone2').val(),
+	    me_id : '${member.me_id}'
+	  };
+	  console.log(member);
+	  //서버에 ajax로 데이터를 전송 후 처리
+	  $.ajax({
+	    async : true,
+	    url : '<c:url value="/member/phone"/>',
+	    type : 'post',
+	    data : JSON.stringify(member),
+	    contentType : "application/json; charset=utf-8",
+	    dataType : "json",
+	    success : function (data){
+	      if(data.res){
+	        alert("휴대폰 번호를 수정했습니다.");
+	        initComment();
+	        getMypageInfo(data.me);
+			return;	        
+	      }else{
+	        alert("휴대폰 번호를 수정하지 못했습니다.");
+	        return;
+	      }
+	    },
+	    error : function(jqXHR, textStatus, errorThrown){
+
+	    }
+	  });
+	});
+
+//수정 버튼을 누른 상태에서 다른 수정 버튼을 누르면 기존에 누른 댓글을 원상태로 돌려주는 함수
+function initComment(){
+	  $('.btn-complete').remove();
+	  $('.box-phone2').remove();
+	  $('.box-btn').show();
+	  $('.box-phone').show();
+	  $(".name-update").show();
+}
+
+
+</script>
+<!-- 이메일 수정 -->
+<script type="text/javascript">
+	$(document).on('click', '.email_save_btn', function(){
+	  //전송할 데이터를 생성 => 댓글 수정 => 댓글 번호, 댓글 내용
+	  let member = {
+	    me_email : $('.box-email2').val(),
+	    me_id : '${member.me_id}'
+	  };
+	  console.log(member);
+	  //서버에 ajax로 데이터를 전송 후 처리
+	  $.ajax({
+	    async : true,
+	    url : '<c:url value="/member/email"/>',
+	    type : 'post',
+	    data : JSON.stringify(member),
+	    contentType : "application/json; charset=utf-8",
+	    dataType : "json",
+	    success : function (data){
+	      if(data.res){
+	        alert("이메일을 수정했습니다.");
+	        initComment();
+	        getMypageInfo(data.me);
+			return;	        
+	      }else{
+	        alert("이메일을 수정하지 못했습니다.");
+	        return;
+	      }
+	    },
+	    error : function(jqXHR, textStatus, errorThrown){
+
+	    }
+	  });
+	});
+
+//수정 버튼을 누른 상태에서 다른 수정 버튼을 누르면 기존에 누른 댓글을 원상태로 돌려주는 함수
+function initComment(){
+	  $('.btn-complete').remove();
+	  $('.box-email2').remove();
+	  $('.box-btn').show();
+	  $('.box-email').show();
+	  $(".name-update").show();
+}
+
+
+</script>
+<!-- 직업 수정 -->
+<script type="text/javascript">
+	$(document).on('click', '.job_save_btn', function(){
+	  //전송할 데이터를 생성 => 댓글 수정 => 댓글 번호, 댓글 내용
+	  let member = {
+	    me_job : $('.box-job2').val(),
+	    me_id : '${member.me_id}'
+	  };
+	  console.log(member);
+	  //서버에 ajax로 데이터를 전송 후 처리
+	  $.ajax({
+	    async : true,
+	    url : '<c:url value="/member/job"/>',
+	    type : 'post',
+	    data : JSON.stringify(member),
+	    contentType : "application/json; charset=utf-8",
+	    dataType : "json",
+	    success : function (data){
+	      if(data.res){
+	        alert("직업을 수정했습니다.");
+	        initComment();
+	        getMypageInfo(data.me);
+			return;	        
+	      }else{
+	        alert("직업을 수정하지 못했습니다.");
+	        return;
+	      }
+	    },
+	    error : function(jqXHR, textStatus, errorThrown){
+
+	    }
+	  });
+	});
+//수정 버튼을 누른 상태에서 다른 수정 버튼을 누르면 기존에 누른 댓글을 원상태로 돌려주는 함수
+function initComment(){
+	  $('.btn-complete').remove();
+	  $('.box-job2').remove();
+	  $('.box-btn').show();
+	  $('.box-job').show();
+	  $(".job-update").show();
 }
 
 

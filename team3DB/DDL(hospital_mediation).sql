@@ -546,18 +546,8 @@ insert into site_management value(1, 1, 'qqqq1111', "01011111111", "qqqq1111@nav
 select * from site_management;
 
 # 신고 유형
-insert into report(rp_target, rp_name, rp_rs_name, rp_site_num) 
-values('qqqq1111', '스팸홍보','1', 3),
-('qqqq1111', '도배','1', 3), 
-('qqqq1111', '음란물','3', 3), 
-('qqqq1111', '불법정보를 포함','1', 3), 
-('qwer1234', '청소년에게 유해한 내용','1', 3), 
-('qwer1234', '욕설/혐오/차별 표현','1', 3), 
-('qwer1234', '개인정보 유출','1', 3), 
-('qwer1234', '불법촬영물등 포함','1', 3), 
-('qwer1234', '명예훼손','1', 3), 
-('qwer1234', '저작권 침해','1', 3), 
-('qwer1234', '불쾌한 표현 있음','1', 3);
+#insert into report(rp_target, rp_name, rp_rs_name, rp_site_num) 
+#values('qqqq1111', '스팸홍보','1', 3),('qqqq1111', '도배','1', 3), ('qqqq1111', '음란물','3', 3), ('qqqq1111', '불법정보를 포함','1', 3), ('qwer1234', '청소년에게 유해한 내용','1', 3), ('qwer1234', '욕설/혐오/차별 표현','1', 3), ('qwer1234', '개인정보 유출','1', 3), ('qwer1234', '불법촬영물등 포함','1', 3), ('qwer1234', '명예훼손','1', 3), ('qwer1234', '저작권 침해','1', 3), ('qwer1234', '불쾌한 표현 있음','1', 3);
 
 select * from member;
 select * from hospital;

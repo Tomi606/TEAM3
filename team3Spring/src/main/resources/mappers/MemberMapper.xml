@@ -148,5 +148,14 @@
 	<update id="updateName">
 		 update member set me_name = #{me.me_name} where me_id =#{me.me_id}
 	</update>
+	<update id="updatePhone">
+		 update member set me_phone = #{me.me_phone} where me_id =#{me.me_id}
+	</update>
+	<update id="updateEmail">
+		 update member set me_email = #{me.me_email} where me_id =#{me.me_id}
+	</update>
+	<update id="updateJob">
+		 update member set me_job = #{me.me_job} where me_id =#{me.me_id}
+	</update>
 	
 </mapper>

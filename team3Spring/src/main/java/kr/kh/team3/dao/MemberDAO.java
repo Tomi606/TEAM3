@@ -64,6 +64,12 @@ public interface MemberDAO {
 
 	boolean updateName(@Param("me")MemberVO member);
 
+	boolean updatePhone(@Param("me")MemberVO member);
+
+	boolean updateEmail(@Param("me")MemberVO member);
+
+	boolean updateJob(@Param("me")MemberVO member);
+
 
 	
 
