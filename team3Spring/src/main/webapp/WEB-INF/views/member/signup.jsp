@@ -359,25 +359,7 @@ $("form").submit(function(event){
 
 <!-- 시/도,시/군/구,읍/면/동 ajax -->
 <script type="text/javascript">
-function hoIdForm() {
-    var hoId = document.getElementById("id").value;
-    document.getElementById("id2").value = hoId;
-    document.getElementById("myForm").submit();
 
-    // 비번 일치 확인
-    var pw = document.getElementById("pw").value;
-    var pw2 = document.getElementById("pw2").value;
-
-    if (pw !== pw2) {
-        console.log("비번 불일치");
-        return false;
-    } else if (pw === pw2) {
-        console.log("비번 일치");
-        return true;
-    } else {
-        return false;
-    }
-}
 /* 군 구 리스트 select로 띄우기 시작 */
 $("[name=sd_num]").click(function(){
 	let sd_num = $("[name=sd_num]").val();
