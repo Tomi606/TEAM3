@@ -61,8 +61,8 @@ public class MemberServiceImp implements MemberService {
 		return str != null && str.length() != 0;
 	}
 
-	public boolean memberSignup(MemberVO member) {
-		if (member == null)
+	public boolean memberSignup(MemberVO member, LandVO getLand) {
+		if (member == null || getLand == null)
 			return false;
 
 		MemberVO user = memberDao.selectMember(member.getMe_id());
@@ -74,7 +74,7 @@ public class MemberServiceImp implements MemberService {
 		member.setMe_pw(encPw);
 
 		try {
-			return memberDao.insertMember(member);
+			return memberDao.insertMember(member, getLand);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
@@ -318,34 +318,32 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public boolean updatePw(SiteManagement user,String me_id, String oldPw, String newPw) {
+	public boolean updatePw(SiteManagement user, String me_id, String oldPw, String newPw) {
 		// 사용자 정보나 회원 정보가 null이거나 비밀번호가 비어 있으면 수정하지 않음
 		if (user == null || me_id == null) {
-		    return false;
+			return false;
 		}
 
 		// 데이터베이스에서 해당 회원 정보 조회
 		MemberVO dbMember = memberDao.selectMember(user.getSite_id());
 		if (dbMember == null || !dbMember.getMe_id().equals(user.getSite_id())) {
-		    return false; 
+			return false;
 		}
 
-		// 입력한 비밀번호와 저장된 암호화된 비밀번호를 비교하여 일치 여부 확인 
-		//왼쪽이 입력한 값 오른쪽이 디비 값
-		if (!passwordEncoder.matches(oldPw,dbMember.getMe_pw())) {
-		    return false;
+		// 입력한 비밀번호와 저장된 암호화된 비밀번호를 비교하여 일치 여부 확인
+		// 왼쪽이 입력한 값 오른쪽이 디비 값
+		if (!passwordEncoder.matches(oldPw, dbMember.getMe_pw())) {
+			return false;
 		}
 		String encPw = passwordEncoder.encode(newPw);
 		// 비밀번호 업데이트
-		boolean res = memberDao.updatePw(encPw,me_id);
+		boolean res = memberDao.updatePw(encPw, me_id);
 		if (!res) {
-		    return false; 
+			return false;
 		}
 		return true; // 비밀번호 업데이트 성공
 
 	}
-
-	 
 
 	@Override
 	public MemberVO getMemberPassword(MemberVO member, SiteManagement user) {
@@ -354,8 +352,8 @@ public class MemberServiceImp implements MemberService {
 			return null;
 		MemberVO dbMember = memberDao.selectMember(user.getSite_id());
 		if (dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
-			return null;		
-		
+			return null;
+
 		return memberDao.selectMember(member.getMe_id());
 	}
 
@@ -367,18 +365,63 @@ public class MemberServiceImp implements MemberService {
 
 	@Override
 	public boolean insertLand(LandVO land) {
-		if(land == null)
+		if (land == null)
 			return false;
-		
-		return memberDao.insertLand(land);
+		if (memberDao.selectLand(land) == null)
+			return memberDao.insertLand(land);
+		return true;
 	}
 
 	@Override
 	public LandVO getLand(LandVO land) {
+		if (land == null)
+			return null;
 		return memberDao.selectLand(land);
 	}
 
+	@Override
+	public LandVO getMyLand(MemberVO muser) {
+		return memberDao.getMyLand(muser);
+	}
 
-	 
+	@Override
+	public String getSdName(LandVO land) {
+		if (land == null)
+			return null;
+
+		return memberDao.selectSdName(land);
+
+	}
+
+	@Override
+	public String getSggName(LandVO land) {
+		if (land == null) {
+			log.info(land+"임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드");
+			return null;
+		}
+		return memberDao.selectSggName(land);
+	}
+
+	@Override
+	public String getEmdName(LandVO land) {
+		if (land == null)
+			return null;
+
+		return memberDao.selectEmdName(land);
+	}
+
+	@Override
+	public boolean updateAddress(SiteManagement user,MemberVO me, LandVO la) {
+		if(me == null||me.getMe_id() == null ||la == null ||user == null||user.getSite_id()==null||user.getSite_id().length()==0||me.getMe_id().length()==0)
+			return false;
+		
+		 
+		MemberVO dbMember = memberDao.selectMember(user.getSite_id());
+		if (dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
+			return false;
+		//sitemanagement도 수정해야됨
+		//return memberDao.updateAddress(me,la);
+		return true;
+	}
 
 }
