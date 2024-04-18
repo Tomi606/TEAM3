@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import kr.kh.team3.dao.HospitalDAO;
 import kr.kh.team3.dao.MemberDAO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
+import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.model.vo.SiDoVO;
@@ -60,7 +61,7 @@ public class MemberServiceImp implements MemberService {
 		return str != null && str.length() != 0;
 	}
 
-	public boolean memberSignup(MemberVO member, String adress) {
+	public boolean memberSignup(MemberVO member) {
 		if (member == null)
 			return false;
 
@@ -73,15 +74,15 @@ public class MemberServiceImp implements MemberService {
 		member.setMe_pw(encPw);
 
 		try {
-			return memberDao.insertMember(member, adress);
+			return memberDao.insertMember(member);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
 	}
 
-	public boolean siteSignup(SiteManagement site) {
-		return memberDao.insertSiteMember(site);
+	public boolean siteSignup(SiteManagement site, LandVO getLand) {
+		return memberDao.insertSiteMember(site, getLand);
 	}
 
 	@Override
@@ -362,6 +363,19 @@ public class MemberServiceImp implements MemberService {
 	public MemberVO getMeId(String me_id) {
 		log.info(me_id);
 		return memberDao.getMemberInfo(me_id);
+	}
+
+	@Override
+	public boolean insertLand(LandVO land) {
+		if(land == null)
+			return false;
+		
+		return memberDao.insertLand(land);
+	}
+
+	@Override
+	public LandVO getLand(LandVO land) {
+		return memberDao.selectLand(land);
 	}
 
 
