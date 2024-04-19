@@ -10,12 +10,14 @@
 		values(#{la.la_sd_num},#{la.la_sgg_num},#{la.la_emd_num})
 	</insert>
 	<select id="selectLand" resultType="kr.kh.team3.model.vo.LandVO">
-		select * from land where
-		la_sd_num = #{la.la_sd_num}
-		and la_sgg_num =
-		#{la.la_sgg_num}
+		select 
+			* 
+		from 
+			land where la_sd_num = #{la.la_sd_num}
+		and 
+			la_sgg_num = #{la.la_sgg_num}
 		and
-		la_emd_num = #{la.la_emd_num}
+			la_emd_num = #{la.la_emd_num}
 	</select>
 
 	<select id="getMyLand" resultType="kr.kh.team3.model.vo.LandVO">
@@ -37,13 +39,13 @@
 	</select>
 
 	<update id="updateMemberLand">
-		UPDATE member_table
+		UPDATE member
 		SET me_la_num = #{la.la_num}
 		WHERE
 		me_id = #{me.me_id}
 	</update>
 	<update id="updateSiteLand">
-		UPDATE site_management_table
+		UPDATE site_management
 		SET site_la_num = #{la.la_num}
 		WHERE site_id = #{site.site_id}
 	</update>

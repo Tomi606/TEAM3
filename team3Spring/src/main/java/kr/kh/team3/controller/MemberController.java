@@ -42,6 +42,7 @@ public class MemberController {
 	 * 
 	 * 메서드 위에 주석으로 무슨 기능인지 쓰기
 	 */
+	// 마이페이지 GET
 	@GetMapping("/member/mypage")
 	public String myPageGet(Model model, MemberVO member, HttpSession session,  SiDoVO sido, SiGoonGuVO sgg, EupMyeonDongVO emd) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
@@ -52,7 +53,6 @@ public class MemberController {
 		model.addAttribute("sidoList", sidoList);
 		return "/member/mypage";
 	}
-
 	// 실명 수정 메서드 비동기
 	@ResponseBody
 	@PostMapping("/member/name")
@@ -65,7 +65,6 @@ public class MemberController {
 		map.put("res", res);
 		return map;
 	}
-
 	// 폰번호 수정 메서드 비동기
 	@ResponseBody
 	@PostMapping("/member/phone")
@@ -78,7 +77,6 @@ public class MemberController {
 		map.put("res", res);
 		return map;
 	}
-
 	// 이메일 수정 메서드 비동기
 	@ResponseBody
 	@PostMapping("/member/email")
@@ -91,7 +89,6 @@ public class MemberController {
 		map.put("res", res);
 		return map;
 	}
-
 	// 직업 수정 메서드 비동기
 	@ResponseBody
 	@PostMapping("/member/job")
@@ -104,7 +101,6 @@ public class MemberController {
 		map.put("res", res);
 		return map;
 	}
-
 	// 비번 수정 메서드 비동기
 	@ResponseBody
 	@PostMapping("/member/pw")
@@ -118,26 +114,24 @@ public class MemberController {
 		map.put("res", res);
 		return map;
 	}
-
 	// 주소 수정 메서드 비동기
 	@ResponseBody
 	@PostMapping("/member/address")
 	public HashMap<String, Object> addressUpdate(@RequestParam("me_id") String me_id, HttpSession session,
-			@RequestParam("la_sd_num")int la_sd_num,@RequestParam("la_sgg_num")int la_sgg_num ,@RequestParam("la_emd_num")int la_emd_num) {
+			@RequestParam("la_sd_num")int la_sd_num,@RequestParam("la_sgg_num")int la_sgg_num,
+			@RequestParam("la_emd_num")int la_emd_num) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		LandVO land = new LandVO(la_emd_num, la_sgg_num, la_emd_num);
-		log.info(land + "랜드입니다");
+		LandVO land = new LandVO(0,la_sd_num, la_sgg_num, la_emd_num);
 		MemberVO me = memberService.getMeId(me_id);
-		log.info(me + "멤버입니다");
 		LandVO la = memberService.getLand(land);
-		log.info(land + "멤버의 랜드입니다.");
 		boolean res = memberService.updateAddress(user,me, la);
-		log.info(res + "업데이트 입니다!!!!!.");
-		//boolean res = memberService.updateSite(me_id, )
-		
-		
-		
+		String sd_name = memberService.getSdName(la);
+		String sgg_name = memberService.getSggName(la);
+		String emd_name = memberService.getEmdName(la);
+		map.put("sd_name", sd_name);
+		map.put("sgg_name", sgg_name);
+		map.put("emd_name", emd_name);
 		map.put("me", me);
 		map.put("res", res);
 		return map;
@@ -154,11 +148,11 @@ public class MemberController {
 		String sd_name = memberService.getSdName(land);
 		String sgg_name = memberService.getSggName(land);
 		String emd_name = memberService.getEmdName(land);
+		map.put("member", muser);
+		map.put("land", land);
 		map.put("sd_name", sd_name);
 		map.put("sgg_name", sgg_name);
 		map.put("emd_name", emd_name);
-		map.put("land", land);
-		map.put("member", muser);
 		return map;
 	}
 	
