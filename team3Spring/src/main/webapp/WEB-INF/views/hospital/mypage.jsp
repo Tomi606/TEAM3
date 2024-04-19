@@ -119,11 +119,10 @@ width: 500px;height: 300px;border: 1px solid black;
 			</div>
 			<div class="profile-anything">
 				<div>				
-					<a href='<c:url value="/hospital/detail1"/>'>1. 병원 상세 페이지1</a><br>
 					<a href='<c:url value="/hospital/detail2"/>'>1. 병원 상세 페이지2</a>
 				</div>
 				<div>				
-					<a>2. 프로그램 등록/수정/삭제</a>
+					<a href='<c:url value="/hospital/program/insert"/>'>2. 프로그램 등록/수정/삭제</a>
 				</div>
 				<div>
 					<a>3. 예약 관리(변경, 취소(삭제))</a>
