@@ -81,9 +81,9 @@ public interface HospitalService {
 
 	HospitalDetailVO getHoDetail(HospitalDetailVO detail, HospitalVO hospital);
 
-
 	ArrayList<ReservationScheduleVO> getReservationScheduleList();
 
 	ArrayList<ReservationScheduleVO> getReservationScheduleTimeList(String str);
+
 
 }

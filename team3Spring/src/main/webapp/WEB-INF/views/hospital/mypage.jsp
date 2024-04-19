@@ -121,7 +121,7 @@ width: 500px;height: 300px;border: 1px solid black;
 					<a href='<c:url value="/hospital/detail/detail"/>'>1. 병원 상세 페이지 조회</a>
 				</div>
 				<div>
-					<a href='<c:url value="/hospital/detail/insert"/>'>2. 병원 상세 페이지 등록</a>
+					<a href='<c:url value="/hospital/detail/insert"/>'>2. 병원 상세 페이지 등록/수정</a>
 				</div>
 				<div>				
 					<a href='<c:url value="/hospital/program/insert"/>'>3. 프로그램 등록/수정/삭제</a>
