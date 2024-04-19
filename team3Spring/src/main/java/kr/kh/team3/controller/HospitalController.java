@@ -95,6 +95,7 @@ public class HospitalController {
 //		map.put("hsUpdate", hsUpdate);
 //		map.put("detailUpdate", detailUpdate);
 		return map;
+	}
 
 	//병원 상세 페이지 등록
 	@GetMapping("/hospital/detail/insert")
