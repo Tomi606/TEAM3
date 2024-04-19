@@ -361,14 +361,14 @@ function getMypage() {
 	    	me_land.sd_name = data.sd_name;
 	    	me_land.sgg_name = data.sgg_name;
 	    	me_land.emd_name = data.emd_name;
-	      getMypageInfo(data.member,data.sgg_name,data.sd_name,data.emd_name);
+	      getMypageInfo(data.member,data.sgg_name,data.sd_name,data.emd_name,data.sub);
 	    },
 	    error: function(jqXHR, textStatus, errorThrown) {
 
 	    }
 	  });
 }
-function getMypageInfo(member,sgg_name,sd_name,emd_name) {
+function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 	if(member == null || member.length == 0)
 		return;
 	var str =
@@ -459,6 +459,20 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name) {
 					<span class="job_update_btn_wrap"><button type="button" class="job-update">변경</button></span>
 					<span class="job_save_btn_wrap"><button type="button" class="job_save_btn">수정완료</button></span>
 				</div>
+				<!-- 관심 과목 -->
+				<div class="subject">
+				<div class="hr"></div>
+				<h5>관심 과목 : </h5>
+				<span><p style="margin-right: auto" class"box-job" id="my_job_name">\${sub.hs_title}</p></span>
+					<select id="subject" name="me_hs_num" style="margin-bottom: 15px;width: 500px" >
+						<option value="none">관심 병원 과목을 선택하세요</option>
+						<option value="none">없음</option>
+						<c:forEach items="${list}" var="hs">
+							<option value="${hs.hs_num}">${hs.hs_title}</option>
+						</c:forEach>
+					</select>
+				</div>
+				<!-- 관심 과목 끝 -->
 				<div class="hr"></div>
 				<div class="mypage-hospital-address">
 					<p style="margin-right: auto" class="box-address">\${me_land.sd_name} \${me_land.sgg_name} \${me_land.emd_name}</p>
@@ -735,6 +749,35 @@ $(document).on('click', '.address_save_btn', function(){
 			return;	        
 	      }else{
 	        alert("주소를 수정하지 못했습니다.");
+	        return;
+	      }
+	    },
+	    error : function(jqXHR, textStatus, errorThrown){
+
+	    }
+	  });
+	});
+	
+/* 관심 과목 수정!*/
+$(document).on('click', '.address_save_btn', function(){
+   		 
+	   
+	 
+	  console.log(member);
+	  //서버에 ajax로 데이터를 전송 후 처리
+	  $.ajax({
+	    async : true,
+	    url : '<c:url value="/member/subject"/>',
+	    type : 'post',
+	    data : member,
+	    success : function (data){
+	      if(data.res){
+	        alert("과목을 수정했습니다.");
+	        initComment();
+	        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name);
+			return;	        
+	      }else{
+	        alert("과목을  수정하지 못했습니다.");
 	        return;
 	      }
 	    },

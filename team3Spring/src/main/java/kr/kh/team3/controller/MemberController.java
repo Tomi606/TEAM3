@@ -14,12 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.fasterxml.jackson.databind.PropertyNamingStrategy.PascalCaseStrategy;
 
 import kr.kh.team3.model.vo.EupMyeonDongVO;
-import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiDoVO;
@@ -136,6 +133,19 @@ public class MemberController {
 		map.put("res", res);
 		return map;
 	}
+	@ResponseBody
+	@PostMapping("/member/subject")
+	public HashMap<String, Object> subjectUpdate(@RequestParam("me_id") String me_id, HttpSession session,
+			HospitalSubjectVO subject) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		MemberVO me = memberService.getMeId(me_id);
+		boolean res = memberService.updateSubject(user,me,subject);
+	
+		map.put("me", me);
+		map.put("res", res);
+		return map;
+	}
 
 	// 회원 마이페이지 비동기
 	@ResponseBody
@@ -145,9 +155,11 @@ public class MemberController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO muser = memberService.getMemberInfo(user);
 		LandVO land = memberService.getMyLand(muser);
+		HospitalSubjectVO subject = memberService.getSubject(muser);
 		String sd_name = memberService.getSdName(land);
 		String sgg_name = memberService.getSggName(land);
 		String emd_name = memberService.getEmdName(land);
+		map.put("sub", subject);
 		map.put("member", muser);
 		map.put("land", land);
 		map.put("sd_name", sd_name);
