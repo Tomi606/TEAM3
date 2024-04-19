@@ -141,9 +141,12 @@ public class HospitalController {
 		return "message";
 	}
 	
+<<<<<<< Updated upstream
 	
 
 	
+=======
+>>>>>>> Stashed changes
 	//병원 리스트
 	@GetMapping("/hospital/list")
 	public String hospitalList(Model model) {
@@ -165,6 +168,7 @@ public class HospitalController {
 	@PostMapping("/item/insert")
 	public Map<String, Object> insertItem(ItemVO item, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
+<<<<<<< Updated upstream
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		ArrayList<ItemVO> itemList = programService.getItemList(user);
 		boolean res =  programService.insertItem(item, user);
@@ -173,6 +177,12 @@ public class HospitalController {
 		}else {
 			map.put("msg", "추가에 실패했습니다.");
 		}
+=======
+		ArrayList<ItemVO> itemList = programService.getItemList();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		boolean res =  programService.insertItem(item, user);
+		System.out.println(res + "afqawesff");
+>>>>>>> Stashed changes
 		return map;
 	}
 	

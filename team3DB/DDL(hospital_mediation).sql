@@ -224,9 +224,9 @@ CREATE TABLE `chat` (
 DROP TABLE IF EXISTS `item`;
 
 CREATE TABLE `item` (
-	`it_num`	int	NOT NULL,
-	`it_name`	varchar(100)	NULL,
-	`it_explanation`	text	NULL,
+	`it_num`	int	primary key auto_increment,
+	`it_name`	varchar(100) not NULL,
+	`it_explanation`	text not NULL,
 	`it_ho_id`	varchar(13)	NOT NULL
 );
 

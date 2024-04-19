@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import kr.kh.team3.dao.ProgramDAO;
+<<<<<<< Updated upstream
 import kr.kh.team3.model.vo.HospitalProgramVO;
+=======
+>>>>>>> Stashed changes
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.SiteManagement;
 
@@ -18,8 +21,12 @@ public class ProgramServiceImp implements ProgramService{
 
 	@Override
 	public boolean insertItem(ItemVO item, SiteManagement user) {
+<<<<<<< Updated upstream
 		if(item.getIt_name() == "" || item.getIt_explanation() == ""
 				|| user.getSite_id() == "") {
+=======
+		if(item == null) {
+>>>>>>> Stashed changes
 			return false;
 		}
 		ArrayList<ItemVO> itemList = programDao.selectItemList(user);
@@ -29,11 +36,20 @@ public class ProgramServiceImp implements ProgramService{
 				return false;
 			}
 		}
+<<<<<<< Updated upstream
 
 		if(user.getSite_authority().contains("USER")) {			
 			return programDao.insertItem(item, user);	
 		}
 		return false;
+=======
+		
+		// 마지막에 주석 해제해야함
+//		if(user.getSite_authority() == "MANAGER") {			
+//		}
+		return programDao.insertItem(item, user);	
+		//return false;
+>>>>>>> Stashed changes
 	}
 
 	@Override
