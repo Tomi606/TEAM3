@@ -89,6 +89,10 @@ public interface MemberDAO {
 
 	String selectEmdName(@Param("la")LandVO land);
 
+	boolean updateMemberLand(@Param("me")MemberVO me,@Param("la") LandVO la);
+
+	boolean updateSiteLand(@Param("site")SiteManagement user,@Param("la") LandVO la);
+
 
 
 	

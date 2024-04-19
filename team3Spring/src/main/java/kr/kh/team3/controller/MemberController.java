@@ -127,14 +127,19 @@ public class MemberController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		LandVO land = new LandVO(la_emd_num, la_sgg_num, la_emd_num);
+		log.info(land + "랜드입니다");
 		MemberVO me = memberService.getMeId(me_id);
+		log.info(me + "멤버입니다");
 		LandVO la = memberService.getLand(land);
+		log.info(land + "멤버의 랜드입니다.");
 		boolean res = memberService.updateAddress(user,me, la);
+		log.info(res + "업데이트 입니다!!!!!.");
 		//boolean res = memberService.updateSite(me_id, )
-
-		 
+		
+		
+		
 		map.put("me", me);
-		//map.put("res", res);
+		map.put("res", res);
 		return map;
 	}
 
