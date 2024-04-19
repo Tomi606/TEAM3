@@ -25,46 +25,51 @@
 		    </tr>
 		</thead>
 		<tbody>
+			<tr>
+		        <td>점심 시간</td>
+		        <td><input type="text" class="lunch" name="hd_time" placeholder="12:00~13:00"
+		        onkeyup="this.value=this.value.replace(/[^0-9~:]/g,'');" required></td>
+	 		</tr>
 		    <tr>
 		        <td>월요일</td>
 		        <td><input type="text" class="mon" name="hd_time" placeholder="9:00~18:00"
 		        onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
 	 		</tr>
-		 <tr>
-		     <td>화요일</td>
-		     <td><input type="text" class="tue" name="hd_time" placeholder="9:00~18:00"
-		     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
-		 </tr>
-		 <tr>
-		     <td>수요일</td>
-		     <td><input type="text" class="wed" name="hd_time" placeholder="9:00~18:00"
-		     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
-		 </tr>
-		 <tr>
-		     <td>목요일</td>
-		     <td><input type="text" class="thu" name="hd_time" placeholder="9:00~18:00"
-		     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
-		 </tr>
-		 <tr>
-		     <td>금요일</td>
-		     <td><input type="text" class="fri" name="hd_time" placeholder="9:00~18:00"
-		     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
-		 </tr>
-		 <tr>
-		     <td>토요일</td>
-		     <td><input type="text" class="sat" name="hd_time" placeholder="9:00~18:00"
-		     onkeyup="this.value=this.value.replace(/[^ㅎㅁ휴무0-9~:]/g,'');" required></td>
-		 </tr>
-		 <tr>
-		     <td>일요일</td> 
-		     <td><input type="text" class="sun" name="hd_time" placeholder="9:00~18:00"
-		     onkeyup="this.value=this.value.replace(/[^ㅎㅁ휴무0-9~:]/g,'');" required></td>
-		 </tr>
-		 <tr>
-		     <td>휴무일</td> 
-		     <td><input type="text" class="holiday" name="hd_time" placeholder="휴무 또는 영업시간"
-		     onkeyup="this.value=this.value.replace(/[^ㅎㅁ휴무0-9~:]/g,'');" required></td>
-	    </tr>
+			<tr>
+			    <td>화요일</td>
+			    <td><input type="text" class="tue" name="hd_time" placeholder="9:00~18:00"
+			    onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
+			</tr>
+			<tr>
+			    <td>수요일</td>
+			    <td><input type="text" class="wed" name="hd_time" placeholder="9:00~18:00"
+			    onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
+			</tr>
+			<tr>
+			    <td>목요일</td>
+			    <td><input type="text" class="thu" name="hd_time" placeholder="9:00~18:00"
+			    onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
+			</tr>
+			<tr>
+			    <td>금요일</td>
+			    <td><input type="text" class="fri" name="hd_time" placeholder="9:00~18:00"
+			    onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
+			</tr>
+			<tr>
+			    <td>토요일</td>
+			    <td><input type="text" class="sat" name="hd_time" placeholder="9:00~18:00"
+			    onkeyup="this.value=this.value.replace(/[^ㅎㅁ휴무0-9~:]/g,'');" required></td>
+			</tr>
+			<tr>
+			    <td>일요일</td> 
+			    <td><input type="text" class="sun" name="hd_time" placeholder="9:00~18:00"
+			    onkeyup="this.value=this.value.replace(/[^ㅎㅁ휴무0-9~:]/g,'');" required></td>
+			</tr>
+			<tr>
+			    <td>휴무일</td> 
+			    <td><input type="text" class="holiday" name="hd_time" placeholder="휴무 또는 영업시간"
+			    onkeyup="this.value=this.value.replace(/[^ㅎㅁ휴무0-9~:]/g,'');" required></td>
+			  </tr>
 		</tbody>
 	</table>
 	<div class="hd_park" id="hd_park">
@@ -181,14 +186,15 @@ let hd_time = "${hoDetail.hd_time}";
 let timeArray = hd_time.split(',');
 //각 요일에 대한 인덱스와 클래스 이름 매핑
 let days = {
-	'mon' : 0,
-	'tue' : 1,
-	'wed' : 2,
-	'thu' : 3,
-	'fri' : 4,
-	'sat' : 5,
-	'sun' : 6,
-	'holiday' : 7
+	'lunch' : 0,
+	'mon' : 1,
+	'tue' : 2,
+	'wed' : 3,
+	'thu' : 4,
+	'fri' : 5,
+	'sat' : 6,
+	'sun' : 7,
+	'holiday' : 8
 };
 
 //각 요일의 input 필드에 시간 설정
