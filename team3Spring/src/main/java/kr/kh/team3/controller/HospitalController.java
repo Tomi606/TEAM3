@@ -1,7 +1,6 @@
 package kr.kh.team3.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,9 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.SiteManagement;
 import kr.kh.team3.service.HospitalService;
+import kr.kh.team3.service.ProgramService;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -31,6 +32,9 @@ public class HospitalController {
 	
 	@Autowired
 	HospitalService hospitalService;
+	
+	@Autowired
+	ProgramService programService;
 
 	
 	@GetMapping("/hospital/mypage")//병원 마이페이지
@@ -149,6 +153,25 @@ public class HospitalController {
 	public String hospitalList(Model model) {
 		
 		return "/hospital/list";
+	}
+	
+	// 병원 프로그램 등록 페이지 이동
+	@GetMapping("/hospital/program/insert")
+	public String hospitalProgramInsertPage(Model model) {
+		
+		return "/hospital/detail/programinsert";
+	}
+	
+	// 세부 항목을 추가하는 메서드
+	@ResponseBody
+	@PostMapping("/item/insert")
+	public Map<String, Object> insertItem(ItemVO item, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		ArrayList<ItemVO> itemList = programService.getItemList();
+		HospitalVO user = (HospitalVO) session.getAttribute("user");
+		System.out.println(item);
+		boolean res =  programService.insertItem(item, user);
+		return map;
 	}
 	
 }
