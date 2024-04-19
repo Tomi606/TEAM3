@@ -84,8 +84,8 @@ public class HospitalController {
 			model.addAttribute("msg", "상세 페이지 수정 완료");
 			model.addAttribute("url", "/hospital/mypage");
 		}else {
-			model.addAttribute("msg", "상세 페이지 수정 실패");
-			model.addAttribute("url", "/hospital/detail/insert");
+			model.addAttribute("msg", "상세 페이지 등록 완료");
+			model.addAttribute("url", "/hospital/mypage");
 		}
 		return "message";
 	}
