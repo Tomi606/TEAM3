@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import kr.kh.team3.model.vo.EupMyeonDongVO;
+import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
@@ -79,5 +80,15 @@ public interface HospitalDAO {
 	ArrayList<ReservationScheduleVO> selectReservationScheduleList();
 
 	ArrayList<ReservationScheduleVO> selectReservationScheduleTimeList(@Param("rs_date")String str);
+
+	boolean insertOrUpdateHospitalDetail(@Param("hd") HospitalDetailVO detail);
+
+	HospitalVO selectHospitalInfo();
+
+	HospitalSubjectVO selectSelectedSubject(@Param("detail") HospitalDetailVO detail);
+
+	HospitalDetailVO selectHoDetail(@Param("hospital") HospitalVO hospital);
+
+	boolean deleteHospitalDetail(@Param("hd_ho_id") String hd_ho_id);
 
 }

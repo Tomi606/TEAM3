@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import kr.kh.team3.model.vo.EupMyeonDongVO;
+import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.model.vo.SiDoVO;
@@ -16,9 +17,9 @@ import kr.kh.team3.pagination.Criteria;
 public interface MemberDAO {
 
 
-	boolean insertMember(@Param("me")MemberVO member, @Param("adress")String adress);
+	boolean insertMember(@Param("me")MemberVO member, @Param("la")LandVO getLand);
 
-	boolean insertSiteMember(@Param("si")SiteManagement site);
+	boolean insertSiteMember(@Param("si")SiteManagement site, @Param("la")LandVO getLand);
 	//ajax로도 사용함
 	MemberVO selectMember(@Param("me_id")String me_id);
 
@@ -58,6 +59,40 @@ public interface MemberDAO {
 	boolean deleteSiteManagement(@Param("site_id") String site_id);
 
 	boolean updatePlusStopMember(@Param("me_id") String me_id, @Param("rp_rs_name") String rp_rs_name);
+
+	MemberVO getMemberInfo(@Param("id") String site_id);
+
+
+	boolean updateName(@Param("me")MemberVO member);
+
+	boolean updatePhone(@Param("me")MemberVO member);
+
+	boolean updateEmail(@Param("me")MemberVO member);
+
+	boolean updateJob(@Param("me")MemberVO member);
+
+	boolean updatePw(@Param("pw")String newPw,@Param("id") String me_id);
+
+	MemberVO getMemberPw(@Param("pw")String me_pw);
+
+	MemberVO getMemberById(@Param("me_id") String me_id);
+
+	boolean insertLand(@Param("la")LandVO land);
+
+	LandVO selectLand(@Param("la")LandVO land);
+
+	LandVO getMyLand(@Param("me")MemberVO muser);
+
+	String selectSdName(@Param("la")LandVO land);
+
+	String selectSggName(@Param("la")LandVO land);
+
+	String selectEmdName(@Param("la")LandVO land);
+
+	boolean updateMemberLand(@Param("me")MemberVO me,@Param("la") LandVO la);
+
+	boolean updateSiteLand(@Param("site")SiteManagement user,@Param("la") LandVO la);
+
 
 
 	

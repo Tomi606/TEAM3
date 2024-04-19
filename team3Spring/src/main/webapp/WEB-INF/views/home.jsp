@@ -626,6 +626,7 @@ height:35px;width:100%;background-color: #fafafa;
 			</div>
 			<div class="홈오른쪽"></div>
 		</div>
+			<div id="map" style="width: 1000px; height: 700px;margin: 0 auto"></div>
 			 <div class="공지사항">
 				 <img alt="미니공지" style="width: 48px;margin-left: 100px"
 				 src="<c:url value='/resources/img/미니공지.png'/>">
@@ -704,6 +705,35 @@ height:35px;width:100%;background-color: #fafafa;
 </div>	
 </body>
 <button id="scrollToTopButton" onclick="scrollToTop()">위로가기</button>
+
+
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=300655f18482c4d8c0a57b772e5720fc"></script>
+<script type="text/javascript">
+	
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+mapOption = { 
+    center: new kakao.maps.LatLng(37.514575, 127.0495556), // 지도의 중심좌표
+    level: 3 // 지도의 확대 레벨
+};
+
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+//마커가 표시될 위치입니다 
+var markerPosition  = new kakao.maps.LatLng(37.514575, 127.0495556); 
+
+//마커를 생성합니다
+var marker = new kakao.maps.Marker({
+position: markerPosition
+});
+
+//마커가 지도 위에 표시되도록 설정합니다
+marker.setMap(map);
+	var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+	
+</script>
+
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		var interval = setInterval(roll, 3000); // n초마다 롤링
