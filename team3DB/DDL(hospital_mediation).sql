@@ -268,6 +268,7 @@ DROP TABLE IF EXISTS `hospital_detail`;
 CREATE TABLE `hospital_detail` (
 	`hd_num`	int	primary key auto_increment,
 	`hd_ho_id`	varchar(13)	NOT NULL,
+    `hd_hs_num`	varchar(255) NOT NULL,
 	`hd_info`	text NULL,
 	`hd_time`	text NULL,
 	`hd_park`	text NULL,
@@ -464,7 +465,6 @@ REFERENCES `site_management` (
 	`site_num`
 );
 
-#error
 ALTER TABLE `chat` ADD CONSTRAINT `FK_chat_room_TO_chat_1` FOREIGN KEY (
 	`ct_cr_num`
 )
@@ -556,13 +556,18 @@ REFERENCES `si_goon_gu` (
 	`sgg_num`
 );
 
- 
-
 ALTER TABLE `bookmark` ADD CONSTRAINT `FK_member_TO_bookmark_1` FOREIGN KEY (
 	`bmk_me_id`
 )
 REFERENCES `member` (
 	`me_id`
+);
+
+ALTER TABLE `hospital_detail` ADD CONSTRAINT `FK_hospital_subject_TO_hospital_detail_1` FOREIGN KEY (
+	`hd_hs_num`
+)
+REFERENCES `hospital_subject` (
+	`hs_num`
 );
 
  INSERT INTO MEMBER_STATE VALUES('승인대기'), ('이용중'), ('기간정지'), ('영구정지'), ('탈퇴'),('가입대기');
@@ -572,7 +577,7 @@ values('내과'), ('외과'),('안과'),('소아과'),('정형외과'), ('이비
 ('신경과'), ('신경외과'), ('성형외과'), ('피부과'), ('비뇨기과'), ('건강검진'),('마취통증학과'),('신경과');
 
 # 지역 DB 넣은 후 실행
--- insert into land value(1,1);
+insert into land value(1,1,1,1);
 
 # 신고 상태
 insert into report_state values('1'),('3'),('7'),('15'),('30'),('60'),('180'),('365');

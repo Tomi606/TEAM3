@@ -31,10 +31,13 @@ public class HospitalController {
 	@Autowired
 	HospitalService hospitalService;
 
+	
 	@GetMapping("/hospital/mypage")//병원 마이페이지
 	public String hospitalMypage(Model model, HospitalVO hospital, HttpSession session) {
+		//로그인한 회원 정보(SiteManagement에서 로그인 session 가져오고 -> HospitalVO로 가져오기)
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO huser = hospitalService.getHospital(user);
+
 		model.addAttribute("huser",huser);
 		return "/hospital/mypage";
 	}
@@ -48,56 +51,49 @@ public class HospitalController {
 		return "/hospital/detail2";
 	}
 	
+	//병원 상세 페이지 등록
+	@GetMapping("/hospital/detail/insert")
+	public  String detailInsert(Model model, HospitalDetailVO detail, HttpSession session) {
+		//현재 로그인한 병원
+		SiteManagement user = (SiteManagement)session.getAttribute("user");
+		HospitalVO hospital = hospitalService.getHospital(user);
+		//병원과목 리스트
+		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
+		//현재 로그인한 병원이 선택했던 병원과목 가져오기
+		HospitalSubjectVO selectedSubject = hospitalService.getSelectedSubject(detail, hospital);
+		//전에 입력했던 페이지 들고오기
+		HospitalDetailVO hoDetail = hospitalService.getHoDetail(detail, hospital);
+		
+		model.addAttribute("hospital", hospital);
+		model.addAttribute("hsList", hsList);
+		model.addAttribute("selectedSubject", selectedSubject);
+		model.addAttribute("hoDetail", hoDetail);
+		return "/hospital/detail/insert";
+	}
+
 	//병원 상세 페이지 등록(insert)
-	@ResponseBody
 	@PostMapping("/hospital/detail/insert")
 	public String hospitalDetailPost(Model model, HospitalDetailVO detail, HttpSession session) {
-		
-		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
-		model.addAttribute("hsList", hsList);
-		
-		HospitalVO hospital = (HospitalVO)session.getAttribute("hospital");
-		boolean res = hospitalService.insertDetail(detail, hospital);
-		
-		log.info(hospital);
-		log.info(res);
+		//현재 로그인한 병원
+		SiteManagement user = (SiteManagement)session.getAttribute("user");
+		HospitalVO hospital = hospitalService.getHospital(user);
+		//병원 페이지 등록
+		boolean res = hospitalService.insertOrUpdateHospitalDetail(detail, hospital);
+
 		if(res) {
-			model.addAttribute("msg", "게시글 등록 완료");
+			model.addAttribute("msg", "상세 페이지 수정 완료");
 			model.addAttribute("url", "/hospital/mypage");
 		}else {
-			model.addAttribute("msg", "게시글 등록 실패");
-			model.addAttribute("url", "/hospital/info");
+			model.addAttribute("msg", "상세 페이지 등록 완료");
+			model.addAttribute("url", "/hospital/mypage");
 		}
 		return "message";
 	}
 	
-	//병원 상세 페이지 등록(spring3 : /post/insert)
-//	@GetMapping("/post/insert")
-//	public String postInsert(Model model) {
-//		ArrayList<CommunityVO> list = boardService.getCommunityList();
-//		log.info(list);
-//		model.addAttribute("list", list);
-//		model.addAttribute("title", "게시글 등록");
-//		return "/post/insert";
-//	}
-//	
-//	@PostMapping("/post/insert")
-//	public String postInsertPost(Model model, BoardVO board, HttpSession session, MultipartFile [] files) {
-//		MemberVO user = (MemberVO)session.getAttribute("user");
-//		boolean res = boardService.insertBoard(board, user, files);
-//		log.info(user);
-//		log.info(board);
-//		log.info(files);
-//		if(res) {
-//			model.addAttribute("msg", "게시글 등록 완료");
-//			model.addAttribute("url", "/post/list");
-//		}else {
-//			model.addAttribute("msg", "게시글 등록 실패");
-//			model.addAttribute("url", "/post/insert");
-//		}
-//		
-//		return "message";
-//	}
+	
+	
+	
+	
 	
 	
 	
