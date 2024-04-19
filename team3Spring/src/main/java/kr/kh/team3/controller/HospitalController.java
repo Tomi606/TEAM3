@@ -36,8 +36,8 @@ public class HospitalController {
 	@Autowired
 	ProgramService programService;
 
-	
-	@GetMapping("/hospital/mypage")//병원 마이페이지
+	//병원 마이페이지
+	@GetMapping("/hospital/mypage")
 	public String hospitalMypage(Model model, HospitalVO hospital, HttpSession session) {
 		//로그인한 회원 정보(SiteManagement에서 로그인 session 가져오고 -> HospitalVO로 가져오기)
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
@@ -47,27 +47,33 @@ public class HospitalController {
 		return "/hospital/mypage";
 	}
 
-
+	//병원 상세 페이지 조회
 	@GetMapping("/hospital/detail/detail")
-	public String hospitalDetail2(Model model) {
-		//대표 진료 과목
-		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
-		model.addAttribute("hsList", hsList);
+	public String hospitalDetail2(Model model, HttpSession session, HospitalDetailVO detail, HospitalVO hospital) {
+		//로그인한 병원 세션
+		SiteManagement user = (SiteManagement)session.getAttribute("user");
+		//그 병원의 정보
+		hospital = hospitalService.getHospital(user);
+		//그 병원의 상세 페이지 정보
+		detail = hospitalService.getHoDetail(detail, hospital);
+		
+		model.addAttribute("hospital", hospital);
+		model.addAttribute("detail", detail);
 
 		return "/hospital/detail/detail";
 	}
 	
 
-	@PostMapping("/detail2")
-	@ResponseBody
-	public Map<String, Object> detail2Post(Model model) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		//대표 진료 과목
-		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
-		map.put("hsList", hsList);
-
-		return map;
-	}
+//	@PostMapping("/hospital/detail/detail")
+//	@ResponseBody
+//	public Map<String, Object> detail2Post(Model model) {
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		//대표 진료 과목
+//		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
+//		map.put("hsList", hsList);
+//
+//		return map;
+//	}
 	
 	//날짜
 //	@GetMapping("/detail/date")
@@ -94,7 +100,7 @@ public class HospitalController {
 		return map;
 	}
 
-	//병원 상세 페이지 등록
+	//병원 상세 페이지 등록/수정
 	@GetMapping("/hospital/detail/insert")
 	public  String detailInsert(Model model, HospitalDetailVO detail, HttpSession session) {
 		//현재 로그인한 병원
@@ -114,7 +120,7 @@ public class HospitalController {
 		return "/hospital/detail/insert";
 	}
 
-	//병원 상세 페이지 등록(insert)
+	//병원 상세 페이지 등록/수정
 	@PostMapping("/hospital/detail/insert")
 	public String hospitalDetailPost(Model model, HospitalDetailVO detail, HttpSession session) {
 		//현재 로그인한 병원
