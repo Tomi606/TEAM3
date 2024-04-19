@@ -434,14 +434,14 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public boolean updateSubject(SiteManagement user,MemberVO me, HospitalSubjectVO subject) {
-		if(me == null ||me.getMe_id()==null||subject == null)
+	public boolean updateSubject(SiteManagement user,MemberVO me, int hs_num) {
+		if(me == null ||me.getMe_id()==null)
 			return false;
 		MemberVO dbMember = memberDao.selectMember(user.getSite_id());
 		if (dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
 			return false;
 		
-		return memberDao.updateSubject(me.getMe_id(),subject.getHs_num());
+		return memberDao.updateSubject(me.getMe_id(),hs_num);
 	}
 
 	@Override

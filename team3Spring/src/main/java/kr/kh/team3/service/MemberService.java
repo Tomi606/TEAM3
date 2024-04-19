@@ -81,7 +81,7 @@ public interface MemberService {
 
 	boolean updateAddress(SiteManagement user, MemberVO me, LandVO la);
 
-	boolean updateSubject(SiteManagement user, MemberVO me, HospitalSubjectVO subject);
+	boolean updateSubject(SiteManagement user, MemberVO me, int hs_num);
 
 	HospitalSubjectVO getSubject(MemberVO muser);
 

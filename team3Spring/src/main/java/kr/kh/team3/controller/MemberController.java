@@ -141,11 +141,15 @@ public class MemberController {
 	@ResponseBody
 	@PostMapping("/member/subject")
 	public HashMap<String, Object> subjectUpdate(@RequestParam("me_id") String me_id, HttpSession session,
-			HospitalSubjectVO subject) {
+			@RequestParam("me_hs_num") int hs_num) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO me = memberService.getMeId(me_id);
-		boolean res = memberService.updateSubject(user,me,subject);
+		boolean res = memberService.updateSubject(user,me,hs_num);
+		MemberVO me2 = memberService.getMeId(me_id);
+		HospitalSubjectVO sub = memberService.getSubject(me2);
+		log.info(sub+"컨 트 롤  러 sub");
+		map.put("sub", sub);
 		map.put("me", me);
 		map.put("res", res);
 		return map;

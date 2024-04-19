@@ -367,7 +367,7 @@ function getMypage() {
 	  $.ajax({
 	    async: true,
 	    url: '<c:url value="/member/list"/>',
-	    type: 'post',
+	    type: 'post',							
 	    contentType: "application/json; charset=utf-8",
 	    dataType: "json",
 	    success: function(data) {
@@ -385,6 +385,7 @@ function getMypage() {
 function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 	if(member == null || member.length == 0)
 		return;
+	console.log(sub);
 	var str =
 		`
 		<div class="mypage-profile">
@@ -478,7 +479,7 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 					<div class="hr"></div>
 					<h5>관심 과목 : </h5>
 					<div class="new_me_subject_hidden">
-						<select id="subject" name="me_hs_num" style="margin-bottom: 15px;width: 500px" >
+						<select id="subject" class="my-subect-list" name="me_hs_num" style="margin-bottom: 15px;width: 500px" >
 							<option value="none">관심 병원 과목을 선택하세요</option>
 							<option value="none">없음</option>
 							<c:forEach items="${hslist}" var="hs">
@@ -486,7 +487,7 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 							</c:forEach>
 						</select>
 					</div>
-					<p>\${me_sub.hs_title}</p>
+					<p class="my-hs-subject" id="my-subject">\${me_sub.hs_title}</p>
 					<span class="subject_update_btn_wrap"><button type="button" class="subject-update">변경</button></span>
 					<span class="subject_save_btn_wrap"><button type="button" class="subject_save_btn">수정완료</button></span>
 				</div>
@@ -788,8 +789,14 @@ $(document).on('click', '.address_save_btn', function(){
 	  });
 	});
 	
-/* /* 관심 과목 수정!*/
-$(document).on('click', '.address_save_btn', function(){
+ /* 관심 과목 수정!*/
+$(document).on('click', '.subject_save_btn', function(){
+	let me_hs_num = $("select[name='me_hs_num'] option:selected").val();
+	console.log("과 목 "+me_hs_num);
+	let member = {
+			me_hs_num : me_hs_num,
+		    me_id : '${member.me_id}'
+		  };
 	  console.log(member);
 	  //서버에 ajax로 데이터를 전송 후 처리
 	  $.ajax({
@@ -799,10 +806,14 @@ $(document).on('click', '.address_save_btn', function(){
 	    data : member,
 	    success : function (data){
 	      if(data.res){
+	    	//$('#my-subject').val(me_sub.hs_title);
+	    	console.log(data.sub.hs_title);
 	    	me_sub.hs_title = data.sub.hs_title;
+	    	console.log(me_sub.hs_title + "과 목 수 정 ");
 	        alert("과목을 수정했습니다.");
 	        initComment();
 	        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name,me_sub.hs_title);
+	       
 			return;	        
 	      }else{
 	        alert("과목을  수정하지 못했습니다.");
