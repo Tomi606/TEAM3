@@ -19,7 +19,6 @@ import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
-import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
@@ -37,6 +36,7 @@ public class HospitalServiceImp implements HospitalService {
 
 	@Autowired
 	MemberDAO memberDao;
+	
 	@Autowired
 	private HospitalDAO hospitalDao;
 	
@@ -340,20 +340,25 @@ public class HospitalServiceImp implements HospitalService {
 	}
 	//병원 상세 페이지 - 선진, 민석 ==============================================
 	@Override
-	public boolean insertHospitalDetail(HospitalDetailVO detail, HospitalVO hospital) {
+	public boolean insertOrUpdateHospitalDetail(HospitalDetailVO detail, HospitalVO hospital) {
 		if(detail.getHd_info() == null 
 		|| detail.getHd_time() == null 
 		|| detail.getHd_park() == null) {
-			System.out.println("디테일 안넣어짐");
 			return false;
 		}
 		if(hospital == null || hospital.getHo_id() == null) {
-			System.out.println("병원아이디");
 			return false;
 		}
 		
 		detail.setHd_ho_id(hospital.getHo_id());
-		return hospitalDao.insertHospitalDetail(detail);
+		
+		//insert + update문 하는 동시에
+		boolean insertAndUpdate = hospitalDao.insertOrUpdateHospitalDetail(detail);
+		//delete문
+		boolean delete = hospitalDao.deleteHospitalDetail(detail.getHd_ho_id());
+		
+		sqlSession.insert("insertOrUpdateHospitalDetail", detail);
+		return insertAndUpdate && delete;
 	}
 
 	@Override
@@ -362,11 +367,22 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public HospitalSubjectVO getSelectedSubject(HospitalVO hospital) {
+	public HospitalSubjectVO getSelectedSubject(HospitalDetailVO detail, HospitalVO hospital) {
 		if(hospital == null || hospital.getHo_id() == null) {
 			return null;
 		}
-		return hospitalDao.selectSelectedSubject(hospital);
+		return hospitalDao.selectSelectedSubject(detail);
+	}
+
+	@Override
+	public HospitalDetailVO getHoDetail(HospitalDetailVO detail, HospitalVO hospital) {
+		if(hospital == null || hospital.getHo_id() == null) {
+			return null;
+		}
+		if(detail == null) {
+			return null;
+		}
+		return hospitalDao.selectHoDetail(hospital);
 	}
 	
 }

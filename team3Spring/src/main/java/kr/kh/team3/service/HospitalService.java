@@ -72,12 +72,13 @@ public interface HospitalService {
 	ArrayList<HospitalSubjectVO> selectSubject();
 
 	//병원 상세 페이지==========================================
-	boolean insertHospitalDetail(HospitalDetailVO detail, HospitalVO hospital);
-
+	boolean insertOrUpdateHospitalDetail(HospitalDetailVO detail, HospitalVO hospital);
 
 	HospitalVO getHospitalInfo();
 
-	HospitalSubjectVO getSelectedSubject(HospitalVO hospital);
+	HospitalSubjectVO getSelectedSubject(HospitalDetailVO detail, HospitalVO hospital);
+
+	HospitalDetailVO getHoDetail(HospitalDetailVO detail, HospitalVO hospital);
 
 
 }

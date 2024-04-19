@@ -53,18 +53,21 @@ public class HospitalController {
 	
 	//병원 상세 페이지 등록
 	@GetMapping("/hospital/detail/insert")
-	public  String detailInsert(Model model, HttpSession session) {
+	public  String detailInsert(Model model, HospitalDetailVO detail, HttpSession session) {
 		//현재 로그인한 병원
 		SiteManagement user = (SiteManagement)session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospital(user);
 		//병원과목 리스트
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
 		//현재 로그인한 병원이 선택했던 병원과목 가져오기
-		HospitalSubjectVO selectedSubject = hospitalService.getSelectedSubject(hospital);
+		HospitalSubjectVO selectedSubject = hospitalService.getSelectedSubject(detail, hospital);
+		//전에 입력했던 페이지 들고오기
+		HospitalDetailVO hoDetail = hospitalService.getHoDetail(detail, hospital);
 		
 		model.addAttribute("hospital", hospital);
 		model.addAttribute("hsList", hsList);
 		model.addAttribute("selectedSubject", selectedSubject);
+		model.addAttribute("hoDetail", hoDetail);
 		return "/hospital/detail/insert";
 	}
 
@@ -75,13 +78,13 @@ public class HospitalController {
 		SiteManagement user = (SiteManagement)session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospital(user);
 		//병원 페이지 등록
-		boolean res = hospitalService.insertHospitalDetail(detail, hospital);
+		boolean res = hospitalService.insertOrUpdateHospitalDetail(detail, hospital);
 
 		if(res) {
-			model.addAttribute("msg", "게시글 등록 완료");
+			model.addAttribute("msg", "상세 페이지 수정 완료");
 			model.addAttribute("url", "/hospital/mypage");
 		}else {
-			model.addAttribute("msg", "게시글 등록 실패");
+			model.addAttribute("msg", "상세 페이지 수정 실패");
 			model.addAttribute("url", "/hospital/detail/insert");
 		}
 		return "message";
