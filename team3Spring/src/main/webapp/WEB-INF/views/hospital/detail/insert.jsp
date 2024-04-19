@@ -60,7 +60,7 @@
 			    <td><input type="text" class="sat" name="hd_time" placeholder="9:00~18:00"
 			    onkeyup="this.value=this.value.replace(/[^ㅎㅁ휴무0-9~:]/g,'');" required></td>
 			</tr>
-			<tr>
+			<tr>ㄴ
 			    <td>일요일</td> 
 			    <td><input type="text" class="sun" name="hd_time" placeholder="9:00~18:00"
 			    onkeyup="this.value=this.value.replace(/[^ㅎㅁ휴무0-9~:]/g,'');" required></td>
