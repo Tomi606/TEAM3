@@ -376,7 +376,12 @@ public class MemberServiceImp implements MemberService {
 	public LandVO getLand(LandVO land) {
 		if (land == null)
 			return null;
+		if (memberDao.selectLand(land) == null) {
+				memberDao.insertLand(land);
+				return memberDao.selectLand(land);
+		}
 		return memberDao.selectLand(land);
+		
 	}
 
 	@Override

@@ -166,16 +166,6 @@ public class HomeController {
 		return !hospitalRes || !siteRes;
 	}
 
-//	//사업자 회원가입 아이디 중복 체크
-//	@ResponseBody
-//	@GetMapping("/id/check/dup")
-//	public Map<String, Object> idCheckDup(@RequestParam("id") String ho_id){
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		HospitalVO res = hospitalService.idCheck(ho_id);
-//		map.put("result", res);
-//		return map;
-//	}
-
 	// 로그인 메인 페이지
 	@GetMapping("/main/login")
 	public String mainLogin() {
