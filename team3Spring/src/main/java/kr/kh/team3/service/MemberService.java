@@ -3,6 +3,7 @@ package kr.kh.team3.service;
 import java.util.ArrayList;
 
 import kr.kh.team3.model.vo.EupMyeonDongVO;
+import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
@@ -79,6 +80,11 @@ public interface MemberService {
 	String getEmdName(LandVO land);
 
 	boolean updateAddress(SiteManagement user, MemberVO me, LandVO la);
+
+	boolean updateSubject(SiteManagement user, MemberVO me, int hs_num);
+
+	HospitalSubjectVO getSubject(MemberVO muser);
+
 
 
 }

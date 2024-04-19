@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import kr.kh.team3.dao.HospitalDAO;
 import kr.kh.team3.dao.MemberDAO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
+import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
@@ -419,7 +420,6 @@ public class MemberServiceImp implements MemberService {
 	public boolean updateAddress(SiteManagement user,MemberVO me, LandVO la) {
 		if(me == null||me.getMe_id() == null ||la == null ||user == null||user.getSite_id()==null||user.getSite_id().length()==0||me.getMe_id().length()==0)
 			return false;
-		
 		 
 		MemberVO dbMember = memberDao.selectMember(user.getSite_id());
 		if (dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
@@ -431,6 +431,27 @@ public class MemberServiceImp implements MemberService {
 		return memberLand&&siteLand;
 		
 		return false;
+	}
+
+	@Override
+	public boolean updateSubject(SiteManagement user,MemberVO me, int hs_num) {
+		if(me == null ||me.getMe_id()==null)
+			return false;
+		MemberVO dbMember = memberDao.selectMember(user.getSite_id());
+		if (dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
+			return false;
+		
+		return memberDao.updateSubject(me.getMe_id(),hs_num);
+	}
+
+	@Override
+	public HospitalSubjectVO getSubject(MemberVO muser) {
+		if(muser == null ||muser.getMe_id()==null)
+			return null;
+		
+		
+		
+		return memberDao.selectSubject(muser);
 	}
 
 }
