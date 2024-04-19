@@ -1,95 +1,206 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="EUC-KR">
-<title></title>
+<title>ìƒì„¸ í˜ì´ì§€ ë“±ë¡</title>
+<style type="text/css">
+
+</style>
 </head>
 <body>
-<div class="toggle-page">
-	<form action='<c:url value="/hospital/info"/>' method="post" name="page1" id="page1" class="page active">
-        <h1>1. º´¿ø ¼Ò°³ ÆäÀÌÁö</h1>
-        <div class="info">
-        	<label for="hd_info" style="font-weight: bold">º´¿ø ¼Ò°³</label>
-        	<input type="text" class="hd_info" id="hd_info" name="hd_info" readonly placeholder="º´¿ø ¼Ò°³"/>
-        </div>
-        <table class="hd_time" id="hd_time">
-	    <thead>
-	        <tr>
-	            <th>Áø·á ½Ã°£</th>
-	        </tr>
-	    </thead>
-	    <tbody>
-	        <tr>
-	            <td>¿ù¿äÀÏ</td>
-	            <td><input type="text" class="mon" name="mon" readonly placeholder="9:00~18:00"></td>
-	        </tr>
-	        <tr>
-	            <td>È­¿äÀÏ</td>
-	            <td><input type="text" class="tue" name="tue" readonly placeholder="9:00~18:00"></td>
-	        </tr>
-	        <tr>
-	            <td>¼ö¿äÀÏ</td>
-	            <td><input type="text" class="wed" name="wed" readonly placeholder="9:00~18:00"></td>
-	        </tr>
-	        <tr>
-	            <td>¸ñ¿äÀÏ</td>
-	            <td><input type="text" class="thu" name="thu" readonly placeholder="9:00~18:00"></td>
-	        </tr>
-	        <tr>
-	            <td>±İ¿äÀÏ</td>
-	            <td><input type="text" class="fri" name="fri" readonly placeholder="9:00~18:00"></td>
-	        </tr>
-	        <tr>
-	            <td>Åä¿äÀÏ</td>
-	            <td><input type="text" class="sat" name="sat" readonly placeholder="9:00~18:00"></td>
-	        </tr>
-	        <tr>
-	            <td>ÀÏ¿äÀÏ</td> 
-	            <td><input type="text" class="sun" name="sun" readonly placeholder="9:00~18:00"></td>
-	        </tr>
-	    </tbody>
+<form action='<c:url value="/hospital/detail/insert"/>' method="post">
+	<h2 style="font-weight: bold;">ë³‘ì› ì†Œê°œ</h2>
+	<div class="info">
+		<label for="hd_info" style="font-weight: bold">ë³‘ì› ì†Œê°œ</label>
+	   	<textarea class="hd_info col-10" id="hd_info" name="hd_info" 
+	   	placeholder="ë³‘ì› ì†Œê°œ" oninput="autoTextarea(this)">${hoDetail.hd_info}</textarea>
+	</div>
+	<table class="hd_time" id="hd_time">
+		<thead>
+		    <tr>
+		        <th>ì§„ë£Œ ì‹œê°„</th>
+		    </tr>
+		</thead>
+		<tbody>
+		    <tr>
+		        <td>ì›”ìš”ì¼</td>
+		        <td><input type="text" class="mon" name="hd_time" placeholder="9:00~18:00"
+		        onkeyup="this.value=this.value.replace(/[^0-9~:ã…ã…íœ´ë¬´]/g,'');" required></td>
+	 		</tr>
+		 <tr>
+		     <td>í™”ìš”ì¼</td>
+		     <td><input type="text" class="tue" name="hd_time" placeholder="9:00~18:00"
+		     onkeyup="this.value=this.value.replace(/[^0-9~:ã…ã…íœ´ë¬´]/g,'');" required></td>
+		 </tr>
+		 <tr>
+		     <td>ìˆ˜ìš”ì¼</td>
+		     <td><input type="text" class="wed" name="hd_time" placeholder="9:00~18:00"
+		     onkeyup="this.value=this.value.replace(/[^0-9~:ã…ã…íœ´ë¬´]/g,'');" required></td>
+		 </tr>
+		 <tr>
+		     <td>ëª©ìš”ì¼</td>
+		     <td><input type="text" class="thu" name="hd_time" placeholder="9:00~18:00"
+		     onkeyup="this.value=this.value.replace(/[^0-9~:ã…ã…íœ´ë¬´]/g,'');" required></td>
+		 </tr>
+		 <tr>
+		     <td>ê¸ˆìš”ì¼</td>
+		     <td><input type="text" class="fri" name="hd_time" placeholder="9:00~18:00"
+		     onkeyup="this.value=this.value.replace(/[^0-9~:ã…ã…íœ´ë¬´]/g,'');" required></td>
+		 </tr>
+		 <tr>
+		     <td>í† ìš”ì¼</td>
+		     <td><input type="text" class="sat" name="hd_time" placeholder="9:00~18:00"
+		     onkeyup="this.value=this.value.replace(/[^ã…ã…íœ´ë¬´0-9~:]/g,'');" required></td>
+		 </tr>
+		 <tr>
+		     <td>ì¼ìš”ì¼</td> 
+		     <td><input type="text" class="sun" name="hd_time" placeholder="9:00~18:00"
+		     onkeyup="this.value=this.value.replace(/[^ã…ã…íœ´ë¬´0-9~:]/g,'');" required></td>
+		 </tr>
+		 <tr>
+		     <td>íœ´ë¬´ì¼</td> 
+		     <td><input type="text" class="holiday" name="hd_time" placeholder="íœ´ë¬´ ë˜ëŠ” ì˜ì—…ì‹œê°„"
+		     onkeyup="this.value=this.value.replace(/[^ã…ã…íœ´ë¬´0-9~:]/g,'');" required></td>
+	    </tr>
+		</tbody>
 	</table>
-        <div class="hd_park" id="hd_park">
-        	<label for="hd_park" style="font-weight: bold">ÁÖÂ÷ Á¤º¸</label>
-        	<input type="text" class="input-tag" id="hd_park" name="hd_park" readonly placeholder="ÁÖÂ÷ Á¤º¸"/>
-        </div>
-        <div class="hd_announce">
-        	<label for="hd_announce" style="font-weight: bold">°øÁö »çÇ×</label>
-        	<input type="text" class="input-tag" id="hd_announce" name="hd_announce" readonly placeholder="°øÁö »çÇ×"/>
-        </div>
-        <div class="hd_etc">
-        	<label for="hd_etc" style="font-weight: bold">±âÅ¸ »çÇ×</label>
-        	<input type="text" class="input-tag" id="hd_etc" name="hd_etc" readonly placeholder="±âÅ¸ »çÇ×"/>
-        </div>
-        	<button type="submit" class="info-btn">º´¿ø ¼Ò°³ µî·Ï</button>
-    </form>
+	<div class="hd_park" id="hd_park">
+		<label for="hd_park" style="font-weight: bold">ì£¼ì°¨ ì •ë³´</label>
+		<textarea class="hd_park col-10" id="hd_park" name="hd_park" 
+		placeholder="ì£¼ì°¨ ì •ë³´" oninput="autoTextarea(this)">${hoDetail.hd_park}</textarea>
+	</div>
+	<div class="hd_announce">
+		<label for="hd_announce" style="font-weight: bold">ê³µì§€ ì‚¬í•­</label>
+		<textarea class="hd_announce col-10" id="hd_announce" name="hd_announce" 
+		placeholder="ê³µì§€ ì‚¬í•­" oninput="autoTextarea(this)">${hoDetail.hd_announce}</textarea>
+	</div>
+	<div class="hd_etc">
+		<label for="hd_etc" style="font-weight: bold">ê¸°íƒ€ ì‚¬í•­</label>
+		<textarea class="hd_etc col-10" id="hd_etc" name="hd_etc" 
+		placeholder="ê¸°íƒ€ ì‚¬í•­" oninput="autoTextarea(this)">${hoDetail.hd_etc}</textarea>
+	</div>
+	<h2 style="font-weight: bold;">ì§„ë£Œ ê³¼ëª©</h2>
+	<div class="hd_hs_num">
+		<label for="hd_hs_num">ëŒ€í‘œ ì§„ë£Œ ê³¼ëª©</label>
+		<div class="subject-checkbox hd_hs_num">
+		  	<c:forEach items="${hsList}" var="hs">
+		  		<c:set var="isChecked" value="false"/>
+		  		<c:if test="${hoDetail.hd_hs_num != null}">		  		
+			  		<c:forEach items="${hoDetail.hd_hs_num.split(',')}" var="selectedHsNum">
+			  			<c:if test="${selectedHsNum == hs.hs_num}">
+			  				<c:set var="isChecked" value="true"/>
+			  			</c:if>
+			  		</c:forEach>
+		  		</c:if>
+		   		<input type="checkbox" name="subject" value="${hs.hs_num}" onclick="updateHdHsNums()"
+		   				<c:if test="${isChecked == 'true'}">checked</c:if>>${hs.hs_title}
+		  	</c:forEach>
+		</div>
+		<input type="hidden" id="hd_hs_num" name="hd_hs_num" value="${hoDetail.hd_hs_num}">
+	 </div>
+	<div>
+	 	<label for="hd_subject_detail">ìƒì„¸ ì§„ë£Œ í•­ëª©</label>
+	 	<textarea class="hd_subject_detail col-10" id="hd_subject_detail" name="hd_subject_detail" 
+	 	oninput="autoTextarea(this)" placeholder="ê°ì—¼ì„± ì§ˆí™˜ / ì•Œë ˆë¥´ê¸° / ë§Œì„± ì§ˆí™˜ / í˜¸í¡ê¸° ì§ˆí™˜ / í”¼ë¶€ ì§ˆí™˜...">${hoDetail.hd_subject_detail}</textarea>
+	</div>
+	<button type="submit" class="hospital-btn" name="hospital-btn">ë³‘ì› ì†Œê°œ ë“±ë¡</button>
+</form>
+<!-- textarea ìë™ ìŠ¤í¬ë¡¤ -->
+<script type="text/javascript">
+function autoTextarea(element) {
+	//ì´ˆê¸° ë†’ì´ ì„¤ì •
+	element.style.height = 'auto';
+	//ìŠ¤í¬ë¡¤ ë†’ì´ì— ë”°ë¼ í…ìŠ¤íŠ¸ ì˜ì—­ ë†’ì´ ì¡°ì ˆ
+	element.style.height = (element.scrollHeight) + 'px';
+}
+//textareaì— ì´ë²¤íŠ¸ í•¸ë“¤ëŸ¬ ì¶”ê°€
+document.addEventListener('DOMContentLoaded', function() {
+	let textarea = document.querySelector('textarea');
+	//í˜ì´ì§€ ë¡œë“œ ì‹œ ë†’ì´ ì¡°ì ˆ
+	autoTextarea(textarea);
+	//í‚¤ ì…ë ¥ ì‹œ ë†’ì´ ì£¼ì ˆ
+	textarea.addEventListener('input', function() {
+		autoTextarea(this);
+	});
+});
+</script>
 
-    <form action='<c:url value="/hospital/subject"/>' method="post" id="page2" class="page">
-        <h1>2. Áø·á °ú¸ñ ÆäÀÌÁö</h1>
-        <div class="subject-represent">        
-	        <label for="subject-represent">´ëÇ¥ Áø·á °ú¸ñ</label>
-	        <div class="subject-checkbox">
-	        	<c:forEach items="${hsList}" var="hs">
-			    	<input type="checkbox" name="subject" value="${hs.hs_num}">${hs.hs_title}
-	        	</c:forEach>
-	        </div>
-        </div>
-        <div>
-        	<label for="subject-detail">»ó¼¼ Áø·á Ç×¸ñ</label>
-	       	<input type="text" class="input-tag" id="hd_etc" name="hd_etc" readonly 
-	       	placeholder="»ó¼¼ Áø·á Ç×¸ñ : °¨¿°¼º ÁúÈ¯ / ¾Ë·¹¸£±â / ¸¸¼º ÁúÈ¯ / È£Èí±â ÁúÈ¯ / ÇÇºÎ ÁúÈ¯..."/>
-        </div>
-       	<button type="submit" class="subject-btn" name="subject-btn">Áø·á °ú¸ñ µî·Ï</button>
-    </form>
+<!-- ë¡œê·¸ì¸í•œ ë³‘ì›ì´ ì„ íƒí–ˆë˜ ë³‘ì›ê³¼ëª©ë§Œ ì²´í¬(ì•ˆë¨!!! ë‹¤ì‹œë³´ê¸°) -->
+<!-- <script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+    var selectedSubjects = <c:out value="${selectedSubject.hs_num}" default="''"/>;
+    
+    if(selectedSubjects) {
+        console.log("Selected Subjects:", selectedSubjects); // í™•ì¸ìš© ë¡œê·¸ ì¶œë ¥
+        
+        var checkboxes = document.getElementsByName("subject");
+        
+        for(var i = 0; i < checkboxes.length; i++) {
+            if(selectedSubjects.includes(checkboxes[i].value)) {
+                checkboxes[i].checked = true;
+                console.log("Checkbox checked:", checkboxes[i].value); // í™•ì¸ìš© ë¡œê·¸ ì¶œë ¥
+            }
+        }
+    }
+});
+</script> -->
 
-    <form action='<c:url value="/hospital/review"/>' method="post" id="page3" class="page">
-        <h1>3. ¸®ºä Á¶È¸</h1>
-        <label for="review">È¸¿ø ¾ÆÀÌµğ</label>
-        <textarea id="review" rows="4" cols="70"></textarea>
-        <button type="submit" class="review-btn" name="review-btn">¸®ºä µî·Ï</button>
-    </form>
-</div>
+<!-- ì—¬ëŸ¬ê°œì˜ ì§„ë£Œê³¼ëª© ì„ íƒí•˜ëŠ” ìŠ¤í¬ë¦½íŠ¸ -->
+<script type="text/javascript">
+// ì²´í¬ë°•ìŠ¤ í´ë¦­ ì‹œ hd_hs_num ì—…ë°ì´íŠ¸
+function updateHdHsNums() {
+    var checkedBoxes = document.querySelectorAll('.subject-checkbox.hd_hs_num input[type="checkbox"]:checked');
+    var selectedHsNums = [];
+    checkedBoxes.forEach(function(checkbox) {
+        selectedHsNums.push(checkbox.value);
+    });
+    document.getElementById('hd_hs_num').value = selectedHsNums.join(',');
+}
+
+// í˜ì´ì§€ ë¡œë”© ì‹œ ì„ íƒëœ ì²´í¬ë°•ìŠ¤ ì—…ë°ì´íŠ¸
+window.onload = function() {
+    var hd_hs_num = "${hd_hs_num}";
+    var selectedHsNums = hd_hs_num.split(',');
+    selectedHsNums.forEach(function(hsNum) {
+        var checkbox = document.querySelector('.subject-checkbox.hd_hs_num input[value="' + hsNum + '"]');
+        if (checkbox) {
+            checkbox.checked = true;
+        }
+    });
+};
+</script>
+
+<!-- ì˜ì—… ì‹œê°„ : ë°°ì—´ë¡œ ì €ì¥ëœ ì‹œê°„ë“¤ ì¸ë±ìŠ¤ì™€ í´ë˜ìŠ¤ ì´ë¦„ ë§¤í•‘ -->
+<script type="text/javascript">
+//ì„œë²„ì—ì„œ ë°›ì€ hd_time ë¬¸ìì—´
+let hd_time = "${hoDetail.hd_time}";
+//ì‰¼í‘œë¡œ ë¬¸ìì—´ ë¶„í• 
+let timeArray = hd_time.split(',');
+//ê° ìš”ì¼ì— ëŒ€í•œ ì¸ë±ìŠ¤ì™€ í´ë˜ìŠ¤ ì´ë¦„ ë§¤í•‘
+let days = {
+	'mon' : 0,
+	'tue' : 1,
+	'wed' : 2,
+	'thu' : 3,
+	'fri' : 4,
+	'sat' : 5,
+	'sun' : 6,
+	'holiday' : 7
+};
+
+//ê° ìš”ì¼ì˜ input í•„ë“œì— ì‹œê°„ ì„¤ì •
+for(let day in days) {
+	let index = days[day];
+	let inputField = document.querySelector('.' + day);
+	
+	//ì‹œê°„ì´ ì¡´ì¬í•˜ë©´ input í•„ë“œì— ì„¤ì •
+	if(timeArray[index]) {
+		inputField.value = timeArray[index];
+	}
+}
+</script>
 </body>
 </html>

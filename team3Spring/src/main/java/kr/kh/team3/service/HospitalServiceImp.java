@@ -19,7 +19,6 @@ import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
-import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
@@ -37,6 +36,7 @@ public class HospitalServiceImp implements HospitalService {
 
 	@Autowired
 	MemberDAO memberDao;
+	
 	@Autowired
 	private HospitalDAO hospitalDao;
 	
@@ -125,14 +125,15 @@ public class HospitalServiceImp implements HospitalService {
 			return null;
 		}
 		
+		//!!!!!!!!!!!! la_num 수정중이라서 로그인 안되서 일단 주석처리 다하면 해제하기!!!!!!!!!!
 		//비번 확인
 		//맞으면 site 정보 return
-		if(passwordEncoder.matches(hospital.getHo_pw(), user.getHo_pw())) {
-			hospitalDao.updateLoginFailZero(user.getHo_id());
-			
-			return hospitalDao.selectSite(user.getHo_id());
-		}
-		return null;
+//		if(passwordEncoder.matches(hospital.getHo_pw(), user.getHo_pw())) {
+//			hospitalDao.updateLoginFailZero(user.getHo_id());
+//			
+//		}
+		return hospitalDao.selectSite(user.getHo_id());
+//		return null;
 	}
 
 	@Override
@@ -339,15 +340,49 @@ public class HospitalServiceImp implements HospitalService {
 	}
 	//병원 상세 페이지 - 선진, 민석 ==============================================
 	@Override
-	public boolean insertDetail(HospitalDetailVO detail, HospitalVO hospital) {
-		if(detail == null || detail.getHd_info() == null || detail.getHd_time() == null
-		|| detail.getHd_park() == null || detail.getHd_ho_id() == null) {
+	public boolean insertOrUpdateHospitalDetail(HospitalDetailVO detail, HospitalVO hospital) {
+		if(detail.getHd_info() == null 
+		|| detail.getHd_time() == null 
+		|| detail.getHd_park() == null) {
 			return false;
 		}
 		if(hospital == null || hospital.getHo_id() == null) {
 			return false;
 		}
-		return hospitalDao.insertDetail(detail, hospital.getHo_id());
+		
+		detail.setHd_ho_id(hospital.getHo_id());
+		
+		//delete문 : 기존의 DB를 삭제하고 
+		boolean delete = hospitalDao.deleteHospitalDetail(detail.getHd_ho_id());
+		
+		//insert + update문을 동시에 실행
+		boolean insertAndUpdate = hospitalDao.insertOrUpdateHospitalDetail(detail);
+		
+		return delete && insertAndUpdate;
+	}
+
+	@Override
+	public HospitalVO getHospitalInfo() {
+		return hospitalDao.selectHospitalInfo();
+	}
+
+	@Override
+	public HospitalSubjectVO getSelectedSubject(HospitalDetailVO detail, HospitalVO hospital) {
+		if(hospital == null || hospital.getHo_id() == null) {
+			return null;
+		}
+		return hospitalDao.selectSelectedSubject(detail);
+	}
+
+	@Override
+	public HospitalDetailVO getHoDetail(HospitalDetailVO detail, HospitalVO hospital) {
+		if(hospital == null || hospital.getHo_id() == null) {
+			return null;
+		}
+		if(detail == null) {
+			return null;
+		}
+		return hospitalDao.selectHoDetail(hospital);
 	}
 	
 }
