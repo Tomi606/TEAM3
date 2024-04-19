@@ -48,18 +48,13 @@ public class HospitalController {
 	}
 
 
-	@GetMapping("/hospital/detail2")
+	@GetMapping("/hospital/detail/detail")
 	public String hospitalDetail2(Model model) {
 		//대표 진료 과목
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
 		model.addAttribute("hsList", hsList);
-		
-		//예약 날짜와 시간 보내기 
-		ArrayList<ReservationScheduleVO> reservationScheduleList = hospitalService.getReservationScheduleList();
-		int i = reservationScheduleList.size();
-		model.addAttribute("dateList", reservationScheduleList);
-		model.addAttribute("dateListnum", i);
-		return "/hospital/detail2";
+
+		return "/hospital/detail/detail";
 	}
 	
 
@@ -70,25 +65,23 @@ public class HospitalController {
 		//대표 진료 과목
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
 		map.put("hsList", hsList);
-		
-		//예약 날짜가져와서 보내기 
-		ArrayList<ReservationScheduleVO> reservationScheduleList = hospitalService.getReservationScheduleList();
-		map.put("dateList", reservationScheduleList);
+
 		return map;
 	}
 	
-	@GetMapping("/detail/date")
-	@ResponseBody
-	public Map<String, Object> hospitalDate(Model model, @RequestParam("str") String str) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		//예약 날짜가져와서 보내기 
-		ArrayList<ReservationScheduleVO> reservationScheduleTimeList = hospitalService.getReservationScheduleTimeList(str);
-		log.info(reservationScheduleTimeList);
-		map.put("timeList", reservationScheduleTimeList);
-		return map;
-	}
-	
+	//날짜
+//	@GetMapping("/detail/date")
+//	@ResponseBody
+//	public Map<String, Object> hospitalDate(Model model, @RequestParam("str") String str) {
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		
+//		//예약 날짜가져와서 보내기 
+//		ArrayList<ReservationScheduleVO> reservationScheduleTimeList = hospitalService.getReservationScheduleTimeList(str);
+//		log.info(reservationScheduleTimeList);
+//		map.put("timeList", reservationScheduleTimeList);
+//		return map;
+//	}
+//	
 	//2. 병원 과목
 	@ResponseBody
 	@PostMapping("/hospital/subject")
