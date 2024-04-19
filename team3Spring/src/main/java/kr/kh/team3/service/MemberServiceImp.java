@@ -420,8 +420,12 @@ public class MemberServiceImp implements MemberService {
 		if (dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
 			return false;
 		//sitemanagement도 수정해야됨
-		//return memberDao.updateAddress(me,la);
-		return true;
+		boolean memberLand = memberDao.updateMemberLand(me,la);
+		boolean siteLand = memberDao.updateSiteLand(user,la);
+		if(memberLand&&siteLand)
+		return memberLand&&siteLand;
+		
+		return false;
 	}
 
 }

@@ -9,186 +9,232 @@
 		insert into land(la_sd_num,la_sgg_num,la_emd_num)
 		values(#{la.la_sd_num},#{la.la_sgg_num},#{la.la_emd_num})
 	</insert>
-	<select id="selectLand" resultType="kr.kh.team3.model.vo.LandVO">	
-		select * from land where la_sd_num = #{la.la_sd_num}
-		and la_sgg_num = #{la.la_sgg_num}
-		and la_emd_num = #{la.la_emd_num}
+	<select id="selectLand" resultType="kr.kh.team3.model.vo.LandVO">
+		select * from land where
+		la_sd_num = #{la.la_sd_num}
+		and la_sgg_num =
+		#{la.la_sgg_num}
+		and
+		la_emd_num = #{la.la_emd_num}
 	</select>
-	
+
 	<select id="getMyLand" resultType="kr.kh.team3.model.vo.LandVO">
-		select * from land where la_num = #{me.me_la_num}
+		select * from land where
+		la_num = #{me.me_la_num}
 	</select>
-	
+
 	<select id="selectSdName" resultType="String">
-		select sd_name from si_do where sd_num = #{la.la_sd_num}
+		select sd_name from si_do
+		where sd_num = #{la.la_sd_num}
 	</select>
 	<select id="selectSggName" resultType="String">
-		select sgg_name from si_goon_gu where sgg_num = #{la.la_sgg_num}
+		select sgg_name from
+		si_goon_gu where sgg_num = #{la.la_sgg_num}
 	</select>
 	<select id="selectEmdName" resultType="String">
-		select emd_name from eup_myeon_dong where emd_num = #{la.la_emd_num}
+		select emd_name from
+		eup_myeon_dong where emd_num = #{la.la_emd_num}
 	</select>
-	
-	
-	
+
+	<update id="updateMemberLand">
+		UPDATE member_table
+		SET me_la_num = #{la.la_num}
+		WHERE
+		me_id = #{me.me_id}
+	</update>
+	<update id="updateSiteLand">
+		UPDATE site_management_table
+		SET site_la_num = #{la.la_num}
+		WHERE site_id = #{site.site_id}
+	</update>
+
+
+
+
+
+
 	<!-- 회원가입 -->
 	<insert id="insertMember">
-		insert into member(me_hs_num,me_id,me_pw,me_name,me_gender,me_job,me_phone,me_email,me_authority,me_ms_state,me_la_num)
+		insert into
+		member(me_hs_num,me_id,me_pw,me_name,me_gender,me_job,me_phone,me_email,me_authority,me_ms_state,me_la_num)
 		values(#{me.me_hs_num},#{me.me_id},#{me.me_pw},#{me.me_name},#{me.me_gender},#{me.me_job},#{me.me_phone},#{me.me_email},"USER","이용중",#{la.la_num})
 	</insert>
-	
+
 	<insert id="insertSiteMember">
-		insert into site_management(site_la_num,site_id,site_email,site_phone,site_authority)
+		insert into
+		site_management(site_la_num,site_id,site_email,site_phone,site_authority)
 		value(#{la.la_num},#{si.site_id},#{si.site_email},#{si.site_phone},"USER")
 	</insert>
-	
-	
-	
-	
+
+
+
+
 	<select id="selectSiDo" resultType="kr.kh.team3.model.vo.SiDoVO">
-			select * from si_do
+		select * from si_do
 	</select>
-	
-	<select id="selectSgg" resultType="kr.kh.team3.model.vo.SiGoonGuVO">
-			select * from si_goon_gu where sgg_sd_num = #{sd_num}
+
+	<select id="selectSgg"
+		resultType="kr.kh.team3.model.vo.SiGoonGuVO">
+		select * from si_goon_gu where sgg_sd_num = #{sd_num}
 	</select>
-	
-	<select id="selectEmd" resultType="kr.kh.team3.model.vo.EupMyeonDongVO">
-			select * from eup_myeon_dong where emd_sgg_num = #{sgg_num}
+
+	<select id="selectEmd"
+		resultType="kr.kh.team3.model.vo.EupMyeonDongVO">
+		select * from eup_myeon_dong where emd_sgg_num = #{sgg_num}
 	</select>
-	
-	
+
+
 
 	<!-- 로그인 -->
-	<select id="selectMember" resultType="kr.kh.team3.model.vo.MemberVO">
+	<select id="selectMember"
+		resultType="kr.kh.team3.model.vo.MemberVO">
 		SELECT * FROM member
 		WHERE me_id = #{me_id}
 	</select>
-	<select id="selectSite" resultType="kr.kh.team3.model.vo.SiteManagement">
+	<select id="selectSite"
+		resultType="kr.kh.team3.model.vo.SiteManagement">
 		SELECT * FROM site_management
 		WHERE site_id = #{me_id}
 	</select>
 	<update id="updateLoginFail">
 		UPDATE member
 		SET me_fail = me_fail + 1
-		WHERE me_id = #{me_id}
+		WHERE me_id =
+		#{me_id}
 	</update>
 	<update id="updateLoginFailZero">
 		UPDATE member
 		SET me_fail = 0
 		WHERE me_id = #{me_id}
 	</update>
-	
-	<select id="selectMemberEmail" 
+
+	<select id="selectMemberEmail"
 		resultType="kr.kh.team3.model.vo.SiteManagement">
 		select * from site_management where site_email = #{email}
 	</select>
-	
-	<select id="selectMemberPhone" 
+
+	<select id="selectMemberPhone"
 		resultType="kr.kh.team3.model.vo.SiteManagement">
 		select * from site_management where site_phone = #{phone}
 	</select>
-	
+
 	<!-- 관리자 - 회원 관리(양선진) -->
-	<resultMap type="kr.kh.team3.model.vo.MemberVO" id="MemberMap">
-		<id property="me_id" column="me_id"/>
-		<result property="me_name" column="me_name"/>
-		<result property="me_gender" column="me_gender"/>
-		<result property="me_job" column="me_job"/>
-		<result property="me_phone" column="me_phone"/>
-		<result property="me_email" column="me_email"/>
-		<result property="me_address" column="me_address"/>
-		<result property="me_hs_num" column="me_hs_num"/>
-		<collection property="hospitalSubject" ofType="HospitalSubjectVO"
-		column="me_hs_num" select="selectHospitalSubject"/>
+	<resultMap type="kr.kh.team3.model.vo.MemberVO"
+		id="MemberMap">
+		<id property="me_id" column="me_id" />
+		<result property="me_name" column="me_name" />
+		<result property="me_gender" column="me_gender" />
+		<result property="me_job" column="me_job" />
+		<result property="me_phone" column="me_phone" />
+		<result property="me_email" column="me_email" />
+		<result property="me_address" column="me_address" />
+		<result property="me_hs_num" column="me_hs_num" />
+		<collection property="hospitalSubject"
+			ofType="HospitalSubjectVO" column="me_hs_num"
+			select="selectHospitalSubject" />
 	</resultMap>
-	
-	<select id="selectHospitalSubject" resultType="HospitalSubjectVO">
+
+	<select id="selectHospitalSubject"
+		resultType="HospitalSubjectVO">
 		select * from hospital_subject where hs_num = #{me_hs_num}
 	</select>
-	
+
 	<select id="selectMemberList" resultMap="MemberMap">
-		select * from member 
+		select * from member
 		where me_authority = "USER"
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
-	
+
 	<select id="selectMemberTotalCount" resultType="int">
-		select count(*) from member where me_authority = "USER"
+		select count(*)
+		from member where me_authority = "USER"
 	</select>
-	
+
 	<!-- 신고 회원 리스트 -->
-	<resultMap type="kr.kh.team3.model.vo.ReportVO" id="ReportMap">
-		<id property="rp_num" column="rp_num"/>
-		<result property="rp_target" column="rp_target"/>
-		<result property="rp_name" column="rp_name"/>
-		<result property="rp_rs_name" column="rp_rs_name"/>
-		<result property="rp_site_num" column="rp_site_num"/>
-		<collection property="member" ofType="MemberVO" 
-			column="rp_target" select="selectReportMember"/>
+	<resultMap type="kr.kh.team3.model.vo.ReportVO"
+		id="ReportMap">
+		<id property="rp_num" column="rp_num" />
+		<result property="rp_target" column="rp_target" />
+		<result property="rp_name" column="rp_name" />
+		<result property="rp_rs_name" column="rp_rs_name" />
+		<result property="rp_site_num" column="rp_site_num" />
+		<collection property="member" ofType="MemberVO"
+			column="rp_target" select="selectReportMember" />
 	</resultMap>
-	
+
 	<select id="selectReportMember" resultType="MemberVO">
-		select * from member where me_id = #{rp_target}
+		select * from member
+		where me_id = #{rp_target}
 	</select>
-	
+
 	<select id="selectReportMemberList" resultMap="ReportMap">
-		select * from report 
-		order by rp_num 
+		select * from
+		report
+		order by rp_num
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
-	
+
 	<select id="selectReportMemberTotalCount" resultType="int">
-		select count(*) from report order by rp_num
+		select
+		count(*) from report order by rp_num
 	</select>
-	
+
 	<!-- 삭제 버튼 -->
 	<delete id="deleteMember">
 		delete from member where me_id = #{me_id}
 	</delete>
-	
+
 	<select id="selectSiteMemberId" resultType="SiteManagement">
-		select * from site_management where site_id = #{site_id}
+		select * from
+		site_management where site_id = #{site_id}
 	</select>
-	
+
 	<delete id="deleteSiteManagement">
-		delete from site_management where site_id = #{site_id}
+		delete from site_management where site_id =
+		#{site_id}
 	</delete>
-	
+
 	<!-- 정지 버튼 -->
 	<update id="updateStopMember">
-		update member set 
-		me_stop = DATE_ADD(NOW(), INTERVAL #{rp_rs_name} DAY), 
+		update member set
+		me_stop = DATE_ADD(NOW(), INTERVAL
+		#{rp_rs_name} DAY),
 		me_ms_state = "기간정지"
 		where me_id = #{me_id}
 	</update>
-	
+
 	<update id="updatePlusStopMember">
-		update member set 
-		me_stop = DATE_ADD(me_stop, INTERVAL #{rp_rs_name} DAY), 
-		me_ms_state = "기간정지" 
+		update member set
+		me_stop = DATE_ADD(me_stop, INTERVAL
+		#{rp_rs_name} DAY),
+		me_ms_state = "기간정지"
 		where me_id = #{me_id}
 	</update>
-	
+
 	<select id="getMemberInfo" resultType="MemberVO">
-		select * from member where me_id = #{id}
+		select * from member where
+		me_id = #{id}
 	</select>
-	
+
 	<update id="updateName">
-		 update member set me_name = #{me.me_name} where me_id =#{me.me_id}
+		update member set me_name = #{me.me_name} where me_id
+		=#{me.me_id}
 	</update>
 	<update id="updatePhone">
-		 update member set me_phone = #{me.me_phone} where me_id =#{me.me_id}
+		update member set me_phone = #{me.me_phone} where
+		me_id =#{me.me_id}
 	</update>
 	<update id="updateEmail">
-		 update member set me_email = #{me.me_email} where me_id =#{me.me_id}
+		update member set me_email = #{me.me_email} where
+		me_id =#{me.me_id}
 	</update>
 	<update id="updateJob">
-		 update member set me_job = #{me.me_job} where me_id =#{me.me_id}
+		update member set me_job = #{me.me_job} where me_id
+		=#{me.me_id}
 	</update>
 	<update id="updatePw">
-		 update member set me_pw = #{pw} where me_id =#{id}
+		update member set me_pw = #{pw} where me_id =#{id}
 	</update>
-	
-	
+
+
 </mapper>
