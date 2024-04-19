@@ -352,13 +352,13 @@ public class HospitalServiceImp implements HospitalService {
 		
 		detail.setHd_ho_id(hospital.getHo_id());
 		
-		//insert + update문 하는 동시에
-		boolean insertAndUpdate = hospitalDao.insertOrUpdateHospitalDetail(detail);
-		//delete문
+		//delete문 : 기존의 DB를 삭제하고 
 		boolean delete = hospitalDao.deleteHospitalDetail(detail.getHd_ho_id());
 		
-		sqlSession.insert("insertOrUpdateHospitalDetail", detail);
-		return insertAndUpdate && delete;
+		//insert + update문을 동시에 실행
+		boolean insertAndUpdate = hospitalDao.insertOrUpdateHospitalDetail(detail);
+		
+		return delete && insertAndUpdate;
 	}
 
 	@Override
