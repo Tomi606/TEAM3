@@ -163,6 +163,18 @@
 	</update>
 	
 	<!-- 병원 페이지 : 선진, 민석 -->
+<!-- 	<select id="selectHospitalSubjectList" resultType="HospitalSubjectVO">
+		select * from hospital_subject where ho_id = #{ho_id}
+	</select> -->
+	
+	<select id="selectReservationScheduleList" resultType="kr.kh.team3.model.vo.ReservationScheduleVO">
+			select * from reservation_schedule;
+	</select>
+	
+	<select id="selectReservationScheduleTimeList" resultType="kr.kh.team3.model.vo.ReservationScheduleVO">
+			select * from reservation_schedule where rs_date = #{rs_date}
+  </select>
+  
 	<insert id="insertOrUpdateHospitalDetail" parameterType="HospitalDetailVO">
 		insert into hospital_detail(hd_ho_id, hd_hs_num, hd_info, hd_time, hd_park, hd_announce, hd_etc, hd_subject_detail)
 		values (#{hd.hd_ho_id}, #{hd.hd_hs_num}, #{hd.hd_info}, #{hd.hd_time}, #{hd.hd_park}, #{hd.hd_announce}, #{hd.hd_etc}, #{hd.hd_subject_detail})

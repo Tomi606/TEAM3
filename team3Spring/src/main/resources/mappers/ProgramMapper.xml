@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.team3.dao.ProgramDAO">
+
+	<select id="selectItemList" resultType="kr.kh.team3.model.vo.ItemVO">
+		select * from item;
+	</select>
+	
+	<insert id="insertItem">
+		insert into item value(it_name, it_explanation) value(#{item.it_name}, #{item.it_explanation});
+	</insert>
+</mapper>

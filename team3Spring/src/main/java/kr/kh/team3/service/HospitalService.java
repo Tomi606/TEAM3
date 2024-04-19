@@ -9,6 +9,7 @@ import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
+import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -80,5 +81,9 @@ public interface HospitalService {
 
 	HospitalDetailVO getHoDetail(HospitalDetailVO detail, HospitalVO hospital);
 
+
+	ArrayList<ReservationScheduleVO> getReservationScheduleList();
+
+	ArrayList<ReservationScheduleVO> getReservationScheduleTimeList(String str);
 
 }

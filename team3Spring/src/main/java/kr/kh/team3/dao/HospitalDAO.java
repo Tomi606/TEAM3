@@ -8,6 +8,7 @@ import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -75,6 +76,10 @@ public interface HospitalDAO {
 	//============================= 병원 페이지 ===============================
 	
 	ArrayList<HospitalSubjectVO> selectHospitalSubjectList(@Param("ho_id") String ho_id);
+
+	ArrayList<ReservationScheduleVO> selectReservationScheduleList();
+
+	ArrayList<ReservationScheduleVO> selectReservationScheduleTimeList(@Param("rs_date")String str);
 
 	boolean insertOrUpdateHospitalDetail(@Param("hd") HospitalDetailVO detail);
 

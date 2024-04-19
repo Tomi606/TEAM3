@@ -328,6 +328,9 @@ $(document).ready(function(){
 /* 군 구 리스트 select로 띄우기 시작 */
 $("[name=sd_num]").click(function(){
 	let sd_num = $("[name=sd_num]").val();
+	if(sd_num == 'none'){
+		sd_num = 1;
+	}
 	$.ajax({
 		method : "post",
 		url : '<c:url value="/member/signup/gungoo"/>', 
@@ -351,6 +354,9 @@ $("[name=sd_num]").click(function(){
 /* 읍면동 리스트 select로 띄우기 시작 */
 $("[name=sgg_num]").click(function(){
 	let sgg_num = $("[name=sgg_num]").val();
+	if(sgg_num == 'none'){
+		sgg_num = 1;
+	}
 	$.ajax({
 		method : "post",
 		url : '<c:url value="/member/signup/eupmyeondong"/>', 
@@ -358,7 +364,6 @@ $("[name=sgg_num]").click(function(){
 		success : function (data){
 			let str =""
 			for(let tmp in data){
-				console.log(data[tmp].emd_name);
 				str += ` <option value='\${data[tmp].emd_num}'>\${data[tmp].emd_name}</option>`;
 			}
 			$(".emd_num").html(str);
