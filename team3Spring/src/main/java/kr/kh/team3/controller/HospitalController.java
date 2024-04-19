@@ -99,7 +99,7 @@ public class HospitalController {
 //		map.put("hsUpdate", hsUpdate);
 //		map.put("detailUpdate", detailUpdate);
 		return map;
-
+	}
 	//병원 상세 페이지 등록
 	@GetMapping("/hospital/detail/insert")
 	public  String detailInsert(Model model, HospitalDetailVO detail, HttpSession session) {
@@ -158,7 +158,7 @@ public class HospitalController {
 	@GetMapping("/hospital/program/insert")
 	public String hospitalProgramInsertPage(Model model) {
 		
-		return "/hospital/porograminsert";
+		return "/hospital/detail/programinsert";
 	}
 	
 	// 세부 항목을 추가하는 메서드
