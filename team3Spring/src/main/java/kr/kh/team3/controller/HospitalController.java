@@ -49,24 +49,27 @@ public class HospitalController {
 
 	//병원 상세 페이지 조회
 	@GetMapping("/hospital/detail/detail")
-	public String hospitalDetail2(Model model, HttpSession session, HospitalDetailVO detail, HospitalVO hospital) {
+	public String hospitalDetail(Model model, HttpSession session, HospitalDetailVO detail, HospitalVO hospital) {
 		//로그인한 병원 세션
 		SiteManagement user = (SiteManagement)session.getAttribute("user");
 		//그 병원의 정보
 		hospital = hospitalService.getHospital(user);
+		//병원과목 리스트
+		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
 		//그 병원의 상세 페이지 정보
 		detail = hospitalService.getHoDetail(detail, hospital);
 		
 		model.addAttribute("hospital", hospital);
+		model.addAttribute("hsList", hsList);
 		model.addAttribute("detail", detail);
 
 		return "/hospital/detail/detail";
 	}
 	
-
-//	@PostMapping("/hospital/detail/detail")
+	//병원 상세 페이지 조회(리뷰 비동기를 위해 사용)
 //	@ResponseBody
-//	public Map<String, Object> detail2Post(Model model) {
+//	@PostMapping("/hospital/detail/detail")
+//	public Map<String, Object> hospitalDetailPost(Model model) {
 //		Map<String, Object> map = new HashMap<String, Object>();
 //		//대표 진료 과목
 //		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
@@ -75,18 +78,18 @@ public class HospitalController {
 //		return map;
 //	}
 	
-	//날짜
-//	@GetMapping("/detail/date")
-//	@ResponseBody
-//	public Map<String, Object> hospitalDate(Model model, @RequestParam("str") String str) {
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		
-//		//예약 날짜가져와서 보내기 
-//		ArrayList<ReservationScheduleVO> reservationScheduleTimeList = hospitalService.getReservationScheduleTimeList(str);
-//		log.info(reservationScheduleTimeList);
-//		map.put("timeList", reservationScheduleTimeList);
-//		return map;
-//	}
+	//날짜 이거랑 밑에 과목 지우기!!!!
+	@GetMapping("/detail/date")
+	@ResponseBody
+	public Map<String, Object> hospitalDate(Model model, @RequestParam("str") String str) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		//예약 날짜가져와서 보내기 
+		ArrayList<ReservationScheduleVO> reservationScheduleTimeList = hospitalService.getReservationScheduleTimeList(str);
+		log.info(reservationScheduleTimeList);
+		map.put("timeList", reservationScheduleTimeList);
+		return map;
+	}
 //	
 	//2. 병원 과목
 	@ResponseBody
