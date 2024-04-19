@@ -22,12 +22,15 @@ import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
+import kr.kh.team3.service.HospitalService;
 import kr.kh.team3.service.MemberService;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Controller
 public class MemberController {
+	@Autowired
+	private HospitalService hospitalService;
 	@Autowired
 	MemberService memberService;
 	@Autowired
@@ -43,9 +46,11 @@ public class MemberController {
 	@GetMapping("/member/mypage")
 	public String myPageGet(Model model, MemberVO member, HttpSession session,  SiDoVO sido, SiGoonGuVO sgg, EupMyeonDongVO emd) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		ArrayList<HospitalSubjectVO> hslist = hospitalService.selectSubject();
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
 		MemberVO muser = memberService.getMemberInfo(user);
 
+		model.addAttribute("hslist", hslist);
 		model.addAttribute("member", muser);
 		model.addAttribute("sidoList", sidoList);
 		return "/member/mypage";

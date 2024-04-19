@@ -348,6 +348,7 @@ let me_land = {
 		   sgg_name : null,
 		   emd_name : null
 		};
+let me_sub = {hs_title : null};
 getMypage();
 function getMypage() {
 	  $.ajax({
@@ -357,11 +358,11 @@ function getMypage() {
 	    contentType: "application/json; charset=utf-8",
 	    dataType: "json",
 	    success: function(data) {
-	    	
+	    	me_sub.hs_title = data.sub.hs_title;
 	    	me_land.sd_name = data.sd_name;
 	    	me_land.sgg_name = data.sgg_name;
 	    	me_land.emd_name = data.emd_name;
-	      getMypageInfo(data.member,data.sgg_name,data.sd_name,data.emd_name,data.sub);
+	      getMypageInfo(data.member,data.sgg_name,data.sd_name,data.emd_name,me_sub.hs_title);
 	    },
 	    error: function(jqXHR, textStatus, errorThrown) {
 
@@ -459,7 +460,21 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 					<span class="job_update_btn_wrap"><button type="button" class="job-update">변경</button></span>
 					<span class="job_save_btn_wrap"><button type="button" class="job_save_btn">수정완료</button></span>
 				</div>
-				 
+				<!-- 관심 과목 시작 -->
+				<div class="subject1">
+					<div class="hr"></div>
+					<h5>관심 과목 : </h5>
+					<p>\${me_sub.hs_title}</p>
+					<div class="new_me_subject_hidden">
+						<select id="subject" name="me_hs_num" style="margin-bottom: 15px;width: 500px" >
+							<option value="none">관심 병원 과목을 선택하세요</option>
+							<option value="none">없음</option>
+							<c:forEach items="${hslist}" var="hs">
+								<option value="${hs.hs_num}">${hs.hs_title}</option>
+							</c:forEach>
+						</select>
+					</div>
+				</div>
 				<!-- 관심 과목 끝 -->
 				<div class="hr"></div>
 				<div class="mypage-hospital-address">
@@ -585,7 +600,7 @@ $(document).on('click','.address-update', function(){
 	      if(data.res){
 	        alert("이름을 수정했습니다.");
 	        initComment();
-	        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name);
+	        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name,me_sub.hs_title);
 			return;	        
 	      }else{
 	        alert("이름을 수정하지 못했습니다.");
@@ -618,7 +633,7 @@ $(document).on('click','.address-update', function(){
 	      if(data.res){
 	        alert("휴대폰 번호를 수정했습니다.");
 	        initComment();
-	        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name);
+	        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name,me_sub.hs_title);
 			return;	        
 	      }else{
 	        alert("휴대폰 번호를 수정하지 못했습니다.");
@@ -652,7 +667,7 @@ $(document).on('click','.address-update', function(){
 		      if(data.res){
 		        alert("이메일을 수정했습니다.");
 		        initComment();
-		        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name);
+		        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name,me_sub.hs_title);
 				return;	        
 		      }else{
 		        alert("이메일을 수정하지 못했습니다.");
@@ -686,7 +701,7 @@ $(document).on('click','.address-update', function(){
 		      if(data.res){
 		        alert("직업을 수정했습니다.");
 		        initComment();
-		        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name);
+		        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name,me_sub.hs_title);
 		        $('.box-job2').val(member.me_job);
 		        $('#my_job_name').text(member.me_job);
 				return;	        
@@ -733,7 +748,7 @@ $(document).on('click', '.address_save_btn', function(){
 	    	me_land.emd_name = data.emd_name;
 	        alert("주소를 수정했습니다.");
 	        initComment();
-	        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name);
+	        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name,me_sub.hs_title);
 			return;	        
 	      }else{
 	        alert("주소를 수정하지 못했습니다.");
@@ -747,7 +762,7 @@ $(document).on('click', '.address_save_btn', function(){
 	});
 	
 /* /* 관심 과목 수정!*/
-/*$(document).on('click', '.address_save_btn', function(){
+$(document).on('click', '.address_save_btn', function(){
 	  console.log(member);
 	  //서버에 ajax로 데이터를 전송 후 처리
 	  $.ajax({
@@ -757,9 +772,10 @@ $(document).on('click', '.address_save_btn', function(){
 	    data : member,
 	    success : function (data){
 	      if(data.res){
+	    	me_sub.hs_title = data.sub.hs_title;
 	        alert("과목을 수정했습니다.");
 	        initComment();
-	        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name);
+	        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name,me_sub.hs_title);
 			return;	        
 	      }else{
 	        alert("과목을  수정하지 못했습니다.");
@@ -770,7 +786,7 @@ $(document).on('click', '.address_save_btn', function(){
 
 	    }
 	  });
-	}); */
+	}); 
 
 
 
@@ -873,7 +889,7 @@ $(document).ready(function() {
 	      if (data.res) {
 	        alert("비밀번호를 수정했습니다.");
 	        initComment();
-	        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name);
+	        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name,me_sub.hs_title);
 	      } else {
 	        alert("비밀번호를 수정하지 못했습니다.");
 	      }
