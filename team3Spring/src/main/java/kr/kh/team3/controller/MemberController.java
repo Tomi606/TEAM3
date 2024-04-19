@@ -146,7 +146,6 @@ public class MemberController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO me = memberService.getMeId(me_id);
 		boolean res = memberService.updateSubject(user,me,subject);
-	
 		map.put("me", me);
 		map.put("res", res);
 		return map;

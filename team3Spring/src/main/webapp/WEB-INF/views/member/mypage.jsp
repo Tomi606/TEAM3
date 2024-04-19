@@ -295,6 +295,19 @@ img {
 .address_save_btn_wrap {
 	display: none;
 }
+.new_me_subject_hidden {
+	width: 180px;
+	display: none;
+}
+
+.new_me_subject_hidden input {
+	width: 300px;
+	position: relative;
+}
+
+.subject_save_btn_wrap {
+	display: none;
+}
 
 .box-name2 {
 	position: relative;
@@ -461,10 +474,9 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 					<span class="job_save_btn_wrap"><button type="button" class="job_save_btn">수정완료</button></span>
 				</div>
 				<!-- 관심 과목 시작 -->
-				<div class="subject1">
+				<div class="subject">
 					<div class="hr"></div>
 					<h5>관심 과목 : </h5>
-					<p>\${me_sub.hs_title}</p>
 					<div class="new_me_subject_hidden">
 						<select id="subject" name="me_hs_num" style="margin-bottom: 15px;width: 500px" >
 							<option value="none">관심 병원 과목을 선택하세요</option>
@@ -474,6 +486,9 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 							</c:forEach>
 						</select>
 					</div>
+					<p>\${me_sub.hs_title}</p>
+					<span class="subject_update_btn_wrap"><button type="button" class="subject-update">변경</button></span>
+					<span class="subject_save_btn_wrap"><button type="button" class="subject_save_btn">수정완료</button></span>
 				</div>
 				<!-- 관심 과목 끝 -->
 				<div class="hr"></div>
@@ -538,6 +553,11 @@ function resetAll() {
     $('.address_update_btn_wrap').css('display', 'block');
     $('.new_me_address_hidden').css('display', 'none');
     $('.address_save_btn_wrap').css('display', 'none');
+    
+    $('.box-subject').css('display', 'block');
+    $('.subject_update_btn_wrap').css('display', 'block');
+    $('.new_me_subject_hidden').css('display', 'none');
+    $('.subject_save_btn_wrap').css('display', 'none');
 }
 
 $(document).on('click','.name-update', function(){
@@ -579,6 +599,13 @@ $(document).on('click','.address-update', function(){
     $('.address_update_btn_wrap').css('display', 'none');
     $('.new_me_address_hidden').css('display', 'block');
     $('.address_save_btn_wrap').css('display', 'block');
+});
+$(document).on('click','.subject-update', function(){
+    resetAll();
+    $('.box-subject').css('display', 'none');
+    $('.subject_update_btn_wrap').css('display', 'none');
+    $('.new_me_subject_hidden').css('display', 'block');
+    $('.subject_save_btn_wrap').css('display', 'block');
 });
 
 	$(document).on('click', '.name_save_btn', function(){
