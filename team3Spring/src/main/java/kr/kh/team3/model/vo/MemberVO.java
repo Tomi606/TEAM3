@@ -9,10 +9,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class MemberVO {
+	
 	private String me_id;
 	private int me_hs_num; //병원 과목 번호
 	private String me_ms_state; //회원 상태명
 	private int me_bmk_num; //북마크 번호
+	private int me_la_num; //주소 번호
 	private String me_pw;
 	private String me_name;
 	private String me_gender;
@@ -31,4 +33,5 @@ public class MemberVO {
 	private ReportVO report;
 	private SiteManagement siteManagement;
 
+	 
 }
