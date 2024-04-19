@@ -159,6 +159,7 @@ CREATE TABLE `hospital` (
     `ho_la_num`	int	NOT NULL
 );
 
+
 DROP TABLE IF EXISTS `site_management`;
 
 CREATE TABLE `site_management` (
@@ -223,9 +224,10 @@ CREATE TABLE `chat` (
 DROP TABLE IF EXISTS `item`;
 
 CREATE TABLE `item` (
-	`it_num`	int	primary key auto_increment,
-	`it_name`	varchar(100) NOT NULL,
-	`it_explanation`	text NOT NULL
+	`it_num`	int	NOT NULL,
+	`it_name`	varchar(100)	NULL,
+	`it_explanation`	text	NULL,
+	`it_ho_id`	varchar(13)	NOT NULL
 );
 
 DROP TABLE IF EXISTS `hospital_program`;
@@ -484,13 +486,6 @@ ALTER TABLE `item_list` ADD CONSTRAINT `FK_hospital_program_TO_item_list_1` FORE
 )
 REFERENCES `hospital_program` (
 	`hp_num`
-);
-
-ALTER TABLE `item_list` ADD CONSTRAINT `FK_item_TO_item_list_1` FOREIGN KEY (
-	`il_it_num`
-)
-REFERENCES `item` (
-	`it_num`
 );
 
 ALTER TABLE `reservation_schedule` ADD CONSTRAINT `FK_hospital_program_TO_reservation_schedule_1` FOREIGN KEY (

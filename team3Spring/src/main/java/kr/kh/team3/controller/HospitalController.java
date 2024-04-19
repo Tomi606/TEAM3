@@ -1,6 +1,7 @@
 package kr.kh.team3.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
-import kr.kh.team3.model.vo.ReportVO;
+import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.SiteManagement;
 import kr.kh.team3.service.HospitalService;
 import lombok.extern.log4j.Log4j;
@@ -42,15 +43,59 @@ public class HospitalController {
 		return "/hospital/mypage";
 	}
 
-	//상세 페이지 조회
+
 	@GetMapping("/hospital/detail2")
 	public String hospitalDetail2(Model model) {
 		//대표 진료 과목
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
 		model.addAttribute("hsList", hsList);
+		
+		//예약 날짜와 시간 보내기 
+		ArrayList<ReservationScheduleVO> reservationScheduleList = hospitalService.getReservationScheduleList();
+		int i = reservationScheduleList.size();
+		model.addAttribute("dateList", reservationScheduleList);
+		model.addAttribute("dateListnum", i);
 		return "/hospital/detail2";
 	}
 	
+
+	@PostMapping("/detail2")
+	@ResponseBody
+	public Map<String, Object> detail2Post(Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		//대표 진료 과목
+		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
+		map.put("hsList", hsList);
+		
+		//예약 날짜가져와서 보내기 
+		ArrayList<ReservationScheduleVO> reservationScheduleList = hospitalService.getReservationScheduleList();
+		map.put("dateList", reservationScheduleList);
+		return map;
+	}
+	
+	@GetMapping("/detail/date")
+	@ResponseBody
+	public Map<String, Object> hospitalDate(Model model, @RequestParam("str") String str) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		//예약 날짜가져와서 보내기 
+		ArrayList<ReservationScheduleVO> reservationScheduleTimeList = hospitalService.getReservationScheduleTimeList(str);
+		log.info(reservationScheduleTimeList);
+		map.put("timeList", reservationScheduleTimeList);
+		return map;
+	}
+	
+	//2. 병원 과목
+	@ResponseBody
+	@PostMapping("/hospital/subject")
+	public Map<String, Object> memberStop(@RequestBody HospitalVO hospital) {
+		Map<String, Object> map = new HashMap<String, Object>();
+//		boolean hsUpdate = hospitalService.updateHospitalSubject(hospital.getHo_hs_num());
+//		boolean detailUpdate = hospitalService.updateHospitalDetail();
+//		map.put("hsUpdate", hsUpdate);
+//		map.put("detailUpdate", detailUpdate);
+		return map;
+
 	//병원 상세 페이지 등록
 	@GetMapping("/hospital/detail/insert")
 	public  String detailInsert(Model model, HospitalDetailVO detail, HttpSession session) {
@@ -88,6 +133,7 @@ public class HospitalController {
 			model.addAttribute("url", "/hospital/mypage");
 		}
 		return "message";
+
 	}
 	
 	

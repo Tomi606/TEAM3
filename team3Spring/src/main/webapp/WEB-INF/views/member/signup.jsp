@@ -110,7 +110,7 @@ label {
 <body>
 <!-- 중복확인 버튼 때문에 불 필요한 여백 발생하는중 고쳐야 함 -->
 <div class="body-tag">
-	<form id="myForm" action="<c:url value="/member/signup"/>" method="post">
+	<form id="myForm" action="<c:url value="/member/signup"/>">
 	<div class="input-box">	
 		<div>
 			<img  alt="아이디이미지" src="<c:url value="/resources/img/user.svg"/>">
@@ -368,6 +368,7 @@ $("form").submit(function(event){
 <!-- 시/도,시/군/구,읍/면/동 ajax -->
 <script type="text/javascript">
 /* 군 구 리스트 select로 띄우기 시작 */
+
 $("[name=sd_num]").change(function(){
 	let sd_num = $("[name=sd_num]").val();
 	if(sd_num == 'none'){
@@ -389,6 +390,7 @@ $("[name=sd_num]").change(function(){
         }
     });
 });
+
 /* 읍면동 리스트 select로 띄우기 시작 */
 $("[name=sgg_num]").change(function(){
 	let sgg_num = $("[name=sgg_num]").val();
