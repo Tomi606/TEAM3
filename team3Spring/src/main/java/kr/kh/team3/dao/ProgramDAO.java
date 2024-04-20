@@ -13,8 +13,7 @@ public interface ProgramDAO {
 	ArrayList<ItemVO> selectItemList(@Param("user") SiteManagement user);
 
 	boolean insertItem(@Param("item")ItemVO item,@Param("user") SiteManagement user);
-<<<<<<< Updated upstream
-
+	
 	ArrayList<HospitalProgramVO> selectProgramList(@Param("user")SiteManagement user);
 
 	boolean insertProgram(@Param("program")HospitalProgramVO program,@Param("user") SiteManagement user);
@@ -22,7 +21,5 @@ public interface ProgramDAO {
 	boolean updateItem(@Param("item")ItemVO item,@Param("it_num") int it_num);
 
 	void deleteItem(@Param("it_num")int tmp);
-=======
->>>>>>> Stashed changes
 
 }
