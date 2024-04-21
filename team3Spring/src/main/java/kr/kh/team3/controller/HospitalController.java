@@ -14,14 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.ItemVO;
-import kr.kh.team3.model.vo.ReservationScheduleVO;
+import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -148,12 +147,20 @@ public class HospitalController {
 		return "/hospital/list";
 	}
 	
+	@ResponseBody
+	@PostMapping("/hospital/emd/list")
+	public ArrayList<HospitalVO> postHospital(@RequestParam("emd_num") int emd_num) {
+		LandVO land = hospitalService.getLand(emd_num);
+		ArrayList<HospitalVO> hoList = hospitalService.getHospital(land);
+		log.info(hoList+"asdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsd");
+		return hoList;
+		
+	}
 //	@ResponseBody
-//	@PostMapping("/hospital/list")
-//	public ArrayList<HospitalVO> postHospital(int emd_num) {
-//		ArrayList<HospitalVO> hoList = memberService.getHospital(emd_num);
-//		return hoList;
-//		
+//	@PostMapping("/member/signup/eupmyeondong")
+//	public ArrayList<EupMyeonDongVO> postEupMyeonDong(int sgg_num) {
+//		ArrayList<EupMyeonDongVO> emdList = memberService.getEmd(sgg_num);
+//		return emdList;
 //	}
 
 }

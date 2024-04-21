@@ -19,6 +19,7 @@ import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.SiDoVO;
@@ -406,5 +407,18 @@ public class HospitalServiceImp implements HospitalService {
 		
 		return  hospitalDao.getArrHospital(user);
 	}
+
+	@Override
+	public ArrayList<HospitalVO> getHospital(LandVO land) {
+		if(land == null)
+			return null;
+		return hospitalDao.getHospitalList(land);
+	}
+
+	@Override
+	public LandVO getLand(int emd_num) {
+		return hospitalDao.getLand(emd_num);
+	}
+
 	
 }

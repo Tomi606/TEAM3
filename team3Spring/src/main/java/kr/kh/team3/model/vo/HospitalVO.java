@@ -28,6 +28,7 @@ public class HospitalVO {
 	private Date ho_stop; // 정지기간
 	private int ho_report_count; // 신고 누적 횟수
 	private int ho_stop_count; // 정지 누적 횟수
+	private int ho_la_num; // 병원 주소(land) 번호
 	// 자동로그인 때 사용
 	private String ho_cookie;
 	private Date ho_cookie_limit;
