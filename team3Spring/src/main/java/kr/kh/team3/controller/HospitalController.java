@@ -12,16 +12,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.ItemVO;
-import kr.kh.team3.model.vo.ReservationScheduleVO;
+import kr.kh.team3.model.vo.ReviewVO;
 import kr.kh.team3.model.vo.SiteManagement;
+import kr.kh.team3.pagination.Criteria;
+import kr.kh.team3.pagination.PageMaker;
 import kr.kh.team3.service.HospitalService;
 import kr.kh.team3.service.ProgramService;
 import lombok.extern.log4j.Log4j;
@@ -66,17 +66,64 @@ public class HospitalController {
 		return "/hospital/detail/detail";
 	}
 	
-	//병원 상세 페이지 조회(리뷰 비동기를 위해 사용)
+	//리뷰 리스트
 	@ResponseBody
-	@PostMapping("/hospital/detail/detail")
-	public Map<String, Object> hospitalDetailPost(Model model) {
+	@PostMapping("/hospital/review/list")
+	public Map<String, Object> reviewList(@RequestBody Criteria cri) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		//대표 진료 과목
-		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
-		map.put("hsList", hsList);
-
+		cri.setPerPageNum(3); //1페이지 당 댓글 3개
+		//한 페이지(cri)를 주면서 리뷰 리스트를 가져오라고 시킴
+		ArrayList<ReviewVO> reviewList = hospitalService.getReviewList(cri);
+		int reviewTotalCount = hospitalService.getTotalReviewCount(cri);
+		PageMaker pm = new PageMaker(3, cri, reviewTotalCount);
+		
+		map.put("reviewList", reviewList);
+		map.put("pm", pm);
 		return map;
 	}
+	
+	//리뷰 달기
+//	@ResponseBody
+//	@PostMapping("/hospital/review/insert")
+//	public Map<String, Object> reviewInsert(@RequestBody CommentVO comment, HttpSession session){
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		MemberVO user = (MemberVO) session.getAttribute("user");
+//		//확인용
+//		//System.out.println(comment);
+//		//System.out.println(user);
+//		boolean res = commentService.insertComment(comment, user);
+//		//success의 console.log(data.result);에서 사용
+//		map.put("result", res);
+//		return map;
+//	}
+	
+	//리뷰 지우기
+//	@ResponseBody
+//	@PostMapping("/hospital/review/delete")
+//	public Map<String, Object> reviewDelete(@RequestBody CommentVO comment, HttpSession session){
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		MemberVO user = (MemberVO) session.getAttribute("user");
+//		//확인용
+//		//System.out.println(comment);
+//		//System.out.println(user);
+//		boolean res = commentService.deleteComment(comment, user);
+//		map.put("result", res);
+//		return map;
+//	}
+	
+	//리뷰 수정
+//	@ResponseBody
+//	@PostMapping("/hospital/review/update")
+//	public Map<String, Object> reviewUpdate(@RequestBody CommentVO comment, HttpSession session){
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		MemberVO user = (MemberVO) session.getAttribute("user");
+//		//확인용
+////		System.out.println(comment);
+////		System.out.println(user);
+//		boolean res = commentService.updateComment(comment, user);
+//		map.put("result", res);
+//		return map;
+//	}
 	
 	//병원 상세 페이지 등록/수정
 	@GetMapping("/hospital/detail/insert")

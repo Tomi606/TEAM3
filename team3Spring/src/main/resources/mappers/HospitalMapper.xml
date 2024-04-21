@@ -193,4 +193,14 @@
 		select * from hospital_detail where hd_ho_id = #{hospital.ho_id}
 		order by hd_num desc limit 1
 	</select>
+	
+	<select id="selectReviewList" resultType="ReviewVO">
+		select * from review where vw_hd_num = #{cri.search}
+		order by vw_num desc 
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="selectTotalReviewCount" resultType="int">
+		select count(*) from review where vw_hd_num = #{cri.search}
+	</select>
 </mapper>

@@ -21,6 +21,7 @@ import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
+import kr.kh.team3.model.vo.ReviewVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -383,6 +384,22 @@ public class HospitalServiceImp implements HospitalService {
 			return null;
 		}
 		return hospitalDao.selectHoDetail(hospital);
+	}
+
+	@Override
+	public ArrayList<ReviewVO> getReviewList(Criteria cri) {
+		if(cri == null) {
+			return null;
+		}
+		return hospitalDao.selectReviewList(cri);
+	}
+
+	@Override
+	public int getTotalReviewCount(Criteria cri) {
+		if(cri == null) {
+			return 0;
+		}
+		return hospitalDao.selectTotalReviewCount(cri);
 	}
 	
 }

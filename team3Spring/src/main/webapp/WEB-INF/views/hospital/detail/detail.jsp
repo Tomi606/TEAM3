@@ -154,16 +154,134 @@
 		</div>
 		
 		<div id="page3" class="page">
-			<h3>등록된 리뷰가 없습니다.</h3>
-	        <label for="review">회원 아이디</label>
-	        <textarea id="review" class="vw_num col-10" id="vw_num" name="vw_num" 
-	        oninput="autoTextarea(this)"></textarea>
-	        <button type="submit" class="review-btn" name="review-btn">리뷰 등록</button>
+			<h2>리뷰(<span class="review-total"></span>)</h2>
+			<div class="box-review-list">
+				<div class="box-review row">				
+					<div class="col-3">아이디</div>
+					<div class="col-9">내용</div>
+				</div>
+			</div>
+			<div class="box-pagination">
+				<ul class="pagination justify-content-center"></ul>
+			</div>
+			<div class="box-review-insert">
+				<div class="input-group mb-3">				
+			        <textarea id="review" class="vw_num col-10" id="vw_num" name="vw_num" 
+			        oninput="autoTextarea(this)"></textarea>
+			        <button type="submit" class="review-btn" name="review-btn">리뷰 등록</button>			
+				</div>
+			</div>			
 		</div>
 	</div>
 </div>
 
-<!-- 리뷰 비동기 등록 -->
+<!-- 리뷰 리스트 조회 -->
+<script type="text/javascript">
+//댓글 페이지 정보를 가지고 있는 객체 선언
+let cri = {
+	page : 1, 
+	search : "${review.vw_num}"
+}
+
+getReviewList(cri);
+
+function getReviewList(cri) {
+	$.ajax({
+		async : true, 
+		url : '<c:url value="/hospital/review/list"/>', 
+		type : 'post', 
+		data : JSON.stringify(cri),
+		//서버로 보낼 데이터 타입
+		contentType : "application/json; charset=utf-8",
+		//서버에서 보낸 데이터의 타입
+		dataType : "json", 
+		success : function (data){
+			displayReviewList(data.reviewList);
+			displayReviewPagination(data.pm);
+			$('.review-total').text(data.pm.totalCount); //totalCount or reviewTotalCount
+		},
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+}
+
+//등록된 리뷰 조회
+function displayReviewList(reviewList) {
+	let str = '';
+	if(reviewList == null || reviewList.length == 0) {
+		str = '<h3>등록된 리뷰가 없습니다.</h3>';
+		$(".box-review-list").html(str);
+		return;
+	}
+	
+	//회원 아이디가 있으면 등록된 리뷰에 수정/삭제 버튼(\${btns}) 달기
+	for(item of reviewList) {
+		//버튼
+		let boxBtns = 
+		`
+		<span class="box-btn float-right">
+			<button class="btn btn-outline-warning btn-review-update" data-num="\${item.vw_num}">수정</button>
+			<button class="btn btn-outline-dander btn-review-del" data-num="\${item.vw_num}">삭제</button>
+		</span>
+		`;
+		
+		//유저 아이디가 있으면 달고 : 아니면 빈문자열
+		let btns = '${user.site_id}' == item.vw_me_id ? boxBtns : '';
+		
+		//리뷰에 작성자 | 작성 내용 | 버튼
+		str +=
+		`
+		<div class="box-review row">
+			<div class="col-3">\${item.vw_me_id}</div>
+			<div class="col-9 clearfix input-group">
+				<span class="text-review">\${item.vw_content}</span>
+				\${btns}
+			</div>
+		</div>
+		`;
+	}
+	$(".box-review-list").html(str);
+}
+
+//리뷰 페이지네이션
+function displayReviewPagination(pm) {
+	let str = '';
+	if(pm.prev) {
+		str += 
+		`
+	    <li class="page-item">
+			<a class="page-link" href="javascript:void(0);" data-page="\${pm.startPage - 1}">이전</a>
+		</li>
+		`;
+	}
+	for(let i = pm.startPage; i<= pm.endPage; i++) {
+		let active = pm.cri.page == i ? 'active' : '';
+		str += 
+		`
+	    <li class="page-item \${active}">
+			<a class="page-link" href="javascript:void(0);" data-page="\${i}">\${i}</a>
+		</li>
+		`;
+	}
+	
+	if(pm.next) {
+		str += 
+		`
+	    <li class="page-item">
+			<a class="page-link" href="javascript:void(0);" data-page="\${pm.endPage + 1}">다음</a>
+		</li>
+		`;
+	}
+	$('.box-pagination>ul').html(str);
+}
+$(document).on('click', '.box-pagination .page-link', function() {
+	cri.page = $(this).data('page');
+	getReviewList(cri);
+})
+</script>
+
+<!-- 리뷰 등록 -->
 <script type="text/javascript">
 
 </script>
