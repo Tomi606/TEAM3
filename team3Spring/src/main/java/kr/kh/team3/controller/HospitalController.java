@@ -16,28 +16,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
+import kr.kh.team3.model.vo.SiDoVO;
+import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
 import kr.kh.team3.service.HospitalService;
+import kr.kh.team3.service.MemberService;
 import kr.kh.team3.service.ProgramService;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Controller
 public class HospitalController {
-	
+	@Autowired
+	MemberService memberService;
 	@Autowired
 	HospitalService hospitalService;
-	
 	@Autowired
 	ProgramService programService;
-
-	
-	@GetMapping("/hospital/mypage")//병원 마이페이지
+	//병원 마이페이지
+	@GetMapping("/hospital/mypage")
 	public String hospitalMypage(Model model, HospitalVO hospital, HttpSession session) {
 		//로그인한 회원 정보(SiteManagement에서 로그인 session 가져오고 -> HospitalVO로 가져오기)
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
@@ -46,42 +49,21 @@ public class HospitalController {
 		model.addAttribute("huser",huser);
 		return "/hospital/mypage";
 	}
-
-
+	//병원 상세 페이지 조회
 	@GetMapping("/hospital/detail/detail")
-	public String hospitalDetail2(Model model) {
-		//대표 진료 과목
-		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
-		model.addAttribute("hsList", hsList);
+	public String hospitalDetail2(Model model, HttpSession session, HospitalDetailVO detail, HospitalVO hospital) {
+		//로그인한 병원 세션
+		SiteManagement user = (SiteManagement)session.getAttribute("user");
+		//그 병원의 정보
+		hospital = hospitalService.getHospital(user);
+		//그 병원의 상세 페이지 정보
+		detail = hospitalService.getHoDetail(detail, hospital);
+		
+		model.addAttribute("hospital", hospital);
+		model.addAttribute("detail", detail);
 
 		return "/hospital/detail/detail";
 	}
-	
-
-	@PostMapping("/detail2")
-	@ResponseBody
-	public Map<String, Object> detail2Post(Model model) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		//대표 진료 과목
-		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
-		map.put("hsList", hsList);
-
-		return map;
-	}
-	
-	//날짜
-//	@GetMapping("/detail/date")
-//	@ResponseBody
-//	public Map<String, Object> hospitalDate(Model model, @RequestParam("str") String str) {
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		
-//		//예약 날짜가져와서 보내기 
-//		ArrayList<ReservationScheduleVO> reservationScheduleTimeList = hospitalService.getReservationScheduleTimeList(str);
-//		log.info(reservationScheduleTimeList);
-//		map.put("timeList", reservationScheduleTimeList);
-//		return map;
-//	}
-//	
 	//2. 병원 과목
 	@ResponseBody
 	@PostMapping("/hospital/subject")
@@ -93,8 +75,7 @@ public class HospitalController {
 //		map.put("detailUpdate", detailUpdate);
 		return map;
 	}
-
-	//병원 상세 페이지 등록
+	//병원 상세 페이지 등록/수정
 	@GetMapping("/hospital/detail/insert")
 	public  String detailInsert(Model model, HospitalDetailVO detail, HttpSession session) {
 		//현재 로그인한 병원
@@ -113,8 +94,7 @@ public class HospitalController {
 		model.addAttribute("hoDetail", hoDetail);
 		return "/hospital/detail/insert";
 	}
-
-	//병원 상세 페이지 등록(insert)
+	//병원 상세 페이지 등록/수정
 	@PostMapping("/hospital/detail/insert")
 	public String hospitalDetailPost(Model model, HospitalDetailVO detail, HttpSession session) {
 		//현재 로그인한 병원
@@ -133,28 +113,12 @@ public class HospitalController {
 		return "message";
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	//병원 리스트
-	@GetMapping("/hospital/list")
-	public String hospitalList(Model model) {
-		
-		return "/hospital/list";
-	}
-	
 	// 병원 프로그램 등록 페이지 이동
 	@GetMapping("/hospital/program/insert")
 	public String hospitalProgramInsertPage(Model model) {
 		
 		return "/hospital/detail/programinsert";
 	}
-	
 	// 세부 항목을 추가하는 메서드
 	@ResponseBody
 	@PostMapping("/item/insert")
@@ -167,4 +131,28 @@ public class HospitalController {
 		return map;
 	}
 	
+	
+	
+	/*병원 리스트 출력 정경호,권기은*/
+	@GetMapping("/hospital/list")
+	public String hospitalList(Model model,SiDoVO sido, SiGoonGuVO sgg, EupMyeonDongVO emd) {
+		
+		ArrayList<HospitalVO> hoList = hospitalService.getArrHospital();
+		ArrayList<HospitalSubjectVO> subList = hospitalService.getHospitalSubjectList();
+		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
+		model.addAttribute("hoList", hoList);
+		model.addAttribute("sidoList", sidoList);
+		model.addAttribute("subList", subList);
+		
+		return "/hospital/list";
+	}
+	
+//	@ResponseBody
+//	@PostMapping("/hospital/list")
+//	public ArrayList<HospitalVO> postHospital(int emd_num) {
+//		ArrayList<HospitalVO> hoList = memberService.getHospital(emd_num);
+//		return hoList;
+//		
+//	}
+
 }

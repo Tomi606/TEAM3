@@ -398,5 +398,10 @@ public class HospitalServiceImp implements HospitalService {
 		}
 		return hospitalDao.selectHoDetail(hospital);
 	}
+
+	@Override
+	public ArrayList<HospitalVO> getArrHospital() {
+		return  hospitalDao.getArrHospital();
+	}
 	
 }

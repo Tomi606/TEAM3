@@ -295,6 +295,19 @@ img {
 .address_save_btn_wrap {
 	display: none;
 }
+.new_me_subject_hidden {
+	width: 180px;
+	display: none;
+}
+
+.new_me_subject_hidden input {
+	width: 300px;
+	position: relative;
+}
+
+.subject_save_btn_wrap {
+	display: none;
+}
 
 .box-name2 {
 	position: relative;
@@ -348,29 +361,31 @@ let me_land = {
 		   sgg_name : null,
 		   emd_name : null
 		};
+let me_sub = {hs_title : null};
 getMypage();
 function getMypage() {
 	  $.ajax({
 	    async: true,
 	    url: '<c:url value="/member/list"/>',
-	    type: 'post',
+	    type: 'post',							
 	    contentType: "application/json; charset=utf-8",
 	    dataType: "json",
 	    success: function(data) {
-	    	
+	    	me_sub.hs_title = data.sub.hs_title;
 	    	me_land.sd_name = data.sd_name;
 	    	me_land.sgg_name = data.sgg_name;
 	    	me_land.emd_name = data.emd_name;
-	      getMypageInfo(data.member,data.sgg_name,data.sd_name,data.emd_name);
+	      getMypageInfo(data.member,data.sgg_name,data.sd_name,data.emd_name,me_sub.hs_title);
 	    },
 	    error: function(jqXHR, textStatus, errorThrown) {
 
 	    }
 	  });
 }
-function getMypageInfo(member,sgg_name,sd_name,emd_name) {
+function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 	if(member == null || member.length == 0)
 		return;
+	console.log(sub);
 	var str =
 		`
 		<div class="mypage-profile">
@@ -403,12 +418,10 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name) {
 				<span class="name_update_btn_wrap"><button type="button" class="name-update">실명수정</button></span>
 				<span class="name_save_btn_wrap"><button type="button" class="name_save_btn">수정완료</button></span>
 				<span class="pw_update_btn_wrap"><button type="button" class="pw-update">비밀번호 변경</button></span>
-				<!-- 모달 창 -->
 				<div id="myModal" class="modal">
 				  <div class="modal-content">
 				    <span class="close">&times;</span>
 				    <h2>비밀번호 변경</h2>
-				    <!-- 비밀번호 입력 필드가 모달 안으로 이동 -->
 				    <label for="old_me_pw">현재 비밀번호를 입력하세요</labe>
 				    <div class="new_me_pw_hidden">
 				      <input type='text' id="old_me_pw" name="me_pw" class="box-pw2"/>
@@ -422,10 +435,8 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name) {
 				    <div class="new_me_pw_hidden">
 				      <input type='password' id="new_me_pw2"name="me_pw2" class="box-pw2"/>
 				    </div>
-				    
 				    <button type="button" class="pw-update-success-btn">비밀번호 변경하기</button>
 			  	</div>
-				  <!-- 모달 끝 -->
 				</div>
 			</div>
 		</div>
@@ -459,6 +470,24 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name) {
 					<span class="job_update_btn_wrap"><button type="button" class="job-update">변경</button></span>
 					<span class="job_save_btn_wrap"><button type="button" class="job_save_btn">수정완료</button></span>
 				</div>
+				<!-- 관심 과목 시작 -->
+				<div class="subject">
+					<div class="hr"></div>
+					<h5>관심 과목 : </h5>
+					<div class="new_me_subject_hidden">
+						<select id="subject" class="my-subect-list" name="me_hs_num" style="margin-bottom: 15px;width: 500px" >
+							<option value="none">관심 병원 과목을 선택하세요</option>
+							<option value="none">없음</option>
+							<c:forEach items="${hslist}" var="hs">
+								<option value="${hs.hs_num}">${hs.hs_title}</option>
+							</c:forEach>
+						</select>
+					</div>
+					<p class="my-hs-subject" id="my-subject">\${me_sub.hs_title}</p>
+					<span class="subject_update_btn_wrap"><button type="button" class="subject-update">변경</button></span>
+					<span class="subject_save_btn_wrap"><button type="button" class="subject_save_btn">수정완료</button></span>
+				</div>
+				<!-- 관심 과목 끝 -->
 				<div class="hr"></div>
 				<div class="mypage-hospital-address">
 					<p style="margin-right: auto" class="box-address">\${me_land.sd_name} \${me_land.sgg_name} \${me_land.emd_name}</p>
@@ -495,7 +524,6 @@ function initComment(){
 	  $('.box-job').show();
 	  $(".job-update").show();
 }
-
 function resetAll() {
     $('.box-name').css('display', 'block');
     $('.name_update_btn_wrap').css('display', 'block');
@@ -521,6 +549,11 @@ function resetAll() {
     $('.address_update_btn_wrap').css('display', 'block');
     $('.new_me_address_hidden').css('display', 'none');
     $('.address_save_btn_wrap').css('display', 'none');
+    
+    $('.box-subject').css('display', 'block');
+    $('.subject_update_btn_wrap').css('display', 'block');
+    $('.new_me_subject_hidden').css('display', 'none');
+    $('.subject_save_btn_wrap').css('display', 'none');
 }
 
 $(document).on('click','.name-update', function(){
@@ -530,8 +563,6 @@ $(document).on('click','.name-update', function(){
     $('.new_me_name_hidden').css('display', 'block');
     $('.name_save_btn_wrap').css('display', 'block');
 });
-/*비밀번호 수정 모델창 띄우기 하기*/
- 
   
 $(document).on('click','.phone-update', function(){
     resetAll();
@@ -563,6 +594,13 @@ $(document).on('click','.address-update', function(){
     $('.new_me_address_hidden').css('display', 'block');
     $('.address_save_btn_wrap').css('display', 'block');
 });
+$(document).on('click','.subject-update', function(){
+    resetAll();
+    $('.box-subject').css('display', 'none');
+    $('.subject_update_btn_wrap').css('display', 'none');
+    $('.new_me_subject_hidden').css('display', 'block');
+    $('.subject_save_btn_wrap').css('display', 'block');
+});
 
 	$(document).on('click', '.name_save_btn', function(){
 	  //전송할 데이터를 생성 => 댓글 수정 => 댓글 번호, 댓글 내용
@@ -583,7 +621,7 @@ $(document).on('click','.address-update', function(){
 	      if(data.res){
 	        alert("이름을 수정했습니다.");
 	        initComment();
-	        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name);
+	        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name,me_sub.hs_title);
 			return;	        
 	      }else{
 	        alert("이름을 수정하지 못했습니다.");
@@ -599,39 +637,38 @@ $(document).on('click','.address-update', function(){
 <!-- 폰 번호 수정 -->
 	$(document).on('click', '.phone_save_btn', function(){
 	  //전송할 데이터를 생성 => 댓글 수정 => 댓글 번호, 댓글 내용
-	  let member = {
-	    me_phone : $('.box-phone2').val(),
-	    me_id : '${member.me_id}'
-	  };
-	  console.log(member);
-	  //서버에 ajax로 데이터를 전송 후 처리
-	  $.ajax({
-	    async : true,
-	    url : '<c:url value="/member/phone"/>',
-	    type : 'post',
-	    data : JSON.stringify(member),
-	    contentType : "application/json; charset=utf-8",
-	    dataType : "json",
-	    success : function (data){
-	      if(data.res){
-	        alert("휴대폰 번호를 수정했습니다.");
-	        initComment();
-	        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name);
-			return;	        
-	      }else{
-	        alert("휴대폰 번호를 수정하지 못했습니다.");
-	        return;
-	      }
-	    },
-	    error : function(jqXHR, textStatus, errorThrown){
-
-	    }
-	  });
-	});
+		  let member = {
+		    me_phone : $('.box-phone2').val(),
+		    me_id : '${member.me_id}'
+		  };
+		  console.log(member);
+		  //서버에 ajax로 데이터를 전송 후 처리
+		  $.ajax({
+		    async : true,
+		    url : '<c:url value="/member/phone"/>',
+		    type : 'post',
+		    data : JSON.stringify(member),
+		    contentType : "application/json; charset=utf-8",
+		    dataType : "json",
+		    success : function (data){
+		      if(data.res){
+		        alert("휴대폰 번호를 수정했습니다.");
+		        initComment();
+		        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name,me_sub.hs_title);
+				return;	        
+		      }else{
+		        alert("휴대폰 번호를 수정하지 못했습니다.");
+		        return;
+		      }
+		    },
+		    error : function(jqXHR, textStatus, errorThrown){
+	
+		    }
+		  });
+		});
 
 <!-- 이메일 수정 -->
-
-		$(document).on('click', '.email_save_btn', function(){
+	$(document).on('click', '.email_save_btn', function(){
 		  //전송할 데이터를 생성 => 댓글 수정 => 댓글 번호, 댓글 내용
 		  let member = {
 		    me_email : $('.box-email2').val(),
@@ -650,7 +687,7 @@ $(document).on('click','.address-update', function(){
 		      if(data.res){
 		        alert("이메일을 수정했습니다.");
 		        initComment();
-		        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name);
+		        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name,me_sub.hs_title);
 				return;	        
 		      }else{
 		        alert("이메일을 수정하지 못했습니다.");
@@ -662,8 +699,6 @@ $(document).on('click','.address-update', function(){
 		    }
 		  });
 		});
-
-
 <!-- 직업 수정 -->
 		$(document).on('click', '.job_save_btn', function(){
 		  //전송할 데이터를 생성 => 댓글 수정 => 댓글 번호, 댓글 내용
@@ -684,7 +719,7 @@ $(document).on('click','.address-update', function(){
 		      if(data.res){
 		        alert("직업을 수정했습니다.");
 		        initComment();
-		        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name);
+		        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name,me_sub.hs_title);
 		        $('.box-job2').val(member.me_job);
 		        $('#my_job_name').text(member.me_job);
 				return;	        
@@ -731,7 +766,7 @@ $(document).on('click', '.address_save_btn', function(){
 	    	me_land.emd_name = data.emd_name;
 	        alert("주소를 수정했습니다.");
 	        initComment();
-	        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name);
+	        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name,me_sub.hs_title);
 			return;	        
 	      }else{
 	        alert("주소를 수정하지 못했습니다.");
@@ -743,13 +778,44 @@ $(document).on('click', '.address_save_btn', function(){
 	    }
 	  });
 	});
+	
+ /* 관심 과목 수정!*/
+$(document).on('click', '.subject_save_btn', function(){
+	let me_hs_num = $("select[name='me_hs_num'] option:selected").val();
+	console.log("과 목 "+me_hs_num);
+	let member = {
+			me_hs_num : me_hs_num,
+		    me_id : '${member.me_id}'
+		  };
+	  console.log(member);
+	  //서버에 ajax로 데이터를 전송 후 처리
+	  $.ajax({
+	    async : true,
+	    url : '<c:url value="/member/subject"/>',
+	    type : 'post',
+	    data : member,
+	    success : function (data){
+	      if(data.res){
+	    	//$('#my-subject').val(me_sub.hs_title);
+	    	console.log(data.sub.hs_title);
+	    	me_sub.hs_title = data.sub.hs_title;
+	    	console.log(me_sub.hs_title + "과 목 수 정 ");
+	        alert("과목을 수정했습니다.");
+	        initComment();
+	        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name,me_sub.hs_title);
+	       
+			return;	        
+	      }else{
+	        alert("과목을  수정하지 못했습니다.");
+	        return;
+	      }
+	    },
+	    error : function(jqXHR, textStatus, errorThrown){
 
-
-
-/* 시/도,시/군/구,읍/면/동 ajax */
-
+	    }
+	  });
+	}); 
 /* 군 구 리스트 select로 띄우기 시작 */
- 
 $(document).on('change', '[name=sd_num]', function(){
 	let sd_num = $("[name=sd_num]").val();
 	console.log(sd_num);
@@ -845,7 +911,7 @@ $(document).ready(function() {
 	      if (data.res) {
 	        alert("비밀번호를 수정했습니다.");
 	        initComment();
-	        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name);
+	        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name,me_sub.hs_title);
 	      } else {
 	        alert("비밀번호를 수정하지 못했습니다.");
 	      }
