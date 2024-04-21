@@ -41,11 +41,30 @@ margin: 30px auto 50px auto;
 .hospital-like-list{width: 100%;height: 450px;border: 1px solid green;margin-bottom: 50px;}
 .hospital-area-list{
 width: 100%;height: 850px;border: 1px solid pink;}
+
+.area-select{
+	margin: 30px;
+}
 </style>
 </head>
 <body>
 <div class="hospital-list-home">
 	<div class="hospital-list-box">
+	
+		<div class="area-select">
+			 <select name="sd_num" required class="sd_num">
+			 		<option value="none">시/도를 선택해주세요</option>
+		        <c:forEach items="${sidoList}" var="sd">
+		            <option value="${sd.sd_num}">${sd.sd_name}</option>
+		        </c:forEach>
+		     </select>   
+			 <select name="sgg_num" class="sgg_num" required>
+		           <option value="none">시/군/구를 선택해주세요</option>
+		     </select>   
+		    <select name="emd_num" class="emd_num" required>
+		         <option value="none">읍/면/동을 선택해주세요</option>
+		 	</select>
+		</div>
 		<div class="hospital-like-list">
 			<h1>내 관심 병원</h1>
 			<a class="aTag-btn1" href="<c:url value='/member/signup'/>">개인 회원가입</a>
@@ -61,6 +80,9 @@ width: 100%;height: 850px;border: 1px solid pink;}
 		<div class="hospital-area-list">
 		<!-- 포이치 쓰기 -->
 			<h1>우리 동네 병원</h1>
+			<div>
+				
+			</div>
 				<a class="aTag-btn1" href="<c:url value='/member/signup'/>">개인 회원가입</a>
 				<a class="aTag-btn1" href="<c:url value='/member/signup'/>">개인 회원가입</a>
 				<a class="aTag-btn1" href="<c:url value='/member/signup'/>">개인 회원가입</a>
