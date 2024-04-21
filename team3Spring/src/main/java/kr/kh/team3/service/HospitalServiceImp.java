@@ -400,8 +400,11 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public ArrayList<HospitalVO> getArrHospital() {
-		return  hospitalDao.getArrHospital();
+	public ArrayList<HospitalVO> getArrHospital(SiteManagement user) {
+		if(user == null||user.getSite_id() == null||user.getSite_id().length() == 0)
+			return null;
+		
+		return  hospitalDao.getArrHospital(user);
 	}
 	
 }

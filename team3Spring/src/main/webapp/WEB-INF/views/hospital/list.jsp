@@ -24,78 +24,109 @@ margin-left: auto;
     text-decoration: none;
     box-shadow: 1px 1px 2px 1px #C12DFF;
 }
+.active{background-color:#fff8f6;color: #ff501b;}
+.active1{background-color:#fff8f6;color: #ff501b;}
+.active2{background-color:#fff8f6;color: #ff501b;}
 .aTag-btn1:hover,
-.aTag-btn2:hover{
-text-decoration:none;
-  box-shadow: 2px 2px 4px 1px #C12DFF; /* 그림자 효과 추가 */
-
-	
-}
-.hospital-like-list h1,.hospital-area-list h1{
-margin: 30px auto 50px auto;
-}
-.hospital-list-home{width: 1903px;height: 1500px;}
+.aTag-btn2:hover{text-decoration:none;box-shadow: 2px 2px 4px 1px #C12DFF; /* 그림자 효과 추가 */}
+.hospital-like-list h1,.hospital-area-list h1{margin: 30px auto 50px auto;}
+.hospital-list-home{width: 100%;height: 2500px;}
 .hospital-list-box{width: 1400px;height: 100%;margin: 0 auto;text-align: center;}
-.hospital-like-list{width: 100%;height: 450px;border: 1px solid green;margin-bottom: 50px;}
-.hospital-area-list{ width: 100%;height: 850px;border: 1px solid pink;}
+.hospital-like-list{width: 100%;height: 800px;border: 1px solid #c8c8c8;margin-bottom: 50px;}
+.hospital-area-list{ width: 100%;height:1000px;border: 1px solid #c8c8c8;}
+.area-select-all{width: 100%;height: 150px;padding: 30px 0;display: flex;}
+.area-select{margin: 0 auto;}
+.area-select-box{display: flex;border: 1px solid  #c8c8c8;width: 100%; height: 400px;margin: 100px 0 145px 0;}
+.area-select-box li{list-style: none;}
+.area-select-sido{width: 200px;height: 100%;text-align: left;list-style: none;}
+.area-select-sgg{width: 200px;text-align: left;}
+.area-select-emd{text-align: left;display: flex;width: 997px;flex-direction: column;}
+.sido-list{overflow-y: auto;height: 86%;border-right: 1px solid  #c8c8c8;}
+.sgg-list{overflow-y: auto;height: 86%;border-right: 1px solid #c8c8c8;}
+.emd-list {width: 997px;white-space:normal; overflow-y:auto;}
+.sido-list li {display: inline-block;width: 100%;padding: 7px;}
+.sgg-list li {display: inline-block;padding: 7px 0; width: 100%;}
+.emd-list li {display: inline-block;padding: 20px;width: 33%;text-align: left;}
+.area-title{text-align: center;padding: 15px;border-bottom:1px solid  #c8c8c8;border-right: 1px solid  #c8c8c8; }
+.area-title-emd{text-align: center;padding: 15px;width: 997px;border-bottom:1px solid #c8c8c8;}
+.pagination-box{width:100%;display: flex;margin-top:60px;}
+.pagination{margin: 0 auto;}
 
-.area-select-all{
-width: 100%;height: 150px;padding: 30px 0;display: flex;
-}
-.area-select{
-margin: 0 auto;
-}
-
+ 
 </style>
 </head>
 <body>
 <div class="hospital-list-home">
-	<div class="area-select-all">
-		<div class="area-select">
-			 <select name="sd_num" required class="sd_num" >
-			 		<option value="none">시/도를 선택해주세요</option>
-		        <c:forEach items="${sidoList}" var="sd">
-		            <option value="${sd.sd_num}">${sd.sd_name}</option>
-		        </c:forEach>
-		     </select>   
-			 <select name="sgg_num" class="sgg_num" required >
-		           <option value="none">시/군/구를 선택해주세요</option>
-		     </select>   
-		    <select name="emd_num" class="emd_num" required  >
-		         <option value="none">읍/면/동을 선택해주세요</option>
-		 	</select>
-		 </div>	
-	</div>
 	<div class="hospital-list-box">
+		<div class="area-select-box">
+			<div class="area-select-sido">
+				<div class="area-title">
+					<span>시도</span>
+				</div>
+				<div class="sido-list">
+					<div>
+					 <c:forEach items="${sidoList}" var="sd">
+						<li role="button" data-num="${sd.sd_num}" class="li-click" id="sd_name"
+						>${sd.sd_name}</li>
+					 </c:forEach>
+					</div>
+				</div>
+			</div>
+			<div class="area-select-sgg">
+				<div class="area-title">
+					<span>시군구</span>
+				</div>
+				<div class="sgg-list">
+					<div class="sgg_num">
+
+					</div>
+				</div>	
+			</div>
+			<div class="area-select-emd">
+				<div class="area-title-emd">
+					<span>읍면동</span>
+				</div>
+				<div class="emd-list">
+					<ul class="emd_num">
+
+					</ul>
+				</div>	
+			</div>
+		</div>
 		<div class="hospital-like-list">
 			<h1>내 관심 병원</h1>
 			<c:choose>
-				<c:when test="${hoList ne null}">
+				<c:when test="${empty hoList}">
+					<h2>등록된 병원이 없습니다.</h2>
+				</c:when>
+				<c:otherwise>
 					<c:forEach items="${hoList}" var="ho">
 					<!-- 수정 해야 ㅎ ㅏㅁ -->
 						<a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;">
 						<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
-								<h4>${ho.ho_name}</h4>
-								<p>${ho.ho_ceo}</p>
-								<p>${ho.ho_id}</p>
+							<h4>${ho.ho_name}</h4>
+							<p>${ho.ho_ceo}</p>
+							<p>${ho.ho_id}</p>
 						</a>
 					</c:forEach>	
-				</c:when>
-				<c:otherwise>
-					<h1>등록된 병원이 없습니다.</h1>
 				</c:otherwise>
 			</c:choose>
-				<div class="pagination-box">
-					<!-- 페이지네이션 시작 -->
+			<div class="pagination-box">
+				<!-- 페이지네이션 시작 -->
+				<div class="pagination">
 					123
-					<!-- 페이지네이션 끝 -->
 				</div>
+				<!-- 페이지네이션 끝 -->
+			</div>
 		</div>
 		<div class="hospital-area-list">
 		<!-- 포이치 쓰기 -->
 			<h1>우리 동네 병원</h1>
 			<c:choose>
-				<c:when test="${hoList ne null}">
+				<c:when test="${empty hoList}">
+					<h2>등록된 병원이 없습니다.</h2>
+				</c:when>
+				<c:otherwise>
 					<c:forEach items="${hoList}" var="ho">
 					<!-- 수정 해야 ㅎ ㅏㅁ -->
 						<a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;">
@@ -104,10 +135,7 @@ margin: 0 auto;
 								<p>${ho.ho_ceo}</p>
 								<p>${ho.ho_id}</p>
 						</a>
-					</c:forEach>	
-				</c:when>
-				<c:otherwise>
-					<h1>등록된 병원이 없습니다.</h1>
+					</c:forEach>
 				</c:otherwise>
 			</c:choose>
 			<div class="pagination-box">
@@ -118,5 +146,103 @@ margin: 0 auto;
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+
+/* 군 구 리스트 select로 띄우기 시작 */
+$(document).on('click', '#sd_name', function(){
+	let sd_num = $(this).data('num');
+	$.ajax({
+		method : "post",
+		url : '<c:url value="/member/signup/gungoo"/>', 
+		data : {"sd_num" : sd_num}, 
+		success : function (data){
+			let str =""
+			for(let tmp in data){
+				str += ` <li role="button" data-num='\${data[tmp].sgg_num}' id="sgg_name">\${data[tmp].sgg_name}</li>`;
+			}
+			$(".sgg_num").html(str);
+			
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+})
+$(document).on('click', '#sgg_name', function(){
+	let sgg_num = $(this).data('num');
+	if(sgg_num == 'none'){
+		sgg_num = 1;
+	}
+	$.ajax({
+		method : "post",
+		url : '<c:url value="/member/signup/eupmyeondong"/>', 
+		data : {"sgg_num" : sgg_num}, 
+		success : function (data){
+			console.log(data);
+			let str =""
+			if(data == null ||data.length == 0){
+				str +=`<h3 style="color: gray;line-height: 200px;text-align: center;">존재하는 지역이 없습니다.</h3>` ;
+			}
+			else{
+				for(let tmp in data){
+					str += ` <li role="button" data-num='\${data[tmp].emd_num}' id="emd_name">\${data[tmp].emd_name}</li>`;
+				}
+			}
+			$(".emd_num").html(str);
+			
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+})
+/* 읍면동 리스트 select로 띄우기 끝 */
+
+$(document).on('click', '#emd_name', function(){
+	var emd_num = $(this).data('num');
+    var sd_num = $("select[name='sd_num'] option:selected").text();
+    var sgg_num = $("select[name='sgg_num'] option:selected").text();
+    var emd_num = $("select[name='emd_num'] option:selected").text();
+    var str = sd_num + sgg_num + emd_num;
+    
+    // Serialize된 form 데이터를 직접 사용하고 str 파라미터를 추가합니다.
+    var formData = $(this).serialize();
+    formData += '&str=' + str; // str 파라미터 추가
+	$.ajax({
+		async:true,
+		url : '<c:url value="/hospital/signup"/>',
+		type : 'post',
+		data : formData,
+		success:function(data){
+			if (data === false) {
+		        location.href = '<c:url value="/message"/>?res=' + data;
+		    } else {
+		        location.href = '<c:url value="/message"/>?res=' + data;
+		    }
+			
+		}
+	});
+	return false;
+})
+$(document).ready(function() {
+    $(".sido-list li").click(function() {
+        $(".sido-list li").removeClass("active");
+        $(this).addClass("active");
+    });
+    $(document).on('click', '#sgg_name', function() {
+        if (!$(this).hasClass("active")) {
+            $(".active1").removeClass("active1");
+            $(this).addClass("active1");
+        }
+    });
+    $(document).on('click', '#emd_name', function() {
+        if (!$(this).hasClass("active")) {
+            $(".active2").removeClass("active2");
+            $(this).addClass("active2");
+        }
+    });
+});
+</script>
+
 </body>
 </html>
