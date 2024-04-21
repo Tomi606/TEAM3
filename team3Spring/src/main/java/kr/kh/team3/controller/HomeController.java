@@ -105,7 +105,7 @@ public class HomeController {
 		ArrayList<EupMyeonDongVO> emdList = memberService.getEmd(sgg_num);
 		return emdList;
 	}
-
+	
 	// 회원가입 이메일 인증 페이지(get)
 	@GetMapping("/main/certification")
 	public String certification() {

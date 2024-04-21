@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,18 +62,9 @@ width: 100%;height: 850px;border: 1px solid pink;}
 		<div class="hospital-area-list">
 		<!-- 포이치 쓰기 -->
 			<h1>우리 동네 병원</h1>
-				<a class="aTag-btn1" href="<c:url value='/member/signup'/>">개인 회원가입</a>
-				<a class="aTag-btn1" href="<c:url value='/member/signup'/>">개인 회원가입</a>
-				<a class="aTag-btn1" href="<c:url value='/member/signup'/>">개인 회원가입</a>
-				<a class="aTag-btn1" href="<c:url value='/member/signup'/>">개인 회원가입</a>
-				<a class="aTag-btn1" href="<c:url value='/member/signup'/>">개인 회원가입</a>
-				<a class="aTag-btn1" href="<c:url value='/member/signup'/>">개인 회원가입</a>
-				<a class="aTag-btn1" href="<c:url value='/member/signup'/>">개인 회원가입</a>
-				<a class="aTag-btn2" href="<c:url value='/hospital/signup'/>">사업자 회원가입</a>
-				<a class="aTag-btn1" href="<c:url value='/member/signup'/>">개인 회원가입</a>
-				<a class="aTag-btn1" href="<c:url value='/member/signup'/>">개인 회원가입</a>
-				<a class="aTag-btn1" href="<c:url value='/member/signup'/>">개인 회원가입</a>
-				<a class="aTag-btn2" href="<c:url value='/hospital/signup'/>">사업자 회원가입</a>
+			<c:forEach items="${sidoList}" var="sd">
+				<a class="aTag-btn1" href="<c:url value='#'/>">개인 회원가입</a>
+			</c:forEach>	
 				<div class="pagination-box">
 					<!-- 페이지네이션 시작 -->
 					123
