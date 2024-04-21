@@ -91,4 +91,6 @@ public interface HospitalDAO {
 
 	boolean deleteHospitalDetail(@Param("hd_ho_id") String hd_ho_id);
 
+	ArrayList<HospitalVO> getArrHospital();
+
 }
