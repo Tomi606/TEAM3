@@ -135,11 +135,12 @@ public class HospitalController {
 	
 	/*병원 리스트 출력 정경호,권기은*/
 	@GetMapping("/hospital/list")
-	public String hospitalList(Model model,SiDoVO sido, SiGoonGuVO sgg, EupMyeonDongVO emd) {
+	public String hospitalList(HttpSession session,Model model,SiDoVO sido, SiGoonGuVO sgg, EupMyeonDongVO emd) {
+		SiteManagement user = (SiteManagement)session.getAttribute("user");
 		
-		ArrayList<HospitalVO> hoList = hospitalService.getArrHospital();
-		ArrayList<HospitalSubjectVO> subList = hospitalService.getHospitalSubjectList();
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
+		ArrayList<HospitalVO> hoList = hospitalService.getArrHospital(user);
+		ArrayList<HospitalSubjectVO> subList = hospitalService.getHospitalSubjectList();
 		model.addAttribute("hoList", hoList);
 		model.addAttribute("sidoList", sidoList);
 		model.addAttribute("subList", subList);
