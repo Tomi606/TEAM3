@@ -224,7 +224,7 @@ CREATE TABLE `chat` (
 DROP TABLE IF EXISTS `item`;
 
 CREATE TABLE `item` (
-	`it_num`	int	NOT NULL,
+	`it_num`	int	primary key auto_increment,
 	`it_name`	varchar(100)	NULL,
 	`it_explanation`	text	NULL,
 	`it_ho_id`	varchar(13)	NOT NULL
@@ -270,7 +270,7 @@ DROP TABLE IF EXISTS `hospital_detail`;
 CREATE TABLE `hospital_detail` (
 	`hd_num`	int	primary key auto_increment,
 	`hd_ho_id`	varchar(13)	NOT NULL,
-    `hd_hs_num`	varchar(255) NOT NULL,
+    `hd_hs_num`	int NOT NULL,
 	`hd_info`	text NULL,
 	`hd_time`	text NULL,
 	`hd_park`	text NULL,
