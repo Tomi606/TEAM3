@@ -31,7 +31,7 @@ import lombok.extern.log4j.Log4j;
 public class HospitalController {
 	
 	@Autowired
-	HospitalService hospitalService;
+	private HospitalService hospitalService;
 	
 	@Autowired
 	ProgramService programService;
@@ -67,42 +67,17 @@ public class HospitalController {
 	}
 	
 	//병원 상세 페이지 조회(리뷰 비동기를 위해 사용)
-//	@ResponseBody
-//	@PostMapping("/hospital/detail/detail")
-//	public Map<String, Object> hospitalDetailPost(Model model) {
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		//대표 진료 과목
-//		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
-//		map.put("hsList", hsList);
-//
-//		return map;
-//	}
-	
-	//날짜 이거랑 밑에 과목 지우기!!!!
-	@GetMapping("/detail/date")
 	@ResponseBody
-	public Map<String, Object> hospitalDate(Model model, @RequestParam("str") String str) {
+	@PostMapping("/hospital/detail/detail")
+	public Map<String, Object> hospitalDetailPost(Model model) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		
-		//예약 날짜가져와서 보내기 
-		ArrayList<ReservationScheduleVO> reservationScheduleTimeList = hospitalService.getReservationScheduleTimeList(str);
-		log.info(reservationScheduleTimeList);
-		map.put("timeList", reservationScheduleTimeList);
-		return map;
-	}
-//	
-	//2. 병원 과목
-	@ResponseBody
-	@PostMapping("/hospital/subject")
-	public Map<String, Object> memberStop(@RequestBody HospitalVO hospital) {
-		Map<String, Object> map = new HashMap<String, Object>();
-//		boolean hsUpdate = hospitalService.updateHospitalSubject(hospital.getHo_hs_num());
-//		boolean detailUpdate = hospitalService.updateHospitalDetail();
-//		map.put("hsUpdate", hsUpdate);
-//		map.put("detailUpdate", detailUpdate);
-		return map;
-	}
+		//대표 진료 과목
+		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
+		map.put("hsList", hsList);
 
+		return map;
+	}
+	
 	//병원 상세 페이지 등록/수정
 	@GetMapping("/hospital/detail/insert")
 	public  String detailInsert(Model model, HospitalDetailVO detail, HttpSession session) {

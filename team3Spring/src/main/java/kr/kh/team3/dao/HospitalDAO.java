@@ -77,10 +77,6 @@ public interface HospitalDAO {
 	
 	ArrayList<HospitalSubjectVO> selectHospitalSubjectList(@Param("ho_id") String ho_id);
 
-	ArrayList<ReservationScheduleVO> selectReservationScheduleList();
-
-	ArrayList<ReservationScheduleVO> selectReservationScheduleTimeList(@Param("rs_date")String str);
-
 	boolean insertOrUpdateHospitalDetail(@Param("hd") HospitalDetailVO detail);
 
 	HospitalVO selectHospitalInfo();
