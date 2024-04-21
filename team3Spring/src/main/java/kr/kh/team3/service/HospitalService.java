@@ -85,7 +85,7 @@ public interface HospitalService {
 
 	ArrayList<ReservationScheduleVO> getReservationScheduleTimeList(String str);
 
-	ArrayList<HospitalVO> getArrHospital();
+	ArrayList<HospitalVO> getArrHospital(SiteManagement user);
 
 
 }

@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team3.dao.HospitalDAO">
 	<select id="getArrHospital" resultType="HospitalVO">
-	 	select * from hospital
+	 	select * from hospital where ho_la_num =#{us.site_la_num}
 	</select>
 
 
