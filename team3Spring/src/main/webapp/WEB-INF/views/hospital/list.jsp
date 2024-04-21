@@ -129,12 +129,7 @@ margin-left: auto;
 				<c:otherwise>
 					<c:forEach items="${hoList}" var="ho">
 					<!-- 수정 해야 ㅎ ㅏㅁ -->
-						<a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;">
-						<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
-								<h4>${ho.ho_name}</h4>
-								<p>${ho.ho_ceo}</p>
-								<p>${ho.ho_id}</p>
-						</a>
+						
 					</c:forEach>
 				</c:otherwise>
 			</c:choose>
@@ -196,9 +191,49 @@ $(document).on('click', '#sgg_name', function(){
 		}
 	});
 })
+$(document).on('click', '#emd_name', function(){
+    let emd_num = $(this).data('num');
+    console.log(emd_num)
+    $.ajax({
+        method : "post",
+        url : '<c:url value="/hospital/emd/list"/>', // URL 수정
+        data : {"emd_num" : emd_num}, 
+        success : function (data){
+            console.log(data);
+            let str =""
+            if(data == null || data.length == 0){
+                str +=`<h3 style="color: gray;line-height: 200px;text-align: center;">존재하는 병원이 없습니다.</h3>` ;
+            }
+            else{
+                for(let ho in data){
+                    str += `<a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;" data-id="\${ho.ho_id}>"
+						<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
+						<h4>\${data[ho].ho_name}</h4>
+						<p>\${data[ho].ho_ceo}</p>
+						<p>\${data[ho].ho_id}</p>
+				</a>`; 
+                }
+            }
+            $(".hospital-area-list").html(str);
+            
+        }, 
+        error : function(jqXHR, textStatus, errorThrown){
+
+        }
+    });
+});
+
+
+
+
+
+
+
+
+
 /* 읍면동 리스트 select로 띄우기 끝 */
 
-$(document).on('click', '#emd_name', function(){
+/* $(document).on('click', '#emd_name', function(){
 	var emd_num = $(this).data('num');
     var sd_num = $("select[name='sd_num'] option:selected").text();
     var sgg_num = $("select[name='sgg_num'] option:selected").text();
@@ -223,7 +258,7 @@ $(document).on('click', '#emd_name', function(){
 		}
 	});
 	return false;
-})
+}) */
 $(document).ready(function() {
     $(".sido-list li").click(function() {
         $(".sido-list li").removeClass("active");

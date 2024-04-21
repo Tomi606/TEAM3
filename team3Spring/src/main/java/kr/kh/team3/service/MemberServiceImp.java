@@ -16,6 +16,7 @@ import kr.kh.team3.dao.HospitalDAO;
 import kr.kh.team3.dao.MemberDAO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
+import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
@@ -262,7 +263,7 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.updateStopMember(report.getRp_target(), report.getRp_rs_name());
 	}
 
-	@Override
+	@Override 
 	public MemberVO getMemberInfo(SiteManagement user) {
 		if (user == null || user.getSite_id() == null) {
 			return null;
@@ -270,7 +271,7 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.getMemberInfo(user.getSite_id());
 	}
 
-	@Override
+	@Override // 이름 수정
 	public boolean updateName(SiteManagement user, MemberVO member) {
 		if (user == null || member == null || member.getMe_name() == null || member.getMe_name().isEmpty()
 				|| member.getMe_name().length() == 0)
@@ -282,7 +283,7 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.updateName(member);
 	}
 
-	@Override
+	@Override //폰번호 수정
 	public boolean updatePhone(SiteManagement user, MemberVO member) {
 		if (user == null || member == null || member.getMe_phone() == null || member.getMe_phone().isEmpty()
 				|| member.getMe_phone().length() == 0)
@@ -294,7 +295,7 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.updatePhone(member);
 	}
 
-	@Override
+	@Override //이메일 수정
 	public boolean updateEmail(SiteManagement user, MemberVO member) {
 		if (user == null || member == null || member.getMe_email() == null || member.getMe_email().isEmpty()
 				|| member.getMe_email().length() == 0)
@@ -306,7 +307,7 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.updateEmail(member);
 	}
 
-	@Override
+	@Override //직업수정
 	public boolean updateJob(SiteManagement user, MemberVO member) {
 		if (user == null || member == null || member.getMe_job() == null || member.getMe_job().isEmpty()
 				|| member.getMe_job().length() == 0)
@@ -318,7 +319,7 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.updateJob(member);
 	}
 
-	@Override
+	@Override // 비번 수정
 	public boolean updatePw(SiteManagement user, String me_id, String oldPw, String newPw) {
 		// 사용자 정보나 회원 정보가 null이거나 비밀번호가 비어 있으면 수정하지 않음
 		if (user == null || me_id == null) {
@@ -453,5 +454,8 @@ public class MemberServiceImp implements MemberService {
 		
 		return memberDao.selectSubject(muser);
 	}
+
+	
+	 
 
 }

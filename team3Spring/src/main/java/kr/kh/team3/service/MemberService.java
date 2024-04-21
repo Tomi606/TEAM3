@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
+import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
@@ -84,6 +85,7 @@ public interface MemberService {
 	boolean updateSubject(SiteManagement user, MemberVO me, int hs_num);
 
 	HospitalSubjectVO getSubject(MemberVO muser);
+
 
 
 
