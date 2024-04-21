@@ -137,8 +137,10 @@ public class HospitalController {
 	@GetMapping("/hospital/list")
 	public String hospitalList(Model model,SiDoVO sido, SiGoonGuVO sgg, EupMyeonDongVO emd) {
 		
+		ArrayList<HospitalVO> hoList = hospitalService.getArrHospital();
 		ArrayList<HospitalSubjectVO> subList = hospitalService.getHospitalSubjectList();
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
+		model.addAttribute("hoList", hoList);
 		model.addAttribute("sidoList", sidoList);
 		model.addAttribute("subList", subList);
 		
