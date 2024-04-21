@@ -9,5 +9,4 @@ public class ItemVO {
 	private int it_num;
 	private String it_name;
 	private String it_explanation;
-	private String it_ho_id;
 }

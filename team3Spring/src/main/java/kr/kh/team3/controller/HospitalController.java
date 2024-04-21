@@ -2,7 +2,6 @@ package kr.kh.team3.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -15,9 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.team3.model.vo.HospitalDetailVO;
-import kr.kh.team3.model.vo.HospitalProgramVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.ItemVO;
@@ -101,7 +100,6 @@ public class HospitalController {
 //		map.put("detailUpdate", detailUpdate);
 		return map;
 	}
-
 	//병원 상세 페이지 등록
 	@GetMapping("/hospital/detail/insert")
 	public  String detailInsert(Model model, HospitalDetailVO detail, HttpSession session) {
@@ -139,9 +137,16 @@ public class HospitalController {
 			model.addAttribute("url", "/hospital/mypage");
 		}
 		return "message";
+
 	}
 	
-
+	
+	
+	
+	
+	
+	
+	
 	//병원 리스트
 	@GetMapping("/hospital/list")
 	public String hospitalList(Model model) {
@@ -150,12 +155,10 @@ public class HospitalController {
 	}
 	
 	// 병원 프로그램 등록 페이지 이동
-	@GetMapping("/hospital/item/insert")
-	public String hospitalProgramInsertPage(Model model, HttpSession session) {
-		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		ArrayList<ItemVO> itemList = programService.getItemList(user);
-		model.addAttribute("itemList", itemList);
-		return "/hospital/detail/iteminsert";
+	@GetMapping("/hospital/program/insert")
+	public String hospitalProgramInsertPage(Model model) {
+		
+		return "/hospital/detail/programinsert";
 	}
 	
 	// 세부 항목을 추가하는 메서드
@@ -163,79 +166,11 @@ public class HospitalController {
 	@PostMapping("/item/insert")
 	public Map<String, Object> insertItem(ItemVO item, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		ArrayList<ItemVO> itemList = programService.getItemList(user);
+		ArrayList<ItemVO> itemList = programService.getItemList();
+		HospitalVO user = (HospitalVO) session.getAttribute("user");
+		System.out.println(item);
 		boolean res =  programService.insertItem(item, user);
-		if(res) {
-			map.put("itemList", itemList);
-		}else {
-			map.put("msg", "추가에 실패했습니다.");
-		}
 		return map;
 	}
-	
-	//세부항목 수정 메서드
-	@GetMapping("/item/update")
-	public String updateItem(ItemVO item, HttpSession session, Model model) {
-		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		 ArrayList<ItemVO> itemList = programService.getItemList(user); 
-		 //boolean res =programService.insertItem(item, user);
-		 model.addAttribute("itemList", itemList);
-		
-		return "/hospital/detail/itemupdate";
-	}
-	
-	//세부항목 수정 메서드
-	@PostMapping("/item/update")
-	public String updateItemPost(ItemVO item, HttpSession session, Model model, @RequestParam("type") int it_num) {
-		System.out.println("asfasfdas" + item);
-		System.out.println("asfqwef" + it_num);
-		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		 ArrayList<ItemVO> itemList = programService.getItemList(user); 
-		 boolean res =programService.updateItem(item, user, it_num, itemList);
-		 if (res) {
-				model.addAttribute("msg","상세 항목 수정을 완료했습니다.");
-				model.addAttribute("url","/hospital/item/insert");
-			}else {
-				model.addAttribute("msg","상세 항목 수정에 실패 했습니다.");
-				model.addAttribute("url","/item/update");
-			}
-			return "message";
-	}
-	
-	//세부 항목 삭제 메서드
-	@ResponseBody
-	@PostMapping("/item/delete")
-	 public Map<String, Object> deleteItem(@RequestParam(value="li_list", required=true) ArrayList<Integer> li_list){
-		Map<String, Object> map = new HashMap<String, Object>();
-        
-        boolean res = programService.deleteItem(li_list);
-        if (res) {
-            map.put("msg", "삭제에 성공했습니다.");
-        } else {
-            map.put("msg", "삭제에 실패했습니다.");
-        }
-        return map;
-    }
-	
-	// 프로그램을 추가하는 메서드
-	@ResponseBody
-	@PostMapping("/program/insert")
-	public Map<String, Object> insertProgram(HospitalProgramVO program, HttpSession session) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		ArrayList<HospitalProgramVO> programList = programService.getProgramList(user);
-		boolean res =  programService.insertProgram(program, user);
-		if(res) {
-			map.put("programList", programList);
-		}else {
-			map.put("msg", "추가에 실패했습니다.");
-		}
-		return map;
-	}
-	
-	
-	
-	
 	
 }

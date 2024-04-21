@@ -2,28 +2,14 @@ package kr.kh.team3.service;
 
 import java.util.ArrayList;
 
-
-import kr.kh.team3.model.vo.HospitalProgramVO;
-
-
+import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.ItemVO;
-import kr.kh.team3.model.vo.SiteManagement;
 
 public interface ProgramService {
 	
-	ArrayList<ItemVO> getItemList(SiteManagement user);
+	ArrayList<ItemVO> getItemList();
 
-	boolean insertItem(ItemVO item, SiteManagement user);
-
-
-	ArrayList<HospitalProgramVO> getProgramList(SiteManagement user);
-
-	boolean insertProgram(HospitalProgramVO program, SiteManagement user);
-
-	boolean updateItem(ItemVO item, SiteManagement user, int it_num, ArrayList<ItemVO> itemList);
-
-	boolean deleteItem(ArrayList<Integer> intList);
-
+	boolean insertItem(ItemVO item, HospitalVO user);
 
 
 }
