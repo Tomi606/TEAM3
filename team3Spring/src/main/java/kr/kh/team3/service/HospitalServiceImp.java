@@ -423,7 +423,7 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public boolean insertReview(ReviewVO review, MemberVO member) {
+	public boolean insertReview(ReviewVO review, MemberVO member, HospitalDetailVO detail) {
 		if(review == null || review.getVw_content().length() == 0) {
 			return false;
 		}
@@ -433,7 +433,7 @@ public class HospitalServiceImp implements HospitalService {
 		}
 		
 		review.setVw_me_id(member.getMe_id());
-		return hospitalDao.insertReview(review);
+		return hospitalDao.insertReview(review, detail.getHd_num());
 	}
 
 	@Override

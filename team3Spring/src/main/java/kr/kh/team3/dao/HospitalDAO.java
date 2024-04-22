@@ -103,9 +103,11 @@ public interface HospitalDAO {
 
 	HospitalDetailVO selectDetail(@Param("hd_num") int hdNum);
 
-	boolean insertReview(@Param("vw") ReviewVO review);
+	boolean insertReview(@Param("review") ReviewVO review, @Param("hd_num") int hd_num);
 
 	boolean insertLand(@Param("la") LandVO land);
+
+
 
 
 }

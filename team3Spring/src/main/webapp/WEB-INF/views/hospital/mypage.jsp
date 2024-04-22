@@ -118,7 +118,7 @@ width: 500px;height: 300px;border: 1px solid black;
 			</div>
 			<div class="profile-anything">
 				<div>				
-					<a href='<c:url value="/hospital/detail/detail"/>'>1. 병원 상세 페이지 조회</a>
+					<a href='<c:url value="/hospital/detail/detail?hdNum=22"/>'>1. 병원 상세 페이지 조회</a>
 				</div>
 				<div>
 					<a href='<c:url value="/hospital/detail/insert"/>'>2. 병원 상세 페이지 등록/수정</a>
