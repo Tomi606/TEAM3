@@ -74,34 +74,18 @@ public class HospitalController {
 	}
 	
 	//리뷰 리스트
-//	@ResponseBody
-//	@PostMapping("/hospital/review/list")
-//	public Map<String, Object> reviewList(@RequestBody Criteria cri, HospitalDetailVO detail) {
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		cri.setPerPageNum(3); //1페이지 당 댓글 3개
-//		//한 페이지(cri)를 주면서 리뷰 리스트를 가져오라고 시킴
-//		ArrayList<ReviewVO> reviewList = hospitalService.getReviewList(cri, detail);
-//		log.info(reviewList);
-//		int reviewTotalCount = hospitalService.getTotalReviewCount(cri);
-//		PageMaker pm = new PageMaker(3, cri, reviewTotalCount);
-//		
-//		map.put("reviewList", reviewList);
-//		map.put("pm", pm);
-//		return map;
-//	}
-	
 	@ResponseBody
 	@PostMapping("/hospital/review/list")
 	public Map<String, Object> reviewList(@RequestBody Criteria cri, Integer hdNum) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		cri.setPerPageNum(3); //1페이지 당 댓글 3개
-		//한 페이지(cri)를 주면서 리뷰 리스트를 가져오라고 시킴
+		//병원 상세 페이지 번호를 주면서 상세 페이지 들고오라 시킴
 		HospitalDetailVO detail = hospitalService.getDetail(hdNum);
+		//한 페이지(cri)를 주면서 리뷰 리스트를 가져오라고 시킴
 		ArrayList<ReviewVO> reviewList = hospitalService.getCriReviewList(cri);
-		log.info(reviewList);
+		//페이지네이션
 		int reviewTotalCount = hospitalService.getTotalReviewCount(cri);
 		PageMaker pm = new PageMaker(3, cri, reviewTotalCount);
-		
 		
 		map.put("detail", detail);
 		map.put("reviewList", reviewList);
