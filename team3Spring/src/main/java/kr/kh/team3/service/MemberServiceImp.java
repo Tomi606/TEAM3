@@ -488,7 +488,33 @@ public class MemberServiceImp implements MemberService {
 				}
 			}
 		}
-		log.info(hospitalList + "hospitalListhospitalListhospitalListhospitalListhospitalListhospitalListhospitalListhospitalListhospitalListhospitalListhospitalListhospitalListhospitalListhospitalList");
+		return hospitalList;
+	}
+	@Override
+	public ArrayList<HospitalVO> getMySubject1(MemberVO me,LandVO land) {
+		if (me == null || me.getMe_id() == null || me.getMe_id().length() == 0 ||land == null)
+			return null;
+		log.info(land + "landlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandland");
+		ArrayList<HospitalDetailVO> list = memberDao.getMySubject();
+		ArrayList<HospitalVO> hospitalList = new ArrayList<HospitalVO>();
+		for (HospitalDetailVO hd : list) {
+			if (hd != null) {
+				String[] hsList = hd.getHd_subject_detail().split(",");
+				ArrayList<Integer> a = new ArrayList<Integer>();
+				for (String hs : hsList) {
+					a.add(Integer.parseInt(hs.trim()));
+				}
+				if (a.contains(me.getMe_hs_num())) {
+					HospitalVO dd = hospitalDao.getHospital(hd.getHd_ho_id(), land.getLa_num());
+					if(dd != null) {
+						log.info(dd + "\n!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#@!#!@#!@#@!#!@#!@#@!#@!#!@#!@#!@#@!#!");
+						hospitalList.add(dd);
+					}
+				} else {
+					break;
+				}
+			}
+		}
 		return hospitalList;
 	}
 

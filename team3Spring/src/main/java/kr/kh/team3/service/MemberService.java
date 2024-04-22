@@ -90,6 +90,8 @@ public interface MemberService {
 	LandVO getMyLand(SiteManagement user);
 
 	ArrayList<HospitalVO> getMySubject(MemberVO me);
+	
+	ArrayList<HospitalVO> getMySubject1(MemberVO me, LandVO land);
 
 
 

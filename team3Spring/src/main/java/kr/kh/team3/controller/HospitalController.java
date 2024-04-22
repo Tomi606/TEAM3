@@ -243,8 +243,8 @@ public class HospitalController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO me = memberService.getMeId(user.getSite_id());
 		LandVO land = hospitalService.getLand(emd_num);
-		ArrayList<HospitalVO> hoList = memberService.getMySubject(me);
-		return hoList;
+		ArrayList<HospitalVO> hoSubList = memberService.getMySubject1(me, land);
+		return hoSubList;
 
 	}
 

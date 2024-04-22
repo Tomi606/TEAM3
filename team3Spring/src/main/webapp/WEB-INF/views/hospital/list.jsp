@@ -254,7 +254,7 @@ $(document).on('click', '#emd_name', function(){
 				</a>`; 
                 }
             }
-            $(".hospital-area-list").html(str);
+            $(".hospital-like-list").html(str);
             
         }, 
         error : function(jqXHR, textStatus, errorThrown){
