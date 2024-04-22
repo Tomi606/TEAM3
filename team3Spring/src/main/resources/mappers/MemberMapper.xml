@@ -49,7 +49,16 @@
 		SET site_la_num = #{la.la_num}
 		WHERE site_id = #{site.site_id}
 	</update>
+	
+	<update id="updateSubject">
+		update member 
+		set me_hs_num = #{num}
+		where me_id = #{id}
+	</update>
 
+	<select id="selectSubject" resultType="kr.kh.team3.model.vo.HospitalSubjectVO">
+		select * from hospital_subject where hs_num = #{me.me_hs_num}
+	</select>
 
 
 

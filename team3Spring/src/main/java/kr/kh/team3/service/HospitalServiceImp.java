@@ -19,8 +19,10 @@ import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
+import kr.kh.team3.model.vo.ReviewVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -367,20 +369,6 @@ public class HospitalServiceImp implements HospitalService {
 		return hospitalDao.selectHospitalInfo();
 	}
 
-	@Override
-	public ArrayList<ReservationScheduleVO> getReservationScheduleList() {
-		
-		return hospitalDao.selectReservationScheduleList();
-	}
-
-	@Override
-	public ArrayList<ReservationScheduleVO> getReservationScheduleTimeList(String str) {
-		if(str == null) {
-			return null;
-		}
-		return hospitalDao.selectReservationScheduleTimeList(str);
-	}
-
 	public HospitalSubjectVO getSelectedSubject(HospitalDetailVO detail, HospitalVO hospital) {
 		if(hospital == null || hospital.getHo_id() == null) {
 			return null;
@@ -397,6 +385,41 @@ public class HospitalServiceImp implements HospitalService {
 			return null;
 		}
 		return hospitalDao.selectHoDetail(hospital);
+	}
+
+	@Override
+	public ArrayList<ReviewVO> getReviewList(Criteria cri) {
+		if(cri == null) {
+			return null;
+		}
+		return hospitalDao.selectReviewList(cri);
+	}
+
+	@Override
+	public int getTotalReviewCount(Criteria cri) {
+		if(cri == null) {
+			return 0;
+		}
+		return hospitalDao.selectTotalReviewCount(cri);
+	}
+
+	public ArrayList<HospitalVO> getArrHospital(SiteManagement user) {
+		if(user == null||user.getSite_id() == null||user.getSite_id().length() == 0)
+			return null;
+		
+		return  hospitalDao.getArrHospital(user);
+	}
+
+	@Override
+	public ArrayList<HospitalVO> getHospital(LandVO land) {
+		if(land == null)
+			return null;
+		return hospitalDao.getHospitalList(land);
+	}
+
+	@Override
+	public LandVO getLand(int emd_num) {
+		return hospitalDao.getLand(emd_num);
 	}
 	
 }

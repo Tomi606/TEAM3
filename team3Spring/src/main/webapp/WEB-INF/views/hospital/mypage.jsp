@@ -118,22 +118,19 @@ width: 500px;height: 300px;border: 1px solid black;
 			</div>
 			<div class="profile-anything">
 				<div>				
-					<a href='<c:url value="/hospital/detail2"/>'>1. 병원 상세 페이지2</a>
-				</div>
-				<div>				
-					<a href='<c:url value="/hospital/program/insert"/>'>2. 프로그램 등록/수정/삭제</a>
-
-					<a href='<c:url value="/hospital/detail/insert"/>'>병원 상세 페이지 등록</a>
-				</div>
-				<div>				
-					<a>2. 프로그램 등록/수정/삭제</a>
-
+					<a href='<c:url value="/hospital/detail/detail"/>'>1. 병원 상세 페이지 조회</a>
 				</div>
 				<div>
-					<a>3. 예약 관리(변경, 취소(삭제))</a>
+					<a href='<c:url value="/hospital/detail/insert"/>'>2. 병원 상세 페이지 등록/수정</a>
 				</div>
 				<div>				
-					<a>4. 커뮤니티 관리(게시글, 댓글 조회/수정/삭제)</a>
+					<a href='<c:url value="/hospital/program/insert"/>'>3. 프로그램 등록/수정/삭제</a>
+				</div>
+				<div>
+					<a>4. 예약 관리(변경/취소)</a>
+				</div>
+				<div>				
+					<a>6. 커뮤니티 관리(게시글·댓글 조회/수정/삭제)</a>
 				</div>
 			</div>
 	</div>
@@ -179,33 +176,5 @@ width: 500px;height: 300px;border: 1px solid black;
 			</div>
  		</div>
 </div>
-<div class="body-tag">
-	<div class="input-box">
-		<div class="subject">
-		<div class="hr" style="margin-top:30px; margin-bottom:40px; border: 1px solid #d2d2d2; width: 100%;"></div> 
-			<select id="subject" name="ho_hs_num" style="width: 400px; margin-bottom: 20px" required>
-				<option value="none">진료과목을 선택하세요</option>
-				<c:forEach items="${hospitalList}" var="hs">
-					<option value="${hs.hs_num}">${hs.hs_title}</option>
-				</c:forEach>
-			</select>
-		</div>
-		<div>
-			<select name="sd_num" class="sd_num" style="width: 400px; margin-bottom: 20px" required>
-				<option value="none">시/도를 선택해주세요</option>
-				<c:forEach items="${sidoList}" var="sd">
-					<option value="${sd.sd_num}">${sd.sd_name}</option>
-				</c:forEach>
-			</select>	
-			<select name="sgg_num" class="sgg_num" style="width: 400px; margin-bottom: 20px" required>
-				<option value="none">시/군/구를 선택해주세요</option>
-			</select>	
-		 	<select name="emd_num" class="emd_num" style="width: 400px; margin-bottom: 20px" required>
-		         <option value="none">읍/면/동을 선택해주세요</option>
-		    </select>
-		</div>
-	</div>
-</div>
-
 </body>
 </html>
