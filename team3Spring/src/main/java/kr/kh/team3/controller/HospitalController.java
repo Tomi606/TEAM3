@@ -38,27 +38,27 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Controller
 public class HospitalController {
-	
+
 	@Autowired
 	MemberService memberService;
-  
+
 	@Autowired
 	private HospitalService hospitalService;
 
 	@Autowired
 	ProgramService programService;
-  
-	//병원 마이페이지
+
+	// 병원 마이페이지
 	@GetMapping("/hospital/mypage")
 	public String hospitalMypage(Model model, HospitalVO hospital, HttpSession session) {
-		//로그인한 회원 정보(SiteManagement에서 로그인 session 가져오고 -> HospitalVO로 가져오기)
+		// 로그인한 회원 정보(SiteManagement에서 로그인 session 가져오고 -> HospitalVO로 가져오기)
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO huser = hospitalService.getHospital(user);
 
-		model.addAttribute("huser",huser);
+		model.addAttribute("huser", huser);
 		return "/hospital/mypage";
 	}
-	
+
 	//회원 입장에서 상페 페이지 조회시
 	@GetMapping("/hospital/detail/detail")
 	public String hospitalDetail(Model model, Integer hdNum) {
@@ -72,7 +72,7 @@ public class HospitalController {
 		model.addAttribute("hsList", hsList);
 		return "/hospital/detail/detail";
 	}
-	
+
 	//리뷰 리스트
 	@ResponseBody
 	@PostMapping("/hospital/review/list")
@@ -123,8 +123,8 @@ public class HospitalController {
 //		map.put("result", res);
 //		return map;
 //	}
-	
-	//리뷰 수정
+
+	// 리뷰 수정
 //	@ResponseBody
 //	@PostMapping("/hospital/review/update")
 //	public Map<String, Object> reviewUpdate(@RequestBody CommentVO comment, HttpSession session){
@@ -137,9 +137,9 @@ public class HospitalController {
 //		map.put("result", res);
 //		return map;
 //	}
-	
-	//병원 상세 페이지 등록/수정
-	//2. 병원 과목
+
+	// 병원 상세 페이지 등록/수정
+	// 2. 병원 과목
 	@ResponseBody
 	@PostMapping("/hospital/subject")
 	public Map<String, Object> memberStop(@RequestBody HospitalVO hospital) {
@@ -150,41 +150,41 @@ public class HospitalController {
 //		map.put("detailUpdate", detailUpdate);
 		return map;
 	}
-	
+
 	
 	//병원 상세 페이지 등록
 	@GetMapping("/hospital/detail/insert")
-	public  String detailInsert(Model model, HospitalDetailVO detail, HttpSession session) {
-		//현재 로그인한 병원
-		SiteManagement user = (SiteManagement)session.getAttribute("user");
+	public String detailInsert(Model model, HospitalDetailVO detail, HttpSession session) {
+		// 현재 로그인한 병원
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospital(user);
-		//병원과목 리스트
+		// 병원과목 리스트
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
-		//현재 로그인한 병원이 선택했던 병원과목 가져오기
+		// 현재 로그인한 병원이 선택했던 병원과목 가져오기
 		HospitalSubjectVO selectedSubject = hospitalService.getSelectedSubject(detail, hospital);
-		//전에 입력했던 페이지 들고오기
+		// 전에 입력했던 페이지 들고오기
 		HospitalDetailVO hoDetail = hospitalService.getHoDetail(detail, hospital);
-		
+
 		model.addAttribute("hospital", hospital);
 		model.addAttribute("hsList", hsList);
 		model.addAttribute("selectedSubject", selectedSubject);
 		model.addAttribute("hoDetail", hoDetail);
 		return "/hospital/detail/insert";
 	}
-	
-	//병원 상세 페이지 등록/수정
+
+	// 병원 상세 페이지 등록/수정
 	@PostMapping("/hospital/detail/insert")
 	public String hospitalDetailPost(Model model, HospitalDetailVO detail, HttpSession session) {
-		//현재 로그인한 병원
-		SiteManagement user = (SiteManagement)session.getAttribute("user");
+		// 현재 로그인한 병원
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospital(user);
-		//병원 페이지 등록
+		// 병원 페이지 등록
 		boolean res = hospitalService.insertOrUpdateHospitalDetail(detail, hospital);
 
-		if(res) {
+		if (res) {
 			model.addAttribute("msg", "상세 페이지 수정 완료");
 			model.addAttribute("url", "/hospital/mypage");
-		}else {
+		} else {
 			model.addAttribute("msg", "상세 페이지 등록 완료");
 			model.addAttribute("url", "/hospital/mypage");
 		}
@@ -201,7 +201,6 @@ public class HospitalController {
 		model.addAttribute("itemList", itemList);
 		return "/hospital/detail/iteminsert";
 	}
-	
 	// 세부 항목을 추가하는 메서드
 	@ResponseBody
 	@PostMapping("/item/insert")
@@ -280,29 +279,45 @@ public class HospitalController {
 	//============================================= 조민석 ===================================================
 	/*병원 리스트 출력 정경호,권기은*/
 	@GetMapping("/hospital/list")
-	public String hospitalList(HttpSession session,Model model,SiDoVO sido, SiGoonGuVO sgg, EupMyeonDongVO emd) {
-		SiteManagement user = (SiteManagement)session.getAttribute("user");
-		
+	public String hospitalList(HttpSession session, Model model, SiDoVO sido, SiGoonGuVO sgg, EupMyeonDongVO emd) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		if (user == null) {
+			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
+			model.addAttribute("url", "/main/login");
+			return "message";
+		}
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
 		ArrayList<HospitalVO> hoList = hospitalService.getArrHospital(user);
-		ArrayList<HospitalSubjectVO> subList = hospitalService.getHospitalSubjectList();
+		MemberVO me = memberService.getMeId(user.getSite_id());
+		ArrayList<HospitalVO> likeSubList = memberService.getMySubject(me);
+		LandVO la = memberService.getMyLand(user);
+		model.addAttribute("like", likeSubList);
 		model.addAttribute("hoList", hoList);
 		model.addAttribute("sidoList", sidoList);
-		model.addAttribute("subList", subList);
-		
+		model.addAttribute("la", la);
 		return "/hospital/list";
 	}
-	
+
 	@ResponseBody
 	@PostMapping("/hospital/emd/list")
 	public ArrayList<HospitalVO> postHospital(@RequestParam("emd_num") int emd_num) {
 		LandVO land = hospitalService.getLand(emd_num);
 		ArrayList<HospitalVO> hoList = hospitalService.getHospital(land);
-		log.info(hoList+"asdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsd");
 		return hoList;
-		
+
 	}
-	
+
+	@ResponseBody
+	@PostMapping("/hospital/like/list")
+	public ArrayList<HospitalVO> postLiHospital(@RequestParam("emd_num") int emd_num,HttpSession session) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		MemberVO me = memberService.getMeId(user.getSite_id());
+		LandVO land = hospitalService.getLand(emd_num);
+		ArrayList<HospitalVO> hoSubList = memberService.getMySubject1(me, land);
+		return hoSubList;
+
+	}
+
 //	@ResponseBody
 //	@PostMapping("/member/signup/eupmyeondong")
 //	public ArrayList<EupMyeonDongVO> postEupMyeonDong(int sgg_num) {
