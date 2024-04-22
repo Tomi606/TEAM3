@@ -11,6 +11,7 @@ import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
+import kr.kh.team3.model.vo.ReviewVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -82,17 +83,14 @@ public interface HospitalService {
 
 	HospitalDetailVO getHoDetail(HospitalDetailVO detail, HospitalVO hospital);
 
-	ArrayList<ReservationScheduleVO> getReservationScheduleList();
+	ArrayList<ReviewVO> getReviewList(Criteria cri);
 
-	ArrayList<ReservationScheduleVO> getReservationScheduleTimeList(String str);
+	int getTotalReviewCount(Criteria cri);
 
 	ArrayList<HospitalVO> getArrHospital(SiteManagement user);
 
 	LandVO getLand(int emd_num);
 
-
 	ArrayList<HospitalVO> getHospital(LandVO land);
-
-
 
 }

@@ -133,26 +133,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<!-- 로그인한 병원이 선택했던 병원과목만 체크(안됨!!! 다시보기) -->
-<!-- <script type="text/javascript">
-document.addEventListener("DOMContentLoaded", function() {
-    var selectedSubjects = <c:out value="${selectedSubject.hs_num}" default="''"/>;
-    
-    if(selectedSubjects) {
-        console.log("Selected Subjects:", selectedSubjects); // 확인용 로그 출력
-        
-        var checkboxes = document.getElementsByName("subject");
-        
-        for(var i = 0; i < checkboxes.length; i++) {
-            if(selectedSubjects.includes(checkboxes[i].value)) {
-                checkboxes[i].checked = true;
-                console.log("Checkbox checked:", checkboxes[i].value); // 확인용 로그 출력
-            }
-        }
-    }
-});
-</script> -->
-
 <!-- 여러개의 진료과목 선택하는 스크립트 -->
 <script type="text/javascript">
 // 체크박스 클릭 시 hd_hs_num 업데이트

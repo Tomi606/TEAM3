@@ -10,6 +10,7 @@ import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
+import kr.kh.team3.model.vo.ReviewVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -78,10 +79,6 @@ public interface HospitalDAO {
 	
 	ArrayList<HospitalSubjectVO> selectHospitalSubjectList(@Param("ho_id") String ho_id);
 
-	ArrayList<ReservationScheduleVO> selectReservationScheduleList();
-
-	ArrayList<ReservationScheduleVO> selectReservationScheduleTimeList(@Param("rs_date")String str);
-
 	boolean insertOrUpdateHospitalDetail(@Param("hd") HospitalDetailVO detail);
 
 	HospitalVO selectHospitalInfo();
@@ -92,11 +89,14 @@ public interface HospitalDAO {
 
 	boolean deleteHospitalDetail(@Param("hd_ho_id") String hd_ho_id);
 
+	ArrayList<ReviewVO> selectReviewList(@Param("cri") Criteria cri);
+
+	int selectTotalReviewCount(@Param("cri") Criteria cri);
+	
 	ArrayList<HospitalVO> getArrHospital(@Param("us")SiteManagement user);
 
 	ArrayList<HospitalVO> getHospitalList(@Param("la")LandVO land);
 
 	LandVO getLand(@Param("num")int emd_num);
-
 
 }
