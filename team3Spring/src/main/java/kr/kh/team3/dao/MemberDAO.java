@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import kr.kh.team3.model.vo.EupMyeonDongVO;
+import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
+import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
@@ -98,4 +100,7 @@ public interface MemberDAO {
 
 	HospitalSubjectVO selectSubject(@Param("me")MemberVO muser);
 
+	LandVO selectMyLand(@Param("num")int site_la_num);
+
+	ArrayList<HospitalDetailVO> getMySubject();
 }

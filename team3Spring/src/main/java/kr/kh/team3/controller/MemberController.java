@@ -128,9 +128,12 @@ public class MemberController {
 		MemberVO me = memberService.getMeId(me_id);
 		LandVO la = memberService.getLand(land);
 		boolean res = memberService.updateAddress(user,me, la);
+		user.setSite_la_num(la.getLa_num());
+		session.setAttribute("user", user);
 		String sd_name = memberService.getSdName(la);
 		String sgg_name = memberService.getSggName(la);
 		String emd_name = memberService.getEmdName(la);
+		
 		map.put("sd_name", sd_name);
 		map.put("sgg_name", sgg_name);
 		map.put("emd_name", emd_name);
