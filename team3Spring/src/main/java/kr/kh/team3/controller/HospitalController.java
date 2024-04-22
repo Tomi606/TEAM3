@@ -76,11 +76,11 @@ public class HospitalController {
 	//리뷰 리스트
 	@ResponseBody
 	@PostMapping("/hospital/review/list")
-	public Map<String, Object> reviewList(@RequestBody Criteria cri) {
+	public Map<String, Object> reviewList(@RequestBody Criteria cri, HospitalDetailVO detail) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		cri.setPerPageNum(3); //1페이지 당 댓글 3개
 		//한 페이지(cri)를 주면서 리뷰 리스트를 가져오라고 시킴
-		ArrayList<ReviewVO> reviewList = hospitalService.getReviewList(cri);
+		ArrayList<ReviewVO> reviewList = hospitalService.getReviewList(cri, detail);
 		int reviewTotalCount = hospitalService.getTotalReviewCount(cri);
 		PageMaker pm = new PageMaker(3, cri, reviewTotalCount);
 		

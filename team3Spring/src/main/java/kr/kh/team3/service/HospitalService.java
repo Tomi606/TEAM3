@@ -83,7 +83,7 @@ public interface HospitalService {
 
 	HospitalDetailVO getHoDetail(HospitalDetailVO detail, HospitalVO hospital);
 
-	ArrayList<ReviewVO> getReviewList(Criteria cri);
+	ArrayList<ReviewVO> getReviewList(Criteria cri, HospitalDetailVO detail);
 
 	int getTotalReviewCount(Criteria cri);
 

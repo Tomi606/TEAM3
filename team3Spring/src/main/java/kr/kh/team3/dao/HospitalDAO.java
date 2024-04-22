@@ -91,7 +91,7 @@ public interface HospitalDAO {
 
 	boolean deleteHospitalDetail(@Param("hd_ho_id") String hd_ho_id);
 
-	ArrayList<ReviewVO> selectReviewList(@Param("cri") Criteria cri);
+	ArrayList<ReviewVO> selectReviewList(@Param("cri") Criteria cri, @Param("detail") HospitalDetailVO detail);
 
 	int selectTotalReviewCount(@Param("cri") Criteria cri);
 	

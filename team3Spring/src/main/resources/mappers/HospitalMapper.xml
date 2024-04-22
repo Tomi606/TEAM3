@@ -224,7 +224,7 @@
 	</select>
 	
 	<select id="selectReviewList" resultType="ReviewVO">
-		select * from review where vw_hd_num = #{cri.search}
+		select * from review where vw_hd_num = #{detail.hd_num}
 		order by vw_num desc 
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>

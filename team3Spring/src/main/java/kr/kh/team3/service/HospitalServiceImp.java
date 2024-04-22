@@ -388,11 +388,11 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public ArrayList<ReviewVO> getReviewList(Criteria cri) {
+	public ArrayList<ReviewVO> getReviewList(Criteria cri, HospitalDetailVO detail) {
 		if(cri == null) {
 			return null;
 		}
-		return hospitalDao.selectReviewList(cri);
+		return hospitalDao.selectReviewList(cri, detail);
 	}
 
 	@Override
