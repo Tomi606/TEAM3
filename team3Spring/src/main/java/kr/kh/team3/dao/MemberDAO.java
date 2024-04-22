@@ -98,8 +98,4 @@ public interface MemberDAO {
 
 	HospitalSubjectVO selectSubject(@Param("me")MemberVO muser);
 
-
-
-	
-
 }

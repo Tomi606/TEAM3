@@ -455,6 +455,16 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.selectSubject(muser);
 	}
 
+	//일반 회원 로그인 세션(양선진)
+	@Override
+	public MemberVO getSiteMember(SiteManagement user) {
+		if(user == null ||
+			user.getSite_id() == null) {
+			return null;
+		}
+		return memberDao.selectMember(user.getSite_id());
+	}
+
 	
 	 
 

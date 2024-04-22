@@ -93,4 +93,7 @@ public interface HospitalService {
 
 	ArrayList<HospitalVO> getHospital(LandVO land);
 
+	boolean insertReview(ReviewVO review, MemberVO member);
+
+	HospitalDetailVO getDetail(int hdNum);
 }
