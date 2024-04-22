@@ -388,11 +388,11 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public ArrayList<ReviewVO> getReviewList(Criteria cri) {
+	public ArrayList<ReviewVO> getReviewList(Criteria cri, HospitalDetailVO detail) {
 		if(cri == null) {
 			return null;
 		}
-		return hospitalDao.selectReviewList(cri);
+		return hospitalDao.selectReviewList(cri, detail);
 	}
 
 	@Override
@@ -423,7 +423,7 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public boolean insertReview(ReviewVO review, MemberVO member) {
+	public boolean insertReview(ReviewVO review, MemberVO member, HospitalDetailVO detail) {
 		if(review == null || review.getVw_content().length() == 0) {
 			return false;
 		}
@@ -433,11 +433,14 @@ public class HospitalServiceImp implements HospitalService {
 		}
 		
 		review.setVw_me_id(member.getMe_id());
-		return hospitalDao.insertReview(review);
+		return hospitalDao.insertReview(review, detail.getHd_num());
 	}
 
 	@Override
-	public HospitalDetailVO getDetail(int hdNum) {
+	public HospitalDetailVO getDetail(Integer hdNum) {
+		if(hdNum == null) {
+			return null;
+		}
 		return hospitalDao.selectDetail(hdNum);
 	}
 
@@ -458,6 +461,14 @@ public class HospitalServiceImp implements HospitalService {
 				return hospitalDao.selectLand(land);
 		}
 		return hospitalDao.selectLand(land);
+	}
+
+	@Override
+	public ArrayList<ReviewVO> getCriReviewList(Criteria cri) {
+		if(cri == null) {
+			return null;
+		}
+		return hospitalDao.selectCriReviewList(cri);
 	}
 	
 }

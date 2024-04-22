@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,9 +61,9 @@ public class HospitalController {
 
 	//회원 입장에서 상페 페이지 조회시
 	@GetMapping("/hospital/detail/detail")
-	public String hospitalDetail(Model model, Integer hdNum, HospitalVO hospital) {
+	public String hospitalDetail(Model model, Integer hdNum) {
 		//상세 페이지를 가져옴(임시)
-		hdNum = 22;
+		hdNum = 1;
 		HospitalDetailVO detail = hospitalService.getDetail(hdNum);
 
 		//병원과목 리스트
@@ -72,17 +73,21 @@ public class HospitalController {
 		return "/hospital/detail/detail";
 	}
 
-	// 리뷰 리스트
+	//리뷰 리스트
 	@ResponseBody
 	@PostMapping("/hospital/review/list")
-	public Map<String, Object> reviewList(@RequestBody Criteria cri) {
+	public Map<String, Object> reviewList(@RequestBody Criteria cri, Integer hdNum) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		cri.setPerPageNum(3); // 1페이지 당 댓글 3개
-		// 한 페이지(cri)를 주면서 리뷰 리스트를 가져오라고 시킴
-		ArrayList<ReviewVO> reviewList = hospitalService.getReviewList(cri);
+		cri.setPerPageNum(3); //1페이지 당 댓글 3개
+		//병원 상세 페이지 번호를 주면서 상세 페이지 들고오라 시킴
+		HospitalDetailVO detail = hospitalService.getDetail(hdNum);
+		//한 페이지(cri)를 주면서 리뷰 리스트를 가져오라고 시킴
+		ArrayList<ReviewVO> reviewList = hospitalService.getCriReviewList(cri);
+		//페이지네이션
 		int reviewTotalCount = hospitalService.getTotalReviewCount(cri);
 		PageMaker pm = new PageMaker(3, cri, reviewTotalCount);
-
+		
+		map.put("detail", detail);
 		map.put("reviewList", reviewList);
 		map.put("pm", pm);
 		return map;
@@ -91,13 +96,15 @@ public class HospitalController {
 	//리뷰 달기
 	@ResponseBody
 	@PostMapping("/hospital/review/insert")
-	public Map<String, Object> reviewInsert(@RequestBody ReviewVO review, HttpSession session) {
+	public Map<String, Object> reviewInsert(@RequestBody ReviewVO review, 
+			HospitalDetailVO detail, HttpSession session, HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO member = memberService.getSiteMember(user);
-		log.info(member);
 		
-		boolean res = hospitalService.insertReview(review, member);
+		// ReviewVO 객체에 hdNum 값 설정
+		review.setVw_hd_num(1);
+		boolean res = hospitalService.insertReview(review, member, detail);
 		
 		map.put("result", res);
 		return map;
