@@ -8,6 +8,7 @@ import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.ReviewVO;
 import kr.kh.team3.model.vo.SiDoVO;
@@ -92,6 +93,10 @@ public interface HospitalDAO {
 
 	int selectTotalReviewCount(@Param("cri") Criteria cri);
 	
-	
+	ArrayList<HospitalVO> getArrHospital(@Param("us")SiteManagement user);
+
+	ArrayList<HospitalVO> getHospitalList(@Param("la")LandVO land);
+
+	LandVO getLand(@Param("num")int emd_num);
 
 }

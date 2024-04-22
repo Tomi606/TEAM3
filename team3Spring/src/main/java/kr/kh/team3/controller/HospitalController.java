@@ -14,28 +14,35 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.ReviewVO;
+import kr.kh.team3.model.vo.LandVO;
+import kr.kh.team3.model.vo.SiDoVO;
+import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
 import kr.kh.team3.pagination.Criteria;
 import kr.kh.team3.pagination.PageMaker;
 import kr.kh.team3.service.HospitalService;
+import kr.kh.team3.service.MemberService;
 import kr.kh.team3.service.ProgramService;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Controller
 public class HospitalController {
-	
+	@Autowired
+	MemberService memberService;
+  
 	@Autowired
 	private HospitalService hospitalService;
-	
+
 	@Autowired
 	ProgramService programService;
-
+  
 	//병원 마이페이지
 	@GetMapping("/hospital/mypage")
 	public String hospitalMypage(Model model, HospitalVO hospital, HttpSession session) {
@@ -46,7 +53,7 @@ public class HospitalController {
 		model.addAttribute("huser",huser);
 		return "/hospital/mypage";
 	}
-
+  
 	//병원 상세 페이지 조회
 	@GetMapping("/hospital/detail/detail")
 	public String hospitalDetail(Model model, HttpSession session, HospitalDetailVO detail, HospitalVO hospital) {
@@ -144,7 +151,6 @@ public class HospitalController {
 		model.addAttribute("hoDetail", hoDetail);
 		return "/hospital/detail/insert";
 	}
-
 	//병원 상세 페이지 등록/수정
 	@PostMapping("/hospital/detail/insert")
 	public String hospitalDetailPost(Model model, HospitalDetailVO detail, HttpSession session) {
@@ -164,28 +170,14 @@ public class HospitalController {
 		return "message";
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	//병원 리스트
-	@GetMapping("/hospital/list")
-	public String hospitalList(Model model) {
-		
-		return "/hospital/list";
-	}
-	
+  
 	// 병원 프로그램 등록 페이지 이동
 	@GetMapping("/hospital/program/insert")
 	public String hospitalProgramInsertPage(Model model) {
 		
 		return "/hospital/detail/programinsert";
 	}
-	
+  
 	// 세부 항목을 추가하는 메서드
 	@ResponseBody
 	@PostMapping("/item/insert")
@@ -198,4 +190,37 @@ public class HospitalController {
 		return map;
 	}
 	
+	
+	
+	/*병원 리스트 출력 정경호,권기은*/
+	@GetMapping("/hospital/list")
+	public String hospitalList(HttpSession session,Model model,SiDoVO sido, SiGoonGuVO sgg, EupMyeonDongVO emd) {
+		SiteManagement user = (SiteManagement)session.getAttribute("user");
+		
+		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
+		ArrayList<HospitalVO> hoList = hospitalService.getArrHospital(user);
+		ArrayList<HospitalSubjectVO> subList = hospitalService.getHospitalSubjectList();
+		model.addAttribute("hoList", hoList);
+		model.addAttribute("sidoList", sidoList);
+		model.addAttribute("subList", subList);
+		
+		return "/hospital/list";
+	}
+	
+	@ResponseBody
+	@PostMapping("/hospital/emd/list")
+	public ArrayList<HospitalVO> postHospital(@RequestParam("emd_num") int emd_num) {
+		LandVO land = hospitalService.getLand(emd_num);
+		ArrayList<HospitalVO> hoList = hospitalService.getHospital(land);
+		log.info(hoList+"asdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsdsd");
+		return hoList;
+		
+	}
+//	@ResponseBody
+//	@PostMapping("/member/signup/eupmyeondong")
+//	public ArrayList<EupMyeonDongVO> postEupMyeonDong(int sgg_num) {
+//		ArrayList<EupMyeonDongVO> emdList = memberService.getEmd(sgg_num);
+//		return emdList;
+//	}
+
 }

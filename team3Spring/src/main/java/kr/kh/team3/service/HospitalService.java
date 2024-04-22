@@ -7,6 +7,7 @@ import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
@@ -85,5 +86,11 @@ public interface HospitalService {
 	ArrayList<ReviewVO> getReviewList(Criteria cri);
 
 	int getTotalReviewCount(Criteria cri);
+
+	ArrayList<HospitalVO> getArrHospital(SiteManagement user);
+
+	LandVO getLand(int emd_num);
+
+	ArrayList<HospitalVO> getHospital(LandVO land);
 
 }
