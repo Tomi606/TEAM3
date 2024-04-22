@@ -437,7 +437,10 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public HospitalDetailVO getDetail(int hdNum) {
+	public HospitalDetailVO getDetail(Integer hdNum) {
+		if(hdNum == null) {
+			return null;
+		}
 		return hospitalDao.selectDetail(hdNum);
 	}
 
@@ -458,6 +461,14 @@ public class HospitalServiceImp implements HospitalService {
 				return hospitalDao.selectLand(land);
 		}
 		return hospitalDao.selectLand(land);
+	}
+
+	@Override
+	public ArrayList<ReviewVO> getCriReviewList(Criteria cri) {
+		if(cri == null) {
+			return null;
+		}
+		return hospitalDao.selectCriReviewList(cri);
 	}
 	
 }

@@ -95,10 +95,12 @@ public interface HospitalService {
 
 	boolean insertReview(ReviewVO review, MemberVO member, HospitalDetailVO detail);
 
-	HospitalDetailVO getDetail(int hdNum);
+	HospitalDetailVO getDetail(Integer hdNum);
 
 	boolean insertLand(LandVO land);
 
 	LandVO getLandLand(LandVO land);
+
+	ArrayList<ReviewVO> getCriReviewList(Criteria cri);
 
 }

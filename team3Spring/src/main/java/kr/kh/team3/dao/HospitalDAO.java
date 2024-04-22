@@ -107,6 +107,8 @@ public interface HospitalDAO {
 
 	boolean insertLand(@Param("la") LandVO land);
 
+	ArrayList<ReviewVO> selectCriReviewList(@Param("cri") Criteria cri);
+
 
 
 

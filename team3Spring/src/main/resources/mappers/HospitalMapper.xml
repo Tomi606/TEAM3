@@ -229,6 +229,12 @@
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
+	<select id="selectCriReviewList" resultType="ReviewVO">
+		select * from review where vw_hd_num = #{cri.search}
+		order by vw_num desc
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
 	<select id="selectTotalReviewCount" resultType="int">
 		select count(*) from review where vw_hd_num = #{cri.search}
 	</select>

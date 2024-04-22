@@ -63,7 +63,7 @@ public class HospitalController {
 	@GetMapping("/hospital/detail/detail")
 	public String hospitalDetail(Model model, Integer hdNum) {
 		//상세 페이지를 가져옴(임시)
-		hdNum = 22;
+		hdNum = 1;
 		HospitalDetailVO detail = hospitalService.getDetail(hdNum);
 
 		//병원과목 리스트
@@ -74,16 +74,36 @@ public class HospitalController {
 	}
 	
 	//리뷰 리스트
+//	@ResponseBody
+//	@PostMapping("/hospital/review/list")
+//	public Map<String, Object> reviewList(@RequestBody Criteria cri, HospitalDetailVO detail) {
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		cri.setPerPageNum(3); //1페이지 당 댓글 3개
+//		//한 페이지(cri)를 주면서 리뷰 리스트를 가져오라고 시킴
+//		ArrayList<ReviewVO> reviewList = hospitalService.getReviewList(cri, detail);
+//		log.info(reviewList);
+//		int reviewTotalCount = hospitalService.getTotalReviewCount(cri);
+//		PageMaker pm = new PageMaker(3, cri, reviewTotalCount);
+//		
+//		map.put("reviewList", reviewList);
+//		map.put("pm", pm);
+//		return map;
+//	}
+	
 	@ResponseBody
 	@PostMapping("/hospital/review/list")
-	public Map<String, Object> reviewList(@RequestBody Criteria cri, HospitalDetailVO detail) {
+	public Map<String, Object> reviewList(@RequestBody Criteria cri, Integer hdNum) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		cri.setPerPageNum(3); //1페이지 당 댓글 3개
 		//한 페이지(cri)를 주면서 리뷰 리스트를 가져오라고 시킴
-		ArrayList<ReviewVO> reviewList = hospitalService.getReviewList(cri, detail);
+		HospitalDetailVO detail = hospitalService.getDetail(hdNum);
+		ArrayList<ReviewVO> reviewList = hospitalService.getCriReviewList(cri);
+		log.info(reviewList);
 		int reviewTotalCount = hospitalService.getTotalReviewCount(cri);
 		PageMaker pm = new PageMaker(3, cri, reviewTotalCount);
 		
+		
+		map.put("detail", detail);
 		map.put("reviewList", reviewList);
 		map.put("pm", pm);
 		return map;
@@ -99,7 +119,7 @@ public class HospitalController {
 		MemberVO member = memberService.getSiteMember(user);
 		
 		// ReviewVO 객체에 hdNum 값 설정
-		review.setVw_hd_num(22);
+		review.setVw_hd_num(1);
 		boolean res = hospitalService.insertReview(review, member, detail);
 		
 		map.put("result", res);
