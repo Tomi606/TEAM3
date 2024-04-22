@@ -86,6 +86,8 @@ public interface MemberService {
 
 	HospitalSubjectVO getSubject(MemberVO muser);
 
+	MemberVO getSiteMember(SiteManagement user);
+
 
 
 

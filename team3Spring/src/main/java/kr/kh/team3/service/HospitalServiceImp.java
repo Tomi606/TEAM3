@@ -20,6 +20,7 @@ import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.LandVO;
+import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.ReviewVO;
@@ -128,15 +129,14 @@ public class HospitalServiceImp implements HospitalService {
 			return null;
 		}
 		
-		//!!!!!!!!!!!! la_num 수정중이라서 로그인 안되서 일단 주석처리 다하면 해제하기!!!!!!!!!!
 		//비번 확인
 		//맞으면 site 정보 return
-//		if(passwordEncoder.matches(hospital.getHo_pw(), user.getHo_pw())) {
-//			hospitalDao.updateLoginFailZero(user.getHo_id());
-//			
-//		}
-		return hospitalDao.selectSite(user.getHo_id());
-//		return null;
+		if(passwordEncoder.matches(hospital.getHo_pw(), user.getHo_pw())) {
+			hospitalDao.updateLoginFailZero(user.getHo_id());
+			
+			return hospitalDao.selectSite(user.getHo_id());
+		}
+		return null;
 	}
 
 	@Override
@@ -423,6 +423,24 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
+	public boolean insertReview(ReviewVO review, MemberVO member) {
+		if(review == null || review.getVw_content().length() == 0) {
+			return false;
+		}
+		
+		if(member == null || member.getMe_id() == null) {
+			return false;
+		}
+		
+		review.setVw_me_id(member.getMe_id());
+		return hospitalDao.insertReview(review);
+	}
+
+	@Override
+	public HospitalDetailVO getDetail(int hdNum) {
+		return hospitalDao.selectDetail(hdNum);
+	}
+
 	public boolean insertLand(LandVO land) {
 		if (land == null)
 			return false;
