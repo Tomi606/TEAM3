@@ -97,7 +97,7 @@ public interface HospitalDAO {
 	
 	ArrayList<HospitalVO> getArrHospital(@Param("us")SiteManagement user);
 
-	ArrayList<HospitalVO> getHospitalList(@Param("la")LandVO land);
+	
 
 	LandVO getLand(@Param("num")int emd_num);
 
@@ -108,6 +108,10 @@ public interface HospitalDAO {
 	boolean insertReview(@Param("vw") ReviewVO review);
 
 	boolean insertLand(@Param("la") LandVO land);
+	
+	ArrayList<HospitalVO> getHospitalList(@Param("la")LandVO land,@Param("cri") Criteria cri);
+
+	int getHospitalListCount(@Param("la")LandVO land,@Param("cri") Criteria cri);
 
 
 }

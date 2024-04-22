@@ -15,12 +15,11 @@ margin-left: auto;
 } 
 .aTag-btn1,
 .aTag-btn2{
-    display: inline-block;
+	
+	margin:90px 15px 15px 24px;
     width: 300px;
     height: 200px;
     color: black;
-    text-decoration:none;
-    text-align: center;
     text-decoration: none;
     box-shadow: 1px 1px 2px 1px #C12DFF;
 }
@@ -30,10 +29,10 @@ margin-left: auto;
 .aTag-btn1:hover,
 .aTag-btn2:hover{text-decoration:none;box-shadow: 2px 2px 4px 1px #C12DFF; /* 그림자 효과 추가 */}
 .hospital-like-list h1,.hospital-area-list h1{margin: 30px auto 50px auto;}
-.hospital-list-home{width: 100%;height: 2500px;}
+.hospital-list-home{width: 100%;height: 2750px;}
 .hospital-list-box{width: 1400px;height: 100%;margin: 0 auto;text-align: center;}
-.hospital-like-list{width: 100%;height: 800px;border: 1px solid #c8c8c8;margin-bottom: 50px;}
-.hospital-area-list{ width: 100%;height:1000px;border: 1px solid #c8c8c8;}
+.hospital-like-list{width: 100%;height: 800px;border: 1px solid #c8c8c8;margin-bottom: 270px;}
+.hospital-area-list{ width: 100%;height:1000px;border: 1px solid #c8c8c8;display: grid; grid-template-columns:1fr 1fr 1fr 1fr;}
 .area-select-all{width: 100%;height: 150px;padding: 30px 0;display: flex;}
 .area-select{margin: 0 auto;}
 .area-select-box{display: flex;border: 1px solid  #c8c8c8;width: 100%; height: 400px;margin: 100px 0 145px 0;}
@@ -51,7 +50,6 @@ margin-left: auto;
 .area-title-emd{text-align: center;padding: 15px;width: 997px;border-bottom:1px solid #c8c8c8;}
 .pagination-box{width:100%;display: flex;margin-top:60px;}
 .pagination{margin: 0 auto;}
-
  
 </style>
 </head>
@@ -118,6 +116,7 @@ margin-left: auto;
 				</div>
 				<!-- 페이지네이션 끝 -->
 			</div>
+			
 		</div>
 		<div class="hospital-area-list">
 		<!-- 포이치 쓰기 -->
@@ -141,6 +140,7 @@ margin-left: auto;
 		</div>
 	</div>
 </div>
+
 <script type="text/javascript">
 
 /* 군 구 리스트 select로 띄우기 시작 */
@@ -200,26 +200,33 @@ $(document).on('click', '#sgg_name', function(){
 })
 $(document).on('click', '#emd_name', function(){
     let emd_num = $(this).data('num');
+    let page = 1
     console.log(emd_num)
     $.ajax({
     	async : false,
         method : "post",
         url : '<c:url value="/hospital/emd/list"/>', // URL 수정
-        data : {"emd_num" : emd_num}, 
+        data : {
+        	"page" : page,
+        	"emd_num": emd_num
+        }, 
         success : function (data){
             console.log(data);
             let str =""
-            if(data == null || data.length == 0){
+            if(data.hoList == null || data.hoList.length == 0){
                 str +=`<h3 style="color: gray;line-height: 200px;text-align: center;">존재하는 병원이 없습니다.</h3>` ;
             }
             else{
-                for(let ho in data){
-                    str += `<a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;" data-id="\${ho.ho_id}>"
-						<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
-						<h4>\${data[ho].ho_name}</h4>
-						<p>\${data[ho].ho_ceo}</p>
-						<p>\${data[ho].ho_id}</p>
-				</a>`; 
+                for(let ho in data.hoList){
+                    str += 
+                   	`
+	                    <a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;" data-id="\${ho.ho_id}>"
+							<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
+							<h4>\${data[ho].ho_name}</h4>
+							<p>\${data[ho].ho_ceo}</p>
+							<p>\${data[ho].ho_id}</p>
+						</a>
+					`; 
                 }
             }
             $(".hospital-area-list").html(str);
@@ -236,7 +243,7 @@ $(document).on('click', '#emd_name', function(){
     $.ajax({
     	async : false,
         method : "post",
-        url : '<c:url value="/hospital/like/list"/>', // URL 수정
+        url : '<c:url value="/hospital/like/list"/>', 
         data : {"emd_num" : emd_num}, 
         success : function (data){
             console.log(data);

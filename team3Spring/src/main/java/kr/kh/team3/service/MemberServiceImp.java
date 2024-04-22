@@ -472,7 +472,7 @@ public class MemberServiceImp implements MemberService {
 		ArrayList<HospitalVO> hospitalList = new ArrayList<HospitalVO>();
 		for (HospitalDetailVO hd : list) {
 			if (hd != null) {
-				String[] hsList = hd.getHd_subject_detail().split(",");
+				String[] hsList = hd.getHd_hs_num().split(",");
 				ArrayList<Integer> a = new ArrayList<Integer>();
 				for (String hs : hsList) {
 					a.add(Integer.parseInt(hs.trim()));
@@ -499,7 +499,7 @@ public class MemberServiceImp implements MemberService {
 		ArrayList<HospitalVO> hospitalList = new ArrayList<HospitalVO>();
 		for (HospitalDetailVO hd : list) {
 			if (hd != null) {
-				String[] hsList = hd.getHd_subject_detail().split(",");
+				String[] hsList = hd.getHd_hs_num().split(",");
 				ArrayList<Integer> a = new ArrayList<Integer>();
 				for (String hs : hsList) {
 					a.add(Integer.parseInt(hs.trim()));

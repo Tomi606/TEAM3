@@ -410,12 +410,6 @@ public class HospitalServiceImp implements HospitalService {
 		return  hospitalDao.getArrHospital(user);
 	}
 
-	@Override
-	public ArrayList<HospitalVO> getHospital(LandVO land) {
-		if(land == null)
-			return null;
-		return hospitalDao.getHospitalList(land);
-	}
 
 	@Override
 	public LandVO getLand(int emd_num) {
@@ -458,6 +452,20 @@ public class HospitalServiceImp implements HospitalService {
 				return hospitalDao.selectLand(land);
 		}
 		return hospitalDao.selectLand(land);
+	}
+	@Override
+	public ArrayList<HospitalVO> getHospital(LandVO land,Criteria cri) {
+		if(land == null||cri==null)
+			return null;
+		return hospitalDao.getHospitalList(land,cri);
+	}
+
+
+	@Override
+	public int getHospitalCount(LandVO land, Criteria cri) {
+		if(land == null||cri==null)
+			return -1;
+		return hospitalDao.getHospitalListCount(land,cri);
 	}
 	
 }

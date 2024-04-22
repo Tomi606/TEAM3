@@ -91,7 +91,7 @@ public interface HospitalService {
 
 	LandVO getLand(int emd_num);
 
-	ArrayList<HospitalVO> getHospital(LandVO land);
+	ArrayList<HospitalVO> getHospital(LandVO land, Criteria cri);
 
 	boolean insertReview(ReviewVO review, MemberVO member);
 
@@ -100,5 +100,7 @@ public interface HospitalService {
 	boolean insertLand(LandVO land);
 
 	LandVO getLandLand(LandVO land);
+
+	int getHospitalCount(LandVO land, Criteria cri);
 
 }
