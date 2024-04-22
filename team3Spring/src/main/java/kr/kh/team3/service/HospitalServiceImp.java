@@ -20,6 +20,7 @@ import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.LandVO;
+import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.ReviewVO;
@@ -421,5 +422,6 @@ public class HospitalServiceImp implements HospitalService {
 	public LandVO getLand(int emd_num) {
 		return hospitalDao.getLand(emd_num);
 	}
+
 	
 }

@@ -99,4 +99,6 @@ public interface HospitalDAO {
 
 	LandVO getLand(@Param("num")int emd_num);
 
+	HospitalVO getHospital(@Param("ho_id")String hd_ho_id, @Param("la_num")int me_la_num);
+
 }

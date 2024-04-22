@@ -3,6 +3,7 @@ package kr.kh.team3.service;
 import java.util.ArrayList;
 
 import kr.kh.team3.model.vo.EupMyeonDongVO;
+import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.LandVO;
@@ -86,6 +87,9 @@ public interface MemberService {
 
 	HospitalSubjectVO getSubject(MemberVO muser);
 
+	LandVO getMyLand(SiteManagement user);
+
+	ArrayList<HospitalVO> getMySubject(MemberVO me);
 
 
 

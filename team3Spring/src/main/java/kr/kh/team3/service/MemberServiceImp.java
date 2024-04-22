@@ -2,6 +2,7 @@ package kr.kh.team3.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import javax.mail.internet.MimeMessage;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import kr.kh.team3.dao.HospitalDAO;
 import kr.kh.team3.dao.MemberDAO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
+import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.LandVO;
@@ -263,7 +265,7 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.updateStopMember(report.getRp_target(), report.getRp_rs_name());
 	}
 
-	@Override 
+	@Override
 	public MemberVO getMemberInfo(SiteManagement user) {
 		if (user == null || user.getSite_id() == null) {
 			return null;
@@ -283,7 +285,7 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.updateName(member);
 	}
 
-	@Override //폰번호 수정
+	@Override // 폰번호 수정
 	public boolean updatePhone(SiteManagement user, MemberVO member) {
 		if (user == null || member == null || member.getMe_phone() == null || member.getMe_phone().isEmpty()
 				|| member.getMe_phone().length() == 0)
@@ -295,7 +297,7 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.updatePhone(member);
 	}
 
-	@Override //이메일 수정
+	@Override // 이메일 수정
 	public boolean updateEmail(SiteManagement user, MemberVO member) {
 		if (user == null || member == null || member.getMe_email() == null || member.getMe_email().isEmpty()
 				|| member.getMe_email().length() == 0)
@@ -307,7 +309,7 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.updateEmail(member);
 	}
 
-	@Override //직업수정
+	@Override // 직업수정
 	public boolean updateJob(SiteManagement user, MemberVO member) {
 		if (user == null || member == null || member.getMe_job() == null || member.getMe_job().isEmpty()
 				|| member.getMe_job().length() == 0)
@@ -379,11 +381,11 @@ public class MemberServiceImp implements MemberService {
 		if (land == null)
 			return null;
 		if (memberDao.selectLand(land) == null) {
-				memberDao.insertLand(land);
-				return memberDao.selectLand(land);
+			memberDao.insertLand(land);
+			return memberDao.selectLand(land);
 		}
 		return memberDao.selectLand(land);
-		
+
 	}
 
 	@Override
@@ -403,7 +405,7 @@ public class MemberServiceImp implements MemberService {
 	@Override
 	public String getSggName(LandVO land) {
 		if (land == null) {
-			log.info(land+"임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드");
+			log.info(land + "임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드");
 			return null;
 		}
 		return memberDao.selectSggName(land);
@@ -418,44 +420,76 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public boolean updateAddress(SiteManagement user,MemberVO me, LandVO la) {
-		if(me == null||me.getMe_id() == null ||la == null ||user == null||user.getSite_id()==null||user.getSite_id().length()==0||me.getMe_id().length()==0)
+	public boolean updateAddress(SiteManagement user, MemberVO me, LandVO la) {
+		if (me == null || me.getMe_id() == null || la == null || user == null || user.getSite_id() == null
+				|| user.getSite_id().length() == 0 || me.getMe_id().length() == 0)
 			return false;
-		 
+
 		MemberVO dbMember = memberDao.selectMember(user.getSite_id());
 		if (dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
 			return false;
-		//sitemanagement도 수정해야됨
-		boolean memberLand = memberDao.updateMemberLand(me,la);
-		boolean siteLand = memberDao.updateSiteLand(user,la);
-		if(memberLand&&siteLand)
-		return memberLand&&siteLand;
-		
+		// sitemanagement도 수정해야됨
+		boolean memberLand = memberDao.updateMemberLand(me, la);
+		boolean siteLand = memberDao.updateSiteLand(user, la);
+		if (memberLand && siteLand)
+			return memberLand && siteLand;
+
 		return false;
 	}
 
 	@Override
-	public boolean updateSubject(SiteManagement user,MemberVO me, int hs_num) {
-		if(me == null ||me.getMe_id()==null)
+	public boolean updateSubject(SiteManagement user, MemberVO me, int hs_num) {
+		if (me == null || me.getMe_id() == null)
 			return false;
 		MemberVO dbMember = memberDao.selectMember(user.getSite_id());
 		if (dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
 			return false;
-		
-		return memberDao.updateSubject(me.getMe_id(),hs_num);
+
+		return memberDao.updateSubject(me.getMe_id(), hs_num);
 	}
 
 	@Override
 	public HospitalSubjectVO getSubject(MemberVO muser) {
-		if(muser == null ||muser.getMe_id()==null)
+		if (muser == null || muser.getMe_id() == null)
 			return null;
-		
-		
-		
+
 		return memberDao.selectSubject(muser);
 	}
 
-	
-	 
+	@Override
+	public LandVO getMyLand(SiteManagement user) {
+		if (user == null || user.getSite_id() == null) {
+			return null;
+		}
+		return memberDao.selectMyLand(user.getSite_la_num());
+	}
+
+	@Override
+	public ArrayList<HospitalVO> getMySubject(MemberVO me) {
+		if (me == null || me.getMe_id() == null || me.getMe_id().length() == 0)
+			return null;
+		ArrayList<HospitalDetailVO> list = memberDao.getMySubject();
+		ArrayList<HospitalVO> hospitalList = new ArrayList<HospitalVO>();
+		for (HospitalDetailVO hd : list) {
+			if (hd != null) {
+				String[] hsList = hd.getHd_subject_detail().split(",");
+				ArrayList<Integer> a = new ArrayList<Integer>();
+				for (String hs : hsList) {
+					a.add(Integer.parseInt(hs.trim()));
+				}
+				if (a.contains(me.getMe_hs_num())) {
+					HospitalVO dd = hospitalDao.getHospital(hd.getHd_ho_id(), me.getMe_la_num());
+					if(dd != null) {
+						log.info(dd + "\n!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#@!#!@#!@#@!#!@#!@#@!#@!#!@#!@#!@#@!#!");
+						hospitalList.add(dd);
+					}
+				} else {
+					break;
+				}
+			}
+		}
+		log.info(hospitalList + "hospitalListhospitalListhospitalListhospitalListhospitalListhospitalListhospitalListhospitalListhospitalListhospitalListhospitalListhospitalListhospitalListhospitalList");
+		return hospitalList;
+	}
 
 }

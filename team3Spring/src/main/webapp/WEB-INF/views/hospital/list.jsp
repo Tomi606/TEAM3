@@ -87,9 +87,9 @@ margin-left: auto;
 					<span>읍면동</span>
 				</div>
 				<div class="emd-list">
-					<ul class="emd_num">
+					<div class="emd_num">
 
-					</ul>
+					</div>
 				</div>	
 			</div>
 		</div>
@@ -145,8 +145,11 @@ margin-left: auto;
 
 /* 군 구 리스트 select로 띄우기 시작 */
 $(document).on('click', '#sd_name', function(){
+	let str1 = '';
+	$(".emd_num").html(str1);
 	let sd_num = $(this).data('num');
 	$.ajax({
+		async : false,
 		method : "post",
 		url : '<c:url value="/member/signup/gungoo"/>', 
 		data : {"sd_num" : sd_num}, 
@@ -163,16 +166,20 @@ $(document).on('click', '#sd_name', function(){
 		}
 	});
 })
+
 $(document).on('click', '#sgg_name', function(){
+	
 	let sgg_num = $(this).data('num');
 	if(sgg_num == 'none'){
 		sgg_num = 1;
 	}
 	$.ajax({
+		async : false,
 		method : "post",
 		url : '<c:url value="/member/signup/eupmyeondong"/>', 
 		data : {"sgg_num" : sgg_num}, 
 		success : function (data){
+			
 			console.log(data);
 			let str =""
 			if(data == null ||data.length == 0){
@@ -195,6 +202,7 @@ $(document).on('click', '#emd_name', function(){
     let emd_num = $(this).data('num');
     console.log(emd_num)
     $.ajax({
+    	async : false,
         method : "post",
         url : '<c:url value="/hospital/emd/list"/>', // URL 수정
         data : {"emd_num" : emd_num}, 
@@ -222,61 +230,59 @@ $(document).on('click', '#emd_name', function(){
         }
     });
 });
+$(document).on('click', '#emd_name', function(){
+    let emd_num = $(this).data('num');
+    console.log(emd_num)
+    $.ajax({
+    	async : false,
+        method : "post",
+        url : '<c:url value="/hospital/like/list"/>', // URL 수정
+        data : {"emd_num" : emd_num}, 
+        success : function (data){
+            console.log(data);
+            let str =""
+            if(data == null || data.length == 0){
+                str +=`<h3 style="color: gray;line-height: 200px;text-align: center;">존재하는 병원이 없습니다.</h3>` ;
+            }
+            else{
+                for(let ho in data){
+                    str += `<a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;" data-id="\${ho.ho_id}>"
+						<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
+						<h4>\${data[ho].ho_name}</h4>
+						<p>\${data[ho].ho_ceo}</p>
+						<p>\${data[ho].ho_id}</p>
+				</a>`; 
+                }
+            }
+            $(".hospital-area-list").html(str);
+            
+        }, 
+        error : function(jqXHR, textStatus, errorThrown){
 
-
-
-
-
-
-
-
-
-/* 읍면동 리스트 select로 띄우기 끝 */
-
-/* $(document).on('click', '#emd_name', function(){
-	var emd_num = $(this).data('num');
-    var sd_num = $("select[name='sd_num'] option:selected").text();
-    var sgg_num = $("select[name='sgg_num'] option:selected").text();
-    var emd_num = $("select[name='emd_num'] option:selected").text();
-    var str = sd_num + sgg_num + emd_num;
-    
-    // Serialize된 form 데이터를 직접 사용하고 str 파라미터를 추가합니다.
-    var formData = $(this).serialize();
-    formData += '&str=' + str; // str 파라미터 추가
-	$.ajax({
-		async:true,
-		url : '<c:url value="/hospital/signup"/>',
-		type : 'post',
-		data : formData,
-		success:function(data){
-			if (data === false) {
-		        location.href = '<c:url value="/message"/>?res=' + data;
-		    } else {
-		        location.href = '<c:url value="/message"/>?res=' + data;
-		    }
-			
-		}
-	});
-	return false;
-}) */
-$(document).ready(function() {
-    $(".sido-list li").click(function() {
-        $(".sido-list li").removeClass("active");
-        $(this).addClass("active");
-    });
-    $(document).on('click', '#sgg_name', function() {
-        if (!$(this).hasClass("active")) {
-            $(".active1").removeClass("active1");
-            $(this).addClass("active1");
-        }
-    });
-    $(document).on('click', '#emd_name', function() {
-        if (!$(this).hasClass("active")) {
-            $(".active2").removeClass("active2");
-            $(this).addClass("active2");
         }
     });
 });
+
+$(".sido-list li").click(function() {
+    $(".sido-list li").removeClass("active");
+    $(this).addClass("active");
+});
+$(document).on('click', '#sgg_name', function() {
+    if (!$(this).hasClass("active")) {
+        $(".active1").removeClass("active1");
+        $(this).addClass("active1");
+    }
+});
+$(document).on('click', '#emd_name', function() {
+    if (!$(this).hasClass("active")) {
+        $(".active2").removeClass("active2");
+        $(this).addClass("active2");
+    }
+});
+
+$(".sido-list [data-num=${la.la_sd_num}]").click();
+$(".sgg-list [data-num=${la.la_sgg_num}]").click();
+$(".emd-list [data-num=${la.la_emd_num}]").click(); 
 </script>
 
 </body>
