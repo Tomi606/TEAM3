@@ -77,7 +77,7 @@ label {
 </head>
 <body>
 <div class="body-tag">
-	<form action='<c:url value="/hospital/signup"/>' id="myForm" method="post">
+	<form action='<c:url value="/hospital/signup"/>' id="myForm">
 		<div class="input-box">
 			<div>
 				<img alt="아이디 이미지" src="<c:url value="/resources/img/ceo.svg"/>">
@@ -124,6 +124,12 @@ label {
 				<label id="num-error" class="error text-danger" for="num"></label>
 			</div>
 			<div>
+				<img alt="주소 이미지" src="<c:url value="/resources/img/job.svg"/>">
+				<input type="text" class="input-tag" onKeyup="this.value=this.value.replace(/^[a-zA-Zㄱ-힣0-9]{1,100});"
+				id="ho_address" name="ho_address" required autofocus="autofocus" placeholder="상세 주소를 입력해주세요"/>
+				<label id="ho_address" class="error text-danger" for="ho_address"></label>
+			</div>
+			<div>
 				<img alt="대표 전화번호 이미지" src="<c:url value="/resources/img/phone2.svg"/>">
 				<input type="text" class="input-tag" maxlength="11" onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
 				id="phone" name="site_phone" required autofocus="autofocus" placeholder="대표 전화번호('-'제외 최대 11자)"/>
@@ -156,7 +162,7 @@ label {
 			    </select>
 			</div>
 			<div>
-				<button class="check btn signup-btn" type="submit" onclick="hoIdForm()">회원가입</button>
+				<button class="check btn signup-btn" type="submit">회원가입</button>
 			</div>
 		</div>
 	</form>
@@ -510,36 +516,41 @@ $(document).ready(function() {
     }); 
 });
 </script>
-
-<!-- 시도/시군구/읍면동 select -->
 <script type="text/javascript">
-$("form").submit(function(){
-	event.preventDefault(); // 기본 form 제출 이벤트를 막습니다.
+$("form").submit(function(event){
+    event.preventDefault(); // 기본 form 제출 이벤트를 막습니다.
     
-    var sd_num = $("select[name='sd_num'] option:selected").text();
-    var sgg_num = $("select[name='sgg_num'] option:selected").text();
-    var emd_num = $("select[name='emd_num'] option:selected").text();
-    var str = sd_num + sgg_num + emd_num;
+    var la_sd_num = $("select[name='sd_num'] option:selected").val();
+    console.log("시"+la_sd_num);
+    var la_sgg_num = $("select[name='sgg_num'] option:selected").val();
+    console.log("군 구"+la_sgg_num);
+    var la_emd_num = $("select[name='emd_num'] option:selected").val();
+    console.log("읍 면 동"+la_emd_num	);
     
-    // Serialize된 form 데이터를 직접 사용하고 str 파라미터를 추가합니다.
+ // Serialize된 form 데이터를 직접 사용하고 str 파라미터를 추가합니다.
     var formData = $(this).serialize();
-    formData += '&str=' + str; // str 파라미터 추가
-	$.ajax({
-		async:true,
-		url : '<c:url value="/hospital/signup"/>',
-		type : 'post',
-		data : formData,
-		success:function(data){
-			if (data === false) {
-		        location.href = '<c:url value="/message"/>?res=' + data;
-		    } else {
-		        location.href = '<c:url value="/message"/>?res=' + data;
-		    }
-			
-		}
-	});
-	return false;
+    formData += '&la_sd_num=' + la_sd_num + '&la_sgg_num=' + la_sgg_num + '&la_emd_num=' + la_emd_num; // str 파라미터 추가
+    
+    $.ajax({
+    	   async : true, //비동기 : true(비동기), false(동기)
+    	   url : '<c:url value="/hospital/signup"/>', 
+    	   type : 'post', 
+    	   data : formData,
+    	   success : function (data){
+    		   if(data == false){
+    			   location.href = '<c:url value="/message?res="/>' + data;
+    		   }else{
+    			   location.href = '<c:url value="/message?res="/>' + data;
+    		   }
+    	   }, 
+    	   error : function(jqXHR, textStatus, errorThrown){
+
+    	   }
+    	});
+    return false;
 })
 </script>
+
+
 </body>
 </html>

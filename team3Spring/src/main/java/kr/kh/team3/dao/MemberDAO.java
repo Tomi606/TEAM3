@@ -103,9 +103,4 @@ public interface MemberDAO {
 	LandVO selectMyLand(@Param("num")int site_la_num);
 
 	ArrayList<HospitalDetailVO> getMySubject();
-
-
-
-	
-
 }

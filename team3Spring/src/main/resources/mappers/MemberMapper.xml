@@ -255,5 +255,4 @@
 		update member set me_pw = #{pw} where me_id =#{id}
 	</update>
 
-
 </mapper>
