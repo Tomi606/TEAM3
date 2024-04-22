@@ -270,7 +270,7 @@ DROP TABLE IF EXISTS `hospital_detail`;
 CREATE TABLE `hospital_detail` (
 	`hd_num`	int	primary key auto_increment,
 	`hd_ho_id`	varchar(13)	NOT NULL,
-    `hd_hs_num`	int NOT NULL,
+    `hd_hs_num`	varchar(255) NOT NULL,
 	`hd_info`	text NULL,
 	`hd_time`	text NULL,
 	`hd_park`	text NULL,

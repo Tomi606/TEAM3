@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.team3.model.vo.EupMyeonDongVO;
@@ -19,8 +20,8 @@ import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.ItemVO;
-import kr.kh.team3.model.vo.ReviewVO;
 import kr.kh.team3.model.vo.LandVO;
+import kr.kh.team3.model.vo.ReviewVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -34,6 +35,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @Controller
 public class HospitalController {
+	
 	@Autowired
 	MemberService memberService;
   
@@ -151,6 +153,7 @@ public class HospitalController {
 		model.addAttribute("hoDetail", hoDetail);
 		return "/hospital/detail/insert";
 	}
+	
 	//병원 상세 페이지 등록/수정
 	@PostMapping("/hospital/detail/insert")
 	public String hospitalDetailPost(Model model, HospitalDetailVO detail, HttpSession session) {
@@ -190,8 +193,6 @@ public class HospitalController {
 		return map;
 	}
 	
-	
-	
 	/*병원 리스트 출력 정경호,권기은*/
 	@GetMapping("/hospital/list")
 	public String hospitalList(HttpSession session,Model model,SiDoVO sido, SiGoonGuVO sgg, EupMyeonDongVO emd) {
@@ -216,6 +217,7 @@ public class HospitalController {
 		return hoList;
 		
 	}
+	
 //	@ResponseBody
 //	@PostMapping("/member/signup/eupmyeondong")
 //	public ArrayList<EupMyeonDongVO> postEupMyeonDong(int sgg_num) {
