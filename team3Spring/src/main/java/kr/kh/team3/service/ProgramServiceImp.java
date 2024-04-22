@@ -30,11 +30,11 @@ public class ProgramServiceImp implements ProgramService{
 			}
 		}
 
-		/*회원가입 수정 후 나중에 주석 제거해야함
-		 * if(user.getSite_authority().contains("USER")) { }
-		 */
-		return programDao.insertItem(item, user);	
-		//return false;
+		//회원가입 수정 후 나중에 주석 제거해야함
+		 if(user.getSite_authority().equals("MANAGER")) { 		 
+			 return programDao.insertItem(item, user);	
+		 }
+		return false;
 	}
 
 	@Override
@@ -43,13 +43,32 @@ public class ProgramServiceImp implements ProgramService{
 		return programDao.selectItemList(user);
 	}
 
-	
-	
 	@Override
-	public ArrayList<HospitalProgramVO> getProgramList(SiteManagement user) {
-		return programDao.selectProgramList(user);
+	public boolean updateItem(ItemVO item, SiteManagement user, int it_num, ArrayList<ItemVO> itemList) {
+		for(ItemVO tmp : itemList) {
+			System.out.println(tmp.getIt_name().equals(item.getIt_name()));
+			if(tmp.getIt_name().equals(item.getIt_name())) {
+				return false;
+			}
+		}
+		return programDao.updateItem(item, it_num);
 	}
 
+	@Override
+	public boolean deleteItem(ArrayList<Integer> intList) {
+		
+		for(int tmp : intList) {
+			boolean res = programDao.deleteItem(tmp);
+			if(!res) {
+				return false;
+			}
+		}
+		return true;
+	}
+	//==================================아이템 기능 끝=====================================
+	
+	//==================================프로그램 기능 시작=====================================
+	
 	@Override
 	public boolean insertProgram(HospitalProgramVO program, SiteManagement user) {
 		if(program.getHp_payment() == 0 || program.getHp_ho_id() == ""
@@ -64,32 +83,20 @@ public class ProgramServiceImp implements ProgramService{
 			}
 		}
 
-		if(user.getSite_authority().contains("USER")) {			
+		if(user.getSite_authority().contains("MANAGER")) {			
 			return programDao.insertProgram(program, user);	
 		}
 		return false;
 	}
-
+	
 	@Override
-	public boolean updateItem(ItemVO item, SiteManagement user, int it_num, ArrayList<ItemVO> itemList) {
-		for(ItemVO tmp : itemList) {
-			System.out.println(tmp.getIt_name().equals(item.getIt_name()));
-			if(tmp.getIt_name().equals(item.getIt_name())) {
-				System.out.println("22222222222");
-				return false;
-			}
+	public ArrayList<HospitalProgramVO> getProgramList(SiteManagement user) {
+		if(user == null) {
+			return null;
 		}
-		return programDao.updateItem(item, it_num);
+		return programDao.selectProgramList(user);
 	}
 
-	@Override
-	public boolean deleteItem(ArrayList<Integer> intList) {
-		
-		for(int tmp : intList) {
-			programDao.deleteItem(tmp);
-		}		
-		return true;
-	}
-
+	
 
 }

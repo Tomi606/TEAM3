@@ -40,6 +40,8 @@
 	<label for="hp_payment">프로그램 가격</label>
     <input  type="text" id="hp_payment" name="hp_payment" placeholder="프로그램 가격을 입력하세요">
     <a class="btn program-inset-btn">등록</a>
+    <a class="btn program-update-btn" href='<c:url value="/program/update"/>'>수정</a>
+    <a class="btn item-delete-btn">삭제</a>
 </div>
 <br>
 
@@ -90,10 +92,11 @@
 <script type="text/javascript">
 $(".item-delete-btn").click(function(){
 	 var checkedValues = getCheckedValues();
+	 console.log(checkedValues);
      $.ajax({
      	url : '<c:url value="/item/delete"/>',
      	method : 'post',
-        data: { "checkedValues": checkedValues },
+        data: { "checkedValues": checkedValues},
      	success : function(data){
 			alert(data.msg);
 			$(".check-box-group").load(window.location.href + " .check-box-group");
@@ -140,7 +143,7 @@ function isNumber(value) {
 	
 </script>
 
-
+>
 
 </body>
 </html>
