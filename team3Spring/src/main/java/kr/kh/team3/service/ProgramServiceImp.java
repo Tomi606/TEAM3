@@ -83,7 +83,7 @@ public class ProgramServiceImp implements ProgramService{
 			}
 		}
 
-		if(user.getSite_authority().contains("MANAGER")) {			
+		if(user.getSite_authority().equals("MANAGER")) {			
 			return programDao.insertProgram(program, user);	
 		}
 		return false;
@@ -95,6 +95,24 @@ public class ProgramServiceImp implements ProgramService{
 			return null;
 		}
 		return programDao.selectProgramList(user);
+	}
+
+	@Override
+	public boolean updateProgram(HospitalProgramVO program, SiteManagement user,
+			ArrayList<HospitalProgramVO> programList) {
+		
+		for(HospitalProgramVO tmp : programList) {
+			if(tmp.getHp_title().equals(program.getHp_title())) {
+				return false;
+			}
+		}
+		return programDao.updateProgram(program);
+	}
+
+	@Override
+	public boolean deleteProgram(int hp_num) {
+		
+		return programDao.deleteProgram(hp_num);
 	}
 
 	

@@ -22,4 +22,8 @@ public interface ProgramDAO {
 
 	boolean deleteItem(@Param("it_num")int tmp);
 
+	boolean updateProgram(@Param("pr")HospitalProgramVO program);
+
+	boolean deleteProgram(@Param("hp_num")int hp_num);
+
 }

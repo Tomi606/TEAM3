@@ -24,7 +24,16 @@
 		update item set it_name = #{item.it_name}, it_explanation = #{item.it_explanation} where it_num = #{it_num}
 	</update>
 	
+	<update id="updateProgram">
+		update hospital_program set hp_title = #{pr.hp_title}, 
+		hp_payment = #{pr.hp_payment} where hp_num = #{pr.hp_num}
+	</update>
+	
 	<delete id="deleteItem">
 		delete from item where it_num = #{it_num}
+	</delete>
+	
+	<delete id="deleteProgram">
+		delete from hospital_program where hp_num=#{hp_num}
 	</delete>
 </mapper>

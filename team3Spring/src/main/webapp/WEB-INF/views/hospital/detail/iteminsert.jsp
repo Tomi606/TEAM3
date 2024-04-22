@@ -41,7 +41,14 @@
     <input  type="text" id="hp_payment" name="hp_payment" placeholder="프로그램 가격을 입력하세요">
     <a class="btn program-inset-btn">등록</a>
     <a class="btn program-update-btn" href='<c:url value="/program/update"/>'>수정</a>
-    <a class="btn item-delete-btn">삭제</a>
+    <a class="btn program-delete-btn">삭제</a>
+</div>
+<div class="input-group mb-3">
+	<select name="hp_num" class="form-control">
+		<c:forEach items="${programList}" var="list">
+			<option value="${list.hp_num}">${list.hp_title}</option>
+		</c:forEach>
+	</select>
 </div>
 <br>
 
@@ -143,7 +150,13 @@ function isNumber(value) {
 	
 </script>
 
->
+<!-- 프로그램 삭제 -->
+<script type="text/javascript">
+	$(".program-delete-btn").click(function(){
+		let hp_num = $("[name=hp_num]").val();
+		location.href = '<c:url value="/program/delete?hp_num="/>' + hp_num;
+	})
+</script>
 
 </body>
 </html>

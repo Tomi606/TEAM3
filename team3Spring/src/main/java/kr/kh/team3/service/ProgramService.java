@@ -20,5 +20,9 @@ public interface ProgramService {
 
 	boolean deleteItem(ArrayList<Integer> intList);
 
+	boolean updateProgram(HospitalProgramVO program, SiteManagement user, ArrayList<HospitalProgramVO> programList);
+
+	boolean deleteProgram(int hp_num);
+
 
 }

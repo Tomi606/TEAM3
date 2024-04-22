@@ -192,6 +192,8 @@ public class HospitalController {
 	public String hospitalProgramInsertPage(Model model, HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		ArrayList<ItemVO> itemList = programService.getItemList(user);
+		ArrayList<HospitalProgramVO> programList = programService.getProgramList(user); 
+		model.addAttribute("programList",programList);
 		model.addAttribute("itemList", itemList);
 		return "/hospital/detail/iteminsert";
 	}
@@ -284,11 +286,12 @@ public class HospitalController {
 	
 	//프로그램 수정 메서드
 	@PostMapping("/program/update")
-	public String updateUpdatePost(ItemVO item, HttpSession session, Model model, @RequestParam("type") int it_num) {
-
+	public String updateUpdatePost(HospitalProgramVO program, HttpSession session, 
+				Model model) {
+		
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		 ArrayList<ItemVO> itemList = programService.getItemList(user); 
-		 boolean res =programService.updateItem(item, user, it_num, itemList);
+		 ArrayList<HospitalProgramVO> programList = programService.getProgramList(user); 
+		 boolean res =programService.updateProgram(program, user, programList);
 		 if (res) {
 				model.addAttribute("msg","프로그램 수정을 완료했습니다.");
 				model.addAttribute("url","/hospital/item/insert");
@@ -298,6 +301,23 @@ public class HospitalController {
 			}
 			return "message";
 	}
+	
+	//프로그램 삭제 메서드
+	@GetMapping("/program/delete")
+	public String deleteprogram(Model model, int hp_num) {
+		
+		boolean res = programService.deleteProgram(hp_num);
+		
+		if (res) {
+			model.addAttribute("msg","프로그램 삭제를 완료했습니다.");
+			model.addAttribute("url","/hospital/item/insert");
+		}else {
+			model.addAttribute("msg","프로그램 삭제를 실패 했습니다.");
+			model.addAttribute("url","/program/update");
+		}
+		return "message";
+	}
+	
 	//============================================= 조민석 ===================================================
 	/*병원 리스트 출력 정경호,권기은*/
 	@GetMapping("/hospital/list")
