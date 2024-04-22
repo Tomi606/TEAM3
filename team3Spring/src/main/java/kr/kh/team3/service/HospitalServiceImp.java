@@ -63,7 +63,7 @@ public class HospitalServiceImp implements HospitalService {
 	}
 	
 	//회원가입
-	public boolean signup(HospitalVO hospital, String address) {
+	public boolean signup(HospitalVO hospital, LandVO land) {
 		if(hospital == null 
 		|| hospital.getHo_id().length() == 0
 		|| !checkStr(hospital.getHo_id()) 
@@ -75,16 +75,16 @@ public class HospitalServiceImp implements HospitalService {
 		String endPw = passwordEncoder.encode(hospital.getHo_pw());
 		hospital.setHo_pw(endPw);
 		
-			return hospitalDao.insertHospital(hospital, address);
+		return hospitalDao.insertHospital(hospital, land);
 	}
 
 	//사이트 회원관리 아이디
-	public boolean signup(SiteManagement site) {
+	public boolean siteSignup(SiteManagement site, LandVO getLand) {
 		if(site == null || site.getSite_id().length() == 0) {
 			return false;
 		}
 		
-		return hospitalDao.insertSiteHospital(site);
+		return hospitalDao.insertSiteHospital(site, getLand);
 	}
 
 	public ArrayList<HospitalSubjectVO> getHospitalSubjectList() {
@@ -420,6 +420,26 @@ public class HospitalServiceImp implements HospitalService {
 	@Override
 	public LandVO getLand(int emd_num) {
 		return hospitalDao.getLand(emd_num);
+	}
+
+	@Override
+	public boolean insertLand(LandVO land) {
+		if (land == null)
+			return false;
+		if (hospitalDao.selectLand(land) == null)
+			return hospitalDao.insertLand(land);
+		return true;
+	}
+
+	@Override
+	public LandVO getLandLand(LandVO land) {
+		if (land == null)
+			return null;
+		if (hospitalDao.selectLand(land) == null) {
+			hospitalDao.insertLand(land);
+				return hospitalDao.selectLand(land);
+		}
+		return hospitalDao.selectLand(land);
 	}
 	
 }

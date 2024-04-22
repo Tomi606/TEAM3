@@ -19,9 +19,9 @@ import kr.kh.team3.pagination.Criteria;
 
 public interface HospitalService {
 
-	boolean signup(HospitalVO hospital, String address);
+	boolean signup(HospitalVO hospital, LandVO getLand);
 
-	boolean signup(SiteManagement site);
+	boolean siteSignup(SiteManagement site, LandVO getLand);
 
 	ArrayList<HospitalSubjectVO> getHospitalSubjectList();
 
@@ -92,5 +92,9 @@ public interface HospitalService {
 	LandVO getLand(int emd_num);
 
 	ArrayList<HospitalVO> getHospital(LandVO land);
+
+	boolean insertLand(LandVO land);
+
+	LandVO getLandLand(LandVO land);
 
 }

@@ -14,20 +14,37 @@
 		select * from land where la_emd_num = #{num}
 	</select>
 
-
 	<insert id="insertHospital">
-		insert into hospital(ho_id, ho_pw, ho_email, ho_name, ho_ceo, ho_hs_num, ho_num, ho_address, ho_phone, ho_authority, ho_ms_state) 
+		insert into hospital(ho_id, ho_pw, ho_email, ho_name, ho_ceo, ho_hs_num, ho_num,
+						 ho_address, ho_phone, ho_authority, ho_ms_state, ho_la_num) 
 		values(#{ho.ho_id}, #{ho.ho_pw}, #{ho.ho_email}, #{ho.ho_name}, #{ho.ho_ceo}, 
-				#{ho.ho_hs_num}, #{ho.ho_num}, #{address}, #{ho.ho_phone},"MANAGER","가입대기")
+				#{ho.ho_hs_num}, #{ho.ho_num}, #{ho.ho_address}, #{ho.ho_phone},"MANAGER","가입대기", #{la.la_num})
 	</insert>
 	
 	<insert id="insertSiteHospital">
-		insert into site_management(site_la_num, site_id, site_email, site_phone, site_authority)
-		value(1, #{st.site_id}, #{st.site_email}, #{st.site_phone}, "USER")
+		insert into
+		site_management(site_la_num,site_id,site_email,site_phone,site_authority)
+		value(#{la.la_num},#{si.site_id},#{si.site_email},#{si.site_phone},"MANAGER")
+	</insert>
+	
+	<insert id="insertLand">
+		insert into land(la_sd_num,la_sgg_num,la_emd_num)
+		values(#{la.la_sd_num},#{la.la_sgg_num},#{la.la_emd_num})
 	</insert>
 	
 	<select id="selectHospitalId" resultType="HospitalVO">
 		select * from hospital where ho_id = #{ho_id}
+	</select>
+	
+	<select id="selectLand" resultType="kr.kh.team3.model.vo.LandVO">
+		select 
+			* 
+		from 
+			land where la_sd_num = #{la.la_sd_num}
+		and 
+			la_sgg_num = #{la.la_sgg_num}
+		and
+			la_emd_num = #{la.la_emd_num}
 	</select>
 	
 	<!-- 정경호 : 과목 ㄱㄴㄷㄹ순으로 정렬을 위해 order by hs_title 추가 -->
