@@ -124,7 +124,7 @@ width: 500px;height: 300px;border: 1px solid black;
 					<a href='<c:url value="/hospital/detail/insert"/>'>2. 병원 상세 페이지 등록/수정</a>
 				</div>
 				<div>				
-					<a href='<c:url value="/hospital/program/insert"/>'>3. 프로그램 등록/수정/삭제</a>
+					<a href='<c:url value="/hospital/item/insert"/>'>3. 프로그램 등록/수정/삭제</a>
 				</div>
 				<div>
 					<a>4. 예약 관리(변경/취소)</a>

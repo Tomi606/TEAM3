@@ -19,10 +19,12 @@ import kr.kh.team3.pagination.Criteria;
 public interface HospitalDAO {
 
 	HospitalVO selectHospitalId(@Param("ho_id") String ho_id);
+	
+	LandVO selectLand(@Param("la") LandVO land);
 
-	boolean insertHospital(@Param("ho") HospitalVO hospital, @Param("address") String address);
+	boolean insertHospital(@Param("ho") HospitalVO hospital, @Param("la") LandVO land);
 
-	boolean insertSiteHospital(@Param("st") SiteManagement site);
+	boolean insertSiteHospital(@Param("si") SiteManagement site,@Param("la") LandVO getLand);
 
 	ArrayList<HospitalSubjectVO> selectHospitalSubjectList();
 
@@ -102,5 +104,8 @@ public interface HospitalDAO {
 	HospitalDetailVO selectDetail(@Param("hd_num") int hdNum);
 
 	boolean insertReview(@Param("vw") ReviewVO review);
+
+	boolean insertLand(@Param("la") LandVO land);
+
 
 }

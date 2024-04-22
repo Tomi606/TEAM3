@@ -36,7 +36,7 @@ public class HomeController {
 
 	@Autowired
 	private HospitalService hospitalService;
-
+	
 	@GetMapping("/")
 	public String home(Model model) {
 		ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
@@ -140,7 +140,6 @@ public class HomeController {
 	// 사업자 회원가입 페이지(get)
 	@GetMapping("/hospital/signup")
 	public String hospitalSignup(HospitalVO hospital, Model model, String ho_id, SiDoVO siDo, String email) {
-		log.info("사업자 회원가입");
 		// 병원 진료과목 리스트
 		ArrayList<HospitalSubjectVO> hospitalList = hospitalService.getHospitalSubjectList();
 		model.addAttribute("hospitalList", hospitalList);
@@ -156,14 +155,19 @@ public class HomeController {
 	// 사업자 회원가입 페이지(post)
 	@ResponseBody
 	@PostMapping("/hospital/signup")
-	public boolean hospitalSignupPost(HospitalVO hospital, SiteManagement site, @RequestParam Map<String, String> obj,
-			@RequestParam String str) {
-		log.info("사업자 회원가입 post");
-
-		boolean hospitalRes = hospitalService.signup(hospital, str);
-		boolean siteRes = hospitalService.signup(site);
-
-		return !hospitalRes || !siteRes;
+	public boolean hospitalSignupPost(HospitalVO hospital, SiteManagement site, @RequestParam Map<String, String> obj
+			, LandVO land) {
+		boolean addLand = hospitalService.insertLand(land);
+		if (!addLand) {
+			return false;
+		}
+		LandVO getLand = hospitalService.getLandLand(land);
+		if (getLand == null) {
+			return false;
+		}
+		boolean memberRes = hospitalService.signup(hospital, getLand);
+		boolean siteRes = hospitalService.siteSignup(site, getLand);
+		return !memberRes || !siteRes;
 	}
 
 	// 로그인 메인 페이지
