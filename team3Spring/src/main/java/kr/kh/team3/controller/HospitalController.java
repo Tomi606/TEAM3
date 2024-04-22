@@ -135,6 +135,18 @@ public class HospitalController {
 //	}
 	
 	//병원 상세 페이지 등록/수정
+	//2. 병원 과목
+	@ResponseBody
+	@PostMapping("/hospital/subject")
+	public Map<String, Object> memberStop(@RequestBody HospitalVO hospital) {
+		Map<String, Object> map = new HashMap<String, Object>();
+//		boolean hsUpdate = hospitalService.updateHospitalSubject(hospital.getHo_hs_num());
+//		boolean detailUpdate = hospitalService.updateHospitalDetail();
+//		map.put("hsUpdate", hsUpdate);
+//		map.put("detailUpdate", detailUpdate);
+		return map;
+	}
+	//병원 상세 페이지 등록
 	@GetMapping("/hospital/detail/insert")
 	public  String detailInsert(Model model, HospitalDetailVO detail, HttpSession session) {
 		//현재 로그인한 병원
