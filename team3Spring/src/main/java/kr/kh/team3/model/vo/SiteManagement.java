@@ -12,4 +12,5 @@ public class SiteManagement {
 	private String site_phone;
 	private String site_email;
 	private String site_authority;
+	private MemberVO member;
 }

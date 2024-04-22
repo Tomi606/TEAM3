@@ -20,6 +20,7 @@ import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.LandVO;
+import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.ReviewVO;
@@ -63,7 +64,7 @@ public class HospitalServiceImp implements HospitalService {
 	}
 	
 	//회원가입
-	public boolean signup(HospitalVO hospital, String address) {
+	public boolean signup(HospitalVO hospital, LandVO land) {
 		if(hospital == null 
 		|| hospital.getHo_id().length() == 0
 		|| !checkStr(hospital.getHo_id()) 
@@ -75,16 +76,16 @@ public class HospitalServiceImp implements HospitalService {
 		String endPw = passwordEncoder.encode(hospital.getHo_pw());
 		hospital.setHo_pw(endPw);
 		
-			return hospitalDao.insertHospital(hospital, address);
+		return hospitalDao.insertHospital(hospital, land);
 	}
 
 	//사이트 회원관리 아이디
-	public boolean signup(SiteManagement site) {
+	public boolean siteSignup(SiteManagement site, LandVO getLand) {
 		if(site == null || site.getSite_id().length() == 0) {
 			return false;
 		}
 		
-		return hospitalDao.insertSiteHospital(site);
+		return hospitalDao.insertSiteHospital(site, getLand);
 	}
 
 	public ArrayList<HospitalSubjectVO> getHospitalSubjectList() {
@@ -128,15 +129,14 @@ public class HospitalServiceImp implements HospitalService {
 			return null;
 		}
 		
-		//!!!!!!!!!!!! la_num 수정중이라서 로그인 안되서 일단 주석처리 다하면 해제하기!!!!!!!!!!
 		//비번 확인
 		//맞으면 site 정보 return
-//		if(passwordEncoder.matches(hospital.getHo_pw(), user.getHo_pw())) {
-//			hospitalDao.updateLoginFailZero(user.getHo_id());
-//			
-//		}
-		return hospitalDao.selectSite(user.getHo_id());
-//		return null;
+		if(passwordEncoder.matches(hospital.getHo_pw(), user.getHo_pw())) {
+			hospitalDao.updateLoginFailZero(user.getHo_id());
+			
+			return hospitalDao.selectSite(user.getHo_id());
+		}
+		return null;
 	}
 
 	@Override
@@ -420,6 +420,44 @@ public class HospitalServiceImp implements HospitalService {
 	@Override
 	public LandVO getLand(int emd_num) {
 		return hospitalDao.getLand(emd_num);
+	}
+
+	@Override
+	public boolean insertReview(ReviewVO review, MemberVO member) {
+		if(review == null || review.getVw_content().length() == 0) {
+			return false;
+		}
+		
+		if(member == null || member.getMe_id() == null) {
+			return false;
+		}
+		
+		review.setVw_me_id(member.getMe_id());
+		return hospitalDao.insertReview(review);
+	}
+
+	@Override
+	public HospitalDetailVO getDetail(int hdNum) {
+		return hospitalDao.selectDetail(hdNum);
+	}
+
+	public boolean insertLand(LandVO land) {
+		if (land == null)
+			return false;
+		if (hospitalDao.selectLand(land) == null)
+			return hospitalDao.insertLand(land);
+		return true;
+	}
+
+	@Override
+	public LandVO getLandLand(LandVO land) {
+		if (land == null)
+			return null;
+		if (hospitalDao.selectLand(land) == null) {
+			hospitalDao.insertLand(land);
+				return hospitalDao.selectLand(land);
+		}
+		return hospitalDao.selectLand(land);
 	}
 	
 }

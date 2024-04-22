@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
+import kr.kh.team3.model.vo.HospitalProgramVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.LandVO;
+import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReviewVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
@@ -55,23 +57,18 @@ public class HospitalController {
 		model.addAttribute("huser",huser);
 		return "/hospital/mypage";
 	}
-  
-	//병원 상세 페이지 조회
+	
+	//회원 입장에서 상페 페이지 조회시
 	@GetMapping("/hospital/detail/detail")
-	public String hospitalDetail(Model model, HttpSession session, HospitalDetailVO detail, HospitalVO hospital) {
-		//로그인한 병원 세션
-		SiteManagement user = (SiteManagement)session.getAttribute("user");
-		//그 병원의 정보
-		hospital = hospitalService.getHospital(user);
+	public String hospitalDetail(Model model, Integer hdNum, HospitalVO hospital) {
+		//상세 페이지를 가져옴(임시)
+		hdNum = 22;
+		HospitalDetailVO detail = hospitalService.getDetail(hdNum);
+
 		//병원과목 리스트
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
-		//그 병원의 상세 페이지 정보
-		detail = hospitalService.getHoDetail(detail, hospital);
-		
-		model.addAttribute("hospital", hospital);
-		model.addAttribute("hsList", hsList);
 		model.addAttribute("detail", detail);
-
+		model.addAttribute("hsList", hsList);
 		return "/hospital/detail/detail";
 	}
 	
@@ -92,19 +89,19 @@ public class HospitalController {
 	}
 	
 	//리뷰 달기
-//	@ResponseBody
-//	@PostMapping("/hospital/review/insert")
-//	public Map<String, Object> reviewInsert(@RequestBody CommentVO comment, HttpSession session){
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		MemberVO user = (MemberVO) session.getAttribute("user");
-//		//확인용
-//		//System.out.println(comment);
-//		//System.out.println(user);
-//		boolean res = commentService.insertComment(comment, user);
-//		//success의 console.log(data.result);에서 사용
-//		map.put("result", res);
-//		return map;
-//	}
+	@ResponseBody
+	@PostMapping("/hospital/review/insert")
+	public Map<String, Object> reviewInsert(@RequestBody ReviewVO review, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		MemberVO member = memberService.getSiteMember(user);
+		log.info(member);
+		
+		boolean res = hospitalService.insertReview(review, member);
+		
+		map.put("result", res);
+		return map;
+	}
 	
 	//리뷰 지우기
 //	@ResponseBody
@@ -146,6 +143,8 @@ public class HospitalController {
 //		map.put("detailUpdate", detailUpdate);
 		return map;
 	}
+	
+	
 	//병원 상세 페이지 등록
 	@GetMapping("/hospital/detail/insert")
 	public  String detailInsert(Model model, HospitalDetailVO detail, HttpSession session) {
@@ -185,26 +184,93 @@ public class HospitalController {
 		return "message";
 
 	}
-  
+	
+  //================================================ 조민석 ====================================================
 	// 병원 프로그램 등록 페이지 이동
-	@GetMapping("/hospital/program/insert")
-	public String hospitalProgramInsertPage(Model model) {
-		
-		return "/hospital/detail/programinsert";
+	@GetMapping("/hospital/item/insert")
+	public String hospitalProgramInsertPage(Model model, HttpSession session) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		ArrayList<ItemVO> itemList = programService.getItemList(user);
+		model.addAttribute("itemList", itemList);
+		return "/hospital/detail/iteminsert";
 	}
-  
+	
 	// 세부 항목을 추가하는 메서드
 	@ResponseBody
 	@PostMapping("/item/insert")
 	public Map<String, Object> insertItem(ItemVO item, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		ArrayList<ItemVO> itemList = programService.getItemList();
-		HospitalVO user = (HospitalVO) session.getAttribute("user");
-		System.out.println(item);
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		ArrayList<ItemVO> itemList = programService.getItemList(user);
 		boolean res =  programService.insertItem(item, user);
+		if(res) {
+			map.put("itemList", itemList);
+		}else {
+			map.put("msg", "추가에 실패했습니다.");
+		}
 		return map;
 	}
 	
+	//세부항목 수정 메서드
+	@GetMapping("/item/update")
+	public String updateItem(ItemVO item, HttpSession session, Model model) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		 ArrayList<ItemVO> itemList = programService.getItemList(user); 
+		 //boolean res =programService.insertItem(item, user);
+		 model.addAttribute("itemList", itemList);
+		
+		return "/hospital/detail/itemupdate";
+	}
+	
+	//세부항목 수정 메서드
+	@PostMapping("/item/update")
+	public String updateItemPost(ItemVO item, HttpSession session, Model model, @RequestParam("type") int it_num) {
+		System.out.println("asfasfdas" + item);
+		System.out.println("asfqwef" + it_num);
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		 ArrayList<ItemVO> itemList = programService.getItemList(user); 
+		 boolean res =programService.updateItem(item, user, it_num, itemList);
+		 if (res) {
+				model.addAttribute("msg","상세 항목 수정을 완료했습니다.");
+				model.addAttribute("url","/hospital/item/insert");
+			}else {
+				model.addAttribute("msg","상세 항목 수정에 실패 했습니다.");
+				model.addAttribute("url","/item/update");
+			}
+			return "message";
+	}
+	
+	//세부 항목 삭제 메서드
+	@ResponseBody
+	@PostMapping("/item/delete")
+	 public Map<String, Object> deleteItem(@RequestParam(value="li_list", required=true) ArrayList<Integer> li_list){
+		Map<String, Object> map = new HashMap<String, Object>();
+        
+        boolean res = programService.deleteItem(li_list);
+        if (res) {
+            map.put("msg", "삭제에 성공했습니다.");
+        } else {
+            map.put("msg", "삭제에 실패했습니다.");
+        }
+        return map;
+    }
+	
+	// 프로그램을 추가하는 메서드
+	@ResponseBody
+	@PostMapping("/program/insert")
+	public Map<String, Object> insertProgram(HospitalProgramVO program, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		ArrayList<HospitalProgramVO> programList = programService.getProgramList(user);
+		boolean res =  programService.insertProgram(program, user);
+		if(res) {
+			map.put("programList", programList);
+		}else {
+			map.put("msg", "추가에 실패했습니다.");
+		}
+		return map;
+	}
+	//============================================= 조민석 ===================================================
 	/*병원 리스트 출력 정경호,권기은*/
 	@GetMapping("/hospital/list")
 	public String hospitalList(HttpSession session,Model model,SiDoVO sido, SiGoonGuVO sgg, EupMyeonDongVO emd) {

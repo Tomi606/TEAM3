@@ -30,15 +30,15 @@
 	<h2>병원 상세 페이지 조회</h2>
 	<div class="ho_name">
 		<label for="ho_name">상호명</label>
-		<input class="ho_name" id="ho_name" name="ho_name" value="${hospital.ho_name}" readonly>
+		<input class="ho_name" id="ho_name" name="ho_name" value="${detail.hospital.ho_name}" readonly>
 	</div>
 	<div class="ho_address">
 		<label for="ho_address">주소</label>
-		<input class="ho_address" id="ho_address" name="ho_address" value="${hospital.ho_address}" readonly>
+		<input class="ho_address" id="ho_address" name="ho_address" value="${detail.hospital.ho_address}" readonly>
 	</div>
 	<div class="ho_phone">
 		<label for="ho_phone">연락처</label>
-		<input class="ho_phone" id="ho_phone" name="ho_phone" value="${hospital.ho_phone}" readonly>
+		<input class="ho_phone" id="ho_phone" name="ho_phone" value="${detail.hospital.ho_phone}" readonly>
 	</div>
 	<div>
 		<a href='<c:url value="예약하기 버튼 url"/>' class="btn btn-outline-success">예약하기</a>
@@ -113,17 +113,17 @@
 			<div class="hd_park" id="hd_park">
 				<label for="hd_park" style="font-weight: bold">주차 정보</label>
 				<textarea class="hd_park col-10" id="hd_park" name="hd_park" 
-				oninput="autoTextarea(this)">${detail.hd_park}</textarea>
+				oninput="autoTextarea(this)" readonly>${detail.hd_park}</textarea>
 			</div>
 			<div class="hd_announce">
 				<label for="hd_announce" style="font-weight: bold">공지 사항</label>
 				<textarea class="hd_announce col-10" id="hd_announce" name="hd_announce" 
-				oninput="autoTextarea(this)">${detail.hd_announce}</textarea>
+				oninput="autoTextarea(this)" readonly>${detail.hd_announce}</textarea>
 			</div>
 			<div class="hd_etc">
 				<label for="hd_etc" style="font-weight: bold">기타 사항</label>
 				<textarea class="hd_etc col-10" id="hd_etc" name="hd_etc" 
-				oninput="autoTextarea(this)">${detail.hd_etc}</textarea>
+				oninput="autoTextarea(this)" readonly>${detail.hd_etc}</textarea>
 			</div>
 		</div>
 		
@@ -141,7 +141,7 @@
 					  		</c:forEach>
 				  		</c:if>
 				   		<input type="checkbox" name="subject" value="${hs.hs_num}" onclick="updateHdHsNums()"
-				   				<c:if test="${isChecked == 'true'}">checked</c:if>>${hs.hs_title}
+				   				<c:if test="${isChecked == 'true'}">checked</c:if> readonly>${hs.hs_title}
 				  	</c:forEach>
 				</div>
 				<input type="hidden" id="hd_hs_num" name="hd_hs_num" value="${detail.hd_hs_num}">
@@ -149,7 +149,7 @@
 			 <div>
 			 	<label for="hd_subject_detail">상세 진료 항목</label>
 			 	<textarea class="hd_subject_detail col-10" id="hd_subject_detail" name="hd_subject_detail" 
-			 	oninput="autoTextarea(this)">${detail.hd_subject_detail}</textarea>
+			 	oninput="autoTextarea(this)" readonly>${detail.hd_subject_detail}</textarea>
 			</div>
 		</div>
 		
@@ -166,9 +166,9 @@
 			</div>
 			<div class="box-review-insert">
 				<div class="input-group mb-3">				
-			        <textarea id="review" class="vw_num col-10" id="vw_num" name="vw_num" 
+			        <textarea id="review" class="vw_num textarea-review col-10" id="vw_num" name="vw_num" 
 			        oninput="autoTextarea(this)"></textarea>
-			        <button type="submit" class="review-btn" name="review-btn">리뷰 등록</button>			
+			        <button class="btn btn-outline-success review-insert-btn" name="review-btn" data-hd-num="${hospital_detail.hd_num}">리뷰 등록</button>			
 				</div>
 			</div>			
 		</div>
@@ -283,7 +283,61 @@ $(document).on('click', '.box-pagination .page-link', function() {
 
 <!-- 리뷰 등록 -->
 <script type="text/javascript">
+//리뷰 등록 버튼의 클릭 이벤트를 등록
+$('.review-insert-btn').click(function() {
+	//로그인 안되있으면 return
+	if(!checkLogin()) {
+		return;
+	}
+	
+	let review = {
+	        vw_hd_num : $(this).data('hd-num'), 
+	        vw_content : $('.textarea-review').val()
+	    }
+	
+	//내용이 비어있으면 return
+	if(review.vw_content.length == 0) {
+		alert('댓글 내용을 작성하세요.');
+		return;
+	}
+	
+	//서버에 데이터를 전송
+	$.ajax({
+		async : true, 
+		url : '<c:url value="/hospital/review/insert"/>', 
+		type : 'post', 
+		data : JSON.stringify(review), 
+		contentType : "application/json; charset=utf-8",
+		dataType : "json", 
+		success : function (data){
+			if(data.result) {
+				alert('댓글을 등록했습니다.');
+				$('.textarea-review').val('');
+				cri.page = 1;
+				getReviewList(cri);
+			}
+			else {
+				alert('댓글 등록 실패');
+			}
+		}, 
+		error : function(xhr, textStatus, errorThrown){
+			console.error(xhr);
+			console.error(textStatus);
+		}
+	});
+});
 
+function checkLogin() {
+	//로그인 했을 때
+	if('${user.site_id}' != '') {
+		return true;
+	}
+	//안했을 때
+	if(confirm("로그인이 필요한 기능입니다. \n로그인 하시겠습니까?")) {
+		location.href = '<c:url value="/main/login"/>';
+	}
+	return false;
+}
 </script>
 
 <!-- textarea 자동 스크롤 -->

@@ -17,4 +17,5 @@ public class HospitalDetailVO {
 	private String hd_announce; 
 	private String hd_etc;
 	private String hd_subject_detail;
+	private HospitalVO hospital;
 }

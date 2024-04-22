@@ -74,7 +74,11 @@
 					"it_explanation" : it_explanation},
 			success : function (data) {
 				//showItem(data.itemList, data.msg);
-				$(".check-box-group").load(window.location.href + " .check-box-group");
+				if(data.msg){
+					alert(data.msg)
+				}else{
+					$(".check-box-group").load(window.location.href + " .check-box-group");
+				}
 			}
 		});
 	});
@@ -89,7 +93,7 @@ $(".item-delete-btn").click(function(){
      $.ajax({
      	url : '<c:url value="/item/delete"/>',
      	method : 'post',
-        data: { "li_list": ${} },
+        data: { "checkedValues": checkedValues },
      	success : function(data){
 			alert(data.msg);
 			$(".check-box-group").load(window.location.href + " .check-box-group");
