@@ -3,12 +3,26 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team3.dao.HospitalDAO">
+	
+	<select id="getHospitalList" resultType="HospitalVO">
+	 	select * from hospital where ho_la_num =#{la.la_num}
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="getHospitalListCount" resultType="int">
+	 	select count(*) from hospital where ho_la_num =#{la.la_num}
+	</select>
+	
+	
+	
+	
+	
 	<select id="getArrHospital" resultType="HospitalVO">
 	 	select * from hospital where ho_la_num =#{us.site_la_num}
 	</select>
-	<select id="getHospitalList" resultType="HospitalVO">
-	 	select * from hospital where ho_la_num =#{la.la_num}
-	</select>
+	
+	
+	
 	<select id="getHospital" resultType="HospitalVO">
 	 	select * from hospital where ho_id = #{ho_id} and ho_la_num = #{la_num}
 	</select>

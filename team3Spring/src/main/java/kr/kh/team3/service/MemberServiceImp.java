@@ -472,7 +472,7 @@ public class MemberServiceImp implements MemberService {
 		ArrayList<HospitalVO> hospitalList = new ArrayList<HospitalVO>();
 		for (HospitalDetailVO hd : list) {
 			if (hd != null) {
-				String[] hsList = hd.getHd_subject_detail().split(",");
+				String[] hsList = hd.getHd_hs_num().split(",");
 				ArrayList<Integer> a = new ArrayList<Integer>();
 				for (String hs : hsList) {
 					a.add(Integer.parseInt(hs.trim()));
@@ -491,7 +491,7 @@ public class MemberServiceImp implements MemberService {
 		return hospitalList;
 	}
 	@Override
-	public ArrayList<HospitalVO> getMySubject1(MemberVO me,LandVO land) {
+	public ArrayList<HospitalVO> getSubHoList(MemberVO me,LandVO land) {
 		if (me == null || me.getMe_id() == null || me.getMe_id().length() == 0 ||land == null)
 			return null;
 		log.info(land + "landlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandland");
@@ -499,7 +499,7 @@ public class MemberServiceImp implements MemberService {
 		ArrayList<HospitalVO> hospitalList = new ArrayList<HospitalVO>();
 		for (HospitalDetailVO hd : list) {
 			if (hd != null) {
-				String[] hsList = hd.getHd_subject_detail().split(",");
+				String[] hsList = hd.getHd_hs_num().split(",");
 				ArrayList<Integer> a = new ArrayList<Integer>();
 				for (String hs : hsList) {
 					a.add(Integer.parseInt(hs.trim()));
@@ -510,8 +510,6 @@ public class MemberServiceImp implements MemberService {
 						log.info(dd + "\n!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#@!#!@#!@#@!#!@#!@#@!#@!#!@#!@#!@#@!#!");
 						hospitalList.add(dd);
 					}
-				} else {
-					break;
 				}
 			}
 		}
