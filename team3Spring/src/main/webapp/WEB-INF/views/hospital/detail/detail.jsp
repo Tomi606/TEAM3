@@ -222,8 +222,8 @@ function displayReviewList(reviewList) {
 		let boxBtns = 
 		`
 		<span class="box-btn float-right">
-			<button class="btn btn-outline-warning btn-review-update" data-num="\${item.vw_num}">수정</button>
-			<button class="btn btn-outline-danger btn-review-del" data-num="\${item.vw_num}">삭제</button>
+			<button class="btn btn-outline-warning review-update-btn" data-num="\${item.vw_num}">수정</button>
+			<button class="btn btn-outline-danger review-del-btn" data-num="\${item.vw_num}">삭제</button>
 		</span>
 		`;
 		
@@ -340,6 +340,40 @@ function checkLogin() {
 	return false;
 }
 </script>
+
+<!-- 리뷰 삭제 -->
+<script type="text/javascript">
+$(document).on('click', '.review-del-btn', function() {
+	//서버로 보낼 데이터 생성
+	let review = {
+		vw_num : $(this).data('num')
+	}
+	console.log(review);
+	//서버로 데이터를 전송
+	$.ajax({
+		async : true, 
+		url : '<c:url value="/hospital/review/delete"/>', 
+		type : 'post', 
+		data : JSON.stringify(review), 
+		contentType : "application/json; charset=utf-8",
+		dataType : "json", 
+		success : function (data){
+			if(data.result) {
+				alert('리뷰를 삭제했습니다.');
+				getReviewList(cri);
+			}
+			else {
+				alert('리뷰 삭제 실패');
+			}
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+});
+</script>
+
+
 
 <!-- textarea 자동 스크롤 -->
 <script type="text/javascript">

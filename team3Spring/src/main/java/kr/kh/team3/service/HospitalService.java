@@ -103,4 +103,6 @@ public interface HospitalService {
 
 	ArrayList<ReviewVO> getCriReviewList(Criteria cri);
 
+	boolean deleteReview(ReviewVO review, MemberVO member);
+
 }

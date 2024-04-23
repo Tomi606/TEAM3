@@ -111,9 +111,8 @@ public interface HospitalDAO {
 
 	ArrayList<ReviewVO> selectCriReviewList(@Param("cri") Criteria cri);
 
+	ReviewVO selectReview(@Param("vw_num") int vw_num);
 
-
-
-
+	boolean deleteReview(@Param("vw_num") int vw_num);
 
 }
