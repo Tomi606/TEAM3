@@ -3,6 +3,18 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team3.dao.HospitalDAO">
+	<resultMap type="BookmarkVO" id="bookmarkMap">
+		<id column="bmk_num" property="bmk_num"/>
+		<result column="bmk_me_id" property="bmk_me_id"/>
+		<result column="bmk_ho_id" property="bmk_ho_id"/>
+		<collection property="hospital"
+			ofType="HospitalVO" column="bmk_ho_id"
+			select="selectBmkHospital"/>
+	</resultMap>
+	
+	<select id="selectBmkHospital" resultType="HospitalVO">
+		select * from hospital where ho_id = #{bmk_ho_id}
+	</select>
 	
 	<select id="getHospitalList" resultType="HospitalVO">
 	 	select * from hospital where ho_la_num =#{la.la_num}
@@ -13,12 +25,18 @@
 	 	select count(*) from hospital where ho_la_num =#{la.la_num}
 	</select>
 	
+	<select id="selectBmkList" resultMap="bookmarkMap">
+		select * from bookmark where bmk_me_id = #{user.site_id}
+		limit #{cri.pageStart}, #{cri.perPageNum};
+	</select>
 	
-	
+	<select id="selectBmkListCount" resultType="int">
+		select count(*) from bookmark where bmk_me_id = #{user.site_id}
+	</select>
 	
 	
 	<select id="getArrHospital" resultType="HospitalVO">
-	 	select * from hospital where ho_la_num =#{us.site_la_num}
+	 	select * from hospital where ho_la_num = #{us.site_la_num}
 	</select>
 	
 	

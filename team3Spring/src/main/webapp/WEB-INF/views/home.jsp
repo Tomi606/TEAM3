@@ -466,7 +466,7 @@ height:35px;width:100%;background-color: #fafafa;
 					<a href="#">커뮤니티</a> 
 					<a href="#">게시판1</a> 
 					<a href="#">공지사항</a>
-					<a href="#">북마크</a>
+					<a href="<c:url value="/member/bookmark"/>">북마크</a>
 				</div>
 			</div>
 			<div class="긴공백"></div>
@@ -521,7 +521,7 @@ height:35px;width:100%;background-color: #fafafa;
 						src="<c:url value='/resources/img/hpbuild.png'/>"> 
 					</a> <a href="#"> <img alt="로고이미지"
 						src="<c:url value='/resources/img/공지사항.png'/>"> <span>공지사항</span>
-					</a> <a href="#"> <img alt="로고이미지"
+					</a> <a href="<c:url value="/member/bookmark"/>"> <img alt="로고이미지"
 						src="<c:url value='/resources/img/bookmark.png'/>"> <span>북마크</span>
 					</a>
 

@@ -2,7 +2,7 @@ package kr.kh.team3.service;
 
 import java.util.ArrayList;
 
-
+import kr.kh.team3.model.vo.BookmarkVO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
@@ -102,6 +102,10 @@ public interface HospitalService {
 	LandVO getLandLand(LandVO land);
 
 	int getHospitalCount(LandVO land, Criteria cri);
+
+	ArrayList<BookmarkVO> getBmkList(SiteManagement user, Criteria cri);
+
+	int getBmkListCount(SiteManagement user, Criteria cri);
 
 	ArrayList<ReviewVO> getCriReviewList(Criteria cri);
 
