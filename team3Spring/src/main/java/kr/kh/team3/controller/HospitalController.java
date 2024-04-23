@@ -101,7 +101,6 @@ public class HospitalController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO member = memberService.getSiteMember(user);
 		boolean res = hospitalService.insertReview(review, member);
-		log.info(review.getVw_content());
 		
 		map.put("result", res);
 		return map;
@@ -110,7 +109,7 @@ public class HospitalController {
 	//리뷰 삭제
 	@ResponseBody
 	@PostMapping("/hospital/review/delete")
-	public Map<String, Object> reviewDelete(@RequestBody ReviewVO review, HttpSession session){
+	public Map<String, Object> reviewDelete(@RequestBody ReviewVO review, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO member = memberService.getSiteMember(user);
@@ -121,18 +120,17 @@ public class HospitalController {
 	}
 
 	//리뷰 수정
-//	@ResponseBody
-//	@PostMapping("/hospital/review/update")
-//	public Map<String, Object> reviewUpdate(@RequestBody CommentVO comment, HttpSession session){
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		MemberVO user = (MemberVO) session.getAttribute("user");
-//		//확인용
-////		System.out.println(comment);
-////		System.out.println(user);
-//		boolean res = commentService.updateComment(comment, user);
-//		map.put("result", res);
-//		return map;
-//	}
+	@ResponseBody
+	@PostMapping("/hospital/review/update")
+	public Map<String, Object> reviewUpdate(@RequestBody ReviewVO review, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		MemberVO member = memberService.getSiteMember(user);
+
+		boolean res = hospitalService.updateReview(review, member);
+		map.put("result", res);
+		return map;
+	}
 	
 	//병원 상세 페이지 등록
 	@GetMapping("/hospital/detail/insert")

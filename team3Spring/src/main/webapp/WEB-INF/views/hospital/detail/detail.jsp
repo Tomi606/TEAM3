@@ -373,7 +373,64 @@ $(document).on('click', '.review-del-btn', function() {
 });
 </script>
 
+<!-- 리뷰 수정 -->
+<script type="text/javascript">
+//수정 버튼을 눌렀을 때
+$(document).on('click', '.review-update-btn', function() {
+	initReview();
+	let reviewBox = $(this).parents(".box-review").find(".text-review");
+	//리뷰를 수정할 수 있는 textarea로 변경
+	let content = reviewBox.text();
+	let str = `<textarea class="form-control">\${content}</textarea>`;
+	reviewBox.after(str);
+	reviewBox.hide();
+	
+	//수정, 삭제 버튼을 감추고
+	$(this).parents(".box-review").find(".box-btn").hide();
+	//수정 완료 버튼을 추가
+	let vw_num = $(this).data("num");
+	str = `<button class="btn btn-outline-success complete-btn" data-num="\${vw_num}">수정완료</button>`;
+	$(this).parents(".box-review").find(".box-btn").after(str);
+});
 
+//수정완료 버튼을 눌렀을 때
+$(document).on('click', '.complete-btn', function() {
+	//전송할 데이터를 생성(리뷰 번호, 리뷰 내용)/페이지 번호는 컨트롤러에서 받아옴
+	let review = {
+		vw_content : $(".box-review").find("textarea").val(),
+		vw_num : $(this).data("num")
+	}
+	//서버에서 ajax로 데이터를 전송 후 처리
+	$.ajax({
+		async : true,
+		url : '<c:url value="/hospital/review/update"/>', 
+		type : 'post', 
+		data : JSON.stringify(review), 
+		contentType : "application/json; charset=utf-8",
+		dataType : "json", 
+		success : function (data){
+			if(data.result) {
+				alert('리뷰를 수정했습니다.');
+				getReviewList(cri);
+			}
+			else {
+				alert('리뷰 수정 실패');
+			}
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+});
+
+//수정 버튼을 누른 상태에서 다른 수정 버튼을 누르면 기존에 누른 댓글은 원상태로 돌려주는 함수
+function initReview() {
+	$('.complete-btn').remove();
+	$('.box-review').find('textarea').remove();
+	$('.box-btn').show();
+	$('text-review').show();
+}
+</script>
 
 <!-- textarea 자동 스크롤 -->
 <script type="text/javascript">

@@ -469,6 +469,7 @@ public class HospitalServiceImp implements HospitalService {
 		if(land == null||cri==null)
 			return -1;
 		return hospitalDao.getHospitalListCount(land,cri);
+	}
 
 	@Override
 	public ArrayList<ReviewVO> getCriReviewList(Criteria cri) {
@@ -495,6 +496,23 @@ public class HospitalServiceImp implements HospitalService {
 
 		//다 확인 되면 삭제
 		return hospitalDao.deleteReview(review.getVw_num());
+	}
+
+	@Override
+	public boolean updateReview(ReviewVO review, MemberVO member) {
+		if(review == null || review.getVw_content() == null) {
+			return false;
+		}
+		if(member == null || member.getMe_id() == null) {
+			return false;
+		}
+		//작성자인지 확인
+		ReviewVO dbReview = hospitalDao.selectReview(review.getVw_num());
+		if(dbReview == null || !dbReview.getVw_me_id().equals(member.getMe_id())) {
+			return false;
+		}
+		//다 확인되면 업데이트
+		return hospitalDao.updateReview(review);
 	}
 
 }
