@@ -8,7 +8,36 @@
 		select * from item;
 	</select>
 	
+	<select id="selectProgramList" resultType="kr.kh.team3.model.vo.HospitalProgramVO">
+		select * from hospital_program where hp_ho_id = #{user.site_id}
+	</select>
+	
+	<select id="selectItemListList" resultType="kr.kh.team3.model.vo.ItemListVO">
+		select * from item_list
+	</select>
+	
 	<insert id="insertItem">
-		insert into item value(it_name, it_explanation) value(#{item.it_name}, #{item.it_explanation});
+		insert into item (it_name, it_explanation, it_ho_id) value(#{item.it_name}, #{item.it_explanation}, #{user.site_id});
 	</insert>
+	
+	<insert id="insertProgram">
+		insert into hospital_program (hp_title, hp_payment, hp_ho_id) value(#{pr.hp_title},#{pr.hp_payment}, #{user.site_id})
+	</insert>
+	
+	<update id="updateItem">
+		update item set it_name = #{item.it_name}, it_explanation = #{item.it_explanation} where it_num = #{it_num}
+	</update>
+	
+	<update id="updateProgram">
+		update hospital_program set hp_title = #{pr.hp_title}, 
+		hp_payment = #{pr.hp_payment} where hp_num = #{pr.hp_num}
+	</update>
+	
+	<delete id="deleteItem">
+		delete from item where it_num = #{it_num}
+	</delete>
+	
+	<delete id="deleteProgram">
+		delete from hospital_program where hp_num=#{hp_num}
+	</delete>
 </mapper>

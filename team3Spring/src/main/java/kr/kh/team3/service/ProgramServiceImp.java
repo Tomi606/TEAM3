@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 
 import kr.kh.team3.dao.ProgramDAO;
 import kr.kh.team3.model.vo.HospitalProgramVO;
+import kr.kh.team3.model.vo.ItemListVO;
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.SiteManagement;
 
@@ -30,11 +31,11 @@ public class ProgramServiceImp implements ProgramService{
 			}
 		}
 
-		/*회원가입 수정 후 나중에 주석 제거해야함
-		 * if(user.getSite_authority().contains("USER")) { }
-		 */
-		return programDao.insertItem(item, user);	
-		//return false;
+		//회원가입 수정 후 나중에 주석 제거해야함
+		 if(user.getSite_authority().equals("MANAGER")) { 		 
+			 return programDao.insertItem(item, user);	
+		 }
+		return false;
 	}
 
 	@Override
@@ -43,15 +44,36 @@ public class ProgramServiceImp implements ProgramService{
 		return programDao.selectItemList(user);
 	}
 
-	
-	
 	@Override
-	public ArrayList<HospitalProgramVO> getProgramList(SiteManagement user) {
-		return programDao.selectProgramList(user);
+	public boolean updateItem(ItemVO item, SiteManagement user, int it_num, ArrayList<ItemVO> itemList) {
+		for(ItemVO tmp : itemList) {
+			System.out.println(tmp.getIt_name().equals(item.getIt_name()));
+			if(tmp.getIt_name().equals(item.getIt_name())) {
+				return false;
+			}
+		}
+		return programDao.updateItem(item, it_num);
 	}
 
 	@Override
-	public boolean insertProgram(HospitalProgramVO program, SiteManagement user) {
+	public boolean deleteItem(ArrayList<Integer> intList) {
+		
+		for(int tmp : intList) {
+			boolean res = programDao.deleteItem(tmp);
+			if(!res) {
+				return false;
+			}
+		}
+		return true;
+	}
+	//==================================아이템 기능 끝=====================================
+	
+	//==================================프로그램 기능 시작=====================================
+	
+	@Override
+	public boolean insertProgram(HospitalProgramVO program
+			, SiteManagement user
+			, ArrayList<Integer> list) {
 		if(program.getHp_payment() == 0 || program.getHp_ho_id() == ""
 				|| user.getSite_id() == null) {
 			return false;
@@ -63,33 +85,50 @@ public class ProgramServiceImp implements ProgramService{
 				return false;
 			}
 		}
-
-		if(user.getSite_authority().contains("USER")) {			
+		ArrayList<ItemListVO> itemList = programDao.selectItemListList();
+		if(itemList.size() == 0) {
+			return false;
+		}
+		
+		for(ItemListVO tmp : itemList) {
+			if(tmp.getIl_list().equals(list.toString())) {
+				return false;
+			}
+		}
+		
+		if(user.getSite_authority().equals("MANAGER")) {	
+			//항목 리스트, 항목 리스트 제목, 병원 프로그램 명(번호) 가져와서 itemList에 넣기
 			return programDao.insertProgram(program, user);	
 		}
 		return false;
 	}
+	
+	@Override
+	public ArrayList<HospitalProgramVO> getProgramList(SiteManagement user) {
+		if(user == null) {
+			return null;
+		}
+		return programDao.selectProgramList(user);
+	}
 
 	@Override
-	public boolean updateItem(ItemVO item, SiteManagement user, int it_num, ArrayList<ItemVO> itemList) {
-		for(ItemVO tmp : itemList) {
-			System.out.println(tmp.getIt_name().equals(item.getIt_name()));
-			if(tmp.getIt_name().equals(item.getIt_name())) {
-				System.out.println("22222222222");
+	public boolean updateProgram(HospitalProgramVO program, SiteManagement user,
+			ArrayList<HospitalProgramVO> programList) {
+		
+		for(HospitalProgramVO tmp : programList) {
+			if(tmp.getHp_title().equals(program.getHp_title())) {
 				return false;
 			}
 		}
-		return programDao.updateItem(item, it_num);
+		return programDao.updateProgram(program);
 	}
 
 	@Override
-	public boolean deleteItem(ArrayList<Integer> intList) {
+	public boolean deleteProgram(int hp_num) {
 		
-		for(int tmp : intList) {
-			programDao.deleteItem(tmp);
-		}		
-		return true;
+		return programDao.deleteProgram(hp_num);
 	}
 
+	
 
 }

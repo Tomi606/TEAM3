@@ -14,11 +14,15 @@ public interface ProgramService {
 
 	ArrayList<HospitalProgramVO> getProgramList(SiteManagement user);
 
-	boolean insertProgram(HospitalProgramVO program, SiteManagement user);
+	boolean insertProgram(HospitalProgramVO program, SiteManagement user,ArrayList<Integer> list);
 
 	boolean updateItem(ItemVO item, SiteManagement user, int it_num, ArrayList<ItemVO> itemList);
 
 	boolean deleteItem(ArrayList<Integer> intList);
+
+	boolean updateProgram(HospitalProgramVO program, SiteManagement user, ArrayList<HospitalProgramVO> programList);
+
+	boolean deleteProgram(int hp_num);
 
 
 }
