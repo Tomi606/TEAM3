@@ -243,10 +243,12 @@ DROP TABLE IF EXISTS `item_list`;
 
 CREATE TABLE `item_list` (
 	`il_num`	int	primary key auto_increment,
-	`il_title`	varchar(100) NOT NULL,
+	`il_title`	varchar(100) not NULL,
 	`il_hp_num`	int	NOT NULL,
 	`il_it_num`	int	NOT NULL
 );
+
+
 
 DROP TABLE IF EXISTS `reservation_schedule`;
 
@@ -265,12 +267,19 @@ CREATE TABLE `hospital_subject` (
 	`hs_title`	varchar(100) NOT NULL
 );
 
+DROP TABLE IF EXISTS `hs_list`;
+
+CREATE TABLE `hs_list` (
+	`hsl_num`	int	primary key auto_increment,
+	`hsl_hs_num`	int	NOT NULL,
+	`hsl_ho_id`	varchar(13)	NOT NULL
+);
+
 DROP TABLE IF EXISTS `hospital_detail`;
 
 CREATE TABLE `hospital_detail` (
 	`hd_num`	int	primary key auto_increment,
 	`hd_ho_id`	varchar(13)	NOT NULL,
-    `hd_hs_num`	varchar(255) NOT NULL,
 	`hd_info`	text NULL,
 	`hd_time`	text NULL,
 	`hd_park`	text NULL,
@@ -344,8 +353,6 @@ REFERENCES `reservation_schedule` (
 	`rs_num`
 );
 
- 
-
 ALTER TABLE `bookmark` ADD CONSTRAINT `FK_hospital_TO_bookmark_1` FOREIGN KEY (
 	`bmk_ho_id`
 )
@@ -416,7 +423,6 @@ REFERENCES `hospital_subject` (
 	`hs_num`
 );
 
-#error
 ALTER TABLE `site_management` ADD CONSTRAINT `FK_land_TO_site_management_1` FOREIGN KEY (
 	`site_la_num`
 )
@@ -452,7 +458,6 @@ REFERENCES `si_do` (
 	`sd_num`
 );
 
-#error
 ALTER TABLE `land` ADD CONSTRAINT `FK_eup_myeon_dong_TO_land_1` FOREIGN KEY (
 	`la_emd_num`
 )
@@ -486,6 +491,13 @@ ALTER TABLE `item_list` ADD CONSTRAINT `FK_hospital_program_TO_item_list_1` FORE
 )
 REFERENCES `hospital_program` (
 	`hp_num`
+);
+
+ALTER TABLE `item_list` ADD CONSTRAINT `FK_item_TO_item_list_1` FOREIGN KEY (
+	`il_it_num`
+)
+REFERENCES `item` (
+	`it_num`
 );
 
 ALTER TABLE `reservation_schedule` ADD CONSTRAINT `FK_hospital_program_TO_reservation_schedule_1` FOREIGN KEY (
@@ -558,7 +570,19 @@ REFERENCES `member` (
 	`me_id`
 );
 
+ALTER TABLE `hs_list` ADD CONSTRAINT `FK_hospital_subject_TO_hs_list_1` FOREIGN KEY (
+	`hsl_hs_num`
+)
+REFERENCES `hospital_subject` (
+	`hs_num`
+);
 
+ALTER TABLE `hs_list` ADD CONSTRAINT `FK_hospital_TO_hs_list_1` FOREIGN KEY (
+	`hsl_ho_id`
+)
+REFERENCES `hospital` (
+	`ho_id`
+);
 
  INSERT INTO MEMBER_STATE VALUES('승인대기'), ('이용중'), ('기간정지'), ('영구정지'), ('탈퇴'),('가입대기');
 # 병원 과목
@@ -567,13 +591,13 @@ values('내과'), ('외과'),('안과'),('소아과'),('정형외과'), ('이비
 ('신경과'), ('신경외과'), ('성형외과'), ('피부과'), ('비뇨기과'), ('건강검진'),('마취통증학과');
 
 # 지역 DB 넣은 후 실행
-insert into land value(1,1,1,1);
+-- insert into land value(1,1,1,1);
 
 # 신고 상태
 insert into report_state values('1'),('3'),('7'),('15'),('30'),('60'),('180'),('365');
 
 # site_management 추가
-insert into site_management value(1, 1, 'qqqq1111', "01011111111", "qqqq1111@naver.com", "USER");
+-- insert into site_management value(1, 1, 'qqqq1111', "01011111111", "qqqq1111@naver.com", "USER");
 select * from site_management;
 
 # 신고 유형
