@@ -560,12 +560,7 @@ REFERENCES `member` (
 	`me_id`
 );
 
-ALTER TABLE `hospital_detail` ADD CONSTRAINT `FK_hospital_subject_TO_hospital_detail_1` FOREIGN KEY (
-	`hd_hs_num`
-)
-REFERENCES `hospital_subject` (
-	`hs_num`
-);
+
 
  INSERT INTO MEMBER_STATE VALUES('승인대기'), ('이용중'), ('기간정지'), ('영구정지'), ('탈퇴'),('가입대기');
 # 병원 과목

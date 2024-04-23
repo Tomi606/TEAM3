@@ -15,12 +15,11 @@ margin-left: auto;
 } 
 .aTag-btn1,
 .aTag-btn2{
-    display: inline-block;
+	
+	margin:90px 15px 15px 24px;
     width: 300px;
     height: 200px;
     color: black;
-    text-decoration:none;
-    text-align: center;
     text-decoration: none;
     box-shadow: 1px 1px 2px 1px #C12DFF;
 }
@@ -30,13 +29,13 @@ margin-left: auto;
 .aTag-btn1:hover,
 .aTag-btn2:hover{text-decoration:none;box-shadow: 2px 2px 4px 1px #C12DFF; /* 그림자 효과 추가 */}
 .hospital-like-list h1,.hospital-area-list h1{margin: 30px auto 50px auto;}
-.hospital-list-home{width: 100%;height: 2500px;}
+.hospital-list-home{width: 100%;height: 2750px;}
 .hospital-list-box{width: 1400px;height: 100%;margin: 0 auto;text-align: center;}
-.hospital-like-list{width: 100%;height: 800px;border: 1px solid #c8c8c8;margin-bottom: 50px;}
-.hospital-area-list{ width: 100%;height:1000px;border: 1px solid #c8c8c8;}
+.hospital-like-list{width: 100%;height: 400px;border: 1px solid #c8c8c8;margin-bottom: 150px;}
+.hospital-area-list{ width: 100%;height:1000px;border: 1px solid #c8c8c8;display: grid; grid-template-columns:1fr 1fr 1fr 1fr;}
 .area-select-all{width: 100%;height: 150px;padding: 30px 0;display: flex;}
 .area-select{margin: 0 auto;}
-.area-select-box{display: flex;border: 1px solid  #c8c8c8;width: 100%; height: 400px;margin: 100px 0 145px 0;}
+.area-select-box{display: flex;border: 1px solid  #c8c8c8;width: 100%; height: 400px;margin: 100px 0 200px 0;}
 .area-select-box li{list-style: none;}
 .area-select-sido{width: 200px;height: 100%;text-align: left;list-style: none;}
 .area-select-sgg{width: 200px;text-align: left;}
@@ -49,15 +48,16 @@ margin-left: auto;
 .emd-list li {display: inline-block;padding: 20px;width: 33%;text-align: left;}
 .area-title{text-align: center;padding: 15px;border-bottom:1px solid  #c8c8c8;border-right: 1px solid  #c8c8c8; }
 .area-title-emd{text-align: center;padding: 15px;width: 997px;border-bottom:1px solid #c8c8c8;}
-.pagination-box{width:100%;display: flex;margin-top:60px;}
+.box-pagination{width:100%;display: flex;margin-top:60px;}
 .pagination{margin: 0 auto;}
-
- 
 </style>
 </head>
 <body>
 <div class="hospital-list-home">
 	<div class="hospital-list-box">
+		<div class="now-area">
+			<h3>경기도 부천시 상동의 병원 리스트</h3>
+		</div>
 		<div class="area-select-box">
 			<div class="area-select-sido">
 				<div class="area-title">
@@ -87,66 +87,51 @@ margin-left: auto;
 					<span>읍면동</span>
 				</div>
 				<div class="emd-list">
-					<ul class="emd_num">
+					<div class="emd_num">
 
-					</ul>
+					</div>
 				</div>	
 			</div>
 		</div>
+		<h1>내 관심 병원</h1>
 		<div class="hospital-like-list">
-			<h1>내 관심 병원</h1>
-			<c:choose>
-				<c:when test="${empty hoList}">
-					<h2>등록된 병원이 없습니다.</h2>
-				</c:when>
-				<c:otherwise>
-					<c:forEach items="${hoList}" var="ho">
-					<!-- 수정 해야 ㅎ ㅏㅁ -->
-						<a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;">
-						<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
-							<h4>${ho.ho_name}</h4>
-							<p>${ho.ho_ceo}</p>
-							<p>${ho.ho_id}</p>
-						</a>
-					</c:forEach>	
-				</c:otherwise>
-			</c:choose>
-			<div class="pagination-box">
+			
+			<div class="box-pagination1">
 				<!-- 페이지네이션 시작 -->
 				<div class="pagination">
 					123
 				</div>
 				<!-- 페이지네이션 끝 -->
 			</div>
+			
 		</div>
+		<h1>우리 동네 병원</h1>
 		<div class="hospital-area-list">
-		<!-- 포이치 쓰기 -->
-			<h1>우리 동네 병원</h1>
-			<c:choose>
-				<c:when test="${empty hoList}">
-					<h2>등록된 병원이 없습니다.</h2>
-				</c:when>
-				<c:otherwise>
-					<c:forEach items="${hoList}" var="ho">
-					<!-- 수정 해야 ㅎ ㅏㅁ -->
-						
-					</c:forEach>
-				</c:otherwise>
-			</c:choose>
-			<div class="pagination-box">
-				<!-- 페이지네이션 시작 -->
-				123
-				<!-- 페이지네이션 끝 -->
-			</div>
+		</div>
+		<div class="box-pagination" style="border: 1px solid black; height: 100px; margin: 0 auto 200px auto">
+			<!-- 페이지네이션 시작 -->
+			<ul class="pagination justify-content-center"></ul>
+			<!-- 페이지네이션 끝 -->
 		</div>
 	</div>
 </div>
-<script type="text/javascript">
 
+<script type="text/javascript">
+let area = {
+	sd_num : 0,
+	sgg_num : 0,
+	emd_num : 0
+};
 /* 군 구 리스트 select로 띄우기 시작 */
 $(document).on('click', '#sd_name', function(){
+	let str1 = '';
+	$(".emd_num").html(str1);
 	let sd_num = $(this).data('num');
+	
+	area.sd_num = sd_num;
+	
 	$.ajax({
+		async : false,
 		method : "post",
 		url : '<c:url value="/member/signup/gungoo"/>', 
 		data : {"sd_num" : sd_num}, 
@@ -163,16 +148,23 @@ $(document).on('click', '#sd_name', function(){
 		}
 	});
 })
+
 $(document).on('click', '#sgg_name', function(){
+	
 	let sgg_num = $(this).data('num');
 	if(sgg_num == 'none'){
 		sgg_num = 1;
 	}
+	
+	area.sgg_num = sgg_num;
+	
 	$.ajax({
+		async : false,
 		method : "post",
 		url : '<c:url value="/member/signup/eupmyeondong"/>', 
 		data : {"sgg_num" : sgg_num}, 
 		success : function (data){
+			
 			console.log(data);
 			let str =""
 			if(data == null ||data.length == 0){
@@ -191,15 +183,49 @@ $(document).on('click', '#sgg_name', function(){
 		}
 	});
 })
+</script>
+<script type="text/javascript">
+let page = 1;
 $(document).on('click', '#emd_name', function(){
     let emd_num = $(this).data('num');
-    console.log(emd_num)
-    $.ajax({
+    
+    area.emd_num = emd_num;
+    
+    setNowArea();
+    getSubHoList();
+    getAreaHoList();
+    
+    
+});
+
+function setNowArea(){
+	$.ajax({
+    	async : false,
         method : "post",
-        url : '<c:url value="/hospital/emd/list"/>', // URL 수정
-        data : {"emd_num" : emd_num}, 
+        url : '<c:url value="/hospital/area/name"/>', 
+        data : area,
         success : function (data){
-            console.log(data);
+        	let str = "";
+       		str += `<h3>\${data.sd_name} \${data.sgg_name} \${data.emd_name}의 병원 리스트</h3>`;
+       		$(".now-area").html(str);
+        }, 
+        error : function(jqXHR, textStatus, errorThrown){
+
+        }
+    });
+	
+	
+}
+function getSubHoList(){
+	$.ajax({
+    	async : false,
+        method : "post",
+        url : '<c:url value="/hospital/like/list"/>', 
+        data : {
+        	"page" : page,
+        	"emd_num": area.emd_num
+        }, 
+        success : function (data){
             let str =""
             if(data == null || data.length == 0){
                 str +=`<h3 style="color: gray;line-height: 200px;text-align: center;">존재하는 병원이 없습니다.</h3>` ;
@@ -214,69 +240,136 @@ $(document).on('click', '#emd_name', function(){
 				</a>`; 
                 }
             }
-            $(".hospital-area-list").html(str);
-            
+            $(".hospital-like-list").html(str);
+            //displaySubHoPagination(data.pm);
         }, 
         error : function(jqXHR, textStatus, errorThrown){
 
         }
     });
-});
-
-
-
-
-
-
-
-
-
-/* 읍면동 리스트 select로 띄우기 끝 */
-
-/* $(document).on('click', '#emd_name', function(){
-	var emd_num = $(this).data('num');
-    var sd_num = $("select[name='sd_num'] option:selected").text();
-    var sgg_num = $("select[name='sgg_num'] option:selected").text();
-    var emd_num = $("select[name='emd_num'] option:selected").text();
-    var str = sd_num + sgg_num + emd_num;
     
-    // Serialize된 form 데이터를 직접 사용하고 str 파라미터를 추가합니다.
-    var formData = $(this).serialize();
-    formData += '&str=' + str; // str 파라미터 추가
+}
+
+
+function getAreaHoList(){
+	
 	$.ajax({
-		async:true,
-		url : '<c:url value="/hospital/signup"/>',
-		type : 'post',
-		data : formData,
-		success:function(data){
-			if (data === false) {
-		        location.href = '<c:url value="/message"/>?res=' + data;
-		    } else {
-		        location.href = '<c:url value="/message"/>?res=' + data;
-		    }
-			
-		}
-	});
-	return false;
-}) */
-$(document).ready(function() {
-    $(".sido-list li").click(function() {
-        $(".sido-list li").removeClass("active");
-        $(this).addClass("active");
-    });
-    $(document).on('click', '#sgg_name', function() {
-        if (!$(this).hasClass("active")) {
-            $(".active1").removeClass("active1");
-            $(this).addClass("active1");
+    	async : false,
+        method : "post",
+        url : '<c:url value="/hospital/emd/list"/>', // URL 수정
+        data : {
+        	"page" : page,
+        	"emd_num": area.emd_num
+        }, 
+        success : function (data){
+            let str =""
+            if(data.hoList == null || data.hoList.length == 0){
+                str +=`<h3 style="color: gray;line-height: 200px;text-align: center;">존재하는 병원이 없습니다.</h3>` ;
+            }
+            else{
+                for(let ho of data.hoList){
+                    str += 
+                   	`
+	                    <a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;" data-id="\${ho.ho_id}>"
+							<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
+							<h4>\${ho.ho_name}</h4>
+							<p>\${ho.ho_ceo}</p>
+							<p>\${ho.ho_id}</p>
+						</a>
+					`; 
+                }
+            }
+            $(".hospital-area-list").html(str);
+            displayAreaHoPagination(data.pm);
+        }, 
+        error : function(jqXHR, textStatus, errorThrown){
+
         }
     });
-    $(document).on('click', '#emd_name', function() {
-        if (!$(this).hasClass("active")) {
-            $(".active2").removeClass("active2");
-            $(this).addClass("active2");
-        }
-    });
+
+}
+
+function displaySubHoPagination(pm){
+    
+	let str = '';
+	if(pm.prev){
+		str += `
+		<li class="page-item">
+			<a class="page-link" href="javascript:void(0);" data-page="\${pm.startPage - 1}">이전</a>
+		</li>`;		
+	}
+	for(let i = pm.startPage; i<= pm.endPage; i++){
+		let active = pm.cri.page == i ? 'active' : '';
+		str += `
+		<li class="page-item \${active}">
+			<a class="page-link" href="javascript:void(0);" data-page="\${i}">\${i}</a>
+		</li>`;	
+	}
+	
+	if(pm.next){
+		str += `
+		<li class="page-item">
+			<a class="page-link" href="javascript:void(0);" data-page="\${pm.endPage + 1}">다음</a>
+		</li>`;	
+	}
+	$('.box-pagination>ul').html(str);
+}
+$(document).on('click','.box-pagination1 .page-link',function(){
+	page = $(this).data('page');
+	getSubHoList();
 });
+
+
+function displayAreaHoPagination(pm){
+    
+	let str = '';
+	if(pm.prev){
+		str += `
+		<li class="page-item">
+			<a class="page-link" href="javascript:void(0);" data-page="\${pm.startPage - 1}">이전</a>
+		</li>`;		
+	}
+	for(let i = pm.startPage; i<= pm.endPage; i++){
+		let active = pm.cri.page == i ? 'active' : '';
+		str += `
+		<li class="page-item \${active}">
+			<a class="page-link" href="javascript:void(0);" data-page="\${i}">\${i}</a>
+		</li>`;	
+	}
+	
+	if(pm.next){
+		str += `
+		<li class="page-item">
+			<a class="page-link" href="javascript:void(0);" data-page="\${pm.endPage + 1}">다음</a>
+		</li>`;	
+	}
+	$('.box-pagination>ul').html(str);
+}
+$(document).on('click','.box-pagination .page-link',function(){
+	page = $(this).data('page');
+	getAreaHoList();
+});
+
+$(".sido-list li").click(function() {
+    $(".sido-list li").removeClass("active");
+    $(this).addClass("active");
+});
+$(document).on('click', '#sgg_name', function() {
+    if (!$(this).hasClass("active")) {
+        $(".active1").removeClass("active1");
+        $(this).addClass("active1");
+    }
+});
+$(document).on('click', '#emd_name', function() {
+    if (!$(this).hasClass("active")) {
+        $(".active2").removeClass("active2");
+        $(this).addClass("active2");
+    }
+});
+
+$(".sido-list [data-num=${la.la_sd_num}]").click();
+$(".sgg-list [data-num=${la.la_sgg_num}]").click();
+$(".emd-list [data-num=${la.la_emd_num}]").click(); 
 </script>
 
 </body>

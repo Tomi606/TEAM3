@@ -388,11 +388,11 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public ArrayList<ReviewVO> getReviewList(Criteria cri) {
+	public ArrayList<ReviewVO> getReviewList(Criteria cri, HospitalDetailVO detail) {
 		if(cri == null) {
 			return null;
 		}
-		return hospitalDao.selectReviewList(cri);
+		return hospitalDao.selectReviewList(cri, detail);
 	}
 
 	@Override
@@ -410,12 +410,6 @@ public class HospitalServiceImp implements HospitalService {
 		return  hospitalDao.getArrHospital(user);
 	}
 
-	@Override
-	public ArrayList<HospitalVO> getHospital(LandVO land) {
-		if(land == null)
-			return null;
-		return hospitalDao.getHospitalList(land);
-	}
 
 	@Override
 	public LandVO getLand(int emd_num) {
@@ -437,7 +431,10 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public HospitalDetailVO getDetail(int hdNum) {
+	public HospitalDetailVO getDetail(Integer hdNum) {
+		if(hdNum == null) {
+			return null;
+		}
 		return hospitalDao.selectDetail(hdNum);
 	}
 
@@ -459,5 +456,63 @@ public class HospitalServiceImp implements HospitalService {
 		}
 		return hospitalDao.selectLand(land);
 	}
-	
+
+	@Override
+	public ArrayList<HospitalVO> getHospital(LandVO land,Criteria cri) {
+		if(land == null||cri==null)
+			return null;
+		return hospitalDao.getHospitalList(land,cri);
+	}
+
+	@Override
+	public int getHospitalCount(LandVO land, Criteria cri) {
+		if(land == null||cri==null)
+			return -1;
+		return hospitalDao.getHospitalListCount(land,cri);
+	}
+
+	@Override
+	public ArrayList<ReviewVO> getCriReviewList(Criteria cri) {
+		if(cri == null) {
+			return null;
+		}
+		return hospitalDao.selectCriReviewList(cri);
+
+	}
+
+	@Override
+	public boolean deleteReview(ReviewVO review, MemberVO member) {
+		if(review == null) {
+			return false;
+		}
+		if(member == null || member.getMe_id() == null) {
+			return false;
+		}
+		//작성자인지 DB와 확인
+		ReviewVO dbReview = hospitalDao.selectReview(review.getVw_num());
+		if(dbReview == null || !dbReview.getVw_me_id().equals(member.getMe_id()))  {
+			return false;
+		}
+
+		//다 확인 되면 삭제
+		return hospitalDao.deleteReview(review.getVw_num());
+	}
+
+	@Override
+	public boolean updateReview(ReviewVO review, MemberVO member) {
+		if(review == null || review.getVw_content() == null) {
+			return false;
+		}
+		if(member == null || member.getMe_id() == null) {
+			return false;
+		}
+		//작성자인지 확인
+		ReviewVO dbReview = hospitalDao.selectReview(review.getVw_num());
+		if(dbReview == null || !dbReview.getVw_me_id().equals(member.getMe_id())) {
+			return false;
+		}
+		//다 확인되면 업데이트
+		return hospitalDao.updateReview(review);
+	}
+
 }

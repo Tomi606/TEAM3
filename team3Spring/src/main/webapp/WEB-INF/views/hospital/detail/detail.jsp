@@ -168,7 +168,7 @@
 				<div class="input-group mb-3">				
 			        <textarea id="review" class="vw_num textarea-review col-10" id="vw_num" name="vw_num" 
 			        oninput="autoTextarea(this)"></textarea>
-			        <button class="btn btn-outline-success review-insert-btn" name="review-btn" data-hd-num="${hospital_detail.hd_num}">리뷰 등록</button>			
+			        <button class="btn btn-outline-success review-insert-btn" name="review-btn" data-hd-num="${detail.hd_num}">리뷰 등록</button>		
 				</div>
 			</div>			
 		</div>
@@ -180,7 +180,7 @@
 //댓글 페이지 정보를 가지고 있는 객체 선언
 let cri = {
 	page : 1, 
-	search : "${review.vw_num}"
+	search : "${detail.hd_num}"
 }
 
 getReviewList(cri);
@@ -196,12 +196,13 @@ function getReviewList(cri) {
 		//서버에서 보낸 데이터의 타입
 		dataType : "json", 
 		success : function (data){
+			console.log(data.reviewList);//확인용
 			displayReviewList(data.reviewList);
 			displayReviewPagination(data.pm);
-			$('.review-total').text(data.pm.totalCount); //totalCount or reviewTotalCount
+			$('.review-total').text(data.pm.totalCount);
 		},
 		error : function(jqXHR, textStatus, errorThrown){
-
+			console.error("Error occurred:", errorThrown);
 		}
 	});
 }
@@ -221,8 +222,8 @@ function displayReviewList(reviewList) {
 		let boxBtns = 
 		`
 		<span class="box-btn float-right">
-			<button class="btn btn-outline-warning btn-review-update" data-num="\${item.vw_num}">수정</button>
-			<button class="btn btn-outline-dander btn-review-del" data-num="\${item.vw_num}">삭제</button>
+			<button class="btn btn-outline-warning review-update-btn" data-num="\${item.vw_num}">수정</button>
+			<button class="btn btn-outline-danger review-del-btn" data-num="\${item.vw_num}">삭제</button>
 		</span>
 		`;
 		
@@ -294,7 +295,7 @@ $('.review-insert-btn').click(function() {
 	        vw_hd_num : $(this).data('hd-num'), 
 	        vw_content : $('.textarea-review').val()
 	    }
-	
+	console.log(review);
 	//내용이 비어있으면 return
 	if(review.vw_content.length == 0) {
 		alert('댓글 내용을 작성하세요.');
@@ -337,6 +338,97 @@ function checkLogin() {
 		location.href = '<c:url value="/main/login"/>';
 	}
 	return false;
+}
+</script>
+
+<!-- 리뷰 삭제 -->
+<script type="text/javascript">
+$(document).on('click', '.review-del-btn', function() {
+	//서버로 보낼 데이터 생성
+	let review = {
+		vw_num : $(this).data('num')
+	}
+	console.log(review);
+	//서버로 데이터를 전송
+	$.ajax({
+		async : true, 
+		url : '<c:url value="/hospital/review/delete"/>', 
+		type : 'post', 
+		data : JSON.stringify(review), 
+		contentType : "application/json; charset=utf-8",
+		dataType : "json", 
+		success : function (data){
+			if(data.result) {
+				alert('리뷰를 삭제했습니다.');
+				getReviewList(cri);
+			}
+			else {
+				alert('리뷰 삭제 실패');
+			}
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+});
+</script>
+
+<!-- 리뷰 수정 -->
+<script type="text/javascript">
+//수정 버튼을 눌렀을 때
+$(document).on('click', '.review-update-btn', function() {
+	initReview();
+	let reviewBox = $(this).parents(".box-review").find(".text-review");
+	//리뷰를 수정할 수 있는 textarea로 변경
+	let content = reviewBox.text();
+	let str = `<textarea class="form-control">\${content}</textarea>`;
+	reviewBox.after(str);
+	reviewBox.hide();
+	
+	//수정, 삭제 버튼을 감추고
+	$(this).parents(".box-review").find(".box-btn").hide();
+	//수정 완료 버튼을 추가
+	let vw_num = $(this).data("num");
+	str = `<button class="btn btn-outline-success complete-btn" data-num="\${vw_num}">수정완료</button>`;
+	$(this).parents(".box-review").find(".box-btn").after(str);
+});
+
+//수정완료 버튼을 눌렀을 때
+$(document).on('click', '.complete-btn', function() {
+	//전송할 데이터를 생성(리뷰 번호, 리뷰 내용)/페이지 번호는 컨트롤러에서 받아옴
+	let review = {
+		vw_content : $(".box-review").find("textarea").val(),
+		vw_num : $(this).data("num")
+	}
+	//서버에서 ajax로 데이터를 전송 후 처리
+	$.ajax({
+		async : true,
+		url : '<c:url value="/hospital/review/update"/>', 
+		type : 'post', 
+		data : JSON.stringify(review), 
+		contentType : "application/json; charset=utf-8",
+		dataType : "json", 
+		success : function (data){
+			if(data.result) {
+				alert('리뷰를 수정했습니다.');
+				getReviewList(cri);
+			}
+			else {
+				alert('리뷰 수정 실패');
+			}
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+
+		}
+	});
+});
+
+//수정 버튼을 누른 상태에서 다른 수정 버튼을 누르면 기존에 누른 댓글은 원상태로 돌려주는 함수
+function initReview() {
+	$('.complete-btn').remove();
+	$('.box-review').find('textarea').remove();
+	$('.box-btn').show();
+	$('text-review').show();
 }
 </script>
 

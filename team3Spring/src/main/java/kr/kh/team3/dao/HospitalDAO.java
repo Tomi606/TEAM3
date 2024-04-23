@@ -91,21 +91,32 @@ public interface HospitalDAO {
 
 	boolean deleteHospitalDetail(@Param("hd_ho_id") String hd_ho_id);
 
-	ArrayList<ReviewVO> selectReviewList(@Param("cri") Criteria cri);
+	ArrayList<ReviewVO> selectReviewList(@Param("cri") Criteria cri, @Param("detail") HospitalDetailVO detail);
 
 	int selectTotalReviewCount(@Param("cri") Criteria cri);
 	
 	ArrayList<HospitalVO> getArrHospital(@Param("us")SiteManagement user);
 
-	ArrayList<HospitalVO> getHospitalList(@Param("la")LandVO land);
-
 	LandVO getLand(@Param("num")int emd_num);
 
+	HospitalVO getHospital(@Param("ho_id")String hd_ho_id, @Param("la_num")int me_la_num);
+  
 	HospitalDetailVO selectDetail(@Param("hd_num") int hdNum);
 
 	boolean insertReview(@Param("vw") ReviewVO review);
 
 	boolean insertLand(@Param("la") LandVO land);
+	
+	ArrayList<HospitalVO> getHospitalList(@Param("la")LandVO land,@Param("cri") Criteria cri);
 
+	int getHospitalListCount(@Param("la")LandVO land,@Param("cri") Criteria cri);
+
+	ArrayList<ReviewVO> selectCriReviewList(@Param("cri") Criteria cri);
+
+	ReviewVO selectReview(@Param("vw_num") int vw_num);
+
+	boolean deleteReview(@Param("vw_num") int vw_num);
+
+	boolean updateReview(@Param("vw") ReviewVO review);
 
 }
