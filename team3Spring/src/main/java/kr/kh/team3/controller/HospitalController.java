@@ -48,7 +48,7 @@ public class HospitalController {
 	@Autowired
 	ProgramService programService;
 
-	// 병원 마이페이지
+	//병원 마이페이지
 	@GetMapping("/hospital/mypage")
 	public String hospitalMypage(Model model, HospitalVO hospital, HttpSession session) {
 		// 로그인한 회원 정보(SiteManagement에서 로그인 session 가져오고 -> HospitalVO로 가져오기)
@@ -135,14 +135,13 @@ public class HospitalController {
 	//병원 상세 페이지 등록
 	@GetMapping("/hospital/detail/insert")
 	public String detailInsert(Model model, HospitalDetailVO detail, HttpSession session) {
-		// 현재 로그인한 병원
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospital(user);
-		// 병원과목 리스트
+		//병원과목 리스트
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
-		// 현재 로그인한 병원이 선택했던 병원과목 가져오기
-		HospitalSubjectVO selectedSubject = hospitalService.getSelectedSubject(detail, hospital);
-		// 전에 입력했던 페이지 들고오기
+		//현재 로그인한 병원이 선택했던 병원과목 가져오기
+		HospitalVO selectedSubject = hospitalService.getHsNum(hospital);
+		//전에 입력했던 페이지 들고오기
 		HospitalDetailVO hoDetail = hospitalService.getHoDetail(detail, hospital);
 
 		model.addAttribute("hospital", hospital);

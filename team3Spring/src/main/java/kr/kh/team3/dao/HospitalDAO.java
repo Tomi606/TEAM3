@@ -119,4 +119,6 @@ public interface HospitalDAO {
 
 	boolean updateReview(@Param("vw") ReviewVO review);
 
+	HospitalVO selectHsNum(@Param("hospital") HospitalVO hospital);
+
 }

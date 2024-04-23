@@ -109,4 +109,6 @@ public interface HospitalService {
 
 	boolean updateReview(ReviewVO review, MemberVO member);
 
+	HospitalVO getHsNum(HospitalVO hospital);
+
 }

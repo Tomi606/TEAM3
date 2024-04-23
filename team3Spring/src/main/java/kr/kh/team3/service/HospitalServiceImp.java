@@ -515,4 +515,12 @@ public class HospitalServiceImp implements HospitalService {
 		return hospitalDao.updateReview(review);
 	}
 
+	@Override
+	public HospitalVO getHsNum(HospitalVO hospital) {
+		if(hospital == null || hospital.getHo_id() == null) {
+			return null;
+		}
+		return hospitalDao.selectHsNum(hospital);
+	}
+
 }

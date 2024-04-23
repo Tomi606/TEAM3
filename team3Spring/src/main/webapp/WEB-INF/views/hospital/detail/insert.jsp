@@ -89,7 +89,7 @@
 	</div>
 	<h2 style="font-weight: bold;">진료 과목</h2>
 	<div class="hd_hs_num">
-		<label for="hd_hs_num">대표 진료 과목</label>
+		<label for="hd_hs_num" style="font-weight: bold">대표 진료 과목</label>
 		<div class="subject-checkbox hd_hs_num">
 		  	<c:forEach items="${hsList}" var="hs">
 		  		<c:set var="isChecked" value="false"/>
@@ -107,7 +107,7 @@
 		<input type="hidden" id="hd_hs_num" name="hd_hs_num" value="${hoDetail.hd_hs_num}">
 	 </div>
 	<div>
-	 	<label for="hd_subject_detail">상세 진료 항목</label>
+	 	<label for="hd_subject_detail" style="font-weight: bold">상세 진료 항목</label>
 	 	<textarea class="hd_subject_detail col-10" id="hd_subject_detail" name="hd_subject_detail" 
 	 	oninput="autoTextarea(this)" placeholder="감염성 질환 / 알레르기 / 만성 질환 / 호흡기 질환 / 피부 질환...">${hoDetail.hd_subject_detail}</textarea>
 	</div>

@@ -259,7 +259,7 @@
 	<resultMap type="HospitalDetailVO" id="DetailMap">
 		<result property="hd_num" column="hd_num"/>
 		<result property="hd_ho_id" column="hd_ho_id"/>
-		<result property="hd_hs_num" column="hd_hs_num"/>
+		  <result property="hd_hs_num" column="hd_hs_num"/>
 		<result property="hd_info" column="hd_info"/>
 		<result property="hd_time" column="hd_time"/>
 		<result property="hd_park" column="hd_park"/>
@@ -296,4 +296,7 @@
 		set vw_content = #{vw.vw_content} where vw_num = #{vw.vw_num}
 	</update>
 	
+	<select id="selectHsNum" resultType="HospitalVO">
+		select ho_hs_num from hospital where ho_hs_num = #{hospital.ho_hs_num}
+	</select>
 </mapper>
