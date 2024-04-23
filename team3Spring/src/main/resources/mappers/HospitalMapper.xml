@@ -241,8 +241,14 @@
 	</select>
 	
 	<select id="selectReviewList" resultType="ReviewVO">
-		select * from review where vw_hd_num = #{cri.search}
+		select * from review where vw_hd_num = #{detail.hd_num}
 		order by vw_num desc 
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="selectCriReviewList" resultType="ReviewVO">
+		select * from review where vw_hd_num = #{cri.search}
+		order by vw_num desc
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
@@ -274,7 +280,7 @@
 	
 	<insert id="insertReview">
 		insert into review(vw_hd_num, vw_me_id, vw_content)
-		values(#{vw.vw_hd_num}, #{vw.vw_me_id}, #{vw.vw_content})
+		values(#{review.vw_hd_num}, #{review.vw_me_id}, #{review.vw_content})
 	</insert>
 
 </mapper>

@@ -180,7 +180,7 @@
 //댓글 페이지 정보를 가지고 있는 객체 선언
 let cri = {
 	page : 1, 
-	search : "${review.vw_num}"
+	search : "${detail.hd_num}"
 }
 
 getReviewList(cri);
@@ -196,12 +196,13 @@ function getReviewList(cri) {
 		//서버에서 보낸 데이터의 타입
 		dataType : "json", 
 		success : function (data){
+			console.log(data.reviewList);//확인용
 			displayReviewList(data.reviewList);
 			displayReviewPagination(data.pm);
-			$('.review-total').text(data.pm.totalCount); //totalCount or reviewTotalCount
+			$('.review-total').text(data.pm.totalCount);
 		},
 		error : function(jqXHR, textStatus, errorThrown){
-
+			console.error("Error occurred:", errorThrown);
 		}
 	});
 }
