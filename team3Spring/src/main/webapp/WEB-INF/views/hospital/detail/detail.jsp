@@ -168,7 +168,7 @@
 				<div class="input-group mb-3">				
 			        <textarea id="review" class="vw_num textarea-review col-10" id="vw_num" name="vw_num" 
 			        oninput="autoTextarea(this)"></textarea>
-			        <button class="btn btn-outline-success review-insert-btn" name="review-btn" data-hd-num="${hospital_detail.hd_num}">리뷰 등록</button>			
+			        <button class="btn btn-outline-success review-insert-btn" name="review-btn" data-hd-num="${detail.hd_num}">리뷰 등록</button>		
 				</div>
 			</div>			
 		</div>
@@ -223,7 +223,7 @@ function displayReviewList(reviewList) {
 		`
 		<span class="box-btn float-right">
 			<button class="btn btn-outline-warning btn-review-update" data-num="\${item.vw_num}">수정</button>
-			<button class="btn btn-outline-dander btn-review-del" data-num="\${item.vw_num}">삭제</button>
+			<button class="btn btn-outline-danger btn-review-del" data-num="\${item.vw_num}">삭제</button>
 		</span>
 		`;
 		
@@ -295,7 +295,7 @@ $('.review-insert-btn').click(function() {
 	        vw_hd_num : $(this).data('hd-num'), 
 	        vw_content : $('.textarea-review').val()
 	    }
-	
+	console.log(review);
 	//내용이 비어있으면 return
 	if(review.vw_content.length == 0) {
 		alert('댓글 내용을 작성하세요.');

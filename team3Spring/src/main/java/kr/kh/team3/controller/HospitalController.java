@@ -96,15 +96,12 @@ public class HospitalController {
 	//리뷰 달기
 	@ResponseBody
 	@PostMapping("/hospital/review/insert")
-	public Map<String, Object> reviewInsert(
-	@RequestBody ReviewVO review, HospitalDetailVO detail, HttpSession session) {
+	public Map<String, Object> reviewInsert(@RequestBody ReviewVO review, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO member = memberService.getSiteMember(user);
-		
-		// ReviewVO 객체에 hdNum 값 설정
-		review.setVw_hd_num(22);
-		boolean res = hospitalService.insertReview(review, member, detail);
+		log.info(review);
+		boolean res = hospitalService.insertReview(review, member);
 		
 		map.put("result", res);
 		return map;
@@ -137,20 +134,6 @@ public class HospitalController {
 //		map.put("result", res);
 //		return map;
 //	}
-
-	// 병원 상세 페이지 등록/수정
-	// 2. 병원 과목
-	@ResponseBody
-	@PostMapping("/hospital/subject")
-	public Map<String, Object> memberStop(@RequestBody HospitalVO hospital) {
-		Map<String, Object> map = new HashMap<String, Object>();
-//		boolean hsUpdate = hospitalService.updateHospitalSubject(hospital.getHo_hs_num());
-//		boolean detailUpdate = hospitalService.updateHospitalDetail();
-//		map.put("hsUpdate", hsUpdate);
-//		map.put("detailUpdate", detailUpdate);
-		return map;
-	}
-
 	
 	//병원 상세 페이지 등록
 	@GetMapping("/hospital/detail/insert")
