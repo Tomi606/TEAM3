@@ -107,4 +107,6 @@ public interface HospitalService {
 
 	boolean deleteReview(ReviewVO review, MemberVO member);
 
+	boolean updateReview(ReviewVO review, MemberVO member);
+
 }

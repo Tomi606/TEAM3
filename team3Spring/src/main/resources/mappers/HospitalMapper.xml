@@ -291,4 +291,9 @@
 		delete from review where vw_num = #{vw_num}
 	</delete>
 	
+	<update id="updateReview">
+		update review
+		set vw_content = #{vw.vw_content} where vw_num = #{vw.vw_num}
+	</update>
+	
 </mapper>
