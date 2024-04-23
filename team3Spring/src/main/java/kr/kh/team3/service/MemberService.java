@@ -91,10 +91,8 @@ public interface MemberService {
 
 	ArrayList<HospitalVO> getMySubject(MemberVO me);
 	
-	ArrayList<HospitalVO> getMySubject1(MemberVO me, LandVO land);
+	ArrayList<HospitalVO> getSubHoList(MemberVO me, LandVO land);
+	
 	MemberVO getSiteMember(SiteManagement user);
-
-
-
 
 }

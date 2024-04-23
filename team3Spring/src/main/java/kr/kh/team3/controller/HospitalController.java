@@ -316,8 +316,25 @@ public class HospitalController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO me = memberService.getMeId(user.getSite_id());
 		LandVO land = hospitalService.getLand(emd_num);
-		ArrayList<HospitalVO> hoSubList = memberService.getMySubject1(me, land);
+		ArrayList<HospitalVO> hoSubList = memberService.getSubHoList(me, land);
+		log.info(hoSubList + "hoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubList");
 		return hoSubList;
+
+	}
+	
+	@ResponseBody
+	@PostMapping("/hospital/area/name")
+	public Map<String, Object> areaName(@RequestParam("sd_num") int sd_num, @RequestParam("sgg_num") int sgg_num, @RequestParam("emd_num") int emd_num, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		LandVO land = new LandVO(0, sd_num, sgg_num, emd_num);
+		String sd_name = memberService.getSdName(land);
+		String sgg_name = memberService.getSggName(land);
+		String emd_name = memberService.getEmdName(land);
+		
+		map.put("sd_name", sd_name);
+		map.put("sgg_name", sgg_name);
+		map.put("emd_name", emd_name);
+		return map;
 
 	}
 

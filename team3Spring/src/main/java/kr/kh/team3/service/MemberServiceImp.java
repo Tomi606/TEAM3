@@ -491,7 +491,7 @@ public class MemberServiceImp implements MemberService {
 		return hospitalList;
 	}
 	@Override
-	public ArrayList<HospitalVO> getMySubject1(MemberVO me,LandVO land) {
+	public ArrayList<HospitalVO> getSubHoList(MemberVO me,LandVO land) {
 		if (me == null || me.getMe_id() == null || me.getMe_id().length() == 0 ||land == null)
 			return null;
 		log.info(land + "landlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandlandland");
@@ -510,8 +510,6 @@ public class MemberServiceImp implements MemberService {
 						log.info(dd + "\n!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#!@#@!#!@#!@#@!#!@#!@#@!#@!#!@#!@#!@#@!#!");
 						hospitalList.add(dd);
 					}
-				} else {
-					break;
 				}
 			}
 		}
