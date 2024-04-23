@@ -2,7 +2,6 @@ package kr.kh.team3.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -21,6 +20,7 @@ import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalProgramVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.ItemListVO;
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
@@ -261,16 +261,22 @@ public class HospitalController {
 	// 프로그램을 추가하는 메서드
 	@ResponseBody
 	@PostMapping("/program/insert")
-	public Map<String, Object> insertProgram(HospitalProgramVO program, HttpSession session) {
+	public Map<String, Object> insertProgram(HospitalProgramVO program, HttpSession session, 
+			@RequestParam("list[]") ArrayList<Integer> list,
+			@RequestParam("il_title") String il_title) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		//ArrayList<HospitalProgramVO> programList = programService.getProgramList(user);
-		boolean res =  programService.insertProgram(program, user);
-		if(res) {
-			map.put("programList", "");
-		}else {
-			map.put("msg", "추가에 실패했습니다.");
-		}
+		ArrayList<HospitalProgramVO> programList = programService.getProgramList(user);
+		ItemListVO itemList = new ItemListVO(il_title, list.toString(), program.getHp_num());
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+		System.out.println(itemList);
+//		boolean res =  programService.insertProgram(program, user, list);
+//		
+//		if(res) {
+//			map.put("msg", "추가에 성공했습니다.");
+//		}else {
+//			map.put("msg", "추가에 실패했습니다.");
+//		}
 		return map;
 	}
 	
@@ -290,7 +296,7 @@ public class HospitalController {
 				Model model) {
 		
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		 ArrayList<HospitalProgramVO> programList = programService.getProgramList(user); 
+		ArrayList<HospitalProgramVO> programList = programService.getProgramList(user);
 		 boolean res =programService.updateProgram(program, user, programList);
 		 if (res) {
 				model.addAttribute("msg","프로그램 수정을 완료했습니다.");

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 
 import kr.kh.team3.dao.ProgramDAO;
 import kr.kh.team3.model.vo.HospitalProgramVO;
+import kr.kh.team3.model.vo.ItemListVO;
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.SiteManagement;
 
@@ -70,7 +71,9 @@ public class ProgramServiceImp implements ProgramService{
 	//==================================프로그램 기능 시작=====================================
 	
 	@Override
-	public boolean insertProgram(HospitalProgramVO program, SiteManagement user) {
+	public boolean insertProgram(HospitalProgramVO program
+			, SiteManagement user
+			, ArrayList<Integer> list) {
 		if(program.getHp_payment() == 0 || program.getHp_ho_id() == ""
 				|| user.getSite_id() == null) {
 			return false;
@@ -82,8 +85,19 @@ public class ProgramServiceImp implements ProgramService{
 				return false;
 			}
 		}
-
-		if(user.getSite_authority().equals("MANAGER")) {			
+		ArrayList<ItemListVO> itemList = programDao.selectItemListList();
+		if(itemList.size() == 0) {
+			return false;
+		}
+		
+		for(ItemListVO tmp : itemList) {
+			if(tmp.getIl_list().equals(list.toString())) {
+				return false;
+			}
+		}
+		
+		if(user.getSite_authority().equals("MANAGER")) {	
+			//항목 리스트, 항목 리스트 제목, 병원 프로그램 명(번호) 가져와서 itemList에 넣기
 			return programDao.insertProgram(program, user);	
 		}
 		return false;

@@ -243,10 +243,12 @@ DROP TABLE IF EXISTS `item_list`;
 
 CREATE TABLE `item_list` (
 	`il_num`	int	primary key auto_increment,
-	`il_title`	varchar(100) NOT NULL,
-	`il_hp_num`	int	NOT NULL,
-	`il_it_num`	int	NOT NULL
+	`il_title`	varchar(100) not NULL,
+	`il_list`	varchar(255) not NULL,
+	`il_hp_num`	int	NOT NULL
 );
+
+
 
 DROP TABLE IF EXISTS `reservation_schedule`;
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import kr.kh.team3.model.vo.HospitalProgramVO;
+import kr.kh.team3.model.vo.ItemListVO;
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.SiteManagement;
 
@@ -25,5 +26,7 @@ public interface ProgramDAO {
 	boolean updateProgram(@Param("pr")HospitalProgramVO program);
 
 	boolean deleteProgram(@Param("hp_num")int hp_num);
+
+	ArrayList<ItemListVO> selectItemListList();
 
 }
