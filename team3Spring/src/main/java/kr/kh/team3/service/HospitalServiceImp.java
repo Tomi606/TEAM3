@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import kr.kh.team3.dao.HospitalDAO;
 import kr.kh.team3.dao.MemberDAO;
+import kr.kh.team3.model.vo.BookmarkVO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
@@ -466,6 +467,20 @@ public class HospitalServiceImp implements HospitalService {
 		if(land == null||cri==null)
 			return -1;
 		return hospitalDao.getHospitalListCount(land,cri);
+	}
+
+	@Override
+	public ArrayList<BookmarkVO> getBmkList(SiteManagement user, Criteria cri) {
+		if(user == null||user.getSite_id() == null||user.getSite_id().length() == 0)
+			return null;
+		return hospitalDao.selectBmkList(user, cri);
+	}
+
+	@Override
+	public int getBmkListCount(SiteManagement user, Criteria cri) {
+		if(user == null||user.getSite_id() == null||user.getSite_id().length() == 0)
+			return -1;
+		return hospitalDao.selectBmkListCount(user, cri);
 	}
 	
 }

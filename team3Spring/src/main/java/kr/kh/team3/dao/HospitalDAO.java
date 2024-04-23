@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
+import kr.kh.team3.model.vo.BookmarkVO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
@@ -113,5 +114,8 @@ public interface HospitalDAO {
 
 	int getHospitalListCount(@Param("la")LandVO land,@Param("cri") Criteria cri);
 
+	ArrayList<BookmarkVO> selectBmkList(@Param("user")SiteManagement user, @Param("cri")Criteria cri);
+
+	int selectBmkListCount(@Param("user")SiteManagement user, @Param("cri")Criteria cri);
 
 }
