@@ -389,11 +389,11 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public ArrayList<ReviewVO> getReviewList(Criteria cri) {
+	public ArrayList<ReviewVO> getReviewList(Criteria cri, HospitalDetailVO detail) {
 		if(cri == null) {
 			return null;
 		}
-		return hospitalDao.selectReviewList(cri);
+		return hospitalDao.selectReviewList(cri, detail);
 	}
 
 	@Override
@@ -418,7 +418,7 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public boolean insertReview(ReviewVO review, MemberVO member) {
+	public boolean insertReview(ReviewVO review, MemberVO member, HospitalDetailVO detail) {
 		if(review == null || review.getVw_content().length() == 0) {
 			return false;
 		}
@@ -428,11 +428,14 @@ public class HospitalServiceImp implements HospitalService {
 		}
 		
 		review.setVw_me_id(member.getMe_id());
-		return hospitalDao.insertReview(review);
+		return hospitalDao.insertReview(review, detail.getHd_num());
 	}
 
 	@Override
-	public HospitalDetailVO getDetail(int hdNum) {
+	public HospitalDetailVO getDetail(Integer hdNum) {
+		if(hdNum == null) {
+			return null;
+		}
 		return hospitalDao.selectDetail(hdNum);
 	}
 
@@ -454,6 +457,7 @@ public class HospitalServiceImp implements HospitalService {
 		}
 		return hospitalDao.selectLand(land);
 	}
+
 	@Override
 	public ArrayList<HospitalVO> getHospital(LandVO land,Criteria cri) {
 		if(land == null||cri==null)
@@ -461,12 +465,19 @@ public class HospitalServiceImp implements HospitalService {
 		return hospitalDao.getHospitalList(land,cri);
 	}
 
-
 	@Override
 	public int getHospitalCount(LandVO land, Criteria cri) {
 		if(land == null||cri==null)
 			return -1;
 		return hospitalDao.getHospitalListCount(land,cri);
+
+	@Override
+	public ArrayList<ReviewVO> getCriReviewList(Criteria cri) {
+		if(cri == null) {
+			return null;
+		}
+		return hospitalDao.selectCriReviewList(cri);
+
 	}
 
 	@Override
