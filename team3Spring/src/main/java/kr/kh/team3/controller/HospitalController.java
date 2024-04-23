@@ -61,9 +61,9 @@ public class HospitalController {
 
 	//회원 입장에서 상페 페이지 조회시
 	@GetMapping("/hospital/detail/detail")
-	public String hospitalDetail(Model model, Integer hdNum) {
+	public String hospitalDetail(Model model, Integer hdNum, Integer vwNum) {
 		//상세 페이지를 가져옴(임시)
-		hdNum = 1;
+		hdNum = 22;
 		HospitalDetailVO detail = hospitalService.getDetail(hdNum);
 
 		//병원과목 리스트
@@ -93,38 +93,34 @@ public class HospitalController {
 		return map;
 	}
 	
-	//리뷰 달기
+	//리뷰 등록
 	@ResponseBody
 	@PostMapping("/hospital/review/insert")
-	public Map<String, Object> reviewInsert(@RequestBody ReviewVO review, 
-			HospitalDetailVO detail, HttpSession session, HttpServletRequest request) {
+	public Map<String, Object> reviewInsert(@RequestBody ReviewVO review, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO member = memberService.getSiteMember(user);
-		
-		// ReviewVO 객체에 hdNum 값 설정
-		review.setVw_hd_num(1);
-		boolean res = hospitalService.insertReview(review, member, detail);
+		boolean res = hospitalService.insertReview(review, member);
+		log.info(review.getVw_content());
 		
 		map.put("result", res);
 		return map;
 	}
 	
-	//리뷰 지우기
-//	@ResponseBody
-//	@PostMapping("/hospital/review/delete")
-//	public Map<String, Object> reviewDelete(@RequestBody CommentVO comment, HttpSession session){
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		MemberVO user = (MemberVO) session.getAttribute("user");
-//		//확인용
-//		//System.out.println(comment);
-//		//System.out.println(user);
-//		boolean res = commentService.deleteComment(comment, user);
-//		map.put("result", res);
-//		return map;
-//	}
+	//리뷰 삭제
+	@ResponseBody
+	@PostMapping("/hospital/review/delete")
+	public Map<String, Object> reviewDelete(@RequestBody ReviewVO review, HttpSession session){
+		Map<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		MemberVO member = memberService.getSiteMember(user);
 
-	// 리뷰 수정
+		boolean res = hospitalService.deleteReview(review, member);
+		map.put("result", res);
+		return map;
+	}
+
+	//리뷰 수정
 //	@ResponseBody
 //	@PostMapping("/hospital/review/update")
 //	public Map<String, Object> reviewUpdate(@RequestBody CommentVO comment, HttpSession session){
@@ -137,20 +133,6 @@ public class HospitalController {
 //		map.put("result", res);
 //		return map;
 //	}
-
-	// 병원 상세 페이지 등록/수정
-	// 2. 병원 과목
-	@ResponseBody
-	@PostMapping("/hospital/subject")
-	public Map<String, Object> memberStop(@RequestBody HospitalVO hospital) {
-		Map<String, Object> map = new HashMap<String, Object>();
-//		boolean hsUpdate = hospitalService.updateHospitalSubject(hospital.getHo_hs_num());
-//		boolean detailUpdate = hospitalService.updateHospitalDetail();
-//		map.put("hsUpdate", hsUpdate);
-//		map.put("detailUpdate", detailUpdate);
-		return map;
-	}
-
 	
 	//병원 상세 페이지 등록
 	@GetMapping("/hospital/detail/insert")

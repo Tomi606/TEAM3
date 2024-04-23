@@ -93,7 +93,7 @@ public interface HospitalService {
 
 	ArrayList<HospitalVO> getHospital(LandVO land, Criteria cri);
 
-	boolean insertReview(ReviewVO review, MemberVO member, HospitalDetailVO detail);
+	boolean insertReview(ReviewVO review, MemberVO member);
 
 	HospitalDetailVO getDetail(Integer hdNum);
 
@@ -104,5 +104,7 @@ public interface HospitalService {
 	int getHospitalCount(LandVO land, Criteria cri);
 
 	ArrayList<ReviewVO> getCriReviewList(Criteria cri);
+
+	boolean deleteReview(ReviewVO review, MemberVO member);
 
 }

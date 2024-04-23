@@ -417,7 +417,7 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public boolean insertReview(ReviewVO review, MemberVO member, HospitalDetailVO detail) {
+	public boolean insertReview(ReviewVO review, MemberVO member) {
 		if(review == null || review.getVw_content().length() == 0) {
 			return false;
 		}
@@ -427,7 +427,7 @@ public class HospitalServiceImp implements HospitalService {
 		}
 		
 		review.setVw_me_id(member.getMe_id());
-		return hospitalDao.insertReview(review, detail.getHd_num());
+		return hospitalDao.insertReview(review);
 	}
 
 	@Override
@@ -478,5 +478,23 @@ public class HospitalServiceImp implements HospitalService {
 		return hospitalDao.selectCriReviewList(cri);
 
 	}
-	
+
+	@Override
+	public boolean deleteReview(ReviewVO review, MemberVO member) {
+		if(review == null) {
+			return false;
+		}
+		if(member == null || member.getMe_id() == null) {
+			return false;
+		}
+		//작성자인지 DB와 확인
+		ReviewVO dbReview = hospitalDao.selectReview(review.getVw_num());
+		if(dbReview == null || !dbReview.getVw_me_id().equals(member.getMe_id()))  {
+			return false;
+		}
+
+		//다 확인 되면 삭제
+		return hospitalDao.deleteReview(review.getVw_num());
+	}
+
 }
