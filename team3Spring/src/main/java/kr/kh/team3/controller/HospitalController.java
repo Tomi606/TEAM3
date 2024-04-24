@@ -21,7 +21,6 @@ import kr.kh.team3.model.vo.HospitalProgramVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.HsListVO;
-import kr.kh.team3.model.vo.ItemListVO;
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
@@ -160,12 +159,12 @@ public class HospitalController {
 
 	// 병원 상세 페이지 등록/수정
 	@PostMapping("/hospital/detail/insert")
-	public String detailInsertPost(Model model, HospitalDetailVO detail, HospitalSubjectVO subject, int [] subjects, HttpSession session) {
+	public String detailInsertPost(Model model, HospitalDetailVO detail, HsListVO list, HospitalSubjectVO subject, int [] subjects, HttpSession session) {
 		// 현재 로그인한 병원
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospital(user);
 		// 병원 페이지 등록
-		boolean res = hospitalService.insertOrUpdateHospitalDetail(detail, hospital, subject);
+		boolean res = hospitalService.insertOrUpdateHospitalDetail(detail, list, hospital, subject);
 
 		if (res) {
 			model.addAttribute("msg", "상세 페이지 수정 완료");

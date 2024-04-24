@@ -129,8 +129,8 @@ public interface HospitalDAO {
 
 	ArrayList<HsListVO> selectSubjects(@Param("hospital") HospitalVO hospital);
 
-	boolean deleteSubjects(@Param("hsl_ho_id") String hsl_ho_id);
+	boolean insertSubjects(@Param("hsList") HsListVO hsList, @Param("ho_id") String ho_id, @Param("hs_num") int hs_num);
 
-	boolean insertSubjects(@Param("ho_id") String ho_id, @Param("hs_num") int hs_num);
+	boolean deleteSubjects(@Param("hsl_hs_num") int hsl_hs_num);
 
 }
