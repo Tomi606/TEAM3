@@ -332,25 +332,21 @@ public class HospitalController {
 	//============================================= 조민석 ===================================================
 	/*병원 리스트 출력 정경호,권기은*/
 	//Hd_hs_num없어서 일단 주석처리!!!!!!!!!!!!!!!!!!!!!!!
-//	@GetMapping("/hospital/list")
-//	public String hospitalList(HttpSession session, Model model, SiDoVO sido, SiGoonGuVO sgg, EupMyeonDongVO emd) {
-//		SiteManagement user = (SiteManagement) session.getAttribute("user");
-//		if (user == null) {
-//			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
-//			model.addAttribute("url", "/main/login");
-//			return "message";
-//		}
-//		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
-//		ArrayList<HospitalVO> hoList = hospitalService.getArrHospital(user);
-//		MemberVO me = memberService.getMeId(user.getSite_id());
-//		ArrayList<HospitalVO> likeSubList = memberService.getMySubject(me);
-//		LandVO la = memberService.getMyLand(user);
-//		model.addAttribute("like", likeSubList);
-//		model.addAttribute("hoList", hoList);
-//		model.addAttribute("sidoList", sidoList);
-//		model.addAttribute("la", la);
-//		return "/hospital/list";
-//	}
+	@GetMapping("/hospital/list")
+	public String hospitalList(HttpSession session, Model model, SiDoVO sido, SiGoonGuVO sgg, EupMyeonDongVO emd) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		if (user == null) {
+			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
+			model.addAttribute("url", "/main/login");
+			return "message";
+		}
+		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
+		LandVO la = memberService.getMyLand(user);
+		
+		model.addAttribute("sidoList", sidoList);
+		model.addAttribute("la", la);
+		return "/hospital/list";
+	}
 
 	@ResponseBody
 	@PostMapping("/hospital/emd/list")
@@ -360,28 +356,24 @@ public class HospitalController {
 		LandVO land = hospitalService.getLand(emd_num);
 		cri.setPerPageNum(12);
 		ArrayList<HospitalVO> hoList = hospitalService.getHospital(land,cri);
-		log.info(hoList+"hoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoList");
 		int totalCount = hospitalService.getHospitalCount(land,cri);
-		log.info(totalCount+"토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카");
 		PageMaker pm = new PageMaker(5, cri, totalCount);
-		log.info(pm+"피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠");
 		map.put("pm", pm);
 		map.put("hoList", hoList);
 		return map;
 
 	}
-//Hd_hs_num없어서 일단 주석처리!!!!!!!!!!!!!!!!!!!!!!!
-//	@ResponseBody
-//	@PostMapping("/hospital/like/list")
-//	public ArrayList<HospitalVO> postLiHospital(@RequestParam("emd_num") int emd_num,HttpSession session) {
-//		SiteManagement user = (SiteManagement) session.getAttribute("user");
-//		MemberVO me = memberService.getMeId(user.getSite_id());
-//		LandVO land = hospitalService.getLand(emd_num);
-//		ArrayList<HospitalVO> hoSubList = memberService.getSubHoList(me, land);
-//		log.info(hoSubList + "hoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubList");
-//		return hoSubList;
-//
-//	}
+	@ResponseBody
+	@PostMapping("/hospital/like/list")
+	public ArrayList<HospitalVO> postLiHospital(@RequestParam("emd_num") int emd_num,HttpSession session) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		MemberVO me = memberService.getMeId(user.getSite_id());
+		LandVO land = hospitalService.getLand(emd_num);
+		ArrayList<HospitalVO> hoSubList = hospitalService.getSubHoList(me, land);
+		log.info(hoSubList + "hoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubList");
+		return hoSubList;
+
+	}
 	
 	@ResponseBody
 	@PostMapping("/hospital/area/name")

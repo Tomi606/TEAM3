@@ -549,4 +549,12 @@ public class HospitalServiceImp implements HospitalService {
 		return hospitalDao.selectSubjects(hospital);
 	}
 
+	@Override
+	public ArrayList<HospitalVO> getSubHoList(MemberVO me, LandVO land) {
+		if(me == null || land == null)
+		return null;
+		
+		return hospitalDao.getSubHoList(me,land);
+	}
+
 }

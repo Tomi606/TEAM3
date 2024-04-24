@@ -171,8 +171,6 @@ img {
 	display: flex;
 }
 
-
-
 .mypage-img-name {
 	align-content: space-around;
 	flex-direction: column;
@@ -186,7 +184,7 @@ img {
 
 .hr {
 	width: 100%;
-	border: 1px solid green;
+	border: 1px solid lightgray;
 }
 
 .mypage-phone {
