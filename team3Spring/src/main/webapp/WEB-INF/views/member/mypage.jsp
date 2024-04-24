@@ -59,8 +59,6 @@
 }
 
 select {
-	margin-left: 34px;
-	padding: 10px;
 	font-size: 16px;
 	border: 1px solid #ccc;
 	background-color: #ffff;
@@ -149,11 +147,12 @@ img {
 }
 
 .mypage-profile-info {
-	width: 600px;
-	height: 325px;
+	padding:0 50px;
+	width: 800px;
+	height: 777px;
 	border: 1px solid black;
-	margin: 40px 20px 40px 250px;
-	background-color: #FFE1E6;
+	margin: 11px 20px 40px 120px;
+	background-color: white;
 	border-radius: 30px;
 }
 
@@ -167,52 +166,40 @@ img {
 }
 
 .profile-img-name-container {
-	width: 600px;
+	width: 100%;
 	height: 150px;
 	display: flex;
 }
 
-.mypage-img {
-	display: flex;
-	width: 125px;
-	height: 125px;
-	border: 1px solid white;
-	margin: 30px 0 0 30px;
-	border-radius: 100%;
-	background-color: white;
-}
+
 
 .mypage-img-name {
+	align-content: space-around;
 	flex-direction: column;
 	flex-wrap: wrap;
-	align-content: space-between;
 	display: flex;
-	width: 400px;
-	margin: 30px 0;
+	width:1000px;
+	margin: 30px auto;
 	height: 125px;
 	padding: 20px;
 }
 
 .hr {
-	width: 500px;
-	border: 1px solid black;
-	margin: 10px auto
+	width: 100%;
+	border: 1px solid green;
 }
 
 .mypage-phone {
-	width: 500px;
-	margin: 0 auto;
+	margin:auto 0;
+	height:70px;
+	width: 100%;
 	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
 }
 
 .mypage-email {
-	width: 500px;
-	margin: 0 auto;
+	height:70px;
+	width: 100%;
 	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
 }
 
 .mypage-hospital-name {
@@ -226,10 +213,9 @@ img {
 }
 
 .mypage-job {
+	width: 100%;
+	height:70px;
 	display: flex;
-	margin: 20px 48px 0 47px;
-	flex-direction: row;
-	justify-content: space-between;
 }
 
 .mypage-hospital-address {
@@ -254,7 +240,6 @@ img {
 	width: 180px;
 	display: none;
 }
-/*  .new_me_phone_hidden input{ font-size: 1.5rem;} */
 .phone_save_btn_wrap {
 	display: none;
 }
@@ -263,7 +248,6 @@ img {
 	width: 180px;
 	display: none;
 }
-/* .new_me_email_hidden input{} */
 .email_save_btn_wrap {
 	display: none;
 }
@@ -296,7 +280,6 @@ img {
 	display: none;
 }
 .new_me_subject_hidden {
-	width: 180px;
 	display: none;
 }
 
@@ -350,6 +333,83 @@ img {
 .new_me_pw_hidden input {
 	width: 300px;
 }
+ 
+ .anything-box{
+ 	margin-top:50px;
+ }
+.choose-box{
+	padding:15px;
+	text-align:center;
+	display:flex;
+	width: 100%;height: 75px;
+ 	flex-direction: column;
+}
+.choose-box a{
+	border-radius:5px;
+	line-height:45px;
+	margin:0 auto;
+	border:1px solid black;
+	width:50%;height:50px;
+	color:black;
+	text-decoration:none;
+}
+.subject{
+width: 100%; 
+height: 70px;
+
+}
+.phone-width{
+width: 80%;
+margin:auto;
+display: flex;
+justify-content: space-between;
+}
+.email-width{
+width: 80%;
+margin:auto;
+display: flex;
+justify-content: space-between;
+}
+.job-width{
+width: 80%;
+margin:auto;
+display: flex;
+justify-content: space-between;
+}
+.subject-width{
+width: 80%;
+margin: 20px auto;
+display: flex;
+justify-content: space-between;
+}
+.address-width{
+width: 93%;
+margin:auto;
+display: flex;
+justify-content: space-between;
+}
+select {
+    width: 300px;
+    padding: 8px; 
+    font-size: 16px;
+    border: 1px solid #ccc;
+    appearance: none;  
+    background-color: #fff;
+    background-image: linear-gradient(to bottom, #f9f9f9, #e9e9e9);  
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+    cursor: pointer;  
+}
+
+select:hover {
+    border-color: #999; 
+}
+
+select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+}
+
 </style>
 </head>
 <body>
@@ -397,27 +457,32 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 				<p>${member.me_email}</p>
 			</div>
 			<div class="profile-anything">
-				<div>				
-					<a href='<c:url value=""/>'>1. 예약 관리</a><br>
-					<a href='<c:url value=""/>'>2. 북마크</a><br>
-					<a href='<c:url value=""/>'>3. 내 커뮤니티</a>
+				<div class="anything-box">		
+					<div class="choose-box">
+						<a href='<c:url value=""/>'>예약 관리</a><br>
+					</div>
+					<div class="choose-box">
+						<a href='<c:url value=""/>'>북마크</a><br>
+					</div>
+					<div class="choose-box">
+						<a href='<c:url value=""/>'>커뮤니티</a>
+					</div>
 				</div>
 			</div>
 		</div>
 	<div class="profile-container">
 		<div class="mypage-profile-info">
 		<div class="profile-img-name-container">
-			<div class="mypage-img">
-			</div>
+			
 			<div class="mypage-img-name">
-				<h4 style="display: flex;" class="box-name">\${member.me_name}</h4>
+				<h4 class="box-name">\${member.me_name}</h4>
 				<div class="new_me_name_hidden">
 					<input type='text' id="new_me_name" class="box-name2" value="\${member.me_name}"/>
 				</div>
-				<p style="margin-right: auto;">\${member.me_email}</p>
-				<span class="name_update_btn_wrap"><button type="button" class="name-update">실명수정</button></span>
-				<span class="name_save_btn_wrap"><button type="button" class="name_save_btn">수정완료</button></span>
-				<span class="pw_update_btn_wrap"><button type="button" class="pw-update">비밀번호 변경</button></span>
+				<p>\${member.me_email}</p>
+				<span class="name_update_btn_wrap"><a type="button" class="name-update">실명수정</a></span>
+				<span class="name_save_btn_wrap"><a type="button" class="name_save_btn">수정완료</a></span>
+				<span class="pw_update_btn_wrap"><a type="button" class="pw-update">비밀번호 변경</a></span>
 				<div id="myModal" class="modal">
 				  <div class="modal-content">
 				    <span class="close">&times;</span>
@@ -435,78 +500,85 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 				    <div class="new_me_pw_hidden">
 				      <input type='password' id="new_me_pw2"name="me_pw2" class="box-pw2"/>
 				    </div>
-				    <button type="button" class="pw-update-success-btn">비밀번호 변경하기</button>
+				    <a type="button" class="pw-update-success-btn">비밀번호 변경하기</a>
 			  	</div>
 				</div>
 			</div>
 		</div>
 			<div class="hr"></div>
 			<div class="mypage-phone">
+				<div class="phone-width">
 				<div class="new_me_phone_hidden">
 					<input type='text' id="new_me_phone" class="box-phone2" value="\${member.me_phone}"/>
 				</div>	
-				<p style="margin-right: auto" class="box-phone">\${member.me_phone}</p>
-				<span class="phone_update_btn_wrap"><button type="button" class="phone-update">변경</button></span>
-				<span class="phone_save_btn_wrap"><button type="button" class="phone_save_btn">수정완료</button></span>
+					<p class="box-phone">\${member.me_phone}</p>
+					<span class="phone_update_btn_wrap"><a type="button" class="phone-update">변경</a></span>
+					<span class="phone_save_btn_wrap"><a type="button" class="phone_save_btn">수정완료</a></span>
+				</div>
 			</div>
 			<div class="hr"></div>
 			<div class="mypage-email">
+				<div class="email-width">
 				<div class="new_me_email_hidden">
 					<input type='text' id="new_me_email" class="box-email2" value="\${member.me_email}"/>
 				</div>	
-				<p style="margin-right: auto"  class="box-email">\${member.me_email}</p>
-				<span class="email_update_btn_wrap"><button type="button" class="email-update">변경</button></span>
-				<span class="email_save_btn_wrap"><button type="button" class="email_save_btn">수정완료</button></span>
+					<p class="box-email">\${member.me_email}</p>
+					<span class="email_update_btn_wrap"><a type="button" class="email-update">변경</a></span>
+					<span class="email_save_btn_wrap"><a type="button" class="email_save_btn">수정완료</a></span>
+				</div>
 			</div>
-		
-		</div>
-		<div class="mypage-profile-detail">
+			<div class="hr"></div>
 				 <div class="mypage-job">
-				 	<h5>직업 : </h5>
+					<div class="job-width">
 					 <div class="new_me_job_hidden">
 						<input type='text' id="new_me_job" class="box-job2" value="\${member.me_job}"/>
 					</div>	
-					<p style="margin-right: auto" class"box-job" id="my_job_name">\${member.me_job}</p>
-					<span class="job_update_btn_wrap"><button type="button" class="job-update">변경</button></span>
-					<span class="job_save_btn_wrap"><button type="button" class="job_save_btn">수정완료</button></span>
+						<p class"box-job" id="my_job_name">\${member.me_job}</p>
+						<span class="job_update_btn_wrap"><a type="button" class="job-update">변경</a></span>
+						<span class="job_save_btn_wrap"><a type="button" class="job_save_btn">수정완료</a></span>
+					</div>	
 				</div>
 				<!-- 관심 과목 시작 -->
 				<div class="subject">
 					<div class="hr"></div>
-					<h5>관심 과목 : </h5>
-					<div class="new_me_subject_hidden">
-						<select id="subject" class="my-subect-list" name="me_hs_num" style="margin-bottom: 15px;width: 500px" >
-							<option value="none">관심 병원 과목을 선택하세요</option>
-							<option value="none">없음</option>
-							<c:forEach items="${hslist}" var="hs">
-								<option value="${hs.hs_num}">${hs.hs_title}</option>
-							</c:forEach>
-						</select>
+					<div class="subject-width">
+						<p class="my-hs-subject" id="my-subject">\${me_sub.hs_title}</p>
+						<div class="new_me_subject_hidden">
+							<select id="subject" class="my-subect-list" name="me_hs_num"  >
+								<option value="none">관심 병원 과목을 선택하세요</option>
+								<option value="none">없음</option>
+								<c:forEach items="${hslist}" var="hs">
+									<option value="${hs.hs_num}">${hs.hs_title}</option>
+								</c:forEach>
+							</select>
+						</div>
+						<span class="subject_update_btn_wrap"><a type="button" class="subject-update">변경</a></span>
+						<span class="subject_save_btn_wrap"><a type="button" class="subject_save_btn">수정완료</a></span>
 					</div>
-					<p class="my-hs-subject" id="my-subject">\${me_sub.hs_title}</p>
-					<span class="subject_update_btn_wrap"><button type="button" class="subject-update">변경</button></span>
-					<span class="subject_save_btn_wrap"><button type="button" class="subject_save_btn">수정완료</button></span>
+					
 				</div>
 				<!-- 관심 과목 끝 -->
 				<div class="hr"></div>
 				<div class="mypage-hospital-address">
-					<p style="margin-right: auto" class="box-address">\${me_land.sd_name} \${me_land.sgg_name} \${me_land.emd_name}</p>
+					<div class="address-width">
 					<div class="new_me_address_hidden">
-						 <select name="sd_num" required class="sd_num" style="width: 500px;margin-bottom: 20px">
+						 <select name="sd_num" required class="sd_num" style="margin:5px;">
 						 		<option value="none">시/도를 선택해주세요</option>
 					        <c:forEach items="${sidoList}" var="sd">
 					            <option value="${sd.sd_num}">${sd.sd_name}</option>
 					        </c:forEach>
 					     </select>   
-						 <select name="sgg_num" class="sgg_num" required style="width: 500px;margin-bottom: 20px">
+						 <select name="sgg_num" class="sgg_num" required style="margin:5px;">
 					           <option value="none">시/군/구를 선택해주세요</option>
 					     </select>   
-					    <select name="emd_num" class="emd_num" required style="width: 500px;margin-bottom: 20px">
+					    <select name="emd_num" class="emd_num" required  style="margin:5px;">
 					         <option value="none">읍/면/동을 선택해주세요</option>
 					 	</select>
 					</div>
-					<span class="address_update_btn_wrap"><button type="button" class="address-update">변경</button></span>
-					<span class="address_save_btn_wrap"><button type="button" class="address_save_btn">수정완료</button></span>
+						<p  class="box-address">\${me_land.sd_name} \${me_land.sgg_name} \${me_land.emd_name}</p>
+					<span class="address_update_btn_wrap"><a type="button" class="address-update">변경</a></span>
+					<span class="address_save_btn_wrap"><a type="button" class="address_save_btn">수정완료</a></span>
+					</div>
 				</div>
 			</div>
  		</div>
@@ -539,9 +611,9 @@ function resetAll() {
     $('.email_update_btn_wrap').css('display', 'block');
     $('.new_me_email_hidden').css('display', 'none');
     $('.email_save_btn_wrap').css('display', 'none');
-
     $('.box-job').css('display', 'block');
     $('.job_update_btn_wrap').css('display', 'block');
+
     $('.new_me_job_hidden').css('display', 'none');
     $('.job_save_btn_wrap').css('display', 'none');
 
@@ -562,6 +634,8 @@ $(document).on('click','.name-update', function(){
     $('.name_update_btn_wrap').css('display', 'none');
     $('.new_me_name_hidden').css('display', 'block');
     $('.name_save_btn_wrap').css('display', 'block');
+    $('#my_job_name').css('display', 'block');
+    $('#my-subject').css('display','block');
 });
   
 $(document).on('click','.phone-update', function(){
@@ -570,6 +644,8 @@ $(document).on('click','.phone-update', function(){
     $('.phone_update_btn_wrap').css('display', 'none');
     $('.new_me_phone_hidden').css('display', 'block');
     $('.phone_save_btn_wrap').css('display', 'block');
+    $('#my_job_name').css('display', 'block');
+    $('#my-subject').css('display','block');
 });
 
 $(document).on('click','.email-update', function(){
@@ -578,28 +654,37 @@ $(document).on('click','.email-update', function(){
     $('.email_update_btn_wrap').css('display', 'none');
     $('.new_me_email_hidden').css('display', 'block');
     $('.email_save_btn_wrap').css('display', 'block');
+    $('#my_job_name').css('display', 'block');
+    $('#my-subject').css('display','block');
 });
 
 $(document).on('click','.job-update', function(){
     resetAll();
+    $('#my_job_name').css('display', 'none');
     $('.box-job').css('display', 'none');
     $('.job_update_btn_wrap').css('display', 'none');
     $('.new_me_job_hidden').css('display', 'block');
     $('.job_save_btn_wrap').css('display', 'block');
+    $('#my-subject').css('display','block');
 });
 $(document).on('click','.address-update', function(){
     resetAll();
+    
     $('.box-address').css('display', 'none');
     $('.address_update_btn_wrap').css('display', 'none');
     $('.new_me_address_hidden').css('display', 'block');
     $('.address_save_btn_wrap').css('display', 'block');
+    $('#my_job_name').css('display', 'block');
+    $('#my-subject').css('display','block');
 });
 $(document).on('click','.subject-update', function(){
     resetAll();
+    $('#my-subject').css('display','none');
     $('.box-subject').css('display', 'none');
     $('.subject_update_btn_wrap').css('display', 'none');
     $('.new_me_subject_hidden').css('display', 'block');
     $('.subject_save_btn_wrap').css('display', 'block');
+    $('#my_job_name').css('display', 'block');
 });
 
 	$(document).on('click', '.name_save_btn', function(){
