@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <title>병원 리스트</title>
 <style type="text/css">
+.area-container{height: 48%;}
+
 .aTag-btn1{
 margin-right: auto;
 } 
@@ -15,27 +17,30 @@ margin-left: auto;
 } 
 .aTag-btn1,
 .aTag-btn2{
-	
+	padding: 20px;
 	margin:90px 15px 15px 24px;
     width: 300px;
     height: 200px;
     color: black;
     text-decoration: none;
-    box-shadow: 1px 1px 2px 1px #C12DFF;
+ 	box-shadow: 1px 1px 2px 1px #A5FA7D;
 }
-.active{background-color:#fff8f6;color: #ff501b;}
+.active3{background-color:#fff8f6;color: #ff501b;}
 .active1{background-color:#fff8f6;color: #ff501b;}
 .active2{background-color:#fff8f6;color: #ff501b;}
 .aTag-btn1:hover,
-.aTag-btn2:hover{text-decoration:none;box-shadow: 2px 2px 4px 1px #C12DFF; /* 그림자 효과 추가 */}
+.aTag-btn2:hover{text-decoration:none;box-shadow: 2px 2px 4px 1px #A5FA7D /* 그림자 효과 추가 */}
 .hospital-like-list h1,.hospital-area-list h1{margin: 30px auto 50px auto;}
-.hospital-list-home{width: 100%;height: 2750px;}
+.hospital-list-home{width: 100%;height: 3000px;}
 .hospital-list-box{width: 1400px;height: 100%;margin: 0 auto;text-align: center;}
-.hospital-like-list{width: 100%;height: 400px;border: 1px solid #c8c8c8;margin-bottom: 150px;}
-.hospital-area-list{ width: 100%;height:1000px;border: 1px solid #c8c8c8;display: grid; grid-template-columns:1fr 1fr 1fr 1fr;}
+.hospital-like-list{width: 100%;height: 400px;margin-bottom: 300px;
+display: grid; grid-template-columns:1fr 1fr 1fr 1fr;border-top:1px dotted #A8F552;margin-top: 80px;}
+
+.hospital-area-list{ width: 100%;height:1000px;display: grid; grid-template-columns:1fr 1fr 1fr 1fr;
+border-top:1px dotted #A8F552;margin-top: 80px;}
 .area-select-all{width: 100%;height: 150px;padding: 30px 0;display: flex;}
 .area-select{margin: 0 auto;}
-.area-select-box{display: flex;border: 1px solid  #c8c8c8;width: 100%; height: 400px;margin: 100px 0 200px 0;}
+.area-select-box{display: flex;border: 1px solid  #c8c8c8;width: 100%; height: 400px;margin: 0 0 200px 0;}
 .area-select-box li{list-style: none;}
 .area-select-sido{width: 200px;height: 100%;text-align: left;list-style: none;}
 .area-select-sgg{width: 200px;text-align: left;}
@@ -48,15 +53,24 @@ margin-left: auto;
 .emd-list li {display: inline-block;padding: 20px;width: 33%;text-align: left;}
 .area-title{text-align: center;padding: 15px;border-bottom:1px solid  #c8c8c8;border-right: 1px solid  #c8c8c8; }
 .area-title-emd{text-align: center;padding: 15px;width: 997px;border-bottom:1px solid #c8c8c8;}
-.box-pagination{width:100%;display: flex;margin-top:60px;}
-.pagination{margin: 0 auto;}
+.box-pagination{width:100%;display: flex;margin-top:100px; height: 100px; border-bottom: 1px dotted #A8F552;}
+.pagination-custom{margin: 0 auto;display: flex;}
+.pagination-custom li{list-style: none; }
+.now-area{display:flex;margin-top: 100px;width: 1400px;border: 1px solid #c8c8c8;color: #c8c8c8;height: 80px;border-bottom-style:none;
+}
+.sd_area{width: 33%;}
+.sgg_area{width: 33%;}
+.emd_area{width: 33%;}
+.page-area{border:1px solid #dee2e6;margin: 3px;padding: 10px;color: black;text-decoration: none;}
+.now-area h3{line-height: 74px;}
+.area_box{width: 600px;display: flex;margin: 0 auto;}
 </style>
 </head>
 <body>
 <div class="hospital-list-home">
 	<div class="hospital-list-box">
+	<div class="area-select-container">
 		<div class="now-area">
-			<h3>경기도 부천시 상동의 병원 리스트</h3>
 		</div>
 		<div class="area-select-box">
 			<div class="area-select-sido">
@@ -93,6 +107,8 @@ margin-left: auto;
 				</div>	
 			</div>
 		</div>
+	</div>
+		
 		<h1>내 관심 병원</h1>
 		<div class="hospital-like-list">
 			
@@ -105,14 +121,16 @@ margin-left: auto;
 			</div>
 			
 		</div>
-		<h1>우리 동네 병원</h1>
-		<div class="hospital-area-list">
-		</div>
-		<div class="box-pagination" style="border: 1px solid black; height: 100px; margin: 0 auto 200px auto">
-			<!-- 페이지네이션 시작 -->
-			<ul class="pagination justify-content-center"></ul>
-			<!-- 페이지네이션 끝 -->
-		</div>
+		<div class="area-container">
+		<h1 style="margin-top:50px; ">우리 동네 병원</h1>
+			<div class="hospital-area-list">
+			</div>
+			<div class="box-pagination">
+				<!-- 페이지네이션 시작 -->
+				<ul class="pagination-custom justify-content-center"></ul>
+				<!-- 페이지네이션 끝 -->
+			</div>
+		</div>	
 	</div>
 </div>
 
@@ -206,7 +224,19 @@ function setNowArea(){
         data : area,
         success : function (data){
         	let str = "";
-       		str += `<h3>\${data.sd_name} \${data.sgg_name} \${data.emd_name}의 병원 리스트</h3>`;
+       		str += `
+       		<div class="area_box">
+	       		<div class="sd_area">
+	       			<h3>\${data.sd_name}</h3>
+	       		</div>
+	       		<div class="sgg_area">
+	       			<h3>\${data.sgg_name}</h3>
+	       		</div>
+	       		<div class="emd_area">
+	       			<h3>\${data.emd_name}</h3>
+	       		</div>
+       		<div>	
+       		`;
        		$(".now-area").html(str);
         }, 
         error : function(jqXHR, textStatus, errorThrown){
@@ -295,21 +325,21 @@ function displaySubHoPagination(pm){
 	if(pm.prev){
 		str += `
 		<li class="page-item">
-			<a class="page-link" href="javascript:void(0);" data-page="\${pm.startPage - 1}">이전</a>
+			<a class="page-area" href="javascript:void(0);" data-page="\${pm.startPage - 1}">이전</a>
 		</li>`;		
 	}
 	for(let i = pm.startPage; i<= pm.endPage; i++){
 		let active = pm.cri.page == i ? 'active' : '';
 		str += `
 		<li class="page-item \${active}">
-			<a class="page-link" href="javascript:void(0);" data-page="\${i}">\${i}</a>
+			<a class="page-area" href="javascript:void(0);" data-page="\${i}">\${i}</a>
 		</li>`;	
 	}
 	
 	if(pm.next){
 		str += `
 		<li class="page-item">
-			<a class="page-link" href="javascript:void(0);" data-page="\${pm.endPage + 1}">다음</a>
+			<a class="page-area" href="javascript:void(0);" data-page="\${pm.endPage + 1}">다음</a>
 		</li>`;	
 	}
 	$('.box-pagination>ul').html(str);
@@ -326,33 +356,33 @@ function displayAreaHoPagination(pm){
 	if(pm.prev){
 		str += `
 		<li class="page-item">
-			<a class="page-link" href="javascript:void(0);" data-page="\${pm.startPage - 1}">이전</a>
+			<a class="page-area" href="javascript:void(0);" data-page="\${pm.startPage - 1}">이전</a>
 		</li>`;		
 	}
 	for(let i = pm.startPage; i<= pm.endPage; i++){
 		let active = pm.cri.page == i ? 'active' : '';
 		str += `
 		<li class="page-item \${active}">
-			<a class="page-link" href="javascript:void(0);" data-page="\${i}">\${i}</a>
+			<a class="page-area" href="javascript:void(0);" data-page="\${i}">\${i}</a>
 		</li>`;	
 	}
 	
 	if(pm.next){
 		str += `
 		<li class="page-item">
-			<a class="page-link" href="javascript:void(0);" data-page="\${pm.endPage + 1}">다음</a>
+			<a class="page-area" href="javascript:void(0);" data-page="\${pm.endPage + 1}">다음</a>
 		</li>`;	
 	}
 	$('.box-pagination>ul').html(str);
 }
-$(document).on('click','.box-pagination .page-link',function(){
+$(document).on('click','.box-pagination .page-area',function(){
 	page = $(this).data('page');
 	getAreaHoList();
 });
 
 $(".sido-list li").click(function() {
-    $(".sido-list li").removeClass("active");
-    $(this).addClass("active");
+    $(".sido-list li").removeClass("active3");
+    $(this).addClass("active3");
 });
 $(document).on('click', '#sgg_name', function() {
     if (!$(this).hasClass("active")) {
