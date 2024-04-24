@@ -119,15 +119,16 @@ public class ProgramServiceImp implements ProgramService{
 	}
 
 	@Override
-	public boolean insertItemList(String il_title, HospitalProgramVO program, ArrayList<Integer> list,
+	public boolean insertItemList(HospitalProgramVO program, ArrayList<Integer> list,
 			SiteManagement user) {
-		if(il_title == null || program == null || list.size() == 0 || user == null) {
+		if( program == null || list.size() == 0 || user == null) {
 			return false;
 		}
+		
 		boolean res = false;
 		if(user.getSite_authority().equals("MANAGER")) {
 			for(int tmp : list) {
-				res = programDao.insertItemList(il_title, program, tmp);
+				res = programDao.insertItemList(program, tmp);
 			}
 		}
 		
@@ -135,6 +136,17 @@ public class ProgramServiceImp implements ProgramService{
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public ArrayList<ItemListVO> getItemListList(SiteManagement user, int hp_num) {
+		
+		return programDao.selectItemListList(user, hp_num);
+	}
+
+	@Override
+	public ArrayList<ItemVO> getItemListByItem(int il_num) {
+		return programDao.selectItemListByItem(il_num);
 	}
 
 	

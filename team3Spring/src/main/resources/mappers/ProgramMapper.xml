@@ -4,12 +4,32 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team3.dao.ProgramDAO">
 
+	<resultMap type="kr.kh.team3.model.vo.ItemListVO" id="ItemListMap">
+		<id property="il_num" column="il_num"/>
+		<result property="il_hp_num" column="il_hp_num"/>
+		<result property="il_it_num" column="il_it_num"/>
+		<collection property="hospital_program" ofType="kr.kh.team3.model.vo.HospitalProgramVO"
+				column="il_hp_num" select="selectProgramListByProgramName"/>
+	</resultMap>
+
 	<select id="selectItemList" resultType="kr.kh.team3.model.vo.ItemVO">
-		select * from item;
+		select * from item where it_ho_id = #{user.site_id} ;
 	</select>
 	
 	<select id="selectProgramList" resultType="kr.kh.team3.model.vo.HospitalProgramVO">
 		select * from hospital_program where hp_ho_id = #{user.site_id}
+	</select>
+	
+	<select id="selectItemListList" resultType="kr.kh.team3.model.vo.ItemListVO">
+		select * from item_list where il_hp_num = #{hp_num}
+	</select>
+	
+	<select id="selectProgramListByProgramName" resultType="kr.kh.team3.model.vo.HospitalProgramVO">
+		select * from hospital_program where 
+	</select>
+	
+	<select id="selectItemListByItem" resultType="kr.kh.team3.model.vo.ItemVO">
+		select * from item where it_num = #{il_num}
 	</select>
 	
 	<insert id="insertItem">
@@ -21,7 +41,7 @@
 	</insert>
 	
 	<insert id="insertItemList">
-		insert into item_list(il_title, il_hp_num, il_it_num) value(#{il_title}, #{pr.hp_num}, #{il_it_num})
+		insert into item_list(il_hp_num, il_it_num) value(#{pr.hp_num}, #{il_it_num});
 	</insert>
 	
 	<update id="updateItem">

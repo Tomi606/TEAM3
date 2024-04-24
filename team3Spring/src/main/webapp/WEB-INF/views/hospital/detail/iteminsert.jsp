@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>프로그램 등록</title>
 <style type="text/css">
 /* Resetting default margin and padding */
 * {
@@ -135,18 +135,13 @@
 
 <div class="list-box">
 <h3>리스트 생성 및 선택</h3>
-	<div class="input-box-group">
-		<label for="il_title">리스트 이름을 정해주세요</label>
-	    <input  type="text" id="il_title" name="il_title" placeholder="리스트 이름을 입력하세요">
-	</div>
-	<br>
-	
 	<div class="check-box-group" id="check-box-group">
 		<c:forEach items="${itemList}" var="item">
 			<input type="checkbox" value="${item.it_num}" name="li_list">${item.it_name}
 		</c:forEach>
 	</div>
 	<a class="btn list-inset-btn">리스트 생성</a>
+	<a class="btn check-btn" href='<c:url value="/program/check" />'>프로그램 전체 조회</a>
 	</div>
 
 </div>
@@ -217,13 +212,11 @@ function getCheckedValues() {
 	$(".program-inset-btn").click(function(){
 		let hp_title = $("[name=hp_title]").val();
 		let hp_payment = $("[name=hp_payment]").val();
-		let il_title = $("[name=il_title]").val();
 		$.ajax({
 			method : "post",
 			url : '<c:url value="/program/insert"/>',
 			data : {"hp_title" : hp_title,
 					"hp_payment" : hp_payment,
-					"il_title" : il_title},
 			success : function (data) {
 				$("#programBox").load(window.location.href + " #programBox");
 				$("[name=hp_title]").val("");
@@ -246,30 +239,25 @@ function getCheckedValues() {
 <script type="text/javascript">
 	$(".list-inset-btn").click(function(){
 		let list = getCheckedValues();
-		let il_title  = $("[name=il_title]").val();
 		let hp_num = $("[name=hp_num]").val();
 		if(list.length == 0){
 			alert("상세항목을 체크해주세요.");
 			return;
 		}
-		if(il_title.length==0){
-			alert("리스트 이름을 작성해주세요.");
-			il_title  = $("[name=il_title]").val("");
-		}
 		if(hp_num =='none'){
-			alert("")
+			alert("프로그램을 선택 해주세요");
+			hp_num = $("[name=hp_num]").val("");
+			return;
 		}
 		$.ajax({
 			method : "post",
 			url : '<c:url value="/itemlist/insert"/>',
 			data : {
 				"list" : list,
-				"il_title" : il_title,
 				"hp_num" : hp_num
 					},
 			success : function (data) {
 				alert(data.msg);
-				il_title  = $("[name=il_title]").val("");
 			}
 		});
 	});
