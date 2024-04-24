@@ -89,9 +89,10 @@ public interface MemberService {
 
 	LandVO getMyLand(SiteManagement user);
 
-	ArrayList<HospitalVO> getMySubject(MemberVO me);
-	
-	ArrayList<HospitalVO> getSubHoList(MemberVO me, LandVO land);
+	//Hd_hs_num없어서 일단 주석처리!!!!!!!!!!!!!!!!!!!!!!!
+//	ArrayList<HospitalVO> getMySubject(MemberVO me);
+//	
+//	ArrayList<HospitalVO> getSubHoList(MemberVO me, LandVO land);
 	
 	MemberVO getSiteMember(SiteManagement user);
 
