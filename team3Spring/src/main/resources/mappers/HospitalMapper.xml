@@ -331,12 +331,12 @@
 		select * from hs_list where hsl_ho_id = #{hospital.ho_id}
 	</select>
 	
-	<delete id="deleteSubjects" parameterType="java.util.ArrayList">
+	<!-- <delete id="deleteSubjects" parameterType="java.util.ArrayList">
 		delete from hs_list 
 		where 
 		<foreach item="item" index="index" collection="list" open="" separator=" OR " close="">
 	        (hsl_hs_num = #{item.hsl_hs_num} AND hsl_ho_id = #{item.hsl_ho_id})
 	    </foreach>
-	</delete>
+	</delete> -->
 	
 </mapper>

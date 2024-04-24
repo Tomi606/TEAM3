@@ -347,7 +347,7 @@ public class HospitalServiceImp implements HospitalService {
 	@Override
 	public boolean insertOrUpdateHospitalDetail(
 			HospitalDetailVO detail, ArrayList<HsListVO> list, 
-			HospitalVO hospital, HospitalSubjectVO subject) {
+			HospitalVO hospital, HospitalSubjectVO subject) { //int [] subject?
 		if(detail.getHd_info() == null 
 		|| detail.getHd_time() == null 
 		|| detail.getHd_park() == null) {
@@ -361,13 +361,24 @@ public class HospitalServiceImp implements HospitalService {
 		
 		//delete문 : 기존의 DB를 삭제(상세 페이지 + hs_list)
 		boolean delete = hospitalDao.deleteHospitalDetail(detail.getHd_ho_id());
-		boolean deleteSubjects = hospitalDao.deleteSubjects(list);
+//		boolean deleteSubjects = hospitalDao.deleteSubjects(list);
+		
+		//hsList를 향상된 for문, select로 가져와서 있으면 삭제 없으면 return
+		
+		//MemberImp에 land 참고
+		//접속한 아이디를 주면서 select detail
+		//detail == null insert
+		//!= null update
+		
+		//hs_list == null insert
+		//!= null update
 		
 		//insert + update문 : 상세 페이지 + hs_list
 		boolean insertAndUpdate = hospitalDao.insertOrUpdateHospitalDetail(detail);
 		boolean insertSubjects = hospitalDao.insertSubjects(list, hospital.getHo_id(), subject.getHs_num());
 
-		return delete && deleteSubjects && insertAndUpdate && insertSubjects;
+		//&& deleteSubjects
+		return delete && insertAndUpdate && insertSubjects;
 	}
 
 	@Override

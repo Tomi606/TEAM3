@@ -131,8 +131,6 @@ public interface HospitalDAO {
 
 	boolean insertSubjects(@Param("list") ArrayList<HsListVO> list, @Param("ho_id") String ho_id, @Param("hs_num") int hs_num);
 
-//	boolean deleteSubjects(@Param("hsl_hs_num") int hsl_hs_num, @Param("hsl_ho_id") String hsl_ho_id);
-
 	boolean deleteSubjects(@Param("list") ArrayList<HsListVO> list);
 
 }
