@@ -54,6 +54,7 @@ border-top:1px dotted #A8F552;margin-top: 80px;}
 .area-title{text-align: center;padding: 15px;border-bottom:1px solid  #c8c8c8;border-right: 1px solid  #c8c8c8; }
 .area-title-emd{text-align: center;padding: 15px;width: 997px;border-bottom:1px solid #c8c8c8;}
 .box-pagination{width:100%;display: flex;margin-top:100px; height: 100px; border-bottom: 1px dotted #A8F552;}
+.box-pagination1{width:100%;display: flex;margin-top:100px; height: 100px; border-bottom: 1px dotted #A8F552;}
 .pagination-custom{margin: 0 auto;display: flex;}
 .pagination-custom li{list-style: none; }
 .now-area{display:flex;margin-top: 100px;width: 1400px;border: 1px solid #c8c8c8;color: #c8c8c8;height: 80px;border-bottom-style:none;
@@ -321,7 +322,7 @@ function getSubHoList(){
                }
            }
             $(".hospital-like-list").html(str);
-            //displaySubHoPagination(data.pm);
+            displaySubHoPagination(data.pm);
         }, 
         error : function(jqXHR, textStatus, errorThrown){
 
@@ -417,7 +418,7 @@ function getAreaHoList(){
 }
 
 function displaySubHoPagination(pm){
-    
+    console.log(pm);
 	let str = '';
 	if(pm.prev){
 		str += `

@@ -372,8 +372,10 @@ public class HospitalController {
 		MemberVO me = memberService.getMeId(user.getSite_id());
 		LandVO land = hospitalService.getLand(emd_num);
 		cri.setPerPageNum(12);
-		ArrayList<HospitalVO> hoSubList = hospitalService.getSubHoList(me, land);
-		log.info(hoSubList + "hoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubList");
+		int totalCount = hospitalService.getLikeSub(me,land,cri);
+		ArrayList<HospitalVO> hoSubList = hospitalService.getSubHoList(me, land,cri);
+		PageMaker pm = new PageMaker(5, cri, totalCount);
+		map.put("pm", pm);
 		map.put("hoSubList",hoSubList);
 		return map;
 

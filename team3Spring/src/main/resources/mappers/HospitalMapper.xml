@@ -32,6 +32,10 @@
 	</select>
 	<select id="getSubHoList" resultMap="HsListMap">
 		select * from hs_list where hsl_hs_num = #{me.me_hs_num} 
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	<select id="getTotalSubHoList" resultType="int">
+		select count(*) from hs_list where hsl_hs_num = #{me.me_hs_num} 
 	</select>
 	
 	<resultMap type="HospitalVO" id="hospitalMap">
