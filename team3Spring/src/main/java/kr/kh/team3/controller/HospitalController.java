@@ -374,6 +374,7 @@ public class HospitalController {
 		return hoSubList;
 
 	}
+
 	
 	@ResponseBody
 	@PostMapping("/hospital/area/name")
@@ -390,12 +391,5 @@ public class HospitalController {
 		return map;
 
 	}
-
-//	@ResponseBody
-//	@PostMapping("/member/signup/eupmyeondong")
-//	public ArrayList<EupMyeonDongVO> postEupMyeonDong(int sgg_num) {
-//		ArrayList<EupMyeonDongVO> emdList = memberService.getEmd(sgg_num);
-//		return emdList;
-//	}
 
 }
