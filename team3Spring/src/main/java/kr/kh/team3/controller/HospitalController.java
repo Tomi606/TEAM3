@@ -340,11 +340,9 @@ public class HospitalController {
 		LandVO land = hospitalService.getLand(emd_num);
 		cri.setPerPageNum(12);
 		ArrayList<HospitalVO> hoList = hospitalService.getHospital(land,cri);
-		log.info(hoList+"hoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoList");
+		log.info(hoList);
 		int totalCount = hospitalService.getHospitalCount(land,cri);
-		log.info(totalCount+"토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카");
 		PageMaker pm = new PageMaker(5, cri, totalCount);
-		log.info(pm+"피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠");
 		map.put("pm", pm);
 		map.put("hoList", hoList);
 		return map;
@@ -358,7 +356,6 @@ public class HospitalController {
 		MemberVO me = memberService.getMeId(user.getSite_id());
 		LandVO land = hospitalService.getLand(emd_num);
 		ArrayList<HospitalVO> hoSubList = memberService.getSubHoList(me, land);
-		log.info(hoSubList + "hoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubList");
 		return hoSubList;
 
 	}
