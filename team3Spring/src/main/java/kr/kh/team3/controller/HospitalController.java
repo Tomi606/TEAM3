@@ -360,16 +360,15 @@ public class HospitalController {
 		LandVO land = hospitalService.getLand(emd_num);
 		cri.setPerPageNum(12);
 		ArrayList<HospitalVO> hoList = hospitalService.getHospital(land,cri);
-		log.info(hoList+"hoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoList");
+		log.info(hoList);
 		int totalCount = hospitalService.getHospitalCount(land,cri);
-		log.info(totalCount+"토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카");
 		PageMaker pm = new PageMaker(5, cri, totalCount);
-		log.info(pm+"피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠");
 		map.put("pm", pm);
 		map.put("hoList", hoList);
 		return map;
 
 	}
+
 //Hd_hs_num없어서 일단 주석처리!!!!!!!!!!!!!!!!!!!!!!!
 //	@ResponseBody
 //	@PostMapping("/hospital/like/list")
@@ -382,6 +381,7 @@ public class HospitalController {
 //		return hoSubList;
 //
 //	}
+
 	
 	@ResponseBody
 	@PostMapping("/hospital/area/name")
