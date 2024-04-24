@@ -405,7 +405,6 @@ public class MemberServiceImp implements MemberService {
 	@Override
 	public String getSggName(LandVO land) {
 		if (land == null) {
-			log.info(land + "임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드임프랜드");
 			return null;
 		}
 		return memberDao.selectSggName(land);
