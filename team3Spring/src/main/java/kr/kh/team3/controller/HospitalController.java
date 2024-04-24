@@ -21,6 +21,7 @@ import kr.kh.team3.model.vo.HospitalProgramVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.HsListVO;
+import kr.kh.team3.model.vo.ItemListVO;
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
@@ -183,6 +184,8 @@ public class HospitalController {
 	public String hospitalProgramInsertPage(Model model, HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		ArrayList<ItemVO> itemList = programService.getItemList(user);
+		ArrayList<HospitalProgramVO> programList = programService.getProgramList(user); 
+		model.addAttribute("programList",programList);
 		model.addAttribute("itemList", itemList);
 		return "/hospital/detail/iteminsert";
 	}
@@ -207,7 +210,6 @@ public class HospitalController {
 	public String updateItem(ItemVO item, HttpSession session, Model model) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		 ArrayList<ItemVO> itemList = programService.getItemList(user); 
-		 //boolean res =programService.insertItem(item, user);
 		 model.addAttribute("itemList", itemList);
 		
 		return "/hospital/detail/itemupdate";
@@ -216,8 +218,7 @@ public class HospitalController {
 	//세부항목 수정 메서드
 	@PostMapping("/item/update")
 	public String updateItemPost(ItemVO item, HttpSession session, Model model, @RequestParam("type") int it_num) {
-		System.out.println("asfasfdas" + item);
-		System.out.println("asfqwef" + it_num);
+
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		 ArrayList<ItemVO> itemList = programService.getItemList(user); 
 		 boolean res =programService.updateItem(item, user, it_num, itemList);
@@ -234,33 +235,100 @@ public class HospitalController {
 	//세부 항목 삭제 메서드
 	@ResponseBody
 	@PostMapping("/item/delete")
-	 public Map<String, Object> deleteItem(@RequestParam(value="li_list", required=true) ArrayList<Integer> li_list){
+	 public Map<String, Object> deleteItem(@RequestParam("checkedValues[]") ArrayList<Integer> list){
+		System.out.println("들어옴");
 		Map<String, Object> map = new HashMap<String, Object>();
-        
-        boolean res = programService.deleteItem(li_list);
-        if (res) {
-            map.put("msg", "삭제에 성공했습니다.");
-        } else {
-            map.put("msg", "삭제에 실패했습니다.");
-        }
-        return map;
+      
+        boolean res = programService.deleteItem(list);
+		
+		if (res) { 
+		 map.put("msg", "삭제에 성공했습니다."); 
+		} else { 
+			map.put("msg","삭제에 실패했습니다."); 
+		} 
+		 return map;
     }
 	
 	// 프로그램을 추가하는 메서드
 	@ResponseBody
 	@PostMapping("/program/insert")
-	public Map<String, Object> insertProgram(HospitalProgramVO program, HttpSession session) {
+	public Map<String, Object> insertProgram(HospitalProgramVO program, HttpSession session, 
+			@RequestParam("il_title") String il_title) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		ArrayList<HospitalProgramVO> programList = programService.getProgramList(user);
 		boolean res =  programService.insertProgram(program, user);
 		if(res) {
-			map.put("programList", programList);
+			map.put("msg", "추가에 성공했습니다.");
 		}else {
 			map.put("msg", "추가에 실패했습니다.");
 		}
 		return map;
 	}
+	
+	// 프로그램을 추가하는 메서드
+	@ResponseBody
+	@PostMapping("/itemlist/insert")
+	public Map<String, Object> insertItemList(HospitalProgramVO program, HttpSession session, 
+			@RequestParam("il_title") String il_title,
+			@RequestParam("list[]") ArrayList<Integer> list) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		System.out.println("aaaaaaaaaaaaaaaaaaaaa");
+		boolean res = programService.insertItemList(il_title, program, list, user);
+		
+		if(res) {
+			map.put("msg", "추가에 성공했습니다.");
+		}else {
+			map.put("msg", "추가에 실패했습니다.");
+		}
+		return map;
+	}
+	
+	//프로그램 수정 메서드
+	@GetMapping("/program/update")
+	public String updateUpdate(HospitalProgramVO program, HttpSession session, Model model) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		 ArrayList<HospitalProgramVO> programList = programService.getProgramList(user); 
+		 model.addAttribute("programList", programList);
+		
+		return "/hospital/detail/programupdate";
+	}
+	
+	//프로그램 수정 메서드
+	@PostMapping("/program/update")
+	public String updateUpdatePost(HospitalProgramVO program, HttpSession session, 
+				Model model) {
+		
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		ArrayList<HospitalProgramVO> programList = programService.getProgramList(user);
+		 boolean res =programService.updateProgram(program, user, programList);
+		 if (res) {
+				model.addAttribute("msg","프로그램 수정을 완료했습니다.");
+				model.addAttribute("url","/hospital/item/insert");
+			}else {
+				model.addAttribute("msg","프로그램 수정에 실패 했습니다.");
+				model.addAttribute("url","/program/update");
+			}
+			return "message";
+	}
+	
+	//프로그램 삭제 메서드
+	@GetMapping("/program/delete")
+	public String deleteprogram(Model model, int hp_num) {
+		
+		boolean res = programService.deleteProgram(hp_num);
+		
+		if (res) {
+			model.addAttribute("msg","프로그램 삭제를 완료했습니다.");
+			model.addAttribute("url","/hospital/item/insert");
+		}else {
+			model.addAttribute("msg","프로그램 삭제를 실패 했습니다.");
+			model.addAttribute("url","/program/update");
+		}
+		return "message";
+	}
+	
 	//============================================= 조민석 ===================================================
 	/*병원 리스트 출력 정경호,권기은*/
 	//Hd_hs_num없어서 일단 주석처리!!!!!!!!!!!!!!!!!!!!!!!

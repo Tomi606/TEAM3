@@ -243,10 +243,12 @@ DROP TABLE IF EXISTS `item_list`;
 
 CREATE TABLE `item_list` (
 	`il_num`	int	primary key auto_increment,
-	`il_title`	varchar(100) NOT NULL,
+	`il_title`	varchar(100) not NULL,
 	`il_hp_num`	int	NOT NULL,
 	`il_it_num`	int	NOT NULL
 );
+
+
 
 DROP TABLE IF EXISTS `reservation_schedule`;
 
@@ -489,6 +491,13 @@ ALTER TABLE `item_list` ADD CONSTRAINT `FK_hospital_program_TO_item_list_1` FORE
 )
 REFERENCES `hospital_program` (
 	`hp_num`
+);
+
+ALTER TABLE `item_list` ADD CONSTRAINT `FK_item_TO_item_list_1` FOREIGN KEY (
+	`il_it_num`
+)
+REFERENCES `item` (
+	`it_num`
 );
 
 ALTER TABLE `reservation_schedule` ADD CONSTRAINT `FK_hospital_program_TO_reservation_schedule_1` FOREIGN KEY (
