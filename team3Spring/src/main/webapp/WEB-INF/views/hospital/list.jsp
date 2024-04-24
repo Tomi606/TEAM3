@@ -257,19 +257,69 @@ function getSubHoList(){
         }, 
         success : function (data){
             let str =""
-            if(data == null || data.length == 0){
+            if(data.hoSubList == null || data.hoSubList.length == 0){
                 str +=`<h3 style="color: gray;line-height: 200px;text-align: center;">존재하는 병원이 없습니다.</h3>` ;
             }
             else{
-                for(let ho in data){
-                    str += `<a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;" data-id="\${ho.ho_id}>"
-						<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
-						<h4>\${data[ho].ho_name}</h4>
-						<p>\${data[ho].ho_ceo}</p>
-						<p>\${data[ho].ho_id}</p>
-				</a>`; 
-                }
-            }
+                for(let ho of data.hoSubList){
+                	console.log(ho.hospital_detail + "asdasdasdasdasd");
+                	if(ho.hospital_detail == null){
+               		 str += 
+                           	`
+        	                    <a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;" data-id="\${ho.ho_id}>"
+        							<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
+        							<h4>\${ho.hospital.ho_name}</h4>
+        							<p>\${ho.hospital_subject.hs_title}</p>
+        							<p>\${ho.hospital.ho_address}</p>
+        						</a>
+        					`; 
+               		
+               	}
+               	else{
+               		let hd_time = ho.hospital_detail.hd_time;
+               		let timeArray = hd_time.split(",");
+               		
+               		let today = new Date();
+               		let daysOfWeek = ['월', '화', '수', '목', '금', '토', '일'];
+               		let dayOfWeek = daysOfWeek[today.getDay() - 1]; //오늘 무슨요일
+						
+               		switch(dayOfWeek){
+               		case '월':
+               			hd_time = timeArray[1];
+               			break;
+               		case '화':
+               			hd_time = timeArray[2];
+               			break;
+               		case '수':
+               			hd_time = timeArray[3];
+               			break;
+               		case '목':
+               			hd_time = timeArray[4];
+               			break;
+               		case '금':
+               			hd_time = timeArray[5];
+               			break;
+               		case '토':
+               			hd_time = timeArray[6];
+               			break;
+               		case '일':
+               			hd_time = timeArray[7];
+               			break;
+               		}
+
+	                    str += 
+	                   	`
+		                    <a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;" data-id="\${ho.ho_id}>"
+								<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
+								<h4>\${ho.hospital.ho_name}</h4>
+								<p>\${ho.hospital_subject.hs_title}</p>
+								<p>(\${dayOfWeek}요일) \${hd_time}</p>
+								<p>\${ho.hospital.ho_address}</p>
+							</a>
+						`;
+               	}
+               }
+           }
             $(".hospital-like-list").html(str);
             //displaySubHoPagination(data.pm);
         }, 

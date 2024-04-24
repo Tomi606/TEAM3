@@ -365,13 +365,17 @@ public class HospitalController {
 	}
 	@ResponseBody
 	@PostMapping("/hospital/like/list")
-	public ArrayList<HospitalVO> postLiHospital(@RequestParam("emd_num") int emd_num,HttpSession session) {
+	public  Map<String, Object> postLiHospital(@RequestParam("emd_num") int emd_num,HttpSession session,@RequestParam("page")int page) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Criteria cri = new Criteria(page);
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO me = memberService.getMeId(user.getSite_id());
 		LandVO land = hospitalService.getLand(emd_num);
+		cri.setPerPageNum(12);
 		ArrayList<HospitalVO> hoSubList = hospitalService.getSubHoList(me, land);
 		log.info(hoSubList + "hoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubList");
-		return hoSubList;
+		map.put("hoSubList",hoSubList);
+		return map;
 
 	}
 

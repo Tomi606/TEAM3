@@ -13,20 +13,25 @@
 			select="selectBmkHospital"/>
 	</resultMap>
 
-	<resultMap type="HsListVO" id="hospitalMap">
+	<resultMap type="HsListVO" id="HsListMap">
 		<id column="hsl_num" property="hsl_num"/>
 		<result column="hsl_hs_num" property="hsl_hs_num"/>
 		<result column="hsl_ho_id" property="hsl_ho_id"/>
 		<collection property="hospital" ofType="HospitalVO" column="hsl_ho_id" select="selectHospitalSub"/>
+		<collection property="hospital_subject" ofType="HospitalSubjectVO" column="hsl_hs_num" select="selectHoSubMap"/>
+		<collection property="hospital_detail" ofType="HospitalDetailVO" column="hsl_ho_id" select="selectHoDeMap"/>
 	</resultMap>
+	<select id="selectHoDeMap" resultType="HospitalDetailVO">
+		select * from hospital_detail where hd_ho_id = #{hsl_ho_id}
+	</select>
 	<select id="selectHospitalSub" resultType="HospitalVO">
 		select * from hospital where ho_id = #{hsl_ho_id}
 	</select>
-	
-	
-	<select id="getSubHoList" resultMap="hospitalMap">
+	<select id="selectHoSubMap" resultType="HospitalSubjectVO">
+		select * from hospital_subject where hs_num = #{hsl_hs_num}
+	</select>
+	<select id="getSubHoList" resultMap="HsListMap">
 		select * from hs_list where hsl_hs_num = #{me.me_hs_num} 
-		
 	</select>
 	
 	<resultMap type="HospitalVO" id="hospitalMap">
