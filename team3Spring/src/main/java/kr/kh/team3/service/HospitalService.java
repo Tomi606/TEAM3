@@ -7,6 +7,7 @@ import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
@@ -110,5 +111,7 @@ public interface HospitalService {
 	boolean updateReview(ReviewVO review, MemberVO member);
 
 	HospitalVO getHsNum(HospitalVO hospital);
+
+	ArrayList<HsListVO> getSubjects(HospitalVO hospital);
 
 }

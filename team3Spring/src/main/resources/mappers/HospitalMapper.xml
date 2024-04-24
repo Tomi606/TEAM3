@@ -299,4 +299,8 @@
 	<select id="selectHsNum" resultType="HospitalVO">
 		select ho_hs_num from hospital where ho_hs_num = #{hospital.ho_hs_num}
 	</select>
+	
+	<select id="selectSubjects" resultType="HsListVO">
+		select hsl_hs_num from hs_list where hsl_ho_id = #{hospital.ho_id}
+	</select>
 </mapper>

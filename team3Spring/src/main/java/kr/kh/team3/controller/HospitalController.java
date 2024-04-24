@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +20,7 @@ import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalProgramVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
@@ -132,28 +132,32 @@ public class HospitalController {
 		return map;
 	}
 	
-	//병원 상세 페이지 등록
+	//병원 상세 페이지 등록/수정
 	@GetMapping("/hospital/detail/insert")
 	public String detailInsert(Model model, HospitalDetailVO detail, HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospital(user);
 		//병원과목 리스트
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
-		//현재 로그인한 병원이 선택했던 병원과목 가져오기
-		HospitalVO selectedSubject = hospitalService.getHsNum(hospital);
+		//현재 로그인한 병원이 회원가입 시 선택했던 과목
+		HospitalVO fisrtSubject = hospitalService.getHsNum(hospital);
+		//전에 선택했던 병원 과목 리스트
+		ArrayList<HsListVO> subjects = hospitalService.getSubjects(hospital);
+		//이미 전에 등록한 병원 과목 리스트(hs_list)가 있으면 그것을 불러오기 -> jsp에서
 		//전에 입력했던 페이지 들고오기
 		HospitalDetailVO hoDetail = hospitalService.getHoDetail(detail, hospital);
 
 		model.addAttribute("hospital", hospital);
 		model.addAttribute("hsList", hsList);
-		model.addAttribute("selectedSubject", selectedSubject);
+		model.addAttribute("fisrtSubject", fisrtSubject);
+		model.addAttribute("subjects", subjects);
 		model.addAttribute("hoDetail", hoDetail);
 		return "/hospital/detail/insert";
 	}
 
 	// 병원 상세 페이지 등록/수정
 	@PostMapping("/hospital/detail/insert")
-	public String hospitalDetailPost(Model model, HospitalDetailVO detail, HttpSession session) {
+	public String detailInsertPost(Model model, HospitalDetailVO detail, HttpSession session) {
 		// 현재 로그인한 병원
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospital(user);
