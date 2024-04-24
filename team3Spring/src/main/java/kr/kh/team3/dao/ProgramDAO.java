@@ -27,6 +27,6 @@ public interface ProgramDAO {
 
 	boolean deleteProgram(@Param("hp_num")int hp_num);
 
-	ArrayList<ItemListVO> selectItemListList();
+	boolean insertItemList(@Param("il_title") String il_title, @Param("pr")HospitalProgramVO program,@Param("il_it_num") int tmp);
 
 }

@@ -14,7 +14,7 @@ public interface ProgramService {
 
 	ArrayList<HospitalProgramVO> getProgramList(SiteManagement user);
 
-	boolean insertProgram(HospitalProgramVO program, SiteManagement user,ArrayList<Integer> list);
+	boolean insertProgram(HospitalProgramVO program, SiteManagement user);
 
 	boolean updateItem(ItemVO item, SiteManagement user, int it_num, ArrayList<ItemVO> itemList);
 
@@ -23,6 +23,8 @@ public interface ProgramService {
 	boolean updateProgram(HospitalProgramVO program, SiteManagement user, ArrayList<HospitalProgramVO> programList);
 
 	boolean deleteProgram(int hp_num);
+
+	boolean insertItemList(String il_title, HospitalProgramVO program, ArrayList<Integer> list, SiteManagement user);
 
 
 }

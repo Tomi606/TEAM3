@@ -248,21 +248,35 @@ public class HospitalController {
 	@ResponseBody
 	@PostMapping("/program/insert")
 	public Map<String, Object> insertProgram(HospitalProgramVO program, HttpSession session, 
-			@RequestParam("list[]") ArrayList<Integer> list,
 			@RequestParam("il_title") String il_title) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		ArrayList<HospitalProgramVO> programList = programService.getProgramList(user);
-		ItemListVO itemList = new ItemListVO(il_title, list.toString(), program.getHp_num());
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-		System.out.println(itemList);
-//		boolean res =  programService.insertProgram(program, user, list);
-//		
-//		if(res) {
-//			map.put("msg", "추가에 성공했습니다.");
-//		}else {
-//			map.put("msg", "추가에 실패했습니다.");
-//		}
+		boolean res =  programService.insertProgram(program, user);
+		if(res) {
+			map.put("msg", "추가에 성공했습니다.");
+		}else {
+			map.put("msg", "추가에 실패했습니다.");
+		}
+		return map;
+	}
+	
+	// 프로그램을 추가하는 메서드
+	@ResponseBody
+	@PostMapping("/itemlist/insert")
+	public Map<String, Object> insertItemList(HospitalProgramVO program, HttpSession session, 
+			@RequestParam("il_title") String il_title,
+			@RequestParam("list[]") ArrayList<Integer> list) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		System.out.println("aaaaaaaaaaaaaaaaaaaaa");
+		boolean res = programService.insertItemList(il_title, program, list, user);
+		
+		if(res) {
+			map.put("msg", "추가에 성공했습니다.");
+		}else {
+			map.put("msg", "추가에 실패했습니다.");
+		}
 		return map;
 	}
 	
