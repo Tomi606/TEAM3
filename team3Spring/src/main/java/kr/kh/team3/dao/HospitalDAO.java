@@ -134,6 +134,8 @@ public interface HospitalDAO {
 
 	boolean insertSubjects(@Param("ho_id") String ho_id, @Param("hs_num") int hs_num);
 
-	ArrayList<HospitalVO> getSubHoList(@Param("me")MemberVO me,@Param("la") LandVO land);
+	ArrayList<HospitalVO> getSubHoList(@Param("me")MemberVO me,@Param("la") LandVO land,@Param("cri") Criteria cri);
+
+	int getTotalSubHoList(@Param("me")MemberVO me, @Param("la")LandVO land,@Param("cri") Criteria cri);
 
 }
