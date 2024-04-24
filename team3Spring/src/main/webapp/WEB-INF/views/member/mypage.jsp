@@ -141,6 +141,7 @@ img {
 }
 
 .profile-container {
+	background-color:lightgray;
 	width: 1000px;
 	height: 800px;
 	display: block;
