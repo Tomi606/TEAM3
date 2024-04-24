@@ -72,8 +72,7 @@ public class ProgramServiceImp implements ProgramService{
 	
 	@Override
 	public boolean insertProgram(HospitalProgramVO program
-			, SiteManagement user
-			, ArrayList<Integer> list) {
+			, SiteManagement user) {
 		if(program.getHp_payment() == 0 || program.getHp_ho_id() == ""
 				|| user.getSite_id() == null) {
 			return false;
@@ -82,16 +81,6 @@ public class ProgramServiceImp implements ProgramService{
 		for(HospitalProgramVO tmp : ProgramList) {
 			if(tmp.getHp_title().equals(program.getHp_title())) {
 				System.out.println("중복값 있음");
-				return false;
-			}
-		}
-		ArrayList<ItemListVO> itemList = programDao.selectItemListList();
-		if(itemList.size() == 0) {
-			return false;
-		}
-		
-		for(ItemListVO tmp : itemList) {
-			if(tmp.getIl_list().equals(list.toString())) {
 				return false;
 			}
 		}
@@ -127,6 +116,25 @@ public class ProgramServiceImp implements ProgramService{
 	public boolean deleteProgram(int hp_num) {
 		
 		return programDao.deleteProgram(hp_num);
+	}
+
+	@Override
+	public boolean insertItemList(String il_title, HospitalProgramVO program, ArrayList<Integer> list,
+			SiteManagement user) {
+		if(il_title == null || program == null || list.size() == 0 || user == null) {
+			return false;
+		}
+		boolean res = false;
+		if(user.getSite_authority().equals("MANAGER")) {
+			for(int tmp : list) {
+				res = programDao.insertItemList(il_title, program, tmp);
+			}
+		}
+		
+		if(res) {
+			return true;
+		}
+		return false;
 	}
 
 	

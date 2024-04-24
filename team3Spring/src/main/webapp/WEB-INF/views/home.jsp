@@ -16,6 +16,17 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <style type="text/css">
+.join-groub li:hover{
+	border-bottom:3px solid green;
+	height: 94px;
+}
+.메뉴얼 li:hover{
+	border-bottom:3px solid green;
+	height: 65px;
+}
+
+
+
 body {
 	font-size: 14px;
 	font-weight: 300;
@@ -95,17 +106,12 @@ background-color: rgba(0, 0, 0, 0);
 }
 
 .메뉴얼 {
-	padding: 35px 0 6px;
-	margin: 0 auto;
+	width:700px;
+	display:flex;
 	font-size: 16px;
 	font-weight: bold;
 }
 
-.메뉴얼>a {
-	color: black;
-	text-decoration: none;
-	margin: 30px;
-}
 
 .긴공백 {
 	width: 10%;
@@ -450,6 +456,46 @@ height:35px;width:100%;background-color: #fafafa;
 .category:hover .hidden-list {
     display: block;
 }
+
+
+.메뉴얼 ul {
+	margin:0;
+    list-style-type: none; 
+    padding: 0; 
+    display: flex; 
+    justify-content: center; 
+}
+
+.메뉴얼 li {
+	white-space:nowrap;
+    margin: 15px 10px; 
+}
+
+.메뉴얼 a {
+	margin:20px;
+	line-height: 53px;
+    text-decoration: none; 
+    padding: 10px; 
+}
+
+.join-groub ul{
+	position:relative;
+	margin:-50px;
+    list-style-type: none; 
+    padding: 0; 
+    display: flex; 
+    justify-content: center; 
+}
+.join-groub li{
+	white-space:nowrap;
+    margin: 15px 10px; 
+}
+.join-groub a{
+	margin:20px;
+	line-height: 53px;
+    text-decoration: none; 
+    padding: 10px; 
+}
 </style>
 </head>
 <body>
@@ -462,36 +508,47 @@ height:35px;width:100%;background-color: #fafafa;
 					src="<c:url value='/resources/img/Hospital.png'/>">
 				</a>
 				<div class="메뉴얼">
-					<a href="<c:url value="/hospital/list"/>">병원</a> 
-					<a href="#">커뮤니티</a> 
-					<a href="#">게시판1</a> 
-					<a href="#">공지사항</a>
-					<a href="<c:url value="/member/bookmark"/>">북마크</a>
+					<ul>
+						<li>
+							<a href="<c:url value="/hospital/list"/>">병원</a> 
+						</li>
+						<li>
+							<a href="#">커뮤니티</a> 
+						</li>
+						<li>
+							<a href="#">게시판1</a> 
+						</li>
+						<li>
+							<a href="#">공지사항</a>
+						</li>
+						<li>
+							<a href="<c:url value="/member/bookmark"/>">북마크</a>
+						</li>
+					</ul>
 				</div>
 			</div>
 			<div class="긴공백"></div>
 			<div class="로그인">
 				<div class="join-groub">
-					<c:if test="${user == null }">
-						<div class="nav-item">
-							<a class="nav-link a " href="<c:url value='/main/login'/>"> 
-							<img alt="로고이미지" style="width: 30px;"
-								src="<c:url value='/resources/img/user-white.svg'/>"> 로그인
-							</a>
-						</div>
-						<div style="line-height: 28px;">
-							<a class="nav-link a" href="<c:url value='/main/signup'/>">회원가입</a>
-						</div>
-					</c:if>
-					<c:if test="${user != null}">
-						<div class="nav-item" style="line-height: 28px;">
-							<a class="nav-link" href='<c:url value="/logout"/>'>로그아웃</a>
-						</div>
-					</c:if>
-					<div class="nav-item" style="line-height: 28px;">
-						<a class="nav-link" href='<c:url value="/admin/adminpage"/>'>관리자
-							페이지</a>
-					</div>
+					<ul>	
+						<c:if test="${user == null }">
+							<li>
+								<a class="nav-link a " href="<c:url value='/main/login'/>"><img alt="로고이미지" 
+								src="<c:url value='/resources/img/user-white.svg'/>"> 로그인</a>
+							</li>
+							<li>	
+								<a class="nav-link a" href="<c:url value='/main/signup'/>">회원가입</a>
+							</li>	
+						</c:if>
+						<c:if test="${user != null}">
+							<li>
+								<a class="nav-link" href='<c:url value="/logout"/>'>로그아웃</a>
+							</li>
+						</c:if>
+							<li>
+								<a class="nav-link" href='<c:url value="/admin/adminpage"/>'>관리자페이지</a>
+							</li>
+					</ul>		
 				</div>
 			</div>
 			<div class="공백"></div>
