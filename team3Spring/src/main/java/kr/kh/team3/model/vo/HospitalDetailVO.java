@@ -10,7 +10,6 @@ public class HospitalDetailVO {
 
 	private int hd_num;
 	private String hd_ho_id;
-	private String hd_hs_num;
 	private String hd_info;
 	private String hd_time; 
 	private String hd_park; 
@@ -18,4 +17,5 @@ public class HospitalDetailVO {
 	private String hd_etc;
 	private String hd_subject_detail;
 	private HospitalVO hospital;
+	private HsListVO hsList;
 }

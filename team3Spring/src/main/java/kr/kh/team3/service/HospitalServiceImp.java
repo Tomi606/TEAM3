@@ -344,7 +344,7 @@ public class HospitalServiceImp implements HospitalService {
 	}
 	//병원 상세 페이지 - 선진, 민석 ==============================================
 	@Override
-	public boolean insertOrUpdateHospitalDetail(HospitalDetailVO detail, HospitalVO hospital) {
+	public boolean insertOrUpdateHospitalDetail(HospitalDetailVO detail, HospitalVO hospital, HospitalSubjectVO subject) {
 		if(detail.getHd_info() == null 
 		|| detail.getHd_time() == null 
 		|| detail.getHd_park() == null) {
@@ -356,13 +356,16 @@ public class HospitalServiceImp implements HospitalService {
 		
 		detail.setHd_ho_id(hospital.getHo_id());
 		
-		//delete문 : 기존의 DB를 삭제하고 
+		//delete문 : 기존의 DB를 삭제하고
 		boolean delete = hospitalDao.deleteHospitalDetail(detail.getHd_ho_id());
+//		boolean deleteSubjects = hospitalDao.deleteSubjects(hsList.getHsl_ho_id());
 		
 		//insert + update문을 동시에 실행
 		boolean insertAndUpdate = hospitalDao.insertOrUpdateHospitalDetail(detail);
-		
-		return delete && insertAndUpdate;
+		//hs_list 테이블도 insert
+		boolean insertSubjects = hospitalDao.insertSubjects(hospital.getHo_id(), subject.getHs_num());
+		//&& deleteSubjects
+		return delete && insertAndUpdate && insertSubjects;
 	}
 
 	@Override
