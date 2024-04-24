@@ -11,6 +11,7 @@ import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.LandVO;
+import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.ReviewVO;
 import kr.kh.team3.model.vo.SiDoVO;
@@ -132,5 +133,7 @@ public interface HospitalDAO {
 	boolean deleteSubjects(@Param("hsl_ho_id") String hsl_ho_id);
 
 	boolean insertSubjects(@Param("ho_id") String ho_id, @Param("hs_num") int hs_num);
+
+	ArrayList<HospitalVO> getSubHoList(@Param("me")MemberVO me,@Param("la") LandVO land);
 
 }

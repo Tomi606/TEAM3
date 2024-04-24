@@ -118,4 +118,6 @@ public interface HospitalService {
 
 	ArrayList<HsListVO> getSubjects(HospitalVO hospital);
 
+	ArrayList<HospitalVO> getSubHoList(MemberVO me, LandVO land);
+
 }
