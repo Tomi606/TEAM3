@@ -240,9 +240,12 @@
 		hd_subject_detail = values(hd_subject_detail)
 	</insert>
 	
-	<insert id="insertSubjects" parameterType="HsListVO">
+	<insert id="insertSubjects" parameterType="java.util.ArrayList">
 		insert into hs_list(hsl_hs_num, hsl_ho_id)
 		values(#{hs_num}, #{ho_id})
+		<foreach item="item" index="index" collection="list" separator=",">
+	        (#{item.hs_num}, #{item.ho_id})
+	    </foreach>
 		on duplicate key update
 		hsl_hs_num = values(hsl_hs_num), 
 		hsl_ho_id = values(hsl_ho_id)
@@ -328,7 +331,12 @@
 		select * from hs_list where hsl_ho_id = #{hospital.ho_id}
 	</select>
 	
-	<delete id="deleteSubjects">
-		delete from hs_list hsl_hs_num = #{hsl_hs_num}
+	<delete id="deleteSubjects" parameterType="java.util.ArrayList">
+		delete from hs_list 
+		where 
+		<foreach item="item" index="index" collection="list" open="" separator=" OR " close="">
+	        (hsl_hs_num = #{item.hsl_hs_num} AND hsl_ho_id = #{item.hsl_ho_id})
+	    </foreach>
 	</delete>
+	
 </mapper>

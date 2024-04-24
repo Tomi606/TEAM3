@@ -159,7 +159,7 @@ public class HospitalController {
 
 	// 병원 상세 페이지 등록/수정
 	@PostMapping("/hospital/detail/insert")
-	public String detailInsertPost(Model model, HospitalDetailVO detail, HsListVO list, HospitalSubjectVO subject, int [] subjects, HttpSession session) {
+	public String detailInsertPost(Model model, HospitalDetailVO detail, ArrayList<HsListVO> list, HospitalSubjectVO subject, HttpSession session) {
 		// 현재 로그인한 병원
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospital(user);
