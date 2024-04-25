@@ -72,7 +72,7 @@ public class ProgramServiceImp implements ProgramService{
 	
 	@Override
 	public boolean insertProgram(HospitalProgramVO program
-			, SiteManagement user) {
+			, SiteManagement user, ArrayList<Integer> list) {
 		if(program.getHp_payment() == 0 || program.getHp_ho_id() == ""
 				|| user.getSite_id() == null) {
 			return false;
@@ -85,11 +85,25 @@ public class ProgramServiceImp implements ProgramService{
 			}
 		}
 		
+		boolean programRes = false;
+		boolean listRes = false;
 		if(user.getSite_authority().equals("MANAGER")) {	
 			//항목 리스트, 항목 리스트 제목, 병원 프로그램 명(번호) 가져와서 itemList에 넣기
-			return programDao.insertProgram(program, user);	
+			programRes =  programDao.insertProgram(program, user);	
 		}
-		return false;
+		if(programRes) {
+			HospitalProgramVO pr = programDao.selectProgram(program);
+			if(pr == null) {
+				return false;
+			}
+			for(int tmp : list) {
+				listRes = programDao.insertItemList(pr, tmp);
+				if(!listRes) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 	
 	@Override
@@ -100,43 +114,29 @@ public class ProgramServiceImp implements ProgramService{
 		return programDao.selectProgramList(user);
 	}
 
-	@Override
-	public boolean updateProgram(HospitalProgramVO program, SiteManagement user,
-			ArrayList<HospitalProgramVO> programList) {
-		
-		for(HospitalProgramVO tmp : programList) {
-			if(tmp.getHp_title().equals(program.getHp_title())) {
-				return false;
-			}
-		}
-		return programDao.updateProgram(program);
-	}
 
 	@Override
 	public boolean deleteProgram(int hp_num) {
-		
-		return programDao.deleteProgram(hp_num);
-	}
-
-	@Override
-	public boolean insertItemList(String il_title, HospitalProgramVO program, ArrayList<Integer> list,
-			SiteManagement user) {
-		if(il_title == null || program == null || list.size() == 0 || user == null) {
-			return false;
-		}
-		boolean res = false;
-		if(user.getSite_authority().equals("MANAGER")) {
-			for(int tmp : list) {
-				res = programDao.insertItemList(il_title, program, tmp);
-			}
-		}
-		
-		if(res) {
-			return true;
+		boolean res = programDao.deleteItemList(hp_num);
+		System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbb");
+		System.out.println(res);
+		if(res) {			
+			return programDao.deleteProgram(hp_num);
 		}
 		return false;
 	}
 
-	
+
+	@Override
+	public ArrayList<ItemListVO> getItemListList(SiteManagement user, int hp_num) {
+		
+		return programDao.selectItemListList(user, hp_num);
+	}
+
+	@Override
+	public ArrayList<ItemVO> getItemListByItem(int il_num) {
+		return programDao.selectItemListByItem(il_num);
+	}
+
 
 }
