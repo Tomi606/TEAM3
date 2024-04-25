@@ -139,11 +139,32 @@
 </div>
 
 <div class="list-box">
-<h3>리스트 생성 및 선택</h3>
-	
-	<a class="btn list-inset-btn">리스트 생성</a>
-	<a class="btn check-btn" href='<c:url value="/program/check" />'>프로그램 전체 조회</a>
-	</div>
+	 <table class="table">
+	    <thead>
+	      <tr>
+	        <th>Firstname</th>
+	        <th>Lastname</th>
+	        <th>Email</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+	        <td>John</td>
+	        <td>Doe</td>
+	        <td>john@example.com</td>
+	      </tr>
+	      <tr>
+	        <td>Mary</td>
+	        <td>Moe</td>
+	        <td>mary@example.com</td>
+	      </tr>
+	      <tr>
+	        <td>July</td>
+	        <td>Dooley</td>
+	        <td>july@example.com</td>
+	      </tr>
+	    </tbody>
+	  </table>
 
 </div>
 <!-- 검사 상세 항목 등록 및 띄우기 -->

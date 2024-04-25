@@ -226,71 +226,79 @@ select:focus {
 </style>
 </head>
 <body>
-<div class="mypage-container">
-	<div class="mypage-profile">
-			<div class="profile-img">
-			</div>
-			<div class="profile-name">
-				<!-- 화면에서 아이디랑 이메일 가져와서 입력하시면 됩니다 -->
-				<h4>${huser.ho_id}</h4>
-				<p>${huser.ho_email}</p>
-			</div>
-			<div class="profile-anything">
-				<div class="choose-box">			
-					<a href='<c:url value="/hospital/detail/detail?hdNum=1"/>'>병원 상세 페이지 조회</a>
+<c:if test="${hpage != null}">
+	<div class="mypage-container">
+		<div class="mypage-profile">
+				<div class="profile-img">
 				</div>
-				<div class="choose-box">
-					<a href='<c:url value="/hospital/detail/insert"/>'>2. 병원 상세 페이지 등록/수정</a>
+				<div class="profile-name">
+					<!-- 화면에서 아이디랑 이메일 가져와서 입력하시면 됩니다 -->
+					<h4>${huser.ho_id}</h4>
+					<p>${huser.ho_email}</p>
 				</div>
-				<div class="choose-box">			
-					<a href='<c:url value="/hospital/item/insert"/>'>3. 프로그램 등록/수정/삭제</a>
-				</div>
+				<div class="profile-anything">
+					<div class="choose-box">			
+						<a href='<c:url value="/hospital/detail/detail?hdNum=${hpage.hd_num}"/>'>병원 상세 페이지 조회</a>
+					</div>
 					<div class="choose-box">
-					<a>4. 예약 관리</a>
+						<a href='<c:url value="/hospital/detail/insert"/>'>2. 병원 상세 페이지 등록/수정</a>
+					</div>
+					<div class="choose-box">			
+											<a href='<c:url value="/hospital/item/insert"/>'>3. 프로그램 등록/수정/삭제</a>
+					</div>
+						<div class="choose-box">
+						<a>4. 예약 관리</a>
+					</div>
+					<div class="choose-box">			
+						<a>6. 커뮤니티 관리</a>
+					</div>
 				</div>
-				<div class="choose-box">			
-					<a>6. 커뮤니티 관리</a>
-				</div>
-			</div>
-	</div>
-	<div class="profile-container">
-		<div class="mypage-profile-info">
-		<div class="profile-img-name-container">
-			
-			<div class="mypage-img-name">
-				<h4>${huser.ho_ceo}</h4>
-				<p>${huser.ho_email}</p>
-				<span ><a href="#">실명수정</a></span>
-				<span ><a href="#">비밀번호 변경</a></span>
-			</div>
 		</div>
-			<div class="hr"></div>
-			<div class="mypage-phone">
-				<p>${huser.ho_phone}</p>
-				<span><a href="#">변경</a></span>
+		<div class="profile-container">
+			<div class="mypage-profile-info">
+			<div class="profile-img-name-container">
+				
+				<div class="mypage-img-name">
+					<h4>${huser.ho_ceo}</h4>
+					<p>${huser.ho_email}</p>
+					<span ><a href="#">실명수정</a></span>
+					<span ><a href="#">비밀번호 변경</a></span>
+				</div>
 			</div>
-			<div class="hr"></div>
-			<div class="mypage-email">
-				<p>${huser.ho_email}</p>
-				<span><a href="#">변경</a></span>
-			</div>
-			<div class="hr"></div>
-	
-				<div class="mypage-hospital-name" >
-					<h5>${huser.ho_name}</h5>
+				<div class="hr"></div>
+				<div class="mypage-phone">
+					<p>${huser.ho_phone}</p>
 					<span><a href="#">변경</a></span>
 				</div>
 				<div class="hr"></div>
-				<div class="mypage-hospital-num">
-					<h5>사업자번호 : </h5><span>${huser.ho_num}</span>
-				</div>
-				<div class="hr"></div>
-				<div class="mypage-hospital-address">
-					<p>${huser.ho_address}</p>
+				<div class="mypage-email">
+					<p>${huser.ho_email}</p>
 					<span><a href="#">변경</a></span>
 				</div>
-			</div>
- 		</div>
-</div>
+				<div class="hr"></div>
+		
+					<div class="mypage-hospital-name" >
+						<h5>${huser.ho_name}</h5>
+						<span><a href="#">변경</a></span>
+					</div>
+					<div class="hr"></div>
+					<div class="mypage-hospital-num">
+						<h5>사업자번호 : </h5><span>${huser.ho_num}</span>
+					</div>
+					<div class="hr"></div>
+					<div class="mypage-hospital-address">
+						<p>${huser.ho_address}</p>
+						<span><a href="#">변경</a></span>
+					</div>
+				</div>
+	 		</div>
+	</div>
+</c:if>
+
+<c:if test="${hpage == null}">
+	<h3>상세페이지 등록 전입니다.</h3>
+</c:if>
+<script type="text/javascript">
+</script>
 </body>
 </html>
