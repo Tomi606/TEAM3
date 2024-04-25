@@ -584,7 +584,6 @@ public class HospitalServiceImp implements HospitalService {
 		
 		return hospitalDao.getTotalSubHoList(me,land,cri);
 	}
-}
 
 	@Override
 	public ArrayList<HospitalVO> getHospitalEmd(LandVO land,int hs_num,Criteria cri) {
