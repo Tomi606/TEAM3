@@ -329,7 +329,6 @@ public class HospitalController {
 	
 	//============================================= 조민석 ===================================================
 	/*병원 리스트 출력 정경호,권기은*/
-	//Hd_hs_num없어서 일단 주석처리!!!!!!!!!!!!!!!!!!!!!!!
 	@GetMapping("/hospital/list")
 	public String hospitalList(HttpSession session, Model model, SiDoVO sido, SiGoonGuVO sgg, EupMyeonDongVO emd) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
@@ -338,6 +337,8 @@ public class HospitalController {
 			model.addAttribute("url", "/main/login");
 			return "message";
 		}
+		ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
+		model.addAttribute("list", list);
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
 		LandVO la = memberService.getMyLand(user);
 		
