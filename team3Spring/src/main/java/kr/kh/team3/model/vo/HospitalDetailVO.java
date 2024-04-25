@@ -1,8 +1,9 @@
 package kr.kh.team3.model.vo;
 
-import lombok.NoArgsConstructor;
+import java.util.ArrayList;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -17,5 +18,5 @@ public class HospitalDetailVO {
 	private String hd_etc;
 	private String hd_subject_detail;
 	private HospitalVO hospital;
-	private HsListVO hsList;
+	private ArrayList<Integer> hsList;
 }
