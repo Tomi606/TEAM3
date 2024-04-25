@@ -2,7 +2,7 @@ package kr.kh.team3.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Map;import javax.naming.CompositeName;
 
 import javax.servlet.http.HttpSession;
 
@@ -64,7 +64,7 @@ public class HospitalController {
 	@GetMapping("/hospital/detail/detail")
 	public String hospitalDetail(Model model, Integer hdNum, Integer vwNum) {
 		//상세 페이지를 가져옴(임시)
-		hdNum = 40;
+		hdNum = 22;
 		HospitalDetailVO detail = hospitalService.getDetail(hdNum);
 		//hs_list도 추가!!!!!!!!!!!
 		//병원과목 리스트
@@ -144,6 +144,7 @@ public class HospitalController {
 		HospitalVO firstSubject = hospitalService.getHsNum(hospital);
 		//상세 페이지에서 선택했던 병원 과목 리스트
 		ArrayList<HsListVO> subjects = hospitalService.getSubjects(hospital);
+		//이미 전에 등록한 병원 과목 리스트(hs_list)가 있으면 그것을 불러오기 -> jsp에서
 		//전에 입력했던 페이지 들고오기
 		HospitalDetailVO hoDetail = hospitalService.getHoDetail(detail, hospital);
 
@@ -156,75 +157,23 @@ public class HospitalController {
 	}
 
 	// 병원 상세 페이지 등록/수정
-//	@PostMapping("/hospital/detail/insert")
-//	public String detailInsertPost(
-//			Model model, HospitalDetailVO detail, HttpSession session,
-//			@RequestParam("list[]") ArrayList<Integer> hsList, @RequestParam("hs_num") int hs_num) {
-//		// 현재 로그인한 병원
-//		SiteManagement user = (SiteManagement) session.getAttribute("user");
-//		HospitalVO hospital = hospitalService.getHospital(user);
-//		// 병원 페이지 등록
-//		boolean res = hospitalService.insertDetail(detail, hospital);
-//		//hs_list 등록
-//		boolean list = hospitalService.insertSubjects(hospital, hs_num, hsList);
-//		if (res || list) {
-//			model.addAttribute("msg", "상세 페이지 수정 완료");
-//			model.addAttribute("url", "/hospital/mypage");
-//		} else {
-//			model.addAttribute("msg", "상세 페이지 등록 완료");
-//			model.addAttribute("url", "/hospital/mypage");
-//		}
-//		return "message";
-//
-//	}
-	
-//	@ResponseBody
-//	@PostMapping("/hospital/detail/insert")
-//	public String detailInsertPost(
-//			Model model, HttpSession session, @RequestBody HospitalDetailVO detail) {
-//		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-//		log.info(detail);
-//		//현재 로그인한 병원
-//		SiteManagement user = (SiteManagement) session.getAttribute("user");
-//		HospitalVO hospital = hospitalService.getHospital(user);
-//		//병원 페이지 등록
-//		boolean res = hospitalService.insertDetail(detail, hospital);
-//		//hs_list 등록
-//		//boolean subList = hospitalService.insertSubjects(hospital, detail.getHsList());
-//		log.info("subList : ");
-//
-//		if(res) {
-//			model.addAttribute("msg", "상세 페이지 수정 완료");
-//			model.addAttribute("url", "/hospital/mypage");
-//		}else {
-//			model.addAttribute("msg", "상세 페이지 등록 완료");
-//			model.addAttribute("url", "/hospital/mypage");
-//		}
-//		return "message";
-//	}
-	
-	@ResponseBody
 	@PostMapping("/hospital/detail/insert")
-	public Map<String, Object> detailInsertPost(HttpSession session,@RequestBody HospitalDetailVO detail) {
-		Map<String, Object> map = new HashMap<String, Object>();
+	public String detailInsertPost(Model model, HospitalDetailVO detail, HospitalSubjectVO subject, int [] subjects, HttpSession session) {
+		// 현재 로그인한 병원
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospital(user);
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-		log.info(detail);	
-		//병원 페이지 등록
-		boolean res = hospitalService.insertDetail(detail, hospital);
-		//hs_list 등록
-		//boolean subList = hospitalService.insertSubjects(hospital, hsList);
-		log.info("subList : ");
+		// 병원 페이지 등록
+		boolean res = hospitalService.insertOrUpdateHospitalDetail(detail, hospital, subject);
 
-		if(res) {
-			map.put("msg", "상세 페이지 수정 완료");
-			map.put("url", "/hospital/mypage");
-		}else {
-			map.put("msg", "상세 페이지 등록 완료");
-			map.put("url", "/hospital/mypage");
+		if (res) {
+			model.addAttribute("msg", "상세 페이지 수정 완료");
+			model.addAttribute("url", "/hospital/mypage");
+		} else {
+			model.addAttribute("msg", "상세 페이지 등록 완료");
+			model.addAttribute("url", "/hospital/mypage");
 		}
-		return map;
+		return "message";
+
 	}
 	
   //================================================ 조민석 ====================================================
@@ -451,6 +400,7 @@ public class HospitalController {
 		return map;
 
 	}
+
 	
 	@ResponseBody
 	@PostMapping("/hospital/area/name")

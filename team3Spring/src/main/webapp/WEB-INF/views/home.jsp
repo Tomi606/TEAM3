@@ -36,7 +36,7 @@ text-decoration: underline;
 	width: 100%;
 	height: 953px;
 	text-align: center;
-	background: url('<c:url value="/resources/img/tree.jpg"/>');
+	background: url('<c:url value="/resources/img/doctor.jpg"/>');
 	background-repeat: no-repeat;
 	background-size: cover;
 	z-index: 9999;
