@@ -127,10 +127,17 @@ public interface HospitalDAO {
 
 	HospitalVO selectHsNum(@Param("hospital") HospitalVO hospital);
 
-	ArrayList<HsListVO> selectSubjects(@Param("hospital") HospitalVO hospital);
+	ArrayList<HsListVO> selectSubjects(@Param("ho") HospitalVO hospital);
 
-	boolean insertSubjects(@Param("list") ArrayList<HsListVO> list, @Param("ho_id") String ho_id, @Param("hs_num") int hs_num);
+	boolean insertHoDetail(@Param("ho") HospitalVO hospital, @Param("hd") HospitalDetailVO detail);
 
-	boolean deleteSubjects(@Param("list") ArrayList<HsListVO> list);
+	boolean updateHoDetail(@Param("ho_id") String ho_id, @Param("hd") HospitalDetailVO detail);
+	
+	boolean insertSubjects(@Param("ho") HospitalVO hospital, @Param("hsl_hs_num") int tmp);
+
+	boolean updateSubjects(@Param("ho") HospitalVO hospital, @Param("hs_num") int tmp);
+
+	HospitalDetailVO selectHospitalDetail(@Param("ho") HospitalVO hospital);
+
 
 }

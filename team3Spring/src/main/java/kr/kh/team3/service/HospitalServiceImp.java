@@ -345,9 +345,7 @@ public class HospitalServiceImp implements HospitalService {
 	}
 	//병원 상세 페이지 - 선진, 민석 ==============================================
 	@Override
-	public boolean insertOrUpdateHospitalDetail(
-			HospitalDetailVO detail, ArrayList<HsListVO> list, 
-			HospitalVO hospital, HospitalSubjectVO subject) { //int [] subject?
+	public boolean insertDetail(HospitalDetailVO detail, HospitalVO hospital) {
 		if(detail.getHd_info() == null 
 		|| detail.getHd_time() == null 
 		|| detail.getHd_park() == null) {
@@ -359,26 +357,41 @@ public class HospitalServiceImp implements HospitalService {
 		
 		detail.setHd_ho_id(hospital.getHo_id());
 		
-		//delete문 : 기존의 DB를 삭제(상세 페이지 + hs_list)
-		boolean delete = hospitalDao.deleteHospitalDetail(detail.getHd_ho_id());
-//		boolean deleteSubjects = hospitalDao.deleteSubjects(list);
-		
-		//hsList를 향상된 for문, select로 가져와서 있으면 삭제 없으면 return
-		
-		//MemberImp에 land 참고
 		//접속한 아이디를 주면서 select detail
 		//detail == null insert
+		if(hospitalDao.selectHoDetail(hospital) == null) {
+			return hospitalDao.insertHoDetail(hospital, detail);
+		}
 		//!= null update
+		else {
+			return hospitalDao.updateHoDetail(hospital.getHo_id(), detail);
+		}
 		
-		//hs_list == null insert
-		//!= null update
+	}
+	
+	@Override
+	public boolean insertSubjects(HospitalVO hospital, int [] hsList) {
+		if(hospital == null || hospital.getHo_id() == null) {
+			return false;
+		}
+		boolean res = false;
+		if(hospitalDao.selectSubjects(hospital) == null) {
+			for(int tmp : hsList) {
+				res = hospitalDao.insertSubjects(hospital, tmp);
+			}
+		}
+		else {
+			for(int tmp : hsList) {
+				res = hospitalDao.updateSubjects(hospital, tmp);
+			}
+		}
 		
-		//insert + update문 : 상세 페이지 + hs_list
-		boolean insertAndUpdate = hospitalDao.insertOrUpdateHospitalDetail(detail);
-		boolean insertSubjects = hospitalDao.insertSubjects(list, hospital.getHo_id(), subject.getHs_num());
-
-		//&& deleteSubjects
-		return delete && insertAndUpdate && insertSubjects;
+		if(res) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	@Override
@@ -559,6 +572,14 @@ public class HospitalServiceImp implements HospitalService {
 			return null;
 		}
 		return hospitalDao.selectSubjects(hospital);
+	}
+
+	@Override
+	public HospitalDetailVO getHospitalDetail(HospitalVO hospital) {
+		if(hospital == null) {
+			return null;
+		}
+		return hospitalDao.selectHospitalDetail(hospital);
 	}
 
 }

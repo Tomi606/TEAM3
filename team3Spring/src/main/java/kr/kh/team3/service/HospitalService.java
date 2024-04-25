@@ -75,7 +75,9 @@ public interface HospitalService {
 	ArrayList<HospitalSubjectVO> selectSubject();
 
 	//병원 상세 페이지==========================================
-	boolean insertOrUpdateHospitalDetail(HospitalDetailVO detail, ArrayList<HsListVO> list, HospitalVO hospital, HospitalSubjectVO subject);
+	boolean insertDetail(HospitalDetailVO detail, HospitalVO hospital);
+	
+	boolean insertSubjects(HospitalVO hospital, int [] hsList);
 
 	HospitalVO getHospitalInfo();
 
@@ -116,5 +118,8 @@ public interface HospitalService {
 	HospitalVO getHsNum(HospitalVO hospital);
 
 	ArrayList<HsListVO> getSubjects(HospitalVO hospital);
+
+	HospitalDetailVO getHospitalDetail(HospitalVO hospital);
+
 
 }
