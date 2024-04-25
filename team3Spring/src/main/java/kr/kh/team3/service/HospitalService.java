@@ -122,4 +122,6 @@ public interface HospitalService {
 
 	int getLikeSub(MemberVO me, LandVO land, Criteria cri);
 
+	HospitalDetailVO getHuserPage(SiteManagement user);
+
 }

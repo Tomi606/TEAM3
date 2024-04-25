@@ -55,8 +55,11 @@ public class HospitalController {
 		// 로그인한 회원 정보(SiteManagement에서 로그인 session 가져오고 -> HospitalVO로 가져오기)
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO huser = hospitalService.getHospital(user);
-
+		HospitalDetailVO hpage = hospitalService.getHuserPage(user);
+		System.out.println("cccccccccccccccccccccccc");
+		log.info(hpage);
 		model.addAttribute("huser", huser);
+		model.addAttribute("hpage", hpage);
 		return "/hospital/mypage";
 	}
 
