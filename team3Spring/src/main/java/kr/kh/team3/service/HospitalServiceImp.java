@@ -579,7 +579,7 @@ public class HospitalServiceImp implements HospitalService {
 		if(hospital == null) {
 			return null;
 		}
-		return hospitalDao.selectHospitalDetail(hospital);
+		return hospitalDao.selectHosDetail(hospital);
   }
 
 	public ArrayList<HospitalVO> getSubHoList(MemberVO me, LandVO land,Criteria cri) {
@@ -596,4 +596,5 @@ public class HospitalServiceImp implements HospitalService {
 		
 		return hospitalDao.getTotalSubHoList(me,land,cri);
 	}
+}
 

@@ -386,7 +386,7 @@
 		select * from hs_list where hsl_ho_id = #{ho.ho_id}
 	</select>
 
-	<select id="selectHospitalDetail" resultType="HospitalDetailVO">
+	<select id="selectHosDetail" resultType="HospitalDetailVO">
 		select * from hospital_detail where hd_ho_id = #{ho.ho_id}
 	</select>
 </mapper>
