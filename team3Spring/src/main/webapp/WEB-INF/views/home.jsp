@@ -560,7 +560,7 @@ margin: 10px;
 			<div class="category" style="display: none;" >
 		        <c:forEach items="${list}" var="hs">
 		            <tr>
-		                <th><a href="#" class="hs_btn">${hs.hs_title}</a></th>
+		                <th><a href="<c:url value="/hospital/list?hsNum=${hs.hs_num}"/>" class="hs_btn">${hs.hs_title}</a></th>
 		            </tr>
 		        </c:forEach>
 	  		</div>

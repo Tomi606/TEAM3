@@ -40,7 +40,7 @@ display: grid; grid-template-columns:1fr 1fr 1fr 1fr;border-top:1px dotted #A8F5
 border-top:1px dotted #A8F552;margin-top: 80px;}
 .area-select-all{width: 100%;height: 150px;padding: 30px 0;display: flex;}
 .area-select{margin: 0 auto;}
-.area-select-box{display: flex;border: 1px solid  #c8c8c8;width: 100%; height: 400px;margin: 0 0 200px 0;}
+.area-select-box{display: flex;border: 1px solid  #c8c8c8;width: 100%; height: 400px;margin: 0 0 65px 0;}
 .area-select-box li{list-style: none;}
 .area-select-sido{width: 200px;height: 100%;text-align: left;list-style: none;}
 .area-select-sgg{width: 200px;text-align: left;}
@@ -67,6 +67,10 @@ border-top:1px dotted #A8F552;margin-top: 80px;}
 .area_box{width: 600px;display: flex;margin: 0 auto;}
 
 .img-container{border: 1px solid black;width: 100%;height: 800px;}
+.category { margin-bottom:135px;display: grid;width: 100%;grid-template-columns:1fr 1fr 1fr 1fr ;border: 1px solid black;} 
+.category a{ 
+margin:20px 20px 20px 20px;width: 100%;height: 100%;
+}
 </style>
 </head>
 <body>
@@ -111,8 +115,14 @@ border-top:1px dotted #A8F552;margin-top: 80px;}
 				</div>	
 			</div>
 		</div>
+			<div class="category"  >
+		        <c:forEach items="${list}" var="hs">
+		            <tr>
+		                <th><a href="<c:url value="/hospital/list?hsNum=${hs.hs_num}"/>" class="hs_btn">${hs.hs_title}</a></th>
+		            </tr>
+		        </c:forEach>
+			</div>
 	</div>
-		
 		<h1>내 관심 병원</h1>
 		<div class="hospital-like-list">
 		</div>
