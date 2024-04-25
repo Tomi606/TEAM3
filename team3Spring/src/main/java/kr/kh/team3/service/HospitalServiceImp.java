@@ -15,10 +15,12 @@ import org.springframework.stereotype.Service;
 
 import kr.kh.team3.dao.HospitalDAO;
 import kr.kh.team3.dao.MemberDAO;
+import kr.kh.team3.model.vo.BookmarkVO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
@@ -343,7 +345,7 @@ public class HospitalServiceImp implements HospitalService {
 	}
 	//병원 상세 페이지 - 선진, 민석 ==============================================
 	@Override
-	public boolean insertOrUpdateHospitalDetail(HospitalDetailVO detail, HospitalVO hospital) {
+	public boolean insertOrUpdateHospitalDetail(HospitalDetailVO detail, HospitalVO hospital, HospitalSubjectVO subject) {
 		if(detail.getHd_info() == null 
 		|| detail.getHd_time() == null 
 		|| detail.getHd_park() == null) {
@@ -355,13 +357,16 @@ public class HospitalServiceImp implements HospitalService {
 		
 		detail.setHd_ho_id(hospital.getHo_id());
 		
-		//delete문 : 기존의 DB를 삭제하고 
+		//delete문 : 기존의 DB를 삭제하고
 		boolean delete = hospitalDao.deleteHospitalDetail(detail.getHd_ho_id());
+//		boolean deleteSubjects = hospitalDao.deleteSubjects(hsList.getHsl_ho_id());
 		
 		//insert + update문을 동시에 실행
 		boolean insertAndUpdate = hospitalDao.insertOrUpdateHospitalDetail(detail);
-		
-		return delete && insertAndUpdate;
+		//hs_list 테이블도 insert
+		boolean insertSubjects = hospitalDao.insertSubjects(hospital.getHo_id(), subject.getHs_num());
+		//&& deleteSubjects
+		return delete && insertAndUpdate && insertSubjects;
 	}
 
 	@Override
@@ -481,6 +486,19 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
+	public ArrayList<BookmarkVO> getBmkList(SiteManagement user, Criteria cri) {
+		if(user == null||user.getSite_id() == null||user.getSite_id().length() == 0)
+			return null;
+		return hospitalDao.selectBmkList(user, cri);
+	}
+
+	@Override
+	public int getBmkListCount(SiteManagement user, Criteria cri) {
+		if(user == null||user.getSite_id() == null||user.getSite_id().length() == 0)
+			return -1;
+		return hospitalDao.selectBmkListCount(user, cri);
+	}
+
 	public boolean deleteReview(ReviewVO review, MemberVO member) {
 		if(review == null) {
 			return false;
@@ -513,6 +531,38 @@ public class HospitalServiceImp implements HospitalService {
 		}
 		//다 확인되면 업데이트
 		return hospitalDao.updateReview(review);
+	}
+
+	@Override
+	public HospitalVO getHsNum(HospitalVO hospital) {
+		if(hospital == null || hospital.getHo_id() == null) {
+			return null;
+		}
+		return hospitalDao.selectHsNum(hospital);
+	}
+
+	@Override
+	public ArrayList<HsListVO> getSubjects(HospitalVO hospital) {
+		if(hospital == null || hospital.getHo_id() == null) {
+			return null;
+		}
+		return hospitalDao.selectSubjects(hospital);
+	}
+
+	@Override
+	public ArrayList<HospitalVO> getSubHoList(MemberVO me, LandVO land,Criteria cri) {
+		if(me == null || land == null || cri == null)
+		return null;
+		
+		return hospitalDao.getSubHoList(me,land,cri);
+	}
+
+	@Override
+	public int getLikeSub(MemberVO me, LandVO land, Criteria cri) {
+		if(me == null || land == null || cri == null)
+			return -1;
+		
+		return hospitalDao.getTotalSubHoList(me,land,cri);
 	}
 
 }

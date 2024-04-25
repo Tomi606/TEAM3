@@ -260,49 +260,6 @@ $.validator.addMethod(
 )
 </script>
 
-<!-- 아이디 중복 검사 -->
-<!-- <script type="text/javascript">
-function idCheckDup() {
-	//입력된 아이디를 가져옴
-	let site_id = $('[name=site_id]').val();
-	let obj = {
-		//id는 Controller에 @RequestParam("id")과 일치해야 함
-		//site_id는 위의 let site_id
-		id : site_id
-	}
-
-	let result = false;
-	//서버에 아이디를 전송해서 사용 가능.불가능 처리
-	$.ajax({
-		async : false,
-		url : '<c:url value="/id/check/dup"/>', 
-		type : 'get', 
-		data : obj, 
-		dataType : "json", 
-		success : function (data){
-			result = data.result;
-			if(!result) {
-				$('#id-error').text('사용 가능한 아이디입니다.');
-				$('#id-error').show();
-				result = true;
-			}
-			else {
-				$('#id-error').text('이미 사용중인 아이디입니다.');
-				$('#id-error').show();
-				result = false;
-			}
-			
-		}, 
-		error : function(jqXHR, textStatus, errorThrown){
-
-		}
-	});
-	return result;
-}
-$('[name=site_id]').on('input', function() {
-	idCheckDup();
-});
-</script> -->
 
 
 <script type="text/javascript">

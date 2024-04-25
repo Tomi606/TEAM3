@@ -3,6 +3,7 @@ package kr.kh.team3.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;import javax.naming.CompositeName;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalProgramVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.ItemListVO;
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.LandVO;
@@ -47,7 +49,7 @@ public class HospitalController {
 	@Autowired
 	ProgramService programService;
 
-	// 병원 마이페이지
+	//병원 마이페이지
 	@GetMapping("/hospital/mypage")
 	public String hospitalMypage(Model model, HospitalVO hospital, HttpSession session) {
 		// 로그인한 회원 정보(SiteManagement에서 로그인 session 가져오고 -> HospitalVO로 가져오기)
@@ -64,7 +66,7 @@ public class HospitalController {
 		//상세 페이지를 가져옴(임시)
 		hdNum = 22;
 		HospitalDetailVO detail = hospitalService.getDetail(hdNum);
-
+		//hs_list도 추가!!!!!!!!!!!
 		//병원과목 리스트
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
 		model.addAttribute("detail", detail);
@@ -131,34 +133,37 @@ public class HospitalController {
 		return map;
 	}
 	
-	//병원 상세 페이지 등록
+	//병원 상세 페이지 등록/수정
 	@GetMapping("/hospital/detail/insert")
 	public String detailInsert(Model model, HospitalDetailVO detail, HttpSession session) {
-		// 현재 로그인한 병원
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospital(user);
-		// 병원과목 리스트
+		//병원과목 리스트
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
-		// 현재 로그인한 병원이 선택했던 병원과목 가져오기
-		HospitalSubjectVO selectedSubject = hospitalService.getSelectedSubject(detail, hospital);
-		// 전에 입력했던 페이지 들고오기
+		//현재 로그인한 병원이 회원가입 시 선택했던 과목
+		HospitalVO firstSubject = hospitalService.getHsNum(hospital);
+		//상세 페이지에서 선택했던 병원 과목 리스트
+		ArrayList<HsListVO> subjects = hospitalService.getSubjects(hospital);
+		//이미 전에 등록한 병원 과목 리스트(hs_list)가 있으면 그것을 불러오기 -> jsp에서
+		//전에 입력했던 페이지 들고오기
 		HospitalDetailVO hoDetail = hospitalService.getHoDetail(detail, hospital);
 
 		model.addAttribute("hospital", hospital);
 		model.addAttribute("hsList", hsList);
-		model.addAttribute("selectedSubject", selectedSubject);
+		model.addAttribute("firstSubject", firstSubject);
+		model.addAttribute("subjects", subjects);
 		model.addAttribute("hoDetail", hoDetail);
 		return "/hospital/detail/insert";
 	}
 
 	// 병원 상세 페이지 등록/수정
 	@PostMapping("/hospital/detail/insert")
-	public String hospitalDetailPost(Model model, HospitalDetailVO detail, HttpSession session) {
+	public String detailInsertPost(Model model, HospitalDetailVO detail, HospitalSubjectVO subject, int [] subjects, HttpSession session) {
 		// 현재 로그인한 병원
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospital(user);
 		// 병원 페이지 등록
-		boolean res = hospitalService.insertOrUpdateHospitalDetail(detail, hospital);
+		boolean res = hospitalService.insertOrUpdateHospitalDetail(detail, hospital, subject);
 
 		if (res) {
 			model.addAttribute("msg", "상세 페이지 수정 완료");
@@ -353,13 +358,11 @@ public class HospitalController {
 			model.addAttribute("url", "/main/login");
 			return "message";
 		}
+		ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
+		model.addAttribute("list", list);
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
-		ArrayList<HospitalVO> hoList = hospitalService.getArrHospital(user);
-		MemberVO me = memberService.getMeId(user.getSite_id());
-		ArrayList<HospitalVO> likeSubList = memberService.getMySubject(me);
 		LandVO la = memberService.getMyLand(user);
-		model.addAttribute("like", likeSubList);
-		model.addAttribute("hoList", hoList);
+		
 		model.addAttribute("sidoList", sidoList);
 		model.addAttribute("la", la);
 		return "/hospital/list";
@@ -373,28 +376,31 @@ public class HospitalController {
 		LandVO land = hospitalService.getLand(emd_num);
 		cri.setPerPageNum(12);
 		ArrayList<HospitalVO> hoList = hospitalService.getHospital(land,cri);
-		log.info(hoList+"hoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoList");
 		int totalCount = hospitalService.getHospitalCount(land,cri);
-		log.info(totalCount+"토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카");
 		PageMaker pm = new PageMaker(5, cri, totalCount);
-		log.info(pm+"피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠");
 		map.put("pm", pm);
 		map.put("hoList", hoList);
 		return map;
 
 	}
-
 	@ResponseBody
 	@PostMapping("/hospital/like/list")
-	public ArrayList<HospitalVO> postLiHospital(@RequestParam("emd_num") int emd_num,HttpSession session) {
+	public  Map<String, Object> postLiHospital(@RequestParam("emd_num") int emd_num,HttpSession session,@RequestParam("page")int page) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Criteria cri = new Criteria(page);
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO me = memberService.getMeId(user.getSite_id());
 		LandVO land = hospitalService.getLand(emd_num);
-		ArrayList<HospitalVO> hoSubList = memberService.getSubHoList(me, land);
-		log.info(hoSubList + "hoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubList");
-		return hoSubList;
+		cri.setPerPageNum(8);
+		int totalCount = hospitalService.getLikeSub(me,land,cri);
+		ArrayList<HospitalVO> hoSubList = hospitalService.getSubHoList(me, land,cri);
+		PageMaker pm = new PageMaker(5, cri, totalCount);
+		map.put("pm", pm);
+		map.put("hoSubList",hoSubList);
+		return map;
 
 	}
+
 	
 	@ResponseBody
 	@PostMapping("/hospital/area/name")
@@ -411,12 +417,5 @@ public class HospitalController {
 		return map;
 
 	}
-
-//	@ResponseBody
-//	@PostMapping("/member/signup/eupmyeondong")
-//	public ArrayList<EupMyeonDongVO> postEupMyeonDong(int sgg_num) {
-//		ArrayList<EupMyeonDongVO> emdList = memberService.getEmd(sgg_num);
-//		return emdList;
-//	}
 
 }

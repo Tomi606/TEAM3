@@ -88,21 +88,140 @@ width: 500px;height: 300px;border: 1px solid black;
  .profile-anything{border: 1px solid black;width: 300px;height: 400px;margin: 0 auto;}
  
  .profile-container{width: 1000px;height: 800px;border: 1px solid black; display: block;background-color: lightgray;}
- .mypage-profile-info{width: 600px;height: 325px;border: 1px solid black;margin: 40px 20px 40px 250px;background-color: pink;border-radius:30px; }
- .mypage-profile-detail{width: 600px;height:325px;border: 1px solid black; margin: 0px 20px 80px 250px;background-color: pink;border-radius:30px; }
- 
- .profile-img-name-container{width: 600px;height: 150px;display: flex;}
+ .mypage-profile-info{	padding:0 100px;
+	width: 800px;
+	height: 777px;
+	border: 1px solid black;
+	margin: 11px 20px 40px 120px;
+	background-color: white;
+	border-radius: 30px; }
+.profile-img-name-container {
+	width: 100%;
+	height: 150px;
+	display: flex;
+}
+.mypage-img-name {
+	align-content: space-around;
+	flex-direction: column;
+	flex-wrap: wrap;
+	display: flex;
+	width:1000px;
+	margin: 30px auto;
+	height: 125px;
+	padding: 20px;
+}
+.hr {width: 100%;border: 1px solid lightgray;}
  .mypage-img{display:flex;width: 125px;height: 125px;border:1px solid white;margin: 30px 0 0 30px;border-radius:100%;background-color: white;}
- .mypage-img-name{flex-direction: column;flex-wrap: wrap;align-content: space-between;display:flex; width: 400px;margin: 30px 0;height: 125px;padding: 20px;}
- .hr{width: 500px;border:1px solid black;margin:10px auto}
  
- 
- .mypage-phone{width: 500px;margin: 0 auto;display: flex;}
- .mypage-email{width: 500px;margin: 0 auto;display: flex;}
- 
- .mypage-hospital-name{display: flex;margin: 40px 48px 0 47px;}
- .mypage-hospital-num{display:flex;margin: 20px 48px 0 47px;}
- .mypage-hospital-address{display:flex;margin: 20px 48px 0 47px;}
+ .mypage-phone {
+	margin:auto;
+	height:70px;
+	width: 80%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.mypage-email {
+	margin:auto;
+	height:70px;
+	width: 80%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.mypage-hospital-name {
+	display: flex;
+	margin:auto;
+	height:70px;
+	justify-content: space-between;
+	width: 80%;
+}
+.mypage-hospital-num{
+ 	display:flex;
+ 	margin:auto;
+	height:70px;
+	width: 80%;
+}
+ .mypage-hospital-address{
+ 	display:flex;
+ 	margin: auto;
+	height:70px;
+	justify-content: space-between;
+	width: 80%;
+}
+.anything-box{margin-top:50px;}
+.choose-box{
+	padding:15px;
+	text-align:center;
+	display:flex;
+	width: 100%;height: 75px;
+ 	flex-direction: column;
+}
+.choose-box a{
+	border-radius:5px;
+	line-height:45px;
+	margin:0 auto;
+	border:1px solid black;
+	width:90%;height:50px;
+	color:black;
+	text-decoration:none;
+}
+.subject{
+width: 100%; 
+height: 70px;
+
+}
+.phone-width{
+width: 80%;
+margin:auto;
+display: flex;
+justify-content: space-between;
+}
+.email-width{
+width: 80%;
+margin:auto;
+display: flex;
+justify-content: space-between;
+}
+.job-width{
+width: 80%;
+margin:auto;
+display: flex;
+justify-content: space-between;
+}
+.subject-width{
+width: 80%;
+margin: 20px auto;
+display: flex;
+justify-content: space-between;
+}
+.address-width{
+width: 93%;
+margin:auto;
+display: flex;
+justify-content: space-between;
+}
+select {
+    width: 300px;
+    padding: 8px; 
+    font-size: 16px;
+    border: 1px solid #ccc;
+    appearance: none;  
+    background-color: #fff;
+    background-image: linear-gradient(to bottom, #f9f9f9, #e9e9e9);  
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+    cursor: pointer;  
+}
+
+select:hover {
+    border-color: #999; 
+}
+
+select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+}
  
 </style>
 </head>
@@ -117,51 +236,48 @@ width: 500px;height: 300px;border: 1px solid black;
 				<p>${huser.ho_email}</p>
 			</div>
 			<div class="profile-anything">
-				<div>				
-					<a href='<c:url value="/hospital/detail/detail?hdNum=1"/>'>1. 병원 상세 페이지 조회</a>
+				<div class="choose-box">			
+					<a href='<c:url value="/hospital/detail/detail?hdNum=1"/>'>병원 상세 페이지 조회</a>
 				</div>
-				<div>
+				<div class="choose-box">
 					<a href='<c:url value="/hospital/detail/insert"/>'>2. 병원 상세 페이지 등록/수정</a>
 				</div>
-				<div>				
+				<div class="choose-box">			
 					<a href='<c:url value="/hospital/item/insert"/>'>3. 프로그램 등록/수정/삭제</a>
 				</div>
-				<div>
-					<a>4. 예약 관리(변경/취소)</a>
+					<div class="choose-box">
+					<a>4. 예약 관리</a>
 				</div>
-				<div>				
-					<a>6. 커뮤니티 관리(게시글·댓글 조회/수정/삭제)</a>
+				<div class="choose-box">			
+					<a>6. 커뮤니티 관리</a>
 				</div>
 			</div>
 	</div>
 	<div class="profile-container">
-		<h3>5. 병원 정보 수정</h3>
 		<div class="mypage-profile-info">
 		<div class="profile-img-name-container">
-			<div class="mypage-img">
-			</div>
+			
 			<div class="mypage-img-name">
-				<h4 style="display: flex;">${huser.ho_ceo}</h4>
-				<p style="margin-right: auto;">${huser.ho_email}</p>
+				<h4>${huser.ho_ceo}</h4>
+				<p>${huser.ho_email}</p>
 				<span ><a href="#">실명수정</a></span>
 				<span ><a href="#">비밀번호 변경</a></span>
 			</div>
 		</div>
 			<div class="hr"></div>
 			<div class="mypage-phone">
-				<p style="margin-right: auto">${huser.ho_phone}</p>
+				<p>${huser.ho_phone}</p>
 				<span><a href="#">변경</a></span>
 			</div>
 			<div class="hr"></div>
 			<div class="mypage-email">
-				<p style="margin-right: auto">${huser.ho_email}</p>
+				<p>${huser.ho_email}</p>
 				<span><a href="#">변경</a></span>
 			</div>
-		
-		</div>
-		<div class="mypage-profile-detail">
+			<div class="hr"></div>
+	
 				<div class="mypage-hospital-name" >
-					<h5 style="margin-right: auto">${huser.ho_name}</h5>
+					<h5>${huser.ho_name}</h5>
 					<span><a href="#">변경</a></span>
 				</div>
 				<div class="hr"></div>
@@ -170,7 +286,7 @@ width: 500px;height: 300px;border: 1px solid black;
 				</div>
 				<div class="hr"></div>
 				<div class="mypage-hospital-address">
-					<p style="margin-right: auto">${huser.ho_address}</p>
+					<p>${huser.ho_address}</p>
 					<span><a href="#">변경</a></span>
 				</div>
 			</div>

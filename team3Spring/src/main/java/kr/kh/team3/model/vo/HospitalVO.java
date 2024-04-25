@@ -32,6 +32,9 @@ public class HospitalVO {
 	// 자동로그인 때 사용
 	private String ho_cookie;
 	private Date ho_cookie_limit;
+	
+	private HospitalDetailVO hospital_detail;
+	private HospitalSubjectVO hospital_subject;
 
 	public String getChangeDate() {
 		if (this.ho_stop != null) {

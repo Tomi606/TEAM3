@@ -89,30 +89,48 @@
 	</div>
 	<h2 style="font-weight: bold;">진료 과목</h2>
 	<div class="hd_hs_num">
-		<label for="hd_hs_num">대표 진료 과목</label>
-		<div class="subject-checkbox hd_hs_num">
-		  	<c:forEach items="${hsList}" var="hs">
-		  		<c:set var="isChecked" value="false"/>
-		  		<c:if test="${hoDetail.hd_hs_num != null}">		  		
-			  		<c:forEach items="${hoDetail.hd_hs_num.split(',')}" var="selectedHsNum">
-			  			<c:if test="${selectedHsNum == hs.hs_num}">
-			  				<c:set var="isChecked" value="true"/>
-			  			</c:if>
-			  		</c:forEach>
-		  		</c:if>
-		   		<input type="checkbox" name="subject" value="${hs.hs_num}" onclick="updateHdHsNums()"
-		   				<c:if test="${isChecked == 'true'}">checked</c:if>>${hs.hs_title}
-		  	</c:forEach>
+	${subjects}
+		<label for="hd_hs_num" style="font-weight: bold">대표 진료 과목</label>
+		<div class="subject-checkbox">
+		  	<c:choose>
+		  		<c:when test="${subjects != null}">
+		  			<c:forEach items="${hsList}" var="hs">
+		  				<c:set var="isChecked" value="false"/>
+		  				<c:forEach items="${subjects}" var="subjects">
+		  					<c:if test="${subjects.hsl_hs_num == hs.hs_num}">
+		  						<c:set var="isChecked" value="true"/>
+		  					</c:if>
+		  				</c:forEach>
+		  				<input type="checkbox" name="hs_num" value="${hs.hs_num}"
+		  				<c:if test="${isChecked == 'true'}">checked</c:if>>${hs.hs_title}
+		  			</c:forEach>
+		  		</c:when>
+		  		<c:otherwise>
+		  			<c:forEach items="${hsList}" var="hs">
+		  				<input type="checkbox" name="hs_num" value="${hs.hs_num}"
+		  				<c:if test="${firstSubject != null}">checked</c:if>>${hs.hs_title}
+		  			</c:forEach>
+		  		</c:otherwise>
+		  	</c:choose>
 		</div>
-		<input type="hidden" id="hd_hs_num" name="hd_hs_num" value="${hoDetail.hd_hs_num}">
+		<c:choose>
+			<c:when test="${subjects == null}">
+				<input type="hidden" id="ho_hs_num" name="ho_hs_num" value="${firstSubject.ho_hs_num}">
+			</c:when>
+			<c:otherwise>
+				<%-- <input type="hidden" id="hsl_ho_id" name="hsl_ho_id" value="${subjects.hsl_ho_id}"> --%>
+			</c:otherwise>
+		</c:choose>
+
 	 </div>
 	<div>
-	 	<label for="hd_subject_detail">상세 진료 항목</label>
+	 	<label for="hd_subject_detail" style="font-weight: bold">상세 진료 항목</label>
 	 	<textarea class="hd_subject_detail col-10" id="hd_subject_detail" name="hd_subject_detail" 
 	 	oninput="autoTextarea(this)" placeholder="감염성 질환 / 알레르기 / 만성 질환 / 호흡기 질환 / 피부 질환...">${hoDetail.hd_subject_detail}</textarea>
 	</div>
 	<button type="submit" class="hospital-btn" name="hospital-btn">병원 소개 등록</button>
 </form>
+
 <!-- textarea 자동 스크롤 -->
 <script type="text/javascript">
 function autoTextarea(element) {

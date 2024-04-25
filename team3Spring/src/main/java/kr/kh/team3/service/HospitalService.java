@@ -2,11 +2,12 @@ package kr.kh.team3.service;
 
 import java.util.ArrayList;
 
-
+import kr.kh.team3.model.vo.BookmarkVO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
@@ -75,7 +76,7 @@ public interface HospitalService {
 	ArrayList<HospitalSubjectVO> selectSubject();
 
 	//병원 상세 페이지==========================================
-	boolean insertOrUpdateHospitalDetail(HospitalDetailVO detail, HospitalVO hospital);
+	boolean insertOrUpdateHospitalDetail(HospitalDetailVO detail, HospitalVO hospital, HospitalSubjectVO subject);
 
 	HospitalVO getHospitalInfo();
 
@@ -103,10 +104,22 @@ public interface HospitalService {
 
 	int getHospitalCount(LandVO land, Criteria cri);
 
+	ArrayList<BookmarkVO> getBmkList(SiteManagement user, Criteria cri);
+
+	int getBmkListCount(SiteManagement user, Criteria cri);
+
 	ArrayList<ReviewVO> getCriReviewList(Criteria cri);
 
 	boolean deleteReview(ReviewVO review, MemberVO member);
 
 	boolean updateReview(ReviewVO review, MemberVO member);
+
+	HospitalVO getHsNum(HospitalVO hospital);
+
+	ArrayList<HsListVO> getSubjects(HospitalVO hospital);
+
+	ArrayList<HospitalVO> getSubHoList(MemberVO me, LandVO land, Criteria cri);
+
+	int getLikeSub(MemberVO me, LandVO land, Criteria cri);
 
 }

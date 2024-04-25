@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
+import kr.kh.team3.model.vo.BookmarkVO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.LandVO;
+import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.ReviewVO;
 import kr.kh.team3.model.vo.SiDoVO;
@@ -111,6 +114,10 @@ public interface HospitalDAO {
 
 	int getHospitalListCount(@Param("la")LandVO land,@Param("cri") Criteria cri);
 
+	ArrayList<BookmarkVO> selectBmkList(@Param("user")SiteManagement user, @Param("cri")Criteria cri);
+
+	int selectBmkListCount(@Param("user")SiteManagement user, @Param("cri")Criteria cri);
+
 	ArrayList<ReviewVO> selectCriReviewList(@Param("cri") Criteria cri);
 
 	ReviewVO selectReview(@Param("vw_num") int vw_num);
@@ -118,5 +125,17 @@ public interface HospitalDAO {
 	boolean deleteReview(@Param("vw_num") int vw_num);
 
 	boolean updateReview(@Param("vw") ReviewVO review);
+
+	HospitalVO selectHsNum(@Param("hospital") HospitalVO hospital);
+
+	ArrayList<HsListVO> selectSubjects(@Param("hospital") HospitalVO hospital);
+
+	boolean deleteSubjects(@Param("hsl_ho_id") String hsl_ho_id);
+
+	boolean insertSubjects(@Param("ho_id") String ho_id, @Param("hs_num") int hs_num);
+
+	ArrayList<HospitalVO> getSubHoList(@Param("me")MemberVO me,@Param("la") LandVO land,@Param("cri") Criteria cri);
+
+	int getTotalSubHoList(@Param("me")MemberVO me, @Param("la")LandVO land,@Param("cri") Criteria cri);
 
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.kh.team3.model.vo.BookmarkVO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.LandVO;
@@ -22,6 +23,8 @@ import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
+import kr.kh.team3.pagination.Criteria;
+import kr.kh.team3.pagination.PageMaker;
 import kr.kh.team3.service.HospitalService;
 import kr.kh.team3.service.MemberService;
 import lombok.extern.log4j.Log4j;
@@ -194,5 +197,37 @@ public class MemberController {
 		ArrayList<EupMyeonDongVO> emdList = memberService.getEmd(sgg_num);
 		return emdList;
 	}
+	
+	
+	
+	// 북마크 페이지
+	@GetMapping("/member/bookmark")
+	public String bookmark(Model model, HttpSession session) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+
+		model.addAttribute("user", user);
+		return "/member/bookmark";
+	}
+	
+	// 북마크 리스트
+	@ResponseBody
+	@PostMapping("/member/bookmark")
+	public HashMap<String, Object> postBookmark(@RequestParam("page")int page, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		Criteria cri = new Criteria(page);
+		cri.setPerPageNum(12);
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		
+		//북마크 리스트 출력하려면
+		//1. 회원 아이디 필요
+		//2. 리저트맵 사용..
+		ArrayList<BookmarkVO> hoBmkList = hospitalService.getBmkList(user, cri);
+		int totalCount = hospitalService.getBmkListCount(user, cri);
+		PageMaker pm = new PageMaker(5, cri, totalCount);
+		map.put("pm", pm);
+		map.put("list", hoBmkList);
+		return map;
+	}
+	
 
 }
