@@ -24,9 +24,6 @@
 	border-bottom:3px solid green;
 	height: 65px;
 }
-
-
-
 body {
 	font-size: 14px;
 	font-weight: 300;
@@ -326,7 +323,6 @@ text-decoration: underline;
 	width: 800px;
 	height: 56px;
 	line-height: 56px;
-	background: rgba(255, 255, 255, .9);
 	font-size: 20px;
 	font-weight: 300;
 	color: #333;
@@ -496,6 +492,9 @@ height:35px;width:100%;background-color: #fafafa;
     text-decoration: none; 
     padding: 10px; 
 }
+.new_hospital-sub{
+	width: 100%;height: 150px;display: flex;padding: 3px;margin-top:10px; 
+}
 </style>
 </head>
 <body>
@@ -658,22 +657,26 @@ height:35px;width:100%;background-color: #fafafa;
 				</div>
 					<div class="reservation-box">	
 						<div class="total-reservation">
-							<h4 >최근 예약이 많은 병원</h4>
-							<div class="hos-sub">
-								<a>성형외과</a>
-								<p>125</p>
+							<div class="new_hospital-res" style="margin: auto;">
+								<h4 >최근 예약이 많은 병원</h4>
 							</div>
-							<div class="hos-sub">
-								<a>피부과</a>
-								<p>76</p>
-							</div>
-							<div class="hos-sub">
-								<a>내과</a>
-								<p>26</p>
-							</div>
-							<div class="hos-sub">
-								<a>치과</a>
-								<p>25</p>
+							<div class="new_hospital-sub">
+								<div class="hos-sub">
+									<a>성형외과</a>
+									<p>125</p>
+								</div>
+								<div class="hos-sub">
+									<a>피부과</a>
+									<p>76</p>
+								</div>
+								<div class="hos-sub">
+									<a>내과</a>
+									<p>26</p>
+								</div>
+								<div class="hos-sub">
+									<a>치과</a>
+									<p>25</p>
+								</div>
 							</div>
 						</div>
 						<hr>
@@ -683,7 +686,6 @@ height:35px;width:100%;background-color: #fafafa;
 			</div>
 			<div class="홈오른쪽"></div>
 		</div>
-			<div id="map" style="width: 1000px; height: 700px;margin: 0 auto"></div>
 			 <div class="공지사항">
 				 <img alt="미니공지" style="width: 48px;margin-left: 100px"
 				 src="<c:url value='/resources/img/미니공지.png'/>">
@@ -764,31 +766,6 @@ height:35px;width:100%;background-color: #fafafa;
 <button id="scrollToTopButton" onclick="scrollToTop()">위로가기</button>
 
 
-
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=300655f18482c4d8c0a57b772e5720fc"></script>
-<script type="text/javascript">
-	
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-mapOption = { 
-    center: new kakao.maps.LatLng(37.514575, 127.0495556), // 지도의 중심좌표
-    level: 3 // 지도의 확대 레벨
-};
-
-var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
-//마커가 표시될 위치입니다 
-var markerPosition  = new kakao.maps.LatLng(37.514575, 127.0495556); 
-
-//마커를 생성합니다
-var marker = new kakao.maps.Marker({
-position: markerPosition
-});
-
-//마커가 지도 위에 표시되도록 설정합니다
-marker.setMap(map);
-	var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-	
-</script>
 
 
 <script type="text/javascript">

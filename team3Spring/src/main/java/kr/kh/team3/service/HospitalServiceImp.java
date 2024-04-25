@@ -560,7 +560,7 @@ public class HospitalServiceImp implements HospitalService {
 	@Override
 	public int getLikeSub(MemberVO me, LandVO land, Criteria cri) {
 		if(me == null || land == null || cri == null)
-			return 0;
+			return -1;
 		
 		return hospitalDao.getTotalSubHoList(me,land,cri);
 	}

@@ -371,7 +371,7 @@ public class HospitalController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO me = memberService.getMeId(user.getSite_id());
 		LandVO land = hospitalService.getLand(emd_num);
-		cri.setPerPageNum(12);
+		cri.setPerPageNum(8);
 		int totalCount = hospitalService.getLikeSub(me,land,cri);
 		ArrayList<HospitalVO> hoSubList = hospitalService.getSubHoList(me, land,cri);
 		PageMaker pm = new PageMaker(5, cri, totalCount);
