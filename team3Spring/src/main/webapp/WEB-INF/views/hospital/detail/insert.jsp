@@ -11,7 +11,7 @@
 </style>
 </head>
 <body>
-<form action='<c:url value="/hospital/detail/insert"/>' method="post">
+<form action=''>
 	<h2 style="font-weight: bold;">병원 소개</h2>
 	<div class="info">
 		<label for="hd_info" style="font-weight: bold">병원 소개</label>
@@ -92,35 +92,24 @@
 	${subjects}
 		<label for="hd_hs_num" style="font-weight: bold">대표 진료 과목</label>
 		<div class="subject-checkbox">
-		  	<c:choose>
-		  		<c:when test="${subjects != null}">
-		  			<c:forEach items="${hsList}" var="hs">
-		  				<c:set var="isChecked" value="false"/>
-		  				<c:forEach items="${subjects}" var="subjects">
-		  					<c:if test="${subjects.hsl_hs_num == hs.hs_num}">
-		  						<c:set var="isChecked" value="true"/>
-		  					</c:if>
-		  				</c:forEach>
-		  				<input type="checkbox" name="hs_num" value="${hs.hs_num}"
-		  				<c:if test="${isChecked == 'true'}">checked</c:if>>${hs.hs_title}
-		  			</c:forEach>
-		  		</c:when>
-		  		<c:otherwise>
-		  			<c:forEach items="${hsList}" var="hs">
-		  				<input type="checkbox" name="hs_num" value="${hs.hs_num}"
-		  				<c:if test="${firstSubject != null}">checked</c:if>>${hs.hs_title}
-		  			</c:forEach>
-		  		</c:otherwise>
-		  	</c:choose>
+		    <c:choose>
+		        <c:when test="${subjects != null}">
+		            <c:forEach items="${hsList}" var="hs">
+		            	<input type="checkbox" name="hs_num" value="${hs.hs_num}">${hs.hs_title}
+		                <c:forEach items="${subjects}" var="sub">
+		                    <c:if test="${sub.hsl_hs_num == hs.hs_num}">
+		                        <input type="checkbox" name="hsl_hs_num" value="${sub.hsl_hs_num}" checked>${hs.hs_title}
+		                    </c:if>
+		                </c:forEach>
+		            </c:forEach>
+		        </c:when>
+		        <c:otherwise>
+		            <c:forEach items="${hsList}" var="hs">
+		                <input type="checkbox" name="hs_num" value="${hs.hs_num}">${hs.hs_title}
+		            </c:forEach>
+		        </c:otherwise>
+		    </c:choose>
 		</div>
-		<c:choose>
-			<c:when test="${subjects == null}">
-				<input type="hidden" id="ho_hs_num" name="ho_hs_num" value="${firstSubject.ho_hs_num}">
-			</c:when>
-			<c:otherwise>
-				<%-- <input type="hidden" id="hsl_ho_id" name="hsl_ho_id" value="${subjects.hsl_ho_id}"> --%>
-			</c:otherwise>
-		</c:choose>
 
 	 </div>
 	<div>
@@ -130,6 +119,55 @@
 	</div>
 	<button type="submit" class="hospital-btn" name="hospital-btn">병원 소개 등록</button>
 </form>
+
+<script type="text/javascript">
+$("form").submit(function(e) {
+	e.preventDefault(); //form을 막아주는 이벤트
+	// Serialize된 form 데이터를 직접 사용하고 str 파라미터를 추가합니다.
+    var formData = $(this).serialize();
+	console.log(formData);
+	let hsList = getCheckedBox();
+	console.log(hsList)
+	let hobbitJson  = {
+		      "detail" : formData,
+		      "hsList" : hsList
+		    }
+	if(hsList.length == 0) {
+		alert("1개 이상 대표 과목을 선택하세요.");
+		return;
+	}
+	
+		$.ajax({
+			async : true,
+			method : "post",
+			url : '<c:url value="/hospital/detail/insert"/>',
+			data : JSON.stringify(hobbitJson), 
+			contentType : "application/json; charset=utf-8",
+			success : function(data) {
+
+			},
+	        error: function(error) {
+	            console.log("Error: " + JSON.stringify(error));
+	        }
+		});
+});
+
+</script>
+
+<script type="text/javascript">
+
+
+//체크된 리스트 가져오기
+function getCheckedBox() {
+    var checkedValues = new Array(); // 체크된 값들을 담을 배열
+    $("input[name='hs_num']:checked").each(function() {
+        checkedValues.push($(this).val());
+    });
+    return checkedValues;
+}
+
+</script>
+
 
 <!-- textarea 자동 스크롤 -->
 <script type="text/javascript">
