@@ -345,7 +345,7 @@ public class HospitalServiceImp implements HospitalService {
 	}
 	//병원 상세 페이지 - 선진, 민석 ==============================================
 	@Override
-	public boolean insertOrUpdateHospitalDetail(HospitalDetailVO detail, HospitalVO hospital, HospitalSubjectVO subject) {
+	public boolean insertDetail(HospitalDetailVO detail, HospitalVO hospital) {
 		if(detail.getHd_info() == null 
 		|| detail.getHd_time() == null 
 		|| detail.getHd_park() == null) {
@@ -357,16 +357,41 @@ public class HospitalServiceImp implements HospitalService {
 		
 		detail.setHd_ho_id(hospital.getHo_id());
 		
-		//delete문 : 기존의 DB를 삭제하고
-		boolean delete = hospitalDao.deleteHospitalDetail(detail.getHd_ho_id());
-//		boolean deleteSubjects = hospitalDao.deleteSubjects(hsList.getHsl_ho_id());
+		//접속한 아이디를 주면서 select detail
+		//detail == null insert
+		if(hospitalDao.selectHoDetail(hospital) == null) {
+			return hospitalDao.insertHoDetail(hospital, detail);
+		}
+		//!= null update
+		else {
+			return hospitalDao.updateHoDetail(hospital.getHo_id(), detail);
+		}
 		
-		//insert + update문을 동시에 실행
-		boolean insertAndUpdate = hospitalDao.insertOrUpdateHospitalDetail(detail);
-		//hs_list 테이블도 insert
-		boolean insertSubjects = hospitalDao.insertSubjects(hospital.getHo_id(), subject.getHs_num());
-		//&& deleteSubjects
-		return delete && insertAndUpdate && insertSubjects;
+	}
+	
+	@Override
+	public boolean insertSubjects(HospitalVO hospital, int [] hsList) {
+		if(hospital == null || hospital.getHo_id() == null) {
+			return false;
+		}
+		boolean res = false;
+		if(hospitalDao.selectSubjects(hospital) == null) {
+			for(int tmp : hsList) {
+				res = hospitalDao.insertSubjects(hospital, tmp);
+			}
+		}
+		else {
+			for(int tmp : hsList) {
+				res = hospitalDao.updateSubjects(hospital, tmp);
+			}
+		}
+		
+		if(res) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	@Override
@@ -538,6 +563,13 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
+	public HospitalDetailVO getHospitalDetail(HospitalVO hospital) {
+		if(hospital == null) {
+			return null;
+		}
+		return hospitalDao.selectHospitalDetail(hospital);
+  }
+
 	public ArrayList<HospitalVO> getSubHoList(MemberVO me, LandVO land,Criteria cri) {
 		if(me == null || land == null || cri == null)
 		return null;
