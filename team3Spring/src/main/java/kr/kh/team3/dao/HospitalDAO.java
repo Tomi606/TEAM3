@@ -110,9 +110,9 @@ public interface HospitalDAO {
 
 	boolean insertLand(@Param("la") LandVO land);
 	
-	ArrayList<HospitalVO> getHospitalList(@Param("la")LandVO land,@Param("cri") Criteria cri);
+	ArrayList<HospitalVO> getHospitalList(@Param("la")LandVO land,@Param("cri") Criteria cri,@Param("hs_num") int hs_num);
 
-	int getHospitalListCount(@Param("la")LandVO land,@Param("cri") Criteria cri);
+	int getHospitalListCount(@Param("la")LandVO land,@Param("cri") Criteria cri,@Param("hs_num") int hs_num);
 
 	ArrayList<BookmarkVO> selectBmkList(@Param("user")SiteManagement user, @Param("cri")Criteria cri);
 
@@ -137,5 +137,9 @@ public interface HospitalDAO {
 	ArrayList<HospitalVO> getSubHoList(@Param("me")MemberVO me,@Param("la") LandVO land,@Param("cri") Criteria cri);
 
 	int getTotalSubHoList(@Param("me")MemberVO me, @Param("la")LandVO land,@Param("cri") Criteria cri);
+
+	ArrayList<HospitalVO> selectHospitalAll(@Param("la")LandVO land,@Param("cri") Criteria cri);
+
+	int selectHospitalAllCount(@Param("la")LandVO land,@Param("cri") Criteria cri);
 
 }

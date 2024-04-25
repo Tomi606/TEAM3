@@ -351,7 +351,7 @@ public class HospitalController {
 	//============================================= 조민석 ===================================================
 	/*병원 리스트 출력 정경호,권기은*/
 	@GetMapping("/hospital/list")
-	public String hospitalList(HttpSession session, Model model, SiDoVO sido, SiGoonGuVO sgg, EupMyeonDongVO emd) {
+	public String hospitalList(HttpSession session, Model model, int hs_num) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		if (user == null) {
 			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
@@ -362,21 +362,30 @@ public class HospitalController {
 		model.addAttribute("list", list);
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
 		LandVO la = memberService.getMyLand(user);
-		
 		model.addAttribute("sidoList", sidoList);
 		model.addAttribute("la", la);
+		model.addAttribute("hs_num", hs_num);
+		
 		return "/hospital/list";
 	}
 
 	@ResponseBody
 	@PostMapping("/hospital/emd/list")
-	public Map<String, Object> postHospital(@RequestParam("emd_num") int emd_num,@RequestParam("page")int page) {
+	public Map<String, Object> postHospital(@RequestParam("emd_num") int emd_num, int hs_num, @RequestParam("page")int page) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Criteria cri = new Criteria(page);
 		LandVO land = hospitalService.getLand(emd_num);
+		ArrayList<HospitalVO> hoList;
+		int totalCount;
 		cri.setPerPageNum(12);
-		ArrayList<HospitalVO> hoList = hospitalService.getHospital(land,cri);
-		int totalCount = hospitalService.getHospitalCount(land,cri);
+		if(hs_num == 0) {
+			hoList = hospitalService.getHospitalSubAll(land,cri);
+			totalCount = hospitalService.getHospitalSubAllCount(land,cri);
+		}else {
+			hoList = hospitalService.getHospitalEmd(land, hs_num, cri);
+			totalCount = hospitalService.getHospitalCountEmd(land, hs_num, cri);
+		}
+		log.info(hoList + "hoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoList");
 		PageMaker pm = new PageMaker(5, cri, totalCount);
 		map.put("pm", pm);
 		map.put("hoList", hoList);

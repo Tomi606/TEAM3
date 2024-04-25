@@ -514,7 +514,7 @@ margin: 10px;
 					<div class="메뉴얼">
 						<ul>
 							<li>
-								<a href="<c:url value="/hospital/list"/>" class="hos-btn">병원</a> 
+								<a href="<c:url value="/hospital/list?hs_num=0"/>" class="hos-btn">병원</a> 
 							</li>
 							<li>
 								<a href="#">커뮤니티</a> 
@@ -560,7 +560,7 @@ margin: 10px;
 			<div class="category" style="display: none;" >
 		        <c:forEach items="${list}" var="hs">
 		            <tr>
-		                <th><a href="<c:url value="/hospital/list?hsNum=${hs.hs_num}"/>" class="hs_btn">${hs.hs_title}</a></th>
+		                <th><a href="<c:url value="/hospital/list?hs_num=${hs.hs_num}"/>" class="hs_btn">${hs.hs_title}</a></th>
 		            </tr>
 		        </c:forEach>
 	  		</div>

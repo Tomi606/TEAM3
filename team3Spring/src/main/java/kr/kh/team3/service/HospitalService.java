@@ -92,7 +92,7 @@ public interface HospitalService {
 
 	LandVO getLand(int emd_num);
 
-	ArrayList<HospitalVO> getHospital(LandVO land, Criteria cri);
+	ArrayList<HospitalVO> getHospitalEmd(LandVO land,int hs_num, Criteria cri);
 
 	boolean insertReview(ReviewVO review, MemberVO member);
 
@@ -102,7 +102,7 @@ public interface HospitalService {
 
 	LandVO getLandLand(LandVO land);
 
-	int getHospitalCount(LandVO land, Criteria cri);
+	int getHospitalCountEmd(LandVO land,int hs_num, Criteria cri);
 
 	ArrayList<BookmarkVO> getBmkList(SiteManagement user, Criteria cri);
 
@@ -121,5 +121,13 @@ public interface HospitalService {
 	ArrayList<HospitalVO> getSubHoList(MemberVO me, LandVO land, Criteria cri);
 
 	int getLikeSub(MemberVO me, LandVO land, Criteria cri);
+
+	void getHospitalSubAll(int hs_num);
+
+	ArrayList<HospitalVO> getHospitalSubAll(LandVO land, Criteria cri);
+
+	int getHospitalSubAllCount(LandVO land, Criteria cri);
+
+
 
 }
