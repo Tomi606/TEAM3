@@ -596,4 +596,4 @@ public class HospitalServiceImp implements HospitalService {
 		
 		return hospitalDao.getTotalSubHoList(me,land,cri);
 	}
-
+}
