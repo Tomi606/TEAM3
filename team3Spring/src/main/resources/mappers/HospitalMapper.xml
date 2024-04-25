@@ -288,34 +288,28 @@
 	</update>
 	
 	<!-- 병원 페이지 : 선진, 민석 -->
-	<insert id="insertOrUpdateHospitalDetail" parameterType="HospitalDetailVO">
+	<insert id="insertHoDetail">
 		insert into hospital_detail(hd_ho_id, hd_info, hd_time, hd_park, hd_announce, hd_etc, hd_subject_detail)
-		values (#{hd.hd_ho_id}, #{hd.hd_info}, #{hd.hd_time}, #{hd.hd_park}, #{hd.hd_announce}, #{hd.hd_etc}, #{hd.hd_subject_detail})
-		on duplicate key update 
-		hd_ho_id = values(hd_ho_id), 
-		hd_info = values(hd_info), 
-		hd_time = values(hd_time), 
-		hd_park = values(hd_park), 
-		hd_announce = values(hd_announce), 
-		hd_etc = values(hd_etc), 
-		hd_subject_detail = values(hd_subject_detail)
+		values (#{ho.ho_id}, #{hd.hd_info}, #{hd.hd_time}, #{hd.hd_park}, #{hd.hd_announce}, #{hd.hd_etc}, #{hd.hd_subject_detail})
 	</insert>
 	
-	<!-- <insert id="insertSubjects" parameterType="HsListVO">
-		insert into hs_list(hsl_num, hsl_hs_num, hsl_ho_id)
-		values(#{hsList.hsl_num}, #{hsList.hsl_hs_num}, #{hsList.hsl_ho_id})
-		on duplicate key update
-		hsl_num = values(hsl_num), 
-		hsl_hs_num = values(hsl_hs_num), 
-		hsl_ho_id = values(hsl_ho_id)
-	</insert> -->
-	
+	<update id="updateHoDetail">
+		update hospital_detail
+		set hd_info = #{hd.hd_info}, hd_time = #{hd.hd_time}, hd_park = #{hd.hd_park}, 
+			hd_announce = #{hd.hd_announce}, hd_etc = #{hd.hd_etc}, hd_subject_detail = #{hd.hd_subject_detail}
+		where hd_ho_id = #{ho_id}
+	</update>
+
 	<insert id="insertSubjects">
-		insert into hs_list(hsl_ho_id, hsl_hs_num)
-		values(#{ho_id}, #{hs_num})
+		insert into hs_list(hsl_hs_num, hsl_ho_id) values(#{hsl_hs_num}, #{ho.ho_id})
 	</insert>
 	
-	<!-- 새로만든 상세 페이지 -->
+	<update id="updateSubjects">
+		update hs_list
+		set hsl_hs_num = #{hs_num}
+		where hsl_ho_id = #{ho.ho_id}
+	</update>
+
 	<resultMap type="HospitalDetailVO" id="hdMap">
 		<result property="hd_num" column="hd_num"/>
 		<result property="hd_ho_id" column="hd_ho_id"/>
@@ -336,12 +330,6 @@
 	<select id="selectDetail" resultMap="hdMap">
 		select * from hospital_detail where hd_num = #{hd_num}
 	</select> 
-	
-	
-	
-	<delete id="deleteHospitalDetail" parameterType="String">
-		delete from hospital_detail where hd_ho_id = #{hd_ho_id}
-	</delete>
 	
 	<select id="selectHospitalInfo" resultType="HospitalVO">
 		select * from hospital
@@ -395,10 +383,10 @@
 	</select>
 	
 	<select id="selectSubjects" resultType="HsListVO">
-		select * from hs_list where hsl_ho_id = #{hospital.ho_id}
+		select * from hs_list where hsl_ho_id = #{ho.ho_id}
 	</select>
-	
-	<delete id="deleteSubjects" parameterType="String">
-		delete from hs_list hsl_ho_id = #{hsl_ho_id}
-	</delete>
+
+	<select id="selectHospitalDetail" resultType="HospitalDetailVO">
+		select * from hospital_detail where hd_ho_id = #{ho.ho_id}
+	</select>
 </mapper>
