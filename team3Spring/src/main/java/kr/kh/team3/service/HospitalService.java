@@ -11,7 +11,6 @@ import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
-import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.ReviewVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
@@ -76,7 +75,9 @@ public interface HospitalService {
 	ArrayList<HospitalSubjectVO> selectSubject();
 
 	//병원 상세 페이지==========================================
-	boolean insertOrUpdateHospitalDetail(HospitalDetailVO detail, HospitalVO hospital, HospitalSubjectVO subject);
+	boolean insertDetail(HospitalDetailVO detail, HospitalVO hospital);
+	
+	boolean insertSubjects(HospitalVO hospital, int [] hsList);
 
 	HospitalVO getHospitalInfo();
 
@@ -117,6 +118,8 @@ public interface HospitalService {
 	HospitalVO getHsNum(HospitalVO hospital);
 
 	ArrayList<HsListVO> getSubjects(HospitalVO hospital);
+
+	HospitalDetailVO getHospitalDetail(HospitalVO hospital);
 
 	ArrayList<HospitalVO> getSubHoList(MemberVO me, LandVO land, Criteria cri);
 
