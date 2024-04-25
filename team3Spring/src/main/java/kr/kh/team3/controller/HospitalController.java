@@ -2,8 +2,7 @@ package kr.kh.team3.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-
+import java.util.Map;import javax.naming.CompositeName;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -230,7 +229,6 @@ public class HospitalController {
 	@ResponseBody
 	@PostMapping("/item/delete")
 	 public Map<String, Object> deleteItem(@RequestParam("checkedValues[]") ArrayList<Integer> list){
-		System.out.println("들어옴");
 		Map<String, Object> map = new HashMap<String, Object>();
       
         boolean res = programService.deleteItem(list);
@@ -246,11 +244,11 @@ public class HospitalController {
 	// 프로그램을 추가하는 메서드
 	@ResponseBody
 	@PostMapping("/program/insert")
-	public Map<String, Object> insertProgram(HospitalProgramVO program, HttpSession session) {
+	public Map<String, Object> insertProgram(HospitalProgramVO program, HttpSession session,
+			@RequestParam("list[]") ArrayList<Integer> list) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		ArrayList<HospitalProgramVO> programList = programService.getProgramList(user);
-		boolean res =  programService.insertProgram(program, user);
+		boolean res =  programService.insertProgram(program, user, list);
 		if(res) {
 			map.put("msg", "추가에 성공했습니다.");
 		}else {
@@ -259,55 +257,48 @@ public class HospitalController {
 		return map;
 	}
 	
-	// 프로그램을 추가하는 메서드
-	@ResponseBody
-	@PostMapping("/itemlist/insert")
-	public Map<String, Object> insertItemList(HospitalProgramVO program, HttpSession session,
-			@RequestParam("list[]") ArrayList<Integer> list) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		boolean res = programService.insertItemList(program, list, user);
-		
-		if(res) {
-			map.put("msg", "추가에 성공했습니다.");
-		}else {
-			map.put("msg", "추가에 실패했습니다.");
-		}
-		return map;
-	}
+
 	
 	//프로그램 수정 메서드
 	@GetMapping("/program/update")
 	public String updateUpdate(HospitalProgramVO program, HttpSession session, Model model) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		 ArrayList<HospitalProgramVO> programList = programService.getProgramList(user); 
+		 ArrayList<ItemVO> itemList = programService.getItemList(user); 
 		 model.addAttribute("programList", programList);
-		
+		 model.addAttribute("itemList", itemList);
 		return "/hospital/detail/programupdate";
 	}
 	
 	//프로그램 수정 메서드
+	@ResponseBody
 	@PostMapping("/program/update")
-	public String updateUpdatePost(HospitalProgramVO program, HttpSession session, 
-				Model model) {
+	public String updateUpdatePost(HospitalProgramVO program, HttpSession session,
+			@RequestParam("list[]") ArrayList<Integer> list, Model model) {
 		
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		ArrayList<HospitalProgramVO> programList = programService.getProgramList(user);
-		 boolean res =programService.updateProgram(program, user, programList);
-		 if (res) {
-				model.addAttribute("msg","프로그램 수정을 완료했습니다.");
-				model.addAttribute("url","/hospital/item/insert");
-			}else {
-				model.addAttribute("msg","프로그램 수정에 실패 했습니다.");
-				model.addAttribute("url","/program/update");
-			}
-			return "message";
+		
+		boolean resDle = programService.deleteProgram(program.getHp_num());; 
+		System.out.println("aaaaaaaaaaaaaaa");
+		System.out.println(program);
+		System.out.println(list);
+		System.out.println(resDle);
+		if(resDle) {
+			boolean resIns = programService.insertProgram(program, user, list);
+			 if (resIns) {
+					model.addAttribute("msg","프로그램 수정을 완료했습니다.");
+					model.addAttribute("url","/hospital/item/insert");
+					return "message";
+			 }
+		}
+		model.addAttribute("msg","프로그램 수정에 실패 했습니다.");
+		model.addAttribute("url","/program/update");
+		return "message";
 	}
 	
 	//프로그램 삭제 메서드
 	@GetMapping("/program/delete")
 	public String deleteprogram(Model model, int hp_num) {
-		
 		boolean res = programService.deleteProgram(hp_num);
 		
 		if (res) {

@@ -123,6 +123,11 @@
 	    <a class="btn program-update-btn" href='<c:url value="/program/update"/>'>수정</a>
 	    <a class="btn program-delete-btn">삭제</a>
 	</div>
+	<div class="check-box-group" id="check-box-group">
+		<c:forEach items="${itemList}" var="item">
+			<input type="checkbox" value="${item.it_num}" name="li_list">${item.it_name}
+		</c:forEach>
+	</div>
 	<div class="input-group mb-3" id="programBox">
 		<select name="hp_num" class="form-control">
 				<option value="none">프로그램을 선택해주세요</option>
@@ -135,11 +140,7 @@
 
 <div class="list-box">
 <h3>리스트 생성 및 선택</h3>
-	<div class="check-box-group" id="check-box-group">
-		<c:forEach items="${itemList}" var="item">
-			<input type="checkbox" value="${item.it_num}" name="li_list">${item.it_name}
-		</c:forEach>
-	</div>
+	
 	<a class="btn list-inset-btn">리스트 생성</a>
 	<a class="btn check-btn" href='<c:url value="/program/check" />'>프로그램 전체 조회</a>
 	</div>
@@ -212,11 +213,23 @@ function getCheckedValues() {
 	$(".program-inset-btn").click(function(){
 		let hp_title = $("[name=hp_title]").val();
 		let hp_payment = $("[name=hp_payment]").val();
+		let list = getCheckedValues();
+		if(list.length == 0){
+			alert("상세항목을 체크해주세요.");
+			$("[name=hp_title]").val("");
+			$("[name=hp_payment]").val("");
+			return;
+		}
+		if(hp_title.length == 0 || hp_payment.length == 0){
+			alert("프로그램 명과 가격을 제대로 작성해주세요");
+			return;
+		}
 		$.ajax({
 			method : "post",
 			url : '<c:url value="/program/insert"/>',
 			data : {"hp_title" : hp_title,
 					"hp_payment" : hp_payment,
+					"list" : list},
 			success : function (data) {
 				$("#programBox").load(window.location.href + " #programBox");
 				$("[name=hp_title]").val("");
@@ -229,38 +242,14 @@ function getCheckedValues() {
 
 <!-- 프로그램 삭제 -->
 <script type="text/javascript">
-	$(".program-delete-btn").click(function(){
-		let hp_num = $("[name=hp_num]").val();
-		location.href = '<c:url value="/program/delete?hp_num="/>' + hp_num;
-	})
+$(".program-delete-btn").click(function(){
+    let hp_num = $("[name=hp_num]").val();
+    // hp_num과 list를 함께 보내는 URL 생성
+    let url = '<c:url value="/program/delete?hp_num="/>' + hp_num;
+    // 생성된 URL로 이동
+    location.href = url;
+})
 </script>
 
-<!-- 리스트 생성 -->
-<script type="text/javascript">
-	$(".list-inset-btn").click(function(){
-		let list = getCheckedValues();
-		let hp_num = $("[name=hp_num]").val();
-		if(list.length == 0){
-			alert("상세항목을 체크해주세요.");
-			return;
-		}
-		if(hp_num =='none'){
-			alert("프로그램을 선택 해주세요");
-			hp_num = $("[name=hp_num]").val("");
-			return;
-		}
-		$.ajax({
-			method : "post",
-			url : '<c:url value="/itemlist/insert"/>',
-			data : {
-				"list" : list,
-				"hp_num" : hp_num
-					},
-			success : function (data) {
-				alert(data.msg);
-			}
-		});
-	});
-</script>
 </body>
 </html>

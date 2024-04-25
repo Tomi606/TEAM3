@@ -32,6 +32,10 @@
 		select * from item where it_num = #{il_num}
 	</select>
 	
+	<select id="selectProgram" resultType="kr.kh.team3.model.vo.HospitalProgramVO">
+			select * from hospital_program where hp_title = #{pr.hp_title}
+	</select>
+	
 	<insert id="insertItem">
 		insert into item (it_name, it_explanation, it_ho_id) value(#{item.it_name}, #{item.it_explanation}, #{user.site_id});
 	</insert>
@@ -48,16 +52,15 @@
 		update item set it_name = #{item.it_name}, it_explanation = #{item.it_explanation} where it_num = #{it_num}
 	</update>
 	
-	<update id="updateProgram">
-		update hospital_program set hp_title = #{pr.hp_title}, 
-		hp_payment = #{pr.hp_payment} where hp_num = #{pr.hp_num}
-	</update>
-	
 	<delete id="deleteItem">
 		delete from item where it_num = #{it_num}
 	</delete>
 	
 	<delete id="deleteProgram">
 		delete from hospital_program where hp_num=#{hp_num}
+	</delete>
+	
+	<delete id="deleteItemList">
+		delete from item_list where il_hp_num = #{hp_num}
 	</delete>
 </mapper>
