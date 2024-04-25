@@ -487,19 +487,7 @@ public class HospitalServiceImp implements HospitalService {
 		return hospitalDao.selectLand(land);
 	}
 
-	@Override
-	public ArrayList<HospitalVO> getHospital(LandVO land,Criteria cri) {
-		if(land == null||cri==null)
-			return null;
-		return hospitalDao.getHospitalList(land,cri);
-	}
-
-	@Override
-	public int getHospitalCount(LandVO land, Criteria cri) {
-		if(land == null||cri==null)
-			return -1;
-		return hospitalDao.getHospitalListCount(land,cri);
-	}
+	
 
 	@Override
 	public ArrayList<ReviewVO> getCriReviewList(Criteria cri) {
@@ -595,5 +583,41 @@ public class HospitalServiceImp implements HospitalService {
 			return -1;
 		
 		return hospitalDao.getTotalSubHoList(me,land,cri);
+	}
+
+	@Override
+	public ArrayList<HospitalVO> getHospitalEmd(LandVO land,int hs_num,Criteria cri) {
+		if(land == null||cri==null)
+			return null;
+		return hospitalDao.getHospitalList(land,cri,hs_num);
+	}
+
+	@Override
+	public int getHospitalCountEmd(LandVO land,int hs_num, Criteria cri) {
+		if(land == null||cri==null)
+			return -1;
+		return hospitalDao.getHospitalListCount(land,cri,hs_num);
+	}
+
+	@Override
+	public void getHospitalSubAll(int hs_num) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ArrayList<HospitalVO> getHospitalSubAll(LandVO land, Criteria cri) {
+		if(land == null || cri == null)
+		return null;
+		
+		return hospitalDao.selectHospitalAll(land,cri);
+	}
+
+	@Override
+	public int getHospitalSubAllCount(LandVO land, Criteria cri) {
+		if(land == null || cri == null)
+			return -1;
+		
+		return hospitalDao.selectHospitalAllCount(land,cri);
 	}
 }

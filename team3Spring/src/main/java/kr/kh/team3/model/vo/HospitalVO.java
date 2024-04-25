@@ -33,6 +33,7 @@ public class HospitalVO {
 	private String ho_cookie;
 	private Date ho_cookie_limit;
 	
+	private HsListVO hsList;
 	private HospitalDetailVO hospital_detail;
 	private HospitalSubjectVO hospital_subject;
 
