@@ -442,7 +442,8 @@ display: flex;
 
 }
 .category{
-height:35px;width:100%;background-color: #fafafa;
+z-index:9999;position:absolute;line-height:50px;
+height:50px;width:100%;background-color: #fafafa;
 
 }
 .category .hidden-list {
@@ -495,70 +496,76 @@ height:35px;width:100%;background-color: #fafafa;
 .new_hospital-sub{
 	width: 100%;height: 150px;display: flex;padding: 3px;margin-top:10px; 
 }
+.hs_btn{
+margin: 10px;
+}
 </style>
 </head>
 <body>
 	<div class="home-box">
-		<div class="header-box">
-			<div class="공백"></div>
-			<div class="로고">
-				<a class="nav-link home-log" href="<c:url value='/'/>"> <img alt="로고이미지"
-					style="width: 170px; height: 80px;" class="Logo-img"
-					src="<c:url value='/resources/img/Hospital.png'/>">
-				</a>
-				<div class="메뉴얼">
-					<ul>
-						<li>
-							<a href="<c:url value="/hospital/list"/>">병원</a> 
-						</li>
-						<li>
-							<a href="#">커뮤니티</a> 
-						</li>
-						<li>
-							<a href="#">게시판1</a> 
-						</li>
-						<li>
-							<a href="#">공지사항</a>
-						</li>
-						<li>
-							<a href="<c:url value="/member/bookmark"/>">북마크</a>
-						</li>
-					</ul>
+		<div class="header-container">
+			<div class="header-box">
+				<div class="공백"></div>
+				<div class="로고">
+					<a class="nav-link home-log" href="<c:url value='/'/>"> <img alt="로고이미지"
+						style="width: 170px; height: 80px;" class="Logo-img"
+						src="<c:url value='/resources/img/Hospital.png'/>">
+					</a>
+					<div class="메뉴얼">
+						<ul>
+							<li>
+								<a href="<c:url value="/hospital/list"/>" class="hos-btn">병원</a> 
+							</li>
+							<li>
+								<a href="#">커뮤니티</a> 
+							</li>
+							<li>
+								<a href="#">게시판1</a> 
+							</li>
+							<li>
+								<a href="#">공지사항</a>
+							</li>
+							<li>
+								<a href="<c:url value="/member/bookmark"/>">북마크</a>
+							</li>
+						</ul>
+					</div>
 				</div>
-			</div>
-			<div class="긴공백"></div>
-			<div class="로그인">
-				<div class="join-groub">
-					<ul>	
-						<c:if test="${user == null }">
-							<li>
-								<a class="nav-link a " href="<c:url value='/main/login'/>"><img alt="로고이미지" 
-								src="<c:url value='/resources/img/user-white.svg'/>"> 로그인</a>
-							</li>
-							<li>	
-								<a class="nav-link a" href="<c:url value='/main/signup'/>">회원가입</a>
-							</li>	
-						</c:if>
-						<c:if test="${user != null}">
-							<li>
-								<a class="nav-link" href='<c:url value="/logout"/>'>로그아웃</a>
-							</li>
-						</c:if>
-							<li>
-								<a class="nav-link" href='<c:url value="/admin/adminpage"/>'>관리자페이지</a>
-							</li>
-					</ul>		
+				<div class="긴공백"></div>
+				<div class="로그인">
+					<div class="join-groub">
+						<ul>	
+							<c:if test="${user == null }">
+								<li>
+									<a class="nav-link a " href="<c:url value='/main/login'/>"><img alt="로고이미지" 
+									src="<c:url value='/resources/img/user-white.svg'/>"> 로그인</a>
+								</li>
+								<li>	
+									<a class="nav-link a" href="<c:url value='/main/signup'/>">회원가입</a>
+								</li>	
+							</c:if>
+							<c:if test="${user != null}">
+								<li>
+									<a class="nav-link" href='<c:url value="/logout"/>'>로그아웃</a>
+								</li>
+							</c:if>
+								<li>
+									<a class="nav-link" href='<c:url value="/admin/adminpage"/>'>관리자페이지</a>
+								</li>
+						</ul>		
+					</div>
 				</div>
+				<div class="공백"></div>
 			</div>
-			<div class="공백"></div>
-		</div>
-		<div class="category">
-	        <c:forEach items="${list}" var="hs">
-	            <tr>
-	                <th><a href="#">${hs.hs_title}</a></th>
-	            </tr>
-	        </c:forEach>
+			<div class="category" style="display: none;" >
+		        <c:forEach items="${list}" var="hs">
+		            <tr>
+		                <th><a href="#" class="hs_btn">${hs.hs_title}</a></th>
+		            </tr>
+		        </c:forEach>
+	  		</div>
   		</div>
+  		
 		<div class="main-area">
 			<div class="search-main-left"></div>
 			<div class="main-search-area">
@@ -765,8 +772,16 @@ height:35px;width:100%;background-color: #fafafa;
 </body>
 <button id="scrollToTopButton" onclick="scrollToTop()">위로가기</button>
 
-
-
+ <script>
+ $(document).ready(function() {
+     $('.hos-btn').hover(function() {
+         $('.category').show();
+     });
+     $('.category').mouseleave(function() {
+    	 $('.category').hide();
+     });
+ });
+</script>
 
 <script type="text/javascript">
 	$(document).ready(function() {

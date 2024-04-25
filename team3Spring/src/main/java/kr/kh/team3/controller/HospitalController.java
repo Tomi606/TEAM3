@@ -67,8 +67,6 @@ public class HospitalController {
 		hdNum = 22;
 		HospitalDetailVO detail = hospitalService.getDetail(hdNum);
 		//hs_list도 추가!!!!!!!!!!!
-		
-
 		//병원과목 리스트
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
 		model.addAttribute("detail", detail);
