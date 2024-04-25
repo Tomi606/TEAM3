@@ -145,6 +145,4 @@ public interface HospitalDAO {
 
 	int getTotalSubHoList(@Param("me")MemberVO me, @Param("la")LandVO land,@Param("cri") Criteria cri);
 
-	HospitalDetailVO selectHuserPage(@Param("user") SiteManagement user);
-
 }

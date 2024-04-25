@@ -100,9 +100,7 @@
 	 	select * from hospital where ho_la_num = #{us.site_la_num}
 	</select>
 	
-	<select id="selectHuserPage" resultType="kr.kh.team3.model.vo.HospitalDetailVO">
-		select * from hospital_detail where hd_ho_id = #{user.site_id}
-	</select>
+	
 	
 	<select id="getHospital" resultType="HospitalVO">
 	 	select * from hospital where ho_id = #{ho_id} and ho_la_num = #{la_num}

@@ -2,7 +2,7 @@ package kr.kh.team3.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Map;import javax.naming.CompositeName;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,7 +21,6 @@ import kr.kh.team3.model.vo.HospitalProgramVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.HsListVO;
-import kr.kh.team3.model.vo.ItemListVO;
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
@@ -55,11 +54,8 @@ public class HospitalController {
 		// 로그인한 회원 정보(SiteManagement에서 로그인 session 가져오고 -> HospitalVO로 가져오기)
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO huser = hospitalService.getHospital(user);
-		HospitalDetailVO hpage = hospitalService.getHuserPage(user);
-		System.out.println("cccccccccccccccccccccccc");
-		log.info(hpage);
+
 		model.addAttribute("huser", huser);
-		model.addAttribute("hpage", hpage);
 		return "/hospital/mypage";
 	}
 
