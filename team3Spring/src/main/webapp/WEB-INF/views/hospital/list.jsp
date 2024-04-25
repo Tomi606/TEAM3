@@ -114,7 +114,7 @@ border-top:1px dotted #A8F552;margin-top: 80px;}
 			</div>
 		</div>
 			<div class="category">
-				<span><a href="" class="hs_btn" data-hsnum="0">전체</a></span>
+				<span><a href="#" class="hs_btn" data-hsnum="0">전체</a></span>
 		        <c:forEach items="${list}" var="hs">
 		                <span><a href="#" class="hs_btn" name="hs_num" data-hsnum="${hs.hs_num}">${hs.hs_title}</a></span>
 		        </c:forEach>
