@@ -596,6 +596,7 @@ public class HospitalServiceImp implements HospitalService {
 		
 		return hospitalDao.getTotalSubHoList(me,land,cri);
 	}
+}
 
 	@Override
 	public HospitalDetailVO getHuserPage(SiteManagement user) {
