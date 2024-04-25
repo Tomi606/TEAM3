@@ -23,10 +23,16 @@ public interface ProgramDAO {
 
 	boolean deleteItem(@Param("it_num")int tmp);
 
-	boolean updateProgram(@Param("pr")HospitalProgramVO program);
-
 	boolean deleteProgram(@Param("hp_num")int hp_num);
 
-	boolean insertItemList(@Param("il_title") String il_title, @Param("pr")HospitalProgramVO program,@Param("il_it_num") int tmp);
+	boolean insertItemList(@Param("pr")HospitalProgramVO program,@Param("il_it_num") int tmp);
+
+	ArrayList<ItemListVO> selectItemListList(@Param("user")SiteManagement user,@Param("hp_num") int hp_num);
+
+	ArrayList<ItemVO> selectItemListByItem(@Param("il_num")int il_num);
+
+	HospitalProgramVO selectProgram(@Param("pr")HospitalProgramVO program);
+
+	boolean deleteItemList(@Param("hp_num") int hp_num);
 
 }

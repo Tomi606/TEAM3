@@ -580,6 +580,20 @@ public class HospitalServiceImp implements HospitalService {
 			return null;
 		}
 		return hospitalDao.selectHospitalDetail(hospital);
+  }
+
+	public ArrayList<HospitalVO> getSubHoList(MemberVO me, LandVO land,Criteria cri) {
+		if(me == null || land == null || cri == null)
+		return null;
+		
+		return hospitalDao.getSubHoList(me,land,cri);
 	}
 
-}
+	@Override
+	public int getLikeSub(MemberVO me, LandVO land, Criteria cri) {
+		if(me == null || land == null || cri == null)
+			return -1;
+		
+		return hospitalDao.getTotalSubHoList(me,land,cri);
+	}
+

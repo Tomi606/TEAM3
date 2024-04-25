@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ItemListVO {
 	private int il_num;
-	private String il_title; 
 	private int il_hp_num; 
 	private int il_it_num;
+	private HospitalProgramVO hospital_program;
 
 }

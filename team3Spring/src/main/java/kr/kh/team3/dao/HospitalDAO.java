@@ -11,6 +11,7 @@ import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.LandVO;
+import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.ReviewVO;
 import kr.kh.team3.model.vo.SiDoVO;
@@ -139,5 +140,9 @@ public interface HospitalDAO {
 
 	HospitalDetailVO selectHospitalDetail(@Param("ho") HospitalVO hospital);
 
+
+	ArrayList<HospitalVO> getSubHoList(@Param("me")MemberVO me,@Param("la") LandVO land,@Param("cri") Criteria cri);
+
+	int getTotalSubHoList(@Param("me")MemberVO me, @Param("la")LandVO land,@Param("cri") Criteria cri);
 
 }

@@ -16,6 +16,14 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <style type="text/css">
+.join-groub li:hover{
+	border-bottom:3px solid green;
+	height: 94px;
+}
+.메뉴얼 li:hover{
+	border-bottom:3px solid green;
+	height: 65px;
+}
 body {
 	font-size: 14px;
 	font-weight: 300;
@@ -95,17 +103,12 @@ background-color: rgba(0, 0, 0, 0);
 }
 
 .메뉴얼 {
-	padding: 35px 0 6px;
-	margin: 0 auto;
+	width:700px;
+	display:flex;
 	font-size: 16px;
 	font-weight: bold;
 }
 
-.메뉴얼>a {
-	color: black;
-	text-decoration: none;
-	margin: 30px;
-}
 
 .긴공백 {
 	width: 10%;
@@ -320,7 +323,6 @@ text-decoration: underline;
 	width: 800px;
 	height: 56px;
 	line-height: 56px;
-	background: rgba(255, 255, 255, .9);
 	font-size: 20px;
 	font-weight: 300;
 	color: #333;
@@ -440,7 +442,8 @@ display: flex;
 
 }
 .category{
-height:35px;width:100%;background-color: #fafafa;
+z-index:9999;position:absolute;line-height:50px;
+height:50px;width:100%;background-color: #fafafa;
 
 }
 .category .hidden-list {
@@ -450,59 +453,119 @@ height:35px;width:100%;background-color: #fafafa;
 .category:hover .hidden-list {
     display: block;
 }
+
+
+.메뉴얼 ul {
+	margin:0;
+    list-style-type: none; 
+    padding: 0; 
+    display: flex; 
+    justify-content: center; 
+}
+
+.메뉴얼 li {
+	white-space:nowrap;
+    margin: 15px 10px; 
+}
+
+.메뉴얼 a {
+	margin:20px;
+	line-height: 53px;
+    text-decoration: none; 
+    padding: 10px; 
+}
+
+.join-groub ul{
+	position:relative;
+	margin:-50px;
+    list-style-type: none; 
+    padding: 0; 
+    display: flex; 
+    justify-content: center; 
+}
+.join-groub li{
+	white-space:nowrap;
+    margin: 15px 10px; 
+}
+.join-groub a{
+	margin:20px;
+	line-height: 53px;
+    text-decoration: none; 
+    padding: 10px; 
+}
+.new_hospital-sub{
+	width: 100%;height: 150px;display: flex;padding: 3px;margin-top:10px; 
+}
+.hs_btn{
+margin: 10px;
+}
 </style>
 </head>
 <body>
 	<div class="home-box">
-		<div class="header-box">
-			<div class="공백"></div>
-			<div class="로고">
-				<a class="nav-link home-log" href="<c:url value='/'/>"> <img alt="로고이미지"
-					style="width: 170px; height: 80px;" class="Logo-img"
-					src="<c:url value='/resources/img/Hospital.png'/>">
-				</a>
-				<div class="메뉴얼">
-					<a href="<c:url value="/hospital/list"/>">병원</a> 
-					<a href="#">커뮤니티</a> 
-					<a href="#">게시판1</a> 
-					<a href="#">공지사항</a>
-					<a href="<c:url value="/member/bookmark"/>">북마크</a>
-				</div>
-			</div>
-			<div class="긴공백"></div>
-			<div class="로그인">
-				<div class="join-groub">
-					<c:if test="${user == null }">
-						<div class="nav-item">
-							<a class="nav-link a " href="<c:url value='/main/login'/>"> 
-							<img alt="로고이미지" style="width: 30px;"
-								src="<c:url value='/resources/img/user-white.svg'/>"> 로그인
-							</a>
-						</div>
-						<div style="line-height: 28px;">
-							<a class="nav-link a" href="<c:url value='/main/signup'/>">회원가입</a>
-						</div>
-					</c:if>
-					<c:if test="${user != null}">
-						<div class="nav-item" style="line-height: 28px;">
-							<a class="nav-link" href='<c:url value="/logout"/>'>로그아웃</a>
-						</div>
-					</c:if>
-					<div class="nav-item" style="line-height: 28px;">
-						<a class="nav-link" href='<c:url value="/admin/adminpage"/>'>관리자
-							페이지</a>
+		<div class="header-container">
+			<div class="header-box">
+				<div class="공백"></div>
+				<div class="로고">
+					<a class="nav-link home-log" href="<c:url value='/'/>"> <img alt="로고이미지"
+						style="width: 170px; height: 80px;" class="Logo-img"
+						src="<c:url value='/resources/img/Hospital.png'/>">
+					</a>
+					<div class="메뉴얼">
+						<ul>
+							<li>
+								<a href="<c:url value="/hospital/list"/>" class="hos-btn">병원</a> 
+							</li>
+							<li>
+								<a href="#">커뮤니티</a> 
+							</li>
+							<li>
+								<a href="#">게시판1</a> 
+							</li>
+							<li>
+								<a href="#">공지사항</a>
+							</li>
+							<li>
+								<a href="<c:url value="/member/bookmark"/>">북마크</a>
+							</li>
+						</ul>
 					</div>
 				</div>
+				<div class="긴공백"></div>
+				<div class="로그인">
+					<div class="join-groub">
+						<ul>	
+							<c:if test="${user == null }">
+								<li>
+									<a class="nav-link a " href="<c:url value='/main/login'/>"><img alt="로고이미지" 
+									src="<c:url value='/resources/img/user-white.svg'/>"> 로그인</a>
+								</li>
+								<li>	
+									<a class="nav-link a" href="<c:url value='/main/signup'/>">회원가입</a>
+								</li>	
+							</c:if>
+							<c:if test="${user != null}">
+								<li>
+									<a class="nav-link" href='<c:url value="/logout"/>'>로그아웃</a>
+								</li>
+							</c:if>
+								<li>
+									<a class="nav-link" href='<c:url value="/admin/adminpage"/>'>관리자페이지</a>
+								</li>
+						</ul>		
+					</div>
+				</div>
+				<div class="공백"></div>
 			</div>
-			<div class="공백"></div>
-		</div>
-		<div class="category">
-	        <c:forEach items="${list}" var="hs">
-	            <tr>
-	                <th><a href="#">${hs.hs_title}</a></th>
-	            </tr>
-	        </c:forEach>
+			<div class="category" style="display: none;" >
+		        <c:forEach items="${list}" var="hs">
+		            <tr>
+		                <th><a href="<c:url value="/hospital/list?hsNum=${hs.hs_num}"/>" class="hs_btn">${hs.hs_title}</a></th>
+		            </tr>
+		        </c:forEach>
+	  		</div>
   		</div>
+  		
 		<div class="main-area">
 			<div class="search-main-left"></div>
 			<div class="main-search-area">
@@ -601,22 +664,26 @@ height:35px;width:100%;background-color: #fafafa;
 				</div>
 					<div class="reservation-box">	
 						<div class="total-reservation">
-							<h4 >최근 예약이 많은 병원</h4>
-							<div class="hos-sub">
-								<a>성형외과</a>
-								<p>125</p>
+							<div class="new_hospital-res" style="margin: auto;">
+								<h4 >최근 예약이 많은 병원</h4>
 							</div>
-							<div class="hos-sub">
-								<a>피부과</a>
-								<p>76</p>
-							</div>
-							<div class="hos-sub">
-								<a>내과</a>
-								<p>26</p>
-							</div>
-							<div class="hos-sub">
-								<a>치과</a>
-								<p>25</p>
+							<div class="new_hospital-sub">
+								<div class="hos-sub">
+									<a>성형외과</a>
+									<p>125</p>
+								</div>
+								<div class="hos-sub">
+									<a>피부과</a>
+									<p>76</p>
+								</div>
+								<div class="hos-sub">
+									<a>내과</a>
+									<p>26</p>
+								</div>
+								<div class="hos-sub">
+									<a>치과</a>
+									<p>25</p>
+								</div>
 							</div>
 						</div>
 						<hr>
@@ -626,7 +693,6 @@ height:35px;width:100%;background-color: #fafafa;
 			</div>
 			<div class="홈오른쪽"></div>
 		</div>
-			<div id="map" style="width: 1000px; height: 700px;margin: 0 auto"></div>
 			 <div class="공지사항">
 				 <img alt="미니공지" style="width: 48px;margin-left: 100px"
 				 src="<c:url value='/resources/img/미니공지.png'/>">
@@ -706,33 +772,16 @@ height:35px;width:100%;background-color: #fafafa;
 </body>
 <button id="scrollToTopButton" onclick="scrollToTop()">위로가기</button>
 
-
-
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=300655f18482c4d8c0a57b772e5720fc"></script>
-<script type="text/javascript">
-	
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-mapOption = { 
-    center: new kakao.maps.LatLng(37.514575, 127.0495556), // 지도의 중심좌표
-    level: 3 // 지도의 확대 레벨
-};
-
-var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
-//마커가 표시될 위치입니다 
-var markerPosition  = new kakao.maps.LatLng(37.514575, 127.0495556); 
-
-//마커를 생성합니다
-var marker = new kakao.maps.Marker({
-position: markerPosition
-});
-
-//마커가 지도 위에 표시되도록 설정합니다
-marker.setMap(map);
-	var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-	
+ <script>
+ $(document).ready(function() {
+     $('.hos-btn').hover(function() {
+         $('.category').show();
+     });
+     $('.category').mouseleave(function() {
+    	 $('.category').hide();
+     });
+ });
 </script>
-
 
 <script type="text/javascript">
 	$(document).ready(function() {

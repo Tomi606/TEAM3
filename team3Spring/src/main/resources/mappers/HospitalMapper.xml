@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team3.dao.HospitalDAO">
+
 	<resultMap type="BookmarkVO" id="bookmarkMap">
 		<id column="bmk_num" property="bmk_num"/>
 		<result column="bmk_me_id" property="bmk_me_id"/>
@@ -11,12 +12,72 @@
 			ofType="HospitalVO" column="bmk_ho_id"
 			select="selectBmkHospital"/>
 	</resultMap>
+
+	<resultMap type="HsListVO" id="HsListMap">
+		<id column="hsl_num" property="hsl_num"/>
+		<result column="hsl_hs_num" property="hsl_hs_num"/>
+		<result column="hsl_ho_id" property="hsl_ho_id"/>
+		<collection property="hospital" ofType="HospitalVO" column="hsl_ho_id" select="selectHospitalSub"/>
+		<collection property="hospital_subject" ofType="HospitalSubjectVO" column="hsl_hs_num" select="selectHoSubMap"/>
+		<collection property="hospital_detail" ofType="HospitalDetailVO" column="hsl_ho_id" select="selectHoDeMap"/>
+	</resultMap>
+	<select id="selectHoDeMap" resultType="HospitalDetailVO">
+		select * from hospital_detail where hd_ho_id = #{hsl_ho_id}
+	</select>
+	<select id="selectHospitalSub" resultType="HospitalVO">
+		select * from hospital where ho_id = #{hsl_ho_id}
+	</select>
+	<select id="selectHoSubMap" resultType="HospitalSubjectVO">
+		select * from hospital_subject where hs_num = #{hsl_hs_num}
+	</select>
+	<select id="getSubHoList" resultMap="HsListMap">
+		select * from hs_list where hsl_hs_num = #{me.me_hs_num} 
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	<select id="getTotalSubHoList" resultType="int">
+		select count(*) from hs_list where hsl_hs_num = #{me.me_hs_num} 
+	</select>
+	
+	<resultMap type="HospitalVO" id="hospitalMap">
+		<id column="ho_id" property="ho_id"/>
+		<result column="ho_ms_state" property="ho_ms_state"/>
+		<result column="ho_hs_num" property="ho_hs_num"/>
+		<result column="ho_pw" property="ho_pw"/>
+		<result column="ho_name" property="ho_name"/>
+		<result column="ho_ceo" property="ho_ceo"/>
+		<result column="ho_num" property="ho_num"/>
+		<result column="ho_address" property="ho_address"/>
+		<result column="ho_phone" property="ho_phone"/>
+		<result column="ho_authority" property="ho_authority"/>
+		<result column="ho_cookie" property="ho_cookie"/>
+		<result column="ho_cookie_limit" property="ho_cookie_limit"/>
+		<result column="ho_fail" property="ho_fail"/>
+		<result column="ho_email" property="ho_email"/>
+		<result column="ho_report_count" property="ho_report_count"/>
+		<result column="ho_stop" property="ho_stop"/>
+		<result column="ho_stop_count" property="ho_stop_count"/>
+		<result column="ho_la_num" property="ho_la_num"/>
+		<collection property="hospital_detail"
+			ofType="HospitalDetailVO" column="ho_id"
+			select="selectHospitalDetail"/>
+		<collection property="hospital_subject"
+			ofType="HospitalSubjectVO" column="ho_hs_num"
+			select="selectHospitalSubject"/>
+	</resultMap>
+	
+	<select id="selectHospitalDetail" resultType="HospitalDetailVO">
+		select * from hospital_detail where hd_ho_id = #{ho_id}
+	</select>
+	
+	<select id="selectHospitalSubject" resultType="HospitalSubjectVO">
+		select * from hospital_subject where hs_num = #{ho_hs_num}
+	</select>
 	
 	<select id="selectBmkHospital" resultType="HospitalVO">
 		select * from hospital where ho_id = #{bmk_ho_id}
 	</select>
 	
-	<select id="getHospitalList" resultType="HospitalVO">
+	<select id="getHospitalList" resultMap="hospitalMap">
 	 	select * from hospital where ho_la_num =#{la.la_num}
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>

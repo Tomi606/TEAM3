@@ -2,7 +2,7 @@ package kr.kh.team3.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Map;import javax.naming.CompositeName;
 
 import javax.servlet.http.HttpSession;
 
@@ -66,8 +66,6 @@ public class HospitalController {
 		hdNum = 40;
 		HospitalDetailVO detail = hospitalService.getDetail(hdNum);
 		//hs_list도 추가!!!!!!!!!!!
-		
-
 		//병원과목 리스트
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
 		model.addAttribute("detail", detail);
@@ -286,7 +284,6 @@ public class HospitalController {
 	@ResponseBody
 	@PostMapping("/item/delete")
 	 public Map<String, Object> deleteItem(@RequestParam("checkedValues[]") ArrayList<Integer> list){
-		System.out.println("들어옴");
 		Map<String, Object> map = new HashMap<String, Object>();
       
         boolean res = programService.deleteItem(list);
@@ -302,12 +299,11 @@ public class HospitalController {
 	// 프로그램을 추가하는 메서드
 	@ResponseBody
 	@PostMapping("/program/insert")
-	public Map<String, Object> insertProgram(HospitalProgramVO program, HttpSession session, 
-			@RequestParam("il_title") String il_title) {
+	public Map<String, Object> insertProgram(HospitalProgramVO program, HttpSession session,
+			@RequestParam("list[]") ArrayList<Integer> list) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		ArrayList<HospitalProgramVO> programList = programService.getProgramList(user);
-		boolean res =  programService.insertProgram(program, user);
+		boolean res =  programService.insertProgram(program, user, list);
 		if(res) {
 			map.put("msg", "추가에 성공했습니다.");
 		}else {
@@ -316,57 +312,48 @@ public class HospitalController {
 		return map;
 	}
 	
-	// 프로그램을 추가하는 메서드
-	@ResponseBody
-	@PostMapping("/itemlist/insert")
-	public Map<String, Object> insertItemList(HospitalProgramVO program, HttpSession session, 
-			@RequestParam("il_title") String il_title,
-			@RequestParam("list[]") ArrayList<Integer> list) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		System.out.println("aaaaaaaaaaaaaaaaaaaaa");
-		boolean res = programService.insertItemList(il_title, program, list, user);
-		
-		if(res) {
-			map.put("msg", "추가에 성공했습니다.");
-		}else {
-			map.put("msg", "추가에 실패했습니다.");
-		}
-		return map;
-	}
+
 	
 	//프로그램 수정 메서드
 	@GetMapping("/program/update")
 	public String updateUpdate(HospitalProgramVO program, HttpSession session, Model model) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		 ArrayList<HospitalProgramVO> programList = programService.getProgramList(user); 
+		 ArrayList<ItemVO> itemList = programService.getItemList(user); 
 		 model.addAttribute("programList", programList);
-		
+		 model.addAttribute("itemList", itemList);
 		return "/hospital/detail/programupdate";
 	}
 	
 	//프로그램 수정 메서드
+	@ResponseBody
 	@PostMapping("/program/update")
-	public String updateUpdatePost(HospitalProgramVO program, HttpSession session, 
-				Model model) {
+	public String updateUpdatePost(HospitalProgramVO program, HttpSession session,
+			@RequestParam("list[]") ArrayList<Integer> list, Model model) {
 		
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		ArrayList<HospitalProgramVO> programList = programService.getProgramList(user);
-		 boolean res =programService.updateProgram(program, user, programList);
-		 if (res) {
-				model.addAttribute("msg","프로그램 수정을 완료했습니다.");
-				model.addAttribute("url","/hospital/item/insert");
-			}else {
-				model.addAttribute("msg","프로그램 수정에 실패 했습니다.");
-				model.addAttribute("url","/program/update");
-			}
-			return "message";
+		
+		boolean resDle = programService.deleteProgram(program.getHp_num());; 
+		System.out.println("aaaaaaaaaaaaaaa");
+		System.out.println(program);
+		System.out.println(list);
+		System.out.println(resDle);
+		if(resDle) {
+			boolean resIns = programService.insertProgram(program, user, list);
+			 if (resIns) {
+					model.addAttribute("msg","프로그램 수정을 완료했습니다.");
+					model.addAttribute("url","/hospital/item/insert");
+					return "message";
+			 }
+		}
+		model.addAttribute("msg","프로그램 수정에 실패 했습니다.");
+		model.addAttribute("url","/program/update");
+		return "message";
 	}
 	
 	//프로그램 삭제 메서드
 	@GetMapping("/program/delete")
 	public String deleteprogram(Model model, int hp_num) {
-		
 		boolean res = programService.deleteProgram(hp_num);
 		
 		if (res) {
@@ -379,28 +366,57 @@ public class HospitalController {
 		return "message";
 	}
 	
+	//프로그램 조회 메서드
+	@GetMapping("/program/check")
+	public String checkprogram(Model model, HttpSession session) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		ArrayList<ItemVO> itemList = programService.getItemList(user);
+		ArrayList<HospitalProgramVO> programList = programService.getProgramList(user);
+		model.addAttribute("programList",programList);
+		model.addAttribute("itemList", itemList);
+		return "/hospital/programcheck";
+	}
+	
+	// 프로그램에 속한 리스트를 조회하는 메서드
+	@ResponseBody
+	@PostMapping("/itemlist/check")
+	public Map<String, Object> selectItemList(@RequestParam("hp_num") int hp_num, HttpSession session ) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		ArrayList<ItemListVO> itemListList = programService.getItemListList(user, hp_num);
+		map.put("itemListList", itemListList);
+		return map;
+	}
+	
+	// 프로그램 리스트 속한 아이템을 조회하는 메서드
+	@ResponseBody
+	@PostMapping("/item/check")
+	public Map<String, Object> selectItem(@RequestParam("il_num") int il_num, HttpSession session ) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		ArrayList<ItemVO> itemList = programService.getItemListByItem(il_num);
+		map.put("itemList", itemList);
+		return map;
+	}
 	//============================================= 조민석 ===================================================
 	/*병원 리스트 출력 정경호,권기은*/
-	//Hd_hs_num없어서 일단 주석처리!!!!!!!!!!!!!!!!!!!!!!!
-//	@GetMapping("/hospital/list")
-//	public String hospitalList(HttpSession session, Model model, SiDoVO sido, SiGoonGuVO sgg, EupMyeonDongVO emd) {
-//		SiteManagement user = (SiteManagement) session.getAttribute("user");
-//		if (user == null) {
-//			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
-//			model.addAttribute("url", "/main/login");
-//			return "message";
-//		}
-//		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
-//		ArrayList<HospitalVO> hoList = hospitalService.getArrHospital(user);
-//		MemberVO me = memberService.getMeId(user.getSite_id());
-//		ArrayList<HospitalVO> likeSubList = memberService.getMySubject(me);
-//		LandVO la = memberService.getMyLand(user);
-//		model.addAttribute("like", likeSubList);
-//		model.addAttribute("hoList", hoList);
-//		model.addAttribute("sidoList", sidoList);
-//		model.addAttribute("la", la);
-//		return "/hospital/list";
-//	}
+	@GetMapping("/hospital/list")
+	public String hospitalList(HttpSession session, Model model, SiDoVO sido, SiGoonGuVO sgg, EupMyeonDongVO emd) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		if (user == null) {
+			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
+			model.addAttribute("url", "/main/login");
+			return "message";
+		}
+		ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
+		model.addAttribute("list", list);
+		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
+		LandVO la = memberService.getMyLand(user);
+		
+		model.addAttribute("sidoList", sidoList);
+		model.addAttribute("la", la);
+		return "/hospital/list";
+	}
 
 	@ResponseBody
 	@PostMapping("/hospital/emd/list")
@@ -410,28 +426,30 @@ public class HospitalController {
 		LandVO land = hospitalService.getLand(emd_num);
 		cri.setPerPageNum(12);
 		ArrayList<HospitalVO> hoList = hospitalService.getHospital(land,cri);
-		log.info(hoList+"hoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoList");
 		int totalCount = hospitalService.getHospitalCount(land,cri);
-		log.info(totalCount+"토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카토카");
 		PageMaker pm = new PageMaker(5, cri, totalCount);
-		log.info(pm+"피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠피엠");
 		map.put("pm", pm);
 		map.put("hoList", hoList);
 		return map;
 
 	}
-//Hd_hs_num없어서 일단 주석처리!!!!!!!!!!!!!!!!!!!!!!!선진
-//	@ResponseBody
-//	@PostMapping("/hospital/like/list")
-//	public ArrayList<HospitalVO> postLiHospital(@RequestParam("emd_num") int emd_num,HttpSession session) {
-//		SiteManagement user = (SiteManagement) session.getAttribute("user");
-//		MemberVO me = memberService.getMeId(user.getSite_id());
-//		LandVO land = hospitalService.getLand(emd_num);
-//		ArrayList<HospitalVO> hoSubList = memberService.getSubHoList(me, land);
-//		log.info(hoSubList + "hoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubList");
-//		return hoSubList;
-//
-//	}
+	@ResponseBody
+	@PostMapping("/hospital/like/list")
+	public  Map<String, Object> postLiHospital(@RequestParam("emd_num") int emd_num,HttpSession session,@RequestParam("page")int page) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Criteria cri = new Criteria(page);
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		MemberVO me = memberService.getMeId(user.getSite_id());
+		LandVO land = hospitalService.getLand(emd_num);
+		cri.setPerPageNum(8);
+		int totalCount = hospitalService.getLikeSub(me,land,cri);
+		ArrayList<HospitalVO> hoSubList = hospitalService.getSubHoList(me, land,cri);
+		PageMaker pm = new PageMaker(5, cri, totalCount);
+		map.put("pm", pm);
+		map.put("hoSubList",hoSubList);
+		return map;
+
+	}
 	
 	@ResponseBody
 	@PostMapping("/hospital/area/name")
@@ -448,12 +466,5 @@ public class HospitalController {
 		return map;
 
 	}
-
-//	@ResponseBody
-//	@PostMapping("/member/signup/eupmyeondong")
-//	public ArrayList<EupMyeonDongVO> postEupMyeonDong(int sgg_num) {
-//		ArrayList<EupMyeonDongVO> emdList = memberService.getEmd(sgg_num);
-//		return emdList;
-//	}
 
 }

@@ -121,5 +121,8 @@ public interface HospitalService {
 
 	HospitalDetailVO getHospitalDetail(HospitalVO hospital);
 
+	ArrayList<HospitalVO> getSubHoList(MemberVO me, LandVO land, Criteria cri);
+
+	int getLikeSub(MemberVO me, LandVO land, Criteria cri);
 
 }

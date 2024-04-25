@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>병원 리스트</title>
 <style type="text/css">
-.area-container{height: 48%;}
+.area-container{height: 48%;    margin-top: 15%;margin-bottom: 10%;}
 
 .aTag-btn1{
 margin-right: auto;
@@ -31,7 +31,7 @@ margin-left: auto;
 .aTag-btn1:hover,
 .aTag-btn2:hover{text-decoration:none;box-shadow: 2px 2px 4px 1px #A5FA7D /* 그림자 효과 추가 */}
 .hospital-like-list h1,.hospital-area-list h1{margin: 30px auto 50px auto;}
-.hospital-list-home{width: 100%;height: 3000px;}
+.hospital-list-home{width: 100%;height: 100%;}
 .hospital-list-box{width: 1400px;height: 100%;margin: 0 auto;text-align: center;}
 .hospital-like-list{width: 100%;height: 400px;margin-bottom: 300px;
 display: grid; grid-template-columns:1fr 1fr 1fr 1fr;border-top:1px dotted #A8F552;margin-top: 80px;}
@@ -40,7 +40,7 @@ display: grid; grid-template-columns:1fr 1fr 1fr 1fr;border-top:1px dotted #A8F5
 border-top:1px dotted #A8F552;margin-top: 80px;}
 .area-select-all{width: 100%;height: 150px;padding: 30px 0;display: flex;}
 .area-select{margin: 0 auto;}
-.area-select-box{display: flex;border: 1px solid  #c8c8c8;width: 100%; height: 400px;margin: 0 0 200px 0;}
+.area-select-box{display: flex;border: 1px solid  #c8c8c8;width: 100%; height: 400px;margin: 0 0 65px 0;}
 .area-select-box li{list-style: none;}
 .area-select-sido{width: 200px;height: 100%;text-align: left;list-style: none;}
 .area-select-sgg{width: 200px;text-align: left;}
@@ -54,6 +54,7 @@ border-top:1px dotted #A8F552;margin-top: 80px;}
 .area-title{text-align: center;padding: 15px;border-bottom:1px solid  #c8c8c8;border-right: 1px solid  #c8c8c8; }
 .area-title-emd{text-align: center;padding: 15px;width: 997px;border-bottom:1px solid #c8c8c8;}
 .box-pagination{width:100%;display: flex;margin-top:100px; height: 100px; border-bottom: 1px dotted #A8F552;}
+.box-pagination1{width:100%;display: flex;margin-top:100px; height: 100px; border-bottom: 1px dotted #A8F552;}
 .pagination-custom{margin: 0 auto;display: flex;}
 .pagination-custom li{list-style: none; }
 .now-area{display:flex;margin-top: 100px;width: 1400px;border: 1px solid #c8c8c8;color: #c8c8c8;height: 80px;border-bottom-style:none;
@@ -64,11 +65,18 @@ border-top:1px dotted #A8F552;margin-top: 80px;}
 .page-area{border:1px solid #dee2e6;margin: 3px;padding: 10px;color: black;text-decoration: none;}
 .now-area h3{line-height: 74px;}
 .area_box{width: 600px;display: flex;margin: 0 auto;}
+
+.img-container{border: 1px solid black;width: 100%;height: 800px;}
+.category { margin-bottom:135px;display: grid;width: 100%;grid-template-columns:1fr 1fr 1fr 1fr ;border: 1px solid black;} 
+.category a{ 
+margin:20px 20px 20px 20px;width: 100%;height: 100%;
+}
 </style>
 </head>
 <body>
 <div class="hospital-list-home">
 	<div class="hospital-list-box">
+	
 	<div class="area-select-container">
 		<div class="now-area">
 		</div>
@@ -107,28 +115,28 @@ border-top:1px dotted #A8F552;margin-top: 80px;}
 				</div>	
 			</div>
 		</div>
+			<div class="category"  >
+		        <c:forEach items="${list}" var="hs">
+		            <tr>
+		                <th><a href="<c:url value="/hospital/list?hsNum=${hs.hs_num}"/>" class="hs_btn">${hs.hs_title}</a></th>
+		            </tr>
+		        </c:forEach>
+			</div>
 	</div>
-		
 		<h1>내 관심 병원</h1>
 		<div class="hospital-like-list">
-			
+		</div>
 			<div class="box-pagination1">
 				<!-- 페이지네이션 시작 -->
-				<div class="pagination">
-					123
-				</div>
-				<!-- 페이지네이션 끝 -->
+				<ul class="pagination-custom"></ul>
 			</div>
-			
-		</div>
+		<div class="img-container"></div>
 		<div class="area-container">
 		<h1 style="margin-top:50px; ">우리 동네 병원</h1>
 			<div class="hospital-area-list">
 			</div>
 			<div class="box-pagination">
-				<!-- 페이지네이션 시작 -->
 				<ul class="pagination-custom justify-content-center"></ul>
-				<!-- 페이지네이션 끝 -->
 			</div>
 		</div>	
 	</div>
@@ -203,6 +211,7 @@ $(document).on('click', '#sgg_name', function(){
 })
 </script>
 <script type="text/javascript">
+let likePage = 1;
 let page = 1;
 $(document).on('click', '#emd_name', function(){
     let emd_num = $(this).data('num');
@@ -252,26 +261,75 @@ function getSubHoList(){
         method : "post",
         url : '<c:url value="/hospital/like/list"/>', 
         data : {
-        	"page" : page,
+        	"page" : likePage,
         	"emd_num": area.emd_num
         }, 
         success : function (data){
             let str =""
-            if(data == null || data.length == 0){
+            if(data.hoSubList == null || data.hoSubList.length == 0){
                 str +=`<h3 style="color: gray;line-height: 200px;text-align: center;">존재하는 병원이 없습니다.</h3>` ;
             }
             else{
-                for(let ho in data){
-                    str += `<a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;" data-id="\${ho.ho_id}>"
-						<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
-						<h4>\${data[ho].ho_name}</h4>
-						<p>\${data[ho].ho_ceo}</p>
-						<p>\${data[ho].ho_id}</p>
-				</a>`; 
-                }
-            }
+                for(let ho of data.hoSubList){
+                	if(ho.hospital_detail == null){
+               		 str += 
+                        `
+       	                    <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=${ho.hospital.ho_id}'/>" style="padding: auto;" data-id="\${ho.ho_id}>"
+       							<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
+       							<h4>\${ho.hospital.ho_name}</h4>
+       							<p>\${ho.hospital_subject.hs_title}</p>
+       							<p>\${ho.hospital.ho_address}</p>
+       						</a>
+       					`; 
+               		
+               	}
+               	else{
+               		let hd_time = ho.hospital_detail.hd_time;
+               		let timeArray = hd_time.split(",");
+               		
+               		let today = new Date();
+               		let daysOfWeek = ['월', '화', '수', '목', '금', '토', '일'];
+               		let dayOfWeek = daysOfWeek[today.getDay() - 1]; //오늘 무슨요일
+						
+               		switch(dayOfWeek){
+               		case '월':
+               			hd_time = timeArray[1];
+               			break;
+               		case '화':
+               			hd_time = timeArray[2];
+               			break;
+               		case '수':
+               			hd_time = timeArray[3];
+               			break;
+               		case '목':
+               			hd_time = timeArray[4];
+               			break;
+               		case '금':
+               			hd_time = timeArray[5];
+               			break;
+               		case '토':
+               			hd_time = timeArray[6];
+               			break;
+               		case '일':
+               			hd_time = timeArray[7];
+               			break;
+               		}
+
+	                    str += 
+	                   	`
+		                    <a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;" data-id="\${ho.ho_id}>"
+								<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
+								<h4>\${ho.hospital.ho_name}</h4>
+								<p>\${ho.hospital_subject.hs_title}</p>
+								<p>(\${dayOfWeek}요일) \${hd_time}</p>
+								<p>\${ho.hospital.ho_address}</p>
+							</a>
+						`;
+               	}
+               }
+           }
             $(".hospital-like-list").html(str);
-            //displaySubHoPagination(data.pm);
+            displaySubHoPagination(data.pm);
         }, 
         error : function(jqXHR, textStatus, errorThrown){
 
@@ -298,15 +356,62 @@ function getAreaHoList(){
             }
             else{
                 for(let ho of data.hoList){
-                    str += 
-                   	`
-	                    <a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;" data-id="\${ho.ho_id}>"
-							<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
-							<h4>\${ho.ho_name}</h4>
-							<p>\${ho.ho_ceo}</p>
-							<p>\${ho.ho_id}</p>
-						</a>
-					`; 
+                	console.log(ho.hospital_detail);
+                	if(ho.hospital_detail == null){
+                		 str += 
+                            	`
+         	                    <a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;" data-id="\${ho.ho_id}>"
+         							<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
+         							<h4>\${ho.ho_name}</h4>
+         							<p>\${ho.hospital_subject.hs_title}</p>
+         							<p>\${ho.ho_address}</p>
+         						</a>
+         					`; 
+                		
+                	}
+                	else{
+                		let hd_time = ho.hospital_detail.hd_time;
+                		let timeArray = hd_time.split(",");
+                		
+                		let today = new Date();
+                		let daysOfWeek = ['월', '화', '수', '목', '금', '토', '일'];
+                		let dayOfWeek = daysOfWeek[today.getDay() - 1]; //오늘 무슨요일
+						
+                		switch(dayOfWeek){
+                		case '월':
+                			hd_time = timeArray[1];
+                			break;
+                		case '화':
+                			hd_time = timeArray[2];
+                			break;
+                		case '수':
+                			hd_time = timeArray[3];
+                			break;
+                		case '목':
+                			hd_time = timeArray[4];
+                			break;
+                		case '금':
+                			hd_time = timeArray[5];
+                			break;
+                		case '토':
+                			hd_time = timeArray[6];
+                			break;
+                		case '일':
+                			hd_time = timeArray[7];
+                			break;
+                		}
+
+	                    str += 
+	                   	`
+		                    <a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;" data-id="\${ho.ho_id}>"
+								<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
+								<h4>\${ho.ho_name}</h4>
+								<p>\${ho.hospital_subject.hs_title}</p>
+								<p>(\${dayOfWeek}요일) \${hd_time}</p>
+								<p>\${ho.ho_address}</p>
+							</a>
+						`;
+                	}
                 }
             }
             $(".hospital-area-list").html(str);
@@ -320,7 +425,7 @@ function getAreaHoList(){
 }
 
 function displaySubHoPagination(pm){
-    
+    console.log(pm+"고ㅓ거거거거ㅓ거거거거거");
 	let str = '';
 	if(pm.prev){
 		str += `
@@ -342,10 +447,10 @@ function displaySubHoPagination(pm){
 			<a class="page-area" href="javascript:void(0);" data-page="\${pm.endPage + 1}">다음</a>
 		</li>`;	
 	}
-	$('.box-pagination>ul').html(str);
+	$('.box-pagination1>.pagination-custom').html(str);
 }
-$(document).on('click','.box-pagination1 .page-link',function(){
-	page = $(this).data('page');
+$(document).on('click','.box-pagination1 .page-area',function(){
+	likePage = $(this).data('page');
 	getSubHoList();
 });
 
