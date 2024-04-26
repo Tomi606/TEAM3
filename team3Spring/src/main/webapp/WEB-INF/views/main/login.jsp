@@ -11,7 +11,6 @@
 	margin: 0;
 	padding: 0;
 }
-/*************************/
 #toggle-slider {
     display: none;
 }
@@ -87,7 +86,6 @@ label::after {
     left: 35px; /* 좌측 위치 조정 */
 }
 
-/*************************/
 .login-box {
 	text-align: center;
 	margin-top: 20px;
@@ -163,6 +161,15 @@ label::after {
 	font-size: 13px;
 	font-weight: bold;
 }
+.login-btn-r{
+	background: black;
+	color: white;
+}
+.login-input-tag{
+}
+.auto-login{
+	margin-bottom: 5px;
+}
 </style>
 </head>
 <body>
@@ -177,13 +184,19 @@ label::after {
 			<div class="login-form">
 				<form action="<c:url value="/member/login"/>" method="post">
 					<div class="input-group">
-					<span>자동로그인</span>
-				 	<input type="checkbox" id="toggle-slider">
-				 	<label for="toggle-slider">On/Off</label>
-					<input type="text" placeholder="아이디" name="me_id" class="input-box"> 
-					<input type="password" placeholder="비밀번호" name="me_pw" class="input-box">
+						<div class="auto-login">
+							<span>자동로그인</span>
+					 		<input type="checkbox" id="toggle-slider">
+					 		<label for="toggle-slider">On/Off</label>
+					 	</div>
+					 	<div class="login-input-tag">
+							<input type="text" placeholder="아이디" name="me_id" class="input-box"> 
+						</div>
+					 	<div class="login-input-tag">
+							<input type="password" placeholder="비밀번호" name="me_pw" class="input-box">
+						</div>
 					</div>
-					<button class="submit-btn">로그인</button>
+					<button class="submit-btn login-btn-r">로그인</button>
 				</form>
 				<div class="find-signup-box">
 					<a class="" href="">아이디/비밀번호 찾기</a> <span>|</span> <a class=""
@@ -194,17 +207,24 @@ label::after {
 		<div class="form-box hospital-form-box">
 			<div class="login-form">
 				<form action="<c:url value="/hospital/login"/>" method="post">
-					<div class="input-group">
-						<span>자동로그인</span>
-					 	<input type="checkbox" id="toggle-slider1">
-					 	<label for="toggle-slider1">On/Off</label>
-						<input type="text" placeholder="사업자번호" name="ho_num"
-							class="input-box" maxlength="10"> 
-						<input type="text"
-							placeholder="아이디" name="ho_id" class="input-box"> <input
-							type="password" placeholder="비밀번호" name="ho_pw" class="input-box">
+					<div class="input-group">	
+						<div  class="auto-login">
+							<span>자동로그인</span>
+						 	<input type="checkbox" id="toggle-slider1">
+						 	<label for="toggle-slider1">On/Off</label>
+						</div>
+						<div class="login-input-tag">
+							<input type="text" placeholder="사업자번호" name="ho_num"
+								class="input-box" maxlength="10"> 
+						</div>	
+						<div class="login-input-tag">
+							<input type="text" placeholder="아이디" name="ho_id" class="input-box"> 
+						</div>
+						<div class="login-input-tag">
+							<input type="password" placeholder="비밀번호" name="ho_pw" class="input-box">
+						</div>
 					</div>
-					<button class="submit-btn">로그인</button>
+					<button class="submit-btn login-btn-r">로그인</button>
 				</form>
 				<div class="find-signup-box">
 					<a class="" href="">아이디/비밀번호 찾기</a> <span>|</span> <a class=""
