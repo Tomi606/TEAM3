@@ -61,9 +61,9 @@ public class HospitalController {
 
 	//회원 입장에서 상페 페이지 조회시
 	@GetMapping("/hospital/detail/detail")
-	public String hospitalDetail(Model model, Integer hdNum, Integer vwNum) {
+	public String hospitalDetail(Model model, Integer hdNum) {
 		//상세 페이지를 가져옴(임시)
-		hdNum = 40;
+		hdNum = 42;
 		HospitalDetailVO detail = hospitalService.getDetail(hdNum);
 		//병원과목 리스트
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
@@ -375,13 +375,13 @@ public class HospitalController {
 	@ResponseBody
 	@PostMapping("/hospital/emd/list")
 	public Map<String, Object> postHospital(@RequestParam("emd_num") int emd_num, int hs_num, String search, @RequestParam("page")int page) {
-		log.info(search + "    검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어");
+		//log.info(search + "    검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어");
 		Map<String, Object> map = new HashMap<String, Object>();
-		Criteria cri = new Criteria(page);
+		Criteria cri = new Criteria(page, 12, null, search);
+		//cri.setPerPageNum(12);
 		LandVO land = hospitalService.getLand(emd_num);
 		ArrayList<HospitalVO> hoList;
 		int totalCount;
-		cri.setPerPageNum(12);
 		if(hs_num == 0) {
 			hoList = hospitalService.getHospitalSubAll(land,cri);
 			totalCount = hospitalService.getHospitalSubAllCount(land,cri);

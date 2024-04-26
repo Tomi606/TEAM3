@@ -84,6 +84,11 @@ border-bottom:2px solid white;
 				<textarea class="hd_time col-10" id="hd_time" name="hd_time" 
 				placeholder="월~금 : 9:00~18:00 / 토,일 : 휴무" oninput="autoTextarea(this)">${hoDetail.hd_time}</textarea>
 			</div>
+			<div class="hd_time" id="hd_time">
+				<label for="hd_time" style="font-weight: bold">영업 시간</label>
+				<textarea class="hd_time col-10" id="hd_time" name="hd_time" 
+				placeholder="월~금 : 9:00~18:00 / 토,일 : 휴무" oninput="autoTextarea(this)">${hoDetail.hd_time}</textarea>
+			</div>
 			<div class="hd_park" id="hd_park">
 				<label for="hd_park" style="font-weight: bold">주차 정보</label>
 				<textarea class="hd_park col-10" id="hd_park" name="hd_park" 
@@ -102,23 +107,14 @@ border-bottom:2px solid white;
 		</div>
 		
 		<div id="page2" class="page">
-			<div class="hd_hs_num">
-				<label for="hd_hs_num">대표 진료 과목</label>
-				<div class="subject-checkbox hd_hs_num">
-				  	<c:forEach items="${hsList}" var="hs">
-				  		<c:set var="isChecked" value="false"/>
-				  		<c:if test="${detail.hd_hs_num != null}">		  		
-					  		<c:forEach items="${detail.hd_hs_num.split(',')}" var="selectedHsNum">
-					  			<c:if test="${selectedHsNum == hs.hs_num}">
-					  				<c:set var="isChecked" value="true"/>
-					  			</c:if>
-					  		</c:forEach>
-				  		</c:if>
-				   		<input type="checkbox" name="subject" value="${hs.hs_num}" onclick="updateHdHsNums()"
-				   				<c:if test="${isChecked == 'true'}">checked</c:if> readonly>${hs.hs_title}
+			<div class="hsList">
+				<label for="hsList">대표 진료 과목</label>
+				<div class="subject-checkbox hsList">
+				  	<c:forEach items="${detail.hsList}" var="hsList">
+						<button>${hsList }</button>
 				  	</c:forEach>
 				</div>
-				<input type="hidden" id="hd_hs_num" name="hd_hs_num" value="${detail.hd_hs_num}">
+				<%-- <input type="hidden" id="hd_hs_num" name="hd_hs_num" value="${detail.hd_hs_num}"> --%>
 			 </div>
 			 <div>
 			 	<label for="hd_subject_detail">상세 진료 항목</label>
