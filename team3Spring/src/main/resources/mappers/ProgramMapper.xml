@@ -7,28 +7,28 @@
 
 <!-- resultMap -->
 
-	<resultMap type="kr.kh.team3.model.vo.HospitalProgramVO" id="HospitalProgramMap">
-		<id property="hp_num" column="hp_num"/>
-		<result property="hp_title" column="hp_title"/>
-		<result property="hp_payment" column="hp_payment"/>
-		<result property="hp_ho_id" column="hp_ho_id"/>
-		<collection property="item_list" ofType="kr.kh.team3.model.vo.ItemListVO"
-				column="hp_num" select="selectProgramByProgramList"/>
+	<resultMap type="kr.kh.team3.model.vo.ItemListVO" id="ItemListMap">
+		<id property="hsl_num" column="hsl_num"/>
+		<result property="hsl_hs_num" column="hsl_hs_num"/>
+		<result property="hsl_ho_id" column="hsl_ho_id"/>
+		<collection property="hospital_program" ofType="kr.kh.team3.model.vo.HospitalProgramVO"
+				column="il_hp_num" select="selectItemListByProgram"/>
 		<collection property="item" ofType="kr.kh.team3.model.vo.ItemVO"
-				column="hp_ho_id" select="selectProgramByProgramItem"/>
+				column="il_it_num" select="selectItemListByItem2"/>
 	</resultMap>
 	
-	<select id="selectItemListList" resultMap="HospitalProgramMap">
-			select * from hospital_program where hp_num = #{hp_num}
-	</select>
-	
-	<select id="selectProgramByProgramList" resultType="kr.kh.team3.model.vo.ItemListVO">
+	<select id="selectProgramItem" resultMap="ItemListMap">
 		select * from item_list where il_hp_num = #{hp_num}
 	</select>
 	
-	<select id="selectProgramByProgramItem" resultType="kr.kh.team3.model.vo.ItemVO">
-		select * from item where it_ho_id = #{hp_ho_id}
+	<select id="selectItemListByProgram" resultType="kr.kh.team3.model.vo.HospitalProgramVO">
+		select * from hospital_program where hp_num = #{il_hp_num}
 	</select>
+	
+	<select id="selectItemListByItem2" resultType="kr.kh.team3.model.vo.ItemVO">
+		select * from item where it_num = #{il_it_num}
+	</select>
+	
 	<!-- resultMap -->
 	
 	

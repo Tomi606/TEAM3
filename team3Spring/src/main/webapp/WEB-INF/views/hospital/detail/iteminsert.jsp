@@ -142,27 +142,13 @@
 	 <table class="table">
 	    <thead>
 	      <tr>
-	        <th>Firstname</th>
-	        <th>Lastname</th>
-	        <th>Email</th>
+	        <th>항목명</th>
+	        <th>항목설명</th>
+	        <th>가격</th>
 	      </tr>
 	    </thead>
-	    <tbody>
-	      <tr>
-	        <td>John</td>
-	        <td>Doe</td>
-	        <td>john@example.com</td>
-	      </tr>
-	      <tr>
-	        <td>Mary</td>
-	        <td>Moe</td>
-	        <td>mary@example.com</td>
-	      </tr>
-	      <tr>
-	        <td>July</td>
-	        <td>Dooley</td>
-	        <td>july@example.com</td>
-	      </tr>
+	    <tbody class="itemList">
+		      
 	    </tbody>
 	  </table>
 </div>
@@ -184,7 +170,19 @@
 				"hp_num" : hp_num
 			},
 			success : function (data) {
-				
+				/*let str = ``;
+				for(let it of data.itemListList){
+					str+=
+						`
+							<tr>
+						        <td>\${it.item.it_name}</td>
+						        <td>\${it.item.it_explanation}</td>
+						        <td>\${it.hospital_program.hp_payment}</td>
+						    </tr>
+						`
+				}
+				*/
+				$(".itemList").html(data);
 			}
 		})
 	})	

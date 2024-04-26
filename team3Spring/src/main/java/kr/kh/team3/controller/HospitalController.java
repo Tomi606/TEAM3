@@ -287,10 +287,6 @@ public class HospitalController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		
 		boolean resDle = programService.deleteProgram(program.getHp_num());; 
-		System.out.println("aaaaaaaaaaaaaaa");
-		System.out.println(program);
-		System.out.println(list);
-		System.out.println(resDle);
 		if(resDle) {
 			boolean resIns = programService.insertProgram(program, user, list);
 			 if (resIns) {
@@ -337,13 +333,18 @@ public class HospitalController {
 	public Map<String, Object> selectItemList(@RequestParam("hp_num") int hp_num, HttpSession session ) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		ArrayList<ItemListVO> itemListList = programService.getItemListList(user, hp_num);
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
-		System.out.println(itemListList);
-		//map.put("itemListList", itemListList);
+		ArrayList<ItemListVO> itemListList = programService.getProgramItemList(user, hp_num);
+		map.put("itemListList", itemListList);
 		return map;
 	}
-	
+
+	@PostMapping("/itemlist/check2")
+	public String selectItemList2(Model model, @RequestParam("hp_num") int hp_num, HttpSession session ) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		ArrayList<ItemListVO> itemListList = programService.getProgramItemList(user, hp_num);
+		model.addAttribute("itemListList", itemListList);
+		return "itemforeach";
+	}
 	// 프로그램 리스트 속한 아이템을 조회하는 메서드
 	@ResponseBody
 	@PostMapping("/item/check")

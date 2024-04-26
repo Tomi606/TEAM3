@@ -10,6 +10,4 @@ public class HospitalProgramVO {
 	private String hp_title;
 	private int hp_payment;
 	private String hp_ho_id;
-	private ItemListVO item_list;
-	private ItemVO item;
 }
