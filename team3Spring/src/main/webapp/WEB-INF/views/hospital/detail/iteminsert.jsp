@@ -99,6 +99,14 @@
 <!-- 중복확인 버튼 때문에 불 필요한 여백 발생하는중 고쳐야 함 -->
 <div class="input-box-group item-box">
 	<h3>세부 항목 등록</h3>
+	
+	<select name="hs_num" class="form-control">
+			<option value="none">진료과를 선택해주세요</option>
+		<c:forEach items="${list}" var="list">
+			<option value="${list.hs_num}">${list.hs_title}</option>
+		</c:forEach>
+	</select>
+	
 	<label for="it_name">세부 항목</label>
     <input  type="text" id="it_name" name="it_name" placeholder="등록하고 싶은 항목을 입력하세요" autofocus="autofocus">
     <label for="it_explanation">세부 항목설명</label>
@@ -196,11 +204,19 @@
 	$(".item-inset-btn").click(function(){
 		let it_name = $("[name=it_name]").val();
 		let it_explanation = $("[name=it_explanation]").val();
+		let hs_num = $("[name=hs_num]").val();
+		if(hs_num == 'none'){
+			alert("검사 항목을 선택해주세요")
+			it_explanation = $("[name=it_explanation]").val("");
+			it_name = $("[name=it_name]").val("");
+			return;
+		}
 		$.ajax({
 			method : "post",
 			url : '<c:url value="/item/insert"/>',
 			data : {"it_name" : it_name,
-					"it_explanation" : it_explanation},
+					"it_explanation" : it_explanation,
+					"hs_num" : hs_num},
 			success : function (data) {
 				//showItem(data.itemList, data.msg);
 				if(data.msg){

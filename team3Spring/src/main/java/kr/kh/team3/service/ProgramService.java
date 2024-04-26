@@ -3,21 +3,23 @@ package kr.kh.team3.service;
 import java.util.ArrayList;
 
 import kr.kh.team3.model.vo.HospitalProgramVO;
+import kr.kh.team3.model.vo.HospitalSubjectVO;
+import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.ItemListVO;
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.SiteManagement;
 
 public interface ProgramService {
 	
-	ArrayList<ItemVO> getItemList(SiteManagement user);
+	ArrayList<ItemVO> getAllItemList(SiteManagement user);
 
-	boolean insertItem(ItemVO item, SiteManagement user);
+	boolean insertItem(ItemVO item, SiteManagement user, HsListVO hslist);
 
 	ArrayList<HospitalProgramVO> getProgramList(SiteManagement user);
 
 	boolean insertProgram(HospitalProgramVO program, SiteManagement user, ArrayList<Integer> list);
 
-	boolean updateItem(ItemVO item, SiteManagement user, int it_num, ArrayList<ItemVO> itemList);
+	boolean updateItem(ItemVO item, SiteManagement user, int it_num, int hs_num);
 
 	boolean deleteItem(ArrayList<Integer> intList);
 
@@ -28,6 +30,14 @@ public interface ProgramService {
 	ArrayList<ItemVO> getItemListByItem(int il_num);
 
 	ArrayList<ItemListVO> getProgramItemList(SiteManagement user, int hp_num);
+
+	ArrayList<HsListVO> getSubjectList(SiteManagement user);
+
+	HospitalSubjectVO getSubject(int hs_num, SiteManagement user);
+
+	HsListVO getHsList(int hs_num, SiteManagement user);
+
+	ArrayList<ItemVO> getItemList(SiteManagement user, HsListVO hslist);
 
 
 }

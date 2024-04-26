@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 
 import kr.kh.team3.dao.ProgramDAO;
 import kr.kh.team3.model.vo.HospitalProgramVO;
+import kr.kh.team3.model.vo.HospitalSubjectVO;
+import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.ItemListVO;
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -18,7 +20,7 @@ public class ProgramServiceImp implements ProgramService{
 	ProgramDAO programDao;
 
 	@Override
-	public boolean insertItem(ItemVO item, SiteManagement user) {
+	public boolean insertItem(ItemVO item, SiteManagement user, HsListVO hslist) {
 		/* 회원가입 수정 후 나중에 주석 제거해야함
 		 * if(item.getIt_name() == "" || item.getIt_explanation() == "" ||
 		 * user.getSite_id() == "") { return false; }
@@ -33,26 +35,31 @@ public class ProgramServiceImp implements ProgramService{
 
 		//회원가입 수정 후 나중에 주석 제거해야함
 		 if(user.getSite_authority().equals("MANAGER")) { 		 
-			 return programDao.insertItem(item, user);	
+			 return programDao.insertItem(item, user, hslist);	
 		 }
 		return false;
 	}
 
 	@Override
-	public ArrayList<ItemVO> getItemList(SiteManagement user) {
+	public ArrayList<ItemVO> getAllItemList(SiteManagement user) {
 		
 		return programDao.selectItemList(user);
 	}
 
 	@Override
-	public boolean updateItem(ItemVO item, SiteManagement user, int it_num, ArrayList<ItemVO> itemList) {
+	public boolean updateItem(ItemVO item, SiteManagement user, int it_num, int hs_num) {
+		ArrayList<ItemVO> itemList = programDao.selectItemSubjectByList(user, hs_num);
 		for(ItemVO tmp : itemList) {
 			System.out.println(tmp.getIt_name().equals(item.getIt_name()));
 			if(tmp.getIt_name().equals(item.getIt_name())) {
 				return false;
 			}
 		}
-		return programDao.updateItem(item, it_num);
+		HsListVO hl = programDao.selelctHsList(hs_num, user);
+		if(hl == null) {
+			return false;
+		}
+		return programDao.updateItem(item, it_num, hl);
 	}
 
 	@Override
@@ -139,6 +146,35 @@ public class ProgramServiceImp implements ProgramService{
 	public ArrayList<ItemListVO> getProgramItemList(SiteManagement user, int hp_num) {
 		// TODO Auto-generated method stub
 		return programDao.selectProgramItem(hp_num);
+	}
+
+	@Override
+	public ArrayList<HsListVO> getSubjectList(SiteManagement user) {
+		
+		return programDao.selectHospitalSubject(user);
+	}
+
+	@Override
+	public HospitalSubjectVO getSubject(int hs_num, SiteManagement user) {
+		if(user == null) {
+			return null;
+		}
+
+		return programDao.selectSubject(hs_num); 					
+	}
+
+	@Override
+	public HsListVO getHsList(int hs_num, SiteManagement user) {
+		return programDao.selelctHsList(hs_num, user);
+	}
+
+	@Override
+	public ArrayList<ItemVO> getItemList(SiteManagement user, HsListVO hslist) {
+		if(user == null || hslist == null) {
+			return null;
+		}
+
+		return programDao.selectItemSubjectByList(user, hslist.getHsl_hs_num());
 	}
 
 

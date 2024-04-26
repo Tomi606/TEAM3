@@ -180,20 +180,34 @@ public class HospitalController {
 	@GetMapping("/hospital/item/insert")
 	public String hospitalProgramInsertPage(Model model, HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		ArrayList<ItemVO> itemList = programService.getItemList(user);
+		ArrayList<ItemVO> itemList = programService.getAllItemList(user);
 		ArrayList<HospitalProgramVO> programList = programService.getProgramList(user); 
+		ArrayList<HsListVO> subjectList = programService.getSubjectList(user);
+		ArrayList<HospitalSubjectVO> list = new ArrayList<HospitalSubjectVO>();
+		for(HsListVO tmp : subjectList) {
+			try {
+				HospitalSubjectVO subject = programService.getSubject(tmp.getHsl_hs_num(), user);				
+				System.out.println(subject);
+				list.add(subject);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
 		model.addAttribute("programList",programList);
 		model.addAttribute("itemList", itemList);
+		model.addAttribute("list",list);
 		return "/hospital/detail/iteminsert";
 	}
 	// 세부 항목을 추가하는 메서드
 	@ResponseBody
 	@PostMapping("/item/insert")
-	public Map<String, Object> insertItem(ItemVO item, HttpSession session) {
+	public Map<String, Object> insertItem(ItemVO item, HttpSession session, 
+			@RequestParam("hs_num")int hs_num) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		ArrayList<ItemVO> itemList = programService.getItemList(user);
-		boolean res =  programService.insertItem(item, user);
+		ArrayList<ItemVO> itemList = programService.getAllItemList(user);
+		HsListVO hslist = programService.getHsList(hs_num, user);
+		boolean res =  programService.insertItem(item, user, hslist);
 		if(res) {
 			map.put("itemList", itemList);
 		}else {
@@ -206,19 +220,43 @@ public class HospitalController {
 	@GetMapping("/item/update")
 	public String updateItem(ItemVO item, HttpSession session, Model model) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		 ArrayList<ItemVO> itemList = programService.getItemList(user); 
-		 model.addAttribute("itemList", itemList);
+		ArrayList<HsListVO> subjectList = programService.getSubjectList(user);
+		ArrayList<HospitalSubjectVO> list = new ArrayList<HospitalSubjectVO>();
+		for(HsListVO tmp : subjectList) {
+			try {
+				HospitalSubjectVO subject = programService.getSubject(tmp.getHsl_hs_num(), user);				
+				System.out.println(subject);
+				list.add(subject);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
 		
+		model.addAttribute("list",list);
 		return "/hospital/detail/itemupdate";
 	}
 	
+	//세부 항목 수정 포스트 메서드
+	@ResponseBody
+	@PostMapping("/subject/item")
+	 public Map<String, Object> SubjectItem(@RequestParam("hs_num") int hs_num,
+			 HttpSession session){
+		Map<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		HsListVO hslist = programService.getHsList(hs_num, user);
+		ArrayList<ItemVO> itemList = programService.getItemList(user, hslist);
+		map.put("itemList", itemList);
+		 return map;
+    }
+	
 	//세부항목 수정 메서드
 	@PostMapping("/item/update")
-	public String updateItemPost(ItemVO item, HttpSession session, Model model, @RequestParam("type") int it_num) {
+	public String updateItemPost(ItemVO item, HttpSession session, Model model, @RequestParam("type") int it_num,
+			@RequestParam("hs_num") int hs_num) {
 
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		 ArrayList<ItemVO> itemList = programService.getItemList(user); 
-		 boolean res =programService.updateItem(item, user, it_num, itemList);
+		
+		 boolean res =programService.updateItem(item, user, it_num, hs_num);
 		 if (res) {
 				model.addAttribute("msg","상세 항목 수정을 완료했습니다.");
 				model.addAttribute("url","/hospital/item/insert");
@@ -268,7 +306,7 @@ public class HospitalController {
 	public String updateUpdate(HospitalProgramVO program, HttpSession session, Model model) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		 ArrayList<HospitalProgramVO> programList = programService.getProgramList(user); 
-		 ArrayList<ItemVO> itemList = programService.getItemList(user); 
+		 ArrayList<ItemVO> itemList = programService.getAllItemList(user); 
 		 model.addAttribute("programList", programList);
 		 model.addAttribute("itemList", itemList);
 		return "/hospital/detail/programupdate";
@@ -315,7 +353,7 @@ public class HospitalController {
 	@GetMapping("/program/check")
 	public String checkprogram(Model model, HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		ArrayList<ItemVO> itemList = programService.getItemList(user);
+		ArrayList<ItemVO> itemList = programService.getAllItemList(user);
 		ArrayList<HospitalProgramVO> programList = programService.getProgramList(user);
 		
 		model.addAttribute("programList",programList);
