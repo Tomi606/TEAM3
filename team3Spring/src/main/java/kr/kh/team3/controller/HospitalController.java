@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,7 +65,6 @@ public class HospitalController {
 		//상세 페이지를 가져옴(임시)
 		hdNum = 40;
 		HospitalDetailVO detail = hospitalService.getDetail(hdNum);
-		//hs_list도 추가!!!!!!!!!!!
 		//병원과목 리스트
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
 		model.addAttribute("detail", detail);
@@ -160,18 +160,14 @@ public class HospitalController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospital(user);
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		//병원 페이지 등록
+		System.out.println("ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ : " + detail);
 		boolean res = hospitalService.insertDetail(detail, hospital);
-		//hs_list 등록
-//		boolean subList = hospitalService.insertSubjects(hospital, detail);
-		log.info(detail);
-//		log.info(subList);
 		if(res) {
 			System.out.println("bbbbbbbbbbbbbbbbbbbbb");
 			map.put("msg", "상세 페이지 수정 완료");
 			map.put("url", "/hospital/mypage");
-		}else {
+		} else {
 			System.out.println("ccccccccccccccccccc");
 			map.put("msg", "상세 페이지 등록 완료");
 			map.put("url", "/hospital/mypage");
@@ -287,10 +283,6 @@ public class HospitalController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		
 		boolean resDle = programService.deleteProgram(program.getHp_num());; 
-		System.out.println("aaaaaaaaaaaaaaa");
-		System.out.println(program);
-		System.out.println(list);
-		System.out.println(resDle);
 		if(resDle) {
 			boolean resIns = programService.insertProgram(program, user, list);
 			 if (resIns) {
@@ -325,6 +317,7 @@ public class HospitalController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		ArrayList<ItemVO> itemList = programService.getItemList(user);
 		ArrayList<HospitalProgramVO> programList = programService.getProgramList(user);
+		
 		model.addAttribute("programList",programList);
 		model.addAttribute("itemList", itemList);
 		return "/hospital/programcheck";
@@ -336,11 +329,18 @@ public class HospitalController {
 	public Map<String, Object> selectItemList(@RequestParam("hp_num") int hp_num, HttpSession session ) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		ArrayList<ItemListVO> itemListList = programService.getItemListList(user, hp_num);
+		ArrayList<ItemListVO> itemListList = programService.getProgramItemList(user, hp_num);
 		map.put("itemListList", itemListList);
 		return map;
 	}
-	
+
+	@PostMapping("/itemlist/check2")
+	public String selectItemList2(Model model, @RequestParam("hp_num") int hp_num, HttpSession session ) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		ArrayList<ItemListVO> itemListList = programService.getProgramItemList(user, hp_num);
+		model.addAttribute("itemListList", itemListList);
+		return "itemforeach";
+	}
 	// 프로그램 리스트 속한 아이템을 조회하는 메서드
 	@ResponseBody
 	@PostMapping("/item/check")
