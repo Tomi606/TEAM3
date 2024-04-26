@@ -373,6 +373,7 @@ public class HospitalController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		ArrayList<ItemVO> itemList = programService.getItemList(user);
 		ArrayList<HospitalProgramVO> programList = programService.getProgramList(user);
+		
 		model.addAttribute("programList",programList);
 		model.addAttribute("itemList", itemList);
 		return "/hospital/programcheck";
@@ -385,7 +386,9 @@ public class HospitalController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		ArrayList<ItemListVO> itemListList = programService.getItemListList(user, hp_num);
-		map.put("itemListList", itemListList);
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
+		System.out.println(itemListList);
+		//map.put("itemListList", itemListList);
 		return map;
 	}
 	

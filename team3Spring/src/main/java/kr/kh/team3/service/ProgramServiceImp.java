@@ -118,8 +118,6 @@ public class ProgramServiceImp implements ProgramService{
 	@Override
 	public boolean deleteProgram(int hp_num) {
 		boolean res = programDao.deleteItemList(hp_num);
-		System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbb");
-		System.out.println(res);
 		if(res) {			
 			return programDao.deleteProgram(hp_num);
 		}
@@ -129,7 +127,6 @@ public class ProgramServiceImp implements ProgramService{
 
 	@Override
 	public ArrayList<ItemListVO> getItemListList(SiteManagement user, int hp_num) {
-		
 		return programDao.selectItemListList(user, hp_num);
 	}
 
