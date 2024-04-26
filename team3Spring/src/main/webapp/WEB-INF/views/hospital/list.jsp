@@ -221,13 +221,13 @@ $(document).ready(function() {
 </script>
 <!-- 엔터 키 누르면 검색 -->
 <script type="text/javascript">
-	function enterkey() {
-			if (window.event.keyCode == 13) {
-	
-					 // 엔터키가 눌렸을 때 실행하는 반응
-					 $(".search-btn").click();
-			}
-	}
+function enterkey() {
+    if (window.event.keyCode == 13) {
+
+         // 엔터키가 눌렸을 때 실행하는 반응
+         $(".search-btn").click();
+    }
+}
 </script>
 <script type="text/javascript">
 let area = {
