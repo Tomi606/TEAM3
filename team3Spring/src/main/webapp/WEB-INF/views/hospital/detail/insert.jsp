@@ -40,16 +40,16 @@
 	</div>
 	<h2 style="font-weight: bold;">진료 과목</h2>
 	<div class="hd_hs_num">
-	${subjects}
 		<label for="hd_hs_num" style="font-weight: bold">대표 진료 과목</label>
 		<div class="subject-checkbox">
 		    <c:choose>
 		        <c:when test="${subjects != null}">
 		            <c:forEach items="${hsList}" var="hs">
-		            	<input type="checkbox" name="hs_num" value="${hs.hs_num}">${hs.hs_title}
+		            	<input type="checkbox" id="hs_num" name="hs_num" value="${hs.hs_num}" onclick="hiddenBox()">${hs.hs_title}
 		                <c:forEach items="${subjects}" var="sub">
 		                    <c:if test="${sub.hsl_hs_num == hs.hs_num}">
-		                        <input type="checkbox" name="hsl_hs_num" value="${sub.hsl_hs_num}" checked>${hs.hs_title}
+		                        <input type="checkbox" name="hsl_hs_num" 
+		                        value="${sub.hsl_hs_num}" checked>${hs.hs_title}
 		                    </c:if>
 		                </c:forEach>
 		            </c:forEach>
@@ -61,7 +61,6 @@
 		        </c:otherwise>
 		    </c:choose>
 		</div>
-
 	 </div>
 	<div>
 	 	<label for="hd_subject_detail" style="font-weight: bold">상세 진료 항목</label>
@@ -71,9 +70,10 @@
 	<button type="submit" class="hospital-btn" name="hospital-btn">병원 소개 등록</button>
 </form>
 
+<!-- 상세페이지와 선택한 과목 배열 서버로 전송 -->
 <script type="text/javascript">
 $("form").submit(function(e) {
-	e.preventDefault();
+	/* e.preventDefault(); */
 	let hsList = getCheckedBox();
 	let hd_info = $('[name=hd_info]').val();
 	let hd_time = $('[name=hd_time]').val();
@@ -97,28 +97,25 @@ $("form").submit(function(e) {
 	}
 	
 		$.ajax({
-			async : true,
+			async : false, 
 			method : "post",
 			url : '<c:url value="/hospital/detail/insert"/>',
 			data : JSON.stringify(detail), 
+			dataType : "json", 
 			contentType : "application/json; charset=utf-8",
 			success : function(data) {
-				console.log(hd_info);
-				console.log(hd_time);
-				console.log(hd_park);
-				console.log(hd_announce);
-				console.log(hd_etc);
-				console.log(hd_subject_detail);
-				console.log(hsList);
+				alert(data.msg);
+				location.href = '<c:url value="/"/>' + data.url
 			},
 	        error: function(error) {
 	            console.log("Error: " + JSON.stringify(error));
 	        }
 		});
+		return false; //submit을 사용안해서 false
 });
-
 </script>
 
+<!-- 체크박스로 체크한 객체를 배열로 넣는 스크립트 -->
 <script type="text/javascript">
 //체크된 리스트 가져오기
 function getCheckedBox() {
@@ -129,7 +126,7 @@ function getCheckedBox() {
     return checkedValues;
 }
 
-//입력한 리스트 가져오기
+//입력한 영업 시간 리스트 가져오기
 function getTime() {
 	let timeValues = new Array();
 	$('input[name="hd_time"]').each(function() {
@@ -139,6 +136,15 @@ function getTime() {
 }
 </script>
 
+<!-- 체크한 체크박스들 숨기기 -->
+<script type="text/javascript">
+function hiddenBox() {
+	let checkedBox = document.getElementById('hs_num');
+	if(checkedBox.checked) {
+		checkedBox.styl.display = 'none';
+	}
+}
+</script>
 
 <!-- textarea 자동 스크롤 -->
 <script type="text/javascript">

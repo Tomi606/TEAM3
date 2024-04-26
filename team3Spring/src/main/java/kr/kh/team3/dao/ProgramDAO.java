@@ -35,4 +35,6 @@ public interface ProgramDAO {
 
 	boolean deleteItemList(@Param("hp_num") int hp_num);
 
+	ArrayList<ItemListVO> selectProgramItem(@Param("hp_num") int hp_num);
+
 }

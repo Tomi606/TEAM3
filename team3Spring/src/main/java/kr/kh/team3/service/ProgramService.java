@@ -27,5 +27,7 @@ public interface ProgramService {
 
 	ArrayList<ItemVO> getItemListByItem(int il_num);
 
+	ArrayList<ItemListVO> getProgramItemList(SiteManagement user, int hp_num);
+
 
 }
