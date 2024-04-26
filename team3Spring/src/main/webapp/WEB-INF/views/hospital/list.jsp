@@ -42,7 +42,7 @@ display: grid; grid-template-columns:1fr 1fr 1fr 1fr;border-top:1px solid yellow
 border-top:1px solid yellow;margin-top: 80px;}
 .area-select-all{width: 100%;height: 150px;padding: 30px 0;display: flex;}
 .area-select{margin: 0 auto;}
-.area-select-box{display: flex;border: 1px solid  #c8c8c8;width: 100%; height: 400px;margin: auto auto 300px auto;}
+.area-select-box{display: flex;border: 1px solid  #c8c8c8;width: 100%; height: 400px;margin: auto auto 30px auto;}
 .area-select-box li{list-style: none;}
 .area-select-sido{width: 200px;height: 100%;text-align: left;list-style: none;}
 .area-select-sgg{width: 200px;text-align: left;}
@@ -68,7 +68,7 @@ border-top:1px solid yellow;margin-top: 80px;}
 .now-area h3{line-height: 74px;}
 .area_box{width: 600px;display: flex;margin: 0 auto;}
 
-
+.search-box{margin-bottom: 250px;}
 
 .img{
        width: 100%; height: 700px;
@@ -169,13 +169,17 @@ padding:12px;margin-top:15px;width: 100%;border-bottom: 1px solid #c8c8c8;
 		</div>
 			
 	</div>
+	<div class="search-box">
+		<input type="search" class="search-input" onkeyup="enterkey();" placeholder="병원명을 입력하세요."/>
+		<button type="button" class="search-btn">검색</button>
+	</div>
 		<h1>내 관심 병원</h1>
 		<div class="hospital-like-list">
 		</div>
-			<div class="box-pagination1">
-				<!-- 페이지네이션 시작 -->
-				<ul class="pagination-custom"></ul>
-			</div>
+		<div class="box-pagination1">
+			<!-- 페이지네이션 시작 -->
+			<ul class="pagination-custom"></ul>
+		</div>
 	</div>		
 	<div class="img-container">
 		<div class="img"></div>
@@ -215,12 +219,23 @@ $(document).ready(function() {
     });
 });
 </script>
+<!-- 엔터 키 누르면 검색 -->
+<script type="text/javascript">
+function enterkey() {
+    if (window.event.keyCode == 13) {
+
+         // 엔터키가 눌렸을 때 실행하는 반응
+         $(".search-btn").click();
+    }
+}
+</script>
 <script type="text/javascript">
 let area = {
 	sd_num : 0,
 	sgg_num : 0,
 	emd_num : 0,
-	hs_num : '${hs_num}'
+	hs_num : '${hs_num}',
+	search : ''
 };
 /* 군 구 리스트 select로 띄우기 시작 */
 $(document).on('click', '#sd_name', function(){
@@ -417,7 +432,8 @@ function getAreaHoList(){
         url : `<c:url value="/hospital/emd/list?hs_num=\${area.hs_num}"/>`, // URL 수정
         data : {
         	"page" : page,
-        	"emd_num": area.emd_num
+        	"emd_num": area.emd_num,
+        	"search" : area.search
         }, 
         success : function (data){
             let str =""
@@ -555,6 +571,10 @@ function displayAreaHoPagination(pm){
 }
 $(document).on('click', '.hs_btn', function(){
     area.hs_num = $(this).data("hsnum");
+    getAreaHoList();
+});
+$(document).on('click', '.search-btn', function(){
+    area.search = $('.search-input').val();
     getAreaHoList();
 });
 
