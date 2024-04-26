@@ -50,100 +50,98 @@ border-bottom:2px solid white;
 <body>
 <div class="detail-page">
 	<div class="detail-page-sub">
-	<div class="ho_name">
-		<h1 class="ho_name" id="ho_name" name="ho_name">${detail.hospital.ho_name}임시상홈ㅇ</h1>
-	</div>
-	<div class="ho_address">
-		<label for="ho_address">주소</label>
-		<span class="ho_address" id="ho_address" name="ho_address" >${detail.hospital.ho_address}ㅇ임시주소</span>
-	</div>
-	<div class="ho_phone">
-		<label for="ho_phone">연락처</label>
-		<span class="ho_phone" id="ho_phone" name="ho_phone">${detail.hospital.ho_phone}02-856-4487</span>
-	</div>
-	<div>
-		<a href='<c:url value="예약하기 버튼 url"/>' class="btn btn-outline-success">예약하기</a>
-	</div>
-	<hr style="border: 1px solid gray;margin: 200px auto;">
-	<div class="body-container">
-	<div class="toggle-page">
-		<div class="toggle-btn">
-			<button id="btn1" class="toggle-button login-btn-click">병원 소개</button>
-			<button id="btn2" class="toggle-button">진료 과목</button>
-			<button id="btn3" class="toggle-button">리뷰</button>
+		<div class="ho_name">
+			<h1 class="ho_name" id="ho_name">${detail.hospital.ho_name}</h1>
 		</div>
-		<div id="page1" class="page active">
-			<div class="hd_info">
-				<label for="hd_info" style="font-weight: bold;margin-top: 40px;">병원 소개</label>
+		<div class="ho_address">
+			<label for="ho_address">상세 주소 : </label>
+			<span class="ho_address" id="ho_address">${detail.hospital.ho_address}</span>
+		</div>
+		<div class="ho_phone">
+			<label for="ho_phone">연락처 : </label>
+			<span class="ho_phone" id="ho_phone">${detail.hospital.ho_phone}</span>
+		</div>
+		<div>
+			<a href='<c:url value="예약하기 버튼 url"/>' class="btn btn-outline-success">예약하기</a>
+		</div>
+		<hr style="border: 1px solid gray;margin: 200px auto;">
+		<div class="body-container">
+		<div class="toggle-page">
+			<div class="toggle-btn">
+				<button id="btn1" class="toggle-button login-btn-click">병원 소개</button>
+				<button id="btn2" class="toggle-button">진료 과목</button>
+				<button id="btn3" class="toggle-button">리뷰</button>
+			</div>
+			<div id="page1" class="page active">
+				<div class="hd_info">
+					<label for="hd_info" style="font-weight: bold;margin-top: 40px;">병원 소개</label>
+				   	<textarea class="hd_info col-10" id="hd_info" 
+				   	  oninput="autoTextarea(this)">${detail.hd_info}</textarea>
+				</div>
 				<hr style="border: 1px solid gray;margin: 50px auto;">
-			   	<span class="hd_info col-10" id="hd_info" 
-			   	  oninput="autoTextarea(this)">${detail.hd_info}</span>
-			</div>
-			<div class="hd_time" id="hd_time">
-				<label for="hd_time" style="font-weight: bold">영업 시간</label>
-				<textarea class="hd_time col-10" id="hd_time" name="hd_time" 
-				placeholder="월~금 : 9:00~18:00 / 토,일 : 휴무" oninput="autoTextarea(this)">${hoDetail.hd_time}</textarea>
-			</div>
-			<div class="hd_time" id="hd_time">
-				<label for="hd_time" style="font-weight: bold">영업 시간</label>
-				<textarea class="hd_time col-10" id="hd_time" name="hd_time" 
-				placeholder="월~금 : 9:00~18:00 / 토,일 : 휴무" oninput="autoTextarea(this)">${hoDetail.hd_time}</textarea>
-			</div>
-			<div class="hd_park" id="hd_park">
-				<label for="hd_park" style="font-weight: bold">주차 정보</label>
-				<textarea class="hd_park col-10" id="hd_park" name="hd_park" 
-				oninput="autoTextarea(this)" readonly>${detail.hd_park}</textarea>
-			</div>
-			<div class="hd_announce">
-				<label for="hd_announce" style="font-weight: bold">공지 사항</label>
-				<textarea class="hd_announce col-10" id="hd_announce" name="hd_announce" 
-				oninput="autoTextarea(this)" readonly>${detail.hd_announce}</textarea>
-			</div>
-			<div class="hd_etc">
-				<label for="hd_etc" style="font-weight: bold">기타 사항</label>
-				<textarea class="hd_etc col-10" id="hd_etc" name="hd_etc" 
-				oninput="autoTextarea(this)" readonly>${detail.hd_etc}</textarea>
-			</div>
-		</div>
-		
-		<div id="page2" class="page">
-			<div class="hsList">
-				<label for="hsList">대표 진료 과목</label>
-				<div class="subject-checkbox hsList">
-				  	<c:forEach items="${detail.hsList}" var="hsList">
-						<button>${hsList }</button>
-				  	</c:forEach>
+				<div class="hd_time" id="hd_time">
+					<label for="hd_time" style="font-weight: bold">영업 시간</label>
+					<textarea class="hd_time col-10" id="hd_time" name="hd_time" 
+					placeholder="월~금 : 9:00~18:00 / 토,일 : 휴무" oninput="autoTextarea(this)">${hoDetail.hd_time}</textarea>
 				</div>
-				<%-- <input type="hidden" id="hd_hs_num" name="hd_hs_num" value="${detail.hd_hs_num}"> --%>
-			 </div>
-			 <div>
-			 	<label for="hd_subject_detail">상세 진료 항목</label>
-			 	<textarea class="hd_subject_detail col-10" id="hd_subject_detail" name="hd_subject_detail" 
-			 	oninput="autoTextarea(this)" readonly>${detail.hd_subject_detail}</textarea>
-			</div>
-		</div>
-		
-		<div id="page3" class="page">
-			<h2>리뷰(<span class="review-total"></span>)</h2>
-			<div class="box-review-list">
-				<div class="box-review row">				
-					<div class="col-3">아이디</div>
-					<div class="col-9">내용</div>
+				<hr style="border: 1px solid gray;margin: 50px auto;">
+				<div class="hd_park" id="hd_park">
+					<label for="hd_park" style="font-weight: bold">주차 정보</label>
+					<textarea class="hd_park col-10" id="hd_park" name="hd_park" 
+					oninput="autoTextarea(this)" readonly>${detail.hd_park}</textarea>
+				</div>
+				<hr style="border: 1px solid gray;margin: 50px auto;">
+				<div class="hd_announce">
+					<label for="hd_announce" style="font-weight: bold">공지 사항</label>
+					<textarea class="hd_announce col-10" id="hd_announce" name="hd_announce" 
+					oninput="autoTextarea(this)" readonly>${detail.hd_announce}</textarea>
+				</div>
+				<hr style="border: 1px solid gray;margin: 50px auto;">
+				<div class="hd_etc">
+					<label for="hd_etc" style="font-weight: bold">기타 사항</label>
+					<textarea class="hd_etc col-10" id="hd_etc" name="hd_etc" 
+					oninput="autoTextarea(this)" readonly>${detail.hd_etc}</textarea>
 				</div>
 			</div>
-			<div class="box-pagination">
-				<ul class="pagination justify-content-center"></ul>
-			</div>
-			<div class="box-review-insert">
-				<div class="input-group mb-3">				
-			        <textarea id="review" class="vw_num textarea-review col-10" id="vw_num" name="vw_num" 
-			        oninput="autoTextarea(this)"></textarea>
-			        <button class="btn btn-outline-success review-insert-btn" name="review-btn" data-hd-num="${detail.hd_num}">리뷰 등록</button>		
+			
+			<div id="page2" class="page">
+				<div class="hsList">
+					<label for="hsList">대표 진료 과목</label>
+					<div class="subject-checkbox hsList">
+					  	<c:forEach items="${detail.hsList}" var="hs">
+							<button>${hs}</button>
+					  	</c:forEach>
+					</div>
+					<%-- <input type="hidden" id="hd_hs_num" name="hd_hs_num" value="${detail.hd_hs_num}"> --%>
+				 </div>
+				 <div>
+				 	<label for="hd_subject_detail">상세 진료 항목</label>
+				 	<textarea class="hd_subject_detail col-10" id="hd_subject_detail" name="hd_subject_detail" 
+				 	oninput="autoTextarea(this)" readonly>${detail.hd_subject_detail}</textarea>
 				</div>
-			</div>			
+			</div>
+			
+			<div id="page3" class="page">
+				<h2>리뷰(<span class="review-total"></span>)</h2>
+				<div class="box-review-list">
+					<div class="box-review row">				
+						<div class="col-3">아이디</div>
+						<div class="col-9">내용</div>
+					</div>
+				</div>
+				<div class="box-pagination">
+					<ul class="pagination justify-content-center"></ul>
+				</div>
+				<div class="box-review-insert">
+					<div class="input-group mb-3">				
+				        <textarea id="review" class="vw_num textarea-review col-10" id="vw_num" name="vw_num" 
+				        oninput="autoTextarea(this)"></textarea>
+				        <button class="btn btn-outline-success review-insert-btn" name="review-btn" data-hd-num="${detail.hd_num}">리뷰 등록</button>		
+					</div>
+				</div>			
+			</div>
+			</div>
 		</div>
-		</div>
-	</div>
 	</div>
 </div>
 <script type="text/javascript">

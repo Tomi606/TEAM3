@@ -99,7 +99,7 @@ public interface HospitalDAO {
 
 	HospitalVO getHospital(@Param("ho_id")String hd_ho_id, @Param("la_num")int me_la_num);
   
-	HospitalDetailVO selectDetail(@Param("hd_num") int hdNum);
+	HospitalDetailVO selectDetail(@Param("hd_num") Integer hdNum);
 
 	boolean insertReview(@Param("vw") ReviewVO review);
 
