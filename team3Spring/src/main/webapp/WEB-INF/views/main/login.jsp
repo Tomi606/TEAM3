@@ -87,6 +87,8 @@ label::after {
 }
 
 .login-box {
+	border:1px solid white;
+	border-radius:14%;
 	background-color:#E8F5FF;
 	text-align: center;
 	margin-top: 100px;
