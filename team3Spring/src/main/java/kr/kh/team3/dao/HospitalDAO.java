@@ -81,11 +81,6 @@ public interface HospitalDAO {
 	boolean updateHospitalStopPlus(@Param("ho_id")String ho_id, @Param("rp_rs_name")String rp_rs_name);
 
 	//============================= 병원 페이지 ===============================
-	
-	ArrayList<HospitalSubjectVO> selectHospitalSubjectList(@Param("ho_id") String ho_id);
-
-	boolean insertOrUpdateHospitalDetail(@Param("hd") HospitalDetailVO detail);
-
 	HospitalVO selectHospitalInfo();
 
 	HospitalSubjectVO selectSelectedSubject(@Param("detail") HospitalDetailVO detail);
@@ -110,9 +105,9 @@ public interface HospitalDAO {
 
 	boolean insertLand(@Param("la") LandVO land);
 	
-	ArrayList<HospitalVO> getHospitalList(@Param("la")LandVO land,@Param("cri") Criteria cri);
+	ArrayList<HospitalVO> getHospitalList(@Param("la")LandVO land,@Param("cri") Criteria cri,@Param("hs_num") int hs_num);
 
-	int getHospitalListCount(@Param("la")LandVO land,@Param("cri") Criteria cri);
+	int getHospitalListCount(@Param("la")LandVO land,@Param("cri") Criteria cri,@Param("hs_num") int hs_num);
 
 	ArrayList<BookmarkVO> selectBmkList(@Param("user")SiteManagement user, @Param("cri")Criteria cri);
 
@@ -138,11 +133,14 @@ public interface HospitalDAO {
 
 	boolean updateSubjects(@Param("ho") HospitalVO hospital, @Param("hs_num") int tmp);
 
-	HospitalDetailVO selectHospitalDetail(@Param("ho") HospitalVO hospital);
-
+	HospitalDetailVO selectHosDetail(@Param("ho") HospitalVO hospital);
 
 	ArrayList<HospitalVO> getSubHoList(@Param("me")MemberVO me,@Param("la") LandVO land,@Param("cri") Criteria cri);
 
 	int getTotalSubHoList(@Param("me")MemberVO me, @Param("la")LandVO land,@Param("cri") Criteria cri);
+
+	ArrayList<HospitalVO> selectHospitalAll(@Param("la")LandVO land,@Param("cri") Criteria cri);
+
+	int selectHospitalAllCount(@Param("la")LandVO land,@Param("cri") Criteria cri);
 
 }

@@ -11,67 +11,18 @@
 </style>
 </head>
 <body>
-<form action=''>
+<form action='<c:url value="/hospital/detail/insert"/>' method="post">
 	<h2 style="font-weight: bold;">병원 소개</h2>
 	<div class="info">
 		<label for="hd_info" style="font-weight: bold">병원 소개</label>
 	   	<textarea class="hd_info col-10" id="hd_info" name="hd_info" 
 	   	placeholder="병원 소개" oninput="autoTextarea(this)">${hoDetail.hd_info}</textarea>
 	</div>
-	<table class="hd_time" id="hd_time">
-		<thead>
-		    <tr>
-		        <th>진료 시간</th>
-		    </tr>
-		</thead>
-		<tbody>
-			<tr>
-		        <td>점심 시간</td>
-		        <td><input type="text" class="lunch" name="hd_time" placeholder="12:00~13:00"
-		        onkeyup="this.value=this.value.replace(/[^0-9~:]/g,'');" required></td>
-	 		</tr>
-		    <tr>
-		        <td>월요일</td>
-		        <td><input type="text" class="mon" name="hd_time" placeholder="9:00~18:00"
-		        onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
-	 		</tr>
-			<tr>
-			    <td>화요일</td>
-			    <td><input type="text" class="tue" name="hd_time" placeholder="9:00~18:00"
-			    onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
-			</tr>
-			<tr>
-			    <td>수요일</td>
-			    <td><input type="text" class="wed" name="hd_time" placeholder="9:00~18:00"
-			    onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
-			</tr>
-			<tr>
-			    <td>목요일</td>
-			    <td><input type="text" class="thu" name="hd_time" placeholder="9:00~18:00"
-			    onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
-			</tr>
-			<tr>
-			    <td>금요일</td>
-			    <td><input type="text" class="fri" name="hd_time" placeholder="9:00~18:00"
-			    onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
-			</tr>
-			<tr>
-			    <td>토요일</td>
-			    <td><input type="text" class="sat" name="hd_time" placeholder="9:00~18:00"
-			    onkeyup="this.value=this.value.replace(/[^ㅎㅁ휴무0-9~:]/g,'');" required></td>
-			</tr>
-			<tr>
-			    <td>일요일</td> 
-			    <td><input type="text" class="sun" name="hd_time" placeholder="9:00~18:00"
-			    onkeyup="this.value=this.value.replace(/[^ㅎㅁ휴무0-9~:]/g,'');" required></td>
-			</tr>
-			<tr>
-			    <td>휴무일</td> 
-			    <td><input type="text" class="holiday" name="hd_time" placeholder="휴무 또는 영업시간"
-			    onkeyup="this.value=this.value.replace(/[^ㅎㅁ휴무0-9~:]/g,'');" required></td>
-			  </tr>
-		</tbody>
-	</table>
+	<div class="hd_time" id="hd_time">
+		<label for="hd_time" style="font-weight: bold">영업 시간</label>
+		<textarea class="hd_time col-10" id="hd_time" name="hd_time" 
+		placeholder="월~금 : 9:00~18:00 / 토,일 : 휴무" oninput="autoTextarea(this)">${hoDetail.hd_time}</textarea>
+	</div>
 	<div class="hd_park" id="hd_park">
 		<label for="hd_park" style="font-weight: bold">주차 정보</label>
 		<textarea class="hd_park col-10" id="hd_park" name="hd_park" 
@@ -122,16 +73,24 @@
 
 <script type="text/javascript">
 $("form").submit(function(e) {
-	e.preventDefault(); //form을 막아주는 이벤트
-	// Serialize된 form 데이터를 직접 사용하고 str 파라미터를 추가합니다.
-    var formData = $(this).serialize();
-	console.log(formData);
+	e.preventDefault();
 	let hsList = getCheckedBox();
-	console.log(hsList)
-	let hobbitJson  = {
-		      "detail" : formData,
+	let hd_info = $('[name=hd_info]').val();
+	let hd_time = $('[name=hd_time]').val();
+	let hd_park = $('[name=hd_park]').val();
+	let hd_announce = $('[name=hd_announce]').val();
+	let hd_etc = $('[name=hd_etc]').val();
+	let hd_subject_detail = $('[name=hd_subject_detail]').val();
+	let detail  = {
+		      "hd_info" : hd_info, 
+		      "hd_time" : hd_time, 
+		      "hd_park" : hd_park,
+		      "hd_announce" : hd_announce,
+		      "hd_etc" : hd_etc,
+		      "hd_subject_detail" : hd_subject_detail,
 		      "hsList" : hsList
 		    }
+	
 	if(hsList.length == 0) {
 		alert("1개 이상 대표 과목을 선택하세요.");
 		return;
@@ -141,10 +100,16 @@ $("form").submit(function(e) {
 			async : true,
 			method : "post",
 			url : '<c:url value="/hospital/detail/insert"/>',
-			data : JSON.stringify(hobbitJson), 
+			data : JSON.stringify(detail), 
 			contentType : "application/json; charset=utf-8",
 			success : function(data) {
-
+				console.log(hd_info);
+				console.log(hd_time);
+				console.log(hd_park);
+				console.log(hd_announce);
+				console.log(hd_etc);
+				console.log(hd_subject_detail);
+				console.log(hsList);
 			},
 	        error: function(error) {
 	            console.log("Error: " + JSON.stringify(error));
@@ -155,8 +120,6 @@ $("form").submit(function(e) {
 </script>
 
 <script type="text/javascript">
-
-
 //체크된 리스트 가져오기
 function getCheckedBox() {
     var checkedValues = new Array(); // 체크된 값들을 담을 배열
@@ -166,6 +129,14 @@ function getCheckedBox() {
     return checkedValues;
 }
 
+//입력한 리스트 가져오기
+function getTime() {
+	let timeValues = new Array();
+	$('input[name="hd_time"]').each(function() {
+		timeValues.push($(this).val());
+	});
+	return timeValues;
+}
 </script>
 
 

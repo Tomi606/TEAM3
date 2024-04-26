@@ -25,6 +25,8 @@ margin-left: auto;
     text-decoration: none;
  	box-shadow: 1px 1px 2px 1px #A5FA7D;
 }
+.hs_btn{width:25%;height: 50px;line-height: 50px;list-style: none;}
+.active4{background-color:#fff8f6;color: #ff501b;}
 .active3{background-color:#fff8f6;color: #ff501b;}
 .active1{background-color:#fff8f6;color: #ff501b;}
 .active2{background-color:#fff8f6;color: #ff501b;}
@@ -40,7 +42,7 @@ display: grid; grid-template-columns:1fr 1fr 1fr 1fr;border-top:1px dotted #A8F5
 border-top:1px dotted #A8F552;margin-top: 80px;}
 .area-select-all{width: 100%;height: 150px;padding: 30px 0;display: flex;}
 .area-select{margin: 0 auto;}
-.area-select-box{display: flex;border: 1px solid  #c8c8c8;width: 100%; height: 400px;margin: 0 0 65px 0;}
+.area-select-box{display: flex;border: 1px solid  #c8c8c8;width: 100%; height: 400px;margin: auto;}
 .area-select-box li{list-style: none;}
 .area-select-sido{width: 200px;height: 100%;text-align: left;list-style: none;}
 .area-select-sgg{width: 200px;text-align: left;}
@@ -57,7 +59,7 @@ border-top:1px dotted #A8F552;margin-top: 80px;}
 .box-pagination1{width:100%;display: flex;margin-top:100px; height: 100px; border-bottom: 1px dotted #A8F552;}
 .pagination-custom{margin: 0 auto;display: flex;}
 .pagination-custom li{list-style: none; }
-.now-area{display:flex;margin-top: 100px;width: 1400px;border: 1px solid #c8c8c8;color: #c8c8c8;height: 80px;border-bottom-style:none;
+.now-area{display:flex;margin-top: 70px;width: 1400px;border: 1px solid #c8c8c8;color: #c8c8c8;height: 80px;border-bottom-style:none;
 }
 .sd_area{width: 33%;}
 .sgg_area{width: 33%;}
@@ -67,9 +69,13 @@ border-top:1px dotted #A8F552;margin-top: 80px;}
 .area_box{width: 600px;display: flex;margin: 0 auto;}
 
 .img-container{border: 1px solid black;width: 100%;height: 800px;}
-.category { margin-bottom:135px;display: grid;width: 100%;grid-template-columns:1fr 1fr 1fr 1fr ;border: 1px solid black;} 
-.category a{ 
-margin:20px 20px 20px 20px;width: 100%;height: 100%;
+.category .li-box {display: flex;width: 100%; height: 260px;
+flex-wrap: wrap;justify-content: space-around;} 
+.category{
+width: 100%; height: 400px;border: 1px solid #c8c8c8;margin-top: 100px;
+}
+.title{
+padding:12px;margin-top:15px;width: 100%;border-bottom: 1px solid #c8c8c8;
 }
 </style>
 </head>
@@ -78,7 +84,19 @@ margin:20px 20px 20px 20px;width: 100%;height: 100%;
 	<div class="hospital-list-box">
 	
 	<div class="area-select-container">
-		<div class="now-area">
+		
+			<div class="category">
+				<div class="title">
+					<h3 >원하시는 과목을 선택하세요</h3>
+				</div>
+				<div class="li-box" >
+				   <li role="button" class="hs_btn"  data-hsnum="0">전체</li>
+			        <c:forEach items="${list}" var="hs">
+			                <li role="button" class="hs_btn" data-hsnum="${hs.hs_num}">${hs.hs_title}</li>
+			        </c:forEach>
+		        </div>
+			</div>
+			<div class="now-area">
 		</div>
 		<div class="area-select-box">
 			<div class="area-select-sido">
@@ -87,6 +105,7 @@ margin:20px 20px 20px 20px;width: 100%;height: 100%;
 				</div>
 				<div class="sido-list">
 					<div>
+					
 					 <c:forEach items="${sidoList}" var="sd">
 						<li role="button" data-num="${sd.sd_num}" class="li-click" id="sd_name"
 						>${sd.sd_name}</li>
@@ -115,13 +134,7 @@ margin:20px 20px 20px 20px;width: 100%;height: 100%;
 				</div>	
 			</div>
 		</div>
-			<div class="category"  >
-		        <c:forEach items="${list}" var="hs">
-		            <tr>
-		                <th><a href="<c:url value="/hospital/list?hsNum=${hs.hs_num}"/>" class="hs_btn">${hs.hs_title}</a></th>
-		            </tr>
-		        </c:forEach>
-			</div>
+			
 	</div>
 		<h1>내 관심 병원</h1>
 		<div class="hospital-like-list">
@@ -146,7 +159,8 @@ margin:20px 20px 20px 20px;width: 100%;height: 100%;
 let area = {
 	sd_num : 0,
 	sgg_num : 0,
-	emd_num : 0
+	emd_num : 0,
+	hs_num : '${hs_num}'
 };
 /* 군 구 리스트 select로 띄우기 시작 */
 $(document).on('click', '#sd_name', function(){
@@ -257,7 +271,7 @@ function setNowArea(){
 }
 function getSubHoList(){
 	$.ajax({
-    	async : false,
+    	async : true,
         method : "post",
         url : '<c:url value="/hospital/like/list"/>', 
         data : {
@@ -342,9 +356,9 @@ function getSubHoList(){
 function getAreaHoList(){
 	
 	$.ajax({
-    	async : false,
+    	async : true,
         method : "post",
-        url : '<c:url value="/hospital/emd/list"/>', // URL 수정
+        url : `<c:url value="/hospital/emd/list?hs_num=\${area.hs_num}"/>`, // URL 수정
         data : {
         	"page" : page,
         	"emd_num": area.emd_num
@@ -356,59 +370,62 @@ function getAreaHoList(){
             }
             else{
                 for(let ho of data.hoList){
-                	console.log(ho.hospital_detail);
+                	console.log(ho);
                 	if(ho.hospital_detail == null){
+                		continue;
+                	}
+                	let hd_time = ho.hospital_detail.hd_time;
+            		let timeArray = hd_time.split(",");
+            		
+            		let today = new Date();
+            		let daysOfWeek = ['월', '화', '수', '목', '금', '토', '일'];
+            		let dayOfWeek = daysOfWeek[today.getDay() - 1]; //오늘 무슨요일
+					
+            		switch(dayOfWeek){
+            		case '월':
+            			hd_time = timeArray[1];
+            			break;
+            		case '화':
+            			hd_time = timeArray[2];
+            			break;
+            		case '수':
+            			hd_time = timeArray[3];
+            			break;
+            		case '목':
+            			hd_time = timeArray[4];
+            			break;
+            		case '금':
+            			hd_time = timeArray[5];
+            			break;
+            		case '토':
+            			hd_time = timeArray[6];
+            			break;
+            		case '일':
+            			hd_time = timeArray[7];
+            			break;
+            		}
+                	if(area.hs_num == 0){
                 		 str += 
-                            	`
+                           	`
          	                    <a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;" data-id="\${ho.ho_id}>"
          							<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
          							<h4>\${ho.ho_name}</h4>
          							<p>\${ho.hospital_subject.hs_title}</p>
+         							<p>(\${dayOfWeek}요일) \${hd_time}</p>
          							<p>\${ho.ho_address}</p>
          						</a>
          					`; 
-                		
                 	}
                 	else{
-                		let hd_time = ho.hospital_detail.hd_time;
-                		let timeArray = hd_time.split(",");
                 		
-                		let today = new Date();
-                		let daysOfWeek = ['월', '화', '수', '목', '금', '토', '일'];
-                		let dayOfWeek = daysOfWeek[today.getDay() - 1]; //오늘 무슨요일
-						
-                		switch(dayOfWeek){
-                		case '월':
-                			hd_time = timeArray[1];
-                			break;
-                		case '화':
-                			hd_time = timeArray[2];
-                			break;
-                		case '수':
-                			hd_time = timeArray[3];
-                			break;
-                		case '목':
-                			hd_time = timeArray[4];
-                			break;
-                		case '금':
-                			hd_time = timeArray[5];
-                			break;
-                		case '토':
-                			hd_time = timeArray[6];
-                			break;
-                		case '일':
-                			hd_time = timeArray[7];
-                			break;
-                		}
-
 	                    str += 
 	                   	`
 		                    <a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;" data-id="\${ho.ho_id}>"
 								<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
-								<h4>\${ho.ho_name}</h4>
+								<h4>\${ho.hospital.ho_name}</h4>
 								<p>\${ho.hospital_subject.hs_title}</p>
 								<p>(\${dayOfWeek}요일) \${hd_time}</p>
-								<p>\${ho.ho_address}</p>
+								<p>\${ho.hospital.ho_address}</p>
 							</a>
 						`;
                 	}
@@ -425,7 +442,7 @@ function getAreaHoList(){
 }
 
 function displaySubHoPagination(pm){
-    console.log(pm+"고ㅓ거거거거ㅓ거거거거거");
+    console.log(pm);
 	let str = '';
 	if(pm.prev){
 		str += `
@@ -480,6 +497,16 @@ function displayAreaHoPagination(pm){
 	}
 	$('.box-pagination>ul').html(str);
 }
+$(document).on('click', '.hs_btn', function(){
+    area.hs_num = $(this).data("hsnum");
+    getAreaHoList();
+});
+
+
+
+
+
+
 $(document).on('click','.box-pagination .page-area',function(){
 	page = $(this).data('page');
 	getAreaHoList();
@@ -499,6 +526,12 @@ $(document).on('click', '#emd_name', function() {
     if (!$(this).hasClass("active")) {
         $(".active2").removeClass("active2");
         $(this).addClass("active2");
+    }
+});
+$(document).on('click', '.hs_btn', function() {
+    if (!$(this).hasClass("active")) {
+        $(".active4").removeClass("active4");
+        $(this).addClass("active4");
     }
 });
 
