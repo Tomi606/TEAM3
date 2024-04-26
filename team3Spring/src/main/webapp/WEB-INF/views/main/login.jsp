@@ -88,7 +88,7 @@ label::after {
 
 .login-box {
 	text-align: center;
-	margin-top: 20px;
+	margin-top: 100px;
 }
 
 .login-btn {
@@ -110,6 +110,8 @@ label::after {
 }
 
 .login-btn-click {
+    margin-bottom: 1px;
+    border-bottom: 1px solid white;
 	color: black;
 	background: white;
 	font-weight: bold;
@@ -132,6 +134,7 @@ label::after {
 	text-align: center;
 	display: inline-block;
 	margin-top: -1px;
+	border-top: 1px solid white; 
 }
 
 .input-group {
@@ -166,18 +169,49 @@ label::after {
 	color: white;
 }
 .login-input-tag{
+   position: relative;
+    display: inline-block;
 }
 .auto-login{
 	margin-bottom: 5px;
+}
+
+.input-box.id{
+    margin-bottom: 10px;
+     padding-right: 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-image: url('<c:url value="/resources/img/user.svg"/>'); 
+    background-repeat: no-repeat; 
+    background-position: right 10px center; 
+    background-size: 20px; 
+}
+.input-box.pw{
+    margin-bottom: 10px;
+     padding-right: 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-image: url('<c:url value="/resources/img/passwordcheck.svg"/>'); 
+    background-repeat: no-repeat; 
+    background-position: right 10px center; 
+    background-size: 20px; 
+}
+.input-box.num{
+    margin-bottom: 10px;
+     padding-right: 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-image: url('<c:url value="/resources/img/quote.svg"/>'); 
+    background-repeat: no-repeat; 
+    background-position: right 10px center; 
+    background-size: 20px; 
 }
 </style>
 </head>
 <body>
 	<div class="login-box">
-		<h1>로그인</h1>
 		<div class="login-btns">
-			<button type="button"
-				class="login-btn member-login-btn login-btn-click">회원</button>
+			<button type="button" class="login-btn member-login-btn login-btn-click">회원</button>
 			<button type="button" class="login-btn hospital-login-btn">병원</button>
 		</div>
 		<div class="form-box member-form-box">
@@ -190,10 +224,10 @@ label::after {
 					 		<label for="toggle-slider">On/Off</label>
 					 	</div>
 					 	<div class="login-input-tag">
-							<input type="text" placeholder="아이디" name="me_id" class="input-box"> 
+							<input type="text" placeholder="아이디" name="me_id" class="input-box id"> 
 						</div>
 					 	<div class="login-input-tag">
-							<input type="password" placeholder="비밀번호" name="me_pw" class="input-box">
+							<input type="password" placeholder="비밀번호" name="me_pw" class="input-box pw">
 						</div>
 					</div>
 					<button class="submit-btn login-btn-r">로그인</button>
@@ -215,13 +249,13 @@ label::after {
 						</div>
 						<div class="login-input-tag">
 							<input type="text" placeholder="사업자번호" name="ho_num"
-								class="input-box" maxlength="10"> 
+								class="input-box num" maxlength="10"> 
 						</div>	
 						<div class="login-input-tag">
-							<input type="text" placeholder="아이디" name="ho_id" class="input-box"> 
+							<input type="text" placeholder="아이디" name="ho_id" class="input-box id"> 
 						</div>
 						<div class="login-input-tag">
-							<input type="password" placeholder="비밀번호" name="ho_pw" class="input-box">
+							<input type="password" placeholder="비밀번호" name="ho_pw" class="input-box pw">
 						</div>
 					</div>
 					<button class="submit-btn login-btn-r">로그인</button>
