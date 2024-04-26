@@ -139,13 +139,55 @@
 </div>
 
 <div class="list-box">
-<h3>리스트 생성 및 선택</h3>
-	
-	<a class="btn list-inset-btn">리스트 생성</a>
-	<a class="btn check-btn" href='<c:url value="/program/check" />'>프로그램 전체 조회</a>
-	</div>
+	 <table class="table">
+	    <thead>
+	      <tr>
+	        <th>항목명</th>
+	        <th>항목설명</th>
+	        <th>가격</th>
+	      </tr>
+	    </thead>
+	    <tbody class="itemList">
+		      
+	    </tbody>
+	  </table>
+</div>
 
 </div>
+
+<!-- 프로그램을 선택하면 리스트 띄우기 -->
+<script type="text/javascript">
+	$("[name=hp_num]").change(function(){
+		let hp_num = $("[name=hp_num]").val();
+		if(hp_num == 'none'){
+			hp_num =1;
+			return;
+		}
+		$.ajax({
+			method : "post",
+			url : '<c:url value = "/itemlist/check"/>',
+			data : {
+				"hp_num" : hp_num
+			},
+			success : function (data) {
+				/*let str = ``;
+				for(let it of data.itemListList){
+					str+=
+						`
+							<tr>
+						        <td>\${it.item.it_name}</td>
+						        <td>\${it.item.it_explanation}</td>
+						        <td>\${it.hospital_program.hp_payment}</td>
+						    </tr>
+						`
+				}
+				*/
+				$(".itemList").html(data);
+			}
+		})
+	})	
+</script>
+
 <!-- 검사 상세 항목 등록 및 띄우기 -->
 <script type="text/javascript">
 	/* 상세 항목 등록 */
