@@ -232,10 +232,8 @@ $(".item-delete-btn").click(function(){
 		}
      })
 })
-
-
-
 </script>
+
 <!-- 기타 함수 -->
 <script type="text/javascript">
 function isNumber(value) {
