@@ -154,6 +154,8 @@
 </div>
 
 </div>
+<input type="time">
+<input type="date">
 
 <!-- 프로그램을 선택하면 리스트 띄우기 -->
 <script type="text/javascript">
