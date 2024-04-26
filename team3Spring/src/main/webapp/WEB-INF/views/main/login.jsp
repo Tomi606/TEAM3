@@ -87,6 +87,7 @@ label::after {
 }
 
 .login-box {
+	background-color:#E8F5FF;
 	text-align: center;
 	margin-top: 100px;
 }
@@ -102,16 +103,29 @@ label::after {
 }
 
 .member-login-btn {
+	
+	border: none;
+   	border-top: 4px solid #d5d5d5;
+	color:rgba(0, 0, 0, .5);
+    background-color: #f4f4f4;
+    border-bottom: 3px solid #c8c8c8;
 	margin-right: -3px;
 }
 
 .hospital-login-btn {
+    border: none;
+   border-top: 4px solid #d5d5d5;
+	color:rgba(0, 0, 0, .5);
+    background-color: #f4f4f4;
+    border-bottom: 3px solid #c8c8c8;
 	margin-left: -3px;
 }
 
 .login-btn-click {
+    border: 2px solid white;
+	border-top:3px solid #8AE634;
     margin-bottom: 1px;
-    border-bottom: 1px solid white;
+    border-bottom: 3px solid white;
 	color: black;
 	background: white;
 	font-weight: bold;
@@ -130,11 +144,11 @@ label::after {
 .login-form {
 	width: 399px;
 	height: 350px;
-	border: 1px solid gray;
 	text-align: center;
 	display: inline-block;
 	margin-top: -1px;
 	border-top: 1px solid white; 
+	background-color: white;
 }
 
 .input-group {
@@ -165,7 +179,13 @@ label::after {
 	font-weight: bold;
 }
 .login-btn-r{
-	background: black;
+	border-style:none;
+	background: #C6FF70	;
+	color: white;
+}
+.login-btn-r:hover{
+	border-style:none;
+	background:#8AE634	;
 	color: white;
 }
 .login-input-tag{
@@ -206,10 +226,16 @@ label::after {
     background-position: right 10px center; 
     background-size: 20px; 
 }
+.login-box-second{
+
+background-color: white;
+}
+
 </style>
 </head>
 <body>
 	<div class="login-box">
+		<div class="login-box-second"></div>
 		<div class="login-btns">
 			<button type="button" class="login-btn member-login-btn login-btn-click">회원</button>
 			<button type="button" class="login-btn hospital-login-btn">병원</button>
