@@ -110,6 +110,11 @@ padding:12px;margin-top:15px;width: 100%;border-bottom: 1px solid #c8c8c8;
 #scrollToTopButton:hover {
     background-color: #828282;
 }
+.search-input{
+	outline-style:none;
+	width: 500px;padding: 15px 55px 15px 15px;
+}
+.search-btn{padding: 15px;position: relative;right: 50px;}
 </style>
 </head>
 <body>
