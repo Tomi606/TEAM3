@@ -90,7 +90,26 @@ width: 100%; height: 400px;border: 1px solid #c8c8c8;margin-top: 100px;
 .title{
 padding:12px;margin-top:15px;width: 100%;border-bottom: 1px solid #c8c8c8;
 }
-\
+
+
+#scrollToTopButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    background-color: #c8c8c8;
+    color: white;
+    border: none;
+    border-radius: 50%; /* 동그라미 모양을 만들기 위해 border-radius 값을 50%로 설정합니다. */
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+    outline: none; /* 클릭했을 때 버튼 주위에 파란 테두리를 없애기 위해 outline을 none으로 설정합니다. */
+}
+
+#scrollToTopButton:hover {
+    background-color: #828282;
+}
 </style>
 </head>
 <body>
@@ -176,7 +195,26 @@ padding:12px;margin-top:15px;width: 100%;border-bottom: 1px solid #c8c8c8;
 		</div>	
 	</div>
 </div>
+<button id="scrollToTopButton" onclick="scrollToTop()">위로가기</button>
+<script type="text/javascript">
+$(document).ready(function() {
+    // 스크롤 이벤트 핸들러를 등록합니다.
+    $(window).scroll(function() {
+        // 스크롤 위치가 20px 이상인 경우에만 버튼을 표시합니다.
+        if ($(this).scrollTop() > 20) {
+            $("#scrollToTopButton").fadeIn();
+        } else {
+            $("#scrollToTopButton").fadeOut();
+        }
+    });
 
+    // 위로가기 버튼을 클릭하면 천천히 페이지의 맨 위로 스크롤됩니다.
+    $("#scrollToTopButton").click(function() {
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+        return false;
+    });
+});
+</script>
 <script type="text/javascript">
 let area = {
 	sd_num : 0,
@@ -368,13 +406,9 @@ function getSubHoList(){
             displaySubHoPagination(data.pm);
         }, 
         error : function(jqXHR, textStatus, errorThrown){
-
         }
     });
-    
 }
-
-
 function getAreaHoList(){
 	
 	$.ajax({
