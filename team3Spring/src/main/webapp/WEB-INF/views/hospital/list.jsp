@@ -73,7 +73,7 @@ border-top:1px solid yellow;margin-top: 80px;}
 .img{
        width: 100%; height: 700px;
         background-image: url("<c:url value='/resources/img/tree.jpg'/>");
-       background-size: 100% auto;;
+       background-size: 100% auto;
        background-position: 0px 0px;
        background-origin: content-box;
        background-attachment: fixed;
