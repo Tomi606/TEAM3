@@ -73,7 +73,7 @@
 
 <script type="text/javascript">
 $("form").submit(function(e) {
-	e.preventDefault();
+	/* e.preventDefault(); */
 	let hsList = getCheckedBox();
 	let hd_info = $('[name=hd_info]').val();
 	let hd_time = $('[name=hd_time]').val();
@@ -97,26 +97,22 @@ $("form").submit(function(e) {
 	}
 	
 		$.ajax({
-			async : true,
+			async : false, 
 			method : "post",
 			url : '<c:url value="/hospital/detail/insert"/>',
 			data : JSON.stringify(detail), 
+			dataType : "json", 
 			contentType : "application/json; charset=utf-8",
 			success : function(data) {
-				console.log(hd_info);
-				console.log(hd_time);
-				console.log(hd_park);
-				console.log(hd_announce);
-				console.log(hd_etc);
-				console.log(hd_subject_detail);
-				console.log(hsList);
+				alert(data.msg);
+				location.href = '<c:url value="/"/>' + data.url
 			},
 	        error: function(error) {
 	            console.log("Error: " + JSON.stringify(error));
 	        }
 		});
+		return false; //submit을 사용안해서 false
 });
-
 </script>
 
 <script type="text/javascript">

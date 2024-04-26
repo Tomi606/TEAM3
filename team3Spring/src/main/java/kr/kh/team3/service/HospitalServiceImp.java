@@ -24,7 +24,6 @@ import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
-import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.ReviewVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
@@ -346,27 +345,48 @@ public class HospitalServiceImp implements HospitalService {
 	//병원 상세 페이지 - 선진, 민석 ==============================================
 	@Override
 	public boolean insertDetail(HospitalDetailVO detail, HospitalVO hospital) {
-		if(detail.getHd_info() == null 
-		|| detail.getHd_time() == null 
-		|| detail.getHd_park() == null) {
-			return false;
-		}
 		if(hospital == null || hospital.getHo_id() == null) {
 			return false;
 		}
 		
 		detail.setHd_ho_id(hospital.getHo_id());
+		HospitalDetailVO selectedDetail = hospitalDao.selectHoDetail(hospital);
+		ArrayList<HsListVO> selectedSubjects = hospitalDao.selectSubjects(hospital);
+		ArrayList<Integer> hsList = detail.getHsList();
 		
-		//접속한 아이디를 주면서 select detail
-		//detail == null insert
-		if(hospitalDao.selectHoDetail(hospital) == null) {
-			return hospitalDao.insertHoDetail(hospital, detail);
+//		boolean result = false;
+		try {
+			//디테일이 비었으면
+			if(selectedDetail == null) {
+				hospitalDao.insertHoDetail(hospital, detail);
+			}
+			else {
+				hospitalDao.updateHoDetail(hospital.getHo_id(), detail);
+			}
+			
+			//리스트가 비었으면
+			if(selectedSubjects == null) {
+//				for(Integer tmp : hsList) {
+//					System.out.println("1hsList : " + hsList);
+//					hospitalDao.insertSubjects(hospital, tmp);
+//					return true;
+//				}
+			}
+			
+			if(selectedSubjects != null) {
+				//기존 진료과목 전체 삭제(아이디 기준)
+				hospitalDao.deleteSubjects(hospital);
+//				for(Integer tmp : hsList) {
+//					System.out.println("2hsList : " + hsList);
+//					hospitalDao.insertSubjects(hospital, tmp);
+//					return true;
+//				}
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			return false;
 		}
-		//!= null update
-		else {
-			return hospitalDao.updateHoDetail(hospital.getHo_id(), detail);
-		}
-		
+		return true;
 	}
 	
 	@Override
@@ -567,7 +587,7 @@ public class HospitalServiceImp implements HospitalService {
 		if(hospital == null) {
 			return null;
 		}
-		return hospitalDao.selectHosDetail(hospital);
+		return hospitalDao.selectHoDetail(hospital);
   }
 
 	public ArrayList<HospitalVO> getSubHoList(MemberVO me, LandVO land,Criteria cri) {
