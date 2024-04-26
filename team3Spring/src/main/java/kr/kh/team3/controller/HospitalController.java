@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalProgramVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
@@ -27,7 +26,6 @@ import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReviewVO;
 import kr.kh.team3.model.vo.SiDoVO;
-import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
 import kr.kh.team3.pagination.Criteria;
 import kr.kh.team3.pagination.PageMaker;
@@ -156,71 +154,25 @@ public class HospitalController {
 	}
 
 	// 병원 상세 페이지 등록/수정
-//	@PostMapping("/hospital/detail/insert")
-//	public String detailInsertPost(
-//			Model model, HospitalDetailVO detail, HttpSession session,
-//			@RequestParam("list[]") ArrayList<Integer> hsList, @RequestParam("hs_num") int hs_num) {
-//		// 현재 로그인한 병원
-//		SiteManagement user = (SiteManagement) session.getAttribute("user");
-//		HospitalVO hospital = hospitalService.getHospital(user);
-//		// 병원 페이지 등록
-//		boolean res = hospitalService.insertDetail(detail, hospital);
-//		//hs_list 등록
-//		boolean list = hospitalService.insertSubjects(hospital, hs_num, hsList);
-//		if (res || list) {
-//			model.addAttribute("msg", "상세 페이지 수정 완료");
-//			model.addAttribute("url", "/hospital/mypage");
-//		} else {
-//			model.addAttribute("msg", "상세 페이지 등록 완료");
-//			model.addAttribute("url", "/hospital/mypage");
-//		}
-//		return "message";
-//
-//	}
-	
-//	@ResponseBody
-//	@PostMapping("/hospital/detail/insert")
-//	public String detailInsertPost(
-//			Model model, HttpSession session, @RequestBody HospitalDetailVO detail) {
-//		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-//		log.info(detail);
-//		//현재 로그인한 병원
-//		SiteManagement user = (SiteManagement) session.getAttribute("user");
-//		HospitalVO hospital = hospitalService.getHospital(user);
-//		//병원 페이지 등록
-//		boolean res = hospitalService.insertDetail(detail, hospital);
-//		//hs_list 등록
-//		//boolean subList = hospitalService.insertSubjects(hospital, detail.getHsList());
-//		log.info("subList : ");
-//
-//		if(res) {
-//			model.addAttribute("msg", "상세 페이지 수정 완료");
-//			model.addAttribute("url", "/hospital/mypage");
-//		}else {
-//			model.addAttribute("msg", "상세 페이지 등록 완료");
-//			model.addAttribute("url", "/hospital/mypage");
-//		}
-//		return "message";
-//	}
-	
 	@ResponseBody
 	@PostMapping("/hospital/detail/insert")
-	public Map<String, Object> detailInsertPost(HttpSession session,@RequestBody HospitalDetailVO detail) {
+	public Map<String, Object> detailInsertPost(HttpSession session, @RequestBody HospitalDetailVO detail) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospital(user);
 		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-		log.info(detail);	
 		//병원 페이지 등록
 		boolean res = hospitalService.insertDetail(detail, hospital);
 		//hs_list 등록
-		//boolean subList = hospitalService.insertSubjects(hospital, hsList);
-		log.info("subList : ");
-
+//		boolean subList = hospitalService.insertSubjects(hospital, detail);
+		log.info(detail);
+//		log.info(subList);
 		if(res) {
+			System.out.println("bbbbbbbbbbbbbbbbbbbbb");
 			map.put("msg", "상세 페이지 수정 완료");
 			map.put("url", "/hospital/mypage");
 		}else {
+			System.out.println("ccccccccccccccccccc");
 			map.put("msg", "상세 페이지 등록 완료");
 			map.put("url", "/hospital/mypage");
 		}

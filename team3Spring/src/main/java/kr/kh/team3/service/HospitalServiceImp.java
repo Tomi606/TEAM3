@@ -370,18 +370,18 @@ public class HospitalServiceImp implements HospitalService {
 	}
 	
 	@Override
-	public boolean insertSubjects(HospitalVO hospital, int [] hsList) {
+	public boolean insertSubjects(HospitalVO hospital, HospitalDetailVO detail) {
 		if(hospital == null || hospital.getHo_id() == null) {
 			return false;
 		}
 		boolean res = false;
 		if(hospitalDao.selectSubjects(hospital) == null) {
-			for(int tmp : hsList) {
+			for(int tmp : detail.getHsList()) {
 				res = hospitalDao.insertSubjects(hospital, tmp);
 			}
 		}
 		else {
-			for(int tmp : hsList) {
+			for(int tmp : detail.getHsList()) {
 				res = hospitalDao.updateSubjects(hospital, tmp);
 			}
 		}
@@ -584,6 +584,7 @@ public class HospitalServiceImp implements HospitalService {
 		
 		return hospitalDao.getTotalSubHoList(me,land,cri);
 	}
+
 
 	@Override
 	public ArrayList<HospitalVO> getHospitalEmd(LandVO land,int hs_num,Criteria cri) {
