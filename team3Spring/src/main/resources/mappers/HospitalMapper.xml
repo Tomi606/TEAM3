@@ -39,12 +39,16 @@
 	</select>
 	
 	<select id="selectHospitalAll" resultMap="hospitalMap">
-		select * from hospital where ho_la_num = #{la.la_num}
+		select * from hospital
+		where ho_la_num = #{la.la_num}
+		and ho_name like concat('%', #{cri.search}, '%')
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
 	<select id="selectHospitalAllCount" resultType="int">
-			select count(*) from hospital where ho_la_num = #{la.la_num}
+		select count(*) from hospital
+		where ho_la_num = #{la.la_num}
+		and ho_name like concat('%', #{cri.search}, '%')
 	</select>
 	
 	<resultMap type="HospitalVO" id="hospitalMap">
@@ -91,7 +95,8 @@
 		from hs_list 
 		join hospital on ho_id = hsl_ho_id 
 		where hsl_hs_num= #{hs_num} 
-		    and ho_la_num = #{la.la_num} 
+		    and ho_la_num = #{la.la_num}
+		    and ho_name like concat('%', #{cri.search}, '%')
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
@@ -100,7 +105,8 @@
 		from hs_list 
 		join hospital on ho_id = hsl_ho_id 
 		where hsl_hs_num= #{hs_num} 
-		    and ho_la_num = #{la.la_num} 
+		    and ho_la_num = #{la.la_num}
+		    and ho_name like concat('%', #{cri.search}, '%')
 	</select>
 	
 	<select id="selectBmkList" resultMap="bookmarkMap">

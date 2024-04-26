@@ -42,7 +42,7 @@ display: grid; grid-template-columns:1fr 1fr 1fr 1fr;border-top:1px solid yellow
 border-top:1px solid yellow;margin-top: 80px;}
 .area-select-all{width: 100%;height: 150px;padding: 30px 0;display: flex;}
 .area-select{margin: 0 auto;}
-.area-select-box{display: flex;border: 1px solid  #c8c8c8;width: 100%; height: 400px;margin: auto auto 300px auto;}
+.area-select-box{display: flex;border: 1px solid  #c8c8c8;width: 100%; height: 400px;margin: auto auto 30px auto;}
 .area-select-box li{list-style: none;}
 .area-select-sido{width: 200px;height: 100%;text-align: left;list-style: none;}
 .area-select-sgg{width: 200px;text-align: left;}
@@ -68,7 +68,7 @@ border-top:1px solid yellow;margin-top: 80px;}
 .now-area h3{line-height: 74px;}
 .area_box{width: 600px;display: flex;margin: 0 auto;}
 
-
+.search-box{margin-bottom: 250px;}
 
 .img{
        width: 100%; height: 700px;
@@ -90,7 +90,26 @@ width: 100%; height: 400px;border: 1px solid #c8c8c8;margin-top: 100px;
 .title{
 padding:12px;margin-top:15px;width: 100%;border-bottom: 1px solid #c8c8c8;
 }
-\
+
+
+#scrollToTopButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    background-color: #c8c8c8;
+    color: white;
+    border: none;
+    border-radius: 50%; /* 동그라미 모양을 만들기 위해 border-radius 값을 50%로 설정합니다. */
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+    outline: none; /* 클릭했을 때 버튼 주위에 파란 테두리를 없애기 위해 outline을 none으로 설정합니다. */
+}
+
+#scrollToTopButton:hover {
+    background-color: #828282;
+}
 </style>
 </head>
 <body>
@@ -150,13 +169,17 @@ padding:12px;margin-top:15px;width: 100%;border-bottom: 1px solid #c8c8c8;
 		</div>
 			
 	</div>
+	<div class="search-box">
+		<input type="search" class="search-input" onkeyup="enterkey();" placeholder="병원명을 입력하세요."/>
+		<button type="button" class="search-btn">검색</button>
+	</div>
 		<h1>내 관심 병원</h1>
 		<div class="hospital-like-list">
 		</div>
-			<div class="box-pagination1">
-				<!-- 페이지네이션 시작 -->
-				<ul class="pagination-custom"></ul>
-			</div>
+		<div class="box-pagination1">
+			<!-- 페이지네이션 시작 -->
+			<ul class="pagination-custom"></ul>
+		</div>
 	</div>		
 	<div class="img-container">
 		<div class="img"></div>
@@ -176,13 +199,43 @@ padding:12px;margin-top:15px;width: 100%;border-bottom: 1px solid #c8c8c8;
 		</div>	
 	</div>
 </div>
+<button id="scrollToTopButton" onclick="scrollToTop()">위로가기</button>
+<script type="text/javascript">
+$(document).ready(function() {
+    // 스크롤 이벤트 핸들러를 등록합니다.
+    $(window).scroll(function() {
+        // 스크롤 위치가 20px 이상인 경우에만 버튼을 표시합니다.
+        if ($(this).scrollTop() > 20) {
+            $("#scrollToTopButton").fadeIn();
+        } else {
+            $("#scrollToTopButton").fadeOut();
+        }
+    });
 
+    // 위로가기 버튼을 클릭하면 천천히 페이지의 맨 위로 스크롤됩니다.
+    $("#scrollToTopButton").click(function() {
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+        return false;
+    });
+});
+</script>
+<!-- 엔터 키 누르면 검색 -->
+<script type="text/javascript">
+function enterkey() {
+    if (window.event.keyCode == 13) {
+
+         // 엔터키가 눌렸을 때 실행하는 반응
+         $(".search-btn").click();
+    }
+}
+</script>
 <script type="text/javascript">
 let area = {
 	sd_num : 0,
 	sgg_num : 0,
 	emd_num : 0,
-	hs_num : '${hs_num}'
+	hs_num : '${hs_num}',
+	search : ''
 };
 /* 군 구 리스트 select로 띄우기 시작 */
 $(document).on('click', '#sd_name', function(){
@@ -368,13 +421,9 @@ function getSubHoList(){
             displaySubHoPagination(data.pm);
         }, 
         error : function(jqXHR, textStatus, errorThrown){
-
         }
     });
-    
 }
-
-
 function getAreaHoList(){
 	
 	$.ajax({
@@ -383,7 +432,8 @@ function getAreaHoList(){
         url : `<c:url value="/hospital/emd/list?hs_num=\${area.hs_num}"/>`, // URL 수정
         data : {
         	"page" : page,
-        	"emd_num": area.emd_num
+        	"emd_num": area.emd_num,
+        	"search" : area.search
         }, 
         success : function (data){
             let str =""
@@ -522,6 +572,13 @@ function displayAreaHoPagination(pm){
 $(document).on('click', '.hs_btn', function(){
     area.hs_num = $(this).data("hsnum");
     getAreaHoList();
+});
+$(document).on('click', '.search-btn', function(){
+    area.search = $('.search-input').val();
+    getAreaHoList();
+    var location = document.querySelector(".area-container").offsetTop;
+    console.log(location);
+    window.scrollTo({top:location, behavior:'smooth'});
 });
 
 
