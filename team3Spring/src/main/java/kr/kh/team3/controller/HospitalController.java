@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,7 +65,6 @@ public class HospitalController {
 		//상세 페이지를 가져옴(임시)
 		hdNum = 40;
 		HospitalDetailVO detail = hospitalService.getDetail(hdNum);
-		//hs_list도 추가!!!!!!!!!!!
 		//병원과목 리스트
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
 		model.addAttribute("detail", detail);
@@ -160,18 +160,14 @@ public class HospitalController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospital(user);
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 		//병원 페이지 등록
+		System.out.println("ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ : " + detail);
 		boolean res = hospitalService.insertDetail(detail, hospital);
-		//hs_list 등록
-//		boolean subList = hospitalService.insertSubjects(hospital, detail);
-		log.info(detail);
-//		log.info(subList);
 		if(res) {
 			System.out.println("bbbbbbbbbbbbbbbbbbbbb");
 			map.put("msg", "상세 페이지 수정 완료");
 			map.put("url", "/hospital/mypage");
-		}else {
+		} else {
 			System.out.println("ccccccccccccccccccc");
 			map.put("msg", "상세 페이지 등록 완료");
 			map.put("url", "/hospital/mypage");
