@@ -227,7 +227,8 @@ CREATE TABLE `item` (
 	`it_num`	int	primary key auto_increment,
 	`it_name`	varchar(100)	NULL,
 	`it_explanation`	text	NULL,
-	`it_ho_id`	varchar(13)	NOT NULL
+	`it_ho_id`	varchar(13)	NOT NULL,
+    `it_hsl_num`	int	NOT NULL
 );
 
 DROP TABLE IF EXISTS `hospital_program`;
@@ -236,7 +237,8 @@ CREATE TABLE `hospital_program` (
 	`hp_num`	int	primary key auto_increment,
 	`hp_title`	varchar(100) NOT NULL,
 	`hp_payment`	int	NOT NULL,
-	`hp_ho_id`	varchar(13)	NOT NULL
+	`hp_ho_id`	varchar(13)	NOT NULL,
+    `hp_hsl_num` int	NOT NULL
 );
 
 DROP TABLE IF EXISTS `item_list`;
