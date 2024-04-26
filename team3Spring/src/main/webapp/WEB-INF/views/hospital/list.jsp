@@ -618,7 +618,7 @@ $(".li-box [data-hsnum='${hs_num}']").click();
 $(".sido-list [data-num=${la.la_sd_num}]").click();
 $(".sgg-list [data-num=${la.la_sgg_num}]").click();
 $(".emd-list [data-num=${la.la_emd_num}]").click();
-</script>
+</scrip>
 
 </body>
 </html>
