@@ -218,9 +218,7 @@ $(document).ready(function() {
         return false;
     });
 });
-</script>
 <!-- 엔터 키 누르면 검색 -->
-<script type="text/javascript">
 function enterkey() {
     if (window.event.keyCode == 13) {
 
@@ -228,8 +226,6 @@ function enterkey() {
          $(".search-btn").click();
     }
 }
-</script>
-<script type="text/javascript">
 let area = {
 	sd_num : 0,
 	sgg_num : 0,
@@ -298,8 +294,6 @@ $(document).on('click', '#sgg_name', function(){
 		}
 	});
 })
-</script>
-<script type="text/javascript">
 let likePage = 1;
 let page = 1;
 $(document).on('click', '#emd_name', function(){
@@ -618,7 +612,7 @@ $(".li-box [data-hsnum='${hs_num}']").click();
 $(".sido-list [data-num=${la.la_sd_num}]").click();
 $(".sgg-list [data-num=${la.la_sgg_num}]").click();
 $(".emd-list [data-num=${la.la_emd_num}]").click();
-</scrip>
+</script>
 
 </body>
 </html>
