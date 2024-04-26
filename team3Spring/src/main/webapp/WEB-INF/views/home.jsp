@@ -60,13 +60,11 @@ text-decoration: underline;
      position: relative; 
 }
 
-.header-box {
-	width: 100%;
-	height: 100px;
-	display: flex;
-	background-color: rgba(0, 0, 0, 0);
-	transition: background-color 0.3s ease;
-	
+ 
+.header-box.hovered {
+	background-color: white;
+	opacity: 0;
+	animation: fadeIn 0.7s forwards;
 }
 
 .header-box:hover {
@@ -142,12 +140,19 @@ background-color: rgba(0, 0, 0, 0);
 .header-box:hover a {
 	color: black;
 }
+.header-box.hovered a {
+	color: black;
+}
 
 .header-box img {
 	filter: invert(100%);
 }
 
 .header-box:hover img {
+	filter: none;
+}
+
+.header-box.hovered img {
 	filter: none;
 }
 
@@ -565,6 +570,13 @@ margin: 10px;
 		            </tr>
 		        </c:forEach>
 	  		</div>
+			<div class="category-board" style="display: none;" >
+		        <c:forEach items="${bolist}" var="bo">
+		            <tr>
+		                <th><a href="<c:url value="/board/list?bo_num=${bo.bo_num}"/>" class="bo_btn">${bo.bo_title}</a></th>
+		            </tr>
+		        </c:forEach>
+	  		</div>
   		</div>
   		
 		<div class="main-area">
@@ -772,17 +784,22 @@ margin: 10px;
 </div>	
 </body>
 <button id="scrollToTopButton" onclick="scrollToTop()">위로가기</button>
+<script>
 
- <script>
+
  $(document).ready(function() {
      $('.hos-btn').hover(function() {
          $('.category').show();
+         $('.header-box').addClass('hovered');
      });
      $('.category').mouseleave(function() {
     	 $('.category').hide();
+    	 $('.header-box').removeClass('hovered');
      });
  });
+ 
 </script>
+
 
 <script type="text/javascript">
 	$(document).ready(function() {
