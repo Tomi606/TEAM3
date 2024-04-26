@@ -129,11 +129,9 @@ public interface HospitalDAO {
 
 	boolean updateHoDetail(@Param("ho_id") String ho_id, @Param("hd") HospitalDetailVO detail);
 	
-	boolean insertSubjects(@Param("ho") HospitalVO hospital, @Param("hsl_hs_num") int tmp);
+	boolean insertSubjects(@Param("ho") HospitalVO hospital, @Param("hsl_hs_num") Integer tmp);
 
-	boolean updateSubjects(@Param("ho") HospitalVO hospital, @Param("hs_num") int tmp);
-
-	HospitalDetailVO selectHosDetail(@Param("ho") HospitalVO hospital);
+	boolean updateSubjects(@Param("ho") HospitalVO hospital, @Param("hsl_hs_num") Integer tmp);
 
 	ArrayList<HospitalVO> getSubHoList(@Param("me")MemberVO me,@Param("la") LandVO land,@Param("cri") Criteria cri);
 
@@ -142,5 +140,8 @@ public interface HospitalDAO {
 	ArrayList<HospitalVO> selectHospitalAll(@Param("la")LandVO land,@Param("cri") Criteria cri);
 
 	int selectHospitalAllCount(@Param("la")LandVO land,@Param("cri") Criteria cri);
+
+	boolean deleteSubjects(@Param("ho") HospitalVO hospital);
+
 
 }
