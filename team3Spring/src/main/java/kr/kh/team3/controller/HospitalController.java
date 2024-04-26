@@ -375,13 +375,13 @@ public class HospitalController {
 	@ResponseBody
 	@PostMapping("/hospital/emd/list")
 	public Map<String, Object> postHospital(@RequestParam("emd_num") int emd_num, int hs_num, String search, @RequestParam("page")int page) {
-		log.info(search + "    검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어");
+		//log.info(search + "    검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어");
 		Map<String, Object> map = new HashMap<String, Object>();
-		Criteria cri = new Criteria(page);
+		Criteria cri = new Criteria(page, 12, null, search);
+		//cri.setPerPageNum(12);
 		LandVO land = hospitalService.getLand(emd_num);
 		ArrayList<HospitalVO> hoList;
 		int totalCount;
-		cri.setPerPageNum(12);
 		if(hs_num == 0) {
 			hoList = hospitalService.getHospitalSubAll(land,cri);
 			totalCount = hospitalService.getHospitalSubAllCount(land,cri);

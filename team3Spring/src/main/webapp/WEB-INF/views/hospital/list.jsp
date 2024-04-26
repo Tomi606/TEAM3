@@ -541,6 +541,9 @@ $(document).on('click', '.hs_btn', function(){
 $(document).on('click', '.search-btn', function(){
     area.search = $('.search-input').val();
     getAreaHoList();
+    var location = document.querySelector(".area-container").offsetTop;
+    console.log(location);
+    window.scrollTo({top:location, behavior:'smooth'});
 });
 
 
