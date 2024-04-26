@@ -156,12 +156,12 @@ public class HospitalController {
 	// 병원 상세 페이지 등록/수정
 	@ResponseBody
 	@PostMapping("/hospital/detail/insert")
-	public Map<String, Object> detailInsertPost(HospitalSubjectVO subject, 
-			HttpSession session, @RequestBody HospitalDetailVO detail) {
+	public Map<String, Object> detailInsertPost(HttpSession session, @RequestBody HospitalDetailVO detail) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospital(user);
 		//병원 페이지 등록
+		System.out.println("ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ : " + detail);
 		boolean res = hospitalService.insertDetail(detail, hospital);
 		if(res) {
 			System.out.println("bbbbbbbbbbbbbbbbbbbbb");

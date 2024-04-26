@@ -321,17 +321,14 @@
 		where hd_ho_id = #{ho_id}
 	</update>
 
-	<insert id="insertSubjects" parameterType="java.util.List"
-	 useGeneratedKeys="true" keyProperty="hsl_ho_id">
-		insert into hs_list(hsl_hs_num, hsl_ho_id) values(#{hsl_hs_num}, #{ho.ho_id})
-		<foreach collection="list" item="item" separator=", ">
-			(#{item.hsl_hs_num}, #{item.hsl_ho_id})
-		</foreach>
+	<insert id="insertSubjects">
+		insert into hs_list(hsl_hs_num, hsl_ho_id) 
+		values (#{hsl_hs_num}, #{ho.ho_id})
 	</insert>
 	
 	<update id="updateSubjects">
 		update hs_list
-		set hsl_hs_num = #{hs_num}
+		set hsl_hs_num = #{hsl_hs_num}
 		where hsl_ho_id = #{ho.ho_id}
 	</update>
 

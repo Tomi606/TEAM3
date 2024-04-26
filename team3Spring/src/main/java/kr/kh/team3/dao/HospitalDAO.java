@@ -131,7 +131,7 @@ public interface HospitalDAO {
 	
 	boolean insertSubjects(@Param("ho") HospitalVO hospital, @Param("hsl_hs_num") Integer tmp);
 
-	boolean updateSubjects(@Param("ho") HospitalVO hospital, @Param("hs_num") int tmp);
+	boolean updateSubjects(@Param("ho") HospitalVO hospital, @Param("hsl_hs_num") Integer tmp);
 
 	ArrayList<HospitalVO> getSubHoList(@Param("me")MemberVO me,@Param("la") LandVO land,@Param("cri") Criteria cri);
 

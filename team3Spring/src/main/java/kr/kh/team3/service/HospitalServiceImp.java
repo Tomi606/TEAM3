@@ -366,21 +366,19 @@ public class HospitalServiceImp implements HospitalService {
 			
 			//리스트가 비었으면
 			if(selectedSubjects == null) {
-//				for(Integer tmp : hsList) {
-//					System.out.println("1hsList : " + hsList);
-//					hospitalDao.insertSubjects(hospital, tmp);
-//					return true;
-//				}
+				for(Integer tmp : hsList) {
+					System.out.println("1hsList : " + hsList);
+					hospitalDao.insertSubjects(hospital, tmp);
+				}
 			}
 			
 			if(selectedSubjects != null) {
 				//기존 진료과목 전체 삭제(아이디 기준)
 				hospitalDao.deleteSubjects(hospital);
-//				for(Integer tmp : hsList) {
-//					System.out.println("2hsList : " + hsList);
-//					hospitalDao.insertSubjects(hospital, tmp);
-//					return true;
-//				}
+				for(Integer tmp : hsList) {
+					System.out.println("2hsList : " + hsList);
+					hospitalDao.insertSubjects(hospital, tmp);
+				}
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -389,30 +387,30 @@ public class HospitalServiceImp implements HospitalService {
 		return true;
 	}
 	
-	@Override
-	public boolean insertSubjects(HospitalVO hospital, HospitalDetailVO detail) {
-		if(hospital == null || hospital.getHo_id() == null) {
-			return false;
-		}
-		boolean res = false;
-		if(hospitalDao.selectSubjects(hospital) == null) {
-			for(int tmp : detail.getHsList()) {
-				res = hospitalDao.insertSubjects(hospital, tmp);
-			}
-		}
-		else {
-			for(int tmp : detail.getHsList()) {
-				res = hospitalDao.updateSubjects(hospital, tmp);
-			}
-		}
-		
-		if(res) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+//	@Override
+//	public boolean insertSubjects(HospitalVO hospital, HospitalDetailVO detail) {
+//		if(hospital == null || hospital.getHo_id() == null) {
+//			return false;
+//		}
+//		boolean res = false;
+//		if(hospitalDao.selectSubjects(hospital) == null) {
+//			for(int tmp : detail.getHsList()) {
+//				res = hospitalDao.insertSubjects(hospital, tmp);
+//			}
+//		}
+//		else {
+//			for(int tmp : detail.getHsList()) {
+//				res = hospitalDao.updateSubjects(hospital, tmp);
+//			}
+//		}
+//		
+//		if(res) {
+//			return true;
+//		}
+//		else {
+//			return false;
+//		}
+//	}
 
 	@Override
 	public HospitalVO getHospitalInfo() {
