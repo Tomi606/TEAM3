@@ -39,7 +39,8 @@ text-decoration: underline;
 	background: url('<c:url value="/resources/img/tree.jpg"/>');
 	background-repeat: no-repeat;
 	background-size: cover;
-	z-index: 9999;
+    background-origin: content-box;
+    background-attachment: fixed;
 }
 
 .search-box {

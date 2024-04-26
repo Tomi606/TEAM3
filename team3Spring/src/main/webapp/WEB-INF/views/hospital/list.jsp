@@ -36,13 +36,13 @@ margin-left: auto;
 .hospital-list-home{width: 100%;height: 100%;}
 .hospital-list-box{width: 1400px;height: 100%;margin: 0 auto;text-align: center;}
 .hospital-like-list{width: 100%;height: 400px;margin-bottom: 300px;
-display: grid; grid-template-columns:1fr 1fr 1fr 1fr;border-top:1px dotted #A8F552;margin-top: 80px;}
+display: grid; grid-template-columns:1fr 1fr 1fr 1fr;border-top:1px solid yellow;margin-top: 80px;}
 
 .hospital-area-list{ width: 100%;height:1000px;display: grid; grid-template-columns:1fr 1fr 1fr 1fr;
-border-top:1px dotted #A8F552;margin-top: 80px;}
+border-top:1px solid yellow;margin-top: 80px;}
 .area-select-all{width: 100%;height: 150px;padding: 30px 0;display: flex;}
 .area-select{margin: 0 auto;}
-.area-select-box{display: flex;border: 1px solid  #c8c8c8;width: 100%; height: 400px;margin: auto;}
+.area-select-box{display: flex;border: 1px solid  #c8c8c8;width: 100%; height: 400px;margin: auto auto 300px auto;}
 .area-select-box li{list-style: none;}
 .area-select-sido{width: 200px;height: 100%;text-align: left;list-style: none;}
 .area-select-sgg{width: 200px;text-align: left;}
@@ -68,7 +68,20 @@ border-top:1px dotted #A8F552;margin-top: 80px;}
 .now-area h3{line-height: 74px;}
 .area_box{width: 600px;display: flex;margin: 0 auto;}
 
-.img-container{border: 1px solid black;width: 100%;height: 800px;}
+
+
+.img{
+       width: 100%; height: 700px;
+        background-image: url("<c:url value='/resources/img/tree.jpg'/>");
+       background-size: 100% auto;
+       background-position: 0px 0px;
+       background-origin: content-box;
+       background-attachment: fixed;
+       background-repeat: no-repeat;
+
+
+}
+  
 .category .li-box {display: flex;width: 100%; height: 260px;
 flex-wrap: wrap;justify-content: space-around;} 
 .category{
@@ -77,6 +90,7 @@ width: 100%; height: 400px;border: 1px solid #c8c8c8;margin-top: 100px;
 .title{
 padding:12px;margin-top:15px;width: 100%;border-bottom: 1px solid #c8c8c8;
 }
+\
 </style>
 </head>
 <body>
@@ -143,7 +157,15 @@ padding:12px;margin-top:15px;width: 100%;border-bottom: 1px solid #c8c8c8;
 				<!-- 페이지네이션 시작 -->
 				<ul class="pagination-custom"></ul>
 			</div>
-		<div class="img-container"></div>
+	</div>		
+	<div class="img-container">
+		<div class="img"></div>
+		<div class="dim">
+			<div class="content"></div>
+		</div>
+		
+	</div>	
+	<div class="hospital-list-box">
 		<div class="area-container">
 		<h1 style="margin-top:50px; ">우리 동네 병원</h1>
 			<div class="hospital-area-list">
