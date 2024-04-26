@@ -90,7 +90,7 @@ padding:12px;margin-top:15px;width: 100%;border-bottom: 1px solid #c8c8c8;
 					<h3 >원하시는 과목을 선택하세요</h3>
 				</div>
 				<div class="li-box" >
-				   <li role="button" class="hs_btn"  data-hsnum="0">전체</li>
+				   <li role="button" class="hs_btn" data-hsnum="0">전체</li>
 			        <c:forEach items="${list}" var="hs">
 			                <li role="button" class="hs_btn" data-hsnum="${hs.hs_num}">${hs.hs_title}</li>
 			        </c:forEach>
@@ -535,9 +535,10 @@ $(document).on('click', '.hs_btn', function() {
     }
 });
 
+$(".li-box [data-hsnum='${hs_num}']").click();
 $(".sido-list [data-num=${la.la_sd_num}]").click();
 $(".sgg-list [data-num=${la.la_sgg_num}]").click();
-$(".emd-list [data-num=${la.la_emd_num}]").click(); 
+$(".emd-list [data-num=${la.la_emd_num}]").click();
 </script>
 
 </body>
