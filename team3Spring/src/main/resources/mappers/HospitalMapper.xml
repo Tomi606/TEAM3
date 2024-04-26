@@ -346,7 +346,6 @@
 		<result property="hd_park" column="hd_park"/>
 		<result property="hd_announce" column="hd_announce"/>
 		<result property="hd_etc" column="hd_etc"/>
-		<result property="hd_subject_detail" column="hd_subject_detail"/>
 		<collection property="hsList" ofType="HsListVO" 
 		column="hsl_ho_id" select="selectHsList"/>
 	</resultMap>
