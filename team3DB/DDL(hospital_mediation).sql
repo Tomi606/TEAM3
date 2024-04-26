@@ -422,6 +422,20 @@ REFERENCES `hospital_subject` (
 	`hs_num`
 );
 
+ALTER TABLE `item` ADD CONSTRAINT `FK_hs_list_TO_item_1` FOREIGN KEY (
+	`it_hsl_num`
+)
+REFERENCES `hs_list` (
+	`hsl_num`
+);
+
+ALTER TABLE `hospital_program` ADD CONSTRAINT `FK_hs_list_TO_hospital_program_1` FOREIGN KEY (
+	`hp_hsl_num`
+)
+REFERENCES `hs_list` (
+	`hsl_num`
+);
+
 ALTER TABLE `site_management` ADD CONSTRAINT `FK_land_TO_site_management_1` FOREIGN KEY (
 	`site_la_num`
 )
