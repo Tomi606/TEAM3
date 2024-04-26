@@ -18,5 +18,7 @@ public interface BoardService {
 	boolean updateBoard(BoardVO boardVO, String new_BoardName);
 
 	boolean deleteBoard(int bo_num);
+
+	ArrayList<BoardVO> selectBoard();
 	
 }
