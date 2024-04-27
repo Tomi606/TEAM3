@@ -1,15 +1,9 @@
 package kr.kh.team3.controller;
 
-import java.util.ArrayList;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import kr.kh.team3.model.vo.BoardVO;
-import kr.kh.team3.service.BoardService;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -26,6 +20,13 @@ public class BoardController {
 	 */
 	
 	
-	
+	@GetMapping("/board/all")
+	public String boardAll(Model model) {
+		return "/board/all";
+	}
+	@GetMapping("/board/list")
+	public String boardList(Model model) {
+		return "/board/list";
+	}
 	
 }

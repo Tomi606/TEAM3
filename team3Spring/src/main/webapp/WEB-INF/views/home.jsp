@@ -522,7 +522,7 @@ margin: 10px;
 								<a href="<c:url value="/hospital/list?hs_num=0"/>" class="hos-btn">병원</a> 
 							</li>
 							<li>
-								<a href="#" class="board_btn">커뮤니티</a> 
+								<a href="<c:url value="/board/all"/>" class="board_btn">커뮤니티</a> 
 							</li>
 							<li>
 								<a href="#">게시판1</a> 
