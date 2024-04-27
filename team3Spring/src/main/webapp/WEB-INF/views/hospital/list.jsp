@@ -110,6 +110,11 @@ padding:12px;margin-top:15px;width: 100%;border-bottom: 1px solid #c8c8c8;
 #scrollToTopButton:hover {
     background-color: #828282;
 }
+.search-input{
+	outline-style:none;
+	width: 500px;padding: 15px 55px 15px 15px;
+}
+.search-btn{padding: 15px;position: relative;right: 50px;}
 </style>
 </head>
 <body>
@@ -218,9 +223,7 @@ $(document).ready(function() {
         return false;
     });
 });
-</script>
 <!-- 엔터 키 누르면 검색 -->
-<script type="text/javascript">
 function enterkey() {
     if (window.event.keyCode == 13) {
 
@@ -228,8 +231,6 @@ function enterkey() {
          $(".search-btn").click();
     }
 }
-</script>
-<script type="text/javascript">
 let area = {
 	sd_num : 0,
 	sgg_num : 0,
@@ -298,8 +299,6 @@ $(document).on('click', '#sgg_name', function(){
 		}
 	});
 })
-</script>
-<script type="text/javascript">
 let likePage = 1;
 let page = 1;
 $(document).on('click', '#emd_name', function(){

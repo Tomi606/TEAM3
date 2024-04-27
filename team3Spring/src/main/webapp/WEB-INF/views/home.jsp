@@ -60,13 +60,11 @@ text-decoration: underline;
      position: relative; 
 }
 
-.header-box {
-	width: 100%;
-	height: 100px;
-	display: flex;
-	background-color: rgba(0, 0, 0, 0);
-	transition: background-color 0.3s ease;
-	
+ 
+.header-box.hovered {
+	background-color: white;
+	opacity: 0;
+	animation: fadeIn 0.7s forwards;
 }
 
 .header-box:hover {
@@ -142,12 +140,19 @@ background-color: rgba(0, 0, 0, 0);
 .header-box:hover a {
 	color: black;
 }
+.header-box.hovered a {
+	color: black;
+}
 
 .header-box img {
 	filter: invert(100%);
 }
 
 .header-box:hover img {
+	filter: none;
+}
+
+.header-box.hovered img {
 	filter: none;
 }
 
@@ -447,13 +452,12 @@ z-index:9999;position:absolute;line-height:50px;
 height:50px;width:100%;background-color: #fafafa;
 
 }
-.category .hidden-list {
-    display: none;
+.category-board{
+z-index:9999;position:absolute;line-height:50px;
+height:50px;width:100%;background-color: #fafafa;
+
 }
 
-.category:hover .hidden-list {
-    display: block;
-}
 
 
 .메뉴얼 ul {
@@ -497,7 +501,7 @@ height:50px;width:100%;background-color: #fafafa;
 .new_hospital-sub{
 	width: 100%;height: 150px;display: flex;padding: 3px;margin-top:10px; 
 }
-.hs_btn{
+.hs_btn,.bo_btn{
 margin: 10px;
 }
 </style>
@@ -518,7 +522,7 @@ margin: 10px;
 								<a href="<c:url value="/hospital/list?hs_num=0"/>" class="hos-btn">병원</a> 
 							</li>
 							<li>
-								<a href="#">커뮤니티</a> 
+								<a href="#" class="board_btn">커뮤니티</a> 
 							</li>
 							<li>
 								<a href="#">게시판1</a> 
@@ -565,6 +569,13 @@ margin: 10px;
 		            </tr>
 		        </c:forEach>
 	  		</div>
+			<div class="category-board" style="display: none ;" >
+		        <c:forEach items="${boList}" var="bo">
+		            <tr>
+		                <th><a href="<c:url value="/board/list?bo_num=${bo.bo_num}"/>" class="bo_btn">${bo.bo_title}</a></th>
+		            </tr>
+		        </c:forEach>
+	  		</div>
   		</div>
   		
 		<div class="main-area">
@@ -577,7 +588,7 @@ margin: 10px;
 						src="<c:url value='/resources/img/sarchbtn.png'/>">
 				</div>
 				<div class="btnbtnbtn">
-					<a href="<c:url value="/hospital/list"/>"> <img alt="병원이미지"
+					<a href="<c:url value="/hospital/list?hs_num=0"/>"> <img alt="병원이미지"
 						src="<c:url value='/resources/img/hospital5.png'/>"> <span>병원</span>
 					</a> <a href="#"> <img alt="커뮤니티이미지"
 						src="<c:url value='/resources/img/comu.png'/>"> <span>커뮤니티</span>
@@ -772,17 +783,29 @@ margin: 10px;
 </div>	
 </body>
 <button id="scrollToTopButton" onclick="scrollToTop()">위로가기</button>
+<script>
 
- <script>
- $(document).ready(function() {
+
      $('.hos-btn').hover(function() {
          $('.category').show();
+         $('.header-box').addClass('hovered');
+         $('.category-board').hide();
      });
      $('.category').mouseleave(function() {
     	 $('.category').hide();
+    	 $('.header-box').removeClass('hovered');
      });
- });
+     $('.board_btn').hover(function() {
+    	 $('.category').hide();
+    	  $('.header-box').addClass('hovered');
+         $('.category-board').show();
+     });
+     $('.category-board').mouseleave(function() {
+    	 $('.category-board').hide();
+     });
+ 
 </script>
+
 
 <script type="text/javascript">
 	$(document).ready(function() {

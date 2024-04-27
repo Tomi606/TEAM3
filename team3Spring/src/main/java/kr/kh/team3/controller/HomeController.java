@@ -11,10 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.kh.team3.model.vo.BoardVO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
@@ -23,6 +23,7 @@ import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
+import kr.kh.team3.service.BoardService;
 import kr.kh.team3.service.HospitalService;
 import kr.kh.team3.service.MemberService;
 import lombok.extern.log4j.Log4j;
@@ -35,11 +36,16 @@ public class HomeController {
 	MemberService memberService;
 
 	@Autowired
+	private BoardService boardService;
+	
+	@Autowired
 	private HospitalService hospitalService;
 	
 	@GetMapping("/")
 	public String home(Model model) {
+		ArrayList<BoardVO> boList = boardService.selectBoard();
 		ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
+		model.addAttribute("boList", boList);
 		model.addAttribute("list", list);
 		return "home";
 	}
