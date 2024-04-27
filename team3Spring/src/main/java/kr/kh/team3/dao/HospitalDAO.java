@@ -153,5 +153,27 @@ public interface HospitalDAO {
 
 	String selectEmdName(@Param("la") LandVO land);
 
+	boolean updateName(@Param("ho") HospitalVO hospital);
+
+	boolean updateCEO(@Param("ho") HospitalVO hospital);
+
+	boolean updatePhone(@Param("ho") HospitalVO hospital);
+
+	boolean updateEmail(@Param("ho") HospitalVO hospital);
+
+	boolean updateDetailAddress(@Param("ho") HospitalVO hospital);
+
+	boolean updatePw(@Param("pw") String encPw, @Param("ho_id") String ho_id);
+
+	boolean updateSubject(@Param("ho_id") String ho_id, @Param("hs_num") int hs_num);
+
+	boolean updateHospitalLand(@Param("ho") HospitalVO ho, @Param("la") LandVO la);
+
+	boolean updateSiteLand(@Param("site") SiteManagement user, @Param("la") LandVO la);
+
+	ArrayList<SiGoonGuVO> selectSgg(@Param("sd_num") int sd_num);
+
+	ArrayList<EupMyeonDongVO> selectEmd(@Param("sgg_num") int sgg_num);
+
 
 }

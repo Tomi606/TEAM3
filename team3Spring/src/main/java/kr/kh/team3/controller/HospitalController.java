@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalProgramVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
@@ -27,6 +28,7 @@ import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReviewVO;
 import kr.kh.team3.model.vo.SiDoVO;
+import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
 import kr.kh.team3.pagination.Criteria;
 import kr.kh.team3.pagination.PageMaker;
@@ -91,16 +93,149 @@ public class HospitalController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		boolean res = hospitalService.updateName(user, hospital);
+		HospitalVO ho = hospitalService.getHo(hospital);
 		
+		map.put("res", res);
+		map.put("ho", ho);
 		return map;
 	}
 	
+	//비번 수정
+	@ResponseBody
+	@PostMapping("/hospital/pw")
+	public HashMap<String, Object> pwUpdate(@RequestParam("ho_id") String ho_id, HttpSession session,
+			@RequestParam("oldPw") String oldPw, @RequestParam("newPw") String newPw) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		HospitalVO ho = hospitalService.getHoId(ho_id);
+		boolean res = hospitalService.updatePw(user, ho_id, oldPw, newPw);
+		map.put("ho", ho);
+		map.put("res", res);
+		return map;
+	}
+	
+	//대표자명 수정
+	@ResponseBody
+	@PostMapping("/hospital/ceo")
+	public HashMap<String, Object> ceoUpdate(@RequestBody HospitalVO hospital, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		boolean res = hospitalService.updateCEO(user, hospital);
+		HospitalVO ho = hospitalService.getHo(hospital);
+		
+		map.put("res", res);
+		map.put("ho", ho);
+		return map;
+	}
+	
+	//대표 전화번호 수정
+	@ResponseBody
+	@PostMapping("/hospital/phone")
+	public HashMap<String, Object> phoneUpdate(@RequestBody HospitalVO hospital, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		boolean res = hospitalService.updatePhone(user, hospital);
+		HospitalVO ho = hospitalService.getHo(hospital);
+		
+		map.put("res", res);
+		map.put("ho", ho);
+		return map;
+	}
+	
+	//이메일 수정
+	@ResponseBody
+	@PostMapping("/hospital/email")
+	public HashMap<String, Object> emailUpdate(@RequestBody HospitalVO hospital, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		boolean res = hospitalService.updateEmail(user, hospital);
+		HospitalVO ho = hospitalService.getHo(hospital);
+		
+		map.put("res", res);
+		map.put("ho", ho);
+		return map;
+	}
+	
+	//상세주소 수정
+	@ResponseBody
+	@PostMapping("/hospital/detail/address")
+	public HashMap<String, Object> detailAddressUpdate(@RequestBody HospitalVO hospital, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		boolean res = hospitalService.updateDetailAddress(user, hospital);
+		HospitalVO ho = hospitalService.getHo(hospital);
+		
+		map.put("res", res);
+		map.put("ho", ho);
+		return map;
+	}
+	
+	//대표 진료과목 수정
+	@ResponseBody
+	@PostMapping("/hospital/subject")
+	public HashMap<String, Object> subjectUpdate(@RequestParam("ho_id") String ho_id, HttpSession session,
+			@RequestParam("ho_hs_num") int hs_num) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		HospitalVO ho = hospitalService.getHoId(ho_id);
+		HospitalVO hoSub = hospitalService.getHoId(ho_id);
+		HospitalSubjectVO sub = hospitalService.getSubject(hoSub);
+		boolean res = hospitalService.updateSubject(user, ho, hs_num);
+		
+		map.put("ho", ho);
+		map.put("sub", sub);
+		map.put("res", res);
+		return map;
+	}
+	
+	//주소 수정
+	@ResponseBody
+	@PostMapping("/hospital/address")
+	public HashMap<String, Object> addressUpdate(@RequestParam("ho_id") String ho_id, HttpSession session,
+			@RequestParam("la_sd_num")int la_sd_num, @RequestParam("la_sgg_num") int la_sgg_num,
+			@RequestParam("la_emd_num")int la_emd_num) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		LandVO land = new LandVO(0,la_sd_num, la_sgg_num, la_emd_num);
+		HospitalVO ho = hospitalService.getHoId(ho_id);
+		LandVO la = hospitalService.getWholeLand(land);
+		boolean res = hospitalService.updateAddress(user, ho, la);
+		user.setSite_la_num(la.getLa_num());
+		session.setAttribute("user", user);
+		String sd_name = hospitalService.getSdName(la);
+		String sgg_name = hospitalService.getSggName(la);
+		String emd_name = hospitalService.getEmdName(la);
+		
+		map.put("sd_name", sd_name);
+		map.put("sgg_name", sgg_name);
+		map.put("emd_name", emd_name);
+		map.put("ho", ho);
+		map.put("res", res);
+		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/hospital/gungoo")
+	public ArrayList<SiGoonGuVO> postgoongoo(int sd_num) {
+		ArrayList<SiGoonGuVO> sggList = hospitalService.getSgg(sd_num);
+		return sggList;
+	}
 
+	//시군구 번호를 읍면동한테 넘겨줘서 시군구에 있는 읍면동들을 가져오는 메서드
+	@ResponseBody
+	@PostMapping("/hospital/eupmyeondong")
+	public ArrayList<EupMyeonDongVO> postEupMyeonDong(int sgg_num) {
+		ArrayList<EupMyeonDongVO> emdList = hospitalService.getEmd(sgg_num);
+		return emdList;
+	}
+
+	
+	
 	//회원 입장에서 상페 페이지 조회시
 	@GetMapping("/hospital/detail/detail")
 	public String hospitalDetail(Model model, Integer hdNum) {
 		//상세 페이지를 가져옴(임시)
-		hdNum = 42;
+		hdNum = 5;
 		HospitalDetailVO detail = hospitalService.getDetail(hdNum);
 		//병원과목 리스트
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();

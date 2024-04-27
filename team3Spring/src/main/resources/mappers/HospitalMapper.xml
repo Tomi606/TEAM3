@@ -446,4 +446,48 @@
 		select emd_name from eup_myeon_dong where emd_num = #{la.la_emd_num}
 	</select>
 	
+	<update id="updateName">
+		update hospital set ho_name = #{ho.ho_name} where ho_id = #{ho.ho_id}
+	</update>
+	
+	<update id="updateCEO">
+		update hospital set ho_ceo = #{ho.ho_ceo} where ho_id = #{ho.ho_id}
+	</update>
+	
+	<update id="updatePhone">
+		update hospital set ho_phone = #{ho.ho_phone} where ho_id = #{ho.ho_id}
+	</update>
+	
+	<update id="updateEmail">
+		update hospital set ho_email = #{ho.ho_email} where ho_id = #{ho.ho_id}
+	</update>
+	
+	<update id="updateDetailAddress">
+		update hospital set ho_address = #{ho.ho_address} where ho_id = #{ho.ho_id}
+	</update>
+	
+	<update id="updatePw">
+		update hospital set ho_pw = #{pw} where ho_id = #{ho_id}
+	</update>
+	
+	<update id="updateSubject">
+		update hospital set ho_hs_num = #{hs_num} where ho_id = #{ho_id}
+	</update>
+	
+	<update id="updateHospitalLand">
+		update hospital set ho_la_num = #{la.la_num} where ho_id = #{ho.ho_id}
+	</update>
+	
+	<update id="updateSiteLand">
+		update site_management 
+		set site_la_num = #{la.la_num} where site_id = #{site.site_id}
+	</update>
+	
+	<select id="selectSgg" resultType="SiGoonGuVO">
+		select * from si_goon_gu where sgg_sd_num = #{sd_num}
+	</select>
+	
+	<select id="selectEmd" resultType="EupMyeonDongVO">
+		select * from eup_myeon_dong where emd_sgg_num = #{sgg_num}
+	</select>
 </mapper>

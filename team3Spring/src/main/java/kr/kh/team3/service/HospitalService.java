@@ -141,7 +141,31 @@ public interface HospitalService {
 
 	String getEmdName(LandVO land);
 
+	HospitalVO getHo(HospitalVO hospital);
+
 	boolean updateName(SiteManagement user, HospitalVO hospital);
+
+	boolean updateCEO(SiteManagement user, HospitalVO hospital);
+
+	boolean updatePhone(SiteManagement user, HospitalVO hospital);
+
+	boolean updateEmail(SiteManagement user, HospitalVO hospital);
+
+	boolean updateDetailAddress(SiteManagement user, HospitalVO hospital);
+
+	HospitalVO getHoId(String ho_id);
+
+	boolean updatePw(SiteManagement user, String ho_id, String oldPw, String newPw);
+
+	boolean updateSubject(SiteManagement user, HospitalVO ho, int hs_num);
+
+	LandVO getWholeLand(LandVO land);
+
+	boolean updateAddress(SiteManagement user, HospitalVO ho, LandVO la);
+
+	ArrayList<SiGoonGuVO> getSgg(int sd_num);
+
+	ArrayList<EupMyeonDongVO> getEmd(int sgg_num);
 
 
 

@@ -678,4 +678,170 @@ public class HospitalServiceImp implements HospitalService {
 		}
 		return hospitalDao.selectEmdName(land);
 	}
+
+	@Override
+	public HospitalVO getHo(HospitalVO hospital) {
+		if(hospital == null || hospital.getHo_id() == null) {
+			return null;
+		}
+		return hospitalDao.selectHospital(hospital.getHo_id());
+	}
+	
+	@Override
+	public boolean updateName(SiteManagement user, HospitalVO hospital) {
+		if(user == null || hospital == null ||
+			hospital.getHo_name() == null || hospital.getHo_name().isEmpty()) {
+			return false;			
+		}
+		
+		HospitalVO dbHospital = hospitalDao.selectHospitalId(user.getSite_id());
+		if(dbHospital == null || !dbHospital.getHo_id().equals(user.getSite_id())) {
+			return false;
+		}
+		return hospitalDao.updateName(hospital);
+	}
+
+	
+
+	@Override
+	public boolean updateCEO(SiteManagement user, HospitalVO hospital) {
+		if(user == null || hospital == null ||
+			hospital.getHo_ceo() == null || hospital.getHo_ceo().isEmpty()) {
+			return false;			
+		}
+		
+		HospitalVO dbHospital = hospitalDao.selectHospitalId(user.getSite_id());
+		if(dbHospital == null || !dbHospital.getHo_id().equals(user.getSite_id())) {
+			return false;
+		}
+		return hospitalDao.updateCEO(hospital);
+	}
+
+	@Override
+	public boolean updatePhone(SiteManagement user, HospitalVO hospital) {
+		if(user == null || hospital == null ||
+			hospital.getHo_phone() == null || hospital.getHo_phone().isEmpty()) {
+			return false;			
+		}
+		
+		HospitalVO dbHospital = hospitalDao.selectHospitalId(user.getSite_id());
+		if(dbHospital == null || !dbHospital.getHo_id().equals(user.getSite_id())) {
+			return false;
+		}
+		return hospitalDao.updatePhone(hospital);
+	}
+
+	@Override
+	public boolean updateEmail(SiteManagement user, HospitalVO hospital) {
+		if(user == null || hospital == null ||
+			hospital.getHo_email() == null || hospital.getHo_email().isEmpty()) {
+			return false;			
+		}
+		
+		HospitalVO dbHospital = hospitalDao.selectHospitalId(user.getSite_id());
+		if(dbHospital == null || !dbHospital.getHo_id().equals(user.getSite_id())) {
+			return false;
+		}
+		return hospitalDao.updateEmail(hospital);
+	}
+
+	@Override
+	public boolean updateDetailAddress(SiteManagement user, HospitalVO hospital) {
+		if(user == null || hospital == null ||
+			hospital.getHo_address() == null || hospital.getHo_address().isEmpty()) {
+			return false;			
+		}
+		HospitalVO dbHospital = hospitalDao.selectHospitalId(user.getSite_id());
+		if(dbHospital == null || !dbHospital.getHo_id().equals(user.getSite_id())) {
+			return false;
+		}
+		return hospitalDao.updateDetailAddress(hospital);
+	}
+
+	@Override
+	public HospitalVO getHoId(String ho_id) {
+		return hospitalDao.selectHospitalId(ho_id);
+	}
+
+	@Override
+	public boolean updatePw(SiteManagement user, String ho_id, String oldPw, String newPw) {
+		if(user == null || ho_id == null) {
+			return false;
+		}
+		
+		HospitalVO dbHospital = hospitalDao.selectHospitalId(user.getSite_id());
+		if(dbHospital == null || !dbHospital.getHo_id().equals(user.getSite_id())) {
+			return false;
+		}
+		
+		//입력한 비밀번호와 저장된 암호화된 비밀번호를 비교하여 일치 여부 확인
+		if(!passwordEncoder.matches(oldPw, dbHospital.getHo_pw())) {
+			return false;
+		}
+		
+		String encPw = passwordEncoder.encode(newPw);
+		//비밀번호 업데이트
+		boolean res = hospitalDao.updatePw(encPw, ho_id);
+		if(!res) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean updateSubject(SiteManagement user, HospitalVO ho, int hs_num) {
+		if(ho == null || ho.getHo_id() == null) {
+			return false;
+		}
+		
+		HospitalVO dbHospital = hospitalDao.selectHospitalId(user.getSite_id());
+		if(dbHospital == null || !dbHospital.getHo_id().equals(user.getSite_id())) {
+			return false;
+		}
+		
+		return hospitalDao.updateSubject(ho.getHo_id(), hs_num);
+	}
+
+	@Override
+	public LandVO getWholeLand(LandVO land) {
+		if (land == null)
+			return null;
+		if (hospitalDao.selectLand(land) == null) {
+			hospitalDao.insertLand(land);
+			return hospitalDao.selectLand(land);
+		}
+		return hospitalDao.selectLand(land);
+	}
+
+	@Override
+	public boolean updateAddress(SiteManagement user, HospitalVO ho, LandVO la) {
+		if (ho == null || ho.getHo_id() == null 
+		|| la == null || user == null || user.getSite_id() == null
+		|| user.getSite_id().length() == 0 || ho.getHo_id().length() == 0)
+			return false;
+
+		HospitalVO dbHospital = hospitalDao.selectHospitalId(user.getSite_id());
+		if(dbHospital == null || !dbHospital.getHo_id().equals(user.getSite_id())) {
+			return false;
+		}
+		
+		//sitemanagement도 수정해야됨
+		boolean hospitalLand = hospitalDao.updateHospitalLand(ho, la);
+		boolean siteLand = hospitalDao.updateSiteLand(user, la);
+		if (hospitalLand && siteLand) {			
+			return hospitalLand && siteLand;
+		}
+
+		return false;
+	}
+
+	@Override
+	public ArrayList<SiGoonGuVO> getSgg(int sd_num) {
+		return hospitalDao.selectSgg(sd_num);
+	}
+
+	@Override
+	public ArrayList<EupMyeonDongVO> getEmd(int sgg_num) {
+		return hospitalDao.selectEmd(sgg_num);
+	}
 }

@@ -752,15 +752,345 @@ $(document).on('click','.address-update', function(){
     $('#my-subject').css('display','block');
 });
 
+<!-- 상호명 수정 -->
 $(document).on('click', '.name_save_btn', function() {
 	let hospital = {
 		ho_name : $('.box-name2').val(),
-		ho_id : 
-	}
+		ho_id : '${hospital.ho_id}'
+	};
+	
+	$.ajax({
+	    async : true,
+	    url : '<c:url value="/hospital/name"/>',
+	    type : 'post',
+	    data : JSON.stringify(hospital),
+	    contentType : "application/json; charset=utf-8",
+	    dataType : "json",
+	    success : function(data) {
+	      if(data.res){
+	        alert("상호명을 수정했습니다.");
+	        initMypage();
+	        getMypageInfo(data.ho, ho_sub.hs_title,
+    		 		data.sgg_name, data.sd_name, data.emd_name);
+			return;	        
+	      }else{
+	        alert("수정하지 못했습니다.");
+	        return;
+	      }
+	    },
+	    error : function(jqXHR, textStatus, errorThrown){
+
+	    }
+	  });
 });
 
+<!-- 대표자명 수정 -->
+$(document).on('click', '.ceo_save_btn', function() {
+	let hospital = {
+		ho_ceo : $('.box-ceo2').val(),
+		ho_id : '${hospital.ho_id}'
+	};
+	
+	$.ajax({
+	    async : true,
+	    url : '<c:url value="/hospital/ceo"/>',
+	    type : 'post',
+	    data : JSON.stringify(hospital),
+	    contentType : "application/json; charset=utf-8",
+	    dataType : "json",
+	    success : function(data) {
+	      if(data.res){
+	        alert("대표자명을 수정했습니다.");
+	        initMypage();
+	        getMypageInfo(data.ho, ho_sub.hs_title,
+    		 		data.sgg_name, data.sd_name, data.emd_name);
+			return;	        
+	      }else{
+	        alert("수정하지 못했습니다.");
+	        return;
+	      }
+	    },
+	    error : function(jqXHR, textStatus, errorThrown){
+
+	    }
+	  });
+});
+
+<!-- 대표 전화번호 수정 -->
+$(document).on('click', '.phone_save_btn', function() {
+	let hospital = {
+		ho_phone : $('.box-phone2').val(),
+		ho_id : '${hospital.ho_id}'
+	};
+	
+	$.ajax({
+	    async : true,
+	    url : '<c:url value="/hospital/phone"/>',
+	    type : 'post',
+	    data : JSON.stringify(hospital),
+	    contentType : "application/json; charset=utf-8",
+	    dataType : "json",
+	    success : function(data) {
+	      if(data.res){
+	        alert("대표 전화번호를 수정했습니다.");
+	        initMypage();
+	        getMypageInfo(data.ho, ho_sub.hs_title,
+    		 		data.sgg_name, data.sd_name, data.emd_name);
+			return;	        
+	      }else{
+	        alert("수정하지 못했습니다.");
+	        return;
+	      }
+	    },
+	    error : function(jqXHR, textStatus, errorThrown){
+
+	    }
+	  });
+});
+
+<!-- 이메일 수정 -->
+$(document).on('click', '.email_save_btn', function() {
+	let hospital = {
+		ho_email : $('.box-email2').val(),
+		ho_id : '${hospital.ho_id}'
+	};
+	
+	$.ajax({
+	    async : true,
+	    url : '<c:url value="/hospital/email"/>',
+	    type : 'post',
+	    data : JSON.stringify(hospital),
+	    contentType : "application/json; charset=utf-8",
+	    dataType : "json",
+	    success : function(data) {
+	      if(data.res){
+	        alert("이메일을 수정했습니다.");
+	        initMypage();
+	        getMypageInfo(data.ho, ho_sub.hs_title,
+    		 		data.sgg_name, data.sd_name, data.emd_name);
+			return;	        
+	      }else{
+	        alert("수정하지 못했습니다.");
+	        return;
+	      }
+	    },
+	    error : function(jqXHR, textStatus, errorThrown){
+
+	    }
+	  });
+});
+
+<!-- 상세주소 수정 -->
+$(document).on('click', '.detail_address_save_btn', function() {
+	let hospital = {
+		ho_address : $('.box-detail-address2').val(),
+		ho_id : '${hospital.ho_id}'
+	};
+	
+	$.ajax({
+	    async : true,
+	    url : '<c:url value="/hospital/detail/address"/>',
+	    type : 'post',
+	    data : JSON.stringify(hospital),
+	    contentType : "application/json; charset=utf-8",
+	    dataType : "json",
+	    success : function(data) {
+	      if(data.res){
+	        alert("상세주소를 수정했습니다.");
+	        initMypage();
+	        getMypageInfo(data.ho, ho_sub.hs_title,
+    		 		data.sgg_name, data.sd_name, data.emd_name);
+			return;	        
+	      }else{
+	        alert("수정하지 못했습니다.");
+	        return;
+	      }
+	    },
+	    error : function(jqXHR, textStatus, errorThrown){
+
+	    }
+	  });
+});
+
+<!-- 비밀번호 변경 -->
+$(document).ready(function() {
+	  // 비밀번호 변경 버튼 클릭 시
+	  $(document).on('click', '.pw-update', function() {
+	    resetAll();
+	    // 모달 창 보이기
+	    $("#myModal").css("display", "block");
+	  });
+
+	  // 닫기 버튼 클릭 시 모달 닫기
+	  $(document).on('click', '.close', function() {
+	    $("#myModal").css("display", "none");
+	  });
+
+	  // 비밀번호 변경 확인 버튼 클릭 시
+	  $(document).on('click', '.pw-update-success-btn', function() {
+	    var oldPw = $('#old_ho_pw').val();
+	    var newPw = $('#new_ho_pw').val();
+	    var newPwCheck = $('#new_ho_pw2').val();
+
+	    if (newPw == newPwCheck) {
+	      updatePassword(oldPw, newPw);
+	    } else {
+	      alert("새로운 비밀번호가 일치하지 않습니다.");
+	    }
+	  });
+
+	});
+	
+	function updatePassword(oldPw, newPw) {
+	  $.ajax({
+	    async: true,
+	    url: '<c:url value="/hospital/pw"/>',
+	    type: 'post',
+	    data:  {
+	    	oldPw: oldPw,
+	    	newPw: newPw,
+	    	ho_id: '${hospital.ho_id}'
+		  },
+	    success: function(data) {
+	      if (data.res) {
+	        alert("비밀번호를 수정했습니다.");
+	        initMypage();
+	        getMypageInfo(data.ho, ho_sub.hs_title,
+    		 		data.sgg_name, data.sd_name, data.emd_name);
+	      } else {
+	        alert("비밀번호를 수정하지 못했습니다.");
+	      }
+	    },
+	    error: function(jqXHR, textStatus, errorThrown) {
+	    	
+	    }
+	  });
+	}
+	
+<!-- 대표 진료 과목 수정 -->
+$(document).on('click', '.subject_save_btn', function() {
+	let ho_hs_num = $("select[name='ho_hs_num'] option:selected").val();
+	let hospital = {
+			ho_hs_num : ho_hs_num,
+		    ho_id : '${hospital.ho_id}'
+		  };
+
+	$.ajax({
+	    async : true,
+	    url : '<c:url value="/hospital/subject"/>',
+	    type : 'post',
+	    data : hospital,
+	    success : function(data) {
+	      if(data.res){
+	    	console.log(data.sub.hs_title);
+	    	ho_sub.hs_title = data.sub.hs_title;
+	    	console.log(data.sub.hs_title);
+	    	console.log(ho_sub.hs_title + "과 목 수 정 ");
+	        alert("대표 진료 과목을 수정했습니다.");
+	        initMypage();
+	        getMypageInfo(data.ho, ho_sub.hs_title, 
+    		 		data.sgg_name, data.sd_name, data.emd_name);
+			return;	        
+	      }else{
+	        alert("과목을 수정하지 못했습니다.");
+	        return;
+	      }
+	    },
+	    error : function(jqXHR, textStatus, errorThrown){
+
+	    }
+	  });
+	});
+	
+<!-- 주소 수정 -->
+$(document).on('click', '.address_save_btn', function() {
+	var la_sd_num = $("select[name='sd_num'] option:selected").val();
+	console.log("시"+la_sd_num);
+    var la_sgg_num = $("select[name='sgg_num'] option:selected").val();
+    console.log("군 구"+la_sgg_num);
+    var la_emd_num = $("select[name='emd_num'] option:selected").val();
+    console.log("읍 면 동"+la_emd_num	);
+   
+  let hospital = {
+    la_sd_num : la_sd_num,
+    la_sgg_num: la_sgg_num,
+    la_emd_num: la_emd_num,
+    ho_id : '${hospital.ho_id}'
+  };
+  
+  $.ajax({
+    async : true,
+    url : '<c:url value="/hospital/address"/>',
+    type : 'post',
+    data : hospital,
+    success : function (data){
+      if(data.res){
+	    ho_land.sd_name = data.sd_name;
+    	ho_land.sgg_name = data.sgg_name;
+    	ho_land.emd_name = data.emd_name;
+        alert("주소를 수정했습니다.");
+        initMypage();
+        getMypageInfo(data.ho, ho_sub.hs_title,
+		 		data.sgg_name, data.sd_name, data.emd_name);
+		return;	        
+      }else{
+        alert("주소를 수정하지 못했습니다.");
+        return;
+      }
+    },
+    error : function(jqXHR, textStatus, errorThrown){
+
+    }
+  });
+});
+
+<!-- 시군구 리스트 수정 -->
+$(document).on('change', '[name=sd_num]', function() {
+	let sd_num = $("[name=sd_num]").val();
+	console.log(sd_num);
+	if(sd_num == 'none'){
+		sd_num = 0;
+	}
+	$.ajax({
+		method : "post",
+		url : '<c:url value="/hospital/gungoo"/>', 
+		data : {"sd_num" : sd_num}, 
+		success : function (data){
+			let str =""
+			for(let tmp in data){
+				str += ` <option value='\${data[tmp].sgg_num}' selected>\${data[tmp].sgg_name}</option>`;
+			}
+			$(".sgg_num").html(str);
+		}, 
+        error: function(jqXHR, textStatus, errorThrown) {
+
+        }
+    });
+});
+
+<!-- 읍면동 리스트 수정 -->
+ $(document).on('change', '[name=sgg_num]', function() {
+	let sgg_num = $("[name=sgg_num]").val();
+	if(sgg_num == 'none'){
+		sgg_num = 0;
+	}
+	$.ajax({
+		method : "post",
+		url : '<c:url value="/hospital/eupmyeondong"/>', 
+		data : {"sgg_num" : sgg_num}, 
+		success : function (data){
+			let str =""
+			for(let tmp in data){
+				str += ` <option value='\${data[tmp].emd_num}' selected>\${data[tmp].emd_name}</option>`;
+			}
+			$(".emd_num").html(str);
+			
+		}, 
+        error: function(jqXHR, textStatus, errorThrown) {
+
+        }
+    });
+});
 </script>
-
-
 </body>
 </html>
