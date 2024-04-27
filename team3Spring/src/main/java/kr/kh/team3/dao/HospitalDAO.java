@@ -143,5 +143,15 @@ public interface HospitalDAO {
 
 	boolean deleteSubjects(@Param("ho") HospitalVO hospital);
 
+	HospitalSubjectVO selectSubject(@Param("ho") HospitalVO huser);
+
+	LandVO selectMyLand(@Param("ho") HospitalVO huser);
+
+	String selectSdName(@Param("la") LandVO land);
+
+	String selectSggName(@Param("la") LandVO land);
+
+	String selectEmdName(@Param("la") LandVO land);
+
 
 }

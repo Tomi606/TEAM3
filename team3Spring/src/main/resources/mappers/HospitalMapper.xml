@@ -426,4 +426,24 @@
 		delete from hs_list where hsl_ho_id = #{ho.ho_id}
 	</delete>
 
+	<select id="selectSubject" resultType="HospitalSubjectVO">
+		select * from hospital_subject where hs_num = #{ho.ho_hs_num}
+	</select>
+	
+	<select id="selectMyLand" resultType="LandVO">
+		select * from land where la_num = #{ho.ho_la_num}
+	</select>
+	
+	<select id="selectSdName" resultType="String">
+		select sd_name from si_do where sd_num = #{la.la_sd_num}
+	</select>
+	
+	<select id="selectSggName" resultType="String">
+		select sgg_name from si_goon_gu where sgg_num = #{la.la_sgg_num}
+	</select>
+	
+	<select id="selectEmdName" resultType="String">
+		select emd_name from eup_myeon_dong where emd_num = #{la.la_emd_num}
+	</select>
+	
 </mapper>

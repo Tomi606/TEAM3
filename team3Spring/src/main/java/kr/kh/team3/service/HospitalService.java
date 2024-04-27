@@ -131,6 +131,18 @@ public interface HospitalService {
 
 	int getHospitalSubAllCount(LandVO land, Criteria cri);
 
+	HospitalSubjectVO getSubject(HospitalVO huser);
+
+	LandVO getMyLand(HospitalVO huser);
+
+	String getSdName(LandVO land);
+
+	String getSggName(LandVO land);
+
+	String getEmdName(LandVO land);
+
+	boolean updateName(SiteManagement user, HospitalVO hospital);
+
 
 
 }

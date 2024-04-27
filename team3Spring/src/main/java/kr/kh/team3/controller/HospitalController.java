@@ -50,14 +50,51 @@ public class HospitalController {
 
 	//병원 마이페이지
 	@GetMapping("/hospital/mypage")
-	public String hospitalMypage(Model model, HospitalVO hospital, HttpSession session) {
-		// 로그인한 회원 정보(SiteManagement에서 로그인 session 가져오고 -> HospitalVO로 가져오기)
+	public String myPage(Model model, HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		HospitalVO huser = hospitalService.getHospital(user);
+		HospitalVO hospital = hospitalService.getHospital(user);
+		ArrayList<HospitalSubjectVO> hsList = hospitalService.selectSubject();
+		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
 
-		model.addAttribute("huser", huser);
+		model.addAttribute("hospital", hospital);
+		model.addAttribute("hsList", hsList);
+		model.addAttribute("sidoList", sidoList);
 		return "/hospital/mypage";
 	}
+	
+	//병원 마이페이지 비동기
+	@ResponseBody
+	@PostMapping("/hospital/list")
+	public HashMap<String, Object> hospitalList(HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		HospitalVO hospital = hospitalService.getHospital(user);
+		HospitalSubjectVO hs = hospitalService.getSubject(hospital);
+		LandVO land = hospitalService.getMyLand(hospital);
+		String sd_name = hospitalService.getSdName(land);
+		String sgg_name = hospitalService.getSggName(land);
+		String emd_name = hospitalService.getEmdName(land);
+		
+		map.put("hospital", hospital);
+		map.put("hs", hs);
+		map.put("land", land);
+		map.put("sd_name", sd_name);
+		map.put("sgg_name", sgg_name);
+		map.put("emd_name", emd_name);
+		return map;
+	}
+	
+	//상호명 수정
+	@ResponseBody
+	@PostMapping("/hospital/name")
+	public HashMap<String, Object> nameUpdate(@RequestBody HospitalVO hospital, HttpSession session) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		boolean res = hospitalService.updateName(user, hospital);
+		
+		return map;
+	}
+	
 
 	//회원 입장에서 상페 페이지 조회시
 	@GetMapping("/hospital/detail/detail")
@@ -161,14 +198,11 @@ public class HospitalController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospital(user);
 		//병원 페이지 등록
-		System.out.println("ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ : " + detail);
 		boolean res = hospitalService.insertDetail(detail, hospital);
 		if(res) {
-			System.out.println("bbbbbbbbbbbbbbbbbbbbb");
 			map.put("msg", "상세 페이지 수정 완료");
 			map.put("url", "/hospital/mypage");
 		} else {
-			System.out.println("ccccccccccccccccccc");
 			map.put("msg", "상세 페이지 등록 완료");
 			map.put("url", "/hospital/mypage");
 		}

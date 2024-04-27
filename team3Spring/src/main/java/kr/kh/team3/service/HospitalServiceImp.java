@@ -638,4 +638,44 @@ public class HospitalServiceImp implements HospitalService {
 		
 		return hospitalDao.selectHospitalAllCount(land,cri);
 	}
+
+	@Override
+	public HospitalSubjectVO getSubject(HospitalVO huser) {
+		if(huser == null || huser.getHo_id() == null) {
+			return null;
+		}
+		return hospitalDao.selectSubject(huser);
+	}
+
+	@Override
+	public LandVO getMyLand(HospitalVO huser) {
+		if(huser == null || huser.getHo_id() == null) {
+			return null;
+		}
+		return hospitalDao.selectMyLand(huser);
+	}
+
+	@Override
+	public String getSdName(LandVO land) {
+		if(land == null) {
+			return null;
+		}
+		return hospitalDao.selectSdName(land);
+	}
+
+	@Override
+	public String getSggName(LandVO land) {
+		if(land == null) {
+			return null;
+		}
+		return hospitalDao.selectSggName(land);
+	}
+
+	@Override
+	public String getEmdName(LandVO land) {
+		if(land == null) {
+			return null;
+		}
+		return hospitalDao.selectEmdName(land);
+	}
 }

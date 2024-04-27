@@ -8,98 +8,170 @@
 <title>Insert title here</title>
 <style type="text/css">
 .body-tag {
-width: 100%;
-display: felex;flex-direction: column;
-align-items: center;
+	width: 100%;
+	display: felex;
+	flex-direction: column;
+	align-items: center;
 }
- .input-box {
-	border:1px solid white;
-	width: 100%;height:100%; 
+
+.input-box {
+	border: 1px solid white;
+	width: 100%;
+	height: 100%;
 	margin: 0 auto;
 	padding: 5px;
-} 
+}
+
 .input-tag {
-    border: 1px solid #ccc; 
-    outline: none;
-    margin-bottom: 15px; 
-    width: 400px;
-    padding: 10px;
+	border: 1px solid #ccc;
+	outline: none;
+	margin-bottom: 15px;
+	width: 400px;
+	padding: 10px;
 }
+
 .input-tag:focus {
-    border-bottom-color:  #C12DFF; 
-    box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
+	border-bottom-color: #C12DFF;
+	box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
 }
+
 .btn {
 	text-decoration: none;
-	border:1px solid  #C12DFF;
+	border: 1px solid #C12DFF;
 	width: 100px;
 }
+
 .btn:hover {
-	background-color:  #C12DFF;
+	background-color: #C12DFF;
 	color: white;
 }
+
 .signup-btn {
-text-align:center;font-size:20px;font-weight:bold;
-width: 400px;height:40px;border-radius:0;
-padding: 2px;border-bottom: 1px solid  #C12DFF;
-margin-left:34px;
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+	width: 400px;
+	height: 40px;
+	border-radius: 0;
+	padding: 2px;
+	border-bottom: 1px solid #C12DFF;
+	margin-left: 34px;
 }
+
 select {
-	margin-left:34px;
-    padding: 10px;
-    font-size: 16px; 
-    border: 1px solid #ccc; 
-    background-color: #ffff; 
-    outline: none; 
-    width: 200px; 
+	font-size: 16px;
+	border: 1px solid #ccc;
+	background-color: #ffff;
+	outline: none;
+	width: 200px;
 }
+
 select:focus {
-    border-color:  #C12DFF; 
-    box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
+	border-color: #C12DFF;
+	box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
 }
+
 select:hover {
-    background-color: #eaeaea;
+	background-color: #eaeaea;
 }
+
 img {
- width: 30px;
+	width: 30px;
 }
+
 .duplicate {
-    float:right;
-	border-radius:0;
+	float: right;
+	border-radius: 0;
 	height: 43px;
 }
-label {
-	margin-left: 30px;
-}
-.program{
-width: 500px;height: 300px;border: 1px solid black;
 
+.program {
+	width: 500px;
+	height: 300px;
+	border: 1px solid black;
 }
- 
- .hos_my_page_inner{width: 100%; display:flex; flex-wrap: wrap;}
- .program_check_wrap{display: grid; grid-template-columns: 1fr 1fr; grid-gap: 20px;}
- /*아래부터 병원 마이페이지 구현
+
+.hos_my_page_inner {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.program_check_wrap {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 20px;
+}
+/*아래부터 병원 마이페이지 구현
  패딩,마진은 상 우 하 좌 시계 방향으로 설정 하면 됨.
  */
- .mypage-container{width: 1905px;height:800px;padding: 0 300px 0 300px;border: 1px solid black;display: flex;}
- .mypage-profile{width: 400px;height: 100%;border: 1px solid black;}
- .profile-img{width: 250px;height: 250px;border:1px solid black;margin: 0 auto;margin-top: 50px;border-radius:100%;  }
- .profile-name{margin: 0 auto;text-align: center;}
- .profile-anything{border: 1px solid black;width: 300px;height: 400px;margin: 0 auto;}
- 
- .profile-container{width: 1000px;height: 800px;border: 1px solid black; display: block;background-color: lightgray;}
- .mypage-profile-info{	padding:0 100px;
+.mypage-container {
+	width: 1905px;
+	height: 800px;
+	padding: 0 300px 0 300px;
+	display: flex;
+}
+
+.mypage-profile {
+	width: 400px;
+	height: 100%;
+	border-left: 1px solid lightgray;
+	border-right: 1px solid lightgray;
+}
+
+.profile-img {
+	width: 250px;
+	height: 250px;
+	border: 1px solid black;
+	margin: 0 auto;
+	margin-top: 50px;
+	border-radius: 100%;
+}
+
+.profile-name {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.profile-anything {
+	border: 1px solid black;
+	width: 300px;
+	height: 450px;
+	margin: 0 auto;
+}
+
+.profile-container {
+	background-color:lightgray;
+	width: 1000px;
+	height: 800px;
+	display: block;
+}
+
+.mypage-profile-info {
+	padding:0 50px;
 	width: 800px;
 	height: 777px;
 	border: 1px solid black;
 	margin: 11px 20px 40px 120px;
 	background-color: white;
-	border-radius: 30px; }
+	border-radius: 30px;
+}
+
+.mypage-profile-detail {
+	width: 600px;
+	height: 325px;
+	border: 1px solid black;
+	margin: 0px 20px 80px 250px;
+	background-color: #FFE1E6;
+	border-radius: 30px;
+}
+
 .profile-img-name-container {
 	width: 100%;
 	height: 150px;
 	display: flex;
 }
+
 .mypage-img-name {
 	align-content: space-around;
 	flex-direction: column;
@@ -110,46 +182,173 @@ width: 500px;height: 300px;border: 1px solid black;
 	height: 125px;
 	padding: 20px;
 }
-.hr {width: 100%;border: 1px solid lightgray;}
- .mypage-img{display:flex;width: 125px;height: 125px;border:1px solid white;margin: 30px 0 0 30px;border-radius:100%;background-color: white;}
- 
- .mypage-phone {
-	margin:auto;
+
+.hr {
+	width: 100%;
+	border: 1px solid lightgray;
+}
+
+.mypage-phone {
+	margin:auto 0;
 	height:70px;
-	width: 80%;
+	width: 100%;
 	display: flex;
-	justify-content: space-between;
 }
 
 .mypage-email {
-	margin:auto;
 	height:70px;
-	width: 80%;
+	width: 100%;
 	display: flex;
-	justify-content: space-between;
+}
+
+.mypage-detail-address {
+	height:70px;
+	width: 100%;
+	display: flex;
 }
 
 .mypage-hospital-name {
 	display: flex;
-	margin:auto;
-	height:70px;
-	justify-content: space-between;
-	width: 80%;
+	margin: 40px 48px 0 47px;
 }
-.mypage-hospital-num{
- 	display:flex;
- 	margin:auto;
-	height:70px;
-	width: 80%;
+
+.mypage-hospital-num {
+	display: flex;
+	margin: 20px 48px 0 47px;
 }
- .mypage-hospital-address{
- 	display:flex;
- 	margin: auto;
+
+.mypage-ceo {
+	width: 100%;
 	height:70px;
-	justify-content: space-between;
-	width: 80%;
+	display: flex;
 }
-.anything-box{margin-top:50px;}
+
+.mypage-hospital-address {
+	display: flex;
+	margin: 20px 48px 0 47px;
+}
+
+.new_ho_name_hidden {
+	width: 180px;
+	display: none;
+}
+
+.new_ho_name_hidden input {
+	width: 250px; /* font-size: 1.5rem; */
+}
+
+.name_save_btn_wrap {
+	display: none;
+}
+
+.new_ho_phone_hidden {
+	width: 180px;
+	display: none;
+}
+.phone_save_btn_wrap {
+	display: none;
+}
+
+.new_ho_email_hidden {
+	width: 180px;
+	display: none;
+}
+.email_save_btn_wrap {
+	display: none;
+}
+
+.new_ho_ceo_hidden {
+	width: 180px;
+	display: none;
+}
+
+.new_ho_detail_address_hidden {
+	width: 180px;
+	display: none;
+}
+
+.new_ho_ceo_hidden input {
+	width: 300px;
+	position: relative;
+}
+
+.ceo_save_btn_wrap {
+	display: none;
+}
+.detail_address_save_btn_wrap {
+	display: none;
+}
+.new_ho_address_hidden {
+	width: 180px;
+	display: none;
+}
+
+.new_ho_address_hidden input {
+	width: 300px;
+	position: relative;
+}
+
+.address_save_btn_wrap {
+	display: none;
+}
+.new_ho_subject_hidden {
+	display: none;
+}
+
+.new_ho_subject_hidden input {
+	width: 300px;
+	position: relative;
+}
+
+.subject_save_btn_wrap {
+	display: none;
+}
+
+.box-name2 {
+	position: relative;
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 990;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 500px;
+	text-align: center;
+}
+
+.close {
+	color: #aaa;
+	margin: 0 24px 8px auto;
+	font-size: 50px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.new_ho_pw_hidden input {
+	width: 300px;
+}
+ 
+ .anything-box{
+ 	margin-top:50px;
+ }
 .choose-box{
 	padding:15px;
 	text-align:center;
@@ -162,44 +361,52 @@ width: 500px;height: 300px;border: 1px solid black;
 	line-height:45px;
 	margin:0 auto;
 	border:1px solid black;
-	width:90%;height:50px;
+	width:100%;
+	height:50px;
 	color:black;
 	text-decoration:none;
+	font-size: 20px;
 }
 .subject{
-width: 100%; 
-height: 70px;
+	width: 100%; 
+	height: 70px;
 
 }
 .phone-width{
-width: 80%;
-margin:auto;
-display: flex;
-justify-content: space-between;
+	width: 80%;
+	margin:auto;
+	display: flex;
+	justify-content: space-between;
 }
 .email-width{
-width: 80%;
-margin:auto;
-display: flex;
-justify-content: space-between;
+	width: 80%;
+	margin:auto;
+	display: flex;
+	justify-content: space-between;
 }
-.job-width{
-width: 80%;
-margin:auto;
-display: flex;
-justify-content: space-between;
+.ceo-width{
+	width: 80%;
+	margin:auto;
+	display: flex;
+	justify-content: space-between;
+}
+.detail-address-width{
+	width: 80%;
+	margin:auto;
+	display: flex;
+	justify-content: space-between;
 }
 .subject-width{
-width: 80%;
-margin: 20px auto;
-display: flex;
-justify-content: space-between;
+	width: 80%;
+	margin: 20px auto;
+	display: flex;
+	justify-content: space-between;
 }
 .address-width{
-width: 93%;
-margin:auto;
-display: flex;
-justify-content: space-between;
+	width: 93%;
+	margin:auto;
+	display: flex;
+	justify-content: space-between;
 }
 select {
     width: 300px;
@@ -222,75 +429,338 @@ select:focus {
     border-color: #007bff;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
 }
- 
+
 </style>
 </head>
 <body>
-<div class="mypage-container">
-	<div class="mypage-profile">
+<div class="mypage-container"></div>
+<!-- 마이페이지 리스트 -->
+<script type="text/javascript">
+let ho_land = {
+		sd_name : null,
+		sgg_name : null,
+		emd_name : null
+}
+let ho_sub = {hs_title : null};
+getMypage();
+function getMypage() {
+	$.ajax({
+	    async: true,
+	    url: '<c:url value="/hospital/list"/>',
+	    type: 'post',							
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    success: function(data) {
+	    	ho_sub.hs_title = data.hs.hs_title;
+	    	ho_land.sd_name = data.sd_name;
+	    	ho_land.sgg_name = data.sgg_name;
+	    	ho_land.emd_name = data.emd_name;
+	    	getMypageInfo(data.hospital, ho_sub.hs_title,
+	    		 		data.sgg_name, data.sd_name, data.emd_name);
+	    },
+	    error: function(jqXHR, textStatus, errorThrown) {
+
+	    }
+	  });
+}
+
+function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
+	if(hospital == null || hospital.length == 0) {
+		return;
+	}
+	console.log(hs);
+	let str = 
+		`
+		<div class="mypage-profile">
 			<div class="profile-img">
 			</div>
 			<div class="profile-name">
-				<!-- 화면에서 아이디랑 이메일 가져와서 입력하시면 됩니다 -->
-				<h4>${huser.ho_id}</h4>
-				<p>${huser.ho_email}</p>
+				<h4>${hospital.ho_id}</h4>
+				<p>${hospital.ho_email}</p>
 			</div>
 			<div class="profile-anything">
-				<div class="choose-box">			
-					<a href='<c:url value="/hospital/detail/detail?hdNum=1"/>'>병원 상세 페이지 조회</a>
-				</div>
-				<div class="choose-box">
-					<a href='<c:url value="/hospital/detail/insert"/>'>2. 병원 상세 페이지 등록/수정</a>
-				</div>
-				<div class="choose-box">			
-					<a href='<c:url value="/hospital/item/insert"/>'>3. 프로그램 등록/수정/삭제</a>
-				</div>
+				<div class="anything-box">				
+					<div class="choose-box">			
+						<a href='<c:url value="/hospital/detail/detail?hdNum=1"/>'>병원 상세 페이지 조회</a><br>
+					</div>
 					<div class="choose-box">
-					<a>4. 예약 관리</a>
+						<a href='<c:url value="/hospital/detail/insert"/>'>병원 상세 페이지 등록/수정</a><br>
+					</div>
+					<div class="choose-box">			
+						<a href='<c:url value="/hospital/item/insert"/>'>프로그램 등록/수정/삭제</a><br>
+					</div>
+					<div class="choose-box">
+						<a>4. 예약 관리</a><br>
+					</div>
+					<div class="choose-box">			
+						<a>5. 커뮤니티 관리</a>
+					</div>
 				</div>
-				<div class="choose-box">			
-					<a>6. 커뮤니티 관리</a>
-				</div>
-			</div>
-	</div>
-	<div class="profile-container">
-		<div class="mypage-profile-info">
-		<div class="profile-img-name-container">
-			
-			<div class="mypage-img-name">
-				<h4>${huser.ho_ceo}</h4>
-				<p>${huser.ho_email}</p>
-				<span ><a href="#">실명수정</a></span>
-				<span ><a href="#">비밀번호 변경</a></span>
 			</div>
 		</div>
-			<div class="hr"></div>
-			<div class="mypage-phone">
-				<p>${huser.ho_phone}</p>
-				<span><a href="#">변경</a></span>
-			</div>
-			<div class="hr"></div>
-			<div class="mypage-email">
-				<p>${huser.ho_email}</p>
-				<span><a href="#">변경</a></span>
-			</div>
-			<div class="hr"></div>
-	
-				<div class="mypage-hospital-name" >
-					<h5>${huser.ho_name}</h5>
-					<span><a href="#">변경</a></span>
+		
+		<div class="profile-container">
+			<div class="mypage-profile-info">
+				<div class="profile-img-name-container">
+					<div class="mypage-img-name">
+						<h4 class="box-name">\${hospital.ho_name}</h4>
+						<div class="new_ho_name_hidden">
+							<input type="text" id="new_ho_name" class="box-name2" value="\${hospital.ho_name}"/>
+						</div>
+						<span class="name_update_btn_wrap"><a type="button" class="name-update">상호명 수정</a></span>
+						<span class="name_save_btn_wrap"><a type="button" class="name_save_btn">수정 완료</a></span>
+						<span class="pw_update_btn_wrap"><a type="button" class="pw-update">비밀번호 변경</a></span>
+						<div id="myModal" class="modal">
+							<div class="modal-content">
+								<span class="close">&times;</span>
+								<h2>비밀번호 변경</h2>
+								<label for="old_ho_pw">현재 비밀번호를 입력하세요</label>
+								<div class="new_ho_pw_hidden">
+									<input type="text" id="old_ho_pw" name="ho_pw" class="box-pw2"/>
+								</div>
+								
+								<label for="new_ho_pw">새 비밀번호를 입력하세요</label>
+								<div class="new_ho_pw_hidden">
+									<input type="password" id="new_ho_pw" name="ho_pw" class="box-pw2"/>
+								</div>
+								
+								<label for="new_ho_pw">새 비밀번호 확인</label>
+								<div class="new_ho_pw_hidden">
+									<input type="password" id="new_ho_pw2" name="ho_pw2" class="box-pw2"/>
+								</div>
+								<a type="button" class="pw-update-success-btn">비밀번호 변경하기</a>
+							</div>
+						</div>
+
+					</div>
 				</div>
+				
+				<!-- 대표자명 -->
 				<div class="hr"></div>
-				<div class="mypage-hospital-num">
-					<h5>사업자번호 : </h5><span>${huser.ho_num}</span>
+				<div class="mypage-ceo">
+					<div class="ceo-width">
+						<div class="new_ho_ceo_hidden">
+							<input type="text" id="new_ho_ceo" class="box-ceo2" value="\${hospital.ho_ceo}"/>
+						</div>
+						<p class="box-ceo" id="my_ceo_name">\${hospital.ho_ceo}</p>
+						<span class="ceo_update_btn_wrap"><a type="button" class="ceo-update">변경</a></span>
+						<span class="ceo_save_btn_wrap"><a type="button" class="ceo_save_btn">수정완료</a></span>
+					</div>
 				</div>
+
+				<!-- 대표 전화번호 -->
+				<div class="hr"></div>
+				<div class="mypage-phone">
+					<div class="phone-width">
+						<div class="new_ho_phone_hidden">
+							<input type="text" id="new_ho_phone" class="box-phone2" value="\${hospital.ho_phone}"/>
+						</div>
+						<p class="box-phone">\${hospital.ho_phone}</p>
+						<span class="phone_update_btn_wrap"><a type="button" class="phone-update">변경</a></span>
+						<span class="phone_save_btn_wrap"><a type="button" class="phone_save_btn">수정완료</a></span>
+					</div>
+				</div>
+				
+				<!-- 이메일 -->
+				<div class="hr"></div>
+				<div class="mypage-email">
+					<div class="email-width">
+						<div class="new_ho_email_hidden">
+							<input type="text" id="new_ho_email" class="box-email2" value="\${hospital.ho_email}"/>
+						</div>
+						<p class="box-email">\${hospital.ho_email}</p>
+						<span class="email_update_btn_wrap"><a type="button" class="email-update">변경</a></span>
+						<span class="email_save_btn_wrap"><a type="button" class="email_save_btn">수정완료</a></span>
+					</div>
+				</div>
+				
+				<!-- 대표 진료 과목 -->
+				<div class="hr"></div>
+				<div class="subject">
+					<div class="subject-width">
+						<p class="my-hs-subject" id="my-subject">\${ho_sub.hs_title}</p>
+						<div class="new_ho_subject_hidden">
+							<select id="subject" class="my-subject-list" name="ho_hs_num">
+								<option value="none">대표 진료 과목을 선택하세요</option>
+								<c:forEach items="${hsList}" var="hs">
+									<option value="${hs.hs_num}">${hs.hs_title}</option>
+								</c:forEach>
+							</select>
+						</div>
+						<span class="subject_update_btn_wrap"><a type="button" class="subject-update">변경</a></span>
+						<span class="subject_save_btn_wrap"><a type="button" class="subject_save_btn">수정완료</a></span>
+					</div>
+				</div>
+				
+				<!-- 지역 -->
 				<div class="hr"></div>
 				<div class="mypage-hospital-address">
-					<p>${huser.ho_address}</p>
-					<span><a href="#">변경</a></span>
+					<div class="address-width">
+						<div class="new_ho_address_hidden">
+							<select name="sd_num" class="sd_num" required style="margin:5px;">
+								<option value="none">시/도를 선택해주세요</option>
+								<c:forEach items="${sidoList}" var="sd">
+									<option value="${sd.sd_num}">${sd.sd_name}</option>
+								</c:forEach>
+							</select>
+							<select name="sgg_num" class="sgg_num" required style="margin:5px;">
+								<option value="none">시/군/구를 선택해주세요</option>
+							</select>
+							<select name="emd_num" class="emd_num" required style="margin:5px;">
+								<option value="none">읍/면/동을 선택해주세요</option>
+							</select>
+						</div>
+						<p class="box-address">\${ho_land.sd_name} \${ho_land.sgg_name} \${ho_land.emd_name}</p>
+						<span class="address_update_btn_wrap"><a type="button" class="address-update">변경</a></span>
+						<span class="address_save_btn_wrap"><a type="button" class="address_save_btn">수정완료</a></span>
+					</div>
 				</div>
+				
+				<!-- 상세주소 -->
+				<div class="hr"></div>
+				<div class="mypage-detail-address">
+					<div class="detail-address-width">
+						<div class="new_ho_detail_address_hidden">
+							<input type="text" id="new_ho_detail_address" class="box-detail-address2" value="\${hospital.ho_address}"/>
+						</div>
+						<p class="box-detail-address">\${hospital.ho_address}</p>
+						<span class="detail_address_update_btn_wrap"><a type="button" class="detail-address-update">변경</a></span>
+						<span class="detail_address_save_btn_wrap"><a type="button" class="detail_address_save_btn">수정완료</a></span>
+					</div>
+				</div>
+				
 			</div>
- 		</div>
-</div>
+		</div>
+		`;
+$('.mypage-container').html(str);
+}
+</script>
+
+<!-- 이름 수정 -->
+<script type="text/javascript">
+function initMypage() {
+	$('.btn-complete').remove();
+	$('.box-ceo2').remove();
+	$('.box-btn').show();
+	$('.box-ceo').show();
+	$(".ceo-update").show();
+}
+
+function resetAll() {
+	$('.box-name').css('display', 'block');
+    $('.name_update_btn_wrap').css('display', 'block');
+    $('.new_ho_name_hidden').css('display', 'none');
+    $('.name_save_btn_wrap').css('display', 'none');
+    
+    $('.box-ceo').css('display', 'block');
+    $('.ceo_update_btn_wrap').css('display', 'block');
+    $('.new_ho_ceo_hidden').css('display', 'none');
+    $('.ceo_save_btn_wrap').css('display', 'none');
+    
+    $('.box-phone').css('display', 'block');
+    $('.phone_update_btn_wrap').css('display', 'block');
+    $('.new_ho_phone_hidden').css('display', 'none');
+    $('.phone_save_btn_wrap').css('display', 'none');
+
+    $('.box-email').css('display', 'block');
+    $('.email_update_btn_wrap').css('display', 'block');
+    $('.new_ho_email_hidden').css('display', 'none');
+    $('.email_save_btn_wrap').css('display', 'none');
+    
+    $('.box-subject').css('display', 'block');
+    $('.subject_update_btn_wrap').css('display', 'block');
+    $('.new_ho_subject_hidden').css('display', 'none');
+    $('.subject_save_btn_wrap').css('display', 'none');
+    
+    $('.box-address').css('display', 'block');
+    $('.address_update_btn_wrap').css('display', 'block');
+    $('.new_ho_address_hidden').css('display', 'none');
+    $('.address_save_btn_wrap').css('display', 'none');
+    
+    $('.box-detail-address').css('display', 'block');
+    $('.detail_address_update_btn_wrap').css('display', 'block');
+    $('.new_ho_detail_address_hidden').css('display', 'none');
+    $('.detail_address_save_btn_wrap').css('display', 'none');
+}
+
+$(document).on('click','.name-update', function(){
+    resetAll();
+    $('.box-name').css('display', 'none');
+    $('.name_update_btn_wrap').css('display', 'none');
+    $('.new_ho_name_hidden').css('display', 'block');
+    $('.name_save_btn_wrap').css('display', 'block');
+    $('#my_ceo_name').css('display', 'block');
+    $('#my-subject').css('display','block');
+});
+
+$(document).on('click','.ceo-update', function(){
+    resetAll();
+    $('.box-ceo').css('display', 'none');
+    $('.ceo_update_btn_wrap').css('display', 'none');
+    $('.new_ho_ceo_hidden').css('display', 'block');
+    $('.ceo_save_btn_wrap').css('display', 'block');
+    $('#my-subject').css('display','block');
+});
+
+$(document).on('click','.phone-update', function(){
+    resetAll();
+    $('.box-phone').css('display', 'none');
+    $('.phone_update_btn_wrap').css('display', 'none');
+    $('.new_ho_phone_hidden').css('display', 'block');
+    $('.phone_save_btn_wrap').css('display', 'block');
+    $('#my_ceo_name').css('display', 'block');
+    $('#my-subject').css('display','block');
+});
+
+$(document).on('click','.email-update', function(){
+    resetAll();
+    $('.box-email').css('display', 'none');
+    $('.email_update_btn_wrap').css('display', 'none');
+    $('.new_ho_email_hidden').css('display', 'block');
+    $('.email_save_btn_wrap').css('display', 'block');
+    $('#my_ceo_name').css('display', 'block');
+    $('#my-subject').css('display','block');
+});
+
+$(document).on('click','.subject-update', function(){
+    resetAll();
+    $('#my-subject').css('display','none');
+    $('.box-subject').css('display', 'none');
+    $('.subject_update_btn_wrap').css('display', 'none');
+    $('.new_ho_subject_hidden').css('display', 'block');
+    $('.subject_save_btn_wrap').css('display', 'block');
+    $('#my_ceo_name').css('display', 'block');
+});
+
+$(document).on('click','.detail-address-update', function(){
+    resetAll();
+    $('.box-detail-address').css('display', 'none');
+    $('.detail_address_update_btn_wrap').css('display', 'none');
+    $('.new_ho_detail_address_hidden').css('display', 'block');
+    $('.detail_address_save_btn_wrap').css('display', 'block');
+    $('#my_ceo_name').css('display', 'block');
+    $('#my-subject').css('display','block');
+});
+
+$(document).on('click','.address-update', function(){
+    resetAll();
+    $('.box-address').css('display', 'none');
+    $('.address_update_btn_wrap').css('display', 'none');
+    $('.new_ho_address_hidden').css('display', 'block');
+    $('.address_save_btn_wrap').css('display', 'block');
+    $('#my_ceo_name').css('display', 'block');
+    $('#my-subject').css('display','block');
+});
+
+$(document).on('click', '.name_save_btn', function() {
+	let hospital = {
+		ho_name : $('.box-name2').val(),
+		ho_id : 
+	}
+});
+
+</script>
+
+
 </body>
 </html>
