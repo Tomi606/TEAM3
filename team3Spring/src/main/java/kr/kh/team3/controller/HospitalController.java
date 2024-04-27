@@ -67,7 +67,7 @@ public class HospitalController {
 	//병원 마이페이지 비동기
 	@ResponseBody
 	@PostMapping("/hospital/list")
-	public HashMap<String, Object> hospitalList(HttpSession session) {
+	public HashMap<String, Object> myPagePost(HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospital(user);
@@ -229,8 +229,6 @@ public class HospitalController {
 		return emdList;
 	}
 
-	
-	
 	//회원 입장에서 상페 페이지 조회시
 	@GetMapping("/hospital/detail/detail")
 	public String hospitalDetail(Model model, Integer hdNum) {
