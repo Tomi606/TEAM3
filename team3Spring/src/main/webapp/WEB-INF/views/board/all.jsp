@@ -72,36 +72,50 @@ width: 70px;height: 50px;border: 1px solid green;color:green; line-height: 50px;
 </div>
 <div class="board_all_home_container">
 	<div class="board_list_container">
-	<!-- forEach 템플릿 -->
-		<div class="board_list">
-			<div class="board_header">
-				<h2 >게시판1</h2>
-				<a href="<c:url value="/board/list"/>" class="a_btn">이동하기</a>
-			</div>
-			<table>
-				<thead>
-					<tr style="border-bottom: 1px solid lightgray;text-align: center;">
-						<th style="width: 40%">제목</th>
-						<th style="width: 20%">작성자</th>
-						<th style="width: 20%">날짜</th>
-						<th style="width: 10%">추천수</th>
-						<th style="width: 10%">조회수</th>
-					</tr>
-				</thead>
-				<!-- <tr class="hr"></tr> -->
-				<tbody >
-				<!-- 게시글 가져올때 limit 5 설정 오더바이 desc -->
-					<tr style="height: 50px;font-size: 17px;text-align: center;">
-						<td style="max-width: 30px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">안녕하십니까 이건 테스트입미다리요리다리요라리리라리요</td>							
-						<td>권기은</td>							
-						<td>2024-04-27</td>							
-						<td>999</td>							
-						<td>9999</td>							
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	<!--여기까지  -->		
+		<c:choose>
+			<c:when test="${empty boList}">
+				<c:forEach items="${boList}" var="bo">
+					<div class="board_list">
+						<div class="board_header">
+							<h2 >${bo.bo_title}</h2>
+							<a href="<c:url value="/board/list?bo_num=${bo.bo_num}"/>" class="a_btn">이동하기</a>
+						</div>
+						<table>
+							<thead>
+								<tr style="border-bottom: 1px solid lightgray;text-align: center;">
+									<th style="width: 5%">No</th>
+									<th style="width: 40%">제목</th>
+									<th style="width: 15%">작성자</th>
+									<th style="width: 20%">날짜</th>
+									<th style="width: 10%">추천수</th>
+									<th style="width: 10%">조회수</th>
+								</tr>
+							</thead>
+							<!-- <tr class="hr"></tr> -->
+							<tbody >
+							<!-- 게시글 가져올때 limit 5 설정 오더바이 desc -->
+								<tr style="height: 50px;font-size: 17px;text-align: center;">
+									<td>${bo.post.po_num}</td>	
+									<td style="max-width: 30px; overflow: hidden; text-overflow: ellipsis;
+									white-space: nowrap;">${bo.post.po_title}</td>							
+									<td>${bo.post.po_mg_num}</td>							
+									<td>${bo.post.po_date}</td>							
+									<td></td>							
+									<td></td>							
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<td>
+					<div>
+						<h3>게시글이 존재하지 않습니다.</h3>					
+					</div>
+				</td>
+			</c:otherwise>
+		</c:choose>		
 	</div>
 </div>
 

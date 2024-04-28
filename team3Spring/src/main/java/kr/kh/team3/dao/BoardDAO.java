@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import kr.kh.team3.model.vo.BoardVO;
+import kr.kh.team3.model.vo.PostVO;
 
 public interface BoardDAO {
 
@@ -17,5 +18,7 @@ public interface BoardDAO {
 	boolean updateBoard(@Param("board")BoardVO boardVO, @Param("name")String new_BoardNames);
 
 	boolean deleteBoard(@Param("bo_num")int bo_num);
+
+	ArrayList<PostVO> selectPostList(@Param("bo_num")int bo_num);
 
 }

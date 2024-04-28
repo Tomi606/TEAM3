@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.kh.team3.dao.BoardDAO;
 import kr.kh.team3.model.vo.BoardVO;
+import kr.kh.team3.model.vo.PostVO;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -68,6 +69,11 @@ public class BoardServiceImp implements BoardService{
 	@Override
 	public ArrayList<BoardVO> selectBoard() {
 		return boardDao.selectBooardList();
+	}
+
+	@Override
+	public ArrayList<PostVO> getPostList(int bo_num) {
+		return boardDao.selectPostList(bo_num);
 	}
 
 }

@@ -17,6 +17,7 @@ public class PostVO {
 	private int po_bo_num; 
 	private int po_mg_num;
 	private SiteManagement sitemanagement;
+	private BoardVO board;
 	
 	
 	public PostVO(int po_num, int po_bo_num) {

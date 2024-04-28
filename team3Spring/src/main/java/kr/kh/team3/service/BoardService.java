@@ -3,6 +3,7 @@ package kr.kh.team3.service;
 import java.util.ArrayList;
 
 import kr.kh.team3.model.vo.BoardVO;
+import kr.kh.team3.model.vo.PostVO;
 
 public interface BoardService {
 
@@ -20,5 +21,7 @@ public interface BoardService {
 	boolean deleteBoard(int bo_num);
 
 	ArrayList<BoardVO> selectBoard();
+
+	ArrayList<PostVO> getPostList(int bo_num);
 	
 }
