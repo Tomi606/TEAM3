@@ -45,6 +45,7 @@ width: 80%;margin: 0 auto 80px auto;
 </head>
 <body>
 	<div class="post_list_container">
+
 		<div class="post_list_box">
 			<div style="text-align: center;">
 				<h1>글 쓰 기 </h1>
@@ -53,24 +54,27 @@ width: 80%;margin: 0 auto 80px auto;
 		    	<a href="<c:url value="/board/list"/>" class="post_insert_btn">목록으로</a>
 			</div>
 			<div class="hr"></div>
-			<div class="content_container">
-				<div class="content-input">
-					<label style="width: 5%;">제목</label>
-					<input type="text" class="content-title" >
-				</div>   	
-				<div class="content-text">
-					<label style="width: 5%;">내용</label>
-					<textarea class="content-content" name="content"
-					style="max-height: 400px;"></textarea>
-				</div>
-				<div class="content-file">
-					<label style="margin: 0 20px 0 58px;">첨부파일</label>
-					<input type="file">
-				</div>   
-				<div style="text-align: center;">	
-					<button class="insert-btn">작성하기</button>
-				</div>
-			</div>	
+			<form action="<c:url value='/board/insert'/>" method="post"  enctype="multipart/form-data">
+				<div class="content_container">
+					<input type="hidden" name="po_bo_num" value="${bo_num}">
+					<div class="content-input">
+						<label style="width: 5%;">제목</label>
+						<input type="text" class="content-title" name="po_title">
+					</div>   	
+					<div class="content-text">
+						<label style="width: 5%;">내용</label>
+						<textarea class="content-content" name="po_content"
+						style="max-height: 400px;"></textarea>
+					</div>
+					<div class="content-file">
+						<label style="margin: 0 20px 0 58px;">첨부파일</label>
+						<input type="file" name="files">
+					</div>   
+					<div style="text-align: center;">	
+						<button class="insert-btn">작성하기</button>
+					</div>
+				</div>	
+			</form>
 		</div>
 	</div>
 <script type="text/javascript">

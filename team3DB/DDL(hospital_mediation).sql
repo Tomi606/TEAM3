@@ -32,6 +32,7 @@ CREATE TABLE `post` (
 	`po_num`	int	 primary key auto_increment,
 	`po_title`	varchar(30) NOT	NULL,
 	`po_report_count` int not null default 0, 
+    `po_view` INT NULL DEFAULT '0',
 	`po_date` date not null,
 	`po_content`	TEXT NOT NULL,
 	`po_bo_num`	int	NOT NULL,

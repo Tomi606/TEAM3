@@ -35,7 +35,7 @@ height: 50px;width: 100px;margin: 0 20px 40px auto;
 <body>
 	<div class="post_list_container">
 		<div class="post_list_box">
-		   <h1>게시판1</h1>
+		   <h1>${bo_title}</h1>
 		   <div class="hr"></div>
 		   <form action="#">
 			   <div class="search-box">
@@ -44,7 +44,7 @@ height: 50px;width: 100px;margin: 0 20px 40px auto;
 			   </div>
 		   </form>
 		   <div class="post_insert_btn_box">
-		   	<a href="<c:url value='/board/insert'/>" class="post_insert_btn">작성하기</a>
+		   	<a href="<c:url value='/board/insert?bo_num=${bo_num}'/>" class="post_insert_btn">작성하기</a>
 		   </div>
 		   <div>
 				<table style="width: 100%;">
@@ -62,14 +62,17 @@ height: 50px;width: 100px;margin: 0 20px 40px auto;
 					<tbody>
 					<c:choose>
 						<c:when test="${not empty poList}">
-							<c:forEach items="${poList}" var="po">
-								<tr style="height: 100px;">
-									<td style="width: 5%;">${po.po_num}</td>
+						 <c:set var="postFound" value="false"/>
+                      	 <c:set var="boPostCount" value="0"/> <!-- 각 bo_num별 게시글 수 초기화 -->
+							<c:forEach items="${poList}" var="po" varStatus="poIndex">
+							  <c:set var="boPostCount" value="${boPostCount + 1}"/> 
+								<tr style="height: 100px;border-bottom: 1px solid lightgray;">
+									<td style="width: 5%;">${boPostCount}</td>
 									<td style="width: 40%;">${po.po_title}</td>
-									<td style="width: 10%;">${po.po_mg_num}</td>
-									<td style="width: 30%;">${po.po_date}</td>
-									<td style="width: 7.5%;">99</td>
-									<td style="width: 7.5%;">120</td>
+									<td style="width: 10%;">${po.po_id}</td>
+									<td style="width: 30%;">${po.changeDate1}</td>
+									<td style="width: 7.5%;">${po.po_up}</td>
+									<td style="width: 7.5%;">${po.po_view}</td>
 								</tr>
 							</c:forEach>
 						</c:when>
