@@ -82,8 +82,7 @@
 	</select>
 
 	<update id="updateBoard">
-		update board set bo_title = #{name} where bo_num =
-		#{board.bo_num}
+		update board set bo_title = #{name} where bo_num = #{board.bo_num}
 	</update>
 
 	<delete id="deleteBoard">
