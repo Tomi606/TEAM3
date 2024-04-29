@@ -19,6 +19,7 @@ public class PostVO {
 	private int po_view;
 	private int po_up;
 	private int po_down;
+	private String po_bo_title;
 	private String po_id;
 	private SiteManagement sitemanagement;
 	private BoardVO board;

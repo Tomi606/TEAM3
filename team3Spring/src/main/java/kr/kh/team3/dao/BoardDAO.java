@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import kr.kh.team3.model.vo.BoardVO;
 import kr.kh.team3.model.vo.FileVO;
 import kr.kh.team3.model.vo.PostVO;
+import kr.kh.team3.model.vo.RecommendVO;
 
 public interface BoardDAO {
 
@@ -31,5 +32,17 @@ public interface BoardDAO {
 	void insertFile(@Param("file")FileVO fileVO);
 
 	boolean insertPost(@Param("post")PostVO post);
+
+	PostVO selectPostDetail(@Param("num")int po_num);
+
+	void updateView(@Param("num")int po_num);
+
+	RecommendVO selectRecommend(@Param("re")RecommendVO recommend);
+
+	void insertRecommend(@Param("re")RecommendVO recommend);
+
+	void updateRecommend(@Param("re")RecommendVO recommend);
+
+	PostVO selectUserPostDetail(@Param("num")int po_num);
 
 }

@@ -21,7 +21,7 @@
 		<result column="po_mg_num" property="po_mg_num" />
 		<result column="po_view" property="po_view" />
 		<collection property="recommend" ofType="RecommendVO"
-			column="po_num" select="selectRecommend" />
+			column="po_num" select="selectRecommend1" />
 		<collection property="sitemanagement"
 			ofType="SiteManagement" column="po_mg_num"
 			select="selectSiteManagement" />
@@ -32,7 +32,7 @@
 		select * from site_management where site_num = #{po_mg_num}
 	</select>
 
-	<select id="selectRecommend"
+	<select id="selectRecommend1"
 		resultType="kr.kh.team3.model.vo.RecommendVO">
 		select * from recommend where re_po_num = #{po_num}
 	</select>
@@ -52,13 +52,16 @@
 		select
 		post.*,
 		site_id as po_id,
-		Sum(case when re_state = 1 then 1 else 0 end)as po_up,
-		Sum(case when re_state = -1 then 1 else 0 end)as po_down
+		Sum(case when re_state = 1
+		then 1 else 0 end)as po_up,
+		Sum(case when re_state = -1 then 1 else 0
+		end)as po_down
 		from
 		post
 		join
 		site_management on site_num = po_mg_num
-		left join
+		left
+		join
 		recommend on re_po_num = po_num
 		group by po_num
 		order by po_num desc
@@ -92,16 +95,20 @@
 		select
 		post.*,
 		site_id as po_id,
-		Sum(case when re_state = 1 then 1 else 0 end)as po_up,
-		Sum(case when re_state = -1 then 1 else 0 end)as po_down
+		Sum(case when re_state = 1
+		then 1 else 0 end)as po_up,
+		Sum(case when re_state = -1 then 1 else 0
+		end)as po_down
 		from
 		post
 		join
 		site_management on site_num = po_mg_num
-		left join
+		left
+		join
 		recommend on re_po_num = po_num
 		where po_bo_num = #{bo_num}
-		group by po_num
+		group by
+		po_num
 		order by po_num desc
 	</select>
 
@@ -115,9 +122,75 @@
 		insert into file(fi_po_num, fi_name, fi_ori_name)
 		values(#{file.fi_po_num},#{file.fi_name},#{file.fi_ori_name})
 	</insert>
-	
-	<insert id="insertPost" useGeneratedKeys="true" keyProperty="post.po_num">
-		insert into post(po_bo_num, po_mg_num, po_title, po_content,po_date)
-    	values(#{post.po_bo_num}, #{post.po_mg_num},#{post.po_title},#{post.po_content},now())
+
+	<insert id="insertPost" useGeneratedKeys="true"
+		keyProperty="post.po_num">
+		insert into post(po_bo_num, po_mg_num, po_title,
+		po_content,po_date)
+		values(#{post.po_bo_num},
+		#{post.po_mg_num},#{post.po_title},#{post.po_content},now())
 	</insert>
+
+	<select id="selectUserPostDetail"
+		resultType="kr.kh.team3.model.vo.PostVO">
+		select post.*,
+		site_id as po_id,bo_title as po_bo_title
+		from
+		post
+		join
+		board
+		on
+		bo_num = po_bo_num
+		join
+		site_management
+		on
+		site_num =
+		po_mg_num
+		where
+		po_num = #{num}
+	</select>
+
+	<select id="selectPostDetail"
+		resultType="kr.kh.team3.model.vo.PostVO">
+		select
+		post.*,
+		site_id as po_id,
+		Sum(case when re_state = 1 then 1 else 0 end)as po_up,
+		Sum(case when re_state = -1 then 1 else 0 end)as po_down
+		from
+		post
+		join
+		site_management on site_num = po_mg_num
+		left join
+		recommend
+		on
+		re_po_num = po_num
+		where
+		po_num = #{num}
+	</select>
+
+	<update id="updateView">
+		update post set po_view = po_view +1 where po_num =
+		#{num}
+	</update>
+	<!-- 추천 기능 쿼리 -->
+	<select id="selectRecommend"
+		resultType="kr.kh.team3.model.vo.RecommendVO">
+		select * from recommend
+		where
+		re_mg_num = #{re.re_mg_num} and
+		re_po_num = #{re.re_po_num}
+	</select>
+
+	<insert id="insertRecommend">
+		insert into recommend(re_mg_num, re_po_num, re_state)
+		values(#{re.re_mg_num},#{re.re_po_num},#{re.re_state})
+	</insert>
+
+	<update id="updateRecommend">
+		update recommend set re_state = #{re.re_state}
+		where
+		re_po_num = #{re.re_po_num} and re_mg_num = #{re.re_mg_num}
+	</update>
+	<!-- 추천 기능 끝 -->
 </mapper>
