@@ -45,10 +45,17 @@ margin-bottom: 40px;
 background-color: white;
 border-bottom:2px solid white;
 }
+.bookmark-after {
+	display: none;
+}
 </style>
 </head>
 <body>
 <div class="detail-page">
+	<div class="bookmark-box">
+		<img class="btn btn-lg bookmark-before" alt="북마크 전" src="<c:url value="/resources/img/bookmark-before.svg"/>">
+		<img class="btn btn-lg bookmark-after" alt="북마크 후" src="<c:url value="/resources/img/bookmark-after.svg"/>">
+	</div>
 	<div class="detail-page-sub">
 		<div class="ho_name">
 			<h1 class="ho_name" id="ho_name">${detail.hospital.ho_name}</h1>
@@ -82,7 +89,8 @@ border-bottom:2px solid white;
 				<div class="hd_time" id="hd_time">
 					<label for="hd_time" style="font-weight: bold">영업 시간</label>
 					<textarea class="hd_time col-10" id="hd_time" name="hd_time" 
-					placeholder="월~금 : 9:00~18:00 / 토,일 : 휴무" oninput="autoTextarea(this)">${hoDetail.hd_time}</textarea>
+					placeholder="월~금 : 9:00~18:00 / 토,일 : 휴무" 
+					oninput="autoTextarea(this)" readonly>${detail.hd_time}</textarea>
 				</div>
 				<hr style="border: 1px solid gray;margin: 50px auto;">
 				<div class="hd_park" id="hd_park">
@@ -108,11 +116,12 @@ border-bottom:2px solid white;
 				<div class="hsList">
 					<label for="hsList">대표 진료 과목</label>
 					<div class="subject-checkbox hsList">
-					  	<c:forEach items="${detail.hsList}" var="hs">
-							<button>${hs}</button>
+					  	<c:forEach var="i" begin="0" end="${sub.size() - 1}">
+							<button class="btn btn-info btn-lg" style="cursor: text;">
+							<p><c:out value="${sub.get(i).hospital_subject.hs_title}"/></p>
+							</button>
 					  	</c:forEach>
 					</div>
-					<%-- <input type="hidden" id="hd_hs_num" name="hd_hs_num" value="${detail.hd_hs_num}"> --%>
 				 </div>
 				 <div>
 				 	<label for="hd_subject_detail">상세 진료 항목</label>
@@ -144,10 +153,13 @@ border-bottom:2px solid white;
 		</div>
 	</div>
 </div>
+
+<!-- 북마크 버튼 -->
 <script type="text/javascript">
+document.
+</script>
 
-
-
+<script type="text/javascript">
 	$("#btn1").click(function() {
 		$("#btn1").addClass("login-btn-click");
 		$("#btn2").removeClass("login-btn-click");
@@ -164,6 +176,7 @@ border-bottom:2px solid white;
 		$("#btn2").removeClass("login-btn-click");
 	});
 </script>
+
 <!-- 리뷰 리스트 조회 -->
 <script type="text/javascript">
 //댓글 페이지 정보를 가지고 있는 객체 선언
@@ -307,7 +320,7 @@ $('.review-insert-btn').click(function() {
 				getReviewList(cri);
 			}
 			else {
-				alert('댓글 등록 실패');
+				alert('사업자 회원은 댓글을 달 수 없습니다.');
 			}
 		}, 
 		error : function(xhr, textStatus, errorThrown){
@@ -467,7 +480,7 @@ window.onload = function() {
 </script>
 
 <!-- 영업 시간 : 배열로 저장된 시간들 인덱스와 클래스 이름 매핑 -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 //서버에서 받은 hd_time 문자열
 let hd_time = "${detail.hd_time}";
 //쉼표로 문자열 분할
@@ -495,7 +508,7 @@ for(let day in days) {
 		inputField.value = timeArray[index];
 	}
 }
-</script>
+</script> -->
 
 <!-- 토글 버튼 -->
 <script type="text/javascript">

@@ -167,6 +167,6 @@ public interface HospitalService {
 
 	ArrayList<EupMyeonDongVO> getEmd(int sgg_num);
 
-
+	ArrayList<HospitalSubjectVO> getDetailSubject(String hd_ho_id);
 
 }

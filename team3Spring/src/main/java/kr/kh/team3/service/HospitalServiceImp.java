@@ -485,6 +485,12 @@ public class HospitalServiceImp implements HospitalService {
 		}
 		return hospitalDao.selectDetail(hdNum);
 	}
+	
+
+	@Override
+	public ArrayList<HospitalSubjectVO> getDetailSubject(String hd_ho_id) {
+		return hospitalDao.selectDetailSubject(hd_ho_id);
+	}
 
 	public boolean insertLand(LandVO land) {
 		if (land == null)
@@ -844,4 +850,5 @@ public class HospitalServiceImp implements HospitalService {
 	public ArrayList<EupMyeonDongVO> getEmd(int sgg_num) {
 		return hospitalDao.selectEmd(sgg_num);
 	}
+
 }

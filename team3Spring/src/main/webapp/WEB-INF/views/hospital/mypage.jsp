@@ -481,7 +481,7 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 			<div class="profile-anything">
 				<div class="anything-box">				
 					<div class="choose-box">			
-						<a href='<c:url value="/hospital/detail/detail?hdNum=1"/>'>병원 상세 페이지 조회</a><br>
+						<a href='<c:url value="/hospital/detail/detail?hdNum=42"/>'>병원 상세 페이지 조회</a><br>
 					</div>
 					<div class="choose-box">
 						<a href='<c:url value="/hospital/detail/insert"/>'>병원 상세 페이지 등록/수정</a><br>
@@ -507,6 +507,7 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 						<div class="new_ho_name_hidden">
 							<input type="text" id="new_ho_name" class="box-name2" value="\${hospital.ho_name}"/>
 						</div>
+						<p>\${hospital.ho_email}</p>
 						<span class="name_update_btn_wrap"><a type="button" class="name-update">상호명 수정</a></span>
 						<span class="name_save_btn_wrap"><a type="button" class="name_save_btn">수정 완료</a></span>
 						<span class="pw_update_btn_wrap"><a type="button" class="pw-update">비밀번호 변경</a></span>

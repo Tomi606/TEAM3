@@ -178,9 +178,9 @@ public class HospitalController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO ho = hospitalService.getHoId(ho_id);
+		boolean res = hospitalService.updateSubject(user, ho, hs_num);
 		HospitalVO hoSub = hospitalService.getHoId(ho_id);
 		HospitalSubjectVO sub = hospitalService.getSubject(hoSub);
-		boolean res = hospitalService.updateSubject(user, ho, hs_num);
 		
 		map.put("ho", ho);
 		map.put("sub", sub);
@@ -231,14 +231,15 @@ public class HospitalController {
 
 	//회원 입장에서 상페 페이지 조회시
 	@GetMapping("/hospital/detail/detail")
-	public String hospitalDetail(Model model, Integer hdNum) {
+	public String hospitalDetail(Model model, Integer hdNum, HospitalVO ho) {
 		//상세 페이지를 가져옴(임시)
-		hdNum = 5;
+		hdNum = 42;
 		HospitalDetailVO detail = hospitalService.getDetail(hdNum);
 		//병원과목 리스트
-		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
+		ArrayList<HospitalSubjectVO> sub = hospitalService.getDetailSubject(detail.getHd_ho_id());
+		
 		model.addAttribute("detail", detail);
-		model.addAttribute("hsList", hsList);
+		model.addAttribute("sub", sub);
 		return "/hospital/detail/detail";
 	}
 

@@ -1,6 +1,5 @@
 package kr.kh.team3.model.vo;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

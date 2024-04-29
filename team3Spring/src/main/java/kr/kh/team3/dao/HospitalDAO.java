@@ -175,5 +175,7 @@ public interface HospitalDAO {
 
 	ArrayList<EupMyeonDongVO> selectEmd(@Param("sgg_num") int sgg_num);
 
+	ArrayList<HospitalSubjectVO> selectDetailSubject(@Param("hd_ho_id") String hd_ho_id);
+
 
 }
