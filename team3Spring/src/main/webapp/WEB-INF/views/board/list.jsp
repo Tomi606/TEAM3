@@ -68,7 +68,7 @@ height: 50px;width: 100px;margin: 0 20px 40px auto;
 							  <c:set var="boPostCount" value="${boPostCount + 1}"/> 
 								<tr style="height: 100px;border-bottom: 1px solid lightgray;">
 									<td style="width: 5%;">${boPostCount}</td>
-									<td style="width: 40%;">${po.po_title}</td>
+									<td style="width: 40%;"><a href="<c:url value="/board/detail?po_num=${po.po_num}"/>">${po.po_title}</a></td>
 									<td style="width: 10%;">${po.po_id}</td>
 									<td style="width: 30%;">${po.changeDate1}</td>
 									<td style="width: 7.5%;">${po.po_up}</td>

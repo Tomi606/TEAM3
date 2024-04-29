@@ -12,5 +12,10 @@ public class RecommendVO {
 	private int re_po_num;
 	private int re_mg_num;
 	private PostVO post;
+	public RecommendVO(int num, int site_num) {
+		re_po_num =num;
+		re_mg_num=site_num;
+		
+	}
 
 }

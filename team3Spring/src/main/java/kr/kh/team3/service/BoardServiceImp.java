@@ -13,6 +13,7 @@ import kr.kh.team3.dao.BoardDAO;
 import kr.kh.team3.model.vo.BoardVO;
 import kr.kh.team3.model.vo.FileVO;
 import kr.kh.team3.model.vo.PostVO;
+import kr.kh.team3.model.vo.RecommendVO;
 import kr.kh.team3.model.vo.SiteManagement;
 import kr.kh.team3.utils.UploadFileUtils;
 import lombok.extern.log4j.Log4j;
@@ -150,4 +151,60 @@ public class BoardServiceImp implements BoardService{
 		    return true;
 	}
 
+	@Override
+	public PostVO getPost(int po_num) {
+		return boardDao.selectPostDetail(po_num);
+	}
+
+	@Override
+	public void updateView(int po_num) {
+		boardDao.updateView(po_num);
+	}
+
+	@Override
+	  public int recommend(RecommendVO recommend, SiteManagement user) {
+	    System.out.println(recommend + ", " + user);
+	    if(recommend == null)
+	      return -2;
+	    if(user == null)
+	      return -2;
+	        
+	    //기존 추천 정보가 있는지 확인
+	    recommend.setRe_mg_num(user.getSite_num());
+	    RecommendVO dbRecommend = boardDao.selectRecommend(recommend);
+	    //없으면 추가
+	    if(dbRecommend == null) {
+	      boardDao.insertRecommend(recommend);
+	    }
+	    //있으면 수정
+	    else {
+	      //취소
+	      if(recommend.getRe_state() == dbRecommend.getRe_state()) {
+	        recommend.setRe_state(0);
+	      }
+	      boardDao.updateRecommend(recommend);
+	    }
+	    return recommend.getRe_state();
+	  }
+	@Override
+	  public int getUserRecommend(int num, SiteManagement user) {
+	    if(user == null) {
+	      return -2;
+	    }
+	    
+	    RecommendVO recommend = boardDao.selectRecommend(new RecommendVO(num, user.getSite_num()));
+	    return recommend == null ? -2 : recommend.getRe_state();
+	  }
+
+	@Override
+	public PostVO getPostDetail(int po_num) {
+		return boardDao.selectUserPostDetail(po_num);
+	}
+	
+	
+	
+	
+	
+	
+	
 }

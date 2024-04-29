@@ -1,6 +1,8 @@
 package kr.kh.team3.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,10 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.team3.model.vo.BoardVO;
+import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.PostVO;
+import kr.kh.team3.model.vo.RecommendVO;
 import kr.kh.team3.model.vo.SiteManagement;
 import kr.kh.team3.service.BoardService;
 import lombok.extern.log4j.Log4j;
@@ -54,12 +61,12 @@ public class BoardController {
 	@GetMapping("/board/insert")
 	public String boardInsertGet(Model model,HttpSession session,int bo_num) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-//		if(user == null) {
-//			model.addAttribute("msg","로그인이 필요한 서비스입니다.");
-//			model.addAttribute("url","/main/login");
-//			return "message";
-//		}
-		//log.info(bo_num + "fdslkaj;lkjlkda");
+		if(user == null) {
+			model.addAttribute("msg","로그인이 필요한 서비스입니다.");
+			model.addAttribute("url","/main/login");
+			return "message";
+		}
+		
 		model.addAttribute("bo_num", bo_num);
 		return "/board/insert";
 	}
@@ -77,5 +84,56 @@ public class BoardController {
 		}
 		return "message";
 	}
+	
+	@GetMapping("/board/detail")
+	public String boardDetailGet(Model model,HttpSession session,int po_num) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		if(user == null) {
+			model.addAttribute("msg","로그인이 필요한 서비스입니다.");
+			model.addAttribute("url","/main/login");
+			return "message";
+		}
+		boardService.updateView(po_num);
+		PostVO post = boardService.getPostDetail(po_num);
+		model.addAttribute("post",post);
+		
+		return "/board/detail";
+	}
+	
+	@ResponseBody
+	  @PostMapping("/recommend/check")
+	  public Map<String, Object> recommendCheck(@RequestBody RecommendVO recommend, HttpSession session){
+	    Map<String, Object> map = new HashMap<String, Object>();
+	    SiteManagement user = (SiteManagement) session.getAttribute("user");
+	    int res = boardService.recommend(recommend, user);
+	    map.put("result", res);
+	    return map;
+	  }
+	  
+	  @ResponseBody
+	  @PostMapping("/recommend")
+	  public Map<String, Object> recommend(@RequestParam("num") int num, HttpSession session){
+	    Map<String, Object> map = new HashMap<String, Object>();
+	    //로그인한 회원의 추천 정보
+	    SiteManagement user = (SiteManagement) session.getAttribute("user");
+	    int state = boardService.getUserRecommend(num, user);
+	    //게시글의 추천/비추천수를 가져옴
+	    PostVO post = boardService.getPost(num);
+	    map.put("state", state);
+	    map.put("post", post);
+	    return map;
+	  }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
