@@ -362,7 +362,7 @@ function getSubHoList(){
                 	if(ho.hospital_detail == null){
                		 str += 
                         `
-       	                    <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=${ho.hospital.ho_id}'/>" style="padding: auto;" data-id="\${ho.ho_id}>"
+       	                    <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=\${ho.hospital.ho_id}'/>" style="padding: auto;" data-id="\${ho.ho_id}">
        							<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
        							<h4>\${ho.hospital.ho_name}</h4>
        							<p>\${ho.hospital_subject.hs_title}</p>
@@ -405,7 +405,7 @@ function getSubHoList(){
 
 	                    str += 
 	                   	`
-		                    <a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;" data-id="\${ho.ho_id}>"
+		                    <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=\${ho.hospital.ho_id}'/>" style="padding: auto;" data-id="\${ho.ho_id}">
 								<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
 								<h4>\${ho.hospital.ho_name}</h4>
 								<p>\${ho.hospital_subject.hs_title}</p>
@@ -478,7 +478,7 @@ function getAreaHoList(){
                 	if(area.hs_num == 0){
                 		 str += 
                            	`
-         	                    <a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;" data-id="\${ho.ho_id}>"
+         	                    <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=\${ho.ho_id}'/>" style="padding: auto;" data-id="\${ho.ho_id}">
          							<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
          							<h4>\${ho.ho_name}</h4>
          							<p>\${ho.hospital_subject.hs_title}</p>
@@ -491,7 +491,7 @@ function getAreaHoList(){
                 		
 	                    str += 
 	                   	`
-		                    <a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;" data-id="\${ho.ho_id}>"
+		                    <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=\${ho.ho_id}'/>" style="padding: auto;" data-id="\${ho.ho_id}">
 								<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
 								<h4>\${ho.hospital.ho_name}</h4>
 								<p>\${ho.hospital_subject.hs_title}</p>

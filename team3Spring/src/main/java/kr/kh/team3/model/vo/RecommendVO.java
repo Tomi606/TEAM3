@@ -5,8 +5,12 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class BoardVO {
-	private int bo_num;
-	private String bo_title;
+public class RecommendVO {
+
+	private int re_num;
+	private int re_state;
+	private int re_po_num;
+	private int re_mg_num;
 	private PostVO post;
+
 }
