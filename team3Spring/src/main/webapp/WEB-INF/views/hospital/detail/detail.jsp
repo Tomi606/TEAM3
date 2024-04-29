@@ -8,7 +8,7 @@
 <title>병원 상세 페이지 조회</title>
 <style type="text/css">
 .toggle-btn{
-display:flex;
+	display:flex;
 
 }
 .toggle-button {
@@ -28,26 +28,33 @@ display:flex;
     display: block;
 }
 .detail-page{
- width: 100%;height: 100%;display: flex;
+ 	width: 100%;
+ 	height: 100%;
+ 	display: flex;
 }
 .detail-page-sub{
- width: 1500px;height: 100%;margin: 100px auto;text-align: center;
+ 	width: 1500px;
+ 	height: 100%;
+ 	margin: 100px auto;
+ 	text-align: center;
 }
 .ho_name{
-margin-bottom: 40px;
+	margin-bottom: 40px;
 
 }
 .body-container{
-	width: 100%;height: 100%; border: 1px solid black; 
+	width: 100%;
+	height: 100%;
+	border: 1px solid black; 
 
 }
 .login-btn-click{
 background-color: white;
 border-bottom:2px solid white;
 }
-/* .bookmark-after {
+.bookmark-after {
 	display: none;
-} */
+}
 </style>
 </head>
 <body>
@@ -158,9 +165,9 @@ border-bottom:2px solid white;
 <script type="text/javascript">
 $('.bookmark-before').click(function() {
 	//로그인 체크 여부
-	/* if(!checkLogin()) {
+	if(!checkLogin()) {
 		return false;
-	} */
+	}
 	
 	//서버에 보낼 데이터 생성
 	let me_id = $(this).data('id');
@@ -193,6 +200,10 @@ $('.bookmark-before').click(function() {
 		}
 	});
 	
+	this.style.display = 'none';
+	let bookmarkAfter = document.querySelector('.bookmark-after');
+	bookmarkAfter.style.display = 'inline';
+
 });
 
 //손보기!!!
@@ -212,9 +223,9 @@ function getBookmarkAfter() {
 <script type="text/javascript">
 $('.bookmark-after').click(function() {
 	//로그인 체크 여부
-	/* if(!checkLogin()) {
+	if(!checkLogin()) {
 		return false;
-	} */
+	}
 	
 	//서버에 보낼 데이터 생성
 	let me_id = $(this).data('id');
@@ -247,12 +258,10 @@ $('.bookmark-after').click(function() {
 		}
 	});
 	
-	
 	this.style.display = 'none';
 	let bookmarkBefore = document.querySelector('.bookmark-before');
-	bookmark.style.display = 'inline';
-	alert('북마크 해제되었습니다.')
-	return;
+	bookmarkBefore.style.display = 'inline';
+
 });
 
 </script>
@@ -428,6 +437,10 @@ $('.review-insert-btn').click(function() {!!
 	});
 });
 
+</script>
+
+<!-- 로그인 체크 -->
+<script type="text/javascript">
 function checkLogin() {
 	//로그인 했을 때
 	if('${user.site_id}' != '') {

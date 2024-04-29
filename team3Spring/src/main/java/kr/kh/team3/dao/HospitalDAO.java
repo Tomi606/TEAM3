@@ -179,6 +179,4 @@ public interface HospitalDAO {
 
 	HospitalDetailVO selectDetailId(@Param("hd_num") int hdNum);
 
-	BookmarkVO selectBmkDBHospital(@Param("ho_id") String hd_ho_id);
-
 }

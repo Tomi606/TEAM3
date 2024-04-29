@@ -325,7 +325,7 @@ public class HospitalController {
 		return "/hospital/detail/insert";
 	}
 
-	// 병원 상세 페이지 등록/수정
+	//병원 상세 페이지 등록/수정
 	@ResponseBody
 	@PostMapping("/hospital/detail/insert")
 	public Map<String, Object> detailInsertPost(HttpSession session, @RequestBody HospitalDetailVO detail) {
