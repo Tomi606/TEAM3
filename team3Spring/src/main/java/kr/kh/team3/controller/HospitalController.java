@@ -347,7 +347,6 @@ public class HospitalController {
 	@GetMapping("/hospital/item/insert")
 	public String hospitalProgramInsertPage(Model model, HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		ArrayList<ItemVO> itemList = programService.getAllItemList(user);
 		ArrayList<HospitalProgramVO> programList = programService.getProgramList(user); 
 		ArrayList<HsListVO> subjectList = programService.getSubjectList(user);
 		ArrayList<HospitalSubjectVO> list = new ArrayList<HospitalSubjectVO>();
@@ -361,7 +360,6 @@ public class HospitalController {
 			}
 		}
 		model.addAttribute("programList",programList);
-		model.addAttribute("itemList", itemList);
 		model.addAttribute("list",list);
 		return "/hospital/detail/iteminsert";
 	}
@@ -404,6 +402,7 @@ public class HospitalController {
 	}
 	
 	//세부 항목 수정 포스트 메서드
+	// 프로그램이 바뀔때마다 세부 항목이 바뀌는 메서드
 	@ResponseBody
 	@PostMapping("/subject/item")
 	 public Map<String, Object> SubjectItem(@RequestParam("hs_num") int hs_num,
@@ -412,7 +411,9 @@ public class HospitalController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HsListVO hslist = programService.getHsList(hs_num, user);
 		ArrayList<ItemVO> itemList = programService.getItemList(user, hslist);
+		ArrayList<HospitalProgramVO> hpList = programService.getSubjectByProgram(user, hslist);
 		map.put("itemList", itemList);
+		map.put("hpList", hpList);
 		 return map;
     }
 	
@@ -454,10 +455,11 @@ public class HospitalController {
 	@ResponseBody
 	@PostMapping("/program/insert")
 	public Map<String, Object> insertProgram(HospitalProgramVO program, HttpSession session,
-			@RequestParam("list[]") ArrayList<Integer> list) {
+			@RequestParam("list[]") ArrayList<Integer> list, @RequestParam("hs_num") int hs_num) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		boolean res =  programService.insertProgram(program, user, list);
+		HsListVO hslist = programService.getHsList(hs_num, user);
+		boolean res =  programService.insertProgram(program, user, list, hslist.getHsl_num());
 		if(res) {
 			map.put("msg", "추가에 성공했습니다.");
 		}else {
@@ -472,34 +474,63 @@ public class HospitalController {
 	@GetMapping("/program/update")
 	public String updateUpdate(HospitalProgramVO program, HttpSession session, Model model) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		ArrayList<HsListVO> subjectList = programService.getSubjectList(user);
+		ArrayList<HospitalSubjectVO> list = new ArrayList<HospitalSubjectVO>();
+		for(HsListVO tmp : subjectList) {
+			try {
+				HospitalSubjectVO subject = programService.getSubject(tmp.getHsl_hs_num(), user);				
+				System.out.println(subject);
+				list.add(subject);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		
+		model.addAttribute("list",list);
 		 ArrayList<HospitalProgramVO> programList = programService.getProgramList(user); 
 		 ArrayList<ItemVO> itemList = programService.getAllItemList(user); 
 		 model.addAttribute("programList", programList);
 		 model.addAttribute("itemList", itemList);
-		return "/hospital/detail/programupdate";
+		 return "/hospital/detail/programupdate";
 	}
 	
 	//프로그램 수정 메서드
+	//과를 선택하면 여러 정보가 나옴
+	@ResponseBody
+	@PostMapping("/program/updatecheck")
+	public Map<String, Object> updateProgramCheck(@RequestParam("hs_num") int hs_num, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		//해당 과와아이디를 이용해 번호를 가져오는 메서드
+		HsListVO hslist = programService.getHsList(hs_num, user);
+		//과를 선택할 때마다 프로그램을 가져오는 메서드
+		ArrayList<HospitalProgramVO> hpList = programService.getHpList(hslist.getHsl_num(), user);
+		ArrayList<ItemVO> itemList = programService.getItemList(user, hslist);
+		map.put("hpList", hpList);
+		map.put("itemList", itemList);
+		return map;
+    }
+	
+	//프로그램 수정 메서드
+	//과를 선택하면 여러 정보가 나옴
 	@ResponseBody
 	@PostMapping("/program/update")
-	public String updateUpdatePost(HospitalProgramVO program, HttpSession session,
-			@RequestParam("list[]") ArrayList<Integer> list, Model model) {
-		
+	public String updateProgramInsert(Model model, @RequestParam("hs_num") int hs_num, HttpSession session,
+			HospitalProgramVO hospitalProgram, @RequestParam("list[]") ArrayList<Integer> list) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		
-		boolean resDle = programService.deleteProgram(program.getHp_num());; 
-		if(resDle) {
-			boolean resIns = programService.insertProgram(program, user, list);
-			 if (resIns) {
-					model.addAttribute("msg","프로그램 수정을 완료했습니다.");
-					model.addAttribute("url","/hospital/item/insert");
-					return "message";
-			 }
+		boolean res = programService.deleteProgram(hospitalProgram.getHp_num());
+		boolean insertres = programService.insertProgram(hospitalProgram, user, list, hs_num);
+				
+		if(res) {
+			if(insertres) {
+				model.addAttribute("msg", "수정에 성공했습니다.");
+
+			}
 		}
-		model.addAttribute("msg","프로그램 수정에 실패 했습니다.");
-		model.addAttribute("url","/program/update");
+		model.addAttribute("msg", "수정에 실패했습니다.");
 		return "message";
-	}
+    }
+	
 	
 	//프로그램 삭제 메서드
 	@GetMapping("/program/delete")
@@ -531,21 +562,17 @@ public class HospitalController {
 	// 프로그램에 속한 리스트를 조회하는 메서드
 	@ResponseBody
 	@PostMapping("/itemlist/check")
-	public Map<String, Object> selectItemList(@RequestParam("hp_num") int hp_num, HttpSession session ) {
+	public Map<String, Object> selectItemList(@RequestParam("hp_num") int hp_num, HttpSession session 
+				, @RequestParam("hs_num") int hs_num) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		ArrayList<ItemListVO> itemListList = programService.getProgramItemList(user, hp_num);
-		map.put("itemListList", itemListList);
+		HsListVO hslist = programService.getHsList(hs_num, user);
+		HospitalProgramVO hp = programService.getHospitalProgram(hslist, hp_num, user);
+		ArrayList<ItemListVO> itemListList = programService.getProgramItemList(user, hp.getHp_num());
+		map.put("itemList", itemListList);
 		return map;
 	}
-
-	@PostMapping("/itemlist/check2")
-	public String selectItemList2(Model model, @RequestParam("hp_num") int hp_num, HttpSession session ) {
-		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		ArrayList<ItemListVO> itemListList = programService.getProgramItemList(user, hp_num);
-		model.addAttribute("itemListList", itemListList);
-		return "itemforeach";
-	}
+	
 	// 프로그램 리스트 속한 아이템을 조회하는 메서드
 	@ResponseBody
 	@PostMapping("/item/check")
@@ -556,6 +583,7 @@ public class HospitalController {
 		map.put("itemList", itemList);
 		return map;
 	}
+	
 	//============================================= 조민석 ===================================================
 	/*병원 리스트 출력 정경호,권기은*/
 	@GetMapping("/hospital/list")

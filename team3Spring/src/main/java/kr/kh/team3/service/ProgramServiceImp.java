@@ -48,16 +48,13 @@ public class ProgramServiceImp implements ProgramService{
 
 	@Override
 	public boolean updateItem(ItemVO item, SiteManagement user, int it_num, int hs_num) {
-		ArrayList<ItemVO> itemList = programDao.selectItemSubjectByList(user, hs_num);
+		HsListVO hl = programDao.selelctHsList(hs_num, user);
+		ArrayList<ItemVO> itemList = programDao.selectItemSubjectByList(user, hl.getHsl_num());
 		for(ItemVO tmp : itemList) {
 			System.out.println(tmp.getIt_name().equals(item.getIt_name()));
 			if(tmp.getIt_name().equals(item.getIt_name())) {
 				return false;
 			}
-		}
-		HsListVO hl = programDao.selelctHsList(hs_num, user);
-		if(hl == null) {
-			return false;
 		}
 		return programDao.updateItem(item, it_num, hl);
 	}
@@ -79,7 +76,7 @@ public class ProgramServiceImp implements ProgramService{
 	
 	@Override
 	public boolean insertProgram(HospitalProgramVO program
-			, SiteManagement user, ArrayList<Integer> list) {
+			, SiteManagement user, ArrayList<Integer> list, int hs_num) {
 		if(program.getHp_payment() == 0 || program.getHp_ho_id() == ""
 				|| user.getSite_id() == null) {
 			return false;
@@ -96,7 +93,7 @@ public class ProgramServiceImp implements ProgramService{
 		boolean listRes = false;
 		if(user.getSite_authority().equals("MANAGER")) {	
 			//항목 리스트, 항목 리스트 제목, 병원 프로그램 명(번호) 가져와서 itemList에 넣기
-			programRes =  programDao.insertProgram(program, user);	
+			programRes =  programDao.insertProgram(program, user, hs_num);	
 		}
 		if(programRes) {
 			HospitalProgramVO pr = programDao.selectProgram(program);
@@ -174,7 +171,28 @@ public class ProgramServiceImp implements ProgramService{
 			return null;
 		}
 
-		return programDao.selectItemSubjectByList(user, hslist.getHsl_hs_num());
+		return programDao.selectItemSubjectByList(user, hslist.getHsl_num());
+	}
+
+	@Override
+	public ArrayList<HospitalProgramVO> getHpList(int hs_num, SiteManagement user) {
+		return programDao.selectSubjectByProgramList(hs_num, user);
+	}
+
+	@Override
+	public ArrayList<HospitalProgramVO> getSubjectByProgram(SiteManagement user, HsListVO hslist) {
+		if(user == null || hslist == null) {
+			return null;
+		}
+		return programDao.selectSubjectByProgramList(hslist.getHsl_num(), user);
+	}
+
+	@Override
+	public HospitalProgramVO getHospitalProgram(HsListVO hslist,int hp_num ,SiteManagement user) {
+		if(hslist == null) {
+			return null;
+		}
+		return programDao.selectItemListByProgram(hslist.getHsl_num(), hp_num, user);
 	}
 
 

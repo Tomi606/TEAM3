@@ -19,7 +19,7 @@ public interface ProgramDAO {
 
 	ArrayList<HospitalProgramVO> selectProgramList(@Param("user") SiteManagement user);
 
-	boolean insertProgram(@Param("pr")HospitalProgramVO program,@Param("user") SiteManagement user);
+	boolean insertProgram(@Param("pr")HospitalProgramVO program,@Param("user") SiteManagement user, @Param("hs_num") int hs_num);
 
 	boolean updateItem(@Param("item")ItemVO item, @Param("it_num") int it_num,@Param("hsl_nul") HsListVO hl);
 
@@ -46,6 +46,10 @@ public interface ProgramDAO {
 	HsListVO selelctHsList(@Param("hs_num") int hs_num, @Param("user")SiteManagement user);
 
 	ArrayList<ItemVO> selectItemSubjectByList(@Param("user") SiteManagement user,@Param("hs_num") int hs_num);
+
+	ArrayList<HospitalProgramVO> selectSubjectByProgramList(@Param("hsl_num")int hsl_num,@Param("user") SiteManagement user);
+
+	HospitalProgramVO selectItemListByProgram(@Param("hsl_num")int hsl_num,@Param("hp_num") int hp_num, @Param("user")SiteManagement user);
 
 
 }

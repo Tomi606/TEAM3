@@ -14,5 +14,6 @@ public class HsListVO {
 	private HospitalVO hospital;
 	private HospitalSubjectVO hospital_subject;
 	private HospitalDetailVO hospital_detail;
+	private HospitalProgramVO hospital_program;
 
 }
