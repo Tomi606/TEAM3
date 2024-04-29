@@ -102,7 +102,7 @@ public class BoardController {
 	
 	@ResponseBody
 	  @PostMapping("/recommend/check")
-	  public Map<String, Object> recommendCheck(@RequestBody RecommendVO recommend, HttpSession session){
+	  public Map<String, Object> recommendCheck(@RequestBody RecommendVO recommend,HttpSession session){
 	    Map<String, Object> map = new HashMap<String, Object>();
 	    SiteManagement user = (SiteManagement) session.getAttribute("user");
 	    int res = boardService.recommend(recommend, user);
@@ -112,7 +112,7 @@ public class BoardController {
 	  
 	  @ResponseBody
 	  @PostMapping("/recommend")
-	  public Map<String, Object> recommend(@RequestParam("num") int num, HttpSession session){
+	  public Map<String, Object> recommend(@RequestParam("num")int num,HttpSession session){
 	    Map<String, Object> map = new HashMap<String, Object>();
 	    //로그인한 회원의 추천 정보
 	    SiteManagement user = (SiteManagement) session.getAttribute("user");
