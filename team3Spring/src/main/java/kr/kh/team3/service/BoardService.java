@@ -2,7 +2,11 @@ package kr.kh.team3.service;
 
 import java.util.ArrayList;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import kr.kh.team3.model.vo.BoardVO;
+import kr.kh.team3.model.vo.PostVO;
+import kr.kh.team3.model.vo.SiteManagement;
 
 public interface BoardService {
 
@@ -20,5 +24,15 @@ public interface BoardService {
 	boolean deleteBoard(int bo_num);
 
 	ArrayList<BoardVO> selectBoard();
+
+	ArrayList<PostVO> getPostList(int bo_num);
+
+	ArrayList<PostVO> getAllPostList();
+
+	ArrayList<BoardVO> getAllBoardList();
+
+	String getBoardName(int bo_num);
+
+	boolean insertPost(SiteManagement user, PostVO post, MultipartFile[] files);
 	
 }

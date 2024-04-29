@@ -16,7 +16,13 @@ public class PostVO {
 	private Date po_date;
 	private int po_bo_num; 
 	private int po_mg_num;
+	private int po_view;
+	private int po_up;
+	private int po_down;
+	private String po_id;
 	private SiteManagement sitemanagement;
+	private BoardVO board;
+	private RecommendVO recommend;
 	
 	
 	public PostVO(int po_num, int po_bo_num) {
@@ -28,6 +34,14 @@ public class PostVO {
 	public String getChangeDate() {
 		if (this.po_date != null) {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			return format.format(this.po_date);
+		} else {
+			return "없당ㅎㅎ";
+		}
+	}
+	public String getChangeDate1() {
+		if (this.po_date != null) {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 			return format.format(this.po_date);
 		} else {
 			return "없당ㅎㅎ";

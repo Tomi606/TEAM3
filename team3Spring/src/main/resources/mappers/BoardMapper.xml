@@ -3,23 +3,121 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team3.dao.BoardDAO">
-	<select id="selectBooardList" resultType="kr.kh.team3.model.vo.BoardVO">
-		select * from board;
+
+	<resultMap type="kr.kh.team3.model.vo.BoardVO" id="boardMap">
+		<id column="bo_num" property="bo_num" />
+		<result column="bo_title" property="bo_title" />
+		<collection property="post" ofType="PostVO" column="bo_num"
+			select="selectPost" />
+	</resultMap>
+
+	<resultMap type="kr.kh.team3.model.vo.PostVO" id="postMap">
+		<id column="po_num" property="po_num" />
+		<result column="po_title" property="po_title" />
+		<result column="po_content" property="po_content" />
+		<result column="po_report_count" property="po_report_count" />
+		<result column="po_date" property="po_date" />
+		<result column="po_bo_num" property="po_bo_num" />
+		<result column="po_mg_num" property="po_mg_num" />
+		<result column="po_view" property="po_view" />
+		<collection property="recommend" ofType="RecommendVO"
+			column="po_num" select="selectRecommend" />
+		<collection property="sitemanagement"
+			ofType="SiteManagement" column="po_mg_num"
+			select="selectSiteManagement" />
+	</resultMap>
+
+	<select id="selectSiteManagement"
+		resultType="kr.kh.team3.model.vo.SiteManagement">
+		select * from site_management where site_num = #{po_mg_num}
 	</select>
-	
+
+	<select id="selectRecommend"
+		resultType="kr.kh.team3.model.vo.RecommendVO">
+		select * from recommend where re_po_num = #{po_num}
+	</select>
+
+	<select id="selectAllBoardList"
+		resultType="kr.kh.team3.model.vo.BoardVO">
+		select * from board
+	</select>
+
+	<select id="selectPost" resultType="kr.kh.team3.model.vo.PostVO">
+		select * from post where
+		po_bo_num = #{bo_num}
+	</select>
+
+	<select id="selectAllPostList"
+		resultType="kr.kh.team3.model.vo.PostVO">
+		select
+		post.*,
+		site_id as po_id,
+		Sum(case when re_state = 1 then 1 else 0 end)as po_up,
+		Sum(case when re_state = -1 then 1 else 0 end)as po_down
+		from
+		post
+		join
+		site_management on site_num = po_mg_num
+		left join
+		recommend on re_po_num = po_num
+		group by po_num
+		order by po_num desc
+	</select>
+
+
+	<select id="selectBooardList" resultMap="boardMap">
+		select * from board
+	</select>
+
 	<insert id="insertBoard">
-			insert into board (bo_title) value(#{board})
+		insert into board (bo_title) value(#{board})
 	</insert>
-	
-	<select id="selectBooard" resultType="kr.kh.team3.model.vo.BoardVO">
-			select * from board where bo_num = #{bo_num}
+
+	<select id="selectBooard"
+		resultType="kr.kh.team3.model.vo.BoardVO">
+		select * from board where bo_num = #{bo_num}
 	</select>
-	
+
 	<update id="updateBoard">
-		update board set bo_title = #{name} where bo_num = #{board.bo_num}
+		update board set bo_title = #{name} where bo_num =
+		#{board.bo_num}
 	</update>
-	
+
 	<delete id="deleteBoard">
 		delete from board where bo_num = #{bo_num}
 	</delete>
+
+	<select id="selectPostList"
+		resultType="kr.kh.team3.model.vo.PostVO">
+		select
+		post.*,
+		site_id as po_id,
+		Sum(case when re_state = 1 then 1 else 0 end)as po_up,
+		Sum(case when re_state = -1 then 1 else 0 end)as po_down
+		from
+		post
+		join
+		site_management on site_num = po_mg_num
+		left join
+		recommend on re_po_num = po_num
+		where po_bo_num = #{bo_num}
+		group by po_num
+		order by po_num desc
+	</select>
+
+	<!-- 보드타이틀 가져오는 매퍼 -->
+	<select id="selectBoardName" resultType="string">
+		select bo_title from
+		board where bo_num = #{num}
+	</select>
+
+	<insert id="insertFile">
+		insert into file(fi_po_num, fi_name, fi_ori_name)
+		values(#{file.fi_po_num},#{file.fi_name},#{file.fi_ori_name})
+	</insert>
+	
+	<insert id="insertPost" useGeneratedKeys="true" keyProperty="post.po_num">
+		insert into post(po_bo_num, po_mg_num, po_title, po_content,po_date)
+    	values(#{post.po_bo_num}, #{post.po_mg_num},#{post.po_title},#{post.po_content},now())
+	</insert>
 </mapper>
