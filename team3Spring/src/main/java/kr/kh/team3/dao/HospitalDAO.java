@@ -99,7 +99,7 @@ public interface HospitalDAO {
 
 	HospitalVO getHospital(@Param("ho_id")String hd_ho_id, @Param("la_num")int me_la_num);
   
-	HospitalDetailVO selectDetail(@Param("hd_num") int hdNum);
+	HospitalDetailVO selectDetail(@Param("hd_num") Integer hdNum);
 
 	boolean insertReview(@Param("vw") ReviewVO review);
 
@@ -142,6 +142,38 @@ public interface HospitalDAO {
 	int selectHospitalAllCount(@Param("la")LandVO land,@Param("cri") Criteria cri);
 
 	boolean deleteSubjects(@Param("ho") HospitalVO hospital);
+
+	HospitalSubjectVO selectSubject(@Param("ho") HospitalVO huser);
+
+	LandVO selectMyLand(@Param("ho") HospitalVO huser);
+
+	String selectSdName(@Param("la") LandVO land);
+
+	String selectSggName(@Param("la") LandVO land);
+
+	String selectEmdName(@Param("la") LandVO land);
+
+	boolean updateName(@Param("ho") HospitalVO hospital);
+
+	boolean updateCEO(@Param("ho") HospitalVO hospital);
+
+	boolean updatePhone(@Param("ho") HospitalVO hospital);
+
+	boolean updateEmail(@Param("ho") HospitalVO hospital);
+
+	boolean updateDetailAddress(@Param("ho") HospitalVO hospital);
+
+	boolean updatePw(@Param("pw") String encPw, @Param("ho_id") String ho_id);
+
+	boolean updateSubject(@Param("ho_id") String ho_id, @Param("hs_num") int hs_num);
+
+	boolean updateHospitalLand(@Param("ho") HospitalVO ho, @Param("la") LandVO la);
+
+	boolean updateSiteLand(@Param("site") SiteManagement user, @Param("la") LandVO la);
+
+	ArrayList<SiGoonGuVO> selectSgg(@Param("sd_num") int sd_num);
+
+	ArrayList<EupMyeonDongVO> selectEmd(@Param("sgg_num") int sgg_num);
 
 
 }
