@@ -522,4 +522,7 @@
 		select * from eup_myeon_dong where emd_sgg_num = #{sgg_num}
 	</select>
 	
+	<select id="selectDetailId" resultType="HospitalDetailVO">
+		select hd_ho_id from hospital_detail where hd_num = #{hd_num}
+	</select>
 </mapper>

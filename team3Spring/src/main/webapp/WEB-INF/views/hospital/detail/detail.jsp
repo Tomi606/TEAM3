@@ -53,8 +53,8 @@ border-bottom:2px solid white;
 <body>
 <div class="detail-page">
 	<div class="bookmark-box">
-		<img class="btn btn-lg bookmark-before" alt="북마크 전" src="<c:url value="/resources/img/bookmark-before.svg"/>">
-		<img class="btn btn-lg bookmark-after" alt="북마크 후" src="<c:url value="/resources/img/bookmark-after.svg"/>">
+		<img class="btn btn-lg bookmark-before" data-id="${user.site_id}" alt="북마크 전" src="<c:url value="/resources/img/bookmark-before.svg"/>">
+		<img class="btn btn-lg bookmark-after" data-state="0" alt="북마크 후" src="<c:url value="/resources/img/bookmark-after.svg"/>">
 	</div>
 	<div class="detail-page-sub">
 		<div class="ho_name">
@@ -154,27 +154,96 @@ border-bottom:2px solid white;
 	</div>
 </div>
 
-<!-- 북마크 버튼 -->
+<!-- 북마크 추가 버튼 -->
 <script type="text/javascript">
-document.
+$('.bookmark-before').click(function() {
+	//로그인 체크 여부
+	/* if(!checkLogin()) {
+		return false;
+	} */
+	
+	//서버에 보낼 데이터 생성
+	let me_id = $(this).data('id');
+	let ho_id = '${detail.hd_ho_id}';
+	console.log(me_id);
+	console.log(ho_id);
+	let bookmark = {
+			bmk_me_id : me_id, 
+			bmk_ho_id : ho_id	
+	}
+	
+	$.ajax({
+		async : true,
+		url : '<c:url value="/bookmark/insert"/>', 
+		type : 'post', 
+		data : JSON.stringify(bookmark), 
+		contentType : "application/json; charset=utf-8",
+		dataType : "json", 
+		success : function(data) {
+			if(data.result) {
+				alert('북마크 추가되었습니다.');
+				getBookmarkAfter();
+				
+			}
+			else {
+				alert('북마크 실패1');
+			}
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+			alert('북마크 실패2');
+		}
+	});
+	
+	
+});
+
+//손보기!!!
+function getBookmarkAfter() {
+	this.style.display = 'none';
+	let bookmarkAfter = document.querySelector('.bookmark-after');
+	if(bookmarkAfter) {				
+		bookmarkAfter.style.display = 'inline';
+	}
+	else {
+		console.log('display 실패');
+	}
+}
+</script>
+
+<!-- 북마크 해제 버튼 -->
+<script type="text/javascript">
+$('.bookmark-after').click(function() {
+	//로그인 체크 여부
+	/* if(!checkLogin()) {
+		return false;
+	} */
+	
+	
+	this.style.display = 'none';
+	let bookmarkBefore = document.querySelector('.bookmark-before');
+	bookmark.style.display = 'inline';
+	alert('북마크 해제되었습니다.')
+	return;
+});
+
 </script>
 
 <script type="text/javascript">
-	$("#btn1").click(function() {
-		$("#btn1").addClass("login-btn-click");
-		$("#btn2").removeClass("login-btn-click");
-		$("#btn3").removeClass("login-btn-click");
-	});
-	$("#btn2").click(function() {
-		$("#btn1").removeClass("login-btn-click");
-		$("#btn3").removeClass("login-btn-click");
-		$("#btn2").addClass("login-btn-click");
-	});
-	$("#btn3").click(function() {
-		$("#btn3").addClass("login-btn-click");
-		$("#btn1").removeClass("login-btn-click");
-		$("#btn2").removeClass("login-btn-click");
-	});
+$("#btn1").click(function() {
+	$("#btn1").addClass("login-btn-click");
+	$("#btn2").removeClass("login-btn-click");
+	$("#btn3").removeClass("login-btn-click");
+});
+$("#btn2").click(function() {
+	$("#btn1").removeClass("login-btn-click");
+	$("#btn3").removeClass("login-btn-click");
+	$("#btn2").addClass("login-btn-click");
+});
+$("#btn3").click(function() {
+	$("#btn3").addClass("login-btn-click");
+	$("#btn1").removeClass("login-btn-click");
+	$("#btn2").removeClass("login-btn-click");
+});
 </script>
 
 <!-- 리뷰 리스트 조회 -->
@@ -287,7 +356,7 @@ $(document).on('click', '.box-pagination .page-link', function() {
 <!-- 리뷰 등록 -->
 <script type="text/javascript">
 //리뷰 등록 버튼의 클릭 이벤트를 등록
-$('.review-insert-btn').click(function() {
+$('.review-insert-btn').click(function() {!!
 	//로그인 안되있으면 return
 	if(!checkLogin()) {
 		return;

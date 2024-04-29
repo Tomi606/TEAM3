@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import kr.kh.team3.dao.HospitalDAO;
 import kr.kh.team3.dao.MemberDAO;
+import kr.kh.team3.model.vo.BookmarkVO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
@@ -472,6 +473,15 @@ public class MemberServiceImp implements MemberService {
 			return null;
 		}
 		return memberDao.selectMember(user.getSite_id());
+	}
+
+	@Override
+	public boolean insertBookmark(BookmarkVO bookmark, MemberVO member, String ho_id) {
+		if(member == null || member.getMe_id() == null) {
+			return false;
+		}
+
+		return memberDao.insertBookmark(member, ho_id);
 	}
 
 	

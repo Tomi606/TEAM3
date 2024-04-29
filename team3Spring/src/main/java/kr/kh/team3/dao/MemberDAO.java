@@ -104,4 +104,7 @@ public interface MemberDAO {
 
 	ArrayList<HospitalDetailVO> getMySubject();
 
+	//병원 상세 페이지 북마크 : 양선진
+	boolean insertBookmark(@Param("me") MemberVO member, @Param("ho_id") String ho_id);
+
 }

@@ -169,4 +169,6 @@ public interface HospitalService {
 
 	ArrayList<HospitalSubjectVO> getDetailSubject(String hd_ho_id);
 
+	HospitalDetailVO getDetailId(int hdNum);
+
 }

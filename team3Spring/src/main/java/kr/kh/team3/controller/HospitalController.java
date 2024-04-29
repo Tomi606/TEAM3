@@ -10,12 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.kh.team3.model.vo.BookmarkVO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalProgramVO;
@@ -342,6 +342,40 @@ public class HospitalController {
 		}
 		return map;
 	}
+	
+	//회원 입장에서 북마크 추가
+	//RecommendVO == BookmarkVO
+	@ResponseBody
+	@PostMapping("/bookmark/insert")
+	public Map<String, Object> bookmarkInsert(@RequestBody BookmarkVO bookmark, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		//로그인 세션 확인
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		MemberVO member = memberService.getMemberInfo(user);
+		//북마크할 병원 페이지 번호(임시!!!!!!!!!!!!!)
+		int hdNum = 42;
+		//페이지 번호로 병원 아이디 들고오기
+		HospitalDetailVO detail = hospitalService.getDetailId(hdNum);
+		//북마크 하기(회원)
+		boolean result = memberService.insertBookmark(bookmark, member, detail.getHd_ho_id());
+		
+		map.put("user", user);
+		map.put("detail", detail);
+		map.put("result", result);
+		return map;
+	}
+	
+	//북마크 해제 -> delete from bookmark where bmk_me_id = #{me_id}
+//	@ResponseBody
+//	@PostMapping("/bookmark/delete")
+//	public Map<String, Object> 메서드명(@RequestBody RecommendVO recommend, HttpSession session){
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		MemberVO user = (MemberVO) session.getAttribute("user");
+//		//int로 쓰는 이유? 추천을 했는지 취소했는지 추천했는지 비추천했는지 확인하기 위해
+//		int res = boardService.recommend(recommend, user);
+//		map.put("result", res);
+//		return map;
+//	}
 	
   //================================================ 조민석 ====================================================
 	// 병원 프로그램 등록 페이지 이동
