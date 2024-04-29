@@ -484,6 +484,24 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.insertBookmark(member, ho_id);
 	}
 
+	@Override
+	public boolean deleteBookmark(BookmarkVO bookmark, MemberVO member, HospitalDetailVO detail) {
+		if(member == null || member.getMe_id() == null) {
+			return false;
+		}
+		
+		if(detail.getHd_num() == 0 || detail.getHd_ho_id() == null) {
+			return false;
+		}
+		
+		BookmarkVO dbBmk = memberDao.selectBmk(member.getMe_id(), detail.getHd_ho_id());
+		if(dbBmk !=null) {
+			return memberDao.deleteBookmark(dbBmk.getBmk_ho_id(), dbBmk.getBmk_me_id());
+		}
+		
+		return false;
+	}
+
 	
 	 
 

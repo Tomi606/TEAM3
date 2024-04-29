@@ -45,16 +45,16 @@ margin-bottom: 40px;
 background-color: white;
 border-bottom:2px solid white;
 }
-.bookmark-after {
+/* .bookmark-after {
 	display: none;
-}
+} */
 </style>
 </head>
 <body>
 <div class="detail-page">
 	<div class="bookmark-box">
 		<img class="btn btn-lg bookmark-before" data-id="${user.site_id}" alt="북마크 전" src="<c:url value="/resources/img/bookmark-before.svg"/>">
-		<img class="btn btn-lg bookmark-after" data-state="0" alt="북마크 후" src="<c:url value="/resources/img/bookmark-after.svg"/>">
+		<img class="btn btn-lg bookmark-after" data-id="${user.site_id}" alt="북마크 후" src="<c:url value="/resources/img/bookmark-after.svg"/>">
 	</div>
 	<div class="detail-page-sub">
 		<div class="ho_name">
@@ -182,24 +182,22 @@ $('.bookmark-before').click(function() {
 		success : function(data) {
 			if(data.result) {
 				alert('북마크 추가되었습니다.');
-				getBookmarkAfter();
-				
+				/* getBookmarkAfter(); */
 			}
 			else {
-				alert('북마크 실패1');
+				alert('사업자 회원은 북마크하실 수 없습니다.');
 			}
 		}, 
 		error : function(jqXHR, textStatus, errorThrown){
-			alert('북마크 실패2');
+			alert('북마크 에러');
 		}
 	});
-	
 	
 });
 
 //손보기!!!
 function getBookmarkAfter() {
-	this.style.display = 'none';
+	bookmarkAfter.style.display = 'none';
 	let bookmarkAfter = document.querySelector('.bookmark-after');
 	if(bookmarkAfter) {				
 		bookmarkAfter.style.display = 'inline';
@@ -217,6 +215,37 @@ $('.bookmark-after').click(function() {
 	/* if(!checkLogin()) {
 		return false;
 	} */
+	
+	//서버에 보낼 데이터 생성
+	let me_id = $(this).data('id');
+	let ho_id = '${detail.hd_ho_id}';
+	console.log(me_id);
+	console.log(ho_id);
+	let bookmark = {
+			bmk_me_id : me_id,
+			bmk_ho_id : ho_id
+	}
+	
+	$.ajax({
+		async : true,
+		url : '<c:url value="/bookmark/delete"/>', 
+		type : 'post', 
+		data : JSON.stringify(bookmark), 
+		contentType : "application/json; charset=utf-8",
+		dataType : "json", 
+		success : function(data) {
+			if(data.result) {
+				alert('북마크 삭제되었습니다.');
+				/* getBookmarkAfter(); */
+			}
+			else {
+				alert('사업자 회원은 북마크하실 수 없습니다.');
+			}
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+			alert('북마크 에러');
+		}
+	});
 	
 	
 	this.style.display = 'none';

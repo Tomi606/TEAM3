@@ -260,4 +260,17 @@
 		insert into bookmark(bmk_ho_id, bmk_me_id) 
 		values (#{ho_id}, #{me.me_id})
 	</insert>
+	
+	<delete id="deleteBookmark">
+		delete from bookmark 
+		where bmk_me_id = #{bmk_me_id} and bmk_ho_id = #{bmk_ho_id} limit 1
+	</delete>
+	
+	<select id="selectBmkDBMember" resultType="BookmarkVO">
+		select * from bookmark where bmk_me_id = #{me_id}
+	</select>
+		
+	<select id="selectBmk" resultType="BookmarkVO">
+		select * from bookmark where bmk_me_id = #{me_id} and bmk_ho_id = #{ho_id} limit 1
+	</select>
 </mapper>

@@ -525,4 +525,12 @@
 	<select id="selectDetailId" resultType="HospitalDetailVO">
 		select hd_ho_id from hospital_detail where hd_num = #{hd_num}
 	</select>
+	
+	<select id="selectBmkDBHospital" resultType="BookmarkVO">
+		select * from bookmark where bmk_ho_id = #{ho_id}
+	</select>
+	
+	<select id="selectBmk" resultType="BookmarkVO">
+		select * from bookmark where bmk_me_id = #{me_id} and bmk_ho_id = #{ho_id} limit 1
+	</select>
 </mapper>

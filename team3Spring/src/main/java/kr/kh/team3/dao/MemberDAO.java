@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
+import kr.kh.team3.model.vo.BookmarkVO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
@@ -106,5 +107,11 @@ public interface MemberDAO {
 
 	//병원 상세 페이지 북마크 : 양선진
 	boolean insertBookmark(@Param("me") MemberVO member, @Param("ho_id") String ho_id);
+
+	BookmarkVO selectBmkDBMember(@Param("me_id") String me_id);
+
+	boolean deleteBookmark(@Param("bmk_ho_id") String bmk_ho_id, @Param("bmk_me_id") String bmk_me_id);
+
+	BookmarkVO selectBmk(@Param("me_id") String me_id, @Param("ho_id") String hd_ho_id);
 
 }

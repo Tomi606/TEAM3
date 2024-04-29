@@ -94,4 +94,6 @@ public interface MemberService {
 
 	boolean insertBookmark(BookmarkVO bookmark, MemberVO member, String ho_id);
 
+	boolean deleteBookmark(BookmarkVO bookmark, MemberVO member, HospitalDetailVO detail);
+
 }

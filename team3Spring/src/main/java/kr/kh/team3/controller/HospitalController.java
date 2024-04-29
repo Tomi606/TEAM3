@@ -232,8 +232,9 @@ public class HospitalController {
 	//회원 입장에서 상페 페이지 조회시
 	@GetMapping("/hospital/detail/detail")
 	public String hospitalDetail(Model model, Integer hdNum, HospitalVO ho) {
-		//상세 페이지를 가져옴(임시)
-		hdNum = 42;
+		//상세 페이지를 가져옴(임시!!!!!!!!!!!!!!!!!!!!!!!!!)
+//		hdNum = 1;
+		hdNum = 2;
 		HospitalDetailVO detail = hospitalService.getDetail(hdNum);
 		//병원과목 리스트
 		ArrayList<HospitalSubjectVO> sub = hospitalService.getDetailSubject(detail.getHd_ho_id());
@@ -353,7 +354,8 @@ public class HospitalController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO member = memberService.getMemberInfo(user);
 		//북마크할 병원 페이지 번호(임시!!!!!!!!!!!!!)
-		int hdNum = 42;
+//		int hdNum = 1;
+		int hdNum = 2;
 		//페이지 번호로 병원 아이디 들고오기
 		HospitalDetailVO detail = hospitalService.getDetailId(hdNum);
 		//북마크 하기(회원)
@@ -366,16 +368,25 @@ public class HospitalController {
 	}
 	
 	//북마크 해제 -> delete from bookmark where bmk_me_id = #{me_id}
-//	@ResponseBody
-//	@PostMapping("/bookmark/delete")
-//	public Map<String, Object> 메서드명(@RequestBody RecommendVO recommend, HttpSession session){
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		MemberVO user = (MemberVO) session.getAttribute("user");
-//		//int로 쓰는 이유? 추천을 했는지 취소했는지 추천했는지 비추천했는지 확인하기 위해
-//		int res = boardService.recommend(recommend, user);
-//		map.put("result", res);
-//		return map;
-//	}
+	@ResponseBody
+	@PostMapping("/bookmark/delete")
+	public Map<String, Object> bookmarkDelete(@RequestBody BookmarkVO bookmark, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		//로그인 세션 확인
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		MemberVO member = memberService.getMemberInfo(user);
+		//북마크할 병원 페이지 번호(임시!!!!!!!!!!!!!)
+//		int hdNum = 1;
+		int hdNum = 2;
+		//페이지 번호로 병원 아이디 들고오기
+		HospitalDetailVO detail = hospitalService.getDetailId(hdNum);
+		boolean result = memberService.deleteBookmark(bookmark, member, detail);
+		
+		map.put("user", user);
+		map.put("detail", detail);
+		map.put("result", result);
+		return map;
+	}
 	
   //================================================ 조민석 ====================================================
 	// 병원 프로그램 등록 페이지 이동
