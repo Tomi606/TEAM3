@@ -96,4 +96,6 @@ public interface MemberService {
 
 	boolean deleteBookmark(BookmarkVO bookmark, MemberVO member, HospitalDetailVO detail);
 
+	BookmarkVO selectBookmark(BookmarkVO bookmark, MemberVO member, HospitalDetailVO detail);
+
 }

@@ -360,10 +360,13 @@ public class HospitalController {
 		HospitalDetailVO detail = hospitalService.getDetailId(hdNum);
 		//북마크 하기(회원)
 		boolean result = memberService.insertBookmark(bookmark, member, detail.getHd_ho_id());
+		//이미 북마크함(남기기 위함)
+		BookmarkVO already = memberService.selectBookmark(bookmark, member, detail);
 		
 		map.put("user", user);
 		map.put("detail", detail);
 		map.put("result", result);
+		map.put("already", already);
 		return map;
 	}
 	

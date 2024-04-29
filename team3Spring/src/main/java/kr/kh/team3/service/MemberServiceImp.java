@@ -502,6 +502,19 @@ public class MemberServiceImp implements MemberService {
 		return false;
 	}
 
+	@Override
+	public BookmarkVO selectBookmark(BookmarkVO bookmark, MemberVO member, HospitalDetailVO detail) {
+		if(member == null || member.getMe_id() == null) {
+			return null;
+		}
+		
+		if(detail.getHd_num() == 0 || detail.getHd_ho_id() == null) {
+			return null;
+		}
+		
+		return memberDao.selectBmk(member.getMe_id(), detail.getHd_ho_id());
+	}
+
 	
 	 
 
