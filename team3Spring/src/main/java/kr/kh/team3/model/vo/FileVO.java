@@ -11,7 +11,7 @@ public class FileVO {
 	  private int fi_po_num;
 	  private String fi_name;
 	  private String fi_ori_name;
-	  static final String [] imgExtensions = {".jpg", ".png", ".bmp", ".gif"};
+	  static final String [] imgExtensions = {".jpg", ".png", ".bmp", ".gif",".avif"};
 	  
 	  public FileVO(int fi_po_num, String fi_name, String fi_ori_name) {
 	    this.fi_po_num = fi_po_num;
