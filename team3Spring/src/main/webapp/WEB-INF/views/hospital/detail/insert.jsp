@@ -16,27 +16,27 @@
 	<div class="info">
 		<label for="hd_info" style="font-weight: bold">병원 소개</label>
 	   	<textarea class="hd_info col-10" id="hd_info" name="hd_info" 
-	   	placeholder="병원 소개" oninput="autoTextarea(this)">${hoDetail.hd_info}</textarea>
+	   	placeholder="병원 소개말을 입력하세요." oninput="autoTextarea(this)">${hoDetail.hd_info}</textarea>
 	</div>
 	<div class="hd_time" id="hd_time">
 		<label for="hd_time" style="font-weight: bold">영업 시간</label>
-		<textarea class="hd_time col-10" id="hd_time" name="hd_time" 
-		placeholder="월~금 : 9:00~18:00 / 토,일 : 휴무" oninput="autoTextarea(this)">${hoDetail.hd_time}</textarea>
+		<textarea class="hd_time col-10" id="hd_time" name="hd_time" required
+		placeholder="영업시간 및 점심시간을 입력하세요. 예시)월~금 : 9:00~18:00 / 토,일 : 휴무" oninput="autoTextarea(this)">${hoDetail.hd_time}</textarea>
 	</div>
 	<div class="hd_park" id="hd_park">
 		<label for="hd_park" style="font-weight: bold">주차 정보</label>
 		<textarea class="hd_park col-10" id="hd_park" name="hd_park" 
-		placeholder="주차 정보" oninput="autoTextarea(this)">${hoDetail.hd_park}</textarea>
+		placeholder="주차 정보를 입력하세요." oninput="autoTextarea(this)">${hoDetail.hd_park}</textarea>
 	</div>
 	<div class="hd_announce">
 		<label for="hd_announce" style="font-weight: bold">공지 사항</label>
 		<textarea class="hd_announce col-10" id="hd_announce" name="hd_announce" 
-		placeholder="공지 사항" oninput="autoTextarea(this)">${hoDetail.hd_announce}</textarea>
+		placeholder="공지 사항을 입력하세요." oninput="autoTextarea(this)">${hoDetail.hd_announce}</textarea>
 	</div>
 	<div class="hd_etc">
 		<label for="hd_etc" style="font-weight: bold">기타 사항</label>
 		<textarea class="hd_etc col-10" id="hd_etc" name="hd_etc" 
-		placeholder="기타 사항" oninput="autoTextarea(this)">${hoDetail.hd_etc}</textarea>
+		placeholder="기타 사항을 입력하세요." oninput="autoTextarea(this)">${hoDetail.hd_etc}</textarea>
 	</div>
 	<h2 style="font-weight: bold;">진료 과목</h2>
 	<div class="hd_hs_num">

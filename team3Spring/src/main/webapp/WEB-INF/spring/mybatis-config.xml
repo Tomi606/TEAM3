@@ -14,6 +14,7 @@
 		<typeAlias type="kr.kh.team3.model.vo.HsListVO" alias="HsListVO"/>
 		<typeAlias type="kr.kh.team3.model.vo.BookmarkVO" alias="BookmarkVO"/>
     
+    	<typeAlias type="kr.kh.team3.model.vo.LandVO" alias="LandVO"/>
 		<typeAlias type="kr.kh.team3.model.vo.SiDoVO" alias="SiDoVO"/>
 		<typeAlias type="kr.kh.team3.model.vo.SiGoonGuVO" alias="SiGoonGuVO"/>
 		<typeAlias type="kr.kh.team3.model.vo.EupMyeonDongVO" alias="EupMyeonDongVO"/>

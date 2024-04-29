@@ -39,12 +39,16 @@
 	</select>
 	
 	<select id="selectHospitalAll" resultMap="hospitalMap">
-		select * from hospital where ho_la_num = #{la.la_num}
+		select * from hospital
+		where ho_la_num = #{la.la_num}
+		and ho_name like concat('%', #{cri.search}, '%')
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
 	<select id="selectHospitalAllCount" resultType="int">
-			select count(*) from hospital where ho_la_num = #{la.la_num}
+		select count(*) from hospital
+		where ho_la_num = #{la.la_num}
+		and ho_name like concat('%', #{cri.search}, '%')
 	</select>
 	
 	<resultMap type="HospitalVO" id="hospitalMap">
@@ -91,7 +95,8 @@
 		from hs_list 
 		join hospital on ho_id = hsl_ho_id 
 		where hsl_hs_num= #{hs_num} 
-		    and ho_la_num = #{la.la_num} 
+		    and ho_la_num = #{la.la_num}
+		    and ho_name like concat('%', #{cri.search}, '%')
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
@@ -100,7 +105,8 @@
 		from hs_list 
 		join hospital on ho_id = hsl_ho_id 
 		where hsl_hs_num= #{hs_num} 
-		    and ho_la_num = #{la.la_num} 
+		    and ho_la_num = #{la.la_num}
+		    and ho_name like concat('%', #{cri.search}, '%')
 	</select>
 	
 	<select id="selectBmkList" resultMap="bookmarkMap">
@@ -340,13 +346,21 @@
 		<result property="hd_park" column="hd_park"/>
 		<result property="hd_announce" column="hd_announce"/>
 		<result property="hd_etc" column="hd_etc"/>
-		<result property="hd_subject_detail" column="hd_subject_detail"/>
+		<collection property="hospital" ofType="HospitalVO"
+		column="hd_ho_id" select="selectHosId"/>
 		<collection property="hsList" ofType="HsListVO" 
-		column="hsl_ho_id" select="selectHsList"/>
+		column="hd_ho_id" select="selectHsList"/>
 	</resultMap>
 	
+	<select id="selectHosId" resultType="HospitalVO">
+		select * from hospital where ho_id = #{hd_ho_id}
+	</select>
+	
 	<select id="selectHsList" resultType="HsListVO">
-		select hsl_hs_num from hs_list where hsl_ho_id = #{hd_ho_id}
+		select hs_title
+		from hs_list 
+		join hospital_subject on hs_num = hsl_hs_num 
+		where hsl_ho_id = #{hd_ho_id}
 	</select>
 	
 	<select id="selectDetail" resultMap="hdMap">
@@ -412,4 +426,68 @@
 		delete from hs_list where hsl_ho_id = #{ho.ho_id}
 	</delete>
 
+	<select id="selectSubject" resultType="HospitalSubjectVO">
+		select * from hospital_subject where hs_num = #{ho.ho_hs_num}
+	</select>
+	
+	<select id="selectMyLand" resultType="LandVO">
+		select * from land where la_num = #{ho.ho_la_num}
+	</select>
+	
+	<select id="selectSdName" resultType="String">
+		select sd_name from si_do where sd_num = #{la.la_sd_num}
+	</select>
+	
+	<select id="selectSggName" resultType="String">
+		select sgg_name from si_goon_gu where sgg_num = #{la.la_sgg_num}
+	</select>
+	
+	<select id="selectEmdName" resultType="String">
+		select emd_name from eup_myeon_dong where emd_num = #{la.la_emd_num}
+	</select>
+	
+	<update id="updateName">
+		update hospital set ho_name = #{ho.ho_name} where ho_id = #{ho.ho_id}
+	</update>
+	
+	<update id="updateCEO">
+		update hospital set ho_ceo = #{ho.ho_ceo} where ho_id = #{ho.ho_id}
+	</update>
+	
+	<update id="updatePhone">
+		update hospital set ho_phone = #{ho.ho_phone} where ho_id = #{ho.ho_id}
+	</update>
+	
+	<update id="updateEmail">
+		update hospital set ho_email = #{ho.ho_email} where ho_id = #{ho.ho_id}
+	</update>
+	
+	<update id="updateDetailAddress">
+		update hospital set ho_address = #{ho.ho_address} where ho_id = #{ho.ho_id}
+	</update>
+	
+	<update id="updatePw">
+		update hospital set ho_pw = #{pw} where ho_id = #{ho_id}
+	</update>
+	
+	<update id="updateSubject">
+		update hospital set ho_hs_num = #{hs_num} where ho_id = #{ho_id}
+	</update>
+	
+	<update id="updateHospitalLand">
+		update hospital set ho_la_num = #{la.la_num} where ho_id = #{ho.ho_id}
+	</update>
+	
+	<update id="updateSiteLand">
+		update site_management 
+		set site_la_num = #{la.la_num} where site_id = #{site.site_id}
+	</update>
+	
+	<select id="selectSgg" resultType="SiGoonGuVO">
+		select * from si_goon_gu where sgg_sd_num = #{sd_num}
+	</select>
+	
+	<select id="selectEmd" resultType="EupMyeonDongVO">
+		select * from eup_myeon_dong where emd_sgg_num = #{sgg_num}
+	</select>
 </mapper>
