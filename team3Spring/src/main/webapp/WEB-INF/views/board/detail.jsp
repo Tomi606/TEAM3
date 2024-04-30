@@ -275,9 +275,9 @@ function displayCommentList(list){
    }		
    for(item of list){
 	   let boxBtns = 
-		   ` <span class="box-btn float-right">
-				<button class="btn btn-outline-danger btn-comment-del" data-num="\${item.co_num}">삭제</button>
-				<button class="btn btn-outline-danger btn-comment-update" data-num="\${item.co_num}">수정</button>
+		   ` <span class="box-btn float-right" style="margin-left:auto;">
+				<a class="btn btn-outline-danger btn-comment-del" data-num="\${item.co_num}">삭제</a>
+				<a class="btn btn-outline-danger btn-comment-update" data-num="\${item.co_num}">수정</a>
 		   </span>`;
 		let btns= '${user.site_num}' == item.co_mg_num ? boxBtns : '';
 	      str += 
@@ -286,6 +286,7 @@ function displayCommentList(list){
 	            <div class="col-3">\${item.co_mg_num}</div>
 	            <div class="col-9 clearfix input-group">
 	            	<span class="text-comment">\${item.co_content}</span>
+	            	<span class="comment-date date">\${item.co_date}</span>
 	            	\${btns}
 	            </div>
 	         </div>
@@ -417,6 +418,7 @@ $(document).on('click','.btn-comment-update',function(){
 	contentBox.hide();
 	//수정 / 삭제버튼을 감추고
 	$(this).parents(".box-comment").find('.box-btn').hide();
+	$('.date').hide(); // 날짜 숨김
 	//수정 완료 버튼을 추가
 	let co_num = $(this).data("num");
 	str = `<button class="btn btn-outline-warning btn-complete" data-num="\${co_num}">수정 완료</button>`;
