@@ -262,7 +262,8 @@
 	</insert>
 	
 	<select id="selectBmk" resultType="BookmarkVO">
-		select * from bookmark where bmk_me_id = #{me_id} and bmk_ho_id = #{ho_id} limit 1
+		select * from bookmark 
+		where bmk_me_id = #{me_id} and bmk_ho_id = #{ho_id} limit 1
 	</select>
 
 	<delete id="deleteBookmark">
