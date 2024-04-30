@@ -86,6 +86,9 @@
 			<h1>${po_id}</h1>
 			<c:if test="${site_authority eq 'MANAGER'}">
 				<span>병원 회원</span>
+				<span>
+					<a href="<c:url value='/hospital/detail/detail?ho_id=${po_id}'/>">병원 상세 바로가기</a>
+				</span>
 			</c:if>
 			<c:if test="${site_authority eq 'USER'}">
 				<span>일반 회원</span>
@@ -93,6 +96,7 @@
 			<c:if test="${site_authority eq 'ADMIN'}">
 				<span>관리자</span>
 			</c:if>
+			
 			<div class="hr"></div>
 			<div>
 				<table style="width: 100%;">
