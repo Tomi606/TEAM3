@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.team3.model.vo.BoardVO;
-import kr.kh.team3.model.vo.MemberVO;
+import kr.kh.team3.model.vo.FileVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.RecommendVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -95,6 +95,8 @@ public class BoardController {
 		}
 		boardService.updateView(po_num);
 		PostVO post = boardService.getPostDetail(po_num);
+		ArrayList<FileVO> fileList = boardService.getFileList(po_num);
+		model.addAttribute("fileList", fileList);
 		model.addAttribute("post",post);
 		
 		return "/board/detail";

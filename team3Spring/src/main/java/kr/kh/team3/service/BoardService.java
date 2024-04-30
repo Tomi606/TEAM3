@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.team3.model.vo.BoardVO;
+import kr.kh.team3.model.vo.FileVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.RecommendVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -45,5 +46,7 @@ public interface BoardService {
 	int getUserRecommend(int num, SiteManagement user);
 
 	PostVO getPostDetail(int po_num);
+
+	ArrayList<FileVO> getFileList(int po_num);
 	
 }
