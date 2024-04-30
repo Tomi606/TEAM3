@@ -35,7 +35,7 @@ textarea{outline-style: none;}
 .post_list_container{width: 100%;height: 100%;}
 .post_list_box{
 	border: 1px solid lightgray;width: 1400px;height: 100%;margin:100px auto;
-	padding:100px;
+	padding:150px;
 }
 .hr{width: 100%;height: 0;border: 1px solid lightgray;margin: 50px 0 50px 0;}
 .post_insert_btn{
@@ -45,7 +45,7 @@ textarea{outline-style: none;}
 .post_insert_btn:hover{color: white;background-color: green;text-decoration: none;}
 .post_insert_btn_box{height: 50px;width: 100px;margin: 0 20px 40px auto;}
 .content_container{
-width: 100%;height: 100%;padding: 20px;}
+width: 100%;height: 100%;padding: 5px;}
 .content-input{width: 100%;display: flex;}
 .content-title{width: 95%;padding: 3px;outline-style: none;border: 1px solid lightgray;}
 .content-text{width: 100%;display: flex;}
@@ -64,10 +64,10 @@ width: 80%;margin: 0 auto 80px auto;
 .insert-btn:hover{
 	 background: green;color: white;
 }
-.p_tag{margin-top: 60px ;margin-left:auto;display: flex;flex-direction: row-reverse;}
+.p_tag{margin-left:auto;display: flex;flex-direction: row-reverse;}
 
 .writer-more{
-    width: 260px;
+    width: 200px;
 	display: inline-block;
 	color: black;
 	height: 40px;
@@ -85,13 +85,17 @@ width: 100%;height: 60px;border-bottom: 1px solid gray;
 
 }
 .like-box{width:100%;display:  flex;margin: 20px 0 80px 0;}
-.user_more_post{margin-left: 53px;}
+.user_more_post{margin-left: 53px;margin-top: 10px;}
 .btn-insert-comment{
 	background-color: white; color: green;border: 1px solid green;
 }
 .btn-insert-comment:hover{
 	background-color: green; color: white;
 }
+.file-box{
+	width: 100%;display: flex;justify-content: center;border: 1px solid #d2d2d2;margin-bottom: 120px;
+}
+..input-group{}
 </style>
 </head>
 <body>
@@ -114,6 +118,9 @@ width: 100%;height: 60px;border-bottom: 1px solid gray;
 					<label style="width: 5%;">작성자</label>
 					<input type="text" class="content-title" name="po_id" value="${post.po_id}" readonly>
 				</div>   
+				<div class="user_more_post">
+						<a href="<c:url value='/board/userpost?po_id=${post.po_id}'/>" class="writer-more"><strong class="user">${post.po_id}</strong>님의 게시글 더보기 ></a>
+					</div>
 				<div class="p_tag">	
 					<p style="color: gray">조회수:${post.po_view}</p>
 				</div>	
@@ -123,15 +130,14 @@ width: 100%;height: 60px;border-bottom: 1px solid gray;
 					style="max-height: 400px;">${post.po_content}</textarea>
 				</div>
 				<div class="like-box">
-					<div class="user_more_post">
-						<a href="<c:url value='/board/userpost?po_id=${post.po_id}'/>" class="writer-more"><strong class="user">${post.po_id}</strong>님의 게시글 더보기 ></a>
-					</div>
+					
 				   	 <li style="list-style: none;width: 50px;margin-left:auto;" role="button" class="btn btn-like btn-heart btn-up" data-state="1"></li>
 				    <span class="text-up">${post.po_up}</span>
 				   <%--  <a class="btn btn-heart btn-down " data-state="-1">싫어요(<span class="text-down">${post.po_down}</span>)</a> --%>
 			   </div>
 				<!-- 작성자 게시글 더보기 -->
-			 <div class="form-group">	
+			 	<label>첨부파일</label>
+			 <div class="form-group file-box">	
 			 	<c:forEach items="${fileList}" var="file">		
 			 			<c:if test="${file.img}">
 			 					<a href="<c:url value="/download${file.fi_name}"/>" download="${file.fi_ori_name}">
@@ -146,7 +152,7 @@ width: 100%;height: 60px;border-bottom: 1px solid gray;
 				<!-- 댓글 -->  
 				<div class="container-comment mt-3 mb-3" id="comments-section">
 					<h2>
-						댓글(<span class="comment-total">2</span>)
+						<img style="width:80px;margin-right: 10px;" alt="댓글이미지" src="<c:url value="/resources/img/comment.png"/>"><span class="comment-total">2</span>
 					</h2>
 					<div style="width: 100%;border-bottom: 1px solid lightgray;display: flex;text-align: center;padding: 15px;">
 				 	   <span style="width: 25%;">작성자</span>
@@ -163,7 +169,7 @@ width: 100%;height: 60px;border-bottom: 1px solid gray;
 					<div class="box-commnt-insert">
 						<div class="input-group mb-3">
 							<textarea class="textarea-comment comment_content" ></textarea>
-							<button class="btn btn-insert-comment btn-comment-insert" style="border-radius: 0">댓글등록</button>
+							<button class="btn btn-insert-comment btn-comment-insert" style="border-radius: 0">등록</button>
 						</div>
 					</div>
 				</div>
