@@ -42,6 +42,19 @@ width: 80%;margin: 0 auto 80px auto;
 	 background: green;color: white;
 }
 .p_tag{margin-top: 60px ;margin-left:auto;display: flex;flex-direction: row-reverse;}
+
+.writer-more{
+	display: inline-block;
+	color: black;
+	height: 40px;
+	background-color: #f5f6f8;
+	line-height: 40px;
+	border-radius: 8px;
+}
+.writer-more:hover{
+	text-decoration: none;
+	color: gray;
+}
 </style>
 </head>
 <body>
@@ -79,7 +92,11 @@ width: 80%;margin: 0 auto 80px auto;
 				<div class="content-file">
 					<label style="margin: 0 20px 0 58px;">첨부파일</label>
 					<input type="file" name="files" >
-				</div> 
+				</div>
+				<!-- 작성자 게시글 더보기 -->
+				<div>
+					<a href="" class="writer-more"><strong class="user">${post.po_id}</strong>님의 게시글 더보기 ></a>
+				</div>
 				<!-- 댓글 -->  
 				<div class="container-comment mt-3 mb-3" id="comments-section">
 					<h2>
