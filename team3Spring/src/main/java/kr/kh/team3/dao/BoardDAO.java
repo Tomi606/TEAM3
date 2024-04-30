@@ -48,4 +48,6 @@ public interface BoardDAO {
 
 	PostVO selectUserPostDetail(@Param("num")int po_num);
 
+	ArrayList<FileVO> selectFileList(@Param("re")int po_num);
+
 }

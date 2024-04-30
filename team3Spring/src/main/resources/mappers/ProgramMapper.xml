@@ -6,7 +6,7 @@
 
 
 <!-- resultMap -->
-
+	<!-- 프로그램에 속한 아이템을 가져오기 위한 코드  -->
 	<resultMap type="kr.kh.team3.model.vo.ItemListVO" id="ItemListMap">
 		<id property="hsl_num" column="hsl_num"/>
 		<result property="hsl_hs_num" column="hsl_hs_num"/>
@@ -17,20 +17,57 @@
 				column="il_it_num" select="selectItemListByItem2"/>
 	</resultMap>
 	
-	<select id="selectProgramItem" resultMap="ItemListMap">
-		select * from item_list where il_hp_num = #{hp_num}
+	<select id="selectProgramItem" resultMap="HsListMap">
+			select * from item_list where il_hp_num = #{hp_num}
 	</select>
 	
 	<select id="selectItemListByProgram" resultType="kr.kh.team3.model.vo.HospitalProgramVO">
-		select * from hospital_program where hp_num = #{il_hp_num}
+		select * from hospital_program where hp_num = #{hp_num} and hp_hsl_num = #{hsl_num} and hp_ho_id = #{user.site_id}
 	</select>
 	
 	<select id="selectItemListByItem2" resultType="kr.kh.team3.model.vo.ItemVO">
-		select * from item where it_num = #{il_it_num}
+		select * from item it_num = #{il_it_num}
 	</select>
-	
 	<!-- resultMap -->
 	
+	
+	<!-- 해당 병원에 과목 리스트를 가져오는 코드 resultMap -->
+		<resultMap type="kr.kh.team3.model.vo.HsListVO" id="HsListMap">
+			<id property="hsl_num" column="hsl_num"/>
+			<result property="hsl_hs_num" column="hsl_hs_num"/>
+			<result property="hsl_ho_id" column="hsl_ho_id"/>
+			<collection property="hospital_subject" ofType="kr.kh.team3.model.vo.HospitalSubjectVO"
+				column="hsl_hs_num" select="selectHsListByHospatalSubject"/>
+			<collection property="hospital" ofType="kr.kh.team3.model.vo.HospitalVO"
+				column="hsl_ho_id" select="selectHsListByHospital"/>
+		</resultMap>
+		
+		
+
+		<select id="selectHsListByHospatalSubject" resultType="kr.kh.team3.model.vo.HospitalSubjectVO">
+			select * from hospital_subject where hs_num = #{hsl_hs_num}
+		</select>
+		
+		<select id="selectHsListByHospital" resultType="kr.kh.team3.model.vo.HospitalVO">
+			select * from hospital where ho_id = #{hsl_ho_id}
+		</select>
+	<!-- resultMap -->
+	
+	<select id="selectItemSubjectByList" resultType="kr.kh.team3.model.vo.ItemVO">
+		select * from item where it_hsl_num = #{hs_num} and it_ho_id = #{user.site_id}
+	</select>
+	
+	<select id="selectSubject" resultType="kr.kh.team3.model.vo.HospitalSubjectVO">
+		select * from hospital_subject where hs_num = #{hs_num}
+	</select>
+	
+	<select id="selelctHsList" resultType="kr.kh.team3.model.vo.HsListVO">
+		select * from hs_list where hsl_hs_num = #{hs_num} and hsl_ho_id = #{user.site_id};
+	</select>
+	
+	<select id="selectHospitalSubject" resultType="kr.kh.team3.model.vo.HsListVO">
+			select * from hs_list where hsl_ho_id = #{user.site_id}
+	</select>
 	
 	<select id="selectItemList" resultType="kr.kh.team3.model.vo.ItemVO">
 		select * from item where it_ho_id = #{user.site_id} ;
@@ -40,9 +77,9 @@
 		select * from hospital_program where hp_ho_id = #{user.site_id}
 	</select>
 	
-<!-- 	<select id="selectItemListList" resultType="kr.kh.team3.model.vo.ItemListVO">
-		select * from item_list where il_hp_num = #{hp_num}
-	</select> -->
+ 	<select id="selectItemListList" resultType="kr.kh.team3.model.vo.ItemListVO">
+		select * from item_list where il_hp_num = #{hp_num} 
+	</select> 
 	
 	<select id="selectProgramListByProgramName" resultType="kr.kh.team3.model.vo.HospitalProgramVO">
 		select * from hospital_program where 
@@ -56,12 +93,17 @@
 			select * from hospital_program where hp_title = #{pr.hp_title}
 	</select>
 	
+
+	<select id="selectSubjectByProgramList" resultType="kr.kh.team3.model.vo.HospitalProgramVO">
+		select * from hospital_program where hp_hsl_num = #{hsl_num} and hp_ho_id = #{user.site_id}
+	</select>
+
 	<insert id="insertItem">
-		insert into item (it_name, it_explanation, it_ho_id) value(#{item.it_name}, #{item.it_explanation}, #{user.site_id});
+		insert into item (it_name, it_explanation, it_ho_id, it_hsl_num) value(#{item.it_name}, #{item.it_explanation}, #{user.site_id}, #{hslist.hsl_num});
 	</insert>
 	
 	<insert id="insertProgram">
-		insert into hospital_program (hp_title, hp_payment, hp_ho_id) value(#{pr.hp_title},#{pr.hp_payment}, #{user.site_id})
+		insert into hospital_program (hp_title, hp_payment, hp_ho_id, hp_hsl_num) value(#{pr.hp_title},#{pr.hp_payment}, #{user.site_id}, #{hs_num})
 	</insert>
 	
 	<insert id="insertItemList">
@@ -69,7 +111,7 @@
 	</insert>
 	
 	<update id="updateItem">
-		update item set it_name = #{item.it_name}, it_explanation = #{item.it_explanation} where it_num = #{it_num}
+		update item set it_name = #{item.it_name}, it_explanation = #{item.it_explanation}, it_hsl_num = #{hsl_nul.hsl_num} where it_num = #{it_num}
 	</update>
 	
 	<delete id="deleteItem">

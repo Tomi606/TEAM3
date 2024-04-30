@@ -12,12 +12,16 @@
 </head>
 <body>
 <div class="container">
+		<select name="hs_num" class="form-control">
+				<option value="none">진료과를 선택해주세요</option>
+			<c:forEach items="${list}" var="list">
+				<option value="${list.hs_num}">${list.hs_title}</option>
+			</c:forEach>
+		</select>
 		<div class="input-group mb-3">
 			<select name="hp_num" class="form-control">
 				<option value="none">수정할 프로그램을 선택해주세요</option>
-				<c:forEach items="${programList}" var="list">
-					<option value="${list.hp_num}">${list.hp_title}</option>
-				</c:forEach>
+					
 			</select>
 		</div>
 		<div>
@@ -29,19 +33,51 @@
 			<input type="number" class="form-control" placeholder="프로그램 가격 입력해주세요" name="hp_payment">
 		</div>
 		<div class="check-box-group" id="check-box-group">
-			<c:forEach items="${itemList}" var="item">
-				<input type="checkbox" value="${item.it_num}" name="li_list">${item.it_name}
-			</c:forEach>
+				
 		</div>
 		<button class="btn update-btn">항목 수정</button>
 
 </div>
+
+<script type="text/javascript">
+	
+	$("[name=hs_num]").change(function(){
+		let hs_num = $("[name=hs_num]").val();
+		if(hs_num == 'none'){
+			hs_num = 1;
+			return;
+		}		
+		$.ajax({
+			method : "post",
+			url : '<c:url value="/program/updatecheck"/>',
+			data : {"hs_num" : hs_num},
+			success : function (data) {
+				let str = ``
+				let str2 = ``
+				for(let tmp of data.hpList){
+					str+=`<option value="\${tmp.hp_num}">\${tmp.hp_title}</option>`
+				}	
+				for(let tmp of data.itemList){
+					str2+=`<input type="checkbox" value="\${tmp.it_num}" name="li_list">\${tmp.it_name}`
+				}
+				$("[name=hp_num]").html(str);
+				$(".check-box-group").html(str2);
+			}
+		});
+	});
+</script>
+
  <script type="text/javascript">
 	$(".update-btn").click(function(){
 		let hp_num = $("[name=hp_num]").val();
 		let hp_title = $("[name=hp_title]").val();
 		let hp_payment = $("[name=hp_payment]").val();
 		let list = getCheckedValues();
+		let hs_num = $("[name=hs_num]").val();
+		if(hs_num == 'none'){
+			alert("과를 선택해주세요");
+			return;
+		}
 		if(hp_num == 'none'){
 			alert("수정할 프로그램을 선택해주세요");
 			return;
@@ -60,10 +96,12 @@
 			method : "post",
 			url : '<c:url value="/program/update"/>',
 			data : {
-					"hp_num" : hp_num,
-					"hp_title" : hp_title,
-					"hp_payment" : hp_payment,
-					"list" : list},
+						"hp_num" : hp_num,
+						"hp_title" : hp_title,
+						"hp_payment" : hp_payment,
+						"list" : list,
+						"hs_num" : hs_num
+					},
 			success : function (data) {
 									
 			}

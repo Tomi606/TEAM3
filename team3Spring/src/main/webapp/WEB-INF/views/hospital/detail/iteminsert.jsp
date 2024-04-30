@@ -99,6 +99,14 @@
 <!-- 중복확인 버튼 때문에 불 필요한 여백 발생하는중 고쳐야 함 -->
 <div class="input-box-group item-box">
 	<h3>세부 항목 등록</h3>
+	
+	<select name="hs_num" class="form-control">
+			<option value="none">진료과를 선택해주세요</option>
+		<c:forEach items="${list}" var="list">
+			<option value="${list.hs_num}">${list.hs_title}</option>
+		</c:forEach>
+	</select>
+	
 	<label for="it_name">세부 항목</label>
     <input  type="text" id="it_name" name="it_name" placeholder="등록하고 싶은 항목을 입력하세요" autofocus="autofocus">
     <label for="it_explanation">세부 항목설명</label>
@@ -131,9 +139,6 @@
 	<div class="input-group mb-3" id="programBox">
 		<select name="hp_num" class="form-control">
 				<option value="none">프로그램을 선택해주세요</option>
-			<c:forEach items="${programList}" var="list">
-				<option value="${list.hp_num}">${list.hp_title}</option>
-			</c:forEach>
 		</select>
 	</div>
 </div>
@@ -154,39 +159,67 @@
 </div>
 
 </div>
+<input type="time">
+<input type="date">
 
 <!-- 프로그램을 선택하면 리스트 띄우기 -->
 <script type="text/javascript">
 	$("[name=hp_num]").change(function(){
 		let hp_num = $("[name=hp_num]").val();
+		let hs_num = $("[name=hs_num]").val();
 		if(hp_num == 'none'){
 			hp_num =1;
+			return;
+		}
+		if(hs_num == 'none'){
+			hs_num = 1;
 			return;
 		}
 		$.ajax({
 			method : "post",
 			url : '<c:url value = "/itemlist/check"/>',
 			data : {
-				"hp_num" : hp_num
+				"hp_num" : hp_num,
+				"hs_num" : hs_num
 			},
 			success : function (data) {
-				/*let str = ``;
-				for(let it of data.itemListList){
-					str+=
-						`
-							<tr>
-						        <td>\${it.item.it_name}</td>
-						        <td>\${it.item.it_explanation}</td>
-						        <td>\${it.hospital_program.hp_payment}</td>
-						    </tr>
-						`
-				}
-				*/
-				$(".itemList").html(data);
+				console.log(data)
+				//$(".itemList").html(data);
 			}
 		})
 	})	
 </script>
+
+<!-- 진료과목을 선택하면 진료 과에해당하는 세부 항목 띄우기 -->
+<script type="text/javascript">
+	$("[name=hs_num]").change(function(){
+		let hs_num = $("[name=hs_num]").val();
+		
+		$.ajax({
+			method : 'post',
+			url : '<c:url value="/subject/item"/>',
+			data : {
+				"hs_num" : hs_num,
+			},
+			success : function (data) {
+				console.data
+				let str = ``;
+				let str2 = ``;
+				for(let tmp of data.itemList){
+					str+=`<input type="checkbox" value="\${tmp.it_num}" name="li_list">\${tmp.it_name}`
+				}
+				
+				for(let tmp of data.hpList){
+					str2 += `<option value="\${tmp.hp_num}">\${tmp.hp_title}</option>`
+				}
+				$(".check-box-group").html(str);
+				$("[name=hp_num]").html(str2);
+				
+			}
+		})
+	})
+</script>
+
 
 <!-- 검사 상세 항목 등록 및 띄우기 -->
 <script type="text/javascript">
@@ -194,11 +227,19 @@
 	$(".item-inset-btn").click(function(){
 		let it_name = $("[name=it_name]").val();
 		let it_explanation = $("[name=it_explanation]").val();
+		let hs_num = $("[name=hs_num]").val();
+		if(hs_num == 'none'){
+			alert("검사 항목을 선택해주세요")
+			it_explanation = $("[name=it_explanation]").val("");
+			it_name = $("[name=it_name]").val("");
+			return;
+		}
 		$.ajax({
 			method : "post",
 			url : '<c:url value="/item/insert"/>',
 			data : {"it_name" : it_name,
-					"it_explanation" : it_explanation},
+					"it_explanation" : it_explanation,
+					"hs_num" : hs_num},
 			success : function (data) {
 				//showItem(data.itemList, data.msg);
 				if(data.msg){
@@ -230,10 +271,8 @@ $(".item-delete-btn").click(function(){
 		}
      })
 })
-
-
-
 </script>
+
 <!-- 기타 함수 -->
 <script type="text/javascript">
 function isNumber(value) {
@@ -256,6 +295,7 @@ function getCheckedValues() {
 		let hp_title = $("[name=hp_title]").val();
 		let hp_payment = $("[name=hp_payment]").val();
 		let list = getCheckedValues();
+		let hs_num = $("[name=hs_num]").val();
 		if(list.length == 0){
 			alert("상세항목을 체크해주세요.");
 			$("[name=hp_title]").val("");
@@ -271,12 +311,12 @@ function getCheckedValues() {
 			url : '<c:url value="/program/insert"/>',
 			data : {"hp_title" : hp_title,
 					"hp_payment" : hp_payment,
-					"list" : list},
+					"list" : list,
+					"hs_num" : hs_num},
 			success : function (data) {
 				$("#programBox").load(window.location.href + " #programBox");
 				$("[name=hp_title]").val("");
 				$("[name=hp_payment]").val("");
-				alert(data.msg);						
 			}
 		});
 	});
