@@ -308,7 +308,7 @@ let cri = {
 	      contentType : "application/json; charset=utf-8",
 	      dataType : "json", 
 	      success : function (data){
-	         displayCommentList(data.list);
+	         displayCommentList(data.commentList);
 	         displayCommentPagination(data.pm);
 	         $('.comment-total').text(data.pm.totalCount);
 	      }, 
@@ -317,14 +317,15 @@ let cri = {
 	      }
 	   });
 	}
-function displayCommentList(list){
+function displayCommentList(commentList){
    let str = '';
-   if(list == null || list.length == 0){
+   if(commentList == null || commentList.length == 0){
       str = '<h3>등록된 댓글이 없습니다.</h3>';
       $('.box-comment-list').html(str);
       return;
    }		
-   for(item of list){
+   for(item of commentList){
+	   console.log(item);
 	   let boxBtns = 
 		   ` 
 		   <span class="box-btn float-right" style="margin-left:auto;">
@@ -335,7 +336,7 @@ function displayCommentList(list){
 	      str += 
 	      `
 	         <div class="box-comment row " style="width: 100%;border-bottom: 1px solid lightgray;display: flex;">
-	            <div class="col-3" style="width: 25%;text-align:center;">\${item.co_mg_num}</div>
+	            <div class="col-3" style="width: 25%;text-align:center;">\${item.sitemanagement.site_id}</div>
 	            <div class="col-9 clearfix input-group">
 	            	<span class="text-comment" style="width: 69%;">\${item.co_content}</span>
 	            	<span class="comment-date date" style="width: 8%;font-size:14px;color:gray">\${item.changeDate}</span>
