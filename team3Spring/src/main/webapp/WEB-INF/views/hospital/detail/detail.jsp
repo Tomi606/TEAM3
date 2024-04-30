@@ -49,19 +49,27 @@
 
 }
 .login-btn-click{
-background-color: white;
-border-bottom:2px solid white;
+	background-color: white;
+	border-bottom:2px solid white;
 }
-.bookmark-after {
+/* .bookmark-after {
 	display: none;
-}
+} */
 </style>
 </head>
 <body>
 <div class="detail-page">
 	<div class="bookmark-box">
-		<img class="btn btn-lg bookmark-before" data-id="${user.site_id}" alt="북마크 전" src="<c:url value="/resources/img/bookmark-before.svg"/>">
-		<img class="btn btn-lg bookmark-after" data-id="${user.site_id}" alt="북마크 후" src="<c:url value="/resources/img/bookmark-after.svg"/>">
+		<c:choose>
+			<c:when test="${already == true}">
+				<img class="btn btn-lg bookmark-after" data-id="${user.site_id}" alt="북마크 후" src="<c:url value="/resources/img/bookmark-after.svg"/>">
+				<img class="btn btn-lg bookmark-before" style="display: none;" data-id="${user.site_id}" alt="북마크 전" src="<c:url value="/resources/img/bookmark-before.svg"/>">			
+			</c:when>
+			<c:otherwise>
+				<img class="btn btn-lg bookmark-after" style="display: none;" data-id="${user.site_id}" alt="북마크 후" src="<c:url value="/resources/img/bookmark-after.svg"/>">
+				<img class="btn btn-lg bookmark-before" data-id="${user.site_id}" alt="북마크 전" src="<c:url value="/resources/img/bookmark-before.svg"/>">
+			</c:otherwise>
+		</c:choose>
 	</div>
 	<div class="detail-page-sub">
 		<div class="ho_name">
@@ -189,8 +197,8 @@ $('.bookmark-before').click(function() {
 		success : function(data) {
 			if(data.result) {
 				alert('북마크 추가되었습니다.');
-				/* getBookmarkAfter(data.already);
-				console.log(data.already); */
+				getBookmarkAfter(data.already);
+				console.log(data.already);
 			}
 			else {
 				alert('북마크 추가 에러 1');
@@ -200,29 +208,20 @@ $('.bookmark-before').click(function() {
 			alert('북마크 추가 에러2');
 		}
 	});
-	
-	this.style.display = 'none';
-	let bookmarkAfter = document.querySelector('.bookmark-after');
-	bookmarkAfter.style.display = 'inline';
 
-	
 });
 
 function getBookmarkAfter(already) {
 	if(already) {
-		this.style.display = 'none';
+		let bookmarkBefore = document.querySelector('.bookmark-before');
 		let bookmarkAfter = document.querySelector('.bookmark-after');
+		bookmarkBefore.style.display = 'none';
 		bookmarkAfter.style.display = 'inline';
 	}
 	else {
-		this.style.display = 'none';
-		let bookmarkBefore = document.querySelector('.bookmark-before');
-		bookmarkBefore.style.display = 'inline';
+		return;
 	}
-	
 };
-
-
 </script>
 
 <!-- 북마크 해제 버튼 -->
@@ -253,8 +252,8 @@ $('.bookmark-after').click(function() {
 		success : function(data) {
 			if(data.result) {
 				alert('북마크 삭제되었습니다.');
-				/* getBookmarkBefore(data.already);
-				console.log(data.already); */
+				getBookmarkBefore(data.already);
+				console.log(data.already);
 			}
 			else {
 				alert('북마크 해제 에러1');
@@ -265,26 +264,18 @@ $('.bookmark-after').click(function() {
 		}
 	});
 	
-	this.style.display = 'none';
-	let bookmarkBefore = document.querySelector('.bookmark-before');
-	bookmarkBefore.style.display = 'inline';
-	
-	/* function getBookmarkBefore(already) {
+	function getBookmarkBefore(already) {
 		if(!already) {
-			this.style.display = 'none';
 			let bookmarkBefore = document.querySelector('.bookmark-before');
+			let bookmarkAfter = document.querySelector('.bookmark-after');
+			bookmarkAfter.style.display = 'none';
 			bookmarkBefore.style.display = 'inline';
 		}
 		else {
-			this.style.display = 'none';
-			let bookmarkAfter = document.querySelector('.bookmark-after');
-			bookmarkAfter.style.display = 'inline';
+			return;
 		}
-		
-	}; */
-
+	};
 });
-
 </script>
 
 <script type="text/javascript">
