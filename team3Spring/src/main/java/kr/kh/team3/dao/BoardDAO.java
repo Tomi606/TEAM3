@@ -8,6 +8,7 @@ import kr.kh.team3.model.vo.BoardVO;
 import kr.kh.team3.model.vo.FileVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.RecommendVO;
+import kr.kh.team3.pagination.Criteria;
 
 public interface BoardDAO {
 
@@ -21,8 +22,10 @@ public interface BoardDAO {
 
 	boolean deleteBoard(@Param("bo_num")int bo_num);
 
-	ArrayList<PostVO> selectPostList(@Param("bo_num")int bo_num);
+	ArrayList<PostVO> selectPostList(@Param("bo_num")int bo_num, @Param("cri")Criteria cri);
 
+	int selectPostListCount(@Param("bo_num")int bo_num, @Param("cri")Criteria cri);
+	
 	ArrayList<PostVO> selectAllPostList();
 
 	ArrayList<BoardVO> selectAllBoardList();

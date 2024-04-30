@@ -17,10 +17,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.team3.model.vo.BoardVO;
-import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.RecommendVO;
 import kr.kh.team3.model.vo.SiteManagement;
+import kr.kh.team3.pagination.Criteria;
+import kr.kh.team3.pagination.PageMaker;
 import kr.kh.team3.service.BoardService;
 import lombok.extern.log4j.Log4j;
 
@@ -49,12 +50,16 @@ public class BoardController {
 	}
 
 	@GetMapping("/board/list")
-	public String boardList(Model model, int bo_num) {
+	public String boardList(Model model, Criteria cri, int bo_num) {
 		String bo_name = boardService.getBoardName(bo_num);
-		ArrayList<PostVO> poList = boardService.getPostList(bo_num);
+		cri.setPerPageNum(5);
+		ArrayList<PostVO> poList = boardService.getPostList(bo_num, cri);
+		int totalCount = boardService.getPostListCount(bo_num, cri);
+		PageMaker pm = new PageMaker(3, cri, totalCount);
 		model.addAttribute("bo_num", bo_num);
 		model.addAttribute("bo_title", bo_name);
 		model.addAttribute("poList", poList);
+		model.addAttribute("pm", pm);
 		return "/board/list";
 	}
 

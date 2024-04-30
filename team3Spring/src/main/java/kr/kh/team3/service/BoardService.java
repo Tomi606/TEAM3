@@ -8,6 +8,7 @@ import kr.kh.team3.model.vo.BoardVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.RecommendVO;
 import kr.kh.team3.model.vo.SiteManagement;
+import kr.kh.team3.pagination.Criteria;
 
 public interface BoardService {
 
@@ -26,7 +27,7 @@ public interface BoardService {
 
 	ArrayList<BoardVO> selectBoard();
 
-	ArrayList<PostVO> getPostList(int bo_num);
+	ArrayList<PostVO> getPostList(int bo_num, Criteria cri);
 
 	ArrayList<PostVO> getAllPostList();
 
@@ -45,5 +46,7 @@ public interface BoardService {
 	int getUserRecommend(int num, SiteManagement user);
 
 	PostVO getPostDetail(int po_num);
+
+	int getPostListCount(int bo_num, Criteria cri);
 	
 }

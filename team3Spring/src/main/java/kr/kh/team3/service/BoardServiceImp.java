@@ -15,6 +15,7 @@ import kr.kh.team3.model.vo.FileVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.RecommendVO;
 import kr.kh.team3.model.vo.SiteManagement;
+import kr.kh.team3.pagination.Criteria;
 import kr.kh.team3.utils.UploadFileUtils;
 import lombok.extern.log4j.Log4j;
 
@@ -117,10 +118,21 @@ public class BoardServiceImp implements BoardService{
 	}
 
 	@Override
-	public ArrayList<PostVO> getPostList(int bo_num) {
-		return boardDao.selectPostList(bo_num);
+	public ArrayList<PostVO> getPostList(int bo_num, Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria(1,5);
+		}
+		return boardDao.selectPostList(bo_num, cri);
 	}
-
+	
+	@Override
+	public int getPostListCount(int bo_num, Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria(1,5);
+		}
+		return boardDao.selectPostListCount(bo_num, cri);
+	}
+	
 	@Override
 	public String getBoardName(int bo_num) {
 		return boardDao.selectBoardName(bo_num);
@@ -200,11 +212,5 @@ public class BoardServiceImp implements BoardService{
 	public PostVO getPostDetail(int po_num) {
 		return boardDao.selectUserPostDetail(po_num);
 	}
-	
-	
-	
-	
-	
-	
 	
 }

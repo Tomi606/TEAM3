@@ -106,9 +106,56 @@
 		join
 		recommend on re_po_num = po_num
 		where po_bo_num = #{bo_num}
-		group by
-		po_num
+			<choose>
+				<when test='cri.type == "all"'>
+					and (po_title like concat('%', #{cri.search}, '%') or
+					po_content like concat('%', #{cri.search}, '%') or
+					site_id like concat('%', #{cri.search}, '%'))
+				</when>
+				<when test='cri.type == "title"'>
+					and (po_title like concat('%', #{cri.search}, '%'))
+				</when>
+				<when test='cri.type == "titleContent"'>
+					and (po_title like concat('%', #{cri.search}, '%') or
+					po_content like concat('%', #{cri.search}, '%'))
+				</when>
+				<when test='cri.type == "writer"'>
+					and (site_id like concat('%', #{cri.search}, '%'))
+				</when>
+			</choose>
+		group by po_num
 		order by po_num desc
+		LIMIT #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="selectPostListCount" resultType="int">
+		select
+		count(*)
+		from
+		post
+		join
+		site_management on site_num = po_mg_num
+		left
+		join
+		recommend on re_po_num = po_num
+		where po_bo_num = #{bo_num}
+		<choose>
+			<when test='cri.type == "all"'>
+				and (po_title like concat('%', #{cri.search}, '%') or
+				po_content like concat('%', #{cri.search}, '%') or
+				site_id like concat('%', #{cri.search}, '%'))
+			</when>
+			<when test='cri.type == "title"'>
+				and (po_title like concat('%', #{cri.search}, '%'))
+			</when>
+			<when test='cri.type == "titleContent"'>
+				and (po_title like concat('%', #{cri.search}, '%') or
+				po_content like concat('%', #{cri.search}, '%'))
+			</when>
+			<when test='cri.type == "writer"'>
+				and (site_id like concat('%', #{cri.search}, '%'))
+			</when>
+		</choose>
 	</select>
 
 	<!-- 보드타이틀 가져오는 매퍼 -->
