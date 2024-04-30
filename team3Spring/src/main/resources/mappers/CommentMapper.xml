@@ -38,4 +38,37 @@
 		<delete id="deleteComment">
 			delete from comment where co_num = #{comment.co_num};
 		</delete>
+		
+		<select id="selectTotalCount" resultType="int">
+			select count(*) from
+			comment where co_po_num = #{cri.search}
+		</select>
+		
+		<select id="selectAjaxCommentList" resultType="kr.kh.team3.model.vo.CommentVO">
+			select * from comment
+			where co_po_num = #{cri.search}
+			order by co_num desc
+			limit
+			#{cri.pageStart}, #{cri.perPageNum}
+		</select>
+		
+		<insert id="insertComment">
+		insert into comment(co_po_num,co_mg_num,co_content,co_date)
+		values(#{co.co_po_num},#{co.co_mg_num},#{co.co_content},now())
+	</insert>
+	
+	<select id="selectComment" resultType="kr.kh.team3.model.vo.CommentVO">
+		select * from comment where co_num = #{co}
+	</select>
+	
+	<delete id="deleteAjaxComment">
+		delete from comment where co_num = #{co}
+	</delete>
+	
+	<update id="updateComment">
+		update comment set co_content=#{co.co_content} where
+		co_num = #{co.co_num}
+	</update>
 </mapper>
+
+

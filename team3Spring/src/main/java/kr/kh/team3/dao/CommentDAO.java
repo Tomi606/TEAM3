@@ -19,4 +19,16 @@ public interface CommentDAO {
 
 	ArrayList<CommentVO> selectCommentNoList(@Param("cri")Criteria cri, @Param("po_num")int po_num);
 
+	ArrayList<CommentVO> selectAjaxCommentList(@Param("cri")Criteria cri);
+
+	int selectTotalCount(@Param("cri")Criteria cri);
+
+	boolean insertComment(@Param("co")CommentVO comment);
+
+	CommentVO selectComment(@Param("co")int co_num);
+
+	boolean deleteAjaxComment(@Param("co")int co_num);
+
+	boolean updateComment(@Param("co")CommentVO comment);
+
 }
