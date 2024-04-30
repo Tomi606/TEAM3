@@ -217,5 +217,36 @@ public class BoardServiceImp implements BoardService{
 	public ArrayList<FileVO> getFileList(int po_num) {
 		return boardDao.selectFileList(po_num);
 	}
+
+	@Override
+	public ArrayList<PostVO> getUserPostList(String po_id, Criteria cri) {
+		if(po_id == null || po_id.length() == 0) {
+			return null;
+		}
+		if(cri == null) {
+			cri = new Criteria(1,5);
+		}
+		return boardDao.selectUserPostList(po_id, cri);
+	}
+
+	@Override
+	public int getUserPostListCount(String po_id, Criteria cri) {
+		if(po_id == null || po_id.length() == 0) {
+			return 0;
+		}
+		if(cri == null) {
+			cri = new Criteria(1,5);
+		}
+		return boardDao.selectUserPostListCount(po_id, cri);
+	}
+
+	@Override
+	public String getUserAuthority(String po_id) {
+		if(po_id == null || po_id.length() == 0) {
+			return null;
+		}
+		return boardDao.selectUserAuthority(po_id);
+	}
+
 	
 }

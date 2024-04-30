@@ -55,7 +55,7 @@ width: 80%;margin: 0 auto 80px auto;
 	text-decoration: none;
 	color: gray;
 }
-.comment_content{ resize: none;width: 92%;}
+.comment_content{ resize: none; width: 92%;}
 </style>
 </head>
 <body>
@@ -92,7 +92,7 @@ width: 80%;margin: 0 auto 80px auto;
 			   </div>
 				<!-- 작성자 게시글 더보기 -->
 				<div>
-					<a href="" class="writer-more"><strong class="user">${post.po_id}</strong>님의 게시글 더보기 ></a>
+					<a href="<c:url value='/board/userpost?po_id=${post.po_id}'/>" class="writer-more"><strong class="user">${post.po_id}</strong>님의 게시글 더보기 ></a>
 				</div>
 			 <div class="form-group">	
 			 	<c:forEach items="${fileList}" var="file">		

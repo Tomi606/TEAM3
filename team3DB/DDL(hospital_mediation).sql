@@ -36,7 +36,8 @@ CREATE TABLE `post` (
 	`po_date` date not null,
 	`po_content`	TEXT NOT NULL,
 	`po_bo_num`	int	NOT NULL,
-	`po_mg_num`	int	NOT NULL
+	`po_mg_num`	int	NOT NULL,
+    `po_co_count` INT NOT NULL DEFAULT 0
 );
 
 DROP TABLE IF EXISTS `comment`;
