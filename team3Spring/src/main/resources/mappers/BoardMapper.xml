@@ -241,4 +241,9 @@
 		re_po_num = #{re.re_po_num} and re_mg_num = #{re.re_mg_num}
 	</update>
 	<!-- 추천 기능 끝 -->
+	
+	<select id="selectFileList" resultType="kr.kh.team3.model.vo.FileVO">
+		select * from file where
+		fi_po_num = #{re}
+	</select>
 </mapper>

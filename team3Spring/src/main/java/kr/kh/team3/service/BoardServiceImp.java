@@ -212,5 +212,10 @@ public class BoardServiceImp implements BoardService{
 	public PostVO getPostDetail(int po_num) {
 		return boardDao.selectUserPostDetail(po_num);
 	}
+
+	@Override
+	public ArrayList<FileVO> getFileList(int po_num) {
+		return boardDao.selectFileList(po_num);
+	}
 	
 }
