@@ -228,7 +228,8 @@ CREATE TABLE `item` (
 	`it_num`	int	primary key auto_increment,
 	`it_name`	varchar(100)	NULL,
 	`it_explanation`	text	NULL,
-	`it_ho_id`	varchar(13)	NOT NULL
+	`it_ho_id`	varchar(13)	NOT NULL,
+    `it_hsl_num`	int	NOT NULL
 );
 
 DROP TABLE IF EXISTS `hospital_program`;
@@ -237,7 +238,8 @@ CREATE TABLE `hospital_program` (
 	`hp_num`	int	primary key auto_increment,
 	`hp_title`	varchar(100) NOT NULL,
 	`hp_payment`	int	NOT NULL,
-	`hp_ho_id`	varchar(13)	NOT NULL
+	`hp_ho_id`	varchar(13)	NOT NULL,
+    `hp_hsl_num` int	NOT NULL
 );
 
 DROP TABLE IF EXISTS `item_list`;
@@ -421,6 +423,20 @@ ALTER TABLE `hospital` ADD CONSTRAINT `FK_hospital_subject_TO_hospital_1` FOREIG
 )
 REFERENCES `hospital_subject` (
 	`hs_num`
+);
+
+ALTER TABLE `item` ADD CONSTRAINT `FK_hs_list_TO_item_1` FOREIGN KEY (
+	`it_hsl_num`
+)
+REFERENCES `hs_list` (
+	`hsl_num`
+);
+
+ALTER TABLE `hospital_program` ADD CONSTRAINT `FK_hs_list_TO_hospital_program_1` FOREIGN KEY (
+	`hp_hsl_num`
+)
+REFERENCES `hs_list` (
+	`hsl_num`
 );
 
 ALTER TABLE `site_management` ADD CONSTRAINT `FK_land_TO_site_management_1` FOREIGN KEY (

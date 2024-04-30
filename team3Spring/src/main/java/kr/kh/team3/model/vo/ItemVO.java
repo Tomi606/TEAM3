@@ -9,4 +9,5 @@ public class ItemVO {
 	private int it_num;
 	private String it_name;
 	private String it_explanation;
+	private int it_hsl_num;
 }
