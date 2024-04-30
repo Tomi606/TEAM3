@@ -18,5 +18,6 @@ public class HospitalDetailVO {
 	private String hd_etc;
 	private String hd_subject_detail;
 	private HospitalVO hospital;
+	private HospitalSubjectVO subject;
 	private ArrayList<Integer> hsList;
 }

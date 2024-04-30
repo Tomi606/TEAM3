@@ -254,5 +254,20 @@
 	<update id="updatePw">
 		update member set me_pw = #{pw} where me_id =#{id}
 	</update>
+	
+	<!-- 병원 상세 페이지 북마크 : 양선진 -->
+	<insert id="insertBookmark">
+		insert into bookmark(bmk_ho_id, bmk_me_id) 
+		values (#{ho_id}, #{me.me_id})
+	</insert>
+	
+	<select id="selectBmk" resultType="BookmarkVO">
+		select * from bookmark where bmk_me_id = #{me_id} and bmk_ho_id = #{ho_id} limit 1
+	</select>
 
+	<delete id="deleteBookmark">
+		delete from bookmark 
+		where bmk_me_id = #{bmk_me_id} and bmk_ho_id = #{bmk_ho_id} limit 1
+	</delete>
+		
 </mapper>

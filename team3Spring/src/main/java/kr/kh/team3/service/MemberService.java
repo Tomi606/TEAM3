@@ -2,6 +2,7 @@ package kr.kh.team3.service;
 
 import java.util.ArrayList;
 
+import kr.kh.team3.model.vo.BookmarkVO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
@@ -90,5 +91,11 @@ public interface MemberService {
 	LandVO getMyLand(SiteManagement user);
 
 	MemberVO getSiteMember(SiteManagement user);
+
+	boolean insertBookmark(BookmarkVO bookmark, MemberVO member, String ho_id);
+
+	boolean deleteBookmark(BookmarkVO bookmark, MemberVO member, HospitalDetailVO detail);
+
+	BookmarkVO selectBookmark(BookmarkVO bookmark, MemberVO member, HospitalDetailVO detail);
 
 }
