@@ -86,6 +86,12 @@ width: 100%;height: 60px;border-bottom: 1px solid gray;
 }
 .like-box{width:100%;display:  flex;margin: 20px 0 80px 0;}
 .user_more_post{margin-left: 53px;}
+.btn-insert-comment{
+	background-color: white; color: green;border: 1px solid green;
+}
+.btn-insert-comment:hover{
+	background-color: green; color: white;
+}
 </style>
 </head>
 <body>
@@ -158,7 +164,7 @@ width: 100%;height: 60px;border-bottom: 1px solid gray;
 					<div class="box-commnt-insert">
 						<div class="input-group mb-3">
 							<textarea class="textarea-comment comment_content" ></textarea>
-							<button class="btn btn btn-comment-insert" style="border-radius: 0">댓글등록</button>
+							<button class="btn btn-insert-comment btn-comment-insert" style="border-radius: 0">댓글등록</button>
 						</div>
 					</div>
 				</div>
@@ -323,7 +329,7 @@ function displayCommentList(list){
 		   ` 
 		   <span class="box-btn float-right" style="margin-left:auto;">
 				<a class="btn btn-outline-danger btn-comment-del" data-num="\${item.co_num}">삭제</a>
-				<a class="btn btn-outline-danger btn-comment-update" data-num="\${item.co_num}">수정</a>
+				<a class="btn btn-outline-warning btn-comment-update" data-num="\${item.co_num}">수정</a>
 		   </span>`;
 		let btns= '${user.site_num}' == item.co_mg_num ? boxBtns : '';
 	      str += 
@@ -332,7 +338,7 @@ function displayCommentList(list){
 	            <div class="col-3" style="width: 25%;text-align:center;">\${item.co_mg_num}</div>
 	            <div class="col-9 clearfix input-group">
 	            	<span class="text-comment" style="width: 69%;">\${item.co_content}</span>
-	            	<span class="comment-date date" style="width: 8%;font-size:12px;color:gray">\${item.changeDate}</span>
+	            	<span class="comment-date date" style="width: 8%;font-size:14px;color:gray">\${item.changeDate}</span>
 	            	\${btns}
 	            </div>
 	         </div>
