@@ -81,7 +81,7 @@ width: 80%;margin: 0 auto 80px auto;
 					<input type="file" name="files" >
 				</div> 
 				<!-- 댓글 -->  
-				<div class="container-comment mt-3 mb-3">
+				<div class="container-comment mt-3 mb-3" id="comments-section">
 					<h2>
 						댓글(<span class="comment-total">2</span>)
 					</h2>
