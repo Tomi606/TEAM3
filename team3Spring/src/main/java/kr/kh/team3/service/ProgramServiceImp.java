@@ -194,5 +194,10 @@ public class ProgramServiceImp implements ProgramService{
 		return programDao.selectItemListByProgram(hslist.getHsl_num(), hp_num, user);
 	}
 
+	@Override
+	public boolean insertReservationSechedule(String rs_hp_num, String rs_date, String rs_time, int rs_max_person) {
+		return programDao.insertReservationSechedule(rs_hp_num, rs_date, rs_time, rs_max_person);
+	}
+
 
 }

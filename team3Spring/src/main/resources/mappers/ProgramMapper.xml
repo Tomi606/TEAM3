@@ -110,6 +110,11 @@
 		insert into item_list(il_hp_num, il_it_num) value(#{pr.hp_num}, #{il_it_num});
 	</insert>
 	
+	<insert id="insertReservationSechedule">
+		insert into reservation_schedule (rs_hp_num, rs_date, rs_time, rs_max_person)
+		value(#{rs_hp_num},#{rs_date},#{rs_time},#{rs_max_person})
+	</insert>
+	
 	<update id="updateItem">
 		update item set it_name = #{item.it_name}, it_explanation = #{item.it_explanation}, it_hsl_num = #{hsl_nul.hsl_num} where it_num = #{it_num}
 	</update>
