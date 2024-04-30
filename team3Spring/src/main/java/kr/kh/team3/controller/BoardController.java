@@ -21,6 +21,8 @@ import kr.kh.team3.model.vo.FileVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.RecommendVO;
 import kr.kh.team3.model.vo.SiteManagement;
+import kr.kh.team3.pagination.Criteria;
+import kr.kh.team3.pagination.PageMaker;
 import kr.kh.team3.service.BoardService;
 import lombok.extern.log4j.Log4j;
 
@@ -49,13 +51,31 @@ public class BoardController {
 	}
 
 	@GetMapping("/board/list")
-	public String boardList(Model model, int bo_num) {
+	public String boardList(Model model, Criteria cri, int bo_num) {
 		String bo_name = boardService.getBoardName(bo_num);
-		ArrayList<PostVO> poList = boardService.getPostList(bo_num);
+		cri.setPerPageNum(5);
+		ArrayList<PostVO> poList = boardService.getPostList(bo_num, cri);
+		int totalCount = boardService.getPostListCount(bo_num, cri);
+		PageMaker pm = new PageMaker(3, cri, totalCount);
 		model.addAttribute("bo_num", bo_num);
 		model.addAttribute("bo_title", bo_name);
 		model.addAttribute("poList", poList);
+		model.addAttribute("pm", pm);
 		return "/board/list";
+	}
+	
+	@GetMapping("/board/userpost")
+	public String boardUser(Model model, Criteria cri, String po_id) {
+		String site_authority = boardService.getUserAuthority(po_id);
+		cri.setPerPageNum(5);
+		ArrayList<PostVO> poList = boardService.getUserPostList(po_id, cri);
+		int totalCount = boardService.getUserPostListCount(po_id, cri);
+		PageMaker pm = new PageMaker(3, cri, totalCount);
+		model.addAttribute("po_id", po_id);
+		model.addAttribute("site_authority", site_authority);
+		model.addAttribute("poList", poList);
+		model.addAttribute("pm", pm);
+		return "/board/userpost";
 	}
 
 	@GetMapping("/board/insert")
@@ -103,39 +123,29 @@ public class BoardController {
 	}
 	
 	@ResponseBody
-	  @PostMapping("/recommend/check")
-	  public Map<String, Object> recommendCheck(@RequestBody RecommendVO recommend,HttpSession session){
-	    Map<String, Object> map = new HashMap<String, Object>();
-	    SiteManagement user = (SiteManagement) session.getAttribute("user");
-	    int res = boardService.recommend(recommend, user);
-	    map.put("result", res);
-	    return map;
-	  }
+	@PostMapping("/recommend/check")
+	public Map<String, Object> recommendCheck(@RequestBody RecommendVO recommend,HttpSession session){
+		Map<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		int res = boardService.recommend(recommend, user);
+		map.put("result", res);
+		return map;
+	}
 	  
-	  @ResponseBody
-	  @PostMapping("/recommend")
-	  public Map<String, Object> recommend(@RequestParam("num")int num,HttpSession session){
-	    Map<String, Object> map = new HashMap<String, Object>();
-	    //로그인한 회원의 추천 정보
-	    SiteManagement user = (SiteManagement) session.getAttribute("user");
-	    int state = boardService.getUserRecommend(num, user);
-	    //게시글의 추천/비추천수를 가져옴
-	    PostVO post = boardService.getPost(num);
-	    map.put("state", state);
-	    map.put("post", post);
-	    return map;
-	  }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@ResponseBody
+	@PostMapping("/recommend")
+	public Map<String, Object> recommend(@RequestParam("num")int num,HttpSession session){
+		Map<String, Object> map = new HashMap<String, Object>();
+		//로그인한 회원의 추천 정보
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		int state = boardService.getUserRecommend(num, user);
+		//게시글의 추천/비추천수를 가져옴
+		PostVO post = boardService.getPost(num);
+		map.put("state", state);
+		map.put("post", post);
+		return map;
+	}
 
 }
+
+	

@@ -42,7 +42,20 @@ width: 80%;margin: 0 auto 80px auto;
 	 background: green;color: white;
 }
 .p_tag{margin-top: 60px ;margin-left:auto;display: flex;flex-direction: row-reverse;}
-.comment_content{ resize: none;width: 92%;}
+
+.writer-more{
+	display: inline-block;
+	color: black;
+	height: 40px;
+	background-color: #f5f6f8;
+	line-height: 40px;
+	border-radius: 8px;
+}
+.writer-more:hover{
+	text-decoration: none;
+	color: gray;
+}
+.comment_content{ resize: none; width: 92%;}
 </style>
 </head>
 <body>
@@ -77,6 +90,10 @@ width: 80%;margin: 0 auto 80px auto;
 				    <button class="btn btn-outline-success btn-up col-6" data-state="1">추천(<span class="text-up">${post.po_up}</span>)</button>
 				    <button class="btn btn-outline-success btn-down col-6" data-state="-1">비추천(<span class="text-down">${post.po_down}</span>)</button>
 			   </div>
+				<!-- 작성자 게시글 더보기 -->
+				<div>
+					<a href="<c:url value='/board/userpost?po_id=${post.po_id}'/>" class="writer-more"><strong class="user">${post.po_id}</strong>님의 게시글 더보기 ></a>
+				</div>
 			 <div class="form-group">	
 			 	<c:forEach items="${fileList}" var="file">		
 			 			<c:if test="${file.img}">
@@ -90,7 +107,7 @@ width: 80%;margin: 0 auto 80px auto;
 			 	</c:forEach>
 			 </div>
 				<!-- 댓글 -->  
-				<div class="container-comment mt-3 mb-3">
+				<div class="container-comment mt-3 mb-3" id="comments-section">
 					<h2>
 						댓글(<span class="comment-total">2</span>)
 					</h2>

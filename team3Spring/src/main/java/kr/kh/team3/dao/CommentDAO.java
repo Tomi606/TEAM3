@@ -31,4 +31,8 @@ public interface CommentDAO {
 
 	boolean updateComment(@Param("co")CommentVO comment);
 
+	void updatePostCoCountUp(@Param("co")CommentVO comment);
+
+	void updatePostCoCountDown(@Param("co")CommentVO comment);
+
 }

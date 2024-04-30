@@ -8,6 +8,7 @@ import kr.kh.team3.model.vo.BoardVO;
 import kr.kh.team3.model.vo.FileVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.RecommendVO;
+import kr.kh.team3.pagination.Criteria;
 
 public interface BoardDAO {
 
@@ -21,8 +22,10 @@ public interface BoardDAO {
 
 	boolean deleteBoard(@Param("bo_num")int bo_num);
 
-	ArrayList<PostVO> selectPostList(@Param("bo_num")int bo_num);
+	ArrayList<PostVO> selectPostList(@Param("bo_num")int bo_num, @Param("cri")Criteria cri);
 
+	int selectPostListCount(@Param("bo_num")int bo_num, @Param("cri")Criteria cri);
+	
 	ArrayList<PostVO> selectAllPostList();
 
 	ArrayList<BoardVO> selectAllBoardList();
@@ -46,5 +49,11 @@ public interface BoardDAO {
 	PostVO selectUserPostDetail(@Param("num")int po_num);
 
 	ArrayList<FileVO> selectFileList(@Param("re")int po_num);
+
+	ArrayList<PostVO> selectUserPostList(@Param("po_id")String po_id, @Param("cri")Criteria cri);
+	
+	int selectUserPostListCount(@Param("po_id")String po_id, @Param("cri")Criteria cri);
+
+	String selectUserAuthority(@Param("po_id")String po_id);
 
 }

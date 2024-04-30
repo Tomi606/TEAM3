@@ -36,7 +36,8 @@ CREATE TABLE `post` (
 	`po_date` date not null,
 	`po_content`	TEXT NOT NULL,
 	`po_bo_num`	int	NOT NULL,
-	`po_mg_num`	int	NOT NULL
+	`po_mg_num`	int	NOT NULL,
+    `po_co_count` INT NOT NULL DEFAULT 0
 );
 
 DROP TABLE IF EXISTS `comment`;
@@ -258,7 +259,7 @@ CREATE TABLE `reservation_schedule` (
 	`rs_num`	int	primary key auto_increment,
 	`rs_hp_num`	int	NOT NULL,
 	`rs_date`	date NOT NULL,
-	`rs_time`	datetime NOT NULL,
+	`rs_time`	time NOT NULL,
 	`rs_max_person`	int	NOT NULL default 0
 );
 
