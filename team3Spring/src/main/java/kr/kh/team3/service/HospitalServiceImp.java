@@ -377,6 +377,7 @@ public class HospitalServiceImp implements HospitalService {
 				hospitalDao.deleteSubjects(hospital);
 				for(Integer tmp : hsList) {
 					System.out.println("2hsList : " + hsList);
+					//새로 저장
 					hospitalDao.insertSubjects(hospital, tmp);
 				}
 			}
@@ -386,31 +387,6 @@ public class HospitalServiceImp implements HospitalService {
 		}
 		return true;
 	}
-	
-//	@Override
-//	public boolean insertSubjects(HospitalVO hospital, HospitalDetailVO detail) {
-//		if(hospital == null || hospital.getHo_id() == null) {
-//			return false;
-//		}
-//		boolean res = false;
-//		if(hospitalDao.selectSubjects(hospital) == null) {
-//			for(int tmp : detail.getHsList()) {
-//				res = hospitalDao.insertSubjects(hospital, tmp);
-//			}
-//		}
-//		else {
-//			for(int tmp : detail.getHsList()) {
-//				res = hospitalDao.updateSubjects(hospital, tmp);
-//			}
-//		}
-//		
-//		if(res) {
-//			return true;
-//		}
-//		else {
-//			return false;
-//		}
-//	}
 
 	@Override
 	public HospitalVO getHospitalInfo() {

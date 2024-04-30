@@ -52,9 +52,37 @@
 	background-color: white;
 	border-bottom:2px solid white;
 }
-/* .bookmark-after {
-	display: none;
-} */
+
+#page1 textarea {
+      width: 100%;
+      resize: none;
+      overflow-y: hidden;
+      border: 0px solid white;
+      cursor: inherit;
+      padding-top: 50px;
+    }
+    
+#page2 textarea {
+      width: 100%;
+      resize: none;
+      overflow-y: hidden;
+      border: 0px solid white;
+      cursor: inherit;
+      text-align: center;
+    }
+    
+#page3 textarea {
+	resize: none;
+    overflow-y: hidden;
+}
+
+p {
+	margin-bottom: 0px;
+}
+
+.btn-info {
+	margin: 10px 5px 10px 5px;
+}
 </style>
 </head>
 <body>
@@ -96,34 +124,32 @@
 			</div>
 			<div id="page1" class="page active">
 				<div class="hd_info">
-					<label for="hd_info" style="font-weight: bold;margin-top: 40px;">병원 소개</label>
-				   	<textarea class="hd_info col-10" id="hd_info" 
-				   	  oninput="autoTextarea(this)">${detail.hd_info}</textarea>
+					<label class="label" for="hd_info" style="font-weight: bold;margin-top: 40px;">병원 소개</label>
+				   	<textarea class="hd_info col-10" id="hd_info" readonly>${detail.hd_info}</textarea>
 				</div>
 				<hr style="border: 1px solid gray;margin: 50px auto;">
 				<div class="hd_time" id="hd_time">
-					<label for="hd_time" style="font-weight: bold">영업 시간</label>
-					<textarea class="hd_time col-10" id="hd_time" name="hd_time" 
-					placeholder="월~금 : 9:00~18:00 / 토,일 : 휴무" 
-					oninput="autoTextarea(this)" readonly>${detail.hd_time}</textarea>
+					<label class="label" for="hd_time" style="font-weight: bold">영업 시간</label>
+					<textarea class="hd_time col-10" id="hd_time" name="hd_time" style="height: auto;"
+					placeholder="월~금 : 9:00~18:00 / 토,일 : 휴무" readonly>${detail.hd_time}</textarea>
 				</div>
 				<hr style="border: 1px solid gray;margin: 50px auto;">
 				<div class="hd_park" id="hd_park">
-					<label for="hd_park" style="font-weight: bold">주차 정보</label>
+					<label class="label" for="hd_park" style="font-weight: bold">주차 정보</label>
 					<textarea class="hd_park col-10" id="hd_park" name="hd_park" 
-					oninput="autoTextarea(this)" readonly>${detail.hd_park}</textarea>
+					readonly>${detail.hd_park}</textarea>
 				</div>
 				<hr style="border: 1px solid gray;margin: 50px auto;">
 				<div class="hd_announce">
-					<label for="hd_announce" style="font-weight: bold">공지 사항</label>
+					<label class="label" for="hd_announce" style="font-weight: bold">공지 사항</label>
 					<textarea class="hd_announce col-10" id="hd_announce" name="hd_announce" 
-					oninput="autoTextarea(this)" readonly>${detail.hd_announce}</textarea>
+					readonly>${detail.hd_announce}</textarea>
 				</div>
 				<hr style="border: 1px solid gray;margin: 50px auto;">
 				<div class="hd_etc">
-					<label for="hd_etc" style="font-weight: bold">기타 사항</label>
+					<label class="label" for="hd_etc" style="font-weight: bold">기타 사항</label>
 					<textarea class="hd_etc col-10" id="hd_etc" name="hd_etc" 
-					oninput="autoTextarea(this)" readonly>${detail.hd_etc}</textarea>
+					readonly>${detail.hd_etc}</textarea>
 				</div>
 			</div>
 			
@@ -138,10 +164,10 @@
 					  	</c:forEach>
 					</div>
 				 </div>
-				 <div>
-				 	<label for="hd_subject_detail">상세 진료 항목</label>
+				 <div class="hd_subject_detail">
+				 	<label class="label" for="hd_subject_detail">상세 진료 항목</label><br>
 				 	<textarea class="hd_subject_detail col-10" id="hd_subject_detail" name="hd_subject_detail" 
-				 	oninput="autoTextarea(this)" readonly>${detail.hd_subject_detail}</textarea>
+				 	readonly>${detail.hd_subject_detail}</textarea>
 				</div>
 			</div>
 			
@@ -158,8 +184,7 @@
 				</div>
 				<div class="box-review-insert">
 					<div class="input-group mb-3">				
-				        <textarea id="review" class="vw_num textarea-review col-10" id="vw_num" name="vw_num" 
-				        oninput="autoTextarea(this)"></textarea>
+				        <textarea id="review" class="vw_num textarea-review col-10" id="vw_num" name="vw_num" style="height: 100px;"></textarea>
 				        <button class="btn btn-outline-success review-insert-btn" name="review-btn" data-hd-num="${detail.hd_num}">리뷰 등록</button>		
 					</div>
 				</div>			
@@ -201,11 +226,11 @@ $('.bookmark-before').click(function() {
 				console.log(data.already);
 			}
 			else {
-				alert('북마크 추가 에러 1');
+				alert('사업자 회원은 북마크할 수 없습니다.');
 			}
 		}, 
 		error : function(jqXHR, textStatus, errorThrown){
-			alert('북마크 추가 에러2');
+			alert('로그인 후 이용해주세요.');
 		}
 	});
 
@@ -222,6 +247,16 @@ function getBookmarkAfter(already) {
 		return;
 	}
 };
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.page').on( 'load', 'textarea', function (e){
+      $(this).css('height', 'auto' );
+      $(this).height( this.scrollHeight );
+    });
+    $('.page').find( 'textarea' ).keyup();
+  });
 </script>
 
 <!-- 북마크 해제 버튼 -->
@@ -260,7 +295,7 @@ $('.bookmark-after').click(function() {
 			}
 		}, 
 		error : function(jqXHR, textStatus, errorThrown){
-			alert('북마크 해제 에러1');
+			alert('로그인 후 이용해주세요.');
 		}
 	});
 	
@@ -445,6 +480,7 @@ $('.review-insert-btn').click(function() {
 		error : function(xhr, textStatus, errorThrown){
 			console.error(xhr);
 			console.error(textStatus);
+			alert('로그인 후 이용해주세요.');
 		}
 	});
 });
@@ -560,22 +596,21 @@ function initReview() {
 <!-- textarea 자동 스크롤 -->
 <script type="text/javascript">
 function autoTextarea(element) {
-	//초기 높이 설정
-	element.style.height = 'auto';
-	//스크롤 높이에 따라 텍스트 영역 높이 조절
-	element.style.height = (element.scrollHeight) + 'px';
+    // 초기 높이 설정
+    element.style.height = 'auto';
+    // 스크롤 높이에 따라 텍스트 영역 높이 조절
+    element.style.height = (element.scrollHeight) + 'px';
 }
-//textarea에 이벤트 핸들러 추가
-document.addEventListener('DOMContentLoaded', function() {
-	let textarea = document.querySelector('textarea');
-	//페이지 로드 시 높이 조절
-	autoTextarea(textarea);
-	//키 입력 시 높이 주절
-	textarea.addEventListener('input', function() {
-		autoTextarea(this);
-	});
+
+window.addEventListener('load', function() {
+	//페이지1
+    let page1 = document.getElementById('page1');
+    if(page1) {
+    	autoTextarea(page1);
+    }
 });
 </script>
+
 
 <!-- 여러개 선택한 진료과목을 체크박스에 띄우는 스크립트 -->
 <script type="text/javascript">
