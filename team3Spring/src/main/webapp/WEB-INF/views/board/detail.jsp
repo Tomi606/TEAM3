@@ -67,7 +67,7 @@ width: 80%;margin: 0 auto 80px auto;
 .p_tag{margin-left:auto;display: flex;flex-direction: row-reverse;}
 
 .writer-more{
-    width: 260px;
+    width: 200px;
 	display: inline-block;
 	color: black;
 	height: 40px;

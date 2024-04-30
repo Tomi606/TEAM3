@@ -152,7 +152,7 @@
 					</tbody>
 				</table>
 			</div>
-			<ul class="pagination justify-content-center">
+			<ul class="pagination justify-content-center" style="margin-top: 220px;">
 				<c:if test="${pm.prev}">
 					<c:url value="/board/list?bo_num=${bo_num}" var="url">
 						<c:param name="page" value="${pm.startPage - 1}" />
