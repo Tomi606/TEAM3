@@ -51,5 +51,11 @@ public interface BoardService {
 	PostVO getPostDetail(int po_num);
   
 	ArrayList<FileVO> getFileList(int po_num);
+
+	ArrayList<PostVO> getUserPostList(String po_id, Criteria cri);
+
+	String getUserAuthority(String po_id);
+
+	int getUserPostListCount(String po_id, Criteria cri);
 	
 }

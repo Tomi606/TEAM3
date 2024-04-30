@@ -50,4 +50,10 @@ public interface BoardDAO {
 
 	ArrayList<FileVO> selectFileList(@Param("re")int po_num);
 
+	ArrayList<PostVO> selectUserPostList(@Param("po_id")String po_id, @Param("cri")Criteria cri);
+	
+	int selectUserPostListCount(@Param("po_id")String po_id, @Param("cri")Criteria cri);
+
+	String selectUserAuthority(@Param("po_id")String po_id);
+
 }

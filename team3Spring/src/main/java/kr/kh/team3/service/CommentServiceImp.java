@@ -87,7 +87,8 @@ public class CommentServiceImp implements CommentService {
 			return false;
 		// 댓글 작성자로 로그인한 회원 아이디를 넣어줌
 		comment.setCo_mg_num(user.getSite_num());
-
+		//post 테이블에서 po_co_count 수 업데이트
+		commentDao.updatePostCoCountUp(comment);
 		return commentDao.insertComment(comment);
 	}
 
@@ -101,6 +102,8 @@ public class CommentServiceImp implements CommentService {
 		CommentVO dbComment = commentDao.selectComment(comment.getCo_num());
 		if (dbComment == null || dbComment.getCo_mg_num()!=(user.getSite_num()))
 			return false;
+		//post 테이블에서 po_co_count 수 업데이트
+		commentDao.updatePostCoCountDown(comment);
 		// 댓글 삭제
 
 		return commentDao.deleteAjaxComment(comment.getCo_num());
