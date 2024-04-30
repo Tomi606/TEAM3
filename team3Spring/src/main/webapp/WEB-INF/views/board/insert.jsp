@@ -99,23 +99,21 @@ margin-top:50px;
    });
    $(document).ready(function() {
 	    $('#fileInput').on('change', function(event) {
-	        var fileList = event.target.files;
-	        var $listContainer = $('#fileList');
+	        let fileList = event.target.files;
+	        let $listContainer = $('#fileList');
 	        
-	        // 이전에 선택한 파일 목록을 유지하고 새로운 파일을 추가
-	        var $listFile = $listContainer.find('li');
+	        let $listFile = $listContainer.find('li');
 	        $listFile.detach();
 
 	        for (let file of fileList) {
-	            var $listItem = $('<li>').text(file.name);
-	            var $delete = $('<span>').text('x').addClass('delete-button');
+	        	let $listItem = $('<li>').text(file.name);
+	        	let $delete = $('<span>').text('x').addClass('delete-button');
 	            $listItem.append($delete);
 	            $listContainer.append($listItem);
 	        }
 	        $listContainer.append($listFile);
 	    });
 
-	    // 삭제 버튼을 클릭했을 때 해당 파일 항목을 삭제
 	    $('#fileList').on('click', '.delete-button', function() {
 	        $(this).parent().remove();
 	    });
