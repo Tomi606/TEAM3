@@ -141,7 +141,6 @@ public class ProgramServiceImp implements ProgramService{
 
 	@Override
 	public ArrayList<ItemListVO> getProgramItemList(SiteManagement user, int hp_num) {
-		// TODO Auto-generated method stub
 		return programDao.selectProgramItem(hp_num);
 	}
 

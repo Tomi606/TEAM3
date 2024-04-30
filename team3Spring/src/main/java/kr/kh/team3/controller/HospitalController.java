@@ -568,8 +568,9 @@ public class HospitalController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HsListVO hslist = programService.getHsList(hs_num, user);
 		HospitalProgramVO hp = programService.getHospitalProgram(hslist, hp_num, user);
-		ArrayList<ItemListVO> itemListList = programService.getProgramItemList(user, hp.getHp_num());
+		ArrayList<ItemListVO> itemListList = programService.getProgramItemList(user, hp_num);
 		map.put("itemList", itemListList);
+		map.put("hp", hp);
 		return map;
 	}
 	

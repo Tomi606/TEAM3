@@ -92,6 +92,58 @@
 .check-box-group input[type="checkbox"] {
     margin-right: 10px;
 }
+
+/* 기본 테이블 스타일 */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* 기본 테이블 스타일 */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* 테이블 헤더 스타일 */
+.table th {
+  background: linear-gradient(to right, #4A00E0, #8E2DE2); /* 그라데이션 배경색 지정 */
+  color: white; /* 텍스트 색상 지정 */
+  padding: 12px; /* 셀 안에 여백 지정 */
+  text-align: left; /* 텍스트 정렬 */
+  border: none; /* 테두리 없애기 */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+}
+
+/* 테이블 셀 스타일 */
+.table td {
+  padding: 12px; /* 셀 안에 여백 지정 */
+  text-align: left; /* 텍스트 정렬 */
+  border: none; /* 테두리 없애기 */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+}
+
+/* 짝수 행 배경색 지정 */
+.table tbody tr:nth-child(even) {
+  background-color: #f5f5f5; /* 짝수 행 배경색 */
+}
+
+/* 홀수 행 배경색 지정 */
+.table tbody tr:nth-child(odd) {
+  background-color: #ffffff; /* 홀수 행 배경색 */
+}
+
+/* 테이블 애니메이션 효과 */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.table tbody tr {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
 </style>
 </head>
 <body>
@@ -164,7 +216,7 @@
 
 <!-- 프로그램을 선택하면 리스트 띄우기 -->
 <script type="text/javascript">
-	$("[name=hp_num]").change(function(){
+	$("[name=hp_num]").click(function(){
 		let hp_num = $("[name=hp_num]").val();
 		let hs_num = $("[name=hs_num]").val();
 		if(hp_num == 'none'){
@@ -183,8 +235,26 @@
 				"hs_num" : hs_num
 			},
 			success : function (data) {
-				console.log(data)
-				//$(".itemList").html(data);
+				let str = ``;
+				 for(let i = 0; i < data.itemList.length; i++){
+		                let tmp = data.itemList[i];
+		                str +=
+		                    `
+			                    <tr>
+			                	<th>\${tmp.item.it_name}</th>
+			                     <th>\${tmp.item.it_explanation}</th>
+		                     `;
+		                // 첫 번째 반복 요소에만 rowspan 추가
+		                if(i === 0) {
+		                    str +=
+		                        `<th rowspan="\${data.itemList.length}">\${data.hp.payMentMoney}</th>`;
+		                }
+		                str +=
+		                    `
+		                    </tr>
+		                    `;
+		            }
+		            $(".itemList").html(str);
 			}
 		})
 	})	
@@ -291,6 +361,7 @@ function getCheckedValues() {
 
 <!-- 프로그램 등록 -->
  <script type="text/javascript">
+ 
 	$(".program-inset-btn").click(function(){
 		let hp_title = $("[name=hp_title]").val();
 		let hp_payment = $("[name=hp_payment]").val();
