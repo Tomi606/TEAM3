@@ -135,9 +135,9 @@ width: 100%;height: 60px;border-bottom: 1px solid gray;
 			 <div class="form-group">	
 			 	<c:forEach items="${fileList}" var="file">		
 			 			<c:if test="${file.img}">
-			 					<a href="<c:url value="/download${file.fi_name}"/>" download="${file.fi_ori_name }">${file.fi_ori_name }
-			 						<img height="100" alt="이미지" src="<c:url  value='/download${file.fi_name }'/>">
-		 						</a>
+			 					<a href="<c:url value="/download${file.fi_name}"/>" download="${file.fi_ori_name}">
+									<img alt="이미지" height="100" src="<c:url value="/download${file.fi_name}"/>">
+								</a>
 			 			</c:if>
 			 			<c:if test="${!file.img }">
 					 			<a href="<c:url value="/download${file.fi_name}"/>" download="${file.fi_ori_name }">${file.fi_ori_name }</a>
@@ -225,11 +225,11 @@ function checkLogin() {
 	    success: function(data) {
 	      switch (data.result) {
 	        case 1:
-	          alert("추천했습니다.");
+	          alert("좋아요를 눌렀습니다.");
 	          break;
 	        case 0:
-	          let str = recommend.re_state == 1 ? '추천' : '비추천';
-	          alert(`\${str} + 을 취소했습니다.`);
+	          let str = recommend.re_state == 1 ? '좋아요' : '비추천';
+	          alert(`\${str}를 취소했습니다.`);
 	          break;
 	        case -1:
 	          alert("비추천했습니다.");
