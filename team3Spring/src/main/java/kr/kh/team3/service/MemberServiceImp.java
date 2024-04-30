@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import kr.kh.team3.dao.HospitalDAO;
 import kr.kh.team3.dao.MemberDAO;
+import kr.kh.team3.model.vo.BookmarkVO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
@@ -472,6 +473,55 @@ public class MemberServiceImp implements MemberService {
 			return null;
 		}
 		return memberDao.selectMember(user.getSite_id());
+	}
+
+	@Override
+	public boolean insertBookmark(BookmarkVO bookmark, MemberVO member, String ho_id) {
+		if(member == null || member.getMe_id() == null) {
+			return false;
+		}
+
+		return memberDao.insertBookmark(member, ho_id);
+	}
+
+	@Override
+	public boolean deleteBookmark(BookmarkVO bookmark, MemberVO member, HospitalDetailVO detail) {
+		if(member == null || member.getMe_id() == null) {
+			return false;
+		}
+		
+		if(detail.getHd_ho_id() == null) {
+			return false;
+		}
+		
+		BookmarkVO dbBmk = memberDao.selectBookmark(member.getMe_id(), detail.getHd_ho_id());
+		if(dbBmk !=null) {
+			return memberDao.deleteBookmark(dbBmk.getBmk_ho_id(), dbBmk.getBmk_me_id());
+		}
+		
+		return true;
+	}
+
+	@Override
+	public boolean selectBookmark(BookmarkVO bookmark, MemberVO member, HospitalDetailVO detail) {
+		if(member == null || member.getMe_id() == null) {
+			return false;
+		}
+		
+		if(detail.getHd_ho_id() == null) {
+			return false;
+		}
+		//통과되면 select
+		BookmarkVO result = memberDao.selectBookmark(member.getMe_id(), detail.getHd_ho_id());
+		System.out.println("memberㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ" + member.getMe_id());
+		System.out.println("detailㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ" + detail.getHd_ho_id());
+		
+		if(result != null) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	

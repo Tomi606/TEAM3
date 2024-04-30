@@ -10,4 +10,5 @@ public class BookmarkVO {
 	private String bmk_ho_id;
 	private String bmk_me_id;
 	HospitalVO hospital;
+	private MemberVO member;
 }

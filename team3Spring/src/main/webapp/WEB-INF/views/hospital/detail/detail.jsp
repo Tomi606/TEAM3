@@ -8,7 +8,7 @@
 <title>병원 상세 페이지 조회</title>
 <style type="text/css">
 .toggle-btn{
-display:flex;
+	display:flex;
 
 }
 .toggle-button {
@@ -28,27 +28,49 @@ display:flex;
     display: block;
 }
 .detail-page{
- width: 100%;height: 100%;display: flex;
+ 	width: 100%;
+ 	height: 100%;
+ 	display: flex;
 }
 .detail-page-sub{
- width: 1500px;height: 100%;margin: 100px auto;text-align: center;
+ 	width: 1500px;
+ 	height: 100%;
+ 	margin: 100px auto;
+ 	text-align: center;
 }
 .ho_name{
-margin-bottom: 40px;
+	margin-bottom: 40px;
 
 }
 .body-container{
-	width: 100%;height: 100%; border: 1px solid black; 
+	width: 100%;
+	height: 100%;
+	border: 1px solid black; 
 
 }
 .login-btn-click{
-background-color: white;
-border-bottom:2px solid white;
+	background-color: white;
+	border-bottom:2px solid white;
 }
+/* .bookmark-after {
+	display: none;
+} */
 </style>
 </head>
 <body>
 <div class="detail-page">
+	<div class="bookmark-box">
+		<c:choose>
+			<c:when test="${already == true}">
+				<img class="btn btn-lg bookmark-after" data-id="${user.site_id}" alt="북마크 후" src="<c:url value="/resources/img/bookmark-after.svg"/>">
+				<img class="btn btn-lg bookmark-before" style="display: none;" data-id="${user.site_id}" alt="북마크 전" src="<c:url value="/resources/img/bookmark-before.svg"/>">			
+			</c:when>
+			<c:otherwise>
+				<img class="btn btn-lg bookmark-after" style="display: none;" data-id="${user.site_id}" alt="북마크 후" src="<c:url value="/resources/img/bookmark-after.svg"/>">
+				<img class="btn btn-lg bookmark-before" data-id="${user.site_id}" alt="북마크 전" src="<c:url value="/resources/img/bookmark-before.svg"/>">
+			</c:otherwise>
+		</c:choose>
+	</div>
 	<div class="detail-page-sub">
 		<div class="ho_name">
 			<h1 class="ho_name" id="ho_name">${detail.hospital.ho_name}</h1>
@@ -82,7 +104,8 @@ border-bottom:2px solid white;
 				<div class="hd_time" id="hd_time">
 					<label for="hd_time" style="font-weight: bold">영업 시간</label>
 					<textarea class="hd_time col-10" id="hd_time" name="hd_time" 
-					placeholder="월~금 : 9:00~18:00 / 토,일 : 휴무" oninput="autoTextarea(this)">${hoDetail.hd_time}</textarea>
+					placeholder="월~금 : 9:00~18:00 / 토,일 : 휴무" 
+					oninput="autoTextarea(this)" readonly>${detail.hd_time}</textarea>
 				</div>
 				<hr style="border: 1px solid gray;margin: 50px auto;">
 				<div class="hd_park" id="hd_park">
@@ -108,11 +131,12 @@ border-bottom:2px solid white;
 				<div class="hsList">
 					<label for="hsList">대표 진료 과목</label>
 					<div class="subject-checkbox hsList">
-					  	<c:forEach items="${detail.hsList}" var="hs">
-							<button>${hs}</button>
+					  	<c:forEach var="i" begin="0" end="${sub.size() - 1}">
+							<button class="btn btn-info btn-lg" style="cursor: text;">
+							<p><c:out value="${sub.get(i).hospital_subject.hs_title}"/></p>
+							</button>
 					  	</c:forEach>
 					</div>
-					<%-- <input type="hidden" id="hd_hs_num" name="hd_hs_num" value="${detail.hd_hs_num}"> --%>
 				 </div>
 				 <div>
 				 	<label for="hd_subject_detail">상세 진료 항목</label>
@@ -144,26 +168,134 @@ border-bottom:2px solid white;
 		</div>
 	</div>
 </div>
+
+<!-- 북마크 추가 버튼 -->
 <script type="text/javascript">
-
-
-
-	$("#btn1").click(function() {
-		$("#btn1").addClass("login-btn-click");
-		$("#btn2").removeClass("login-btn-click");
-		$("#btn3").removeClass("login-btn-click");
+$('.bookmark-before').click(function() {
+	//로그인 체크 여부
+	if(!checkLogin()) {
+		return false;
+	}
+	
+	//서버에 보낼 데이터 생성
+	let me_id = $(this).data('id');
+	let ho_id = '${detail.hd_ho_id}';
+	console.log(me_id);
+	console.log(ho_id);
+	let bookmark = {
+			bmk_me_id : me_id, 
+			bmk_ho_id : ho_id	
+	}
+	
+	$.ajax({
+		async : true,
+		url : '<c:url value="/bookmark/insert"/>', 
+		type : 'post', 
+		data : JSON.stringify(bookmark), 
+		contentType : "application/json; charset=utf-8",
+		dataType : "json", 
+		success : function(data) {
+			if(data.result) {
+				alert('북마크 추가되었습니다.');
+				getBookmarkAfter(data.already);
+				console.log(data.already);
+			}
+			else {
+				alert('북마크 추가 에러 1');
+			}
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+			alert('북마크 추가 에러2');
+		}
 	});
-	$("#btn2").click(function() {
-		$("#btn1").removeClass("login-btn-click");
-		$("#btn3").removeClass("login-btn-click");
-		$("#btn2").addClass("login-btn-click");
-	});
-	$("#btn3").click(function() {
-		$("#btn3").addClass("login-btn-click");
-		$("#btn1").removeClass("login-btn-click");
-		$("#btn2").removeClass("login-btn-click");
-	});
+
+});
+
+function getBookmarkAfter(already) {
+	if(already) {
+		let bookmarkBefore = document.querySelector('.bookmark-before');
+		let bookmarkAfter = document.querySelector('.bookmark-after');
+		bookmarkBefore.style.display = 'none';
+		bookmarkAfter.style.display = 'inline';
+	}
+	else {
+		return;
+	}
+};
 </script>
+
+<!-- 북마크 해제 버튼 -->
+<script type="text/javascript">
+$('.bookmark-after').click(function() {
+	//로그인 체크 여부
+	if(!checkLogin()) {
+		return false;
+	}
+	
+	//서버에 보낼 데이터 생성
+	let me_id = $(this).data('id');
+	let ho_id = '${detail.hd_ho_id}';
+	console.log(me_id);
+	console.log(ho_id);
+	let bookmark = {
+			bmk_me_id : me_id,
+			bmk_ho_id : ho_id
+	}
+	
+	$.ajax({
+		async : true,
+		url : '<c:url value="/bookmark/delete"/>', 
+		type : 'post', 
+		data : JSON.stringify(bookmark), 
+		contentType : "application/json; charset=utf-8",
+		dataType : "json", 
+		success : function(data) {
+			if(data.result) {
+				alert('북마크 삭제되었습니다.');
+				getBookmarkBefore(data.already);
+				console.log(data.already);
+			}
+			else {
+				alert('북마크 해제 에러1');
+			}
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+			alert('북마크 해제 에러1');
+		}
+	});
+	
+	function getBookmarkBefore(already) {
+		if(!already) {
+			let bookmarkBefore = document.querySelector('.bookmark-before');
+			let bookmarkAfter = document.querySelector('.bookmark-after');
+			bookmarkAfter.style.display = 'none';
+			bookmarkBefore.style.display = 'inline';
+		}
+		else {
+			return;
+		}
+	};
+});
+</script>
+
+<script type="text/javascript">
+$("#btn1").click(function() {
+	$("#btn1").addClass("login-btn-click");
+	$("#btn2").removeClass("login-btn-click");
+	$("#btn3").removeClass("login-btn-click");
+});
+$("#btn2").click(function() {
+	$("#btn1").removeClass("login-btn-click");
+	$("#btn3").removeClass("login-btn-click");
+	$("#btn2").addClass("login-btn-click");
+});
+$("#btn3").click(function() {
+	$("#btn3").addClass("login-btn-click");
+	$("#btn1").removeClass("login-btn-click");
+	$("#btn2").removeClass("login-btn-click");
+});
+</script>
+
 <!-- 리뷰 리스트 조회 -->
 <script type="text/javascript">
 //댓글 페이지 정보를 가지고 있는 객체 선언
@@ -274,7 +406,7 @@ $(document).on('click', '.box-pagination .page-link', function() {
 <!-- 리뷰 등록 -->
 <script type="text/javascript">
 //리뷰 등록 버튼의 클릭 이벤트를 등록
-$('.review-insert-btn').click(function() {
+$('.review-insert-btn').click(function() {!!
 	//로그인 안되있으면 return
 	if(!checkLogin()) {
 		return;
@@ -307,7 +439,7 @@ $('.review-insert-btn').click(function() {
 				getReviewList(cri);
 			}
 			else {
-				alert('댓글 등록 실패');
+				alert('사업자 회원은 댓글을 달 수 없습니다.');
 			}
 		}, 
 		error : function(xhr, textStatus, errorThrown){
@@ -317,6 +449,10 @@ $('.review-insert-btn').click(function() {
 	});
 });
 
+</script>
+
+<!-- 로그인 체크 -->
+<script type="text/javascript">
 function checkLogin() {
 	//로그인 했을 때
 	if('${user.site_id}' != '') {
@@ -467,7 +603,7 @@ window.onload = function() {
 </script>
 
 <!-- 영업 시간 : 배열로 저장된 시간들 인덱스와 클래스 이름 매핑 -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 //서버에서 받은 hd_time 문자열
 let hd_time = "${detail.hd_time}";
 //쉼표로 문자열 분할
@@ -495,7 +631,7 @@ for(let day in days) {
 		inputField.value = timeArray[index];
 	}
 }
-</script>
+</script> -->
 
 <!-- 토글 버튼 -->
 <script type="text/javascript">
