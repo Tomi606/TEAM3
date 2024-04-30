@@ -42,6 +42,7 @@ width: 80%;margin: 0 auto 80px auto;
 	 background: green;color: white;
 }
 .p_tag{margin-top: 60px ;margin-left:auto;display: flex;flex-direction: row-reverse;}
+.comment_content{ resize: none;width: 92%;}
 </style>
 </head>
 <body>
@@ -76,10 +77,18 @@ width: 80%;margin: 0 auto 80px auto;
 				    <button class="btn btn-outline-success btn-up col-6" data-state="1">추천(<span class="text-up">${post.po_up}</span>)</button>
 				    <button class="btn btn-outline-success btn-down col-6" data-state="-1">비추천(<span class="text-down">${post.po_down}</span>)</button>
 			   </div>
-				<div class="content-file">
-					<label style="margin: 0 20px 0 58px;">첨부파일</label>
-					<input type="file" name="files" >
-				</div> 
+			 <div class="form-group">	
+			 	<c:forEach items="${fileList}" var="file">		
+			 			<c:if test="${file.img}">
+			 					<a href="<c:url value="/download${file.fi_name}"/>" download="${file.fi_ori_name }">${file.fi_ori_name }
+			 						<img height="100" alt="이미지" src="<c:url  value='/download${file.fi_name }'/>">
+		 						</a>
+			 			</c:if>
+			 			<c:if test="${!file.img }">
+					 			<a href="<c:url value="/download${file.fi_name}"/>" download="${file.fi_ori_name }">${file.fi_ori_name }</a>
+			 			</c:if>
+			 	</c:forEach>
+			 </div>
 				<!-- 댓글 -->  
 				<div class="container-comment mt-3 mb-3">
 					<h2>
@@ -96,7 +105,7 @@ width: 80%;margin: 0 auto 80px auto;
 					</div>
 					<div class="box-commnt-insert">
 						<div class="input-group mb-3">
-							<textarea class="form-control textarea-comment"></textarea>
+							<textarea class="textarea-comment comment_content"></textarea>
 							<button class="btn btn-outline-success btn-comment-insert">댓글등록</button>
 						</div>
 					</div>
@@ -266,9 +275,9 @@ function displayCommentList(list){
    }		
    for(item of list){
 	   let boxBtns = 
-		   ` <span class="box-btn float-right">
-				<button class="btn btn-outline-danger btn-comment-del" data-num="\${item.co_num}">삭제</button>
-				<button class="btn btn-outline-danger btn-comment-update" data-num="\${item.co_num}">수정</button>
+		   ` <span class="box-btn float-right" style="margin-left:auto;">
+				<a class="btn btn-outline-danger btn-comment-del" data-num="\${item.co_num}">삭제</a>
+				<a class="btn btn-outline-danger btn-comment-update" data-num="\${item.co_num}">수정</a>
 		   </span>`;
 		let btns= '${user.site_num}' == item.co_mg_num ? boxBtns : '';
 	      str += 
@@ -277,6 +286,7 @@ function displayCommentList(list){
 	            <div class="col-3">\${item.co_mg_num}</div>
 	            <div class="col-9 clearfix input-group">
 	            	<span class="text-comment">\${item.co_content}</span>
+	            	<span class="comment-date date">\${item.co_date}</span>
 	            	\${btns}
 	            </div>
 	         </div>
@@ -408,6 +418,7 @@ $(document).on('click','.btn-comment-update',function(){
 	contentBox.hide();
 	//수정 / 삭제버튼을 감추고
 	$(this).parents(".box-comment").find('.box-btn').hide();
+	$('.date').hide(); // 날짜 숨김
 	//수정 완료 버튼을 추가
 	let co_num = $(this).data("num");
 	str = `<button class="btn btn-outline-warning btn-complete" data-num="\${co_num}">수정 완료</button>`;
