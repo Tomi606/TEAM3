@@ -244,6 +244,7 @@ public class HospitalController {
 		ArrayList<HospitalSubjectVO> sub = hospitalService.getDetailSubject(detail.getHd_ho_id());
 		//북마크 유무 : 병원페이지 아이디(detail에서 받아옴), 회원 아이디, 북마크
 		boolean already = memberService.selectBookmark(bookmark, member, detail);
+		
 		model.addAttribute("detail", detail);
 		model.addAttribute("sub", sub);
 		model.addAttribute("already", already);
@@ -368,7 +369,7 @@ public class HospitalController {
 		boolean result = memberService.insertBookmark(bookmark, member, detail.getHd_ho_id());
 		//이미 북마크함(남기기 위함)
 		boolean already = memberService.selectBookmark(bookmark, member, detail);
-		log.info("already : " +already);
+		
 		map.put("user", user);
 		map.put("detail", detail);
 		map.put("result", result);
@@ -396,26 +397,6 @@ public class HospitalController {
 		map.put("result", result);
 		return map;
 	}
-	
-	//로그인한 회원의 북마크 상태
-//	@ResponseBody
-//	@PostMapping("/bookmark/state")
-//	public Map<String, Object> bookmarkState(@RequestBody BookmarkVO bookmark, HttpSession session) {
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		//로그인한 회원의 추천 정보
-//		SiteManagement user = (SiteManagement) session.getAttribute("user");
-//		MemberVO member = memberService.getMemberInfo(user);
-//		//북마크할 병원 페이지 번호(임시!!!!!!!!!!!!!)
-////		int hdNum = 1;
-//		int hdNum = 2;
-//		//페이지 번호로 병원 아이디 들고오기
-//		HospitalDetailVO detail = hospitalService.getDetailId(hdNum);		
-//		//페이지의 북마크 유무를 가져옴 -> jsp에서 state가 true이면 버튼이 떠있게 하고 아니면 안떠있게 -> function displayRecommend(state)
-//		boolean state = memberService.selectBookmark(bookmark, member, detail);
-//		map.put("state", state);
-//		map.put("detail", detail);
-//		return map;
-//	}
 	
   //================================================ 조민석 ====================================================
 	// 병원 프로그램 등록 페이지 이동
