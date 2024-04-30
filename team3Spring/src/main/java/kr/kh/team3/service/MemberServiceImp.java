@@ -494,7 +494,7 @@ public class MemberServiceImp implements MemberService {
 			return false;
 		}
 		
-		BookmarkVO dbBmk = memberDao.selectBmk(member.getMe_id(), detail.getHd_ho_id());
+		BookmarkVO dbBmk = memberDao.selectBookmark(member.getMe_id(), detail.getHd_ho_id());
 		if(dbBmk !=null) {
 			return memberDao.deleteBookmark(dbBmk.getBmk_ho_id(), dbBmk.getBmk_me_id());
 		}
@@ -503,16 +503,25 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public BookmarkVO selectBookmark(BookmarkVO bookmark, MemberVO member, HospitalDetailVO detail) {
+	public boolean selectBookmark(BookmarkVO bookmark, MemberVO member, HospitalDetailVO detail) {
 		if(member == null || member.getMe_id() == null) {
-			return null;
+			return false;
 		}
 		
-		if(detail.getHd_num() == 0 || detail.getHd_ho_id() == null) {
-			return null;
+		if(detail.getHd_ho_id() == null) {
+			return false;
 		}
+		//통과되면 select
+		BookmarkVO result = memberDao.selectBookmark(member.getMe_id(), detail.getHd_ho_id());
+		System.out.println("memberㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ" + member.getMe_id());
+		System.out.println("detailㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ" + detail.getHd_ho_id());
 		
-		return memberDao.selectBmk(member.getMe_id(), detail.getHd_ho_id());
+		if(result != null) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	
