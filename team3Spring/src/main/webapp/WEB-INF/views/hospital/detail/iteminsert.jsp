@@ -143,7 +143,7 @@
     <input type="text" name="it_explanation" placeholder="세부 항목의 설명">
     <div class="program-btn-box">
 	    <a class="btn item-inset-btn">등록</a>
-	    <a class="btn item-update-btn" href='<c:url value="/item/update"/>'>수정</a>
+	    <a class="btn item-update-btn" href='<c:url value="/date/update"/>'>수정</a>
 	    <a class="btn item-delete-btn">삭제</a>
     </div>
 </div>
@@ -192,7 +192,7 @@
 	<input type="time" id="timeInput" name="rs_time">
 	<input type="number" name="rs_max_person">
 	<a class="btn date-inset-btn">등록</a>
-    <a class="btn date-update-btn" href='<c:url value="/program/update"/>'>수정</a>
+    <a class="btn date-update-btn" href='<c:url value="/date/update"/>'>수정</a>
     <a class="btn date-delete-btn">삭제</a>
 </div>
 	
@@ -224,7 +224,7 @@
 			    "rs_max_person": rs_max_person
 			}, 
 			success : function(data){
-				
+				alert(data.msg);
 			}
 		})
 	});
