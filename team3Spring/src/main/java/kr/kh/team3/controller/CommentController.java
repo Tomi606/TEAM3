@@ -37,9 +37,10 @@ public class CommentController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		cri.setPerPageNum(10);
 		ArrayList<CommentVO> commentList = commentService.getCommentList(cri);
+		log.info(commentList+"commentListcommentListcommentListcommentListcommentListcommentListcommentListcommentListcommentListcommentList");
 		int totalCount = commentService.getTotalCount(cri);
 		PageMaker pm = new PageMaker(5, cri, totalCount);
-		map.put("list", commentList);
+		map.put("commentList", commentList);
 		map.put("pm", pm);
 		return map;
 	}
