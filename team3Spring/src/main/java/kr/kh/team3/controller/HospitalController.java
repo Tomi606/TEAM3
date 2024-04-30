@@ -384,7 +384,7 @@ public class HospitalController {
 		//페이지 번호로 병원 아이디 들고오기
 		HospitalDetailVO detail = hospitalService.getDetailId(hdNum);
 		boolean result = memberService.deleteBookmark(bookmark, member, detail);
-		
+		log.info(result);
 		map.put("user", user);
 		map.put("detail", detail);
 		map.put("result", result);

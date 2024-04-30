@@ -490,7 +490,7 @@ public class MemberServiceImp implements MemberService {
 			return false;
 		}
 		
-		if(detail.getHd_num() == 0 || detail.getHd_ho_id() == null) {
+		if(detail.getHd_ho_id() == null) {
 			return false;
 		}
 		
@@ -499,7 +499,7 @@ public class MemberServiceImp implements MemberService {
 			return memberDao.deleteBookmark(dbBmk.getBmk_ho_id(), dbBmk.getBmk_me_id());
 		}
 		
-		return false;
+		return true;
 	}
 
 	@Override

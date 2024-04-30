@@ -189,15 +189,15 @@ $('.bookmark-before').click(function() {
 		success : function(data) {
 			if(data.result) {
 				alert('북마크 추가되었습니다.');
-				getBookmarkAfter(data.already);
-				console.log(data.already);
+				/* getBookmarkAfter(data.already);
+				console.log(data.already); */
 			}
 			else {
-				alert('사업자 회원은 북마크하실 수 없습니다.');
+				alert('북마크 추가 에러 1');
 			}
 		}, 
 		error : function(jqXHR, textStatus, errorThrown){
-			alert('북마크 에러');
+			alert('북마크 추가 에러2');
 		}
 	});
 	
@@ -205,21 +205,22 @@ $('.bookmark-before').click(function() {
 	let bookmarkAfter = document.querySelector('.bookmark-after');
 	bookmarkAfter.style.display = 'inline';
 
-	/* function getBookmarkAfter(already) {
-		if(already) {
-			this.style.display = 'none';
-			let bookmarkAfter = document.querySelector('.bookmark-after');
-			bookmarkAfter.style.display = 'inline';
-		}
-		else {
-			this.style.display = 'none';
-			let bookmarkBefore = document.querySelector('.bookmark-before');
-			bookmarkBefore.style.display = 'inline';
-		}
-		
-	}; */
 	
 });
+
+function getBookmarkAfter(already) {
+	if(already) {
+		this.style.display = 'none';
+		let bookmarkAfter = document.querySelector('.bookmark-after');
+		bookmarkAfter.style.display = 'inline';
+	}
+	else {
+		this.style.display = 'none';
+		let bookmarkBefore = document.querySelector('.bookmark-before');
+		bookmarkBefore.style.display = 'inline';
+	}
+	
+};
 
 
 </script>
@@ -252,15 +253,15 @@ $('.bookmark-after').click(function() {
 		success : function(data) {
 			if(data.result) {
 				alert('북마크 삭제되었습니다.');
-				getBookmarkBefore(data.already);
-				console.log(data.already);
+				/* getBookmarkBefore(data.already);
+				console.log(data.already); */
 			}
 			else {
-				alert('사업자 회원은 북마크하실 수 없습니다.');
+				alert('북마크 해제 에러1');
 			}
 		}, 
 		error : function(jqXHR, textStatus, errorThrown){
-			alert('북마크 에러');
+			alert('북마크 해제 에러1');
 		}
 	});
 	
