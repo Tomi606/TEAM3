@@ -29,10 +29,14 @@ width: 100%;height: 100%;padding: 20px;}
 .content-content{width: 93%;padding: 3px;outline-style: none; resize: none;
 min-height: 600px;max-height: 600px;}
 .content-file{display:flex;
-width: 80%;margin: 0 auto 80px auto;
+width: 100%;margin: 0 auto 20px auto;
 
 }
+.insert-btn-box{
+margin-top:50px;
+}
 .insert-btn{
+	
     border: 1px solid green;
     background: white;
     width: 300px;
@@ -41,6 +45,11 @@ width: 80%;margin: 0 auto 80px auto;
 .insert-btn:hover{
 	 background: green;color: white;
 }
+.delete-button{cursor: pointer;margin-left:5px;color:#b4b4b4; }
+.delete-button:hover{color: gray;}
+.fileList_box{width: 100%;height: 50px;}
+#fileList{display: flex;list-style: none;}
+#fileList li{margin: 10px;border: 1px solid lightgray;background-color: lightgray;padding: 5px;border-radius: 7px;}
 </style>
 </head>
 <body>
@@ -68,9 +77,12 @@ width: 80%;margin: 0 auto 80px auto;
 					</div>
 					<div class="content-file">
 						<label style="margin: 0 20px 0 58px;">첨부파일</label>
-						<input type="file" name="files">
+						<input type="file" name="files" multiple="multiple" id="fileInput">
 					</div>   
-					<div style="text-align: center;">	
+					<div class="fileList_box">
+						 <ul id="fileList"></ul>
+					</div>	 
+					<div class="insert-btn-box"style="text-align: center;">	
 						<button class="insert-btn">작성하기</button>
 					</div>
 				</div>	
@@ -85,6 +97,32 @@ width: 80%;margin: 0 auto 80px auto;
       minHeight: 400,
       width:1200
    });
+   $(document).ready(function() {
+	    $('#fileInput').on('change', function(event) {
+	        var fileList = event.target.files;
+	        var $listContainer = $('#fileList');
+	        
+	        // 이전에 선택한 파일 목록을 유지하고 새로운 파일을 추가
+	        var $listFile = $listContainer.find('li');
+	        $listFile.detach();
+
+	        for (let file of fileList) {
+	            var $listItem = $('<li>').text(file.name);
+	            var $delete = $('<span>').text('x').addClass('delete-button');
+	            $listItem.append($delete);
+	            $listContainer.append($listItem);
+	        }
+	        $listContainer.append($listFile);
+	    });
+
+	    // 삭제 버튼을 클릭했을 때 해당 파일 항목을 삭제
+	    $('#fileList').on('click', '.delete-button', function() {
+	        $(this).parent().remove();
+	    });
+	});
+
+
+
 </script>
 </body>
 </html>

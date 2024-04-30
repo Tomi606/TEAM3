@@ -131,7 +131,6 @@ width: 100%;height: 60px;border-bottom: 1px solid gray;
 				   <%--  <a class="btn btn-heart btn-down " data-state="-1">싫어요(<span class="text-down">${post.po_down}</span>)</a> --%>
 			   </div>
 				<!-- 작성자 게시글 더보기 -->
-				
 			 <div class="form-group">	
 			 	<c:forEach items="${fileList}" var="file">		
 			 			<c:if test="${file.img}">
