@@ -7,91 +7,121 @@
 <meta charset="UTF-8">
 <title>프로그램 등록</title>
 <style type="text/css">
-/* Resetting default margin and padding */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Container styles */
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-/* Input box group styles */
-.item-box {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
+  margin: 20px auto;
+  max-width: 800px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .input-box-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-in-out;
 }
 
-.input-box-group label {
-    display: block;
-    margin-bottom: 5px;
+.program-box {
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-in-out;
 }
 
+.list-box {
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.date-box {
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-in-out;
+  margin-top: 20px;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 8px;
+  border: 1px solid #dee2e6;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* input 태그 스타일 */
 .input-box-group input[type="text"],
 .input-box-group input[type="number"],
+.program-box input[type="text"],
+.program-box input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* button 태그 스타일 */
+.input-box-group .btn,
+.program-box .btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-right: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.input-box-group .btn:hover,
+.program-box .btn:hover {
+  background-color: #0056b3;
+  animation: scaleIn 0.3s ease-in-out;
+}
+
+/* select 태그 스타일 */
 .input-box-group select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    font-size: 16px;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  background-color: #fff;
+  appearance: none; /* 스타일을 위해 기본 스타일 숨김 */
+  animation: fadeIn 0.5s ease-in-out;
 }
 
-/* Program box styles */
-.program-box {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-.program-box h3 {
-    margin-bottom: 10px;
-}
-
-/* List box styles */
-.list-box {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-.list-box h3 {
-    margin-bottom: 10px;
-}
-
-/* Button styles */
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.btn:hover {
-    background-color: #0056b3;
-}
-
-/* Check box group styles */
-.check-box-group input[type="checkbox"] {
-    margin-right: 10px;
-}
 </style>
 </head>
 <body>
@@ -157,14 +187,52 @@
 	    </tbody>
 	  </table>
 </div>
-
+<div class="date-box">
+	<input type="date" name="rs_date">
+	<input type="time" id="timeInput" name="rs_time">
+	<input type="number" name="rs_max_person">
+	<a class="btn date-inset-btn">등록</a>
+    <a class="btn date-update-btn" href='<c:url value="/program/update"/>'>수정</a>
+    <a class="btn date-delete-btn">삭제</a>
 </div>
-<input type="time">
-<input type="date">
+	
+</div>
+
+
+<!-- 스케줄 등록 메서드 -->
+<script type="text/javascript">
+	$(".date-inset-btn").click(function(){
+		let rs_hp_num = $("[name=hp_num]").val();
+		let rs_date = $("[name=rs_date]").val();
+		let rs_time = $("[name=rs_time]").val();
+		let rs_max_person = $("[name=rs_max_person]").val();
+		if(rs_date == "" || rs_time == "" || rs_max_person == "" || rs_hp_num == 'none'){
+			alert("프로그램을 선택하시거나, 날짜, 시간, 최대인원을 모두 입력해주시기 바랍니다.");
+			rs_date = $("[name=rs_date]").val("");
+			rs_time = $("[name=rs_time]").val("");
+			rs_max_person = $("[name=rs_max_person]").val("");
+			return
+		}
+
+		$.ajax({
+			method : 'post',
+			url : '<c:url value="/date/insert"/>',
+			data : {
+			    "rs_hp_num": rs_hp_num,
+			    "rs_date": rs_date,
+			    "rs_time": rs_time,
+			    "rs_max_person": rs_max_person
+			}, 
+			success : function(data){
+				
+			}
+		})
+	});
+</script>
 
 <!-- 프로그램을 선택하면 리스트 띄우기 -->
 <script type="text/javascript">
-	$("[name=hp_num]").change(function(){
+	$("[name=hp_num]").click(function(){
 		let hp_num = $("[name=hp_num]").val();
 		let hs_num = $("[name=hs_num]").val();
 		if(hp_num == 'none'){
@@ -183,8 +251,26 @@
 				"hs_num" : hs_num
 			},
 			success : function (data) {
-				console.log(data)
-				//$(".itemList").html(data);
+				let str = ``;
+				 for(let i = 0; i < data.itemList.length; i++){
+		                let tmp = data.itemList[i];
+		                str +=
+		                    `
+			                    <tr>
+			                	<th>\${tmp.item.it_name}</th>
+			                     <th>\${tmp.item.it_explanation}</th>
+		                     `;
+		                // 첫 번째 반복 요소에만 rowspan 추가
+		                if(i === 0) {
+		                    str +=
+		                        `<th rowspan="\${data.itemList.length}">\${data.hp.payMentMoney}</th>`;
+		                }
+		                str +=
+		                    `
+		                    </tr>
+		                    `;
+		            }
+		            $(".itemList").html(str);
 			}
 		})
 	})	
@@ -291,6 +377,7 @@ function getCheckedValues() {
 
 <!-- 프로그램 등록 -->
  <script type="text/javascript">
+ 
 	$(".program-inset-btn").click(function(){
 		let hp_title = $("[name=hp_title]").val();
 		let hp_payment = $("[name=hp_payment]").val();

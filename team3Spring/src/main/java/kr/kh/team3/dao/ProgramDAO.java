@@ -51,5 +51,7 @@ public interface ProgramDAO {
 
 	HospitalProgramVO selectItemListByProgram(@Param("hsl_num")int hsl_num,@Param("hp_num") int hp_num, @Param("user")SiteManagement user);
 
+	boolean insertReservationSechedule(@Param("rs_hp_num")String rs_hp_num, @Param("rs_date")String rs_date, @Param("rs_time")String rs_time, @Param("rs_max_person")int rs_max_person);
+
 
 }

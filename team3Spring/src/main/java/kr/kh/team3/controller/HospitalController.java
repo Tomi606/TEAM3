@@ -1,6 +1,9 @@
 package kr.kh.team3.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +29,7 @@ import kr.kh.team3.model.vo.ItemListVO;
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
+import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.ReviewVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
@@ -624,8 +628,9 @@ public class HospitalController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HsListVO hslist = programService.getHsList(hs_num, user);
 		HospitalProgramVO hp = programService.getHospitalProgram(hslist, hp_num, user);
-		ArrayList<ItemListVO> itemListList = programService.getProgramItemList(user, hp.getHp_num());
+		ArrayList<ItemListVO> itemListList = programService.getProgramItemList(user, hp_num);
 		map.put("itemList", itemListList);
+		map.put("hp", hp);
 		return map;
 	}
 	
@@ -638,6 +643,23 @@ public class HospitalController {
 		ArrayList<ItemVO> itemList = programService.getItemListByItem(il_num);
 		map.put("itemList", itemList);
 		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/date/insert")
+	public String InsertDate(HttpSession session, Model model,
+		@RequestParam("rs_hp_num") String rs_hp_num,@RequestParam("rs_date") String rs_date,
+		@RequestParam("rs_time") String rs_time,@RequestParam("rs_max_person") int rs_max_person) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean res = programService.insertReservationSechedule(rs_hp_num, rs_date, rs_time, rs_max_person);
+		 if (res) {
+				model.addAttribute("msg","추가를 완료했습니다.");
+				model.addAttribute("url","/hospital/item/insert");
+			}else {
+				model.addAttribute("msg","추가를 실패했습니다.");
+				model.addAttribute("url","/hospital/item/insert");
+			}
+			return "message";
 	}
 	
 	//============================================= 조민석 ===================================================

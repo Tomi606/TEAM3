@@ -44,6 +44,8 @@ public interface ProgramService {
 	ArrayList<HospitalProgramVO> getSubjectByProgram(SiteManagement user, HsListVO hslist);
 
 	HospitalProgramVO getHospitalProgram(HsListVO hslist, int hp_num, SiteManagement user);
+
+	boolean insertReservationSechedule(String rs_hp_num, String rs_date, String rs_time, int rs_max_person);
 	
 
 
