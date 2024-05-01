@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>병원 리스트</title>
 <style type="text/css">
-.area-container{height: 48%;    margin-top: 15%;margin-bottom: 10%;}
+.area-container{height: 48%;padding:50px;margin-top: 15%;margin-bottom: 10%;}
 
 .aTag-btn1{
 margin-right: auto;
@@ -41,10 +41,10 @@ box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
 .hospital-list-home{width: 100%;height: 100%;}
 .hospital-list-box{width: 1400px;height: 100%;margin: 0 auto;text-align: center;}
 .hospital-like-list{width: 100%;height: 400px;margin-bottom: 300px;
-display: grid; grid-template-columns:1fr 1fr 1fr 1fr;border-top:1px solid green;margin-top: 80px;}
+display: grid; grid-template-columns:1fr 1fr 1fr 1fr;border-top:1px solid rgba(0, 128, 0, 0.4);margin-top: 80px;}
 
 .hospital-area-list{ width: 100%;height:1000px;display: grid; grid-template-columns:1fr 1fr 1fr 1fr;
-border-top:1px solid green;margin-top: 80px;}
+border-top:1px solid rgba(0, 128, 0, 0.4);margin-top: 80px;}
 .area-select-all{width: 100%;height: 150px;padding: 30px 0;display: flex;}
 .area-select{margin: 0 auto;}
 .area-select-box{display: flex;border: 1px solid  #c8c8c8;width: 100%; height: 400px;margin: auto auto 30px auto;}
@@ -115,10 +115,7 @@ padding:12px;margin-top:15px;width: 100%;border-bottom: 1px solid #c8c8c8;
 #scrollToTopButton:hover {
     background-color: #828282;
 }
-.search-input{
-	outline-style:none;
-	width: 500px;padding: 15px 55px 15px 15px;
-}
+
 .search-btn{padding: 15px;position: relative;right: 50px;}
 .page-item.active .page-link {
     z-index: 3;
@@ -189,16 +186,18 @@ color: green;
 			
 	</div>
 	<div class="search-box">
-		<input type="search" class="search-input" onkeyup="enterkey();" placeholder="병원명을 입력하세요."/>
-		<button type="button" class="search-btn">검색</button>
+		<input type="search" class="search-input" onkeyup="enterkey();" placeholder="병원명을 입력하세요."/ style="padding: 15px 65px 15px 15px;border: 3px solid #A8F552;">
+		<input type="image" value="" class="search-btn" src="<c:url value='/resources/img/sarchbtn.png'/>" style="bottom: 72px;right: -366px;    width: 84px;">
 	</div>
-		<h1>내 관심 병원</h1>
+	<div class="area-container">
+		<h1>관심 과목 병원</h1>
 		<div class="hospital-like-list">
 		</div>
 		<div class="box-pagination1">
 			<!-- 페이지네이션 시작 -->
 			<ul class="pagination-custom"></ul>
 		</div>
+	</div>	
 	</div>		
 	<div class="img-container">
 		<div class="img"></div>
@@ -209,7 +208,7 @@ color: green;
 	</div>	
 	<div class="hospital-list-box">
 		<div class="area-container">
-		<h1 style="margin-top:50px; ">우리 동네 병원</h1>
+		<h1 style="margin-top:50px; ">지역 병원</h1>
 			<div class="hospital-area-list">
 			</div>
 			<div class="box-pagination">
@@ -369,7 +368,11 @@ function getSubHoList(){
         success : function (data){
             let str =""
             if(data.hoSubList == null || data.hoSubList.length == 0){
-                str +=`<h3 style="color: gray;line-height: 200px;text-align: center;">존재하는 병원이 없습니다.</h3>` ;
+                str +=`
+                <div style="display:flex;">
+               	 	<h3 style="color: gray;line-height: 200px;text-align: center;">존재하는 병원이 없습니다.</h3>
+               	</div> 
+                ` ;
             }
             else{
                 for(let ho of data.hoSubList){

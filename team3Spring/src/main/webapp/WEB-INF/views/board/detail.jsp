@@ -9,6 +9,18 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.js"></script>
 <style type="text/css">
+.report-box li{
+	list-style: none;width: 50px;height: 50px;
+}
+.report-box{
+ background-image:url("<c:url value="/resources/img/siren.png"/>");
+  	margin-left:auto;
+      background-size: 30px;
+      width:50px;
+      height:50px;
+      background-repeat:no-repeat;
+      fill: #ddd;
+}
 .btn-like{
  background-image:url("<c:url value="/resources/img/heart.png"/>");
 	  margin-left:auto;
@@ -148,11 +160,15 @@ color: green;
 					<textarea class="content-content" name="po_content" readonly 
 					style="max-height: 400px;">${post.po_content}</textarea>
 				</div>
-				<div class="like-box">
-				   	 <li style="list-style: none;width: 50px;margin-left:auto;" role="button" class="btn btn-like btn-heart btn-up" data-state="1"></li>
-				    <span class="text-up" style="width: 20px;">${post.po_up}</span>
-				   <%--  <a class="btn btn-heart btn-down " data-state="-1">싫어요(<span class="text-down">${post.po_down}</span>)</a> --%>
-			   </div>
+				<div style="display: flex;">	
+					<div class="like-box">
+					<div class="report-box"data-target="${post.po_id}">
+						<li role="button" class="btn-report"></li>
+					</div>
+					   	 <li style="list-style: none;width: 50px;margin-left:30px;" role="button" class="btn btn-like btn-heart btn-up" data-state="1"></li>
+					    <span class="text-up" style="width: 20px;">${post.po_up}</span>
+				   </div>
+			  </div> 
 				<!-- 작성자 게시글 더보기 -->
 			 	<label>첨부파일</label>
 			 <div class="form-group file-box">	
@@ -211,6 +227,41 @@ color: green;
       width:1200
    });
 </script>
+
+<!-- 신고 -->
+<script type="text/javascript">
+$(".btn-report").click(function() {
+	  // 로그인 여부를 체크
+	  if (!checkLogin()) {
+	    return;
+	  }
+	  let target_id = $(this).closest('.report-box').data('target');
+	  let report = {
+	    rp_target: target_id 
+	  };
+	  $.ajax({
+	    async: true, 
+	    url: '<c:url value="/report/check"/>',
+	    type: 'post',
+	    data: JSON.stringify(report),
+	    contentType: "application/json; charset=utf-8",
+	    dataType: "json",
+	    success: function(data) {
+	      console.log(data.result);
+	      if(data.result){
+	      alert(target_id+"님을 신고하였습니다.");
+	      }else{
+	    	  alert(target_id+"님을 신고하지 못했습니다.");  
+	      }
+	    },
+	    error: function(jqXHR, textStatus, errorThrown) {
+	      // 오류 처리 코드 추가
+	    }
+	  });
+	});
+
+</script>
+
 <!-- 추천 / 비추천 -->
 <script type="text/javascript">
 function checkLogin() {

@@ -504,9 +504,12 @@ height:50px;width:100%;background-color: #fafafa;
 .hs_btn,.bo_btn{
 margin: 10px;
 }
+
+
 </style>
 </head>
 <body>
+<header class="nav-down">
 	<div class="home-box">
 		<div class="header-container">
 			<div class="header-box">
@@ -605,7 +608,8 @@ margin: 10px;
 			<div class="search-main-right"></div>
 		</div>
 	</div>
-	
+</header>
+<main>
 	<div class="홈">
 		<div class="홈왼쪽"></div>
 		<div class="여기부터내용">
@@ -714,6 +718,7 @@ margin: 10px;
 				 style="line-height: 3.5;margin-right: 50px;color: gray;border: 1px solid #fafafa;"
 				 >더보기</a>
 			</div>
+		</main>	
 		  <div class="footer">
 		  	<div class="footer-info-area">
 			  	<div class="footer-img">
@@ -871,4 +876,6 @@ $(document).ready(function() {
         setInterval(typeText, 400); 
     });
 </script>
+
+
 </html>
