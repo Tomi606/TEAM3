@@ -202,7 +202,7 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public ArrayList<MemberVO> getReportMemberList(Criteria cri) {
+	public ArrayList<ReportVO> getReportMemberList(Criteria cri) {
 		if (cri == null) {
 			cri = new Criteria();
 		}
