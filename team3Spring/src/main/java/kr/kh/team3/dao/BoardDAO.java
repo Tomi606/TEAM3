@@ -8,6 +8,7 @@ import kr.kh.team3.model.vo.BoardVO;
 import kr.kh.team3.model.vo.FileVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.RecommendVO;
+import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.pagination.Criteria;
 
 public interface BoardDAO {
@@ -55,5 +56,11 @@ public interface BoardDAO {
 	int selectUserPostListCount(@Param("po_id")String po_id, @Param("cri")Criteria cri);
 
 	String selectUserAuthority(@Param("po_id")String po_id);
+
+	ReportVO selectReport(@Param("rp")ReportVO report);
+
+	void insertReport(@Param("rp")ReportVO report);
+
+	void updateReport(@Param("rp")ReportVO report);
 
 }

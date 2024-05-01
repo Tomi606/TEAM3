@@ -8,6 +8,7 @@ import kr.kh.team3.model.vo.BoardVO;
 import kr.kh.team3.model.vo.FileVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.RecommendVO;
+import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.model.vo.SiteManagement;
 import kr.kh.team3.pagination.Criteria;
 
@@ -57,5 +58,7 @@ public interface BoardService {
 	String getUserAuthority(String po_id);
 
 	int getUserPostListCount(String po_id, Criteria cri);
+
+	boolean report(ReportVO report, SiteManagement user);
 	
 }

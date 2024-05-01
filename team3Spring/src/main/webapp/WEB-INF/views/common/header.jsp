@@ -8,7 +8,21 @@
 <meta charset="UTF-8">
 <title>헤더</title>
 <style type="text/css">
- 
+ .search-box {
+  margin: 0 auto;
+   position: relative;
+   overflow: hidden;
+    width: 800px; 
+}
+
+.search-input {
+  margin-top: 100px;
+     outline: none;
+     font-size: 16px;
+     padding: 8px;
+     width: 100%; 
+     position: relative; 
+}
 .header-box{
 border-bottom: 1px solid #c8c8c8;
 width: 100%;
@@ -123,7 +137,16 @@ body {
 	font-weight: 300;
 	letter-spacing: -0.075em;
 }
- 
+ .category-sub{
+z-index:9;position:absolute;line-height:50px;
+height:50px;width:100%;background-color: #fafafa;
+
+}
+.category-board{
+z-index:9;position:absolute;line-height:50px;
+height:50px;width:100%;background-color: #fafafa;
+
+}
  
 
  
@@ -194,6 +217,27 @@ body {
 		<div class="공백"></div>
 	</div>
 </div>
+	 
+ <script>
+	console.log(${list});
+     $('.hos-btn').hover(function() {
+         $('.category-sub').show();
+         $('.header-box').addClass('hovered');
+         $('.category-board').hide();
+     });
+     $('.category-sub').mouseleave(function() {
+    	 $('.category-sub').hide();
+    	 $('.header-box').removeClass('hovered');
+     });
+     $('.board_btn').hover(function() {
+    	 $('.category-sub').hide();
+    	  $('.header-box').addClass('hovered');
+         $('.category-board').show();
+     });
+     $('.category-board').mouseleave(function() {
+    	 $('.category-board').hide();
+     });
  
+</script>
 </body>
 </html>
