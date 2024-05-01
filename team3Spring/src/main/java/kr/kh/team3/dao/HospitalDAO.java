@@ -179,4 +179,12 @@ public interface HospitalDAO {
 
 	HospitalDetailVO selectDetailId(@Param("hd_num") int hdNum);
 
+	LandVO selectHoLand(@Param("ho_la_num") int ho_la_num);
+
+	SiDoVO selectHdSiDoName(@Param("la_sd_num") int la_sd_num);
+
+	SiGoonGuVO selectHdSggName(@Param("la_sgg_num") int la_sgg_num);
+
+	EupMyeonDongVO selectHdEmdName(@Param("la_emd_num") int la_emd_num);
+
 }

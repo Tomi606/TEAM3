@@ -171,4 +171,12 @@ public interface HospitalService {
 
 	HospitalDetailVO getDetailId(int hdNum);
 
+	LandVO getHoLand(int ho_la_num);
+
+	SiDoVO getHdSiDoName(int la_sd_num);
+
+	SiGoonGuVO getHdSggName(int la_sgg_num);
+
+	EupMyeonDongVO getHdEmdName(int la_emd_num);
+
 }

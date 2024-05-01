@@ -236,14 +236,22 @@ public class HospitalController {
 	//-----------------------------[병원 상세 페이지]------------------------------
 	//회원 입장에서 상페 페이지 조회시
 	@GetMapping("/hospital/detail/detail")
-	public String hospitalDetail(Model model, Integer hdNum, HttpSession session,
-		HospitalVO ho, BookmarkVO bookmark) {
+	public String hospitalDetail(Model model, Integer hdNum, HttpSession session, BookmarkVO bookmark) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO member = memberService.getSiteMember(user);
 		//상세 페이지를 가져옴(임시!!!!!!!!!!!!!!!!!!!!!!!!!)
 //		hdNum = 1;
 		hdNum = 2;
 		HospitalDetailVO detail = hospitalService.getDetail(hdNum);
+		//랜드 가져옴(HospitalVO의 ho_la_num으로)
+		HospitalVO hospital = hospitalService.getHoId(detail.getHd_ho_id());
+		LandVO land = hospitalService.getHoLand(hospital.getHo_la_num());
+		//int -> name으로 가져옴
+		SiDoVO sido = hospitalService.getHdSiDoName(land.getLa_sd_num());
+		SiGoonGuVO sgg = hospitalService.getHdSggName(land.getLa_sgg_num());
+		EupMyeonDongVO emd = hospitalService.getHdEmdName(land.getLa_emd_num());
+		
+		log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!land : " + land);
 		//병원과목 리스트
 		ArrayList<HospitalSubjectVO> sub = hospitalService.getDetailSubject(detail.getHd_ho_id());
 		//북마크 유무 : 병원페이지 아이디(detail에서 받아옴), 회원 아이디, 북마크
@@ -252,6 +260,11 @@ public class HospitalController {
 		model.addAttribute("detail", detail);
 		model.addAttribute("sub", sub);
 		model.addAttribute("already", already);
+		model.addAttribute("land", land);
+		
+		model.addAttribute("sido", sido);
+		model.addAttribute("sgg", sgg);
+		model.addAttribute("emd", emd);
 		return "/hospital/detail/detail";
 	}
 

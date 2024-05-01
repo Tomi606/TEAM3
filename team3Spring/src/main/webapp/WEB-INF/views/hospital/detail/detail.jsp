@@ -26,6 +26,7 @@
 
 .page.active {
     display: block;
+    padding: 20px;
 }
 .detail-page{
  	width: 100%;
@@ -38,14 +39,11 @@
  	margin: 100px auto;
  	text-align: center;
 }
-.ho_name{
-	margin-bottom: 40px;
 
-}
 .body-container{
 	width: 100%;
 	height: 100%;
-	border: 1px solid black; 
+	border: 1px solid gray; 
 
 }
 .login-btn-click{
@@ -53,35 +51,110 @@
 	border-bottom:2px solid white;
 }
 
-#page1 textarea {
-      width: 100%;
-      resize: none;
-      overflow-y: hidden;
-      border: 0px solid white;
-      cursor: inherit;
-      padding-top: 50px;
-    }
+.label {
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+	color: rgb(65, 65, 65);
+}
     
-#page2 textarea {
+textarea {
       width: 100%;
       resize: none;
       overflow-y: hidden;
       border: 0px solid white;
       cursor: inherit;
       text-align: center;
+      font-size: 20px;
     }
-    
+
 #page3 textarea {
 	resize: none;
     overflow-y: hidden;
+    width: 88%;
 }
 
 p {
 	margin-bottom: 0px;
+	font: 100px;
 }
 
 .btn-info {
-	margin: 10px 5px 10px 5px;
+	margin: 500px;
+	font: 50px;
+}
+
+.btn {
+	font-size: 25px;
+    margin: 8px 5px 8px 5px;
+    display: inline-block;
+    padding: 1px 5px 1px 5px;
+}
+
+.review-btn {
+	font-size: 25px;
+    font-weight: lighter;
+    padding: 10px 10px 10px 10px;
+    margin-left: 20px;
+}
+
+.review-id {
+	font-size: 25px;
+	padding-left: 10px;
+	font-weight: bolder;
+}
+
+.review-content {
+	font-size: 18px;
+	padding-left: 10px;
+	width : 90%;
+}
+
+.text-review {
+	width: 88%;
+	text-align: left;
+}
+
+.vw_num {
+	width: 90%;
+}
+
+.hsList {
+	padding-bottom: 20px;
+}
+
+.top-label {
+	 font-weight: bold; 
+	 font-size: 30px;
+	 text-align: left;
+	 
+}
+
+.ho_name {
+	margin-bottom: 20px;
+	font-weight: bold;
+	size: 50px;
+	font-stretch: expanded;
+
+}
+
+.top-span {
+	font-weight: bold; 
+	 font-size: 30px;
+	 text-align: center;
+}
+
+.top-img {
+	height: 30px;
+	width: 30px;
+	vertical-align: baseline;
+	margin-left: 10px;
+}
+
+.top-img:hover {
+	visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
 }
 </style>
 </head>
@@ -90,12 +163,14 @@ p {
 	<div class="bookmark-box">
 		<c:choose>
 			<c:when test="${already == true}">
-				<img class="btn btn-lg bookmark-after" data-id="${user.site_id}" alt="북마크 후" src="<c:url value="/resources/img/bookmark-after.svg"/>">
+				<img class="btn btn-lg bookmark-after" data-id="${user.site_id}" alt="북마크 후" 
+				data-tooltip="북마크 설정" src="<c:url value="/resources/img/bookmark-after.svg"/>">
 				<img class="btn btn-lg bookmark-before" style="display: none;" data-id="${user.site_id}" alt="북마크 전" src="<c:url value="/resources/img/bookmark-before.svg"/>">			
 			</c:when>
 			<c:otherwise>
 				<img class="btn btn-lg bookmark-after" style="display: none;" data-id="${user.site_id}" alt="북마크 후" src="<c:url value="/resources/img/bookmark-after.svg"/>">
-				<img class="btn btn-lg bookmark-before" data-id="${user.site_id}" alt="북마크 전" src="<c:url value="/resources/img/bookmark-before.svg"/>">
+				<img class="btn btn-lg bookmark-before" data-id="${user.site_id}" alt="북마크 전" 
+				src="<c:url value="/resources/img/bookmark-before.svg"/>">
 			</c:otherwise>
 		</c:choose>
 	</div>
@@ -104,17 +179,19 @@ p {
 			<h1 class="ho_name" id="ho_name">${detail.hospital.ho_name}</h1>
 		</div>
 		<div class="ho_address">
-			<label for="ho_address">상세 주소 : </label>
-			<span class="ho_address" id="ho_address">${detail.hospital.ho_address}</span>
+			<label class="top-label" for="ho_address">찾아오시는 길 | </label>
+			<span class="ho_address top-span" id="ho_address">${sido.sd_name} ${sgg.sgg_name} ${emd.emd_name} ${detail.hospital.ho_address}</span>
+			<img class="top-img" style="cursor: pointer;" alt="공유 이미지" src="<c:url value="/resources/img/detail-map.svg"/>">
 		</div>
 		<div class="ho_phone">
-			<label for="ho_phone">연락처 : </label>
-			<span class="ho_phone" id="ho_phone">${detail.hospital.ho_phone}</span>
+			<label class="top-label" for="ho_phone">대표 전화번호 | </label>
+			<span class="ho_phone top-span" id="ho_phone">${detail.hospital.ho_phone}</span>
+			<img class="top-img" style="cursor: pointer;" alt="전화 이미지" src="<c:url value="/resources/img/detail-phone.svg"/>">
 		</div>
 		<div>
 			<a href='<c:url value="예약하기 버튼 url"/>' class="btn btn-outline-success">예약하기</a>
 		</div>
-		<hr style="border: 1px solid gray;margin: 200px auto;">
+		<hr style="border: 1px solid gray; margin: 30px auto;">
 		<div class="body-container">
 		<div class="toggle-page">
 			<div class="toggle-btn">
@@ -123,60 +200,61 @@ p {
 				<button id="btn3" class="toggle-button">리뷰</button>
 			</div>
 			<div id="page1" class="page active">
-				<div class="hd_info">
-					<label class="label" for="hd_info" style="font-weight: bold;margin-top: 40px;">병원 소개</label>
-				   	<textarea class="hd_info col-10" id="hd_info" readonly>${detail.hd_info}</textarea>
+				<div class="hd_info page1">
+					<label class="label" for="hd_info" style="font-weight: bold;">병원 소개</label>
+				   	<textarea class="hd_info" id="textarea" readonly>${detail.hd_info}</textarea>
 				</div>
-				<hr style="border: 1px solid gray;margin: 50px auto;">
-				<div class="hd_time" id="hd_time">
+				<hr style="border: 1px solid gray; margin: 10px auto;">
+				<div class="hd_time page1" id="hd_time">
 					<label class="label" for="hd_time" style="font-weight: bold">영업 시간</label>
-					<textarea class="hd_time col-10" id="hd_time" name="hd_time" style="height: auto;"
+					<textarea class="hd_time" id="myTextarea" name="hd_time" style="height: auto;"
 					placeholder="월~금 : 9:00~18:00 / 토,일 : 휴무" readonly>${detail.hd_time}</textarea>
 				</div>
-				<hr style="border: 1px solid gray;margin: 50px auto;">
-				<div class="hd_park" id="hd_park">
+				<hr style="border: 1px solid gray; margin: 10px auto;">
+				<div class="hd_park page1" id="hd_park">
 					<label class="label" for="hd_park" style="font-weight: bold">주차 정보</label>
-					<textarea class="hd_park col-10" id="hd_park" name="hd_park" 
+					<textarea class="hd_park" id="myTextarea" name="hd_park" 
 					readonly>${detail.hd_park}</textarea>
 				</div>
-				<hr style="border: 1px solid gray;margin: 50px auto;">
-				<div class="hd_announce">
+				<hr style="border: 1px solid gray; margin: 10px auto;">
+				<div class="hd_announce page1">
 					<label class="label" for="hd_announce" style="font-weight: bold">공지 사항</label>
-					<textarea class="hd_announce col-10" id="hd_announce" name="hd_announce" 
+					<textarea class="hd_announce" id="myTextarea" name="hd_announce" 
 					readonly>${detail.hd_announce}</textarea>
 				</div>
-				<hr style="border: 1px solid gray;margin: 50px auto;">
-				<div class="hd_etc">
+				<hr style="border: 1px solid gray; margin: 10px auto;">
+				<div class="hd_etc page1">
 					<label class="label" for="hd_etc" style="font-weight: bold">기타 사항</label>
-					<textarea class="hd_etc col-10" id="hd_etc" name="hd_etc" 
+					<textarea class="hd_etc" id="myTextarea" name="hd_etc" 
 					readonly>${detail.hd_etc}</textarea>
 				</div>
 			</div>
 			
 			<div id="page2" class="page">
 				<div class="hsList">
-					<label for="hsList">대표 진료 과목</label>
+					<label for="hsList" class="label">대표 진료 과목</label>
 					<div class="subject-checkbox hsList">
 					  	<c:forEach var="i" begin="0" end="${sub.size() - 1}">
-							<button class="btn btn-info btn-lg" style="cursor: text;">
+							<button class="btn btn-outline-dark btn-lg" style="cursor: text;">
 							<p><c:out value="${sub.get(i).hospital_subject.hs_title}"/></p>
 							</button>
 					  	</c:forEach>
 					</div>
 				 </div>
+				 <hr style="border: 1px solid gray; margin: 10px auto;">
 				 <div class="hd_subject_detail">
 				 	<label class="label" for="hd_subject_detail">상세 진료 항목</label><br>
-				 	<textarea class="hd_subject_detail col-10" id="hd_subject_detail" name="hd_subject_detail" 
+				 	<textarea class="hd_subject_detail" id="myTextarea" name="hd_subject_detail" 
 				 	readonly>${detail.hd_subject_detail}</textarea>
 				</div>
 			</div>
 			
 			<div id="page3" class="page">
-				<h2>리뷰(<span class="review-total"></span>)</h2>
+				<h2 style="text-align: left;">리뷰(<span class="review-total"></span>)</h2>
 				<div class="box-review-list">
 					<div class="box-review row">				
-						<div class="col-3">아이디</div>
-						<div class="col-9">내용</div>
+						<div class="review-id">아이디</div>
+						<div class="review-content">내용</div>
 					</div>
 				</div>
 				<div class="box-pagination">
@@ -184,8 +262,8 @@ p {
 				</div>
 				<div class="box-review-insert">
 					<div class="input-group mb-3">				
-				        <textarea id="review" class="vw_num textarea-review col-10" id="vw_num" name="vw_num" style="height: 100px;"></textarea>
-				        <button class="btn btn-outline-success review-insert-btn" name="review-btn" data-hd-num="${detail.hd_num}">리뷰 등록</button>		
+				        <textarea id="review" class="vw_num textarea-review" id="vw_num" name="vw_num" style="height: 100px;"></textarea>
+				        <button class="btn btn-outline-success review-insert-btn review-btn" name="review-btn" data-hd-num="${detail.hd_num}">리뷰 등록</button>		
 					</div>
 				</div>			
 			</div>
@@ -378,7 +456,7 @@ function displayReviewList(reviewList) {
 		let boxBtns = 
 		`
 		<span class="box-btn float-right">
-			<button class="btn btn-outline-warning review-update-btn" data-num="\${item.vw_num}">수정</button>
+			<button class="btn btn-outline-secondary review-update-btn" data-num="\${item.vw_num}">수정</button>
 			<button class="btn btn-outline-danger review-del-btn" data-num="\${item.vw_num}">삭제</button>
 		</span>
 		`;
@@ -390,9 +468,9 @@ function displayReviewList(reviewList) {
 		str +=
 		`
 		<div class="box-review row">
-			<div class="col-3">\${item.vw_me_id}</div>
-			<div class="col-9 clearfix input-group">
-				<span class="text-review">\${item.vw_content}</span>
+			<div class="review-id">\${item.vw_me_id}</div>
+			<div class="review-content clearfix input-group">
+				<span class="text-review c">\${item.vw_content}</span>
 				\${btns}
 			</div>
 		</div>
@@ -595,7 +673,17 @@ function initReview() {
 
 <!-- textarea 자동 스크롤 -->
 <script type="text/javascript">
-function autoTextarea(element) {
+window.addEventListener('DOMContentLoaded', function() {
+	let textarea = document.getElementById("myTextarea");
+	adjustTextareaHeight(textarea);
+});
+
+function adjustTextareaHeight(textarea) {
+	textarea.style.height = "auto";
+	textarea.style.height = textarea.scrollHeight + "px";
+}
+
+/* function autoTextarea(element) {
     // 초기 높이 설정
     element.style.height = 'auto';
     // 스크롤 높이에 따라 텍스트 영역 높이 조절
@@ -608,7 +696,7 @@ window.addEventListener('load', function() {
     if(page1) {
     	autoTextarea(page1);
     }
-});
+}); */
 </script>
 
 

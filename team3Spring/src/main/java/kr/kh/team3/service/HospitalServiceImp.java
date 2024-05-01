@@ -832,4 +832,24 @@ public class HospitalServiceImp implements HospitalService {
 		return hospitalDao.selectDetailId(hdNum);
 	}
 
+	@Override
+	public LandVO getHoLand(int ho_la_num) {
+		return hospitalDao.selectHoLand(ho_la_num);
+	}
+
+	@Override
+	public SiDoVO getHdSiDoName(int la_sd_num) {
+		return hospitalDao.selectHdSiDoName(la_sd_num);
+	}
+
+	@Override
+	public SiGoonGuVO getHdSggName(int la_sgg_num) {
+		return hospitalDao.selectHdSggName(la_sgg_num);
+	}
+
+	@Override
+	public EupMyeonDongVO getHdEmdName(int la_emd_num) {
+		return hospitalDao.selectHdEmdName(la_emd_num);
+	}
+
 }
