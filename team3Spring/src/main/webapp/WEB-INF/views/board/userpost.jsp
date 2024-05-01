@@ -81,37 +81,29 @@
 </head>
 <body>
 	<div class="post_list_container">
+	<!-- 병원이면 누르면 병원 상세 뜨는 버튼 만들어도 좋을 것 같다. -->
 		<div class="post_list_box">
-			<h1>${bo_title}</h1>
+			<h1>${po_id}</h1>
+			<c:if test="${site_authority eq 'MANAGER'}">
+				<span>병원 회원</span>
+				<span>
+					<a href="<c:url value='/hospital/detail/detail?ho_id=${po_id}'/>">병원 상세 바로가기</a>
+				</span>
+			</c:if>
+			<c:if test="${site_authority eq 'USER'}">
+				<span>일반 회원</span>
+			</c:if>
+			<c:if test="${site_authority eq 'ADMIN'}">
+				<span>관리자</span>
+			</c:if>
+			
 			<div class="hr"></div>
-			<form action="<c:url value='/board/list'/>" method="get">
-				<div class="search-box">
-					<input type="hidden" name="bo_num" value="${bo_num}">
-					<select name="type">
-						<option value="all"
-							<c:if test="${pm.cri.type == 'all'}">selected</c:if>>전체</option>
-						<option value="title"
-							<c:if test="${pm.cri.type == 'title'}">selected</c:if>>제목만</option>
-						<option value="titleContent"
-							<c:if test="${pm.cri.type == 'titleContent'}">selected</c:if>>제목 + 내용</option>
-						<option value="writer"
-							<c:if test="${pm.cri.type == 'writer'}">selected</c:if>>글작성자</option>
-					</select>
-					<input type="search" class="검색" name="search" placeholder="검색어를 입력하세요">
-					<button class="search-btn" type="submit">검색</button>
-				</div>
-			</form>
-			<div class="post_insert_btn_box">
-				<a href="<c:url value='/board/insert?bo_num=${bo_num}'/>"
-					class="post_insert_btn">작성하기</a>
-			</div>
 			<div>
 				<table style="width: 100%;">
 					<thead>
 						<tr>
 							<th style="width: 5%;">No</th>
 							<th style="width: 40%;">제목</th>
-							<th style="width: 10%;">작성자</th>
 							<th style="width: 30%;">작성일</th>
 							<th style="width: 7.5%;">추천수</th>
 							<th style="width: 7.5%;">조회수</th>
@@ -130,9 +122,8 @@
 										<td style="width: 5%;">${boPostCount}</td>
 										<td style="width: 40%;">
 											<a href="<c:url value="/board/detail?po_num=${po.po_num}"/>" class="title-link">${po.po_title}</a>
-											<a href="<c:url value="/board/detail?po_num=${po.po_num}#comments-section"/>" class="comment-link"> [${po.po_co_count}]</a>
+											<a href="<c:url value="/board/detail?po_num=${po.po_num}#comments-section"/>" class="comment-link" data-po-num="${po.po_num}"> [${po.po_co_count}]</a>
 										</td>
-										<td style="width: 10%;">${po.po_id}</td>
 										<td style="width: 30%;">${po.changeDate1}</td>
 										<td style="width: 7.5%;">${po.po_up}</td>
 										<td style="width: 7.5%;">${po.po_view}</td>
@@ -152,9 +143,9 @@
 					</tbody>
 				</table>
 			</div>
-			<ul class="pagination justify-content-center" style="margin-top: 220px;">
+			<ul class="pagination justify-content-center">
 				<c:if test="${pm.prev}">
-					<c:url value="/board/list?bo_num=${bo_num}" var="url">
+					<c:url value="/board/userpost?po_id=${po_id}" var="url">
 						<c:param name="page" value="${pm.startPage - 1}" />
 						<c:param name="type" value="${pm.cri.type}" />
 						<c:param name="search" value="${pm.cri.search}" />
@@ -163,7 +154,7 @@
 					</li>
 				</c:if>
 				<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
-					<c:url value="/board/list?bo_num=${bo_num}" var="url">
+					<c:url value="/board/userpost?po_id=${po_id}" var="url">
 						<c:param name="page" value="${i}" />
 						<c:param name="type" value="${pm.cri.type}" />
 						<c:param name="search" value="${pm.cri.search}" />
@@ -174,7 +165,7 @@
 					</li>
 				</c:forEach>
 				<c:if test="${pm.next}">
-					<c:url value="/board/list?bo_num=${bo_num}" var="url">
+					<c:url value="/board/userpost?po_id=${po_id}" var="url">
 						<c:param name="page" value="${pm.endPage + 1}" />
 						<c:param name="type" value="${pm.cri.type}" />
 						<c:param name="search" value="${pm.cri.search}" />
@@ -183,6 +174,19 @@
 					</li>
 				</c:if>
 			</ul>
+			<form action="<c:url value='/board/userpost'/>" method="get">
+				<div class="search-box">
+					<input type="hidden" name="po_id" value="${po_id}">
+					<select name="type">
+						<option value="title"
+							<c:if test="${pm.cri.type == 'title'}">selected</c:if>>제목만</option>
+						<option value="titleContent"
+							<c:if test="${pm.cri.type == 'titleContent'}">selected</c:if>>제목 + 내용</option>
+					</select>
+					<input type="search" class="검색" name="search" placeholder="검색어를 입력하세요">
+					<button class="search-btn" type="submit">검색</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </body>

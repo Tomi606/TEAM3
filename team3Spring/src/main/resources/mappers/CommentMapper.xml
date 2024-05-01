@@ -44,7 +44,7 @@
 			comment where co_po_num = #{cri.search}
 		</select>
 		
-		<select id="selectAjaxCommentList" resultType="kr.kh.team3.model.vo.CommentVO">
+		<select id="selectAjaxCommentList" resultMap="CommentMap">
 			select * from comment
 			where co_po_num = #{cri.search}
 			order by co_num desc
@@ -68,6 +68,16 @@
 	<update id="updateComment">
 		update comment set co_content=#{co.co_content} where
 		co_num = #{co.co_num}
+	</update>
+	
+	<update id="updatePostCoCountUp">
+		update post set po_co_count = po_co_count + 1
+		where po_num = #{co.co_po_num}
+	</update>
+	
+	<update id="updatePostCoCountDown">
+		update post set po_co_count = po_co_count - 1
+		where po_num = #{co.co_po_num}
 	</update>
 </mapper>
 

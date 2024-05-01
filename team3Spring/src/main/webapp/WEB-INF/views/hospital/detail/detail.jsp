@@ -406,10 +406,10 @@ $(document).on('click', '.box-pagination .page-link', function() {
 <!-- 리뷰 등록 -->
 <script type="text/javascript">
 //리뷰 등록 버튼의 클릭 이벤트를 등록
-$('.review-insert-btn').click(function() {!!
+$('.review-insert-btn').click(function() {
 	//로그인 안되있으면 return
 	if(!checkLogin()) {
-		return;
+		return false;
 	}
 	
 	let review = {
