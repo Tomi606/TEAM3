@@ -268,7 +268,12 @@
 
 	<delete id="deleteBookmark">
 		delete from bookmark 
-		where bmk_me_id = #{bmk_me_id} and bmk_ho_id = #{bmk_ho_id} limit 1
+		where bmk_me_id = #{bmk_me_id} and bmk_ho_id = #{bmk_ho_id}
 	</delete>
+	
+	<select id="selectDetailBookmark" resultType="BookmarkVO">
+		select * from bookmark 
+		where bmk_me_id = #{me_id} and bmk_ho_id = #{hd_ho_id} limit 1
+	</select>
 		
 </mapper>

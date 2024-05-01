@@ -232,7 +232,7 @@ p {
 		<div class="ho_name">
 			<h1 class="ho_name" id="ho_name" style="size: 60px;">${detail.hospital.ho_name}
 				<c:choose>
-					<c:when test="${already == true}">
+					<c:when test="${detailAlready == true}">
 						<img class="btn btn-lg bookmark-after" data-id="${user.site_id}" alt="북마크 후" 
 						data-tooltip="북마크 설정" src="<c:url value="/resources/img/bookmark-after.svg"/>">
 						<img class="btn btn-lg bookmark-before" style="display: none;" data-id="${user.site_id}" alt="북마크 전" src="<c:url value="/resources/img/bookmark-before.svg"/>">			

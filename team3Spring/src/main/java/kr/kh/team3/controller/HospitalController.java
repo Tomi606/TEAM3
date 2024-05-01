@@ -260,11 +260,11 @@ public class HospitalController {
 		ArrayList<HospitalSubjectVO> sub = hospitalService.getDetailSubject(detail.getHd_ho_id());
 		
 		//북마크 유무 : 병원페이지 아이디(detail에서 받아옴), 회원 아이디, 북마크
-		boolean already = memberService.selectBookmark(bookmark, member);
+		boolean detailAlready = memberService.selectDetailBookmark(bookmark, member, detail.getHd_ho_id());
 		
 		model.addAttribute("detail", detail);
 		model.addAttribute("sub", sub);
-		model.addAttribute("already", already);
+		model.addAttribute("detailAlready", detailAlready);
 		model.addAttribute("land", land);
 		model.addAttribute("sido", sido);
 		model.addAttribute("sgg", sgg);
