@@ -526,6 +526,28 @@ public class MemberServiceImp implements MemberService {
 		}
 	}
 
+	@Override
+	public boolean selectDetailBookmark(BookmarkVO bookmark, MemberVO member, String hd_ho_id) {
+		if(member == null || member.getMe_id() == null) {
+			return false;
+		}
+		
+		if(hd_ho_id == null) {
+			return false;
+		}
+		//통과되면 select
+		BookmarkVO result = memberDao.selectDetailBookmark(member.getMe_id(), hd_ho_id);
+		System.out.println("memberㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ" + member.getMe_id());
+		System.out.println("detailㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ" + hd_ho_id);
+		
+		if(result != null) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 	
 	 
 

@@ -98,4 +98,6 @@ public interface MemberService {
 
 	boolean selectBookmark(BookmarkVO bookmark, MemberVO member);
 
+	boolean selectDetailBookmark(BookmarkVO bookmark, MemberVO member, String hd_ho_id);
+
 }
