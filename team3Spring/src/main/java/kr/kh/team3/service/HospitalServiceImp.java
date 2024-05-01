@@ -826,8 +826,8 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public HospitalDetailVO getDetailId(int hdNum) {
-		return hospitalDao.selectDetailId(hdNum);
+	public HospitalDetailVO getDetailId(int hd_num) {
+		return hospitalDao.selectDetailId(hd_num);
 	}
 
 	@Override

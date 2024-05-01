@@ -92,10 +92,10 @@ public interface MemberService {
 
 	MemberVO getSiteMember(SiteManagement user);
 
-	boolean insertBookmark(BookmarkVO bookmark, MemberVO member, String ho_id);
+	boolean insertBookmark(BookmarkVO bookmark, MemberVO member);
 
-	boolean deleteBookmark(BookmarkVO bookmark, MemberVO member, HospitalDetailVO detail);
+	boolean deleteBookmark(BookmarkVO bookmark, MemberVO member);
 
-	boolean selectBookmark(BookmarkVO bookmark, MemberVO member, HospitalDetailVO detail);
+	boolean selectBookmark(BookmarkVO bookmark, MemberVO member);
 
 }

@@ -83,6 +83,7 @@ public class HospitalController {
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.selectSubject();
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
 		log.info(hospital+"asddsadasdsadsadsadsad");
+		
 		map.put("hospital", hospital);
 		map.put("hsList", hsList);
 		map.put("sidoList", sidoList);
@@ -246,6 +247,7 @@ public class HospitalController {
 		MemberVO member = memberService.getSiteMember(user);
 		//상세 페이지를 가져옴
 		HospitalDetailVO detail = hospitalService.getDetail(hd_num);
+		
 		//랜드 가져옴(HospitalVO의 ho_la_num으로)
 		HospitalVO hospital = hospitalService.getHoId(detail.getHd_ho_id());
 		LandVO land = hospitalService.getHoLand(hospital.getHo_la_num());
@@ -256,8 +258,9 @@ public class HospitalController {
 		
 		//병원과목 리스트
 		ArrayList<HospitalSubjectVO> sub = hospitalService.getDetailSubject(detail.getHd_ho_id());
+		
 		//북마크 유무 : 병원페이지 아이디(detail에서 받아옴), 회원 아이디, 북마크
-		boolean already = memberService.selectBookmark(bookmark, member, detail);
+		boolean already = memberService.selectBookmark(bookmark, member);
 		
 		model.addAttribute("detail", detail);
 		model.addAttribute("sub", sub);
@@ -272,18 +275,15 @@ public class HospitalController {
 	//리뷰 리스트
 	@ResponseBody
 	@PostMapping("/hospital/review/list")
-	public Map<String, Object> reviewList(@RequestBody Criteria cri, Integer hdNum) {
+	public Map<String, Object> reviewList(@RequestBody Criteria cri) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		cri.setPerPageNum(3); //1페이지 당 댓글 3개
-		//병원 상세 페이지 번호를 주면서 상세 페이지 들고오라 시킴
-//		HospitalDetailVO detail = hospitalService.getDetail(hdNum);
 		//한 페이지(cri)를 주면서 리뷰 리스트를 가져오라고 시킴
 		ArrayList<ReviewVO> reviewList = hospitalService.getCriReviewList(cri);
 		//페이지네이션
 		int reviewTotalCount = hospitalService.getTotalReviewCount(cri);
 		PageMaker pm = new PageMaker(3, cri, reviewTotalCount);
 		
-//		map.put("detail", detail);
 		map.put("reviewList", reviewList);
 		map.put("pm", pm);
 		return map;
@@ -375,21 +375,14 @@ public class HospitalController {
 	@PostMapping("/bookmark/insert")
 	public Map<String, Object> bookmarkInsert(@RequestBody BookmarkVO bookmark, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		//로그인 세션 확인
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO member = memberService.getMemberInfo(user);
-		//북마크할 병원 페이지 번호(임시!!!!!!!!!!!!!)
-//		int hdNum = 1;
-		int hdNum = 2;
-		//페이지 번호로 병원 아이디 들고오기
-		HospitalDetailVO detail = hospitalService.getDetailId(hdNum);
 		//북마크 하기(회원)
-		boolean result = memberService.insertBookmark(bookmark, member, detail.getHd_ho_id());
+		boolean result = memberService.insertBookmark(bookmark, member);
 		//이미 북마크함(남기기 위함)
-		boolean already = memberService.selectBookmark(bookmark, member, detail);
+		boolean already = memberService.selectBookmark(bookmark, member);
 		
 		map.put("user", user);
-		map.put("detail", detail);
 		map.put("result", result);
 		map.put("already", already);
 		return map;
@@ -400,18 +393,11 @@ public class HospitalController {
 	@PostMapping("/bookmark/delete")
 	public Map<String, Object> bookmarkDelete(@RequestBody BookmarkVO bookmark, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		//로그인 세션 확인
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO member = memberService.getMemberInfo(user);
-		//북마크할 병원 페이지 번호(임시!!!!!!!!!!!!!)
-//		int hdNum = 1;
-		int hdNum = 2;
-		//페이지 번호로 병원 아이디 들고오기
-		HospitalDetailVO detail = hospitalService.getDetailId(hdNum);
-		boolean result = memberService.deleteBookmark(bookmark, member, detail);
+		boolean result = memberService.deleteBookmark(bookmark, member);
 
 		map.put("user", user);
-		map.put("detail", detail);
 		map.put("result", result);
 		return map;
 	}

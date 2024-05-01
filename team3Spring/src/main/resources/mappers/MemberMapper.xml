@@ -258,12 +258,12 @@
 	<!-- 병원 상세 페이지 북마크 : 양선진 -->
 	<insert id="insertBookmark">
 		insert into bookmark(bmk_ho_id, bmk_me_id) 
-		values (#{ho_id}, #{me.me_id})
+		values (#{hd_ho_id}, #{me.me_id})
 	</insert>
 	
 	<select id="selectBookmark" resultType="BookmarkVO">
 		select * from bookmark 
-		where bmk_me_id = #{me_id} and bmk_ho_id = #{ho_id} limit 1
+		where bmk_me_id = #{me_id} and bmk_ho_id = #{hd_ho_id} limit 1
 	</select>
 
 	<delete id="deleteBookmark">

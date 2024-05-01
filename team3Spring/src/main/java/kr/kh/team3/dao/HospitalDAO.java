@@ -177,7 +177,7 @@ public interface HospitalDAO {
 
 	ArrayList<HospitalSubjectVO> selectDetailSubject(@Param("hd_ho_id") String hd_ho_id);
 
-	HospitalDetailVO selectDetailId(@Param("hd_num") int hdNum);
+	HospitalDetailVO selectDetailId(@Param("hd_num") int hd_num);
 
 	LandVO selectHoLand(@Param("ho_la_num") int ho_la_num);
 
