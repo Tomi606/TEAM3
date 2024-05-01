@@ -377,6 +377,7 @@ public class HospitalServiceImp implements HospitalService {
 				hospitalDao.deleteSubjects(hospital);
 				for(Integer tmp : hsList) {
 					System.out.println("2hsList : " + hsList);
+					//새로 저장
 					hospitalDao.insertSubjects(hospital, tmp);
 				}
 			}
@@ -386,31 +387,6 @@ public class HospitalServiceImp implements HospitalService {
 		}
 		return true;
 	}
-	
-//	@Override
-//	public boolean insertSubjects(HospitalVO hospital, HospitalDetailVO detail) {
-//		if(hospital == null || hospital.getHo_id() == null) {
-//			return false;
-//		}
-//		boolean res = false;
-//		if(hospitalDao.selectSubjects(hospital) == null) {
-//			for(int tmp : detail.getHsList()) {
-//				res = hospitalDao.insertSubjects(hospital, tmp);
-//			}
-//		}
-//		else {
-//			for(int tmp : detail.getHsList()) {
-//				res = hospitalDao.updateSubjects(hospital, tmp);
-//			}
-//		}
-//		
-//		if(res) {
-//			return true;
-//		}
-//		else {
-//			return false;
-//		}
-//	}
 
 	@Override
 	public HospitalVO getHospitalInfo() {
@@ -479,11 +455,9 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public HospitalDetailVO getDetail(Integer hdNum) {
-		if(hdNum == null) {
-			return null;
-		}
-		return hospitalDao.selectDetail(hdNum);
+	public HospitalDetailVO getDetail(int hd_num) {
+
+		return hospitalDao.selectDetail(hd_num);
 	}
 	
 
@@ -852,8 +826,37 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public HospitalDetailVO getDetailId(int hdNum) {
-		return hospitalDao.selectDetailId(hdNum);
+	public HospitalDetailVO getDetailId(int hd_num) {
+		return hospitalDao.selectDetailId(hd_num);
+	}
+
+	@Override
+	public LandVO getHoLand(int ho_la_num) {
+		return hospitalDao.selectHoLand(ho_la_num);
+	}
+
+	@Override
+	public SiDoVO getHdSiDoName(int la_sd_num) {
+		return hospitalDao.selectHdSiDoName(la_sd_num);
+	}
+
+	@Override
+	public SiGoonGuVO getHdSggName(int la_sgg_num) {
+		return hospitalDao.selectHdSggName(la_sgg_num);
+	}
+
+	@Override
+	public EupMyeonDongVO getHdEmdName(int la_emd_num) {
+		return hospitalDao.selectHdEmdName(la_emd_num);
+	}
+
+	@Override
+	public HospitalVO getHospitalMypage(SiteManagement user) {
+		if(user == null ||
+				user.getSite_id() == null) {
+				return null;
+			}
+		return hospitalDao.selectHospitalPage(user.getSite_id());
 	}
 
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.team3.model.vo.BoardVO;
+import kr.kh.team3.model.vo.CommentVO;
 import kr.kh.team3.model.vo.FileVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.RecommendVO;
@@ -68,6 +69,29 @@ public class BoardController {
 	@GetMapping("/board/userpost")
 	public String boardUser(Model model, Criteria cri, String po_id) {
 		String site_authority = boardService.getUserAuthority(po_id);
+		
+		model.addAttribute("po_id", po_id);
+		model.addAttribute("site_authority", site_authority);
+		
+		return "/board/userpost";
+	}
+	
+	@ResponseBody
+	@PostMapping("/board/userpost")
+	public Map<String, Object> boardUserPost(@RequestParam("page") int page, @RequestParam("type") String type, @RequestParam("search") String search, @RequestParam("po_id") String po_id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Criteria cri = new Criteria(page, 5, type, search);
+		ArrayList<PostVO> poList = boardService.getUserPostList(po_id, cri);
+		int totalCount = boardService.getUserPostListCount(po_id, cri);
+		PageMaker pm = new PageMaker(3, cri, totalCount);
+		map.put("poList", poList);
+		map.put("pm", pm);
+		return map;
+	}
+	
+	@GetMapping("/userpo")
+	public String boardUserPo(Model model, Criteria cri, String po_id) {
+		String site_authority = boardService.getUserAuthority(po_id);
 		cri.setPerPageNum(5);
 		ArrayList<PostVO> poList = boardService.getUserPostList(po_id, cri);
 		int totalCount = boardService.getUserPostListCount(po_id, cri);
@@ -76,7 +100,21 @@ public class BoardController {
 		model.addAttribute("site_authority", site_authority);
 		model.addAttribute("poList", poList);
 		model.addAttribute("pm", pm);
-		return "/board/userpost";
+		return "userpo";
+	}
+	
+	@GetMapping("/userco")
+	public String boardUserCo(Model model, Criteria cri, String po_id) {
+		String site_authority = boardService.getUserAuthority(po_id);
+		cri.setPerPageNum(5);
+		ArrayList<PostVO> poList = boardService.getUserPostList(po_id, cri);
+		int totalCount = boardService.getUserPostListCount(po_id, cri);
+		PageMaker pm = new PageMaker(3, cri, totalCount);
+		model.addAttribute("po_id", po_id);
+		model.addAttribute("site_authority", site_authority);
+		model.addAttribute("poList", poList);
+		model.addAttribute("pm", pm);
+		return "userco";
 	}
 
 	@GetMapping("/board/insert")

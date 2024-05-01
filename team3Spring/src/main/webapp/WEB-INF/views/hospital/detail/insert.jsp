@@ -45,13 +45,16 @@
 		    <c:choose>
 		        <c:when test="${subjects != null}">
 		            <c:forEach items="${hsList}" var="hs">
-		            	<input type="checkbox" id="hs_num" name="hs_num" value="${hs.hs_num}" onclick="hiddenBox()">${hs.hs_title}
+		                <c:set var="isChecked" value="false"/>
 		                <c:forEach items="${subjects}" var="sub">
 		                    <c:if test="${sub.hsl_hs_num == hs.hs_num}">
-		                        <input type="checkbox" name="hsl_hs_num" 
-		                        value="${sub.hsl_hs_num}" checked>${hs.hs_title}
+		                        <c:set var="isChecked" value="true"/>
+		                        <input type="checkbox" name="hsl_hs_num" value="${sub.hsl_hs_num}" checked>${hs.hs_title}
 		                    </c:if>
 		                </c:forEach>
+		                <c:if test="${isChecked == 'false'}">
+		                    <input type="checkbox" name="hs_num" value="${hs.hs_num}">${hs.hs_title}
+		                </c:if>
 		            </c:forEach>
 		        </c:when>
 		        <c:otherwise>
@@ -70,7 +73,7 @@
 	<button type="submit" class="hospital-btn" name="hospital-btn">병원 소개 등록</button>
 </form>
 
-<!-- 상세페이지와 선택한 과목 배열 서버로 전송 -->
+<!-- 상세페이지 등록(insert) : 상세페이지와 선택한 과목 배열 서버로 전송 -->
 <script type="text/javascript">
 $("form").submit(function(e) {
 	/* e.preventDefault(); */
@@ -93,7 +96,7 @@ $("form").submit(function(e) {
 	
 	if(hsList.length == 0) {
 		alert("1개 이상 대표 과목을 선택하세요.");
-		return;
+		return false;
 	}
 	
 		$.ajax({
@@ -115,6 +118,11 @@ $("form").submit(function(e) {
 });
 </script>
 
+<!-- 상세 페이지 수정(update) -->
+<script type="text/javascript">
+
+</script>
+
 <!-- 체크박스로 체크한 객체를 배열로 넣는 스크립트 -->
 <script type="text/javascript">
 //체크된 리스트 가져오기
@@ -126,14 +134,6 @@ function getCheckedBox() {
     return checkedValues;
 }
 
-//입력한 영업 시간 리스트 가져오기
-function getTime() {
-	let timeValues = new Array();
-	$('input[name="hd_time"]').each(function() {
-		timeValues.push($(this).val());
-	});
-	return timeValues;
-}
 </script>
 
 <!-- 체크한 체크박스들 숨기기 -->
@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<!-- 여러개의 진료과목 선택하는 스크립트 -->
+<!-- 여러개의 진료과목 선택하는 스크립트(안씀) -->
 <script type="text/javascript">
 // 체크박스 클릭 시 hd_hs_num 업데이트
 function updateHdHsNums() {
@@ -191,7 +191,7 @@ window.onload = function() {
 };
 </script>
 
-<!-- 영업 시간 : 배열로 저장된 시간들 인덱스와 클래스 이름 매핑 -->
+<!-- 영업 시간 : 배열로 저장된 시간들 인덱스와 클래스 이름 매핑(안씀) -->
 <script type="text/javascript">
 //서버에서 받은 hd_time 문자열
 let hd_time = "${hoDetail.hd_time}";

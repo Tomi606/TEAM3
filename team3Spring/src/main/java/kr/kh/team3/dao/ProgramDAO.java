@@ -9,6 +9,7 @@ import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.ItemListVO;
 import kr.kh.team3.model.vo.ItemVO;
+import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.SiteManagement;
 
 public interface ProgramDAO {
@@ -52,6 +53,12 @@ public interface ProgramDAO {
 	HospitalProgramVO selectItemListByProgram(@Param("hsl_num")int hsl_num,@Param("hp_num") int hp_num, @Param("user")SiteManagement user);
 
 	boolean insertReservationSechedule(@Param("rs_hp_num")String rs_hp_num, @Param("rs_date")String rs_date, @Param("rs_time")String rs_time, @Param("rs_max_person")int rs_max_person);
+
+	ArrayList<ReservationScheduleVO> selectReservationScheduleList(@Param("hp_num")int hp_num);
+
+	boolean updateSchedule(@Param("rs_num")int rs_num, @Param("rs_date")String rs_date, @Param("rs_time")String rs_time, @Param("rs_max_person")int rs_max_person);
+
+	boolean deleteSchedule(@Param("rs_num")int rs_num);
 
 
 }
