@@ -57,5 +57,9 @@ public interface BoardService {
 	String getUserAuthority(String po_id);
 
 	int getUserPostListCount(String po_id, Criteria cri);
+
+	ArrayList<PostVO> getUserCmtList(String po_id, Criteria cri);
+
+	int getUserCmtListCount(String po_id, Criteria cri);
 	
 }
