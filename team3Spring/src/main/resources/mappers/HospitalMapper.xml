@@ -291,7 +291,7 @@
 	
 	<select id="selectReportHospitalList" resultMap="ReportMap">
 		select * from report
-		order by rp_target
+		order by rp_num
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
