@@ -34,13 +34,17 @@
 textarea{outline-style: none;}
 .post_list_container{width: 100%;height: 100%;}
 .post_list_box{
-	border: 1px solid lightgray;width: 1400px;height: 100%;margin:100px auto;
-	padding:150px;
+	border:2px solid green;width: 1400px;height: 100%;margin:100px auto;
+	padding:100px;	border-radius: 15px;
 }
 .hr{width: 100%;height: 0;border: 1px solid lightgray;margin: 50px 0 50px 0;}
 .post_insert_btn{
 	line-height: 50px;color: green;height: 100%;width: 100%;
 	border: 1px solid green; padding: 13px;
+}
+.post_list_box{
+   box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
+    transition: box-shadow 0.3s ease;
 }
 .post_insert_btn:hover{color: white;background-color: green;text-decoration: none;}
 .post_insert_btn_box{height: 50px;width: 100px;margin: 0 20px 40px auto;}
@@ -96,6 +100,21 @@ width: 100%;height: 60px;border-bottom: 1px solid gray;
 	width: 100%;display: flex;justify-content: center;border: 1px solid #d2d2d2;margin-bottom: 120px;
 }
 ..input-group{}
+.comment_id{
+	color: black;text-decoration: none;
+}
+.comment_id:hover {
+	color: black;text-decoration: underline;
+}
+.page-link{
+color: green;
+}
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: green;
+    border-color: green;
+ }
 </style>
 </head>
 <body>
@@ -130,9 +149,8 @@ width: 100%;height: 60px;border-bottom: 1px solid gray;
 					style="max-height: 400px;">${post.po_content}</textarea>
 				</div>
 				<div class="like-box">
-					
 				   	 <li style="list-style: none;width: 50px;margin-left:auto;" role="button" class="btn btn-like btn-heart btn-up" data-state="1"></li>
-				    <span class="text-up">${post.po_up}</span>
+				    <span class="text-up" style="width: 20px;">${post.po_up}</span>
 				   <%--  <a class="btn btn-heart btn-down " data-state="-1">싫어요(<span class="text-down">${post.po_down}</span>)</a> --%>
 			   </div>
 				<!-- 작성자 게시글 더보기 -->
@@ -176,7 +194,7 @@ width: 100%;height: 60px;border-bottom: 1px solid gray;
 				<!-- 댓글 끝-->
 				<c:url value="/board/list" var="url">
 					<c:param name="page" value="${cri.page}" />
-					<c:param name="type" value="${cri.type}" />
+					<c:param name="type" value="${cri.type}" />	
 					<c:param name="search" value="${cri.search}" />
 				</c:url>
 			</div>	
@@ -341,7 +359,9 @@ function displayCommentList(commentList){
 	      str += 
 	      `
 	         <div class="box-comment row " style="width: 100%;border-bottom: 1px solid lightgray;display: flex;">
-	            <div class="col-3" style="width: 25%;text-align:center;">\${item.sitemanagement.site_id}</div>
+	            <div class="col-3" style="width: 25%;text-align:center;">
+	            	<a href="<c:url value='/board/userpost?po_id=${post.po_id}'/>" class="comment_id" >\${item.sitemanagement.site_id}</a>
+	            </div>
 	            <div class="col-9 clearfix input-group">
 	            	<span class="text-comment" style="width: 69%;">\${item.co_content}</span>
 	            	<span class="comment-date date" style="width: 8%;font-size:14px;color:gray">\${item.changeDate}</span>
@@ -471,7 +491,7 @@ $(document).on('click','.btn-comment-update',function(){
 	//댓글을 수정할 수 있는 textarea로 변경
 	let content = contentBox.text();
 	let str=
-	`<textarea class="textarea-comment comment_content"style="width: 88%;height:50px;">\${content}</textarea>`;
+	`<textarea class="textarea-comment comment_content"style="width: 87%;height:50px;">\${content}</textarea>`;
 	contentBox.after(str);
 	contentBox.hide();
 	//수정 / 삭제버튼을 감추고

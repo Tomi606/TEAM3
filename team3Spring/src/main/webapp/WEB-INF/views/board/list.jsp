@@ -13,14 +13,19 @@
 }
 
 .post_list_box {
-	border: 1px solid black;
+	border:2px solid green;
 	width: 1400px;
 	height: 93.4%;
 	margin: 100px auto;
 	padding: 100px;
 	text-align: center;
+	border-radius: 15px;
 }
 
+.post_list_box{
+   box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
+    transition: box-shadow 0.3s ease;
+}
 .hr {
 	width: 100%;
 	height: 0;
@@ -77,6 +82,16 @@
 .comment-link:hover{
 	color: black;
 }
+
+.page-link{
+color: green;
+}
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: green;
+    border-color: green;
+ }
 </style>
 </head>
 <body>

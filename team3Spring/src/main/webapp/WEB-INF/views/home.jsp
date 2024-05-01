@@ -590,7 +590,7 @@ margin: 10px;
 				<div class="btnbtnbtn">
 					<a href="<c:url value="/hospital/list?hs_num=0"/>"> <img alt="병원이미지"
 						src="<c:url value='/resources/img/hospital5.png'/>"> <span>병원</span>
-					</a> <a href="#"> <img alt="커뮤니티이미지"
+					</a> <a href="<c:url value="/board/all"/>"> <img alt="커뮤니티이미지"
 						src="<c:url value='/resources/img/comu.png'/>"> <span>커뮤니티</span>
 					</a> <a href="#"> <img alt="로고이미지"
 						src="<c:url value='/resources/img/hpbuild.png'/>"> 

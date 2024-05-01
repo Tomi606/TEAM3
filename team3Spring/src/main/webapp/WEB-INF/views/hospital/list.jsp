@@ -23,7 +23,11 @@ margin-left: auto;
     height: 200px;
     color: black;
     text-decoration: none;
- 	box-shadow: 1px 1px 2px 1px #A5FA7D;
+ 	box-shadow: 0 8px 16px rgba(0, 128, 0, 0.2)
+}
+.area-container:hover{
+box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
+    transition: box-shadow 0.3s ease;
 }
 .hs_btn{width:25%;height: 50px;line-height: 50px;list-style: none;}
 .active4{background-color:#fff8f6;color: #ff501b;}
@@ -31,15 +35,16 @@ margin-left: auto;
 .active1{background-color:#fff8f6;color: #ff501b;}
 .active2{background-color:#fff8f6;color: #ff501b;}
 .aTag-btn1:hover,
-.aTag-btn2:hover{text-decoration:none;box-shadow: 2px 2px 4px 1px #A5FA7D /* 그림자 효과 추가 */}
+.aTag-btn2:hover{text-decoration:none;box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
+    transition: box-shadow 0.3s ease;/* 그림자 효과 추가 */}
 .hospital-like-list h1,.hospital-area-list h1{margin: 30px auto 50px auto;}
 .hospital-list-home{width: 100%;height: 100%;}
 .hospital-list-box{width: 1400px;height: 100%;margin: 0 auto;text-align: center;}
 .hospital-like-list{width: 100%;height: 400px;margin-bottom: 300px;
-display: grid; grid-template-columns:1fr 1fr 1fr 1fr;border-top:1px solid yellow;margin-top: 80px;}
+display: grid; grid-template-columns:1fr 1fr 1fr 1fr;border-top:1px solid green;margin-top: 80px;}
 
 .hospital-area-list{ width: 100%;height:1000px;display: grid; grid-template-columns:1fr 1fr 1fr 1fr;
-border-top:1px solid yellow;margin-top: 80px;}
+border-top:1px solid green;margin-top: 80px;}
 .area-select-all{width: 100%;height: 150px;padding: 30px 0;display: flex;}
 .area-select{margin: 0 auto;}
 .area-select-box{display: flex;border: 1px solid  #c8c8c8;width: 100%; height: 400px;margin: auto auto 30px auto;}
@@ -55,8 +60,8 @@ border-top:1px solid yellow;margin-top: 80px;}
 .emd-list li {display: inline-block;padding: 20px;width: 33%;text-align: left;}
 .area-title{text-align: center;padding: 15px;border-bottom:1px solid  #c8c8c8;border-right: 1px solid  #c8c8c8; }
 .area-title-emd{text-align: center;padding: 15px;width: 997px;border-bottom:1px solid #c8c8c8;}
-.box-pagination{width:100%;display: flex;margin-top:100px; height: 100px; border-bottom: 1px dotted #A8F552;}
-.box-pagination1{width:100%;display: flex;margin-top:100px; height: 100px; border-bottom: 1px dotted #A8F552;}
+.box-pagination{width:100%;display: flex;margin-top:100px; height: 100px; }
+.box-pagination1{width:100%;display: flex;margin-top:100px; height: 100px; }
 .pagination-custom{margin: 0 auto;display: flex;}
 .pagination-custom li{list-style: none; }
 .now-area{display:flex;margin-top: 70px;width: 1400px;border: 1px solid #c8c8c8;color: #c8c8c8;height: 80px;border-bottom-style:none;
@@ -115,6 +120,15 @@ padding:12px;margin-top:15px;width: 100%;border-bottom: 1px solid #c8c8c8;
 	width: 500px;padding: 15px 55px 15px 15px;
 }
 .search-btn{padding: 15px;position: relative;right: 50px;}
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: green;
+    border-color: green;
+ }
+ .page-link{
+color: green;
+}
 </style>
 </head>
 <body>
@@ -518,26 +532,26 @@ function displaySubHoPagination(pm){
 	if(pm.prev){
 		str += `
 		<li class="page-item">
-			<a class="page-area" href="javascript:void(0);" data-page="\${pm.startPage - 1}">이전</a>
+			<a class="page-link" href="javascript:void(0);" data-page="\${pm.startPage - 1}">이전</a>
 		</li>`;		
 	}
 	for(let i = pm.startPage; i<= pm.endPage; i++){
 		let active = pm.cri.page == i ? 'active' : '';
 		str += `
 		<li class="page-item \${active}">
-			<a class="page-area" href="javascript:void(0);" data-page="\${i}">\${i}</a>
+			<a class="page-link" href="javascript:void(0);" data-page="\${i}">\${i}</a>
 		</li>`;	
 	}
 	
 	if(pm.next){
 		str += `
 		<li class="page-item">
-			<a class="page-area" href="javascript:void(0);" data-page="\${pm.endPage + 1}">다음</a>
+			<a class="page-link" href="javascript:void(0);" data-page="\${pm.endPage + 1}">다음</a>
 		</li>`;	
 	}
 	$('.box-pagination1>.pagination-custom').html(str);
 }
-$(document).on('click','.box-pagination1 .page-area',function(){
+$(document).on('click','.box-pagination1 .page-link',function(){
 	likePage = $(this).data('page');
 	getSubHoList();
 });
@@ -549,21 +563,21 @@ function displayAreaHoPagination(pm){
 	if(pm.prev){
 		str += `
 		<li class="page-item">
-			<a class="page-area" href="javascript:void(0);" data-page="\${pm.startPage - 1}">이전</a>
+			<a class="page-link" href="javascript:void(0);" data-page="\${pm.startPage - 1}">이전</a>
 		</li>`;		
 	}
 	for(let i = pm.startPage; i<= pm.endPage; i++){
 		let active = pm.cri.page == i ? 'active' : '';
 		str += `
 		<li class="page-item \${active}">
-			<a class="page-area" href="javascript:void(0);" data-page="\${i}">\${i}</a>
+			<a class="page-link" href="javascript:void(0);" data-page="\${i}">\${i}</a>
 		</li>`;	
 	}
 	
 	if(pm.next){
 		str += `
 		<li class="page-item">
-			<a class="page-area" href="javascript:void(0);" data-page="\${pm.endPage + 1}">다음</a>
+			<a class="page-link" href="javascript:void(0);" data-page="\${pm.endPage + 1}">다음</a>
 		</li>`;	
 	}
 	$('.box-pagination>ul').html(str);
@@ -585,7 +599,7 @@ $(document).on('click', '.search-btn', function(){
 
 
 
-$(document).on('click','.box-pagination .page-area',function(){
+$(document).on('click','.box-pagination .page-link',function(){
 	page = $(this).data('page');
 	getAreaHoList();
 });
