@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.team3.dao.BoardDAO;
+import kr.kh.team3.dao.HospitalDAO;
+import kr.kh.team3.dao.MemberDAO;
 import kr.kh.team3.model.vo.BoardVO;
 import kr.kh.team3.model.vo.FileVO;
+import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.RecommendVO;
 import kr.kh.team3.model.vo.ReportVO;
@@ -26,7 +29,11 @@ import lombok.extern.log4j.Log4j;
 public class BoardServiceImp implements BoardService {
 
 	@Autowired
-	BoardDAO boardDao;
+	private BoardDAO boardDao;
+	@Autowired
+	private HospitalDAO hospitalDao;
+	@Autowired
+	private MemberDAO memberDao;
 
 	@Resource
 	String uploadPath;
@@ -250,19 +257,24 @@ public class BoardServiceImp implements BoardService {
 			return false;
 
 		}
+		ArrayList<MemberVO> members = memberDao.selectMemberArrList();
+
 		report.getRp_site_num(user.getSite_num());
 		ReportVO dbReport = boardDao.selectReport(report);
 		// 없으면 추가
-		if (dbReport == null) {
-			boardDao.insertReport(report);
-		}
-		// 있으면 수정
-		else {
-			// 취소
-			if (report.getRp_target() == dbReport.getRp_target()) {
-				report.getRp_target();
+		for (MemberVO member : members) {
+			if (dbReport == null||member.getMe_id().equals(report.getRp_target())) {
+				boardDao.insertReport(report);
+				memberDao.updateRpCount(member.getMe_id());
 			}
-			return false;
+
+			// 있으면 false
+			else {
+				if (report.getRp_target().equals(dbReport.getRp_target())) {
+					report.getRp_target();
+				}
+				return false;
+			}
 		}
 		return true;
 
