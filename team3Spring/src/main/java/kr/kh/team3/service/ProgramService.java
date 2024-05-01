@@ -7,6 +7,7 @@ import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.ItemListVO;
 import kr.kh.team3.model.vo.ItemVO;
+import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.SiteManagement;
 
 public interface ProgramService {
@@ -46,6 +47,12 @@ public interface ProgramService {
 	HospitalProgramVO getHospitalProgram(HsListVO hslist, int hp_num, SiteManagement user);
 
 	boolean insertReservationSechedule(String rs_hp_num, String rs_date, String rs_time, int rs_max_person);
+
+	ArrayList<ReservationScheduleVO> getRsList(int hp_num);
+
+	boolean updateDate(int rs_num, String rs_date, String rs_time, int rs_max_person);
+
+	boolean DeleteDate(int rs_num);
 	
 
 

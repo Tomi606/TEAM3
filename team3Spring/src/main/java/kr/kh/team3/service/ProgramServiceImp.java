@@ -11,6 +11,7 @@ import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.ItemListVO;
 import kr.kh.team3.model.vo.ItemVO;
+import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.SiteManagement;
 
 @Controller
@@ -197,6 +198,22 @@ public class ProgramServiceImp implements ProgramService{
 	@Override
 	public boolean insertReservationSechedule(String rs_hp_num, String rs_date, String rs_time, int rs_max_person) {
 		return programDao.insertReservationSechedule(rs_hp_num, rs_date, rs_time, rs_max_person);
+	}
+
+	@Override
+	public ArrayList<ReservationScheduleVO> getRsList(int hp_num) {
+		return programDao.selectReservationScheduleList(hp_num);
+	}
+
+	@Override
+	public boolean updateDate(int rs_num, String rs_date, String rs_time, int rs_max_person) {
+		return programDao.updateSchedule(rs_num, rs_date, rs_time, rs_max_person);
+	}
+
+	@Override
+	public boolean DeleteDate(int rs_num) {
+		// TODO Auto-generated method stub
+		return programDao.deleteSchedule(rs_num);
 	}
 
 

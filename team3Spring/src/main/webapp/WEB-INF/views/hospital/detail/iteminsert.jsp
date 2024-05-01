@@ -121,38 +121,68 @@
   appearance: none; /* 스타일을 위해 기본 스타일 숨김 */
   animation: fadeIn 0.5s ease-in-out;
 }
+.date-box {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
 
+.date-box input[type="date"],
+.date-box input[type="time"],
+.date-box input[type="number"] {
+  flex: 1;
+  padding: 12px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.date-box .btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.date-box .btn:hover {
+  background-color: #0056b3;
+}
+
+/* 애니메이션 효과 */
+.date-box input,
+.date-box .btn {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 </style>
 </head>
 <body>
 <div class="container">
-<!-- 중복확인 버튼 때문에 불 필요한 여백 발생하는중 고쳐야 함 -->
-<div class="input-box-group item-box">
-	<h3>세부 항목 등록</h3>
-	
-	<select name="hs_num" class="form-control">
-			<option value="none">진료과를 선택해주세요</option>
-		<c:forEach items="${list}" var="list">
-			<option value="${list.hs_num}">${list.hs_title}</option>
-		</c:forEach>
-	</select>
-	
-	<label for="it_name">세부 항목</label>
-    <input  type="text" id="it_name" name="it_name" placeholder="등록하고 싶은 항목을 입력하세요" autofocus="autofocus">
-    <label for="it_explanation">세부 항목설명</label>
-    <input type="text" name="it_explanation" placeholder="세부 항목의 설명">
-    <div class="program-btn-box">
-	    <a class="btn item-inset-btn">등록</a>
-	    <a class="btn item-update-btn" href='<c:url value="/item/update"/>'>수정</a>
-	    <a class="btn item-delete-btn">삭제</a>
-    </div>
-</div>
-<br>
-
-
 <div class="program-box">
 	<h3>프로그램 등록</h3>
 	<div class="input-box-group">
+		<select name="hs_num" class="form-control">
+				<option value="none">진료과를 선택해주세요</option>
+			<c:forEach items="${list}" var="list">
+				<option value="${list.hs_num}">${list.hs_title}</option>
+			</c:forEach>
+		</select>
 		<label for="hp_title">프로그램 이름</label>
 	    <input  type="text" id="hp_title" name="hp_title" placeholder="프로그램 이름을 입력하세요">
 		<label for="hp_payment">프로그램 가격</label>
@@ -173,6 +203,24 @@
 	</div>
 </div>
 
+<!-- 중복확인 버튼 때문에 불 필요한 여백 발생하는중 고쳐야 함 -->
+<div class="input-box-group item-box">
+	<h3>세부 항목 등록</h3>
+	<label for="it_name">세부 항목</label>
+    <input  type="text" id="it_name" name="it_name" placeholder="등록하고 싶은 항목을 입력하세요" autofocus="autofocus">
+    <label for="it_explanation">세부 항목설명</label>
+    <input type="text" name="it_explanation" placeholder="세부 항목의 설명">
+    <div class="program-btn-box">
+	    <a class="btn item-inset-btn">등록</a>
+	    <a class="btn item-update-btn" href='<c:url value="/date/update"/>'>수정</a>
+	    <a class="btn item-delete-btn">삭제</a>
+    </div>
+</div>
+<br>
+
+
+
+
 <div class="list-box">
 	 <table class="table">
 	    <thead>
@@ -192,8 +240,8 @@
 	<input type="time" id="timeInput" name="rs_time">
 	<input type="number" name="rs_max_person">
 	<a class="btn date-inset-btn">등록</a>
-    <a class="btn date-update-btn" href='<c:url value="/program/update"/>'>수정</a>
-    <a class="btn date-delete-btn">삭제</a>
+    <a class="btn date-update-btn" href='<c:url value="/date/update"/>'>수정</a>
+    <a class="btn date-delete-btn" href='<c:url value="/date/delete"/>'>삭제</a>
 </div>
 	
 </div>
@@ -224,7 +272,7 @@
 			    "rs_max_person": rs_max_person
 			}, 
 			success : function(data){
-				
+				alert(data.msg);
 			}
 		})
 	});
@@ -288,7 +336,6 @@
 				"hs_num" : hs_num,
 			},
 			success : function (data) {
-				console.data
 				let str = ``;
 				let str2 = ``;
 				for(let tmp of data.itemList){
