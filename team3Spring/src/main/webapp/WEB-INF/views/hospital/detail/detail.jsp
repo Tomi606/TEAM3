@@ -84,7 +84,7 @@
 			<span class="ho_phone" id="ho_phone">${detail.hospital.ho_phone}</span>
 		</div>
 		<div>
-			<a href='<c:url value="예약하기 버튼 url"/>' class="btn btn-outline-success">예약하기</a>
+			<a href='<c:url value="/schedule?ho_id=${detail.hospital.ho_id}"/>' class="btn btn-outline-success">예약하기</a>
 		</div>
 		<hr style="border: 1px solid gray;margin: 200px auto;">
 		<div class="body-container">

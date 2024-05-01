@@ -237,7 +237,7 @@ public class HospitalController {
 	//회원 입장에서 상페 페이지 조회시
 	@GetMapping("/hospital/detail/detail")
 	public String hospitalDetail(Model model, Integer hdNum, HttpSession session,
-		HospitalVO ho, BookmarkVO bookmark) {
+		HospitalVO ho, BookmarkVO bookmark, String ho_id) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO member = memberService.getSiteMember(user);
 		//상세 페이지를 가져옴(임시!!!!!!!!!!!!!!!!!!!!!!!!!)
