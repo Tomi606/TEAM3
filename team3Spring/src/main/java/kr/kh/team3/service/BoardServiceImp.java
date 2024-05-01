@@ -262,7 +262,7 @@ public class BoardServiceImp implements BoardService {
 			if (report.getRp_target() == dbReport.getRp_target()) {
 				report.getRp_target();
 			}
-			boardDao.updateReport(report);
+			return false;
 		}
 		return true;
 

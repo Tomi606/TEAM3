@@ -13,13 +13,23 @@
 	list-style: none;width: 50px;height: 50px;
 }
 .report-box{
- background-image:url("<c:url value="/resources/img/siren.png"/>");
-  	margin-left:auto;
+ 	  background-image:url("<c:url value="/resources/img/siren.png"/>");
+      margin-left:auto;
       background-size: 30px;
       width:50px;
       height:50px;
       background-repeat:no-repeat;
       fill: #ddd;
+}
+.red_btn{
+ background-image:url("<c:url value="/resources/img/red_siren.png"/>");
+      margin-left:auto;
+      background-size: 30px;
+      width:50px;
+      height:50px;
+      background-repeat:no-repeat;
+      fill: #ddd;
+
 }
 .btn-like{
  background-image:url("<c:url value="/resources/img/heart.png"/>");
@@ -100,7 +110,7 @@ width: 80%;margin: 0 auto 80px auto;
 width: 100%;height: 60px;border-bottom: 1px solid gray;
 
 }
-.like-box{width:100%;display:  flex;margin: 20px 0 80px 0;}
+.like-box{display:  flex;margin: 20px 0 80px auto;}
 .user_more_post{margin-left: 53px;margin-top: 10px;}
 .btn-insert-comment{
 	background-color: white; color: green;border: 1px solid green;
@@ -285,11 +295,10 @@ $(document).ready(function() {
 	  }
 	  
 	  $(document).on('click', '.btn-report', function() {
-	    // 신고 대상의 ID를 가져오기
+		  
+		  
 	    let target_id = $(this).closest('.report-box').data('target');
-	    // 모달 창을 표시
 	    $("#myModal").css("display", "block");
-	    // 모달에 신고 대상의 ID 설정
 	    $("#myModal").data("target", target_id);
 	  });
 	  
@@ -322,8 +331,9 @@ $(document).ready(function() {
 	        if(data.result){
 	          alert(target_id + "님을 신고하였습니다.");
 	          $("#myModal").css("display", "none");
+	          $(".report-box").addClass("red_btn");
 	        } else {
-	          alert(target_id + "님을 신고하지 못했습니다.");  
+	          alert(target_id + "님을 이미 신고하였습니다.");  
 	        }
 	      },
 	      error: function(jqXHR, textStatus, errorThrown) {
@@ -332,7 +342,10 @@ $(document).ready(function() {
 	    });
 	  });
 	});
-
+function checkReport(target_id){
+	
+	
+}
 </script>
 
 <!-- 추천 / 비추천 -->
