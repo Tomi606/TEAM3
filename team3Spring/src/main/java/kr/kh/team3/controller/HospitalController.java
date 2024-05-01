@@ -677,7 +677,6 @@ public class HospitalController {
 	@PostMapping("/date/update")
 	public Map<String, Object> updateProgramScheduleCheck(@RequestParam("hp_num") int hp_num, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		//해당 과와아이디를 이용해 번호를 가져오는 메서드
 		ArrayList<ReservationScheduleVO> RSlist = programService.getRsList(hp_num);
 		map.put("RSlist", RSlist);
@@ -688,9 +687,9 @@ public class HospitalController {
 	@PostMapping("/date/realupdate")
 	public Map<String, Object> realUpdateProgramScheduleCheck(
 			@RequestParam("rs_date") String rs_date,@RequestParam("rs_time") String rs_time,
-			@RequestParam("rs_max_person") int rs_max_person) {
+			@RequestParam("rs_max_person") int rs_max_person,@RequestParam("rs_num") int rs_num) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		boolean res = programService.updateDate(rs_date, rs_time, rs_max_person);
+		boolean res = programService.updateDate(rs_num, rs_date, rs_time, rs_max_person);
 		if(res) {
 			map.put("res", true);
 		}else {
@@ -698,6 +697,43 @@ public class HospitalController {
 		}
 		return map;
     }
+	
+	//스케줄 수정 메서드
+	@GetMapping("/date/delete")
+	public String ScheduleDelete(HospitalProgramVO program, HttpSession session, Model model) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		ArrayList<HsListVO> subjectList = programService.getSubjectList(user);
+		ArrayList<HospitalSubjectVO> list = new ArrayList<HospitalSubjectVO>();
+		for(HsListVO tmp : subjectList) {
+			try {
+				HospitalSubjectVO subject = programService.getSubject(tmp.getHsl_hs_num(), user);				
+				System.out.println(subject);
+				list.add(subject);
+			} catch (Exception e) {
+				
+			}
+		}
+		
+		model.addAttribute("list",list);
+		 ArrayList<HospitalProgramVO> programList = programService.getProgramList(user); 
+		 model.addAttribute("programList", programList);
+		 return "/hospital/detail/datedelete";
+	}
+	
+	@ResponseBody
+	@PostMapping("/date/delete")
+	public Map<String, Object> deleteProgramScheduleCheck(@RequestParam("rs_num") int rs_num) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean res = programService.DeleteDate(rs_num);
+		if(res) {
+			map.put("res", true);
+		}else {
+			map.put("res", false);
+		}
+		return map;
+    }
+	
+	
 	//============================================= 조민석 ===================================================
 	/*병원 리스트 출력 정경호,권기은*/
 	@GetMapping("/hospital/list")

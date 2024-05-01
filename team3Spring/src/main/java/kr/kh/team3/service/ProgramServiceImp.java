@@ -206,8 +206,14 @@ public class ProgramServiceImp implements ProgramService{
 	}
 
 	@Override
-	public boolean updateDate(String rs_date, String rs_time, int rs_max_person) {
-		return programDao.updateSchedule(rs_date, rs_time, rs_max_person);
+	public boolean updateDate(int rs_num, String rs_date, String rs_time, int rs_max_person) {
+		return programDao.updateSchedule(rs_num, rs_date, rs_time, rs_max_person);
+	}
+
+	@Override
+	public boolean DeleteDate(int rs_num) {
+		// TODO Auto-generated method stub
+		return programDao.deleteSchedule(rs_num);
 	}
 
 

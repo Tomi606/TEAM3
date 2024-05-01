@@ -50,7 +50,9 @@ public interface ProgramService {
 
 	ArrayList<ReservationScheduleVO> getRsList(int hp_num);
 
-	boolean updateDate(String rs_date, String rs_time, int rs_max_person);
+	boolean updateDate(int rs_num, String rs_date, String rs_time, int rs_max_person);
+
+	boolean DeleteDate(int rs_num);
 	
 
 

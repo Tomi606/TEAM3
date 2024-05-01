@@ -72,7 +72,7 @@
 </head>
 <body>
 <div class="container">
-		<h3>진료과와 프로그램을 선택후 수정 사항을 모두 기입후 번호를 눌러주세요</h3>
+			<h3>삭제하고 싶은 스케줄의 번호를 클릭해주세요</h3>
 		<select name="hs_num" class="form-control">
 				<option value="none">진료과를 선택해주세요</option>
 			<c:forEach items="${list}" var="list">
@@ -85,12 +85,7 @@
 					
 			</select>
 		</div>
-		<div class="date-box">
-			<h3>날짜와 시간은 스페이스바를 눌러 변경하거나 직접 입력해주세요</h3>
-			<input type="date" name="rs_date">
-			<input type="time" id="timeInput" name="rs_time">
-			<input type="number" name="rs_max_person">
-		</div>
+
 		<div class="list-box">
 			 <table class="table">
 			    <thead>
@@ -140,33 +135,20 @@
 
 <script type="text/javascript">
 	$(document).on('click', '.rs-btn', function(){
-		let rs_date = $("[name=rs_date]").val();
-		let rs_time = $("[name=rs_time]").val();
-		let rs_max_person = $("[name=rs_max_person]").val();
 		let rs_num = $(this).data('rsnum'); 
-		if(rs_date == "" || rs_time == "" || rs_max_person == ""){
-			alert("날짜, 시간, 최대인원을 모두 입력해주시기 바랍니다.");
-			rs_date = $("[name=rs_date]").val("");
-			rs_time = $("[name=rs_time]").val("");
-			rs_max_person = $("[name=rs_max_person]").val("");
-			return
-		}
 		$.ajax({
 			method : 'post',
-			url : '<c:url value="/date/realupdate"/>',
+			url : '<c:url value="/date/delete"/>',
 			data : {
 				"rs_num" : rs_num,
-				"rs_date": rs_date,
-			    "rs_time": rs_time,
-			    "rs_max_person": rs_max_person
 			},
 			success : function (data) {
 				if(data){
-					alert("수정에 성공했습니다.")
+					alert("삭제에 성공했습니다.")
 					location.href = '<c:url value="/hospital/item/insert"/>';
 				}else{
-					alert("수정에 실패했습니다.")
-					location.href = '<c:url value="/date/update"/>';
+					alert("삭제에 실패했습니다.")
+					location.href = '<c:url value="/hospital/item/insert"/>';
 				}
 			}
 		})

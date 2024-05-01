@@ -56,7 +56,9 @@ public interface ProgramDAO {
 
 	ArrayList<ReservationScheduleVO> selectReservationScheduleList(@Param("hp_num")int hp_num);
 
-	boolean updateSchedule(@Param("rs_date")String rs_date, @Param("rs_time")String rs_time, @Param("rs_max_person")int rs_max_person);
+	boolean updateSchedule(@Param("rs_num")int rs_num, @Param("rs_date")String rs_date, @Param("rs_time")String rs_time, @Param("rs_max_person")int rs_max_person);
+
+	boolean deleteSchedule(@Param("rs_num")int rs_num);
 
 
 }
