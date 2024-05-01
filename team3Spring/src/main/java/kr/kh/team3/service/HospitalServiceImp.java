@@ -455,11 +455,9 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public HospitalDetailVO getDetail(Integer hdNum) {
-		if(hdNum == null) {
-			return null;
-		}
-		return hospitalDao.selectDetail(hdNum);
+	public HospitalDetailVO getDetail(int hd_num) {
+
+		return hospitalDao.selectDetail(hd_num);
 	}
 	
 
@@ -850,6 +848,15 @@ public class HospitalServiceImp implements HospitalService {
 	@Override
 	public EupMyeonDongVO getHdEmdName(int la_emd_num) {
 		return hospitalDao.selectHdEmdName(la_emd_num);
+	}
+
+	@Override
+	public HospitalVO getHospitalMypage(SiteManagement user) {
+		if(user == null ||
+				user.getSite_id() == null) {
+				return null;
+			}
+		return hospitalDao.selectHospitalPage(user.getSite_id());
 	}
 
 }

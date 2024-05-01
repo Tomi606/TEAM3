@@ -58,10 +58,10 @@ public class HospitalController {
 	@GetMapping("/hospital/mypage")
 	public String myPage(Model model, HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		HospitalVO hospital = hospitalService.getHospital(user);
+		HospitalVO hospital = hospitalService.getHospitalMypage(user);
+		log.info(hospital+"awgvhijfneqwp;lifbnhwqep;igvfbhewpi;lgbwa;rehbg;owaergower;gubhweoghbnwe;opgihwepgiohwegoiwehgoieh");
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.selectSubject();
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
-
 		model.addAttribute("hospital", hospital);
 		model.addAttribute("hsList", hsList);
 		model.addAttribute("sidoList", sidoList);
@@ -74,14 +74,19 @@ public class HospitalController {
 	public HashMap<String, Object> myPagePost(HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		HospitalVO hospital = hospitalService.getHospital(user);
+		HospitalVO hospital = hospitalService.getHospitalMypage(user);
 		HospitalSubjectVO hs = hospitalService.getSubject(hospital);
 		LandVO land = hospitalService.getMyLand(hospital);
 		String sd_name = hospitalService.getSdName(land);
 		String sgg_name = hospitalService.getSggName(land);
 		String emd_name = hospitalService.getEmdName(land);
-		
+		ArrayList<HospitalSubjectVO> hsList = hospitalService.selectSubject();
+		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
+		log.info(hospital+"asddsadasdsadsadsadsad");
 		map.put("hospital", hospital);
+		map.put("hsList", hsList);
+		map.put("sidoList", sidoList);
+		
 		map.put("hs", hs);
 		map.put("land", land);
 		map.put("sd_name", sd_name);
@@ -236,13 +241,11 @@ public class HospitalController {
 	//-----------------------------[병원 상세 페이지]------------------------------
 	//회원 입장에서 상페 페이지 조회시
 	@GetMapping("/hospital/detail/detail")
-	public String hospitalDetail(Model model, Integer hdNum, HttpSession session, BookmarkVO bookmark) {
+	public String hospitalDetail(Model model, HttpSession session, int hd_num, BookmarkVO bookmark) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO member = memberService.getSiteMember(user);
-		//상세 페이지를 가져옴(임시!!!!!!!!!!!!!!!!!!!!!!!!!)
-//		hdNum = 1;
-		hdNum = 2;
-		HospitalDetailVO detail = hospitalService.getDetail(hdNum);
+		//상세 페이지를 가져옴
+		HospitalDetailVO detail = hospitalService.getDetail(hd_num);
 		//랜드 가져옴(HospitalVO의 ho_la_num으로)
 		HospitalVO hospital = hospitalService.getHoId(detail.getHd_ho_id());
 		LandVO land = hospitalService.getHoLand(hospital.getHo_la_num());
@@ -251,7 +254,6 @@ public class HospitalController {
 		SiGoonGuVO sgg = hospitalService.getHdSggName(land.getLa_sgg_num());
 		EupMyeonDongVO emd = hospitalService.getHdEmdName(land.getLa_emd_num());
 		
-		log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!land : " + land);
 		//병원과목 리스트
 		ArrayList<HospitalSubjectVO> sub = hospitalService.getDetailSubject(detail.getHd_ho_id());
 		//북마크 유무 : 병원페이지 아이디(detail에서 받아옴), 회원 아이디, 북마크
@@ -261,7 +263,6 @@ public class HospitalController {
 		model.addAttribute("sub", sub);
 		model.addAttribute("already", already);
 		model.addAttribute("land", land);
-		
 		model.addAttribute("sido", sido);
 		model.addAttribute("sgg", sgg);
 		model.addAttribute("emd", emd);
@@ -275,14 +276,14 @@ public class HospitalController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		cri.setPerPageNum(3); //1페이지 당 댓글 3개
 		//병원 상세 페이지 번호를 주면서 상세 페이지 들고오라 시킴
-		HospitalDetailVO detail = hospitalService.getDetail(hdNum);
+//		HospitalDetailVO detail = hospitalService.getDetail(hdNum);
 		//한 페이지(cri)를 주면서 리뷰 리스트를 가져오라고 시킴
 		ArrayList<ReviewVO> reviewList = hospitalService.getCriReviewList(cri);
 		//페이지네이션
 		int reviewTotalCount = hospitalService.getTotalReviewCount(cri);
 		PageMaker pm = new PageMaker(3, cri, reviewTotalCount);
 		
-		map.put("detail", detail);
+//		map.put("detail", detail);
 		map.put("reviewList", reviewList);
 		map.put("pm", pm);
 		return map;
@@ -732,7 +733,6 @@ public class HospitalController {
 		int totalCount = hospitalService.getLikeSub(me,land,cri);
 		ArrayList<HospitalVO> hoSubList = hospitalService.getSubHoList(me, land,cri);
 		PageMaker pm = new PageMaker(5, cri, totalCount);
-		log.info(hoSubList + "hoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubListhoSubList");
 		map.put("pm", pm);
 		map.put("hoSubList",hoSubList);
 		return map;

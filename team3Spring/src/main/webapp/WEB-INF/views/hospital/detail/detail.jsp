@@ -58,7 +58,7 @@
 	color: rgb(65, 65, 65);
 }
     
-textarea {
+/* textarea {
       width: 100%;
       resize: none;
       overflow-y: hidden;
@@ -66,7 +66,7 @@ textarea {
       cursor: inherit;
       text-align: center;
       font-size: 20px;
-    }
+    } */
 
 #page3 textarea {
 	resize: none;
@@ -76,7 +76,8 @@ textarea {
 
 p {
 	margin-bottom: 0px;
-	font: 100px;
+	font-size: 25px;
+	cursor: default;
 }
 
 .btn-info {
@@ -85,7 +86,7 @@ p {
 }
 
 .btn {
-	font-size: 25px;
+	font-size: 18px;
     margin: 8px 5px 8px 5px;
     display: inline-block;
     padding: 1px 5px 1px 5px;
@@ -151,45 +152,112 @@ p {
 	margin-left: 10px;
 }
 
-.top-img:hover {
-	visibility: visible;
+/* span태그 위치 option */
+.tooltip-link{
+  position: absolute;
+  left: 25%;
+  top:80px;
+}
+
+/* span태그 option */
+.tooltip-link{
+    position: relative;
+    background-color: #aad;
+    border-radius: 10px;
+    border: 3px solid #eee;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* 툴팁 option */
+.tooltip-link[data-tooltip]:not([data-tooltip=""])::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    background-color: rgba(0,0,0,0.5);
+    color: #fff;
+    padding: 10px 7px;
+    border-radius: 10px;
+    max-width: 300px;
+    width: 300px;
+    left: 25%;
+    bottom: 120%;
+    opacity: 0;
+    transition: all 0.5s linear;
+}
+
+/* 툴팁 말풍선 방향 팁 추가 */
+.tooltip-link[data-tooltip]:not([data-tooltip=""])::after {
+    content: '';
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent;
+    border-top-color: rgba(0,0,0,0.5);
+    width: 0;
+    height: 0;
+    display: inline-block;
+    position: absolute;
+    left: 50%;
+    bottom: 90%;
+    transform: translate(-50%, 0);
+    opacity: 0;
+    transition: all 0.5s linear;
+}
+
+.tooltip-link:hover[data-tooltip]:not([data-tooltip=""])::before
+, .tooltip-link:hover[data-tooltip]:not([data-tooltip=""])::after {
     opacity: 1;
-    transition-delay: 0s;
+}
+
+#myTextarea {
+	  width: 100%;
+      resize: none;
+      overflow-y: hidden;
+      border: 0px solid white;
+      cursor: inherit;
+      text-align: center;
+      font-size: 24px;
+}
+
+.book-btn {
+	font-size: 40px;
+    margin: 8px 5px 8px 5px;
+    display: inline-block;
+    padding: 1px 5px 1px 5px;
 }
 </style>
 </head>
 <body>
 <div class="detail-page">
-	<div class="bookmark-box">
-		<c:choose>
-			<c:when test="${already == true}">
-				<img class="btn btn-lg bookmark-after" data-id="${user.site_id}" alt="북마크 후" 
-				data-tooltip="북마크 설정" src="<c:url value="/resources/img/bookmark-after.svg"/>">
-				<img class="btn btn-lg bookmark-before" style="display: none;" data-id="${user.site_id}" alt="북마크 전" src="<c:url value="/resources/img/bookmark-before.svg"/>">			
-			</c:when>
-			<c:otherwise>
-				<img class="btn btn-lg bookmark-after" style="display: none;" data-id="${user.site_id}" alt="북마크 후" src="<c:url value="/resources/img/bookmark-after.svg"/>">
-				<img class="btn btn-lg bookmark-before" data-id="${user.site_id}" alt="북마크 전" 
-				src="<c:url value="/resources/img/bookmark-before.svg"/>">
-			</c:otherwise>
-		</c:choose>
-	</div>
 	<div class="detail-page-sub">
 		<div class="ho_name">
-			<h1 class="ho_name" id="ho_name">${detail.hospital.ho_name}</h1>
+			<h1 class="ho_name" id="ho_name" style="size: 60px;">${detail.hospital.ho_name}
+				<c:choose>
+					<c:when test="${already == true}">
+						<img class="btn btn-lg bookmark-after" data-id="${user.site_id}" alt="북마크 후" 
+						data-tooltip="북마크 설정" src="<c:url value="/resources/img/bookmark-after.svg"/>">
+						<img class="btn btn-lg bookmark-before" style="display: none;" data-id="${user.site_id}" alt="북마크 전" src="<c:url value="/resources/img/bookmark-before.svg"/>">			
+					</c:when>
+					<c:otherwise>
+						<img class="btn btn-lg bookmark-after" style="display: none;" data-id="${user.site_id}" alt="북마크 후" src="<c:url value="/resources/img/bookmark-after.svg"/>">
+						<img class="btn btn-lg bookmark-before" data-id="${user.site_id}" alt="북마크 전" 
+						src="<c:url value="/resources/img/bookmark-before.svg"/>">
+					</c:otherwise>
+				</c:choose>
+			</h1>
 		</div>
-		<div class="ho_address">
-			<label class="top-label" for="ho_address">찾아오시는 길 | </label>
+		<div class="ho_address tooltip-container">
+			<label class="top-label" for="ho_address">찾아오시는 길  |  </label>
 			<span class="ho_address top-span" id="ho_address">${sido.sd_name} ${sgg.sgg_name} ${emd.emd_name} ${detail.hospital.ho_address}</span>
-			<img class="top-img" style="cursor: pointer;" alt="공유 이미지" src="<c:url value="/resources/img/detail-map.svg"/>">
+			<img class="top-img tooltip-contents" data-tooltip="data-tooltip을 활용하여 툴팁 생성하기"
+			style="cursor: pointer;" alt="공유 이미지" src="<c:url value="/resources/img/detail-map.svg"/>">
 		</div>
 		<div class="ho_phone">
-			<label class="top-label" for="ho_phone">대표 전화번호 | </label>
+			<label class="top-label" for="ho_phone">대표 전화번호  |  </label>
 			<span class="ho_phone top-span" id="ho_phone">${detail.hospital.ho_phone}</span>
 			<img class="top-img" style="cursor: pointer;" alt="전화 이미지" src="<c:url value="/resources/img/detail-phone.svg"/>">
 		</div>
 		<div>
-			<a href='<c:url value="예약하기 버튼 url"/>' class="btn btn-outline-success">예약하기</a>
+			<a href='<c:url value="예약하기 버튼 url"/>' class="book-btn btn btn-success">예약하기</a>
 		</div>
 		<hr style="border: 1px solid gray; margin: 30px auto;">
 		<div class="body-container">
@@ -202,7 +270,7 @@ p {
 			<div id="page1" class="page active">
 				<div class="hd_info page1">
 					<label class="label" for="hd_info" style="font-weight: bold;">병원 소개</label>
-				   	<textarea class="hd_info" id="textarea" readonly>${detail.hd_info}</textarea>
+				   	<textarea class="hd_info" id="myTextarea" readonly>${detail.hd_info}</textarea>
 				</div>
 				<hr style="border: 1px solid gray; margin: 10px auto;">
 				<div class="hd_time page1" id="hd_time">
@@ -682,21 +750,6 @@ function adjustTextareaHeight(textarea) {
 	textarea.style.height = "auto";
 	textarea.style.height = textarea.scrollHeight + "px";
 }
-
-/* function autoTextarea(element) {
-    // 초기 높이 설정
-    element.style.height = 'auto';
-    // 스크롤 높이에 따라 텍스트 영역 높이 조절
-    element.style.height = (element.scrollHeight) + 'px';
-}
-
-window.addEventListener('load', function() {
-	//페이지1
-    let page1 = document.getElementById('page1');
-    if(page1) {
-    	autoTextarea(page1);
-    }
-}); */
 </script>
 
 
