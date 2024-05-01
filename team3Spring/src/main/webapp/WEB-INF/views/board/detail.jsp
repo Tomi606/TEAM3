@@ -127,6 +127,41 @@ color: green;
     background-color: green;
     border-color: green;
  }
+ 
+ 
+ .modal {
+	display: none;
+	position: fixed;
+	z-index: 990;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 500px;
+	text-align: center;
+}
+
+.close {
+	color: #aaa;
+	margin: 0 24px 8px auto;
+	font-size: 50px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -162,13 +197,26 @@ color: green;
 				</div>
 				<div style="display: flex;">	
 					<div class="like-box">
-					<div class="report-box"data-target="${post.po_id}">
-						<li role="button" class="btn-report"></li>
-					</div>
-					   	 <li style="list-style: none;width: 50px;margin-left:30px;" role="button" class="btn btn-like btn-heart btn-up" data-state="1"></li>
+					<c:if test="${post.po_id ne user.site_id}">
+						<div class="report-box"data-target="${post.po_id}">
+							<li role="button" class="btn-report"></li>
+						</div>
+					</c:if>
+					   	 <li style="list-style: none;width: 50px;margin-left:auto;" role="button" class="btn btn-like btn-heart btn-up" data-state="1"></li>
 					    <span class="text-up" style="width: 20px;">${post.po_up}</span>
-				   </div>
+				   </div>	
 			  </div> 
+				  <div id="myModal" class="modal">
+					  <div class="modal-content">
+					    <span class="close">&times;</span>
+					    <h2>신고</h2>
+					    <label for="old_me_pw">신고 사유</labe>
+					    <div class="new_me_pw_hidden">
+					      <textarea type='text' id="rp_name" name="rp_name" class="box-pw2"></textarea>
+					    </div>
+					    <a type="button" class="report-user-btn success-btn">신고하기</a>
+			  		  </div>
+				 </div>
 				<!-- 작성자 게시글 더보기 -->
 			 	<label>첨부파일</label>
 			 <div class="form-group file-box">	
@@ -230,33 +278,58 @@ color: green;
 
 <!-- 신고 -->
 <script type="text/javascript">
-$(".btn-report").click(function() {
+$(document).ready(function() {
 	  // 로그인 여부를 체크
 	  if (!checkLogin()) {
 	    return;
 	  }
-	  let target_id = $(this).closest('.report-box').data('target');
-	  let report = {
-	    rp_target: target_id 
-	  };
-	  $.ajax({
-	    async: true, 
-	    url: '<c:url value="/report/check"/>',
-	    type: 'post',
-	    data: JSON.stringify(report),
-	    contentType: "application/json; charset=utf-8",
-	    dataType: "json",
-	    success: function(data) {
-	      console.log(data.result);
-	      if(data.result){
-	      alert(target_id+"님을 신고하였습니다.");
-	      }else{
-	    	  alert(target_id+"님을 신고하지 못했습니다.");  
+	  
+	  $(document).on('click', '.btn-report', function() {
+	    // 신고 대상의 ID를 가져오기
+	    let target_id = $(this).closest('.report-box').data('target');
+	    // 모달 창을 표시
+	    $("#myModal").css("display", "block");
+	    // 모달에 신고 대상의 ID 설정
+	    $("#myModal").data("target", target_id);
+	  });
+	  
+	  $(document).on('click', '.close', function() {
+	    // 모달 창을 닫음
+	    $("#myModal").css("display", "none");
+	  });
+	  
+	  $(document).on('click','.report-user-btn',function(){
+	    // 모달에서 신고 대상의 ID를 가져오기
+	    let target_id = $("#myModal").data("target");
+	    // textarea의 값 가져오기
+	    let rp_name = $("#rp_name").val();
+	    // 신고 내용과 대상의 ID를 report 객체에 설정
+	    let report = {
+	      rp_target: target_id,
+	      rp_name: rp_name
+	    };
+
+	    // 서버에 보고서 데이터 전송
+	    $.ajax({
+	      async: true, 
+	      url: '<c:url value="/report/check"/>',
+	      type: 'post',
+	      data: JSON.stringify(report),
+	      contentType: "application/json; charset=utf-8",
+	      dataType: "json",
+	      success: function(data) {
+	        console.log(data.result);
+	        if(data.result){
+	          alert(target_id + "님을 신고하였습니다.");
+	          $("#myModal").css("display", "none");
+	        } else {
+	          alert(target_id + "님을 신고하지 못했습니다.");  
+	        }
+	      },
+	      error: function(jqXHR, textStatus, errorThrown) {
+	        console.log("서버 오류 발생: " + errorThrown);
 	      }
-	    },
-	    error: function(jqXHR, textStatus, errorThrown) {
-	      // 오류 처리 코드 추가
-	    }
+	    });
 	  });
 	});
 
