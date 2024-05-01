@@ -474,7 +474,7 @@ public class HospitalController {
 		ArrayList<HospitalProgramVO> hpList = programService.getSubjectByProgram(user, hslist);
 		map.put("itemList", itemList);
 		map.put("hpList", hpList);
-		 return map;
+		return map;
     }
 	
 	//세부항목 수정 메서드
@@ -607,18 +607,6 @@ public class HospitalController {
 		return "message";
 	}
 	
-	//프로그램 조회 메서드
-	@GetMapping("/program/check")
-	public String checkprogram(Model model, HttpSession session) {
-		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		ArrayList<ItemVO> itemList = programService.getAllItemList(user);
-		ArrayList<HospitalProgramVO> programList = programService.getProgramList(user);
-		
-		model.addAttribute("programList",programList);
-		model.addAttribute("itemList", itemList);
-		return "/hospital/programcheck";
-	}
-	
 	// 프로그램에 속한 리스트를 조회하는 메서드
 	@ResponseBody
 	@PostMapping("/itemlist/check")
@@ -647,20 +635,104 @@ public class HospitalController {
 	
 	@ResponseBody
 	@PostMapping("/date/insert")
-	public String InsertDate(HttpSession session, Model model,
+	public Map<String, Object> InsertDate(HttpSession session,
 		@RequestParam("rs_hp_num") String rs_hp_num,@RequestParam("rs_date") String rs_date,
 		@RequestParam("rs_time") String rs_time,@RequestParam("rs_max_person") int rs_max_person) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		boolean res = programService.insertReservationSechedule(rs_hp_num, rs_date, rs_time, rs_max_person);
 		 if (res) {
-				model.addAttribute("msg","추가를 완료했습니다.");
-				model.addAttribute("url","/hospital/item/insert");
+				map.put("msg","추가에성공했습니다.");
 			}else {
-				model.addAttribute("msg","추가를 실패했습니다.");
-				model.addAttribute("url","/hospital/item/insert");
+				map.put("msg","추가를 실패했습니다.");
 			}
-			return "message";
+		 return map;
 	}
+	
+	//스케줄 수정 메서드
+	@GetMapping("/date/update")
+	public String ScheduleUpdate(HospitalProgramVO program, HttpSession session, Model model) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		ArrayList<HsListVO> subjectList = programService.getSubjectList(user);
+		ArrayList<HospitalSubjectVO> list = new ArrayList<HospitalSubjectVO>();
+		for(HsListVO tmp : subjectList) {
+			try {
+				HospitalSubjectVO subject = programService.getSubject(tmp.getHsl_hs_num(), user);				
+				System.out.println(subject);
+				list.add(subject);
+			} catch (Exception e) {
+				
+			}
+		}
+		
+		model.addAttribute("list",list);
+		 ArrayList<HospitalProgramVO> programList = programService.getProgramList(user); 
+		 model.addAttribute("programList", programList);
+		 return "/hospital/detail/dateupdate";
+	}
+	
+	
+	//스케줄 수정 메서드
+	//프로그램을를 선택하면 여러 정보가 나옴
+	@ResponseBody
+	@PostMapping("/date/update")
+	public Map<String, Object> updateProgramScheduleCheck(@RequestParam("hp_num") int hp_num, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		//해당 과와아이디를 이용해 번호를 가져오는 메서드
+		ArrayList<ReservationScheduleVO> RSlist = programService.getRsList(hp_num);
+		map.put("RSlist", RSlist);
+		return map;
+    }
+	
+	@ResponseBody
+	@PostMapping("/date/realupdate")
+	public Map<String, Object> realUpdateProgramScheduleCheck(
+			@RequestParam("rs_date") String rs_date,@RequestParam("rs_time") String rs_time,
+			@RequestParam("rs_max_person") int rs_max_person,@RequestParam("rs_num") int rs_num) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean res = programService.updateDate(rs_num, rs_date, rs_time, rs_max_person);
+		if(res) {
+			map.put("res", true);
+		}else {
+			map.put("res", false);
+		}
+		return map;
+    }
+	
+	//스케줄 수정 메서드
+	@GetMapping("/date/delete")
+	public String ScheduleDelete(HospitalProgramVO program, HttpSession session, Model model) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		ArrayList<HsListVO> subjectList = programService.getSubjectList(user);
+		ArrayList<HospitalSubjectVO> list = new ArrayList<HospitalSubjectVO>();
+		for(HsListVO tmp : subjectList) {
+			try {
+				HospitalSubjectVO subject = programService.getSubject(tmp.getHsl_hs_num(), user);				
+				System.out.println(subject);
+				list.add(subject);
+			} catch (Exception e) {
+				
+			}
+		}
+		
+		model.addAttribute("list",list);
+		 ArrayList<HospitalProgramVO> programList = programService.getProgramList(user); 
+		 model.addAttribute("programList", programList);
+		 return "/hospital/detail/datedelete";
+	}
+	
+	@ResponseBody
+	@PostMapping("/date/delete")
+	public Map<String, Object> deleteProgramScheduleCheck(@RequestParam("rs_num") int rs_num) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean res = programService.DeleteDate(rs_num);
+		if(res) {
+			map.put("res", true);
+		}else {
+			map.put("res", false);
+		}
+		return map;
+    }
+	
 	
 	//============================================= 조민석 ===================================================
 	/*병원 리스트 출력 정경호,권기은*/
