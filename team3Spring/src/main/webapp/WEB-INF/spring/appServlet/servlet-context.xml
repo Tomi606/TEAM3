@@ -74,7 +74,7 @@
 	<beans:bean id="uploadPath" class="java.lang.String">
 		<!-- <beans:constructor-arg value="서버에 저장할 경로"/> -->
 		<beans:constructor-arg
-			value="D:\\uploadfiles" />
+			value="D:\\uploads" />
 	</beans:bean>
 
 </beans:beans>

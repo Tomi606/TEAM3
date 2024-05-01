@@ -1,5 +1,6 @@
 package kr.kh.team3.model.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import lombok.Data;
@@ -19,5 +20,13 @@ public class CommentVO {
 	
 	public CommentVO(int co_num) {
 		this.co_num = co_num;
+	}
+	public String getChangeDate() {
+		if (this.co_date != null) {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+			return format.format(this.co_date);
+		} else {
+			return "없당ㅎㅎ";
+		}
 	}
 }
