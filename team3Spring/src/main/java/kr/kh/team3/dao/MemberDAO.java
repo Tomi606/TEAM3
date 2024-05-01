@@ -106,11 +106,13 @@ public interface MemberDAO {
 	ArrayList<HospitalDetailVO> getMySubject();
 
 	//병원 상세 페이지 북마크 : 양선진
-	boolean insertBookmark(@Param("me") MemberVO member, @Param("ho_id") String ho_id);
+//	boolean insertBookmark(@Param("me") MemberVO member, @Param("ho_id") String ho_id);
 
-	BookmarkVO selectBookmark(@Param("me_id") String me_id, @Param("ho_id") String hd_ho_id);
+	BookmarkVO selectBookmark(@Param("me_id") String me_id, @Param("hd_ho_id") String hd_ho_id);
 
 	boolean deleteBookmark(@Param("bmk_ho_id") String bmk_ho_id, @Param("bmk_me_id") String bmk_me_id);
+
+	boolean insertBookmark(@Param("me") MemberVO member, @Param("hd_ho_id") String hd_ho_id);
 
 
 }

@@ -97,7 +97,7 @@ public interface HospitalService {
 
 	boolean insertReview(ReviewVO review, MemberVO member);
 
-	HospitalDetailVO getDetail(Integer hdNum);
+	HospitalDetailVO getDetail(int hd_num);
 
 	boolean insertLand(LandVO land);
 
@@ -170,5 +170,15 @@ public interface HospitalService {
 	ArrayList<HospitalSubjectVO> getDetailSubject(String hd_ho_id);
 
 	HospitalDetailVO getDetailId(int hdNum);
+
+	LandVO getHoLand(int ho_la_num);
+
+	SiDoVO getHdSiDoName(int la_sd_num);
+
+	SiGoonGuVO getHdSggName(int la_sgg_num);
+
+	EupMyeonDongVO getHdEmdName(int la_emd_num);
+
+	HospitalVO getHospitalMypage(SiteManagement user);
 
 }
