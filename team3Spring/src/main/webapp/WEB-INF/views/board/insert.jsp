@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.js"></script>
+<link href="http://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.css" rel="stylesheet">
+<script src="http://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.js"></script>
 <style type="text/css">
 .post_list_container{width: 100%;height: 1500px;}
 .post_list_box{
