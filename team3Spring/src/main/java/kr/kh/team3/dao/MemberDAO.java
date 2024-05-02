@@ -50,7 +50,7 @@ public interface MemberDAO {
 
 	MemberVO selectMemberSiteId(@Param("me_id")String me_id);
 
-	ArrayList<ReportVO> selectReportMemberList(@Param("cri") Criteria cri);
+	ArrayList<SiteManagement> selectReportMemberList(@Param("cri") Criteria cri);
 
 	int selectReportMemberTotalCount(@Param("cri") Criteria cri);
 
@@ -125,6 +125,8 @@ public interface MemberDAO {
 	SiteManagement selectReportMemberTarget(@Param("reUser")int reUser);
 
 	int selectTarget(@Param("id")String rp_target_id);
+
+	SiteManagement selectSiteMember(@Param("rp_target") int rp_target);
 
 
 }

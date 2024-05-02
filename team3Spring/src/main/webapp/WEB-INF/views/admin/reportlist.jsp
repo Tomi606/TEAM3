@@ -88,6 +88,7 @@ function displayReportList(list){
 					<td>\${item.hospital.ho_num}</td>
 					<td>\${reportNames}</td>
 					<td>\${item.hospital.ho_report_count}</td>
+					<td>\${item.hospital.ho_stop_count}</td>
 					<td>\${item.hospital.changeDate}</td>
 					<td>
 						<select id="selectbox" data-gg="gg">

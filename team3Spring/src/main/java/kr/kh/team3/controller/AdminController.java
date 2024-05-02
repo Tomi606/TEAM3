@@ -187,13 +187,13 @@ public class AdminController {
 		return "/admin/member/report";
     }
 	
-	//신고 회원 관리 리스트 https://wakestand.tistory.com/787
+	//신고 회원 관리 리스트
 	@ResponseBody
 	@PostMapping("/admin/member/report")
 	public Map<String, Object> adminReportPost(@RequestBody Criteria cri) {
 		Map<String, Object> map = new HashMap<String, Object>();		
 		cri.setPerPageNum(3);
-		ArrayList<ReportVO> list = memberService.getReportMemberList(cri);
+		ArrayList<SiteManagement> list = memberService.getReportMemberList(cri);
 		int totalCount = memberService.getReportMemberTotalCount(cri);
 		PageMaker pm = new PageMaker(3, cri, totalCount);
 		map.put("list", list);
