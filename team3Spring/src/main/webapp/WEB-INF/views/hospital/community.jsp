@@ -48,19 +48,6 @@
 		<div id="page1" class="community-page1 page active">
 			<div class="post-list">
 				<!-- 내 게시글 출력 -->
-				<c:choose>
-					 <c:when test="${pList == null }">
-					 	<p>등록된 게시글이 없습니다.</p>
-					 </c:when>
-					 <c:otherwise>					 	
-						<c:forEach items="${pList}" var="pList" begin="0" end="${pList.size() -1}">				
-							<p>제목 : ${pList.po_title}</p>
-							<p>날짜 : ${pList.po_date}</p>
-							<p>내용 : ${pList.po_content}</p>
-							<br>
-						</c:forEach>
-					 </c:otherwise>
-				</c:choose>
 			</div>
 			<div class="box-pagination">
 				<ul class="pagination justify-content-center">
@@ -72,19 +59,6 @@
 		<div id="page2" class="community-page2 page">
 			<div class="comment-list">
 				<!-- 내 댓글 출력 -->
-				<c:choose>
-					 <c:when test="${cList == null }">
-					 	<p>등록된 댓글이 없습니다.</p>
-					 </c:when>
-					 <c:otherwise>					 	
-						<c:forEach items="${cList}" var="cList" begin="0" end="${cList.size() -1}">				
-							<p>날짜 : ${cList.co_date}</p>
-							<p>내용 : ${cList.co_content}</p>
-							<p>신고횟수 : ${cList.co_report_count}</p>
-							<br>
-						</c:forEach>
-					 </c:otherwise>
-				</c:choose>
 			</div>
 			<div class="box-pagination">
 				<ul class="pagination justify-content-center">
@@ -96,7 +70,6 @@
 		<div id="page3" class="community-page3 page">
 			<div class="box-post-list">
 				<!-- 좋아요 출력 -->
-				${rList }
 			</div>
 			<div class="box-pagination">
 				<ul class="pagination justify-content-center">
@@ -109,7 +82,107 @@
 
 <!-- 내 게시글 -->
 <script type="text/javascript">
+let type = 'title';
+let po_id = "${po_id}";	
 
+getPostList();
+function getPostList(){
+   $.ajax({
+      async : true,
+      url : '<c:url value="/hospital/community"/>', 
+      type : 'get', 
+      data : {
+    	  type : type,
+    	  po_id : po_id
+      },
+      dataType : "json", 
+      success : function (data){
+    	 displayPostList(data.pList);
+         /* displayPostPagination(data.pm); */
+      }, 
+      error : function(jqXHR, textStatus, errorThrown){
+
+      }
+   });
+}
+
+function displayPostList(pList){
+   let str = `
+	   <table style="width: 100%;">
+		<thead>
+			<tr>
+				<th style="width: 5%;">No</th>
+				<th style="width: 40%;">제목</th>
+				<th style="width: 30%;">작성일</th>
+				<th style="width: 7.5%;">추천수</th>
+				<th style="width: 7.5%;">조회수</th>
+			</tr>
+		</thead>
+		<tr class="hr"></tr>
+   `;
+   if(pList == null || pList.length == 0){
+      str += `
+    	  <tbody>
+	    	  <tr style="height: 400px;">
+				<td colspan="6">
+					<div>
+						<h3 style="color: lightgray">게시글이 존재하지 않습니다.</h3>
+					</div>
+				</td>
+			  </tr>
+		  </tbody>
+		</table>
+      `;
+      $('.post-list').html(str);
+      return;
+   }
+   str += `
+	   <tbody>
+   `;
+   for(item of pList){
+	   console.log(item);
+      str += 
+      ` <tr style="height: 100px; border-bottom: 1px solid lightgray;">
+			<td style="width: 5%;">\${item.po_num}</td>
+			<td style="width: 40%;">
+				<a href="<c:url value="/board/detail?po_num=\${item.po_num}"/>" class="title-link">\${item.po_title}</a>
+				<a href="<c:url value="/board/detail?po_num=\${item.po_num}#comments-section"/>" class="comment-link" data-po-num="\${item.po_num}"> [\${item.po_co_count}]</a>
+			</td>
+			<td style="width: 30%;">\${item.changeDate1}</td>
+			<td style="width: 7.5%;">\${item.po_up}</td>
+			<td style="width: 7.5%;">\${item.po_view}</td>
+		</tr>
+      `;
+	}
+    str += `
+			</tbody>
+		</table>
+    `;
+	$('.post-list').html(str);
+}
+/* function displayPostPagination(pm){
+   let str = '';
+   if(pm.prev){
+      str += `
+		<li class="page-item">
+			<a class="page-link" href="javascript:void(0);" data-page="\${pm.startPage - 1}">이전</a>
+		</li>`;
+   }
+   for(let i = pm.startPage; i<= pm.endPage; i++){
+      let active = pm.cri.page == i ? 'active' : '';
+      str += `
+      <li class="page-item \${active}">
+         <a class="page-link" href="javascript:void(0);" data-page="\${i}">\${i}</a>
+      </li>`;
+   }
+   if(pm.next){
+      str += `
+      <li class="page-item">
+         <a class="page-link" href="javascript:void(0);" data-page="\${pm.endPage + 1}">다음</a>
+      </li>`;
+   }
+   $('.box-pagination>ul').html(str);
+} */
 </script>
 
 <!-- 내 댓글 -->
