@@ -219,7 +219,6 @@ height:50px;width:100%;background-color: #fafafa;
 </div>
 	 
  <script>
-	console.log(${list});
      $('.hos-btn').hover(function() {
          $('.category-sub').show();
          $('.header-box').addClass('hovered');
