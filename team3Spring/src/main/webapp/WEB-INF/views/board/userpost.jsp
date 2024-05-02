@@ -77,6 +77,19 @@
 .comment-link:hover{
 	color: black;
 }
+.user-btn {
+	background-color: white;
+	border: 0px solid black;
+	float: left;
+}
+.user-btn:hover{
+	color: green;
+	border-bottom: 3px solid green;
+}
+.user-btn-active{
+	color: green;
+	border-bottom: 3px solid green;
+}
 </style>
 </head>
 <body>
@@ -98,9 +111,9 @@
 			</c:if>
 			
 			<div class="hr"></div>
-			<div>
-				<button class="user-post-btn">작성한 글</button>
-				<button class="user-cmt-btn">댓글 쓴 글</button>
+			<div class="user-btn-box">
+				<button class="user-btn user-post-btn user-btn-active">작성한 글</button>
+				<button class="user-btn user-cmt-btn">댓글 쓴 글</button>
 			</div>
 			<div class="box-post-list">
 				<!-- 회원 게시글, 댓글 출력 -->
@@ -428,6 +441,8 @@ $(document).on('click','.user-post-btn',function(){
 	search_cmt = '';
 	$('.box-pagination1>ul').html('');
 	$('.box-pagination>ul').html('');
+	$(".user-cmt-btn").removeClass("user-btn-active");
+	$(this).addClass("user-btn-active");
    getPostList();
 });
 $(document).on('click','.user-cmt-btn',function(){
@@ -439,6 +454,8 @@ $(document).on('click','.user-cmt-btn',function(){
 	search_cmt = '';
 	$('.box-pagination1>ul').html('');
 	$('.box-pagination>ul').html('');
+	$(".user-post-btn").removeClass("user-btn-active");
+	$(this).addClass("user-btn-active");
    getCmtList();
 });
 </script>
