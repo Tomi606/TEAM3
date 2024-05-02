@@ -274,4 +274,15 @@
 		where bmk_me_id = #{me_id} and bmk_ho_id = #{hd_ho_id} limit 1
 	</select>
 		
+		
+		
+	<select id="selectMemberArrList" resultType="MemberVO">
+		select * from member
+	</select>	
+	
+	<update id="updateRpCount">
+		UPDATE member
+		SET me_report_count = me_report_count + 1
+		WHERE me_id = #{me_id}
+	</update>
 </mapper>
