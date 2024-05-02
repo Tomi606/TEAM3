@@ -4,8 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team3.dao.HospitalDAO">
 
-
-<resultMap type="SiteManagement" id="siteMap">
+	<!-- 시작 -->
+	<resultMap type="SiteManagement" id="siteMap">
 		<id column="site_num" property="site_num"/>
 		<result column="site_la_num" property="site_la_num"/>
 		<result column="site_id" property="site_id"/>
@@ -14,7 +14,6 @@
 		<result column="site_authority" property="site_authority"/>
 		<collection property="hospital" ofType="HospitalVO" column="site_id" select="siteHospitalgetId"/>
 		<collection property="report" ofType="ReportVO" column="site_num" select="siteHospitalgetReport"/>
-
 	</resultMap>
 	<select id="siteHospitalgetId" resultType="HospitalVO">
 		select * from hospital where ho_id = #{site_id}
@@ -22,6 +21,20 @@
 	<select id="siteHospitalgetReport" resultType="kr.kh.team3.model.vo.ReportVO">
 		select * from report where rp_target = #{site_num}
 	</select>
+	<select id="selectReportHospitalList" resultMap="siteMap">
+		select * from site_management
+		where site_authority = "MANAGER"
+		order by site_num
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="selectRHTotalCount" resultType="int">
+		select count(*) from site_management
+		where site_authority = "MANAGER"
+		order by site_num
+	</select>
+	<!-- 여기까지 세트 -->
+	
 	
 	<select id="selectHospitalArrList" resultType="HospitalVO">
 		select * from hospital
@@ -309,18 +322,7 @@
 		select * from site_management where site_num = #{num}
 	</select>
 	
-	<select id="selectReportHospitalList" resultMap="siteMap">
-		select * from site_management
-		where site_authority = "MANAGER"
-		order by site_num
-		limit #{cri.pageStart}, #{cri.perPageNum}
-	</select>
 	
-	<select id="selectRHTotalCount" resultType="int">
-		select count(*) from site_management
-		where site_authority = "MANAGER"
-		order by site_num
-	</select>
 	
 	<update id="updateHospitalStop">
 		update hospital set

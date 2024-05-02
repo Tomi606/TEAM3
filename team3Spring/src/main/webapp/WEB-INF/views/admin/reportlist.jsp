@@ -80,7 +80,6 @@ function displayReportList(list){
 			let reportNames = '';
 			for(report of item.report){
 	            reportNames += `\${report.rp_name}`;
-	      
 			str += 
 			`
 				<tr class="box-hospital">
