@@ -21,6 +21,7 @@ import kr.kh.team3.model.vo.CommentVO;
 import kr.kh.team3.model.vo.FileVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.RecommendVO;
+import kr.kh.team3.model.vo.ReportVO;
 import kr.kh.team3.model.vo.SiteManagement;
 import kr.kh.team3.pagination.Criteria;
 import kr.kh.team3.pagination.PageMaker;
@@ -168,6 +169,17 @@ public class BoardController {
 		map.put("post", post);
 		return map;
 	}
+	@ResponseBody
+	@PostMapping("/report/check")
+	public Map<String, Object> reportCheck(@RequestBody ReportVO report,HttpSession session){
+		Map<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		boolean res = boardService.report(report, user);
+		map.put("result", res);
+		return map;
+	}
+	  
+	
 
 }
 

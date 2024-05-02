@@ -465,6 +465,7 @@ function getMypage() {
 }
 
 function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
+	
 	if(hospital == null || hospital.length == 0) {
 		return;
 	}
@@ -481,7 +482,7 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 			<div class="profile-anything">
 				<div class="anything-box">				
 					<div class="choose-box">			
-						<a href='<c:url value="/hospital/detail/detail?hdNum=1"/>'>병원 상세 페이지 조회</a><br>
+						<a href='<c:url value="/hospital/detail/detail?hd_num=\${hospital.hospital_detail.hd_num}"/>'>병원 상세 페이지 조회</a><br> 
 					</div>
 					<div class="choose-box">
 						<a href='<c:url value="/hospital/detail/insert"/>'>병원 상세 페이지 등록/수정</a><br>
@@ -493,7 +494,7 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 						<a>4. 예약 관리</a><br>
 					</div>
 					<div class="choose-box">			
-						<a>5. 커뮤니티 관리</a>
+						<a href='<c:url value="/hospital/community"/>'>5. 커뮤니티 관리</a>
 					</div>
 				</div>
 			</div>

@@ -500,7 +500,7 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 				      <input type='password' id="new_me_pw2"name="me_pw2" class="box-pw2"/>
 				    </div>
 				    <a type="button" class="pw-update-success-btn">비밀번호 변경하기</a>
-			  	</div>
+		  		  </div>
 				</div>
 			</div>
 		</div>

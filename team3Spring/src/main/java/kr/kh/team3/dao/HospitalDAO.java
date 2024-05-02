@@ -99,7 +99,7 @@ public interface HospitalDAO {
 
 	HospitalVO getHospital(@Param("ho_id")String hd_ho_id, @Param("la_num")int me_la_num);
   
-	HospitalDetailVO selectDetail(@Param("hd_num") Integer hdNum);
+//	HospitalDetailVO selectDetail(@Param("hd_num") int hdNum);
 
 	boolean insertReview(@Param("vw") ReviewVO review);
 
@@ -177,6 +177,18 @@ public interface HospitalDAO {
 
 	ArrayList<HospitalSubjectVO> selectDetailSubject(@Param("hd_ho_id") String hd_ho_id);
 
-	HospitalDetailVO selectDetailId(@Param("hd_num") int hdNum);
+	HospitalDetailVO selectDetailId(@Param("hd_num") int hd_num);
+
+	LandVO selectHoLand(@Param("ho_la_num") int ho_la_num);
+
+	SiDoVO selectHdSiDoName(@Param("la_sd_num") int la_sd_num);
+
+	SiGoonGuVO selectHdSggName(@Param("la_sgg_num") int la_sgg_num);
+
+	EupMyeonDongVO selectHdEmdName(@Param("la_emd_num") int la_emd_num);
+
+	HospitalDetailVO selectDetail(@Param("hd_num")int hd_num);
+
+	HospitalVO selectHospitalPage(@Param("id")String site_id);
 
 }
