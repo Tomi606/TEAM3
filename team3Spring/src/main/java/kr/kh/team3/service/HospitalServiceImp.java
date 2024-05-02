@@ -271,7 +271,7 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public ArrayList<HospitalVO> getReportHospitalList(Criteria cri) {
+	public ArrayList<SiteManagement> getReportHospitalList(Criteria cri) {
 		if(cri == null) {
 			return null;
 		}
@@ -312,19 +312,21 @@ public class HospitalServiceImp implements HospitalService {
 			report.getRp_rs_name().length() == 0) {
 			return false;
 		}
+		SiteManagement user = hospitalDao.selectHospitalReportTarget(report.getRp_target());
+		String id = user.getSite_id();
 		//정지값이 null인지 확인해서
-		HospitalVO ho = hospitalDao.selectHospital(report.getRp_target());
+		HospitalVO ho = hospitalDao.selectHospital(id);
 		//null 이면
 		if(ho.getHo_stop() == null) {
-			return hospitalDao.updateHospitalStop(report.getRp_target(), report.getRp_rs_name());
+			return hospitalDao.updateHospitalStop(id, report.getRp_rs_name());
 		}
 		//아니면
 		//1. ho_stop이 현재시간 이후이면 이미 있던 ho_stop + 정지일
 		if(ho.getHo_stop().after(now)) {
-			return hospitalDao.updateHospitalStopPlus(report.getRp_target(), report.getRp_rs_name());
+			return hospitalDao.updateHospitalStopPlus(id, report.getRp_rs_name());
 		}
 		//2. ho_stop이 현재시간 이전이면 데이터 새로 넣기.
-		return hospitalDao.updateHospitalStop(report.getRp_target(), report.getRp_rs_name());
+		return hospitalDao.updateHospitalStop(id, report.getRp_rs_name());
 	}
 
 	@Override

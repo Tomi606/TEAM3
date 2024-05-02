@@ -3,6 +3,23 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team3.dao.HospitalDAO">
+<resultMap type="SiteManagement" id="siteMap">
+		<id column="site_num" property="site_num"/>
+		<result column="site_la_num" property="site_la_num"/>
+		<result column="site_id" property="site_id"/>
+		<result column="site_phone" property="site_phone"/>
+		<result column="site_email" property="site_email"/>
+		<result column="site_authority" property="site_authority"/>
+		<collection property="hospital" ofType="HospitalVO" column="site_id" select="siteHospitalgetId"/>
+		<collection property="report" ofType="ReportVO" column="site_num" select="siteHospitalgetReport"/>
+
+	</resultMap>
+	<select id="siteHospitalgetId" resultType="HospitalVO">
+		select * from hospital where ho_id = #{site_id}
+	</select>
+	<select id="siteHospitalgetReport" resultType="kr.kh.team3.model.vo.ReportVO">
+		select * from report where rp_target = #{site_num}
+	</select>
 	
 	<select id="selectHospitalArrList" resultType="HospitalVO">
 		select * from hospital
@@ -280,29 +297,27 @@
 		where site_id = #{ho_id}
 	</delete>
 	
-	<resultMap type="kr.kh.team3.model.vo.ReportVO" id="ReportMap">
-		<result property="rp_num" column="rp_num"/>
-		<result property="rp_target" column="rp_target"/>
-		<result property="rp_name" column="rp_name"/>
-		<result property="rp_rs_name" column="rp_rs_name"/>
-		<result property="rp_site_num" column="rp_site_num"/>
-		<collection property="hospital" ofType="kr.kh.team3.model.vo.HospitalVO"
-			column="rp_target" select="selectHospitalReport"/>
-	</resultMap>
+
+	<select id="selectReportSiteHospitalList" resultType="kr.kh.team3.model.vo.SiteManagement">
+		select * from site_management where site_num = #{rp_target}
+	</select>
+
 	
-	<select id="selectHospitalReport" resultType="kr.kh.team3.model.vo.HospitalVO">
-		select * from hospital where ho_id = #{rp_target}
+	<select id="selectHospitalReportTarget" resultType="kr.kh.team3.model.vo.SiteManagement">
+		select * from site_management where site_num = #{num}
 	</select>
 	
-	<select id="selectReportHospitalList" resultMap="ReportMap">
-		select * from report
-		order by rp_num
+	<select id="selectReportHospitalList" resultMap="siteMap">
+		select * from site_management
+		where site_authority = "MANAGER"
+		order by site_num
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
 	<select id="selectRHTotalCount" resultType="int">
-		select count(*) from report
-		order by rp_target
+		select count(*) from site_management
+		where site_authority = "MANAGER"
+		order by site_num
 	</select>
 	
 	<update id="updateHospitalStop">
@@ -565,4 +580,10 @@
 	<select id="selectHdEmdName" resultType="EupMyeonDongVO">
 		select emd_name from eup_myeon_dong where emd_num = #{la_emd_num}
 	</select>
+	
+	<update id="updateHospitalRpCount">
+		UPDATE hospital
+		SET ho_report_count = ho_report_count + 1
+		WHERE ho_id = #{id}
+	</update>
 </mapper>

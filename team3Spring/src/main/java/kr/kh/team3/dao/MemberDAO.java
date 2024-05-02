@@ -120,5 +120,11 @@ public interface MemberDAO {
 
 	ArrayList<MemberVO> selectUserArrList();
 
+	void updateMemberRpCount(@Param("id")String id);
+
+	SiteManagement selectReportMemberTarget(@Param("reUser")int reUser);
+
+	int selectTarget(@Param("id")String rp_target_id);
+
 
 }

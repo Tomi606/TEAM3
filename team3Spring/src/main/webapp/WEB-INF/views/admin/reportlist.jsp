@@ -23,7 +23,6 @@
 				<th>아이디</th>
 				<th>상호명</th>
 				<th>사업자 번호</th>
-				<th>신고 유형</th>
 				<th>신고 사유</th>
 				<th>신고 누적 횟수</th>
 				<th>정지 기간</th>
@@ -76,15 +75,19 @@ function displayReportList(list){
 		return;
 	}
 	for(item of list){
+		console.log(item);
 		if(item.hospital != null){
+			let reportNames = '';
+			for(report of item.report){
+	            reportNames += `\${report.rp_name}`;
+	      
 			str += 
 			`
 				<tr class="box-hospital">
-					<td>\${item.rp_target}</td>
+					<td>\${item.hospital.ho_id}</td>
 					<td>\${item.hospital.ho_name}</td>
 					<td>\${item.hospital.ho_num}</td>
-					<td>\${item.rp_name}</td>
-					<td>\${item.rp_name}</td>
+					<td>\${reportNames}</td>
 					<td>\${item.hospital.ho_report_count}</td>
 					<td>\${item.hospital.changeDate}</td>
 					<td>
@@ -103,6 +106,7 @@ function displayReportList(list){
 					<td><button class="btn-ho-out" data-id="\${item.hospital.ho_id}">탈퇴</button></td>
 				</tr>
 			`;
+			  }
 		}
 	}
 	$('.box-hospital-list').html(str);

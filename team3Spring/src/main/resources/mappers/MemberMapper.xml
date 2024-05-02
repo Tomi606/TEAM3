@@ -287,4 +287,17 @@
 		SET me_report_count = me_report_count + 1
 		WHERE me_id = #{me_id}
 	</update>
+	
+	<select id="selectReportMemberTarget" resultType="SiteManagement">
+		select * from site_management where site_num = #{reUser}
+	</select>
+	
+	<update id="updateMemberRpCount">
+		update member set me_report_count = me_report_count +1
+		where me_id = #{id}
+	</update>
+	
+	<select id="selectTarget" resultType="int">
+		select site_num from site_management where site_id =#{id}
+	</select>
 </mapper>
