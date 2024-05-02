@@ -321,6 +321,7 @@ $(document).ready(function() {
 	        console.log(data.result);
 	        if(!data.result){
 	          alert(target_id + "님을 이미 신고하였습니다.");  
+	          $("#myModal").css("display", "none");
 	          return;
 	        } else {
 	        	 alert(target_id + "님을 신고하였습니다.");

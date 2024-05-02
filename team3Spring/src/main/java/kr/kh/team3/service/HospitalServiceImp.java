@@ -271,7 +271,7 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public ArrayList<HospitalVO> getReportHospitalList(Criteria cri) {
+	public ArrayList<SiteManagement> getReportHospitalList(Criteria cri) {
 		if(cri == null) {
 			return null;
 		}
