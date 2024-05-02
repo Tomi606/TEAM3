@@ -202,7 +202,7 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public ArrayList<ReportVO> getReportMemberList(Criteria cri) {
+	public ArrayList<SiteManagement> getReportMemberList(Criteria cri) {
 		if (cri == null) {
 			cri = new Criteria();
 		}
@@ -251,19 +251,21 @@ public class MemberServiceImp implements MemberService {
 		}
 
 		// ReportVO객체의 rp_target을 넣어서 member 생성
-		MemberVO member = memberDao.selectMember(report.getRp_target());
+		SiteManagement user = memberDao.selectSiteMember(report.getRp_target());
+		String id = user.getSite_id();
+		MemberVO member = memberDao.selectMember(id);
 		// member의 정지기간이 null이면
 		if (member.getMe_stop() == null) {
-			return memberDao.updateStopMember(report.getRp_target(), report.getRp_rs_name());
+			return memberDao.updateStopMember(id, report.getRp_rs_name());
 		}
 
 		// 이미 정지기간이면 + 이미 있는 me_stop + 정지일
 		if (member.getMe_stop().after(now)) {
-			return memberDao.updatePlusStopMember(report.getRp_target(), report.getRp_rs_name());
+			return memberDao.updatePlusStopMember(id, report.getRp_rs_name());
 		}
 
 		// ho_stop이 현재시간 이전이면 새데이터 넣기
-		return memberDao.updateStopMember(report.getRp_target(), report.getRp_rs_name());
+		return memberDao.updateStopMember(id, report.getRp_rs_name());
 	}
 
 	@Override

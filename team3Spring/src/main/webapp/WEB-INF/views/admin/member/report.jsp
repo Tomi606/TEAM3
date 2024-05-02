@@ -89,31 +89,37 @@ function displayReportList(list){
 		return;
 	}
 	for(item of list){
-		str += 
-			` 
-			<tr class="box-report" style="text-align: center;">
-				<td>\${item.rp_target}</td>
-				<td>\${item.member.me_name}</td>
-				<td>\${item.rp_rs_name}</td>
-				<td>\${item.rp_name}</td>
-				<td>\${item.member.me_report_count}</td>
-				<td>\${item.member.me_stop_count}</td>
-				<td>
-					<select id="selectbox">
-						<option value="0">선택</option>
-						<option value="1">1일</option>
-						<option value="3">3일</option>
-						<option value="7">7일</option>
-						<option value="15">15일</option>
-						<option value="30">30일</option>
-						<option value="60">60일</option>
-						<option value="365">365일</option>
-					</select>
-					<button type="button" class="btn-member-stop" data-stop="\${item.member.me_id}">정지</button>
-				</td>
-				<td><button type="button" class="btn-member-del" data-del="\${item.member.me_id}">탈퇴</button></td>
-			</tr>
-			`
+		if(item.member != null) {
+			let reportNames = '';
+			for(report of item.report){
+	            reportNames += `\${report.rp_name}`;
+			str += 
+				` 
+				<tr class="box-report" style="text-align: center;">
+					<td>\${item.member.me_id}</td>
+					<td>\${item.member.me_name}</td>
+					<td>\${reportNames}</td>
+					<td>\${item.member.me_report_count}</td>
+					<td>\${item.member.me_stop_count}</td>
+					<td>\${item.member.changeDate}</td>
+					<td>
+						<select id="selectbox">
+							<option value="0">선택</option>
+							<option value="1">1일</option>
+							<option value="3">3일</option>
+							<option value="7">7일</option>
+							<option value="15">15일</option>
+							<option value="30">30일</option>
+							<option value="60">60일</option>
+							<option value="365">365일</option>
+						</select>
+						<button type="button" class="btn-member-stop" data-stop="\${item.member.me_id}">정지</button>
+					</td>
+					<td><button type="button" class="btn-member-del" data-del="\${item.member.me_id}">탈퇴</button></td>
+				</tr>
+				`
+				}
+		}
 	}
 	$('.report-list').html(str);
 }
