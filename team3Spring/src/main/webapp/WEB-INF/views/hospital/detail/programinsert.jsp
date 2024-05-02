@@ -7,10 +7,10 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
  <!-- 제이쿼리 CDN 방식 -->
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" ></script>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" ></script>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.js" ></script>
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.min.js" ></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js" ></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" ></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.js" ></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.min.js" ></script>
 <style type="text/css">
 .body-tag{
 padding:200px 0 200px;

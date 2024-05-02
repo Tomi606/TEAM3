@@ -5,8 +5,8 @@
 <html>
 <head>
 <!-- jquery validation -->
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+<script src="http://fastly.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <title>세부 항목  수정</title>
 <style type="text/css">
 .container {
@@ -379,7 +379,7 @@ function cal(mon,ye, list){
 }
 
 
-//cal(numMonth,numYear);
+cal(numMonth,numYear);
 
 
 //이전버튼 클릭
