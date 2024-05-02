@@ -297,10 +297,22 @@
 	</select>
 	
 	<select id="selectUserCmtList" resultType="kr.kh.team3.model.vo.PostVO">
-		select distinct post.*, site_id as po_id from comment
-		join post on co_po_num = po_num
-		join site_management on site_num = po_mg_num
-		where co_mg_num = #{site_num}
+		SELECT
+		    distinct post.*,
+		    site_id as po_id,
+		    (
+		        SELECT COUNT(*)
+		        FROM recommend
+		        WHERE recommend.re_po_num = post.po_num AND recommend.re_state = 1
+		    ) AS po_up
+		FROM
+		    post
+		JOIN
+		    comment ON post.po_num = comment.co_po_num
+		JOIN
+		    site_management ON site_num = po_mg_num
+		WHERE
+		    comment.co_mg_num = #{site_num}
 		<choose>
 			<when test='cri.type == "title"'>
 				and (po_title like concat('%', #{cri.search}, '%'))
@@ -309,8 +321,10 @@
 				and (po_title like concat('%', #{cri.search}, '%') or
 				po_content like concat('%', #{cri.search}, '%'))
 			</when>
+			<when test='cri.type == "writer"'>
+				and (site_id like concat('%', #{cri.search}, '%')
+			</when>
 		</choose>
-		group by po_num
 		order by po_num desc
 		LIMIT #{cri.pageStart}, #{cri.perPageNum}
 	</select>
@@ -318,11 +332,20 @@
 	<select id="selectUserCmtListCount" resultType="int">
 		SELECT COUNT(*) AS post_count
 		FROM (
-		    SELECT DISTINCT post.*, site_id as po_id
-		    FROM comment
-		    JOIN post ON co_po_num = po_num
-		    join site_management on site_num = po_mg_num
-		    WHERE co_mg_num = #{site_num}
+		    SELECT DISTINCT post.*, site_id as po_id,
+			    (
+			        SELECT COUNT(*)
+			        FROM recommend
+			        WHERE recommend.re_po_num = post.po_num AND recommend.re_state = 1
+			    ) AS po_up
+			FROM
+			    post
+			JOIN
+			    comment ON post.po_num = comment.co_po_num
+			JOIN
+			    site_management ON site_num = po_mg_num
+			WHERE
+			    comment.co_mg_num = #{site_num}
 		    <choose>
 				<when test='cri.type == "title"'>
 					and (po_title like concat('%', #{cri.search}, '%'))
@@ -330,6 +353,9 @@
 				<when test='cri.type == "titleContent"'>
 					and (po_title like concat('%', #{cri.search}, '%') or
 					po_content like concat('%', #{cri.search}, '%'))
+				</when>
+				<when test='cri.type == "writer"'>
+					and (site_id like concat('%', #{cri.search}, '%')
 				</when>
 			</choose>
 		) AS counted_posts

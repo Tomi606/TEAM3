@@ -382,15 +382,28 @@ function displayCmtSearchBox(){
 			<select name="type" class="cmt-search-type">
 				<option value="title" selected>제목만</option>
 				<option value="titleContent">제목 + 내용</option>
+				<option value="writer">글작성자</option>
 			</select>
 			<input type="search" class="검색 cmt-search-search" name="search" placeholder="검색어를 입력하세요" value="\${search_cmt}">
 			<button class="cmt-search-btn" type="button">검색</button>
 		`;
-	}else{
+	}else if(type_cmt == 'titleContent'){
 		str = `
 			<select name="type" class="cmt-search-type">
 				<option value="title">제목만</option>
 				<option value="titleContent" selected>제목 + 내용</option>
+				<option value="writer">글작성자</option>
+			</select>
+			<input type="search" class="검색 cmt-search-search" name="search" placeholder="검색어를 입력하세요" value="\${search_cmt}">
+			<button class="cmt-search-btn" type="button">검색</button>
+		`;
+	}
+	else{
+		str = `
+			<select name="type" class="cmt-search-type">
+				<option value="title">제목만</option>
+				<option value="titleContent">제목 + 내용</option>
+				<option value="writer" selected>글작성자</option>
 			</select>
 			<input type="search" class="검색 cmt-search-search" name="search" placeholder="검색어를 입력하세요" value="\${search_cmt}">
 			<button class="cmt-search-btn" type="button">검색</button>
