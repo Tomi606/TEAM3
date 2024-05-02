@@ -294,7 +294,6 @@ $(document).on('click', '#sgg_name', function(){
 		data : {"sgg_num" : sgg_num}, 
 		success : function (data){
 			
-			console.log(data);
 			let str =""
 			if(data == null ||data.length == 0){
 				str +=`<h3 style="color: gray;line-height: 200px;text-align: center;">존재하는 지역이 없습니다.</h3>` ;
@@ -376,7 +375,6 @@ function getSubHoList(){
             }
             else{
                 for(let ho of data.hoSubList){
-                		console.log(ho);
                 	if(ho.hospital_detail == null){
                		 str += 
                         `
@@ -458,7 +456,6 @@ function getAreaHoList(){
             }
             else{
                 for(let ho of data.hoList){
-                	console.log(ho);
                 	if(ho.hospital_detail == null){
                 		continue;
                 	}
@@ -530,7 +527,6 @@ function getAreaHoList(){
 }
 
 function displaySubHoPagination(pm){
-    console.log(pm);
 	let str = '';
 	if(pm.prev){
 		str += `
@@ -593,7 +589,6 @@ $(document).on('click', '.search-btn', function(){
     area.search = $('.search-input').val();
     getAreaHoList();
     var location = document.querySelector(".area-container").offsetTop;
-    console.log(location);
     window.scrollTo({top:location, behavior:'smooth'});
 });
 
