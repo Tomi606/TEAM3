@@ -9,6 +9,28 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.js"></script>
 <style type="text/css">
+.report-box li{
+	list-style: none;width: 50px;height: 50px;
+}
+.report-box{
+ 	  background-image:url("<c:url value="/resources/img/siren.png"/>");
+      margin-left:auto;
+      background-size: 30px;
+      width:50px;
+      height:50px;
+      background-repeat:no-repeat;
+      fill: #ddd;
+}
+.red_btn{
+ background-image:url("<c:url value="/resources/img/red_siren.png"/>");
+      margin-left:auto;
+      background-size: 30px;
+      width:50px;
+      height:50px;
+      background-repeat:no-repeat;
+      fill: #ddd;
+
+}
 .btn-like{
  background-image:url("<c:url value="/resources/img/heart.png"/>");
 	  margin-left:auto;
@@ -34,13 +56,17 @@
 textarea{outline-style: none;}
 .post_list_container{width: 100%;height: 100%;}
 .post_list_box{
-	border: 1px solid lightgray;width: 1400px;height: 100%;margin:100px auto;
-	padding:150px;
+	border:2px solid green;width: 1400px;height: 100%;margin:100px auto;
+	padding:100px;	border-radius: 15px;
 }
 .hr{width: 100%;height: 0;border: 1px solid lightgray;margin: 50px 0 50px 0;}
 .post_insert_btn{
 	line-height: 50px;color: green;height: 100%;width: 100%;
 	border: 1px solid green; padding: 13px;
+}
+.post_list_box{
+   box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
+    transition: box-shadow 0.3s ease;
 }
 .post_insert_btn:hover{color: white;background-color: green;text-decoration: none;}
 .post_insert_btn_box{height: 50px;width: 100px;margin: 0 20px 40px auto;}
@@ -84,7 +110,7 @@ width: 80%;margin: 0 auto 80px auto;
 width: 100%;height: 60px;border-bottom: 1px solid gray;
 
 }
-.like-box{width:100%;display:  flex;margin: 20px 0 80px 0;}
+.like-box{display:  flex;margin: 20px 0 80px auto;}
 .user_more_post{margin-left: 53px;margin-top: 10px;}
 .btn-insert-comment{
 	background-color: white; color: green;border: 1px solid green;
@@ -96,6 +122,56 @@ width: 100%;height: 60px;border-bottom: 1px solid gray;
 	width: 100%;display: flex;justify-content: center;border: 1px solid #d2d2d2;margin-bottom: 120px;
 }
 ..input-group{}
+.comment_id{
+	color: black;text-decoration: none;
+}
+.comment_id:hover {
+	color: black;text-decoration: underline;
+}
+.page-link{
+color: green;
+}
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: green;
+    border-color: green;
+ }
+ 
+ 
+ .modal {
+	display: none;
+	position: fixed;
+	z-index: 990;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 500px;
+	text-align: center;
+}
+
+.close {
+	color: #aaa;
+	margin: 0 24px 8px auto;
+	font-size: 50px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -129,12 +205,28 @@ width: 100%;height: 60px;border-bottom: 1px solid gray;
 					<textarea class="content-content" name="po_content" readonly 
 					style="max-height: 400px;">${post.po_content}</textarea>
 				</div>
-				<div class="like-box">
-					
-				   	 <li style="list-style: none;width: 50px;margin-left:auto;" role="button" class="btn btn-like btn-heart btn-up" data-state="1"></li>
-				    <span class="text-up">${post.po_up}</span>
-				   <%--  <a class="btn btn-heart btn-down " data-state="-1">싫어요(<span class="text-down">${post.po_down}</span>)</a> --%>
-			   </div>
+				<div style="display: flex;">	
+					<div class="like-box">
+					<c:if test="${post.po_id ne user.site_id}">
+						<div class="report-box"data-target="${post.po_id}">
+							<li role="button" class="btn-report"></li>
+						</div>
+					</c:if>
+					   	 <li style="list-style: none;width: 50px;margin-left:auto;" role="button" class="btn btn-like btn-heart btn-up" data-state="1"></li>
+					    <span class="text-up" style="width: 20px;">${post.po_up}</span>
+				   </div>	
+			  </div> 
+				  <div id="myModal" class="modal">
+					  <div class="modal-content">
+					    <span class="close">&times;</span>
+					    <h2>신고</h2>
+					    <label for="old_me_pw">신고 사유</labe>
+					    <div class="new_me_pw_hidden">
+					      <textarea type='text' id="rp_name" name="rp_name" class="box-pw2"></textarea>
+					    </div>
+					    <a type="button" class="report-user-btn success-btn">신고하기</a>
+			  		  </div>
+				 </div>
 				<!-- 작성자 게시글 더보기 -->
 			 	<label>첨부파일</label>
 			 <div class="form-group file-box">	
@@ -176,7 +268,7 @@ width: 100%;height: 60px;border-bottom: 1px solid gray;
 				<!-- 댓글 끝-->
 				<c:url value="/board/list" var="url">
 					<c:param name="page" value="${cri.page}" />
-					<c:param name="type" value="${cri.type}" />
+					<c:param name="type" value="${cri.type}" />	
 					<c:param name="search" value="${cri.search}" />
 				</c:url>
 			</div>	
@@ -193,6 +285,69 @@ width: 100%;height: 60px;border-bottom: 1px solid gray;
       width:1200
    });
 </script>
+
+<!-- 신고 -->
+<script type="text/javascript">
+$(document).ready(function() {
+	  // 로그인 여부를 체크
+	  if (!checkLogin()) {
+	    return;
+	  }
+	  
+	  $(document).on('click', '.btn-report', function() {
+		  
+		  
+	    let target_id = $(this).closest('.report-box').data('target');
+	    $("#myModal").css("display", "block");
+	    $("#myModal").data("target", target_id);
+	  });
+	  
+	  $(document).on('click', '.close', function() {
+	    // 모달 창을 닫음
+	    $("#myModal").css("display", "none");
+	  });
+	  
+	  $(document).on('click','.report-user-btn',function(){
+	    // 모달에서 신고 대상의 ID를 가져오기
+	    let target_id = $("#myModal").data("target");
+	    // textarea의 값 가져오기
+	    let rp_name = $("#rp_name").val();
+	    // 신고 내용과 대상의 ID를 report 객체에 설정
+	    let report = {
+	      rp_target: target_id,
+	      rp_name: rp_name
+	    };
+
+	    // 서버에 보고서 데이터 전송
+	    $.ajax({
+	      async: true, 
+	      url: '<c:url value="/report/check"/>',
+	      type: 'post',
+	      data: JSON.stringify(report),
+	      contentType: "application/json; charset=utf-8",
+	      dataType: "json",
+	      success: function(data) {
+	        console.log(data.result);
+	        if(data.result){
+	          alert(target_id + "님을 신고하였습니다.");
+	          $("#myModal").css("display", "none");
+	          $(".report-box").addClass("red_btn");
+	        } else {
+	          alert(target_id + "님을 이미 신고하였습니다.");  
+	        }
+	      },
+	      error: function(jqXHR, textStatus, errorThrown) {
+	        console.log("서버 오류 발생: " + errorThrown);
+	      }
+	    });
+	  });
+	});
+function checkReport(target_id){
+	
+	
+}
+</script>
+
 <!-- 추천 / 비추천 -->
 <script type="text/javascript">
 function checkLogin() {
@@ -341,7 +496,9 @@ function displayCommentList(commentList){
 	      str += 
 	      `
 	         <div class="box-comment row " style="width: 100%;border-bottom: 1px solid lightgray;display: flex;">
-	            <div class="col-3" style="width: 25%;text-align:center;">\${item.sitemanagement.site_id}</div>
+	            <div class="col-3" style="width: 25%;text-align:center;">
+	            	<a href="<c:url value='/board/userpost?po_id=${post.po_id}'/>" class="comment_id" >\${item.sitemanagement.site_id}</a>
+	            </div>
 	            <div class="col-9 clearfix input-group">
 	            	<span class="text-comment" style="width: 69%;">\${item.co_content}</span>
 	            	<span class="comment-date date" style="width: 8%;font-size:14px;color:gray">\${item.changeDate}</span>
@@ -471,7 +628,7 @@ $(document).on('click','.btn-comment-update',function(){
 	//댓글을 수정할 수 있는 textarea로 변경
 	let content = contentBox.text();
 	let str=
-	`<textarea class="textarea-comment comment_content"style="width: 88%;height:50px;">\${content}</textarea>`;
+	`<textarea class="textarea-comment comment_content"style="width: 87%;height:50px;">\${content}</textarea>`;
 	contentBox.after(str);
 	contentBox.hide();
 	//수정 / 삭제버튼을 감추고

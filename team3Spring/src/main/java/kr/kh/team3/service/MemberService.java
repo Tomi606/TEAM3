@@ -47,7 +47,7 @@ public interface MemberService {
 
 	boolean deleteMember(MemberVO member);
 
-	ArrayList<MemberVO> getReportMemberList(Criteria cri);
+	ArrayList<ReportVO> getReportMemberList(Criteria cri);
 
 	int getReportMemberTotalCount(Criteria cri);
 
@@ -92,10 +92,12 @@ public interface MemberService {
 
 	MemberVO getSiteMember(SiteManagement user);
 
-	boolean insertBookmark(BookmarkVO bookmark, MemberVO member, String ho_id);
+	boolean insertBookmark(BookmarkVO bookmark, MemberVO member);
 
-	boolean deleteBookmark(BookmarkVO bookmark, MemberVO member, HospitalDetailVO detail);
+	boolean deleteBookmark(BookmarkVO bookmark, MemberVO member);
 
-	boolean selectBookmark(BookmarkVO bookmark, MemberVO member, HospitalDetailVO detail);
+	boolean selectBookmark(BookmarkVO bookmark, MemberVO member);
+
+	boolean selectDetailBookmark(BookmarkVO bookmark, MemberVO member, String hd_ho_id);
 
 }

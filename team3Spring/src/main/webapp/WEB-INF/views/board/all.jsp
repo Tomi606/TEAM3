@@ -33,10 +33,10 @@ width: 100%;height: 100%;display: flex;margin: 0 auto;
 }
 .board_list_container{
 width: 1700px;height: 100%;display: grid; grid-template-columns: 1fr 1fr;padding: 25px;
-grid
+display: grid;margin: 0 auto;
 }
 .board_list{
-	width: 800px;height: 400px;border: 2px solid green;border-radius: 15px;padding: 20px;margin: 10px 10px 100px 10px; overflow: hidden;
+	width: 800px;height: 400px;border: 2px solid green;border-radius: 15px;padding: 20px;margin: 20px 20px 80px 20px; overflow: hidden;
 }
 .board_list:hover{
    box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);

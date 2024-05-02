@@ -11,6 +11,8 @@ public class LandVO {
 	private int la_sd_num;
 	private int la_sgg_num;
 	private int la_emd_num;
+	private HospitalVO hospital;
+	
 	public LandVO(int i,int la_sd_num, int la_sgg_num, int la_emd_num) {
 		this.la_num = i;
 		this.la_sd_num = la_sd_num;

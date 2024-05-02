@@ -192,8 +192,7 @@ public class AdminController {
 	public Map<String, Object> adminReportPost(@RequestBody Criteria cri) {
 		Map<String, Object> map = new HashMap<String, Object>();		
 		cri.setPerPageNum(3);
-		ArrayList<MemberVO> list = memberService.getReportMemberList(cri);
-		//현재 페이지 정보(cri)를 주면서 총 게시글 개수를 가져오라 명령
+		ArrayList<ReportVO> list = memberService.getReportMemberList(cri);
 		int totalCount = memberService.getReportMemberTotalCount(cri);
 		PageMaker pm = new PageMaker(3, cri, totalCount);
 		map.put("list", list);

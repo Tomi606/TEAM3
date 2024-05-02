@@ -50,16 +50,16 @@
 	<select id="selectAllPostList"
 		resultType="kr.kh.team3.model.vo.PostVO">
 		select
-			post.*,
-			site_id as po_id,
-			Sum(case when re_state = 1 then 1 else 0 end)as po_up,
-			Sum(case when re_state = -1 then 1 else 0 end)as po_down
+		post.*,
+		site_id as po_id,
+		Sum(case when re_state = 1 then 1 else 0 end)as po_up,
+		Sum(case when re_state = -1 then 1 else 0 end)as po_down
 		from
-			post
+		post
 		join
-			site_management on site_num = po_mg_num
+		site_management on site_num = po_mg_num
 		left join
-			recommend on re_po_num = po_num
+		recommend on re_po_num = po_num
 		group by po_num
 		order by po_num desc
 	</select>
@@ -79,7 +79,8 @@
 	</select>
 
 	<update id="updateBoard">
-		update board set bo_title = #{name} where bo_num = #{board.bo_num}
+		update board set bo_title = #{name} where bo_num =
+		#{board.bo_num}
 	</update>
 
 	<delete id="deleteBoard">
@@ -89,39 +90,40 @@
 	<select id="selectPostList"
 		resultType="kr.kh.team3.model.vo.PostVO">
 		select
-			post.*,
-			site_id as po_id,
-			Sum(case when re_state = 1 then 1 else 0 end)as po_up,
-			Sum(case when re_state = -1 then 1 else 0 end)as po_down
+		post.*,
+		site_id as po_id,
+		Sum(case when re_state = 1 then 1 else 0 end)as po_up,
+		Sum(case when re_state = -1 then 1 else 0 end)as po_down
 		from
-			post
+		post
 		join
-			site_management on site_num = po_mg_num
+		site_management on site_num = po_mg_num
 		left join
-			recommend on re_po_num = po_num
+		recommend on re_po_num = po_num
 		where po_bo_num = #{bo_num}
-			<choose>
-				<when test='cri.type == "all"'>
-					and (po_title like concat('%', #{cri.search}, '%') or
-					po_content like concat('%', #{cri.search}, '%') or
-					site_id like concat('%', #{cri.search}, '%'))
-				</when>
-				<when test='cri.type == "title"'>
-					and (po_title like concat('%', #{cri.search}, '%'))
-				</when>
-				<when test='cri.type == "titleContent"'>
-					and (po_title like concat('%', #{cri.search}, '%') or
-					po_content like concat('%', #{cri.search}, '%'))
-				</when>
-				<when test='cri.type == "writer"'>
-					and (site_id like concat('%', #{cri.search}, '%'))
-				</when>
-			</choose>
+		<choose>
+			<when test='cri.type == "all"'>
+				and (po_title like concat('%', #{cri.search}, '%') or
+				po_content like concat('%', #{cri.search}, '%') or
+				site_id like concat('%', #{cri.search}, '%'))
+			</when>
+			<when test='cri.type == "title"'>
+				and (po_title like concat('%', #{cri.search}, '%'))
+			</when>
+			<when test='cri.type == "titleContent"'>
+				and (po_title like concat('%', #{cri.search}, '%') or
+				po_content like concat('%', #{cri.search}, '%'))
+			</when>
+			<when test='cri.type == "writer"'>
+				and (site_id like concat('%', #{cri.search}, '%'))
+			</when>
+		</choose>
 		group by po_num
 		order by po_num desc
-		LIMIT #{cri.pageStart}, #{cri.perPageNum}
+		LIMIT #{cri.pageStart},
+		#{cri.perPageNum}
 	</select>
-	
+
 	<select id="selectPostListCount" resultType="int">
 		select
 		count(*)
@@ -137,7 +139,8 @@
 			<when test='cri.type == "all"'>
 				and (po_title like concat('%', #{cri.search}, '%') or
 				po_content like concat('%', #{cri.search}, '%') or
-				site_id like concat('%', #{cri.search}, '%'))
+				site_id like
+				concat('%', #{cri.search}, '%'))
 			</when>
 			<when test='cri.type == "title"'>
 				and (po_title like concat('%', #{cri.search}, '%'))
@@ -195,13 +198,16 @@
 		select
 		post.*,
 		site_id as po_id,
-		Sum(case when re_state = 1 then 1 else 0 end)as po_up,
-		Sum(case when re_state = -1 then 1 else 0 end)as po_down
+		Sum(case when re_state = 1
+		then 1 else 0 end)as po_up,
+		Sum(case when re_state = -1 then 1 else 0
+		end)as po_down
 		from
 		post
 		join
 		site_management on site_num = po_mg_num
-		left join
+		left
+		join
 		recommend
 		on
 		re_po_num = po_num
@@ -233,25 +239,27 @@
 		re_po_num = #{re.re_po_num} and re_mg_num = #{re.re_mg_num}
 	</update>
 	<!-- 추천 기능 끝 -->
-	
-	<select id="selectFileList" resultType="kr.kh.team3.model.vo.FileVO">
+
+	<select id="selectFileList"
+		resultType="kr.kh.team3.model.vo.FileVO">
 		select * from file where
 		fi_po_num = #{re}
 	</select>
-	
+
 	<!-- 작성자 게시글 목록 -->
-	<select id="selectUserPostList" resultType="kr.kh.team3.model.vo.PostVO">
+	<select id="selectUserPostList"
+		resultType="kr.kh.team3.model.vo.PostVO">
 		select
-			post.*,
-			site_id as po_id,
-			Sum(case when re_state = 1 then 1 else 0 end)as po_up,
-			Sum(case when re_state = -1 then 1 else 0 end)as po_down
+		post.*,
+		site_id as po_id,
+		Sum(case when re_state = 1 then 1 else 0 end)as po_up,
+		Sum(case when re_state = -1 then 1 else 0 end)as po_down
 		from
-			post
+		post
 		join
-			site_management on site_num = po_mg_num
+		site_management on site_num = po_mg_num
 		left join
-			recommend on re_po_num = po_num
+		recommend on re_po_num = po_num
 		where site_id = #{po_id}
 		<choose>
 			<when test='cri.type == "title"'>
@@ -264,18 +272,19 @@
 		</choose>
 		group by po_num
 		order by po_num desc
-		LIMIT #{cri.pageStart}, #{cri.perPageNum}
+		LIMIT #{cri.pageStart},
+		#{cri.perPageNum}
 	</select>
-	
+
 	<select id="selectUserPostListCount" resultType="int">
 		select
-			count(*)
+		count(*)
 		from
-			post
+		post
 		join
-			site_management on site_num = po_mg_num
+		site_management on site_num = po_mg_num
 		left join
-			recommend on re_po_num = po_num
+		recommend on re_po_num = po_num
 		where site_id = #{po_id}
 		<choose>
 			<when test='cri.type == "title"'>
@@ -287,8 +296,28 @@
 			</when>
 		</choose>
 	</select>
-	
+
 	<select id="selectUserAuthority" resultType="String">
-		select site_authority from site_management where site_id = #{po_id}
+		select
+		site_authority from site_management where site_id = #{po_id}
 	</select>
+
+	<select id="selectReport"
+		resultType="kr.kh.team3.model.vo.ReportVO">
+		select * from report where rp_target = #{rp.rp_target} and
+		rp_site_num = #{rp.rp_site_num}
+	</select>
+	
+	<insert id="insertReport">
+		insert into report(rp_target,rp_name,rp_rs_name,rp_site_num)
+		values(#{rp.rp_target},#{rp.rp_name},#{rp.rp_rs_name},#{rp.rp_site_num})
+	</insert>
+	
+	
+	<update id="updateReport">
+		update report set rp_target = #{rp.rp_target}
+		where
+		rp_target = #{rp.rp_target} and rp_site_num = #{rp.rp_site_num}
+	</update>
+
 </mapper>

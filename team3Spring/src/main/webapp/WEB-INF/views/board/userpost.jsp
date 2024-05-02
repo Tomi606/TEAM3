@@ -98,96 +98,161 @@
 			</c:if>
 			
 			<div class="hr"></div>
-			<div>
-				<table style="width: 100%;">
-					<thead>
-						<tr>
-							<th style="width: 5%;">No</th>
-							<th style="width: 40%;">제목</th>
-							<th style="width: 30%;">작성일</th>
-							<th style="width: 7.5%;">추천수</th>
-							<th style="width: 7.5%;">조회수</th>
-						</tr>
-					</thead>
-					<tr class="hr"></tr>
-					<tbody>
-						<c:choose>
-							<c:when test="${not empty poList}">
-								<c:set var="postFound" value="false" />
-								<c:set var="boPostCount" value="0" />
-								<!-- 각 bo_num별 게시글 수 초기화 -->
-								<c:forEach items="${poList}" var="po" varStatus="poIndex">
-									<c:set var="boPostCount" value="${boPostCount + 1}" />
-									<tr style="height: 100px; border-bottom: 1px solid lightgray;">
-										<td style="width: 5%;">${boPostCount}</td>
-										<td style="width: 40%;">
-											<a href="<c:url value="/board/detail?po_num=${po.po_num}"/>" class="title-link">${po.po_title}</a>
-											<a href="<c:url value="/board/detail?po_num=${po.po_num}#comments-section"/>" class="comment-link" data-po-num="${po.po_num}"> [${po.po_co_count}]</a>
-										</td>
-										<td style="width: 30%;">${po.changeDate1}</td>
-										<td style="width: 7.5%;">${po.po_up}</td>
-										<td style="width: 7.5%;">${po.po_view}</td>
-									</tr>
-								</c:forEach>
-							</c:when>
-							<c:otherwise>
-								<tr style="height: 400px;">
-									<td colspan="6">
-										<div>
-											<h3 style="color: lightgray">게시글이 존재하지 않습니다.</h3>
-										</div>
-									</td>
-								</tr>
-							</c:otherwise>
-						</c:choose>
-					</tbody>
-				</table>
+			<div class="box-post-list">
+				<!-- 회원 게시글, 댓글 출력 -->
 			</div>
-			<ul class="pagination justify-content-center">
-				<c:if test="${pm.prev}">
-					<c:url value="/board/userpost?po_id=${po_id}" var="url">
-						<c:param name="page" value="${pm.startPage - 1}" />
-						<c:param name="type" value="${pm.cri.type}" />
-						<c:param name="search" value="${pm.cri.search}" />
-					</c:url>
-					<li class="page-item"><a class="page-link" href="${url}">이전</a>
-					</li>
-				</c:if>
-				<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
-					<c:url value="/board/userpost?po_id=${po_id}" var="url">
-						<c:param name="page" value="${i}" />
-						<c:param name="type" value="${pm.cri.type}" />
-						<c:param name="search" value="${pm.cri.search}" />
-					</c:url>
-					<li
-						class="page-item <c:if test="${pm.cri.page == i}">active</c:if>">
-						<a class="page-link" href="${url}">${i}</a>
-					</li>
-				</c:forEach>
-				<c:if test="${pm.next}">
-					<c:url value="/board/userpost?po_id=${po_id}" var="url">
-						<c:param name="page" value="${pm.endPage + 1}" />
-						<c:param name="type" value="${pm.cri.type}" />
-						<c:param name="search" value="${pm.cri.search}" />
-					</c:url>
-					<li class="page-item"><a class="page-link" href="${url}">다음</a>
-					</li>
-				</c:if>
-			</ul>
-			<form action="<c:url value='/board/userpost'/>" method="get">
-				<div class="search-box">
-					<input type="hidden" name="po_id" value="${po_id}">
-					<select name="type">
-						<option value="title"
-							<c:if test="${pm.cri.type == 'title'}">selected</c:if>>제목만</option>
-						<option value="titleContent"
-							<c:if test="${pm.cri.type == 'titleContent'}">selected</c:if>>제목 + 내용</option>
-					</select>
-					<input type="search" class="검색" name="search" placeholder="검색어를 입력하세요">
-					<button class="search-btn" type="submit">검색</button>
-				</div>
-			</form>
+			<div class="box-pagination">
+				<ul class="pagination justify-content-center">
+					<!-- 페이지네이션 출력 -->
+				</ul>
+			</div>
+			<div class="post-search-box">
+				<!-- 게시글 검색 박스 출력 -->
+			</div>
 		</div>
 	</div>
+<script type="text/javascript">
+let page = 1;
+let type = 'title';
+let search = '';
+let po_id = "${po_id}";	
+
+getPostList();
+function getPostList(){
+   $.ajax({
+      async : true,
+      url : '<c:url value="/board/userpost"/>', 
+      type : 'post', 
+      data : {
+    	  page : page,
+    	  type : type,
+    	  search : search,
+    	  po_id : po_id
+      },
+      dataType : "json", 
+      success : function (data){
+    	 displayPostList(data.poList);
+         displayPostPagination(data.pm);
+         displayPostSearchBox();
+      }, 
+      error : function(jqXHR, textStatus, errorThrown){
+
+      }
+   });
+}
+
+function displayPostList(poList){
+   let str = `
+	   <table style="width: 100%;">
+		<thead>
+			<tr>
+				<th style="width: 5%;">No</th>
+				<th style="width: 40%;">제목</th>
+				<th style="width: 30%;">작성일</th>
+				<th style="width: 7.5%;">추천수</th>
+				<th style="width: 7.5%;">조회수</th>
+			</tr>
+		</thead>
+		<tr class="hr"></tr>
+   `;
+   if(poList == null || poList.length == 0){
+      str += `
+    	  <tbody>
+	    	  <tr style="height: 400px;">
+				<td colspan="6">
+					<div>
+						<h3 style="color: lightgray">게시글이 존재하지 않습니다.</h3>
+					</div>
+				</td>
+			  </tr>
+		  </tbody>
+		</table>
+      `;
+      $('.box-comment-list').html(str);
+      return;
+   }
+   str += `
+	   <tbody>
+   `;
+   for(item of poList){
+	   console.log(item);
+      str += 
+      ` <tr style="height: 100px; border-bottom: 1px solid lightgray;">
+			<td style="width: 5%;">\${item.po_num}</td>
+			<td style="width: 40%;">
+				<a href="<c:url value="/board/detail?po_num=\${item.po_num}"/>" class="title-link">\${item.po_title}</a>
+				<a href="<c:url value="/board/detail?po_num=\${item.po_num}#comments-section"/>" class="comment-link" data-po-num="\${item.po_num}"> [\${item.po_co_count}]</a>
+			</td>
+			<td style="width: 30%;">\${item.changeDate1}</td>
+			<td style="width: 7.5%;">\${item.po_up}</td>
+			<td style="width: 7.5%;">\${item.po_view}</td>
+		</tr>
+      `;
+	}
+    str += `
+			</tbody>
+		</table>
+    `;
+	$('.box-post-list').html(str);
+	}
+function displayPostPagination(pm){
+   let str = '';
+   if(pm.prev){
+      str += `
+		<li class="page-item">
+			<a class="page-link" href="javascript:void(0);" data-page="\${pm.startPage - 1}">이전</a>
+		</li>`;
+   }
+   for(let i = pm.startPage; i<= pm.endPage; i++){
+      let active = pm.cri.page == i ? 'active' : '';
+      str += `
+      <li class="page-item \${active}">
+         <a class="page-link" href="javascript:void(0);" data-page="\${i}">\${i}</a>
+      </li>`;
+   }
+   if(pm.next){
+      str += `
+      <li class="page-item">
+         <a class="page-link" href="javascript:void(0);" data-page="\${pm.endPage + 1}">다음</a>
+      </li>`;
+   }
+   $('.box-pagination>ul').html(str);
+}
+$(document).on('click','.box-pagination .page-link',function(){
+   page = $(this).data('page');
+   getPostList();
+});
+
+function displayPostSearchBox(){
+	let str = '';
+	if(type == 'title'){		
+		str = `
+			<select name="type" class="search-type">
+				<option value="title" selected>제목만</option>
+				<option value="titleContent">제목 + 내용</option>
+			</select>
+			<input type="search" class="검색 search-search" name="search" placeholder="검색어를 입력하세요" value="\${search}">
+			<button class="search-btn" type="submit">검색</button>
+		`;
+	}else{
+		str = `
+			<select name="type" class="search-type">
+				<option value="title">제목만</option>
+				<option value="titleContent" selected>제목 + 내용</option>
+			</select>
+			<input type="search" class="검색 search-search" name="search" placeholder="검색어를 입력하세요" value="\${search}">
+			<button class="search-btn" type="submit">검색</button>
+		`;
+	}
+	$('.post-search-box').html(str);
+}
+
+$(document).on('click','.search-btn',function(){
+   type = $('.search-type').val();
+   search = $('.search-search').val();
+   
+   getPostList();
+});
+</script>
 </body>
 </html>

@@ -202,7 +202,7 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public ArrayList<MemberVO> getReportMemberList(Criteria cri) {
+	public ArrayList<ReportVO> getReportMemberList(Criteria cri) {
 		if (cri == null) {
 			cri = new Criteria();
 		}
@@ -476,25 +476,27 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public boolean insertBookmark(BookmarkVO bookmark, MemberVO member, String ho_id) {
+	public boolean insertBookmark(BookmarkVO bookmark, MemberVO member) {
 		if(member == null || member.getMe_id() == null) {
 			return false;
 		}
 
-		return memberDao.insertBookmark(member, ho_id);
+		System.out.println("memberㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ" + member.getMe_id());
+		System.out.println("detailㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ" + bookmark.getBmk_ho_id());
+		return memberDao.insertBookmark(member, bookmark.getBmk_ho_id());
 	}
 
 	@Override
-	public boolean deleteBookmark(BookmarkVO bookmark, MemberVO member, HospitalDetailVO detail) {
+	public boolean deleteBookmark(BookmarkVO bookmark, MemberVO member) {
 		if(member == null || member.getMe_id() == null) {
 			return false;
 		}
 		
-		if(detail.getHd_ho_id() == null) {
+		if(bookmark.getBmk_ho_id() == null) {
 			return false;
 		}
 		
-		BookmarkVO dbBmk = memberDao.selectBookmark(member.getMe_id(), detail.getHd_ho_id());
+		BookmarkVO dbBmk = memberDao.selectBookmark(member.getMe_id(), bookmark.getBmk_ho_id());
 		if(dbBmk !=null) {
 			return memberDao.deleteBookmark(dbBmk.getBmk_ho_id(), dbBmk.getBmk_me_id());
 		}
@@ -503,18 +505,40 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public boolean selectBookmark(BookmarkVO bookmark, MemberVO member, HospitalDetailVO detail) {
+	public boolean selectBookmark(BookmarkVO bookmark, MemberVO member) {
 		if(member == null || member.getMe_id() == null) {
 			return false;
 		}
 		
-		if(detail.getHd_ho_id() == null) {
+		if(bookmark.getBmk_ho_id() == null) {
 			return false;
 		}
 		//통과되면 select
-		BookmarkVO result = memberDao.selectBookmark(member.getMe_id(), detail.getHd_ho_id());
+		BookmarkVO result = memberDao.selectBookmark(member.getMe_id(), bookmark.getBmk_ho_id());
 		System.out.println("memberㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ" + member.getMe_id());
-		System.out.println("detailㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ" + detail.getHd_ho_id());
+		System.out.println("detailㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ" + bookmark.getBmk_ho_id());
+		
+		if(result != null) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean selectDetailBookmark(BookmarkVO bookmark, MemberVO member, String hd_ho_id) {
+		if(member == null || member.getMe_id() == null) {
+			return false;
+		}
+		
+		if(hd_ho_id == null) {
+			return false;
+		}
+		//통과되면 select
+		BookmarkVO result = memberDao.selectDetailBookmark(member.getMe_id(), hd_ho_id);
+		System.out.println("memberㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ" + member.getMe_id());
+		System.out.println("detailㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ" + hd_ho_id);
 		
 		if(result != null) {
 			return true;
