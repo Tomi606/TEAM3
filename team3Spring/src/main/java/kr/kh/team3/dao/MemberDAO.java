@@ -114,9 +114,11 @@ public interface MemberDAO {
 
 	BookmarkVO selectDetailBookmark(@Param("me_id") String me_id, @Param("hd_ho_id") String hd_ho_id);
 
-	ArrayList<MemberVO> selectMemberArrList();
+	ArrayList<SiteManagement> selectMemberArrList();
 
 	void updateRpCount(@Param("me_id")String me_id);
+
+	ArrayList<MemberVO> selectUserArrList();
 
 
 }

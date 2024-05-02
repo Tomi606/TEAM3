@@ -3,7 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team3.dao.HospitalDAO">
-
+	
+	<select id="selectHospitalArrList" resultType="HospitalVO">
+		select * from hospital
+	
+	</select>
+	
 	<resultMap type="BookmarkVO" id="bookmarkMap">
 		<id column="bmk_num" property="bmk_num"/>
 		<result column="bmk_me_id" property="bmk_me_id"/>
