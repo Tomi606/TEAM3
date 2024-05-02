@@ -3,9 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team3.dao.HospitalDAO">
-
-	<!-- 시작 -->
-	<resultMap type="SiteManagement" id="siteMap">
+<resultMap type="SiteManagement" id="siteMap">
 		<id column="site_num" property="site_num"/>
 		<result column="site_la_num" property="site_la_num"/>
 		<result column="site_id" property="site_id"/>
