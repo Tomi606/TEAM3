@@ -305,12 +305,12 @@
 	<select id="selectReport"
 		resultType="kr.kh.team3.model.vo.ReportVO">
 		select * from report where rp_target = #{rp.rp_target} and
-		rp_site_num = #{rp.rp_site_num}
+		rp_site_num = #{rp.rp_site_num} and rp_table = #{rp.rp_table}
 	</select>
 	
 	<insert id="insertReport">
-		insert into report(rp_target,rp_name,rp_rs_name,rp_site_num)
-		values(#{rp.rp_target},#{rp.rp_name},#{rp.rp_rs_name},#{rp.rp_site_num})
+		insert into report(rp_target,rp_name,rp_rs_name,rp_site_num,rp_table)
+		values(#{rp.rp_target},#{rp.rp_name},#{rp.rp_rs_name},#{rp.rp_site_num},#{rp.rp_table})
 	</insert>
 	
 	

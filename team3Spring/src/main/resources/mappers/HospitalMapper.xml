@@ -294,6 +294,10 @@
 		select * from hospital where ho_id = #{rp_target}
 	</select>
 	
+	<select id="selectHospitalReportTarget" resultType="kr.kh.team3.model.vo.SiteManagement">
+		select * from site_management where site_num = #{num}
+	</select>
+	
 	<select id="selectReportHospitalList" resultMap="ReportMap">
 		select * from report
 		order by rp_num
@@ -565,4 +569,10 @@
 	<select id="selectHdEmdName" resultType="EupMyeonDongVO">
 		select emd_name from eup_myeon_dong where emd_num = #{la_emd_num}
 	</select>
+	
+	<update id="updateHospitalRpCount">
+		UPDATE hospital
+		SET ho_report_count = ho_report_count + 1
+		WHERE ho_id = #{id}
+	</update>
 </mapper>

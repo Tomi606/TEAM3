@@ -60,5 +60,7 @@ public interface BoardService {
 	int getUserPostListCount(String po_id, Criteria cri);
 
 	boolean report(ReportVO report, SiteManagement user);
+
+	int getRpTarget(String rp_target_id);
 	
 }
