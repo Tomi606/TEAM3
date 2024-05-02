@@ -255,34 +255,34 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public ArrayList<PostVO> getUserCmtList(String po_id, Criteria cri) {
-		if(po_id == null || po_id.length() == 0) {
+		if (po_id == null || po_id.length() == 0) {
 			return null;
 		}
-		if(cri == null) {
-			cri = new Criteria(1,5);
+		if (cri == null) {
+			cri = new Criteria(1, 5);
 		}
-		
-		//po_id로 site_num 구하기
+
+		// po_id로 site_num 구하기
 		SiteManagement site = boardDao.selectSiteNum(po_id);
-		
+
 		return boardDao.selectUserCmtList(site.getSite_num(), cri);
 	}
 
 	@Override
 	public int getUserCmtListCount(String po_id, Criteria cri) {
-		if(po_id == null || po_id.length() == 0) {
+		if (po_id == null || po_id.length() == 0) {
 			return 0;
 		}
-		if(cri == null) {
-			cri = new Criteria(1,5);
+		if (cri == null) {
+			cri = new Criteria(1, 5);
 		}
-		
-		//po_id로 site_num 구하기
+
+		// po_id로 site_num 구하기
 		SiteManagement site = boardDao.selectSiteNum(po_id);
-		
+
 		return boardDao.selectUserCmtListCount(site.getSite_num(), cri);
 	}
-
+	
 	
 	public boolean report(ReportVO report, SiteManagement user) {
 		if (report == null || user == null) {
@@ -295,9 +295,9 @@ public class BoardServiceImp implements BoardService {
 		boardDao.insertReport(report);
 		SiteManagement member = memberDao.selectReportMemberTarget(report.getRp_target());
 		if ("member".equals(report.getRp_table())) {
-			if(member.getSite_authority().equals("USER")) {
+			if (member.getSite_authority().equals("USER")) {
 				memberDao.updateMemberRpCount(member.getSite_id());
-			}else if(member.getSite_authority().equals("MANAGER")) {
+			} else if (member.getSite_authority().equals("MANAGER")) {
 				hospitalDao.updateHospitalRpCount(member.getSite_id());
 			}
 		}
