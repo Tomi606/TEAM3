@@ -77,6 +77,19 @@
 .comment-link:hover{
 	color: black;
 }
+.user-btn {
+	background-color: white;
+	border: 0px solid black;
+	float: left;
+}
+.user-btn:hover{
+	color: green;
+	border-bottom: 3px solid green;
+}
+.user-btn-active{
+	color: green;
+	border-bottom: 3px solid green;
+}
 </style>
 </head>
 <body>
@@ -98,8 +111,17 @@
 			</c:if>
 			
 			<div class="hr"></div>
+			<div class="user-btn-box">
+				<button class="user-btn user-post-btn user-btn-active">작성한 글</button>
+				<button class="user-btn user-cmt-btn">댓글 쓴 글</button>
+			</div>
 			<div class="box-post-list">
 				<!-- 회원 게시글, 댓글 출력 -->
+			</div>
+			<div class="box-pagination1">
+				<ul class="pagination justify-content-center">
+					<!-- 페이지네이션 출력 -->
+				</ul>
 			</div>
 			<div class="box-pagination">
 				<ul class="pagination justify-content-center">
@@ -112,10 +134,13 @@
 		</div>
 	</div>
 <script type="text/javascript">
-let page = 1;
-let type = 'title';
-let search = '';
-let po_id = "${po_id}";	
+let page_po = 1;
+let type_po = 'title';
+let search_po = '';
+let po_id = "${po_id}";
+let page_cmt = 1;
+let type_cmt = 'title';
+let search_cmt = '';
 
 getPostList();
 function getPostList(){
@@ -124,9 +149,9 @@ function getPostList(){
       url : '<c:url value="/board/userpost"/>', 
       type : 'post', 
       data : {
-    	  page : page,
-    	  type : type,
-    	  search : search,
+    	  page : page_po,
+    	  type : type_po,
+    	  search : search_po,
     	  po_id : po_id
       },
       dataType : "json", 
@@ -168,7 +193,7 @@ function displayPostList(poList){
 		  </tbody>
 		</table>
       `;
-      $('.box-comment-list').html(str);
+      $('.box-post-list').html(str);
       return;
    }
    str += `
@@ -194,8 +219,148 @@ function displayPostList(poList){
 		</table>
     `;
 	$('.box-post-list').html(str);
-	}
+}
 function displayPostPagination(pm){
+   let str = '';
+   if(pm.prev){
+      str += `
+		<li class="page-item">
+			<a class="page-link po-page" href="javascript:void(0);" data-page="\${pm.startPage - 1}">이전</a>
+		</li>`;
+   }
+   for(let i = pm.startPage; i<= pm.endPage; i++){
+      let active = pm.cri.page == i ? 'active' : '';
+      str += `
+      <li class="page-item \${active}">
+         <a class="page-link po-page" href="javascript:void(0);" data-page="\${i}">\${i}</a>
+      </li>`;
+   }
+   if(pm.next){
+      str += `
+      <li class="page-item">
+         <a class="page-link po-page" href="javascript:void(0);" data-page="\${pm.endPage + 1}">다음</a>
+      </li>`;
+   }
+   $('.box-pagination1>ul').html(str);
+}
+$(document).on('click','.box-pagination1 .po-page',function(){
+   page_po = $(this).data('page');
+   getPostList();
+});
+
+function displayPostSearchBox(){
+	let str = '';
+	if(type_po == 'title'){		
+		str = `
+			<select name="type" class="search-type">
+				<option value="title" selected>제목만</option>
+				<option value="titleContent">제목 + 내용</option>
+			</select>
+			<input type="search" class="검색 search-search" name="search" placeholder="검색어를 입력하세요" value="\${search_po}">
+			<button class="search-btn" type="button">검색</button>
+		`;
+	}else{
+		str = `
+			<select name="type" class="search-type">
+				<option value="title">제목만</option>
+				<option value="titleContent" selected>제목 + 내용</option>
+			</select>
+			<input type="search" class="검색 search-search" name="search" placeholder="검색어를 입력하세요" value="\${search_po}">
+			<button class="search-btn" type="button">검색</button>
+		`;
+	}
+	$('.post-search-box').html(str);
+}
+
+$(document).on('click','.search-btn',function(){
+   type_po = $('.search-type').val();
+   search_po = $('.search-search').val();
+   
+   getPostList();
+});
+
+</script>
+<script type="text/javascript">
+function getCmtList(){
+   $.ajax({
+      async : true,
+      url : '<c:url value="/board/usercmt"/>', 
+      type : 'post', 
+      data : {
+    	  page : page_cmt,
+    	  type : type_cmt,
+    	  search : search_cmt,
+    	  po_id : po_id
+      },
+      dataType : "json", 
+      success : function (data){
+    	 displayCmtList(data.coList);
+         displayCmtPagination(data.pm);
+         displayCmtSearchBox();
+      }, 
+      error : function(jqXHR, textStatus, errorThrown){
+
+      }
+   });
+}
+
+function displayCmtList(coList){
+   let str = `
+	   <table style="width: 100%;">
+		<thead>
+			<tr>
+				<th style="width: 10%;">No</th>
+				<th style="width: 40%;">제목</th>
+				<th style="width: 20%;">작성자</th>
+				<th style="width: 15%;">작성일</th>
+				<th style="width: 7.5%;text-align: center;">추천수</th>
+				<th style="width: 7.5%;text-align: center;">조회수</th>
+			</tr>
+		</thead>
+		<tr class="hr"></tr>
+   `;
+   if(coList == null || coList.length == 0){
+      str += `
+    	  <tbody>
+	    	  <tr style="height: 400px;">
+				<td colspan="6">
+					<div>
+						<h3 style="color: lightgray">게시글이 존재하지 않습니다.</h3>
+					</div>
+				</td>
+			  </tr>
+		  </tbody>
+		</table>
+      `;
+      $('.box-post-list').html(str);
+      return;
+   }
+   str += `
+	   <tbody>
+   `;
+   for(item of coList){
+	   console.log(item);
+      str += 
+      ` <tr style="height: 100px; border-bottom: 1px solid lightgray;">
+			<td>\${item.po_num}</td>
+			<td>
+				<a href="<c:url value="/board/detail?po_num=\${item.po_num}"/>" class="title-link">\${item.po_title}</a>
+				<a href="<c:url value="/board/detail?po_num=\${item.po_num}#comments-section"/>" class="comment-link" data-po-num="\${item.po_num}"> [\${item.po_co_count}]</a>
+			</td>
+			<td>\${item.po_id}</td>
+			<td>\${item.changeDate1}</td>
+			<td>\${item.po_up}</td>
+			<td>\${item.po_view}</td>
+		</tr>
+      `;
+	}
+    str += `
+			</tbody>
+		</table>
+    `;
+	$('.box-post-list').html(str);
+	}
+function displayCmtPagination(pm){
    let str = '';
    if(pm.prev){
       str += `
@@ -219,39 +384,79 @@ function displayPostPagination(pm){
    $('.box-pagination>ul').html(str);
 }
 $(document).on('click','.box-pagination .page-link',function(){
-   page = $(this).data('page');
-   getPostList();
+   page_cmt = $(this).data('page');
+   getCmtList();
 });
 
-function displayPostSearchBox(){
+function displayCmtSearchBox(){
 	let str = '';
-	if(type == 'title'){		
+	if(type_cmt == 'title'){		
 		str = `
-			<select name="type" class="search-type">
+			<select name="type" class="cmt-search-type">
 				<option value="title" selected>제목만</option>
 				<option value="titleContent">제목 + 내용</option>
+				<option value="writer">글작성자</option>
 			</select>
-			<input type="search" class="검색 search-search" name="search" placeholder="검색어를 입력하세요" value="\${search}">
-			<button class="search-btn" type="submit">검색</button>
+			<input type="search" class="검색 cmt-search-search" name="search" placeholder="검색어를 입력하세요" value="\${search_cmt}">
+			<button class="cmt-search-btn" type="button">검색</button>
 		`;
-	}else{
+	}else if(type_cmt == 'titleContent'){
 		str = `
-			<select name="type" class="search-type">
+			<select name="type" class="cmt-search-type">
 				<option value="title">제목만</option>
 				<option value="titleContent" selected>제목 + 내용</option>
+				<option value="writer">글작성자</option>
 			</select>
-			<input type="search" class="검색 search-search" name="search" placeholder="검색어를 입력하세요" value="\${search}">
-			<button class="search-btn" type="submit">검색</button>
+			<input type="search" class="검색 cmt-search-search" name="search" placeholder="검색어를 입력하세요" value="\${search_cmt}">
+			<button class="cmt-search-btn" type="button">검색</button>
+		`;
+	}
+	else{
+		str = `
+			<select name="type" class="cmt-search-type">
+				<option value="title">제목만</option>
+				<option value="titleContent">제목 + 내용</option>
+				<option value="writer" selected>글작성자</option>
+			</select>
+			<input type="search" class="검색 cmt-search-search" name="search" placeholder="검색어를 입력하세요" value="\${search_cmt}">
+			<button class="cmt-search-btn" type="button">검색</button>
 		`;
 	}
 	$('.post-search-box').html(str);
 }
 
-$(document).on('click','.search-btn',function(){
-   type = $('.search-type').val();
-   search = $('.search-search').val();
-   
+$(document).on('click','.cmt-search-btn',function(){
+   type_cmt = $('.cmt-search-type').val();
+   search_cmt = $('.cmt-search-search').val();
+   getCmtList();
+});
+</script>
+<script type="text/javascript">
+$(document).on('click','.user-post-btn',function(){
+	page_po = 1;
+	type_po = 'title';
+	search_po = '';
+	page_cmt = 1;
+	type_cmt = 'title';
+	search_cmt = '';
+	$('.box-pagination1>ul').html('');
+	$('.box-pagination>ul').html('');
+	$(".user-cmt-btn").removeClass("user-btn-active");
+	$(this).addClass("user-btn-active");
    getPostList();
+});
+$(document).on('click','.user-cmt-btn',function(){
+	page_po = 1;
+	type_po = 'title';
+	search_po = '';
+	page_cmt = 1;
+	type_cmt = 'title';
+	search_cmt = '';
+	$('.box-pagination1>ul').html('');
+	$('.box-pagination>ul').html('');
+	$(".user-post-btn").removeClass("user-btn-active");
+	$(this).addClass("user-btn-active");
+   getCmtList();
 });
 </script>
 </body>

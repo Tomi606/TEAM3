@@ -7,8 +7,8 @@
 <head>
 <title>
 <c:choose>
-	<c:when test="${title != null }">${title}</c:when>
-	<c:otherwise>병원 중개 사이트</c:otherwise>
+  <c:when test="${title != null }">${title}</c:when>
+  <c:otherwise>병원 중개 사이트</c:otherwise>
 </c:choose>
 </title>
 
@@ -19,17 +19,17 @@
 <script src="http://fastly.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 
 <!-- Popper JS -->
-<script src="http://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="http://fastly.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 
 <!-- Latest compiled JavaScript -->
-<script src="http://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="http://fastly.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>
 <body>
-    
+    <tiles:insertAttribute name="header"/>
     <div style="min-height: calc(100vh - 290px)">
-    	<tiles:insertAttribute name="body" />
+      <tiles:insertAttribute name="body" />
     </div>
-    
+    <tiles:insertAttribute name="footer" />
 </body>
 </html>

@@ -301,16 +301,85 @@
 		select
 		site_authority from site_management where site_id = #{po_id}
 	</select>
+	
+	<select id="selectSiteNum" resultType="kr.kh.team3.model.vo.SiteManagement">
+		select * from site_management where site_id = #{po_id}
+	</select>
+	
+	<select id="selectUserCmtList" resultType="kr.kh.team3.model.vo.PostVO">
+		SELECT
+		    distinct post.*,
+		    site_id as po_id,
+		    (
+		        SELECT COUNT(*)
+		        FROM recommend
+		        WHERE recommend.re_po_num = post.po_num AND recommend.re_state = 1
+		    ) AS po_up
+		FROM
+		    post
+		JOIN
+		    comment ON post.po_num = comment.co_po_num
+		JOIN
+		    site_management ON site_num = po_mg_num
+		WHERE
+		    comment.co_mg_num = #{site_num}
+		<choose>
+			<when test='cri.type == "title"'>
+				and (po_title like concat('%', #{cri.search}, '%'))
+			</when>
+			<when test='cri.type == "titleContent"'>
+				and (po_title like concat('%', #{cri.search}, '%') or
+				po_content like concat('%', #{cri.search}, '%'))
+			</when>
+			<when test='cri.type == "writer"'>
+				and (site_id like concat('%', #{cri.search}, '%')
+			</when>
+		</choose>
+		order by po_num desc
+		LIMIT #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="selectUserCmtListCount" resultType="int">
+		SELECT COUNT(*) AS post_count
+		FROM (
+		    SELECT DISTINCT post.*, site_id as po_id,
+			    (
+			        SELECT COUNT(*)
+			        FROM recommend
+			        WHERE recommend.re_po_num = post.po_num AND recommend.re_state = 1
+			    ) AS po_up
+			FROM
+			    post
+			JOIN
+			    comment ON post.po_num = comment.co_po_num
+			JOIN
+			    site_management ON site_num = po_mg_num
+			WHERE
+			    comment.co_mg_num = #{site_num}
+		    <choose>
+				<when test='cri.type == "title"'>
+					and (po_title like concat('%', #{cri.search}, '%'))
+				</when>
+				<when test='cri.type == "titleContent"'>
+					and (po_title like concat('%', #{cri.search}, '%') or
+					po_content like concat('%', #{cri.search}, '%'))
+				</when>
+				<when test='cri.type == "writer"'>
+					and (site_id like concat('%', #{cri.search}, '%')
+				</when>
+			</choose>
+		) AS counted_posts
+	</select>
 
 	<select id="selectReport"
 		resultType="kr.kh.team3.model.vo.ReportVO">
 		select * from report where rp_target = #{rp.rp_target} and
-		rp_site_num = #{rp.rp_site_num}
+		rp_site_num = #{rp.rp_site_num} and rp_table = #{rp.rp_table}
 	</select>
 	
 	<insert id="insertReport">
-		insert into report(rp_target,rp_name,rp_rs_name,rp_site_num)
-		values(#{rp.rp_target},#{rp.rp_name},#{rp.rp_rs_name},#{rp.rp_site_num})
+		insert into report(rp_target,rp_name,rp_rs_name,rp_site_num,rp_table)
+		values(#{rp.rp_target},#{rp.rp_name},#{rp.rp_rs_name},#{rp.rp_site_num},#{rp.rp_table})
 	</insert>
 	
 	

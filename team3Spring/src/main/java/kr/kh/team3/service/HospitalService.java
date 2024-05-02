@@ -62,7 +62,7 @@ public interface HospitalService {
 
 	boolean hospitalWaitNo(HospitalVO hospital);
 
-	ArrayList<HospitalVO> getReportHospitalList(Criteria cri);
+	ArrayList<SiteManagement> getReportHospitalList(Criteria cri);
 
 	int getRHTotalCount(Criteria cri);
 
@@ -77,7 +77,6 @@ public interface HospitalService {
 	//병원 상세 페이지==========================================
 	boolean insertDetail(HospitalDetailVO detail, HospitalVO hospital);
 	
-//	boolean insertSubjects(HospitalVO hospital, HospitalDetailVO detail);
 
 	HospitalVO getHospitalInfo();
 
