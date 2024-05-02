@@ -1,6 +1,7 @@
 package kr.kh.team3.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.annotation.Resource;
 
@@ -14,6 +15,7 @@ import kr.kh.team3.dao.HospitalDAO;
 import kr.kh.team3.dao.MemberDAO;
 import kr.kh.team3.model.vo.BoardVO;
 import kr.kh.team3.model.vo.FileVO;
+import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.RecommendVO;
@@ -253,30 +255,44 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public boolean report(ReportVO report, SiteManagement user) {
-		if (report == null || user == null) {
-			return false;
-
-		}
-		ArrayList<MemberVO> members = memberDao.selectMemberArrList();
-
-		report.getRp_site_num(user.getSite_num());
+	    if (report == null || user == null) {
+	        return false;
+	    }
+	    //report : 상대 번호(회원번호, 댓글번호, 게시글번호), 테이블명(사이트매니저, 댓글, 게시글)
+	    report.setRp_site_num(user.getSite_num());
 		ReportVO dbReport = boardDao.selectReport(report);
-		// 없으면 추가
-		for (MemberVO member : members) {
-			if (dbReport == null||member.getMe_id().equals(report.getRp_target())) {
-				boardDao.insertReport(report);
-				memberDao.updateRpCount(member.getMe_id());
-			}
+	    //report에 신고자 추가 
+	    //서비스에게 report 주면서 테이블명과 상대번호, 신고자를 이용하여 등록한 신고가 있는지 가져옴
+	    
+	    //있으면 false
+	    
+	    //없으면 추가
+	    
+	    //table에 따라 신고 수를 증가(테이블명을 매퍼에서 이용할 때 ${}를 이용
+	    ArrayList<SiteManagement> members = memberDao.selectMemberArrList();
+	    ArrayList<HospitalVO> hospitals = hospitalDao.selectHospitalArrList();
+	    ArrayList<MemberVO> users = memberDao.selectUserArrList();
 
-			// 있으면 false
-			else {
-				if (report.getRp_target().equals(dbReport.getRp_target())) {
-					report.getRp_target();
-				}
-				return false;
-			}
-		}
-		return true;
+		
+	    if (dbReport == null) {
+	        boolean rpInsert = false; 
+	        for (SiteManagement member : members) {
+	            for (MemberVO mem : users) {
+	                if (member.getSite_id().equals(report.getRp_target())
+	                        && member.getSite_id().equals(mem.getMe_id())) {
+	                    boardDao.insertReport(report);
+	                    memberDao.updateRpCount(member.getSite_id());
+	                    rpInsert = true;
+	                    break; 
+	                }
+	            }
+	            if (rpInsert) {
+	                return true; 
+	            }
+	        }
+	    }
 
+	    return false; 
 	}
+
 }

@@ -191,4 +191,6 @@ public interface HospitalDAO {
 
 	HospitalVO selectHospitalPage(@Param("id")String site_id);
 
+	ArrayList<HospitalVO> selectHospitalArrList();
+
 }

@@ -99,7 +99,8 @@ DROP TABLE IF EXISTS `report`;
 
 CREATE TABLE `report` (
 	`rp_num`	int	primary key auto_increment,
-	`rp_target`	varchar(13)	NOT NULL,
+	`rp_target`	int	NOT NULL,
+    `rp_table` varchar(50) not null,
 	`rp_name`	varchar(20) NOT	NULL,
 	`rp_rs_name`	varchar(20)	NOT NULL,
 	`rp_site_num`	int	NOT NULL
