@@ -252,6 +252,36 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
+	public ArrayList<PostVO> getUserCmtList(String po_id, Criteria cri) {
+		if(po_id == null || po_id.length() == 0) {
+			return null;
+		}
+		if(cri == null) {
+			cri = new Criteria(1,5);
+		}
+		
+		//po_id로 site_num 구하기
+		SiteManagement site = boardDao.selectSiteNum(po_id);
+		
+		return boardDao.selectUserCmtList(site.getSite_num(), cri);
+	}
+
+	@Override
+	public int getUserCmtListCount(String po_id, Criteria cri) {
+		if(po_id == null || po_id.length() == 0) {
+			return 0;
+		}
+		if(cri == null) {
+			cri = new Criteria(1,5);
+		}
+		
+		//po_id로 site_num 구하기
+		SiteManagement site = boardDao.selectSiteNum(po_id);
+		
+		return boardDao.selectUserCmtListCount(site.getSite_num(), cri);
+	}
+
+	
 	public boolean report(ReportVO report, SiteManagement user) {
 		if (report == null || user == null) {
 			return false;

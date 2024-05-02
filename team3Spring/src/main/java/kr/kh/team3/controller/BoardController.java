@@ -89,32 +89,17 @@ public class BoardController {
 		return map;
 	}
 	
-	@GetMapping("/userpo")
-	public String boardUserPo(Model model, Criteria cri, String po_id) {
-		String site_authority = boardService.getUserAuthority(po_id);
-		cri.setPerPageNum(5);
-		ArrayList<PostVO> poList = boardService.getUserPostList(po_id, cri);
-		int totalCount = boardService.getUserPostListCount(po_id, cri);
+	@ResponseBody
+	@PostMapping("/board/usercmt")
+	public Map<String, Object> boardUserComment(@RequestParam("page") int page, @RequestParam("type") String type, @RequestParam("search") String search, @RequestParam("po_id") String po_id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Criteria cri = new Criteria(page, 5, type, search);
+		ArrayList<PostVO> coList = boardService.getUserCmtList(po_id, cri);
+		int totalCount = boardService.getUserCmtListCount(po_id, cri);
 		PageMaker pm = new PageMaker(3, cri, totalCount);
-		model.addAttribute("po_id", po_id);
-		model.addAttribute("site_authority", site_authority);
-		model.addAttribute("poList", poList);
-		model.addAttribute("pm", pm);
-		return "userpo";
-	}
-	
-	@GetMapping("/userco")
-	public String boardUserCo(Model model, Criteria cri, String po_id) {
-		String site_authority = boardService.getUserAuthority(po_id);
-		cri.setPerPageNum(5);
-		ArrayList<PostVO> poList = boardService.getUserPostList(po_id, cri);
-		int totalCount = boardService.getUserPostListCount(po_id, cri);
-		PageMaker pm = new PageMaker(3, cri, totalCount);
-		model.addAttribute("po_id", po_id);
-		model.addAttribute("site_authority", site_authority);
-		model.addAttribute("poList", poList);
-		model.addAttribute("pm", pm);
-		return "userco";
+		map.put("coList", coList);
+		map.put("pm", pm);
+		return map;
 	}
 
 	@GetMapping("/board/insert")
