@@ -334,7 +334,7 @@ function displayCmtList(coList){
 				<a href="<c:url value="/board/detail?po_num=\${item.po_num}"/>" class="title-link">\${item.po_title}</a>
 				<a href="<c:url value="/board/detail?po_num=\${item.po_num}#comments-section"/>" class="comment-link" data-po-num="\${item.po_num}"> [\${item.po_co_count}]</a>
 			</td>
-			<td>${item.po_id}</td>
+			<td>\${item.po_id}</td>
 			<td>\${item.changeDate1}</td>
 			<td>\${item.po_up}</td>
 			<td>\${item.po_view}</td>
