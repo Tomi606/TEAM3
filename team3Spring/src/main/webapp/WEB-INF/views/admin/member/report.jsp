@@ -35,10 +35,10 @@
 			<tr>
 				<th>아이디</th>
 				<th>이름</th>
-				<th>정지 일수</th>
 				<th>신고 사유</th>
-				<th>누적신고횟수</th>
+				<th>정지 일수</th>
 				<th>누적정지횟수</th>
+				<th>누적신고횟수</th>
 				<th>정지</th>
 				<th>탈퇴</th>
 			</tr>
@@ -91,33 +91,67 @@ function displayReportList(list){
 	for(item of list){
 		if(item.member != null) {
 			let reportNames = '';
-			for(report of item.report){
-	            reportNames += `\${report.rp_name}`;
-			str += 
-				` 
-				<tr class="box-report" style="text-align: center;">
-					<td>\${item.member.me_id}</td>
-					<td>\${item.member.me_name}</td>
-					<td>\${reportNames}</td>
-					<td>\${item.member.me_report_count}</td>
-					<td>\${item.member.me_stop_count}</td>
-					<td>\${item.member.changeDate}</td>
-					<td>
-						<select id="selectbox">
-							<option value="0">선택</option>
-							<option value="1">1일</option>
-							<option value="3">3일</option>
-							<option value="7">7일</option>
-							<option value="15">15일</option>
-							<option value="30">30일</option>
-							<option value="60">60일</option>
-							<option value="365">365일</option>
-						</select>
-						<button type="button" class="btn-member-stop" data-stop="\${item.member.me_id}">정지</button>
-					</td>
-					<td><button type="button" class="btn-member-del" data-del="\${item.member.me_id}">탈퇴</button></td>
-				</tr>
-				`
+			let meStop = '';
+			for(report of item.report) {
+				if(item.member.me_stop == null) {
+					reportNames += `\${report.rp_name}`;
+					str += 
+						` 
+						<tr class="box-report" style="text-align: center;">
+							<td>\${item.member.me_id}</td>
+							<td>\${item.member.me_name}</td>
+							<td>\${reportNames}</td>
+							<td>\${meStop}</td>
+							<td>\${item.member.me_stop_count}</td>
+							<td>\${item.member.me_report_count}</td>
+							<td>\${item.member.changeDate}</td>
+							<td>
+								<select id="selectbox">
+									<option value="0">선택</option>
+									<option value="1">1일</option>
+									<option value="3">3일</option>
+									<option value="7">7일</option>
+									<option value="15">15일</option>
+									<option value="30">30일</option>
+									<option value="60">60일</option>
+									<option value="365">365일</option>
+								</select>      
+								<button type="button" class="btn-member-stop" data-stop="\${item.site_num}">정지</button>
+							</td>
+							<td><button type="button" class="btn-member-del" data-del="\${item.member.me_id}">탈퇴</button></td>
+						</tr>
+						`
+				}
+				else {
+					meStop += `\${item.member.me_stop}`;
+		            reportNames += `\${report.rp_name}`;
+				str += 
+					` 
+					<tr class="box-report" style="text-align: center;">
+						<td>\${item.member.me_id}</td>
+						<td>\${item.member.me_name}</td>
+						<td>\${reportNames}</td>
+						<td>\${meStop}</td>
+						<td>\${item.member.me_stop_count}</td>
+						<td>\${item.member.me_report_count}</td>
+						<td>\${item.member.changeDate}</td>
+						<td>
+							<select id="selectbox">
+								<option value="0">선택</option>
+								<option value="1">1일</option>
+								<option value="3">3일</option>
+								<option value="7">7일</option>
+								<option value="15">15일</option>
+								<option value="30">30일</option>
+								<option value="60">60일</option>
+								<option value="365">365일</option>
+							</select>      
+							<button type="button" class="btn-member-stop" data-stop="\${item.member.me_id}">정지</button>
+						</td>
+						<td><button type="button" class="btn-member-del" data-del="\${item.member.me_id}">탈퇴</button></td>
+					</tr>
+					`
+				}
 				}
 		}
 	}
