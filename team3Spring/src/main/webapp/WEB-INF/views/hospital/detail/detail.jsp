@@ -257,7 +257,7 @@ p {
 			<img class="top-img" style="cursor: pointer;" alt="전화 이미지" src="<c:url value="/resources/img/detail-phone.svg"/>">
 		</div>
 		<div>
-			<a href='<c:url value="예약하기 버튼 url"/>' class="book-btn btn btn-success">예약하기</a>
+			<a href='<c:url value="/schedule?ho_id=${detail.hospital.ho_id}"/>' class="btn btn-outline-success">예약하기</a>
 		</div>
 		<hr style="border: 1px solid gray; margin: 30px auto;">
 		<div class="body-container">
