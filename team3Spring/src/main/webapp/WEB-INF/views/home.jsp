@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="http://fastly.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 
 <!-- jQuery library -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="http://fastly.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 
 <!-- Popper JS -->
 <script src="http://fastly.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
