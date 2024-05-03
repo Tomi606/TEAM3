@@ -96,7 +96,7 @@ public interface HospitalService {
 
 	boolean insertReview(ReviewVO review, MemberVO member);
 
-	HospitalDetailVO getDetail(int hd_num);
+	HospitalDetailVO getDetail(String ho_id);
 
 	boolean insertLand(LandVO land);
 

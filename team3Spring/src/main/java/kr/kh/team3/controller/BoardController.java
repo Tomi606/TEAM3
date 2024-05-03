@@ -191,6 +191,7 @@ public class BoardController {
 		return map;
 	}
 
+
 	@ResponseBody
 	@PostMapping("/report/community")
 	public Map<String, Object> reportPost(@RequestParam("rp_table") String rp_table,

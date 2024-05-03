@@ -187,7 +187,7 @@ public interface HospitalDAO {
 
 	EupMyeonDongVO selectHdEmdName(@Param("la_emd_num") int la_emd_num);
 
-	HospitalDetailVO selectDetail(@Param("hd_num")int hd_num);
+	HospitalDetailVO selectDetail(@Param("ho_id")String ho_id);
 
 	HospitalVO selectHospitalPage(@Param("id")String site_id);
 
