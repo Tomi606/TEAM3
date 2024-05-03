@@ -180,4 +180,6 @@ public interface HospitalService {
 
 	HospitalVO getHospitalMypage(SiteManagement user);
 
+	int getHdNum(String po_id);
+
 }

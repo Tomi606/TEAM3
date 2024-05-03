@@ -192,7 +192,11 @@ public interface HospitalDAO {
 	HospitalVO selectHospitalPage(@Param("id")String site_id);
 
 	ArrayList<HospitalVO> selectHospitalArrList();
+  
 	SiteManagement selectHospitalReportTarget(@Param("num")int rp_target);
 
+	int selectHdNum(@Param("id")String po_id);
+
 	void updateHospitalRpCount(@Param("id")String site_id);
+
 }
