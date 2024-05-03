@@ -33,4 +33,13 @@ public class ReservationScheduleVO {
 	    }
 	}
 	
+	public String getRsDate2() {
+	    if (this.rs_date != null) {
+	        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	        return format.format(this.rs_date);
+	    } else {
+	        return "없당ㅎㅎ";
+	    }
+	}
+	
 }

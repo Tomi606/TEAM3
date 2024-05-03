@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS `hospital_mediation`;
+pDROP DATABASE IF EXISTS `hospital_mediation`;
 
 CREATE DATABASE IF NOT EXISTS `hospital_mediation`;
 
@@ -616,6 +616,9 @@ values
 
 # 신고 상태
 insert into report_state values('1'),('3'),('7'),('15'),('30'),('60'),('180'),('365');
+
+#예약상태 
+insert into reservation_state values ("예약취소"),("예약완료");
 
 # site_management 추가
 -- insert into site_management value(1, 1, 'qqqq1111', "01011111111", "qqqq1111@naver.com", "USER");
