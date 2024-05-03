@@ -6,9 +6,13 @@
 <head>
 <!-- jquery validation -->
 <script src="http://fastly.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="http://fastly.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+<script src="http://fastly.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <title>세부 항목  수정</title>
 <style type="text/css">
+.day-btn:hover{
+cursor: pointer;
+}
 .container {
   margin: 20px auto;
   max-width: 800px;
@@ -17,61 +21,18 @@
   border: 1px solid #dee2e6;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.list-box {
-  padding: 20px;
-  background-color: #fff;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-.date-box {
-  margin-top: 20px;
-}
-
-.date-box input[type="date"],
-.date-box input[type="time"],
-.date-box input[type="number"] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-.date-box input[type="date"]::-webkit-inner-spin-button,
-.date-box input[type="date"]::-webkit-calendar-picker-indicator,
-.date-box input[type="time"]::-webkit-inner-spin-button,
-.date-box input[type="time"]::-webkit-calendar-picker-indicator {
-  display: none;
-}
-
-.date-box input[type="date"]:focus,
-.date-box input[type="time"]:focus,
-.date-box input[type="number"]:focus {
-  outline: none;
-  border-color: #007bff;
-}
-
-.date-box input[type="date"]::placeholder,
-.date-box input[type="time"]::placeholder,
-.date-box input[type="number"]::placeholder {
-  color: #6c757d;
-}
-
-.date-box input[type="date"]:hover,
-.date-box input[type="time"]:hover,
-.date-box input[type="number"]:hover {
-  border-color: #6c757d;
+h3 {
+  margin-bottom: 20px;
 }
 
 .calendar {
-  width: 300px;
-  margin: 20px auto;
+  width: 100%;
+  margin-top: 20px;
 }
 
 .topWrap {
@@ -87,11 +48,13 @@
   margin-right: 10px;
 }
 
-.month, .year {
+.month,
+.year {
   color: #007bff;
 }
 
-.prevBtn, .nextBtn {
+.prevBtn,
+.nextBtn {
   color: #007bff;
   font-size: 24px;
   text-decoration: none;
@@ -99,7 +62,8 @@
   transition: color 0.3s ease;
 }
 
-.prevBtn:hover, .nextBtn:hover {
+.prevBtn:hover,
+.nextBtn:hover {
   color: #0056b3;
 }
 
@@ -109,7 +73,9 @@
   text-align: center;
 }
 
-.week, .gray, .today {
+.week,
+.gray,
+.today {
   padding: 10px;
   border: 1px solid #ced4da;
   background-color: #fff;
@@ -127,7 +93,8 @@
   color: #6c757d;
 }
 
-.gray.first, .gray.last {
+.gray.first,
+.gray.last {
   background-color: #f8f9fa;
 }
 
@@ -139,7 +106,8 @@
   border-bottom: 1px solid #ced4da;
 }
 
-.gray.first, .gray.last {
+.gray.first,
+.gray.last {
   border-radius: 5px;
 }
 
@@ -148,46 +116,28 @@
   background-color: #f8f9fa;
 }
 
-.prevBtn, .nextBtn {
+.time-list-box {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.time-box {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+}
+.time-box a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.time-box:hover {
+  background-color: #e9ecef;
   cursor: pointer;
 }
 
-.date-box input[type="date"],
-.date-box input[type="time"],
-.date-box input[type="number"] {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-.date-box input[type="date"]::-webkit-inner-spin-button,
-.date-box input[type="date"]::-webkit-calendar-picker-indicator,
-.date-box input[type="time"]::-webkit-inner-spin-button,
-.date-box input[type="time"]::-webkit-calendar-picker-indicator {
-  display: none;
-}
-
-.date-box input[type="date"]:focus,
-.date-box input[type="time"]:focus,
-.date-box input[type="number"]:focus {
-  outline: none;
-  border-color: #007bff;
-}
-
-.date-box input[type="date"]::placeholder,
-.date-box input[type="time"]::placeholder,
-.date-box input[type="number"]::placeholder {
-  color: #6c757d;
-}
-
-.date-box input[type="date"]:hover,
-.date-box input[type="time"]:hover,
-.date-box input[type="number"]:hover {
-  border-color: #6c757d;
-}
 </style>
 </head>
 <body>
@@ -205,52 +155,35 @@
 					
 			</select>
 		</div>
-		<div class="calendar">
-			<div class="topWrap">
-				<div class="monthWrap">
-					<span class="year"></span>.
-					<span class="month"></span>
+		<div class="date-box">
+			<div class="calendar">
+				<div class="topWrap">
+					<div class="monthWrap">
+						<span class="year"></span>.
+						<span class="month"></span>
+					</div>
+					<a href="#prev" class="prevBtn">&lt;</a>
+					<a href="#next" class="nextBtn">&gt;</a>
 				</div>
-				<a href="#prev" class="prevBtn">&lt;</a>
-				<a href="#next" class="nextBtn">&gt;</a>
+				<div class="table">
+					
+				</div>
 			</div>
-			<div class="table">
-				
+			<div class="time-list-box">
+			   
 			</div>
-		</div>
-		<div class="time-box">
-		   
 		</div>
 </div>
 
-<!-- 프로그램 날짜를 선택하면 시간을 가져오는 메서드 -->
-<script type="text/javascript">
-	$("[name=hp_num]").click(function(){
-		let hp_num = $("[name=hp_num]").val();
-		$.ajax({
-			method : "post",
-			url : '<c:url value="/date/update"/>',
-			data : {
-				"hp_num" : hp_num
-			},
-			success : function(data){
-				
-			}
-		})
-	})
-</script>
-
 <!--병원 과목을 선택하면 프로그램을 가져오는 메서드  -->
 <script type="text/javascript">
-	
-	$("[name=hs_num]").change(function(){
+	$("[name=hs_num]").click(function(){
+		let hp_num = $("[name=hp_num]").val();
 		let hs_num = $("[name=hs_num]").val();
-		let ho = '${ho.site_id}';
-
 		if(hs_num == 'none'){
 			hs_num = 1;
-			return;
-		}		
+		}
+		let ho = '${ho.site_id}';
 		$.ajax({
 			method : "post",
 			url : '<c:url value="/program/updatecheck2"/>',
@@ -269,8 +202,12 @@
 
 <!-- 프로그램을 선택하면 날짜를 가져오는 메서드 -->
 <script type="text/javascript">
-	$("[name=hp_num]").change(function(){
+	$("[name=hp_num]").click(function(){
 		let hp_num = $("[name=hp_num]").val();
+		let hs_num = $("[name=hs_num]").val();
+		if(hp_num == 'none'){
+			hp_num = 1;
+		}
 		$.ajax({
 			method : "post",
 			url : '<c:url value="/getdate"/>',
@@ -284,6 +221,34 @@
 			}
 		})
 	})
+</script>
+
+<!-- 날짜를 클릭하면 이벤트 발생 -->
+<script type="text/javascript">
+$(document).on("click", ".day-btn", function(){
+	let rs_num = $(this).data("target");
+	console.log(rs_num)
+	$.ajax({
+		method : "post",
+		url : '<c:url value="/gettime"/>',
+		data : {
+			"rs_num" : rs_num
+		},
+		success : function(data){
+			console.log(data)
+			let str = ``;
+			for(let tmp of data.timeList){
+				str+= 
+					`
+						<div class="time-box">
+							<a class="">\${tmp.rsTime}</a>
+						</div>
+					`
+			}
+			$(".time-list-box").html(str);
+		}
+	})
+})
 </script>
 
 <!-- 달력 스크립트 -->
@@ -342,7 +307,7 @@ function cal(mon,ye, list){
 		if(list != null){
 			for(let tmp of list){
 				if(tmp.rsDate == da){
-					output += '<div>' + '<a class="day-btn">' + i + '</a>' + '</div>';
+					output += '<div>' + `<a class="day-btn" data-target="\${tmp.rs_num}">` + i + '</a>' + '</div>';
 					i+=1;
 					break;
 				}
@@ -384,6 +349,12 @@ cal(numMonth,numYear);
 
 //이전버튼 클릭
 $('.prevBtn').click(function(){
+	let hp_num = $("[name=hp_num]").val();
+	let hs_num = $("[name=hs_num]").val();
+	if(hp_num == 'none' || hs_num == 'none'){
+		alert("예약된 스케줄이 없습니다.");
+		return;
+	}
 	$('.table').empty();
 	if(numMonth==1){
 		numMonth = 12;
@@ -391,7 +362,6 @@ $('.prevBtn').click(function(){
 	}else{
 		numMonth--;
 	}
-	let hp_num = $("[name=hp_num]").val();
 	$.ajax({
 		method : "post",
 		url : '<c:url value="/getdate"/>',
@@ -408,6 +378,12 @@ $('.prevBtn').click(function(){
 
 //다음버튼 클릭
 $('.nextBtn').click(function(){
+	let hp_num = $("[name=hp_num]").val();
+	let hs_num = $("[name=hs_num]").val();
+	if(hp_num == 'none' || hs_num == 'none'){
+		alert("예약된 스케줄이 없습니다.");
+		return;
+	}
 	$('.table').empty();
 	if(numMonth==12){
 		numMonth = 1;
@@ -415,7 +391,6 @@ $('.nextBtn').click(function(){
 	}else{
 		numMonth++;
 	}
-	let hp_num = $("[name=hp_num]").val();
 	$.ajax({
 		method : "post",
 		url : '<c:url value="/getdate"/>',
