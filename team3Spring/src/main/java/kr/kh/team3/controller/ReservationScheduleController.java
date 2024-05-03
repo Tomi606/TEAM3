@@ -76,7 +76,6 @@ public class ReservationScheduleController {
 		return map;
     }
 	
-	//스케줄 수정 메서드
 	//프로그램을를 선택하면 여러 정보가 나옴
 	@ResponseBody
 	@PostMapping("/getdate")
@@ -88,4 +87,49 @@ public class ReservationScheduleController {
 		return map;
     }
 	
+	
+	
+	//프로그램을를 선택하면 여러 정보가 나옴
+	@ResponseBody
+	@PostMapping("/gettime")
+	public Map<String, Object> getTime(@RequestParam("rs_num") int rs_num, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		//해당 과와아이디를 이용해 번호를 가져오는 메서드
+		ReservationScheduleVO time = reservationScheduleService.getRsTime(rs_num);
+		ArrayList<ReservationScheduleVO> RSTimeList = reservationScheduleService.getRsList(time.getRsDate2());
+		map.put("timeList", RSTimeList);
+		return map;
+    }
+	
+//	예약된 회원을 관리하는 페이지 get
+	@GetMapping("/hospital/schedule/change")
+	public String ScheduleMemberCheck(HttpSession session, Model model) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		ArrayList<HsListVO> subjectList = programService.getSubjectList(user);
+		ArrayList<HospitalSubjectVO> list = new ArrayList<HospitalSubjectVO>();
+		for(HsListVO tmp : subjectList) {
+			try {
+				HospitalSubjectVO subject = programService.getSubject(tmp.getHsl_hs_num(), user);				
+				System.out.println(subject);
+				list.add(subject);
+			} catch (Exception e) {
+				
+			}
+		}
+		
+		model.addAttribute("list",list);
+		 ArrayList<HospitalProgramVO> programList = programService.getProgramList(user); 
+		 model.addAttribute("programList", programList);
+		 model.addAttribute("ho", user);
+		 return "/schedule/schedulechange";
+	}
+	
+	//프로그램을를 선택하면 여러 정보가 나옴
+	@ResponseBody
+	@PostMapping("/schedule/check")
+	public Map<String, Object> scheduleCheck(@RequestParam("hp_num") int hp_num, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		return map;
+    }
 }
