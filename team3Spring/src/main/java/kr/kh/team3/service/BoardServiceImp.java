@@ -1,6 +1,7 @@
 package kr.kh.team3.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.annotation.Resource;
 
@@ -14,6 +15,7 @@ import kr.kh.team3.dao.HospitalDAO;
 import kr.kh.team3.dao.MemberDAO;
 import kr.kh.team3.model.vo.BoardVO;
 import kr.kh.team3.model.vo.FileVO;
+import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.RecommendVO;
@@ -253,60 +255,58 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public ArrayList<PostVO> getUserCmtList(String po_id, Criteria cri) {
-		if(po_id == null || po_id.length() == 0) {
+		if (po_id == null || po_id.length() == 0) {
 			return null;
 		}
-		if(cri == null) {
-			cri = new Criteria(1,5);
+		if (cri == null) {
+			cri = new Criteria(1, 5);
 		}
-		
-		//po_id로 site_num 구하기
+
+		// po_id로 site_num 구하기
 		SiteManagement site = boardDao.selectSiteNum(po_id);
-		
+
 		return boardDao.selectUserCmtList(site.getSite_num(), cri);
 	}
 
 	@Override
 	public int getUserCmtListCount(String po_id, Criteria cri) {
-		if(po_id == null || po_id.length() == 0) {
+		if (po_id == null || po_id.length() == 0) {
 			return 0;
 		}
-		if(cri == null) {
-			cri = new Criteria(1,5);
+		if (cri == null) {
+			cri = new Criteria(1, 5);
 		}
-		
-		//po_id로 site_num 구하기
+
+		// po_id로 site_num 구하기
 		SiteManagement site = boardDao.selectSiteNum(po_id);
-		
+
 		return boardDao.selectUserCmtListCount(site.getSite_num(), cri);
 	}
-
+	
 	
 	public boolean report(ReportVO report, SiteManagement user) {
 		if (report == null || user == null) {
 			return false;
-
 		}
-		ArrayList<MemberVO> members = memberDao.selectMemberArrList();
-
-		report.getRp_site_num(user.getSite_num());
+		report.setRp_site_num(user.getSite_num());
 		ReportVO dbReport = boardDao.selectReport(report);
-		// 없으면 추가
-		for (MemberVO member : members) {
-			if (dbReport == null||member.getMe_id().equals(report.getRp_target())) {
-				boardDao.insertReport(report);
-				memberDao.updateRpCount(member.getMe_id());
-			}
-
-			// 있으면 false
-			else {
-				if (report.getRp_target().equals(dbReport.getRp_target())) {
-					report.getRp_target();
-				}
-				return false;
+		if (dbReport != null)
+			return false;
+		boardDao.insertReport(report);
+		SiteManagement member = memberDao.selectReportMemberTarget(report.getRp_target());
+		if ("member".equals(report.getRp_table())) {
+			if (member.getSite_authority().equals("USER")) {
+				memberDao.updateMemberRpCount(member.getSite_id());
+			} else if (member.getSite_authority().equals("MANAGER")) {
+				hospitalDao.updateHospitalRpCount(member.getSite_id());
 			}
 		}
 		return true;
-
 	}
+
+	@Override
+	public int getRpTarget(String rp_target_id) {
+		return memberDao.selectTarget(rp_target_id);
+	}
+
 }

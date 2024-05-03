@@ -7,8 +7,8 @@
 <head>
 <title>
 <c:choose>
-	<c:when test="${title != null }">${title}</c:when>
-	<c:otherwise>병원 중개 사이트</c:otherwise>
+  <c:when test="${title != null }">${title}</c:when>
+  <c:otherwise>병원 중개 사이트</c:otherwise>
 </c:choose>
 </title>
 
@@ -28,7 +28,7 @@
 <body>
     <tiles:insertAttribute name="header"/>
     <div style="min-height: calc(100vh - 290px)">
-    	<tiles:insertAttribute name="body" />
+      <tiles:insertAttribute name="body" />
     </div>
     <tiles:insertAttribute name="footer" />
 </body>

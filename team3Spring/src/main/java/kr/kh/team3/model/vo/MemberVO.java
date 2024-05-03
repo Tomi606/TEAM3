@@ -1,5 +1,6 @@
 package kr.kh.team3.model.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -33,5 +34,12 @@ public class MemberVO {
 	private ReportVO report;
 	private SiteManagement siteManagement;
 
-	 
+	public String getChangeDate() {
+		if (this.me_stop != null) {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			return format.format(this.me_stop);
+		} else {
+			return "없당ㅎㅎ";
+		}
+	}
 }

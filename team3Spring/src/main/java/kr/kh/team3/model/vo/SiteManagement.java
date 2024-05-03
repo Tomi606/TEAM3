@@ -1,5 +1,7 @@
 package kr.kh.team3.model.vo;
 
+import java.util.ArrayList;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,4 +15,7 @@ public class SiteManagement {
 	private String site_email;
 	private String site_authority;
 	private MemberVO member;
+	private HospitalVO hospital;
+	private ArrayList<ReportVO> report;
+	
 }

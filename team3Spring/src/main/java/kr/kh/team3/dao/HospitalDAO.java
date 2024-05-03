@@ -66,7 +66,7 @@ public interface HospitalDAO {
 
 	boolean updateWaitNo(@Param("ho_id")String ho_id);
 
-	ArrayList<HospitalVO> selectReportHospitalList(@Param("cri")Criteria cri);
+	ArrayList<SiteManagement> selectReportHospitalList(@Param("cri")Criteria cri);
 
 	int selectRHTotalCount(@Param("cri")Criteria cri);
 
@@ -191,4 +191,8 @@ public interface HospitalDAO {
 
 	HospitalVO selectHospitalPage(@Param("id")String site_id);
 
+	ArrayList<HospitalVO> selectHospitalArrList();
+	SiteManagement selectHospitalReportTarget(@Param("num")int rp_target);
+
+	void updateHospitalRpCount(@Param("id")String site_id);
 }

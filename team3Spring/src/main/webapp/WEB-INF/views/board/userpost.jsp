@@ -77,6 +77,75 @@
 .comment-link:hover{
 	color: black;
 }
+.user-btn {
+	background-color: white;
+	border: 0px solid black;
+	float: left;
+}
+.user-btn:hover{
+	color: green;
+	border-bottom: 3px solid green;
+}
+.user-btn-active{
+	color: green;
+	border-bottom: 3px solid green;
+}
+/*신고 style*/
+ .modal {
+	display: none;
+	position: fixed;
+	z-index: 990;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 500px;
+	text-align: center;
+}
+
+.close {
+	color: #aaa;
+	margin: 0 24px 8px auto;
+	font-size: 50px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+.report-box li{
+	list-style: none;width: 50px;height: 50px;
+}
+.report-box{
+ 	  background-image:url("<c:url value="/resources/img/siren.png"/>");
+      margin-left:auto;
+      background-size: 30px;
+      width:50px;
+      height:50px;
+      background-repeat:no-repeat;
+      fill: #ddd;
+}
+.red_btn{
+ background-image:url("<c:url value="/resources/img/red_siren.png"/>");
+      margin-left:auto;
+      background-size: 30px;
+      width:50px;
+      height:50px;
+      background-repeat:no-repeat;
+      fill: #ddd;
+
+}
 </style>
 </head>
 <body>
@@ -96,11 +165,31 @@
 			<c:if test="${site_authority eq 'ADMIN'}">
 				<span>관리자</span>
 			</c:if>
-			
+			<c:choose>
+			    <c:when test="${site_authority eq 'ADMIN' || po_id eq user.site_id}">
+			        <c:set var="displayStyle" value="none" />
+			    </c:when>
+			    <c:otherwise>
+			       <div class="report-box"data-target="${po_id}">
+						<li role="button" class="btn-report"></li>
+					</div>
+			    </c:otherwise>
+			</c:choose>
+			 <div id="myModal" class="modal">
+					  <div class="modal-content">
+					    <span class="close">&times;</span>
+					    <h2>신고</h2>
+					    <label for="old_me_pw">신고 사유</labe>
+					    <div class="new_me_pw_hidden">
+					      <textarea type='text' id="rp_name" name="rp_name" class="box-pw2"></textarea>
+					    </div>
+					    <a type="button" class="report-user-btn success-btn">신고하기</a>
+			  		  </div>
+				 </div>
 			<div class="hr"></div>
-			<div>
-				<button class="user-post-btn">작성한 글</button>
-				<button class="user-cmt-btn">댓글 쓴 글</button>
+			<div class="user-btn-box">
+				<button class="user-btn user-post-btn user-btn-active">작성한 글</button>
+				<button class="user-btn user-cmt-btn">댓글 쓴 글</button>
 			</div>
 			<div class="box-post-list">
 				<!-- 회원 게시글, 댓글 출력 -->
@@ -120,6 +209,62 @@
 			</div>
 		</div>
 	</div>
+<script type="text/javascript">
+$(document).ready(function() {
+	  // 로그인 여부를 체크
+	  if (!checkLogin()) {
+	    return;
+	  }
+	  $(document).on('click', '.btn-report', function() {
+	    let target_id = $(this).closest('.report-box').data('target');
+	    $("#myModal").css("display", "block");
+	    $("#myModal").data("target", target_id);
+	  });
+	  $(document).on('click', '.close', function() {
+	    $("#myModal").css("display", "none");
+	  });
+	  $(document).on('click','.report-user-btn',function(){
+	    let target_id = $("#myModal").data("target");
+	    let rp_name = $("#rp_name").val();
+	    let report = {
+	      rp_target: target_id,
+	      rp_name: rp_name
+	    };
+	    $.ajax({
+	      async: true, 
+	      url: '<c:url value="/report/check"/>',
+	      type: 'post',
+	      data: {
+	    	  rp_table:"member",
+	    	  rp_target_id : report.rp_target,
+	    	  rp_name : report.rp_name
+	      },
+	      success: function(data) {
+	        if(!data.result){
+	          alert(target_id + "님을 이미 신고하였습니다.");  
+	          $("#myModal").css("display", "none");
+	          return;
+	        } else {
+	        	 alert(target_id + "님을 신고하였습니다.");
+		          $("#myModal").css("display", "none");
+		          $(".report-box").addClass("red_btn");
+		          localStorage.setItem("reportBtn", "red_btn");
+	        }
+	      },
+	      error: function(jqXHR, textStatus, errorThrown) {
+	        console.log("서버 오류 발생: " + errorThrown);
+	      }
+	    });
+	  });
+	});
+$(document).ready(function() {
+    var btnState = localStorage.getItem("reportBtn");
+    if (btnState == "red_btn") {
+        $(".report-box").addClass("red_btn");
+    }
+});
+</script>
+
 <script type="text/javascript">
 let page_po = 1;
 let type_po = 'title';
@@ -428,6 +573,8 @@ $(document).on('click','.user-post-btn',function(){
 	search_cmt = '';
 	$('.box-pagination1>ul').html('');
 	$('.box-pagination>ul').html('');
+	$(".user-cmt-btn").removeClass("user-btn-active");
+	$(this).addClass("user-btn-active");
    getPostList();
 });
 $(document).on('click','.user-cmt-btn',function(){
@@ -439,8 +586,22 @@ $(document).on('click','.user-cmt-btn',function(){
 	search_cmt = '';
 	$('.box-pagination1>ul').html('');
 	$('.box-pagination>ul').html('');
+	$(".user-post-btn").removeClass("user-btn-active");
+	$(this).addClass("user-btn-active");
    getCmtList();
 });
+
+function checkLogin() {
+	  //로그인 했을 때
+	  if ('${user.site_id}' != '') {
+	    return true;
+	  }
+	  //안 했을 때
+	  if (confirm("로그인이 필요한 기능입니다. \n로그인 페이지로 이동하겠습니까?")) {
+	    location.href = '<c:url value="/login"/>';
+	  }
+	  return false;
+	}
 </script>
 </body>
 </html>

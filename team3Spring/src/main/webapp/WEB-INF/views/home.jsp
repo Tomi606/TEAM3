@@ -15,7 +15,11 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="http://fastly.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
 <style type="text/css">
+
+
+
 .join-groub li:hover{
 	border-bottom:3px solid green;
 	height: 94px;

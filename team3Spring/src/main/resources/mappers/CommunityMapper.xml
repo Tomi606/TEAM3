@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.kh.team3.dao.CommunityDAO">
+	<!-- 게시글 resultMap -->
+	<resultMap type="PostVO" id="postMap">
+		<result property="po_num" column="po_num"/>
+		<result property="po_title" column="po_title"/>
+		<result property="po_report_count" column="po_report_count"/>
+		<result property="po_view" column="po_view"/>
+		<result property="po_date" column="po_date"/>
+		<result property="po_content" column="po_content"/>
+		<result property="po_bo_num" column="po_bo_num"/>
+		<result property="po_co_count" column="po_co_count"/>
+		<result property="po_mg_num" column="po_mg_num"/>
+		<collection property="sitemanagement" ofType="SiteManagement"
+		column="po_mg_num" select="selectPoMgNum"/>
+	</resultMap>
+	
+	<select id="selectPoMgNum" resultType="SiteManagement">
+		select * from site_management where site_num = #{po_mg_num}
+	</select>
+	
+	<select id="selectPostList" resultMap="postMap">
+		select * from post where po_mg_num = #{site_num}
+	</select>
+	
+	<!-- 댓글 resultMap -->
+	<resultMap type="CommentVO" id="commentMap">
+		<result property="co_num" column="co_num"/>
+		<result property="co_content" column="co_content"/>
+		<result property="co_date" column="co_date"/>
+		<result property="co_report_count" column="co_report_count"/>
+		<result property="co_po_num" column="co_po_num"/>
+		<result property="co_mg_num" column="co_mg_num"/>
+		<collection property="sitemanagement" ofType="SiteManagement"
+		column="co_mg_num" select="selectCoMgNum"/>
+	</resultMap>
+	
+	<select id="selectCoMgNum" resultType="SiteManagement">
+		select * from site_management where site_num = #{co_mg_num}
+	</select>
+	
+	<select id="selectCommentList" resultMap="commentMap">
+		select * from comment where co_mg_num = #{site_num}
+	</select>
+	
+	<!-- 좋아요 resultMap -->
+	<resultMap type="RecommendVO" id="recommendMap">
+		<result property="re_num" column="re_num"/>
+		<result property="re_state" column="re_state"/>
+		<result property="re_po_num" column="re_po_num"/>
+		<result property="re_mg_num" column="re_mg_num"/>
+		<collection property="sitemanagement" ofType="SiteManagement"
+		column="re_mg_num" select="selectReMgNum"/>
+	</resultMap>
+	
+	<select id="selectReMgNum" resultType="SiteManagement">
+		select * from site_management where site_num = #{re_mg_num}
+	</select>
+	
+	<select id="selectRecommendList" resultMap="recommendMap">
+		select * from recommend where re_mg_num = #{site_num}
+	</select>
+	
+	
+	
+</mapper>
