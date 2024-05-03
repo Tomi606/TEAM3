@@ -388,5 +388,22 @@
 		where
 		rp_target = #{rp.rp_target} and rp_site_num = #{rp.rp_site_num}
 	</update>
-
+	<update id="updatePostRpCount">
+		update post set po_report_count = po_report_count +1
+		where po_num = #{rp}
+		
+	</update>
+	<update id="updateCommentRpCount">
+		update comment set co_report_count = co_report_count +1
+		where co_num = #{rp}
+		
+	</update>
+	
+	<select id="selectPostTartget" resultType="kr.kh.team3.model.vo.PostVO">
+		select * from post where po_num = #{rp}
+	</select>
+	
+	<select id="selectCommentTartget" resultType="kr.kh.team3.model.vo.CommentVO">
+		select * from comment where co_num = #{rp}
+	</select>
 </mapper>

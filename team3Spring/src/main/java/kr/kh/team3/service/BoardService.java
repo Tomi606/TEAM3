@@ -66,5 +66,6 @@ public interface BoardService {
 
 	int getUserCmtListCount(String po_id, Criteria cri);
 
+
 	
 }

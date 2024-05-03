@@ -128,7 +128,7 @@
 	list-style: none;width: 50px;height: 50px;
 }
 .report-box{
- 	  background-image:url("<c:url value="/resources/img/siren.png"/>");
+ 	  background-image:url("<c:url value="/resources/img/red_siren.png"/>");
       margin-left:auto;
       background-size: 30px;
       width:50px;
