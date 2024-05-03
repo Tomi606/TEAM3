@@ -10,6 +10,9 @@
 <script src="http://fastly.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <title>세부 항목  수정</title>
 <style type="text/css">
+.day-btn:hover{
+cursor: pointer;
+}
 .container {
   margin: 20px auto;
   max-width: 800px;
@@ -125,7 +128,6 @@ h3 {
   border: 1px solid #ced4da;
   border-radius: 5px;
 }
-
 .time-box a {
   text-decoration: none;
   color: inherit;
@@ -133,6 +135,7 @@ h3 {
 
 .time-box:hover {
   background-color: #e9ecef;
+  cursor: pointer;
 }
 
 </style>
@@ -174,7 +177,7 @@ h3 {
 
 <!--병원 과목을 선택하면 프로그램을 가져오는 메서드  -->
 <script type="text/javascript">
-	$("[name=hs_num]").change(function(){
+	$("[name=hs_num]").click(function(){
 		let hp_num = $("[name=hp_num]").val();
 		let hs_num = $("[name=hs_num]").val();
 		if(hs_num == 'none'){
@@ -199,7 +202,7 @@ h3 {
 
 <!-- 프로그램을 선택하면 날짜를 가져오는 메서드 -->
 <script type="text/javascript">
-	$("[name=hp_num]").change(function(){
+	$("[name=hp_num]").click(function(){
 		let hp_num = $("[name=hp_num]").val();
 		let hs_num = $("[name=hs_num]").val();
 		if(hp_num == 'none'){
