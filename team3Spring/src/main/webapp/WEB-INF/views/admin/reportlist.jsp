@@ -101,9 +101,9 @@ function displayReportList(list){
 							<option value="60">60일</option>
 							<option value="365">365일</option>
 						</select>
-						<button class="btn-ho-stop" data-id="\${item.hospital.ho_id}">정지</button>
+						<button class="btn-ho-stop" data-id="\${item.site_num}">정지</button>
 					</td>
-					<td><button class="btn-ho-out" data-id="\${item.hospital.ho_id}">탈퇴</button></td>
+					<td><button class="btn-ho-out" data-id="\${item.site_id}">탈퇴</button></td>
 				</tr>
 			`;
 			  }
