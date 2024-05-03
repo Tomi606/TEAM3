@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import kr.kh.team3.model.vo.BoardVO;
+import kr.kh.team3.model.vo.CommentVO;
 import kr.kh.team3.model.vo.FileVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.RecommendVO;
@@ -69,5 +70,13 @@ public interface BoardDAO {
 	void insertReport(@Param("rp")ReportVO report);
 
 	void updateReport(@Param("rp")ReportVO report);
+
+	PostVO selectPostTartget(@Param("rp")int rp_target);
+
+	void updatePostRpCount(@Param("rp")int po_num);
+
+	CommentVO selectCommentTartget(@Param("rp")int rp_target);
+
+	void updateCommentRpCount(@Param("rp")int co_num);
 
 }

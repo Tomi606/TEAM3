@@ -1,7 +1,6 @@
 package kr.kh.team3.service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.annotation.Resource;
 
@@ -14,9 +13,8 @@ import kr.kh.team3.dao.BoardDAO;
 import kr.kh.team3.dao.HospitalDAO;
 import kr.kh.team3.dao.MemberDAO;
 import kr.kh.team3.model.vo.BoardVO;
+import kr.kh.team3.model.vo.CommentVO;
 import kr.kh.team3.model.vo.FileVO;
-import kr.kh.team3.model.vo.HospitalVO;
-import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.RecommendVO;
 import kr.kh.team3.model.vo.ReportVO;
@@ -293,13 +291,20 @@ public class BoardServiceImp implements BoardService {
 		if (dbReport != null)
 			return false;
 		boardDao.insertReport(report);
-		SiteManagement member = memberDao.selectReportMemberTarget(report.getRp_target());
 		if ("member".equals(report.getRp_table())) {
+			SiteManagement member = memberDao.selectReportMemberTarget(report.getRp_target());
 			if (member.getSite_authority().equals("USER")) {
 				memberDao.updateMemberRpCount(member.getSite_id());
 			} else if (member.getSite_authority().equals("MANAGER")) {
 				hospitalDao.updateHospitalRpCount(member.getSite_id());
 			}
+			return true;
+		}else if(report.getRp_table().equals("post")) {
+			PostVO post = boardDao.selectPostTartget(report.getRp_target());
+			boardDao.updatePostRpCount(post.getPo_num());
+		}else if(report.getRp_table().equals("comment")) {
+			CommentVO comment = boardDao.selectCommentTartget(report.getRp_target());
+			boardDao.updateCommentRpCount(comment.getCo_num());
 		}
 		return true;
 	}

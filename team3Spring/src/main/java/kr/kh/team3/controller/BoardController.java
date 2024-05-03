@@ -192,12 +192,21 @@ public class BoardController {
 	}
 
 	@ResponseBody
-
-	@PostMapping("/report/Post")
+	@PostMapping("/report/community")
 	public Map<String, Object> reportPost(@RequestParam("rp_table") String rp_table,
 			@RequestParam("rp_target") int rp_target, @RequestParam("rp_name") String rp_name, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		int rp_target_Post = boardService.getRpPostTarget(rp_target);
+		ReportVO report = new ReportVO(rp_target, rp_name, rp_table);
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		boolean res = boardService.report(report, user);
+		map.put("result", res);
+		return map;
+	}
+	@ResponseBody
+	@PostMapping("/report/comment")
+	public Map<String, Object> reportComment(@RequestParam("rp_table") String rp_table,
+			@RequestParam("rp_target") int rp_target, @RequestParam("rp_name") String rp_name, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		ReportVO report = new ReportVO(rp_target, rp_name, rp_table);
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		boolean res = boardService.report(report, user);
