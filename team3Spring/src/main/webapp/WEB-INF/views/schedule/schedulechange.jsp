@@ -16,19 +16,28 @@
 <!-- 전체 병원 조회 박스 -->
 <div class="all-box container mt-3">
 	<div style="display: flex; align-items: center;">
-	    <h2 style="margin-right: auto;">대기 병원 리스트</h2>
-	    <span><a style="margin-right: 100px;"
-	    href="<c:url value='/admin/hospital'/>">목록으로</a></span>
+	    <select name="hs_num" class="form-control">
+				<option value="none">진료과를 선택해주세요</option>
+			<c:forEach items="${list}" var="list">
+				<option value="${list.hs_num}">${list.hs_title}</option>
+			</c:forEach>
+		</select>
+		<div class="input-group mb-3">
+			<select name="hp_num" class="form-control">
+				<option value="none">수정할 프로그램을 선택해주세요</option>
+					
+			</select>
+		</div>
 	</div>
 	<table class="table table-hover mt-3">
 		<thead>
 			<tr>
-				<th>아이디</th>
-				<th>상호명</th>
-				<th>사업자 번호</th>
-				<th>전화번호</th>
-				<th>이메일</th>
-				<th>소재지</th>
+				<th>예약번호</th>
+				<th>예약자 아이디</th>
+				<th>예약 상태</th>
+				<th>예약 프로그램</th>
+				<th>날짜</th>
+				<th>시간</th>
 				<th>승인/거절</th>
 			</tr>
 		</thead>
@@ -42,6 +51,22 @@
 </div>
 
 <script type="text/javascript">
+	$("[name=hp_num]").click(function(){
+		let hp_num = $("[name=hp_num]").val();
+		$.ajax({
+			method : "post",
+			url : '<c:url value="/schedule/check"/>',
+			data:{
+				"hp_num" : hp_num
+			},
+			success : function(data){
+						
+			}
+		});
+	});
+</script>
+
+<!-- <script type="text/javascript">
 let cri = {
 	page : 1
 }
@@ -68,29 +93,6 @@ function getWaitList(cri){
 	});
 }
 
-function displayWaitList(list){
-	let str = '';
-	if(list == null || list.length == 0){
-		str = '<h3>대기중인 병원이 없습니다.</h3>';
-		$('.box-hospital-list').html(str);
-		return;
-	}
-	for(item of list){
-		str += 
-		`
-			<tr class="box-hospital">
-				<td>\${item.ho_id}</td>
-				<td>\${item.ho_name}</td>
-				<td>\${item.ho_num}</td>
-				<td>\${item.ho_phone}</td>
-				<td>\${item.ho_email}</td>
-				<td>\${item.ho_address}</td>
-				<td><button class="btn-wait-ok" data-id="\${item.ho_id}">승인</button><button class="btn-wait-no" data-id="\${item.ho_id}">거절</button></td>
-			</tr>
-		`
-	}
-	$('.box-hospital-list').html(str);
-}
 
 function displayWaitPagination(pm){
     
@@ -121,70 +123,31 @@ $(document).on('click','.box-pagination .page-link',function(){
 	cri.page = $(this).data('page');
 	getWaitList(cri);
 })
-</script>
-<!-- 승인 버튼 클릭 -->
-<script type="text/javascript">
-$(document).on('click','.btn-wait-ok',function(){
-	if(!confirm("승인하시겠습니까?")){
-		return;
-	}
-	//서버로 보낼 데이터
-	let wait = {
-		ho_id : $(this).data('id')
-	}
-	//서버로 데이터 전송
-	$.ajax({
-		async : true,
-		url : '<c:url value="/admin/waitok"/>', 
-		type : 'post',
-		data : JSON.stringify(wait),
-		contentType : "application/json; charset=utf-8",
-		dataType : "json", 
-		success : function (data){
-			if(data.res){
-				alert("회원 승인이 완료되었습니다.");
-				getWaitList(cri);
-			}else{
-				alert("회원 승인에 실패하였습니다.");
-			}
-		}, 
-		error : function(jqXHR, textStatus, errorThrown){
+</script>-->
 
-		}
-	});
-})
-</script>
-<!-- 거절 버튼 클릭 -->
+<!-- 병원 과목을 선택하면 프로그램을 가져오는 메서드  -->
 <script type="text/javascript">
-$(document).on('click','.btn-wait-no',function(){
-	if(!confirm("거절하시겠습니까?")){
-		return;
-	}
-	//서버로 보낼 데이터
-	let wait = {
-		ho_id : $(this).data('id')
-	}
-	//서버로 데이터 전송
-	$.ajax({
-		async : true,
-		url : '<c:url value="/admin/waitno"/>', 
-		type : 'post',
-		data : JSON.stringify(wait),
-		contentType : "application/json; charset=utf-8",
-		dataType : "json", 
-		success : function (data){
-			if(data.res){
-				alert("회원 거절이 완료되었습니다.");
-				getWaitList(cri);
-			}else{
-				alert("회원 거절에 실패하였습니다.");
-			}
-		}, 
-		error : function(jqXHR, textStatus, errorThrown){
-
+	$("[name=hs_num]").change(function(){
+		let hp_num = $("[name=hp_num]").val();
+		let hs_num = $("[name=hs_num]").val();
+		if(hs_num == 'none'){
+			hs_num = 1;
 		}
+		let ho = '${ho.site_id}';
+		$.ajax({
+			method : "post",
+			url : '<c:url value="/program/updatecheck2"/>',
+			data : {"hs_num" : hs_num,
+					"ho" : ho},
+			success : function (data) {
+				let str = ``
+				for(let tmp of data.hpList){
+					str+=`<option value="\${tmp.hp_num}">\${tmp.hp_title}</option>`
+				}	
+				$("[name=hp_num]").html(str);
+			}
+		});
 	});
-})
-</script>
+</script> 
 </body>
 </html>
