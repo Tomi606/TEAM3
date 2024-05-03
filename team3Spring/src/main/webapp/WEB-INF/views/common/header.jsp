@@ -118,12 +118,6 @@ width: 170px;height: 80px;
 	border-bottom:3px solid green;
 	height: 65px;
 }
-
-
-
-
-
-
 .join-groub li:hover{
 	border-bottom:3px solid green;
 	height: 94px;
@@ -209,7 +203,7 @@ height:50px;width:100%;background-color: #fafafa;
 							<a class="nav-link" href='<c:url value="/member/mypage"/>'>마이페이지</a>
 						</li>		
 						<li>
-							<a class="nav-link" href='<c:url value="/hospital/mypage"/>'>병원페이지</a>
+							<a class="nav-link" href='<c:url value="/hospital/mypage?ho_id=${hospital.ho_id}"/>'>병원페이지</a>
 						</li>		
 				</ul>			
 			</div>

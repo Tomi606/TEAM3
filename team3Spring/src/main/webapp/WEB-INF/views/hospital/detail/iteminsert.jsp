@@ -8,15 +8,18 @@
 <title>프로그램 등록</title>
 <style type="text/css">
 .container {
-  margin: 20px auto;
-  max-width: 800px;
-  padding: 20px;
+	
+  margin: 100px auto;
+  max-width: 1000px;
+  padding: 50px;
   background-color: #f8f9fa;
   border: 1px solid #dee2e6;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
+.form-control{
+    height: calc(1.5em + .75rem + 8px);
+}
 .input-box-group {
   margin-bottom: 20px;
   padding: 20px;
@@ -140,6 +143,7 @@
 }
 
 .date-box .btn {
+	margin:5px;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
