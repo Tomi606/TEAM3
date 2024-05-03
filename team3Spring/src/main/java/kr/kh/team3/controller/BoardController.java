@@ -191,8 +191,7 @@ public class BoardController {
 		return map;
 	}
 
-	@ResponseBody
-
+/*	@ResponseBody
 	@PostMapping("/report/Post")
 	public Map<String, Object> reportPost(@RequestParam("rp_table") String rp_table,
 			@RequestParam("rp_target") int rp_target, @RequestParam("rp_name") String rp_name, HttpSession session) {
@@ -203,6 +202,6 @@ public class BoardController {
 		boolean res = boardService.report(report, user);
 		map.put("result", res);
 		return map;
-	}
+	}*/
 
 }

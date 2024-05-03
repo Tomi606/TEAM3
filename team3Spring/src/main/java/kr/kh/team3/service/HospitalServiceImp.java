@@ -457,9 +457,11 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public HospitalDetailVO getDetail(int hd_num) {
-
-		return hospitalDao.selectDetail(hd_num);
+	public HospitalDetailVO getDetail(String ho_id) {
+		if(ho_id == null || ho_id.length() == 0) {
+			return null;
+		}
+		return hospitalDao.selectDetail(ho_id);
 	}
 	
 

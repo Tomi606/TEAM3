@@ -405,7 +405,7 @@
 	</select>
 	
 	<select id="selectDetail" resultMap="hdMap">
-		select * from hospital_detail where hd_num = #{hd_num}
+		select * from hospital_detail where hd_ho_id = #{ho_id}
 	</select>
 	
 	<resultMap type="HsListVO" id="HsMap">

@@ -242,12 +242,16 @@ public class HospitalController {
 	//-----------------------------[병원 상세 페이지]------------------------------
 	//회원 입장에서 상페 페이지 조회시
 	@GetMapping("/hospital/detail/detail")
-	public String hospitalDetail(Model model, HttpSession session, int hd_num, BookmarkVO bookmark) {
+	public String hospitalDetail(Model model, HttpSession session, String ho_id, BookmarkVO bookmark) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO member = memberService.getSiteMember(user);
 		//상세 페이지를 가져옴
-		HospitalDetailVO detail = hospitalService.getDetail(hd_num);
-		
+		HospitalDetailVO detail = hospitalService.getDetail(ho_id);
+		if(detail == null) {
+			model.addAttribute("msg","상세페이지 등록 후 이용 가능한 서비스입니다.");
+			model.addAttribute("url","/hospital/mypage");
+			return "message";
+		}
 		//랜드 가져옴(HospitalVO의 ho_la_num으로)
 		HospitalVO hospital = hospitalService.getHoId(detail.getHd_ho_id());
 		LandVO land = hospitalService.getHoLand(hospital.getHo_la_num());

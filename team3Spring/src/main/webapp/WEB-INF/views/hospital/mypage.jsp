@@ -482,7 +482,7 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 			<div class="profile-anything">
 				<div class="anything-box">				
 					<div class="choose-box">			
-						<a href='<c:url value="/hospital/detail/detail?hd_num=\${hospital.hospital_detail.hd_num}"/>'>병원 상세 페이지 조회</a><br> 
+						<a href='<c:url value="/hospital/detail/detail?ho_id=\${hospital.ho_id}"/>'>병원 상세 페이지 조회</a><br> 
 					</div>
 					<div class="choose-box">
 						<a href='<c:url value="/hospital/detail/insert"/>'>병원 상세 페이지 등록/수정</a><br>
