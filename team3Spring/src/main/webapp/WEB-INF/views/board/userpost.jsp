@@ -128,7 +128,7 @@
 	list-style: none;width: 50px;height: 50px;
 }
 .report-box{
- 	  background-image:url("<c:url value="/resources/img/red_siren.png"/>");
+ 	  background-image:url("<c:url value="/resources/img/siren.png"/>");
       margin-left:auto;
       background-size: 30px;
       width:50px;
@@ -146,6 +146,9 @@
       fill: #ddd;
 
 }
+.detail-btn:hover {
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -155,14 +158,11 @@
 			<h1>${po_id}</h1>
 			<c:if test="${site_authority eq 'MANAGER'}">
 				<span>병원 회원</span>
-				<span>
-				<c:if test="${hd_num eq 0}">
-					<a href="<c:url value='/hospital/detail/detail?ho_id=${ho_id}'/>" class="detail-btn">병원 상세 바로가기</a>
+				<c:if test="${po_id ne user.site_id}">
+					<span>
+						<a class="detail-btn" id="detail_btn" >병원 상세 바로가기</a>
+					</span>
 				</c:if>
-				<c:if test="${hd_num ne 0}">
-					<a href="#" class="detail-btn" onclick="checkHdNum()">병원 상세 바로d가기</a>
-				</c:if>
-				</span>
 			</c:if>
 			<c:if test="${site_authority eq 'USER'}">
 				<span>일반 회원</span>
@@ -215,25 +215,26 @@
 		</div>
 	</div>
 <script type="text/javascript">
-/* $(document).on('click', '.detail-btn', function() {
-	alert(1);
-	if(${hd_num} == null){
+$('#detail_btn').click(function() {
+	if('${hd}' == null ||'${hd}' == ''){
 		alert("상세 정보가 등록되지 않은 병원입니다.");
 		return false;
+	}else{
+		location.href=`<c:url value='/hospital/detail/detail?ho_id=${po_id}'/>`;
+		return true;
 	}
-} */
-function checkHdNum(event) {
-	event.preventDefault();
+}); 
+/* function checkHdNum() {
     // 여기에 hd_num의 값이 있는지 확인하는 코드를 넣습니다.
-    var hd_num = \${hd_num}; // hd_num의 값에 따라 처리하기 위해 서버에서 해당 변수를 가져와야 합니다.
+    var hd = ${hd}; // hd_num의 값에 따라 처리하기 위해 서버에서 해당 변수를 가져와야 합니다.
 
-    if (hd_num == 0) {
+    if (hd == null) {
         alert("상세 정보가 등록되지 않은 병원입니다.");
         return false; // 이동하지 않음
     } else {
         return true; // 이동
     }
-}
+} */
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
