@@ -19,6 +19,7 @@ import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.ReportVO;
+import kr.kh.team3.model.vo.SiteManagement;
 import kr.kh.team3.pagination.Criteria;
 import kr.kh.team3.pagination.PageMaker;
 import kr.kh.team3.service.BoardService;
@@ -131,7 +132,7 @@ public class AdminController {
 	public Map<String, Object> reportList(@RequestBody Criteria cri){
 		Map<String, Object> map = new HashMap<String, Object>();
 		cri.setPerPageNum(3);
-		ArrayList<HospitalVO> hospitalList = hospitalService.getReportHospitalList(cri);
+		ArrayList<SiteManagement> hospitalList = hospitalService.getReportHospitalList(cri);
 		int totalCount = hospitalService.getRHTotalCount(cri);
 		PageMaker pm = new PageMaker(3, cri, totalCount);
 		System.out.println(hospitalList+"dddddddddddddddddddddddddddddddddd");
@@ -186,13 +187,13 @@ public class AdminController {
 		return "/admin/member/report";
     }
 	
-	//신고 회원 관리 리스트 https://wakestand.tistory.com/787
+	//신고 회원 관리 리스트
 	@ResponseBody
 	@PostMapping("/admin/member/report")
 	public Map<String, Object> adminReportPost(@RequestBody Criteria cri) {
 		Map<String, Object> map = new HashMap<String, Object>();		
 		cri.setPerPageNum(3);
-		ArrayList<ReportVO> list = memberService.getReportMemberList(cri);
+		ArrayList<SiteManagement> list = memberService.getReportMemberList(cri);
 		int totalCount = memberService.getReportMemberTotalCount(cri);
 		PageMaker pm = new PageMaker(3, cri, totalCount);
 		map.put("list", list);

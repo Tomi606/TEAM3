@@ -3,6 +3,43 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team3.dao.MemberDAO">
+	<!-- 신고 회원 리스트 -->
+	<resultMap type="SiteManagement" id="siteMap">
+		<id column="site_num" property="site_num"/>
+		<result column="site_la_num" property="site_la_num"/>
+		<result column="site_id" property="site_id"/>
+		<result column="site_phone" property="site_phone"/>
+		<result column="site_email" property="site_email"/>
+		<result column="site_authority" property="site_authority"/>
+		<collection property="member" ofType="MemberVO" column="site_id" select="siteMembergetId"/>
+		<collection property="report" ofType="ReportVO" column="site_num" select="siteHospitalgetReport"/>
+	</resultMap>
+	
+	<select id="siteMembergetId" resultType="MemberVO">
+		select * from member where me_id = #{site_id}
+	</select>
+	
+	<select id="selectReportMemberList" resultMap="siteMap">
+		select * from site_management
+		where site_authority = "USER"
+		order by site_num
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="siteHospitalgetReport" resultType="kr.kh.team3.model.vo.ReportVO">
+		select * from report where rp_target = #{site_num}
+	</select>
+	
+	<select id="selectReportMemberTotalCount" resultType="int">
+		select count(*) from site_management
+		where site_authority = "USER"
+		order by site_num
+	</select>
+	
+	<select id="selectSiteMember" resultType="SiteManagement">
+		select * from site_management where site_num = #{rp_target}
+	</select>
+	
 	
 	<select id="getMySubject" resultType="kr.kh.team3.model.vo.HospitalDetailVO">
 		select * from hospital_detail
@@ -169,33 +206,6 @@
 		from member where me_authority = "USER"
 	</select>
 
-	<!-- 신고 회원 리스트 -->
-	<resultMap type="kr.kh.team3.model.vo.ReportVO" id="ReportMap">
-		<id property="rp_num" column="rp_num" />
-		<result property="rp_target" column="rp_target" />
-		<result property="rp_name" column="rp_name" />
-		<result property="rp_rs_name" column="rp_rs_name" />
-		<result property="rp_site_num" column="rp_site_num" />
-		<collection property="member" ofType="MemberVO"
-			column="rp_target" select="selectReportMember" />
-	</resultMap>
-
-	<select id="selectReportMember" resultType="MemberVO">
-		select * from member
-		where me_id = #{rp_target}
-	</select>
-
-	<select id="selectReportMemberList" resultMap="ReportMap">
-		select * from report
-		order by rp_num
-		limit #{cri.pageStart}, #{cri.perPageNum}
-	</select>
-
-	<select id="selectReportMemberTotalCount" resultType="int">
-		select
-		count(*) from report order by rp_num
-	</select>
-
 	<!-- 삭제 버튼 -->
 	<delete id="deleteMember">
 		delete from member where me_id = #{me_id}
@@ -287,4 +297,17 @@
 		SET me_report_count = me_report_count + 1
 		WHERE me_id = #{me_id}
 	</update>
+	
+	<select id="selectReportMemberTarget" resultType="SiteManagement">
+		select * from site_management where site_num = #{reUser}
+	</select>
+	
+	<update id="updateMemberRpCount">
+		update member set me_report_count = me_report_count +1
+		where me_id = #{id}
+	</update>
+	
+	<select id="selectTarget" resultType="int">
+		select site_num from site_management where site_id =#{id}
+	</select>
 </mapper>

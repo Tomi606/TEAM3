@@ -293,47 +293,40 @@ $(document).ready(function() {
 	  if (!checkLogin()) {
 	    return;
 	  }
-	  
 	  $(document).on('click', '.btn-report', function() {
-		  
-		  
 	    let target_id = $(this).closest('.report-box').data('target');
 	    $("#myModal").css("display", "block");
 	    $("#myModal").data("target", target_id);
 	  });
-	  
 	  $(document).on('click', '.close', function() {
-	    // 모달 창을 닫음
 	    $("#myModal").css("display", "none");
 	  });
-	  
 	  $(document).on('click','.report-user-btn',function(){
-	    // 모달에서 신고 대상의 ID를 가져오기
 	    let target_id = $("#myModal").data("target");
-	    // textarea의 값 가져오기
 	    let rp_name = $("#rp_name").val();
-	    // 신고 내용과 대상의 ID를 report 객체에 설정
 	    let report = {
 	      rp_target: target_id,
 	      rp_name: rp_name
 	    };
-
-	    // 서버에 보고서 데이터 전송
 	    $.ajax({
 	      async: true, 
 	      url: '<c:url value="/report/check"/>',
 	      type: 'post',
-	      data: JSON.stringify(report),
-	      contentType: "application/json; charset=utf-8",
-	      dataType: "json",
+	      data: {
+	    	  rp_table:"member",
+	    	  rp_target_id : report.rp_target,
+	    	  rp_name : report.rp_name
+	      },
 	      success: function(data) {
 	        console.log(data.result);
-	        if(data.result){
-	          alert(target_id + "님을 신고하였습니다.");
-	          $("#myModal").css("display", "none");
-	          $(".report-box").addClass("red_btn");
-	        } else {
+	        if(!data.result){
 	          alert(target_id + "님을 이미 신고하였습니다.");  
+	          $("#myModal").css("display", "none");
+	          return;
+	        } else {
+	        	 alert(target_id + "님을 신고하였습니다.");
+		          $("#myModal").css("display", "none");
+		          $(".report-box").addClass("red_btn");
 	        }
 	      },
 	      error: function(jqXHR, textStatus, errorThrown) {
@@ -342,12 +335,7 @@ $(document).ready(function() {
 	    });
 	  });
 	});
-function checkReport(target_id){
-	
-	
-}
 </script>
-
 <!-- 추천 / 비추천 -->
 <script type="text/javascript">
 function checkLogin() {
