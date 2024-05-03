@@ -224,17 +224,7 @@ $('#detail_btn').click(function() {
 		return true;
 	}
 }); 
-/* function checkHdNum() {
-    // 여기에 hd_num의 값이 있는지 확인하는 코드를 넣습니다.
-    var hd = ${hd}; // hd_num의 값에 따라 처리하기 위해 서버에서 해당 변수를 가져와야 합니다.
-
-    if (hd == null) {
-        alert("상세 정보가 등록되지 않은 병원입니다.");
-        return false; // 이동하지 않음
-    } else {
-        return true; // 이동
-    }
-} */
+ 
 </script>
 <script type="text/javascript">
 $(document).ready(function() {

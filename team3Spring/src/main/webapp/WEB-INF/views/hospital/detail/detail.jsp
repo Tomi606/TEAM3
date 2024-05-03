@@ -7,6 +7,12 @@
 <meta charset="UTF-8">
 <title>병원 상세 페이지 조회</title>
 <style type="text/css">
+.예약{
+ width: 350px;
+ height: 50px;
+ line-height: 50px;
+
+}
 .toggle-btn{
 	display:flex;
 
@@ -224,6 +230,9 @@ p {
     display: inline-block;
     padding: 1px 5px 1px 5px;
 }
+#myTextarea{
+outline-style: none;
+}
 </style>
 </head>
 <body>
@@ -256,8 +265,8 @@ p {
 			<span class="ho_phone top-span" id="ho_phone">${detail.hospital.ho_phone}</span>
 			<img class="top-img" style="cursor: pointer;" alt="전화 이미지" src="<c:url value="/resources/img/detail-phone.svg"/>">
 		</div>
-		<div>
-			<a href='<c:url value="/schedule?ho_id=${detail.hospital.ho_id}"/>' class="btn btn-outline-success">예약하기</a>
+		<div style="margin: 50px;">
+			<a href='<c:url value="/schedule?ho_id=${detail.hospital.ho_id}"/>' class="btn btn-outline-success 예약">예약하기</a>
 		</div>
 		<hr style="border: 1px solid gray; margin: 30px auto;">
 		<div class="body-container">
@@ -312,7 +321,7 @@ p {
 				 <hr style="border: 1px solid gray; margin: 10px auto;">
 				 <div class="hd_subject_detail">
 				 	<label class="label" for="hd_subject_detail">상세 진료 항목</label><br>
-				 	<textarea class="hd_subject_detail" id="myTextarea" name="hd_subject_detail" 
+				 	<textarea class="hd_subject_detail" id="myTextarea" name="hd_subject_detail" style="outline-style: none;"
 				 	readonly>${detail.hd_subject_detail}</textarea>
 				</div>
 			</div>
