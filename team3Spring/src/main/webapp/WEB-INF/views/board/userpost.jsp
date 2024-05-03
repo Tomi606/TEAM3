@@ -100,7 +100,7 @@
 			<c:if test="${site_authority eq 'MANAGER'}">
 				<span>병원 회원</span>
 				<span>
-					<a href="<c:url value='/hospital/detail/detail?ho_id=${po_id}'/>">병원 상세 바로가기</a>
+					<a href="<c:url value='/hospital/detail/detail?hd_num=${hd_num}'/>">병원 상세 바로가기</a>
 				</span>
 			</c:if>
 			<c:if test="${site_authority eq 'USER'}">

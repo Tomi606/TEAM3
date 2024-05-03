@@ -193,4 +193,6 @@ public interface HospitalDAO {
 
 	ArrayList<HospitalVO> selectHospitalArrList();
 
+	int selectHdNum(@Param("id")String po_id);
+
 }

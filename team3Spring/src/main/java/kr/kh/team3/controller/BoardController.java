@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.team3.model.vo.BoardVO;
-import kr.kh.team3.model.vo.CommentVO;
 import kr.kh.team3.model.vo.FileVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.RecommendVO;
@@ -26,6 +25,7 @@ import kr.kh.team3.model.vo.SiteManagement;
 import kr.kh.team3.pagination.Criteria;
 import kr.kh.team3.pagination.PageMaker;
 import kr.kh.team3.service.BoardService;
+import kr.kh.team3.service.HospitalService;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -41,6 +41,9 @@ public class BoardController {
 	 */
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private HospitalService hospitalService;
 
 	@GetMapping("/board/all")
 	public String boardAll(Model model) {
@@ -69,8 +72,9 @@ public class BoardController {
 	@GetMapping("/board/userpost")
 	public String boardUser(Model model, Criteria cri, String po_id) {
 		String site_authority = boardService.getUserAuthority(po_id);
-		
+		int hd_num = hospitalService.getHdNum(po_id);
 		model.addAttribute("po_id", po_id);
+		model.addAttribute("hd_num", hd_num);
 		model.addAttribute("site_authority", site_authority);
 		
 		return "/board/userpost";
