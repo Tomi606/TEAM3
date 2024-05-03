@@ -13,7 +13,19 @@
 	list-style: none;width: 50px;height: 50px;
 }
 .report-box{
- 	  background-image:url("<c:url value="/resources/img/siren.png"/>");
+ 	  background-image:url("<c:url value="/resources/img/red_siren.png"/>");
+      margin-left:auto;
+      background-size: 30px;
+      width:50px;
+      height:50px;
+      background-repeat:no-repeat;
+      fill: #ddd;
+}
+.report-box-comment li{
+	list-style: none;width: 50px;height: 50px;
+}
+.report-box-comment{
+ 	  background-image:url("<c:url value="/resources/img/red_siren.png"/>");
       margin-left:auto;
       background-size: 30px;
       width:50px;
@@ -22,6 +34,16 @@
       fill: #ddd;
 }
 .red_btn{
+ background-image:url("<c:url value="/resources/img/red_siren.png"/>");
+      margin-left:auto;
+      background-size: 30px;
+      width:50px;
+      height:50px;
+      background-repeat:no-repeat;
+      fill: #ddd;
+
+}
+.red_btn_comment{
  background-image:url("<c:url value="/resources/img/red_siren.png"/>");
       margin-left:auto;
       background-size: 30px;
@@ -150,8 +172,27 @@ color: green;
 	overflow: auto;
 	background-color: rgba(0, 0, 0, 0.7);
 }
+ .modal_comment {
+	display: none;
+	position: fixed;
+	z-index: 990;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.7);
+}
 
 .modal-content {
+	background-color: #fefefe;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 500px;
+	text-align: center;
+}
+.modal-comment-content {
 	background-color: #fefefe;
 	margin: 15% auto;
 	padding: 20px;
@@ -208,7 +249,7 @@ color: green;
 				<div style="display: flex;">	
 					<div class="like-box">
 					<c:if test="${post.po_id ne user.site_id}">
-						<div class="report-box"data-target="${post.po_id}">
+						<div class="report-box"data-target="${post.po_num}">
 							<li role="button" class="btn-report"></li>
 						</div>
 					</c:if>
@@ -216,15 +257,26 @@ color: green;
 					    <span class="text-up" style="width: 20px;">${post.po_up}</span>
 				   </div>	
 			  </div> 
-				  <div id="myModal" class="modal">
+				  <div id="myModal" class="modal_comment">
 					  <div class="modal-content">
 					    <span class="close">&times;</span>
-					    <h2>신고</h2>
+					    <h2>게시글신고</h2>
 					    <label for="old_me_pw">신고 사유</labe>
 					    <div class="new_me_pw_hidden">
 					      <textarea type='text' id="rp_name" name="rp_name" class="box-pw2"></textarea>
 					    </div>
 					    <a type="button" class="report-user-btn success-btn">신고하기</a>
+			  		  </div>
+				 </div>
+				  <div id="myModal1" class="modal">
+					  <div class="modal-comment-content">
+					    <span class="close">&times;</span>
+					    <h2>댓글신고</h2>
+					    <label for="old_me_pw">신고 사유</labe>
+					    <div class="new_me_pw_hidden">
+					      <textarea type='text' id="rp_name" name="rp_name" class="box-pw2"></textarea>
+					    </div>
+					    <a type="button" class="report-comment-btn success-btn">신고하기</a>
 			  		  </div>
 				 </div>
 				<!-- 작성자 게시글 더보기 -->
@@ -286,15 +338,16 @@ color: green;
    });
 </script>
 
-<!-- 신고 -->
+<!-- 게시글 신고 -->
 <script type="text/javascript">
 $(document).ready(function() {
 	  // 로그인 여부를 체크
 	  if (!checkLogin()) {
 	    return;
 	  }
+	    let target_id ;
 	  $(document).on('click', '.btn-report', function() {
-	    let target_id = $(this).closest('.report-box').data('target');
+	  target_id = $(this).closest('.report-box').data('target');
 	    $("#myModal").css("display", "block");
 	    $("#myModal").data("target", target_id);
 	  });
@@ -302,7 +355,7 @@ $(document).ready(function() {
 	    $("#myModal").css("display", "none");
 	  });
 	  $(document).on('click','.report-user-btn',function(){
-	    let target_id = $("#myModal").data("target");
+	    let rp_target = $("#myModal").data("target");
 	    let rp_name = $("#rp_name").val();
 	    let report = {
 	      rp_target: target_id,
@@ -310,23 +363,24 @@ $(document).ready(function() {
 	    };
 	    $.ajax({
 	      async: true, 
-	      url: '<c:url value="/report/check"/>',
+	      url: '<c:url value="/report/community"/>',
 	      type: 'post',
 	      data: {
-	    	  rp_table:"member",
-	    	  rp_target_id : report.rp_target,
+	    	  rp_table:"post",
+	    	  rp_target : report.rp_target,
 	    	  rp_name : report.rp_name
 	      },
 	      success: function(data) {
 	        console.log(data.result);
 	        if(!data.result){
-	          alert(target_id + "님을 이미 신고하였습니다.");  
+	          alert("이미 신고한 게시글입니다.");  
 	          $("#myModal").css("display", "none");
 	          return;
 	        } else {
-	        	 alert(target_id + "님을 신고하였습니다.");
+	        	 alert("게시글을 신고하였습니다.");
 		          $("#myModal").css("display", "none");
 		          $(".report-box").addClass("red_btn");
+		          localStorage.setItem("reportBtn", "red_btn");
 	        }
 	      },
 	      error: function(jqXHR, textStatus, errorThrown) {
@@ -335,6 +389,65 @@ $(document).ready(function() {
 	    });
 	  });
 	});
+$(document).ready(function() {
+    var btnState = localStorage.getItem("reportBtn");
+    if (btnState == "red_btn") {
+        $(".report-box").addClass("red_btn");
+    }
+});
+</script>
+<!-- 댓글신고 -->
+<script type="text/javascript">
+$(document).ready(function() {
+	  // 로그인 여부를 체크
+	  if (!checkLogin()) {
+	    return;
+	  }
+	    let target_id ;
+	  $(document).on('click', '.btn-report-comment', function() {
+	  target_id = $(this).closest('.report-box-comment').data('targetco');
+	    $("#myModal1").css("display", "block");
+	    $("#myModal1").data("targetco", target_id);
+	  });
+	  $(document).on('click', '.close', function() {
+	    $("#myModal1").css("display", "none");
+	  });
+	  $(document).on('click','.report-comment-btn',function(){
+	    let rp_target = $("#myModal1").data("targetco");
+	    let rp_name = $("#rp_name").val();
+	    let report = {	
+	      rp_target: target_id,
+	      rp_name: rp_name
+	    };
+	    $.ajax({
+	      async: true, 
+	      url: '<c:url value="/report/comment"/>',
+	      type: 'post',
+	      data: {
+	    	  rp_table:"comment",
+	    	  rp_target : report.rp_target,
+	    	  rp_name : report.rp_name
+	      },
+	      success: function(data) {
+	        console.log(data.result);
+	        if(!data.result){
+	          alert("이미 신고한 댓글입니다.");  
+	          $("#myModal1").css("display", "none");
+	          return;
+	        } else {
+	        	 alert("댓글을 신고하였습니다.");
+		          localStorage.setItem("reportBtn", "red_btn_comment");
+		          $("#myModal1").css("display", "none");
+		          $(".report-box-comment").addClass("red_btn_comment");
+	        }
+	      },
+	      error: function(jqXHR, textStatus, errorThrown) {
+	        console.log("서버 오류 발생: " + errorThrown);
+	      }
+	    });
+	  });
+	});
+
 </script>
 <!-- 추천 / 비추천 -->
 <script type="text/javascript">
@@ -479,7 +592,8 @@ function displayCommentList(commentList){
 		   <span class="box-btn float-right" style="margin-left:auto;">
 				<a class="btn btn-outline-danger btn-comment-del" data-num="\${item.co_num}">삭제</a>
 				<a class="btn btn-outline-warning btn-comment-update" data-num="\${item.co_num}">수정</a>
-		   </span>`;
+		   </span>
+		   `;
 		let btns= '${user.site_num}' == item.co_mg_num ? boxBtns : '';
 	      str += 
 	      `
@@ -490,6 +604,9 @@ function displayCommentList(commentList){
 	            <div class="col-9 clearfix input-group">
 	            	<span class="text-comment" style="width: 69%;">\${item.co_content}</span>
 	            	<span class="comment-date date" style="width: 8%;font-size:14px;color:gray">\${item.changeDate}</span>
+		        	<div class="report-box-comment"data-targetco="\${item.co_num}">
+						<li role="button" class="btn-report-comment"></li>
+					</div>
 	            	\${btns}
 	            </div>
 	         </div>
