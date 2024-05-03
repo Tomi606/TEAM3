@@ -65,20 +65,21 @@ public class BoardController {
 		model.addAttribute("pm", pm);
 		return "/board/list";
 	}
-	
+
 	@GetMapping("/board/userpost")
 	public String boardUser(Model model, Criteria cri, String po_id) {
 		String site_authority = boardService.getUserAuthority(po_id);
-		
+
 		model.addAttribute("po_id", po_id);
 		model.addAttribute("site_authority", site_authority);
-		
+
 		return "/board/userpost";
 	}
-	
+
 	@ResponseBody
 	@PostMapping("/board/userpost")
-	public Map<String, Object> boardUserPost(@RequestParam("page") int page, @RequestParam("type") String type, @RequestParam("search") String search, @RequestParam("po_id") String po_id) {
+	public Map<String, Object> boardUserPost(@RequestParam("page") int page, @RequestParam("type") String type,
+			@RequestParam("search") String search, @RequestParam("po_id") String po_id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Criteria cri = new Criteria(page, 5, type, search);
 		ArrayList<PostVO> poList = boardService.getUserPostList(po_id, cri);
@@ -88,10 +89,11 @@ public class BoardController {
 		map.put("pm", pm);
 		return map;
 	}
-	
+
 	@ResponseBody
 	@PostMapping("/board/usercmt")
-	public Map<String, Object> boardUserComment(@RequestParam("page") int page, @RequestParam("type") String type, @RequestParam("search") String search, @RequestParam("po_id") String po_id) {
+	public Map<String, Object> boardUserComment(@RequestParam("page") int page, @RequestParam("type") String type,
+			@RequestParam("search") String search, @RequestParam("po_id") String po_id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Criteria cri = new Criteria(page, 5, type, search);
 		ArrayList<PostVO> coList = boardService.getUserCmtList(po_id, cri);
@@ -103,14 +105,14 @@ public class BoardController {
 	}
 
 	@GetMapping("/board/insert")
-	public String boardInsertGet(Model model,HttpSession session,int bo_num) {
+	public String boardInsertGet(Model model, HttpSession session, int bo_num) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		if(user == null) {
-			model.addAttribute("msg","로그인이 필요한 서비스입니다.");
-			model.addAttribute("url","/main/login");
+		if (user == null) {
+			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
+			model.addAttribute("url", "/main/login");
 			return "message";
 		}
-		
+
 		model.addAttribute("bo_num", bo_num);
 		return "/board/insert";
 	}
@@ -121,81 +123,81 @@ public class BoardController {
 		boolean res = boardService.insertPost(user, post, files);
 		if (!res) {
 			model.addAttribute("msg", "게시글을 등록하지 못했습니다.");
-			model.addAttribute("url", "/board/insert?bo_num="+post.getPo_bo_num());
+			model.addAttribute("url", "/board/insert?bo_num=" + post.getPo_bo_num());
 		} else {
 			model.addAttribute("msg", "게시글이 등록 되었습니다.");
-			model.addAttribute("url", "/board/list?bo_num="+post.getPo_bo_num()); // 임시 구현 완료되면 디테일로 url변경
+			model.addAttribute("url", "/board/list?bo_num=" + post.getPo_bo_num()); // 임시 구현 완료되면 디테일로 url변경
 		}
 		return "message";
 	}
-	
+
 	@GetMapping("/board/detail")
-	public String boardDetailGet(Model model,HttpSession session,int po_num) {
+	public String boardDetailGet(Model model, HttpSession session, int po_num) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		if(user == null) {
-			model.addAttribute("msg","로그인이 필요한 서비스입니다.");
-			model.addAttribute("url","/main/login");
+		if (user == null) {
+			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
+			model.addAttribute("url", "/main/login");
 			return "message";
 		}
 		boardService.updateView(po_num);
 		PostVO post = boardService.getPostDetail(po_num);
 		ArrayList<FileVO> fileList = boardService.getFileList(po_num);
 		model.addAttribute("fileList", fileList);
-		model.addAttribute("post",post);
-		
+		model.addAttribute("post", post);
+
 		return "/board/detail";
 	}
-	
+
 	@ResponseBody
 	@PostMapping("/recommend/check")
-	public Map<String, Object> recommendCheck(@RequestBody RecommendVO recommend,HttpSession session){
+	public Map<String, Object> recommendCheck(@RequestBody RecommendVO recommend, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		int res = boardService.recommend(recommend, user);
 		map.put("result", res);
 		return map;
 	}
-	  
+
 	@ResponseBody
 	@PostMapping("/recommend")
-	public Map<String, Object> recommend(@RequestParam("num")int num,HttpSession session){
+	public Map<String, Object> recommend(@RequestParam("num") int num, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		//로그인한 회원의 추천 정보
+		// 로그인한 회원의 추천 정보
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		int state = boardService.getUserRecommend(num, user);
-		//게시글의 추천/비추천수를 가져옴
+		// 게시글의 추천/비추천수를 가져옴
 		PostVO post = boardService.getPost(num);
 		map.put("state", state);
 		map.put("post", post);
 		return map;
 	}
+
 	@ResponseBody
 	@PostMapping("/report/check")
-	public Map<String, Object> reportCheck(@RequestParam("rp_table")String rp_table,@RequestParam("rp_target_id")String rp_target_id, @RequestParam("rp_name")String rp_name, HttpSession session){
+	public Map<String, Object> reportCheck(@RequestParam("rp_table") String rp_table,
+			@RequestParam("rp_target_id") String rp_target_id, @RequestParam("rp_name") String rp_name,
+			HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		int rp_target = boardService.getRpTarget(rp_target_id);
-		ReportVO report = new ReportVO(rp_target, rp_name,rp_table);
+		ReportVO report = new ReportVO(rp_target, rp_name, rp_table);
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		boolean res = boardService.report(report, user);
 		map.put("result", res);
 		return map;
 	}
-	/*
-	 * @ResponseBody
-	 * 
-	 * @PostMapping("/report/Post") public Map<String, Object>
-	 * reportPost(@RequestParam("rp_table")String
-	 * rp_table,@RequestParam("rp_target")int
-	 * rp_target, @RequestParam("rp_name")String rp_name, HttpSession session){
-	 * Map<String, Object> map = new HashMap<String, Object>(); int rp_target_Post =
-	 * boardService.getRpPostTarget(rp_target); ReportVO report = new
-	 * ReportVO(rp_target, rp_name,rp_table); SiteManagement user = (SiteManagement)
-	 * session.getAttribute("user"); boolean res = boardService.report(report,
-	 * user); map.put("result", res); return map; }
-	 */
-	  
-	
+
+	@ResponseBody
+
+	@PostMapping("/report/Post")
+	public Map<String, Object> reportPost(@RequestParam("rp_table") String rp_table,
+			@RequestParam("rp_target") int rp_target, @RequestParam("rp_name") String rp_name, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		int rp_target_Post = boardService.getRpPostTarget(rp_target);
+		ReportVO report = new ReportVO(rp_target, rp_name, rp_table);
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		boolean res = boardService.report(report, user);
+		map.put("result", res);
+		return map;
+	}
 
 }
-
-	
