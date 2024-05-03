@@ -347,7 +347,6 @@ $('.bookmark-before').click(function() {
 	if(!checkLogin()) {
 		return false;
 	}
-	
 	//서버에 보낼 데이터 생성
 	let me_id = $(this).data('id');
 	let ho_id = '${detail.hd_ho_id}';

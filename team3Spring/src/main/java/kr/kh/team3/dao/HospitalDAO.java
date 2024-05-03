@@ -199,4 +199,6 @@ public interface HospitalDAO {
 
 	void updateHospitalRpCount(@Param("id")String site_id);
 
+	HospitalDetailVO selectHospitalDetail(@Param("ho_id")String po_id);
+
 }
