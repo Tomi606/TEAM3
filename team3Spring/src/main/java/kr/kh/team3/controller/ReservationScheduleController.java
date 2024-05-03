@@ -76,7 +76,6 @@ public class ReservationScheduleController {
 		return map;
     }
 	
-	//스케줄 수정 메서드
 	//프로그램을를 선택하면 여러 정보가 나옴
 	@ResponseBody
 	@PostMapping("/getdate")
@@ -88,4 +87,17 @@ public class ReservationScheduleController {
 		return map;
     }
 	
+	
+	
+	//프로그램을를 선택하면 여러 정보가 나옴
+	@ResponseBody
+	@PostMapping("/gettime")
+	public Map<String, Object> getTime(@RequestParam("rs_num") int rs_num, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		//해당 과와아이디를 이용해 번호를 가져오는 메서드
+		ReservationScheduleVO time = reservationScheduleService.getRsTime(rs_num);
+		ArrayList<ReservationScheduleVO> RSTimeList = reservationScheduleService.getRsList(time.getRsDate2());
+		map.put("timeList", RSTimeList);
+		return map;
+    }
 }
