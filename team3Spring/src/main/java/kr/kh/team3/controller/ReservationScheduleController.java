@@ -19,6 +19,7 @@ import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
+import kr.kh.team3.model.vo.ReservationVO;
 import kr.kh.team3.model.vo.SiteManagement;
 import kr.kh.team3.service.ProgramService;
 import kr.kh.team3.service.ReservationScheduleService;
@@ -129,7 +130,17 @@ public class ReservationScheduleController {
 	@PostMapping("/schedule/check")
 	public Map<String, Object> scheduleCheck(@RequestParam("hp_num") int hp_num, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		
+		ArrayList<ReservationScheduleVO> RSlist = programService.getRsList(hp_num);
+		ArrayList<ReservationVO> list = new ArrayList<ReservationVO>();
+		for(ReservationScheduleVO tmp : RSlist) {
+			ReservationVO reservation = reservationScheduleService.getReservationList(tmp.getRs_num());	
+			try {
+				list.add(reservation);				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		map.put("list", list);
 		return map;
     }
 }
