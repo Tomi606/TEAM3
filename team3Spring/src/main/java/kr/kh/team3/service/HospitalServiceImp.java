@@ -861,4 +861,12 @@ public class HospitalServiceImp implements HospitalService {
 		return hospitalDao.selectHospitalPage(user.getSite_id());
 	}
 
+	@Override
+	public int getHdNum(String po_id) {
+		if(po_id == null || po_id.length() == 0) {
+			return 0;
+		}
+		return hospitalDao.selectHdNum(po_id);
+	}
+
 }
