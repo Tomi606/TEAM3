@@ -66,6 +66,5 @@ public interface BoardService {
 
 	int getUserCmtListCount(String po_id, Criteria cri);
 
-  boolean report(ReportVO report, SiteManagement user);
 	
 }
