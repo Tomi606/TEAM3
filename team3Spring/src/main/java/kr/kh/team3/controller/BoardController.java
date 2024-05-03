@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.kh.team3.model.vo.BoardVO;
 import kr.kh.team3.model.vo.FileVO;
+import kr.kh.team3.model.vo.HospitalDetailVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.RecommendVO;
 import kr.kh.team3.model.vo.ReportVO;
@@ -72,10 +73,10 @@ public class BoardController {
 	@GetMapping("/board/userpost")
 	public String boardUser(Model model, Criteria cri, String po_id) {
 		String site_authority = boardService.getUserAuthority(po_id);
-		int hd_num = hospitalService.getHdNum(po_id);
-
+		HospitalDetailVO hd = hospitalService.getHospitalDetail(po_id);
+		log.info(hd + "hdhdhdhdhddhdhdhdhdhdhdhdhdh");
 		model.addAttribute("po_id", po_id);
-		model.addAttribute("hd_num", hd_num);
+		model.addAttribute("hd", hd);
 		model.addAttribute("site_authority", site_authority);
 
 		return "/board/userpost";

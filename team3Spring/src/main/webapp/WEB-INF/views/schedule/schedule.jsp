@@ -10,6 +10,9 @@
 <script src="http://fastly.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <title>세부 항목  수정</title>
 <style type="text/css">
+.day-btn:hover{
+cursor: pointer;
+}
 .container {
   margin: 20px auto;
   max-width: 800px;
@@ -125,7 +128,6 @@ h3 {
   border: 1px solid #ced4da;
   border-radius: 5px;
 }
-
 .time-box a {
   text-decoration: none;
   color: inherit;
@@ -133,13 +135,13 @@ h3 {
 
 .time-box:hover {
   background-color: #e9ecef;
+  cursor: pointer;
 }
 
 </style>
 </head>
 <body>
 <div class="container">
-		<h3>진료과와 프로그램을 선택후 수정 사항을 모두 기입후 번호를 눌러주세요</h3>
 		<select name="hs_num" class="form-control">
 				<option value="none">진료과를 선택해주세요</option>
 			<c:forEach items="${list}" var="list">
@@ -148,8 +150,7 @@ h3 {
 		</select>
 		<div class="input-group mb-3">
 			<select name="hp_num" class="form-control">
-				<option value="none">수정할 프로그램을 선택해주세요</option>
-					
+				<option value="none" class="null_option">프로그램을 선택해주세요</option>
 			</select>
 		</div>
 		<div class="date-box">
@@ -174,7 +175,7 @@ h3 {
 
 <!--병원 과목을 선택하면 프로그램을 가져오는 메서드  -->
 <script type="text/javascript">
-	$("[name=hs_num]").change(function(){
+	$("[name=hs_num]").click(function(){
 		let hp_num = $("[name=hp_num]").val();
 		let hs_num = $("[name=hs_num]").val();
 		if(hs_num == 'none'){
@@ -189,7 +190,7 @@ h3 {
 			success : function (data) {
 				let str = ``
 				for(let tmp of data.hpList){
-					str+=`<option value="\${tmp.hp_num}">\${tmp.hp_title}</option>`
+					str+=`<option value="\${tmp.hp_num}">\${tmp.hp_title}&nbsp;&nbsp;-&nbsp;&nbsp;\${tmp.payMentMoney}원</option>`
 				}	
 				$("[name=hp_num]").html(str);
 			}
@@ -199,11 +200,17 @@ h3 {
 
 <!-- 프로그램을 선택하면 날짜를 가져오는 메서드 -->
 <script type="text/javascript">
-	$("[name=hp_num]").change(function(){
+	$("[name=hp_num]").click(function(){
 		let hp_num = $("[name=hp_num]").val();
 		let hs_num = $("[name=hs_num]").val();
 		if(hp_num == 'none'){
 			hp_num = 1;
+			return;
+		}
+		if(hp_num == ''&&hp_num == null){
+			let op = "프로그램이 없습니다.";
+			$('.null_option').val(op);
+			return;
 		}
 		$.ajax({
 			method : "post",
@@ -237,8 +244,8 @@ $(document).on("click", ".day-btn", function(){
 			for(let tmp of data.timeList){
 				str+= 
 					`
-						<div class="time-box">
-							<a class="">\${tmp.rsTime}</a>
+						<div class="time-box reserveBtn">
+							<a class="reserveBtn" >\${tmp.rsTime}</a>
 						</div>
 					`
 			}
@@ -247,7 +254,19 @@ $(document).on("click", ".day-btn", function(){
 	})
 })
 </script>
+<script type="text/javascript">
+$(document).on("click", ".reserveBtn", function(){
+	let res = confirm("reserveBtnreserveBtn\nreserveBtnreserveBtnreserveBtnreserveBtnreserveBtn\nreserveBtnreserveBtnreserveBtn");
+	
+	if(res){
+		location.href="<c:url  value="/hospital/reserve"/>";
+		return true;
+	}else{
+		return false;
+	}
+});
 
+</script>
 <!-- 달력 스크립트 -->
 <script type="text/javascript">
 //monthWrap

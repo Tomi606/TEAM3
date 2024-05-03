@@ -1,4 +1,4 @@
-pDROP DATABASE IF EXISTS `hospital_mediation`;
+DROP DATABASE IF EXISTS `hospital_mediation`;
 
 CREATE DATABASE IF NOT EXISTS `hospital_mediation`;
 

@@ -128,7 +128,7 @@
 	list-style: none;width: 50px;height: 50px;
 }
 .report-box{
- 	  background-image:url("<c:url value="/resources/img/red_siren.png"/>");
+ 	  background-image:url("<c:url value="/resources/img/siren.png"/>");
       margin-left:auto;
       background-size: 30px;
       width:50px;
@@ -146,6 +146,9 @@
       fill: #ddd;
 
 }
+.detail-btn:hover {
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -155,9 +158,11 @@
 			<h1>${po_id}</h1>
 			<c:if test="${site_authority eq 'MANAGER'}">
 				<span>병원 회원</span>
-				<span>
-					<a href="<c:url value='/hospital/detail/detail?hd_num=${hd_num}'/>">병원 상세 바로가기</a>
-				</span>
+				<c:if test="${po_id ne user.site_id}">
+					<span>
+						<a class="detail-btn" id="detail_btn" >병원 상세 바로가기</a>
+					</span>
+				</c:if>
 			</c:if>
 			<c:if test="${site_authority eq 'USER'}">
 				<span>일반 회원</span>
@@ -209,6 +214,18 @@
 			</div>
 		</div>
 	</div>
+<script type="text/javascript">
+$('#detail_btn').click(function() {
+	if('${hd}' == null ||'${hd}' == ''){
+		alert("상세 정보가 등록되지 않은 병원입니다.");
+		return false;
+	}else{
+		location.href=`<c:url value='/hospital/detail/detail?ho_id=${po_id}'/>`;
+		return true;
+	}
+}); 
+ 
+</script>
 <script type="text/javascript">
 $(document).ready(function() {
 	  // 로그인 여부를 체크
