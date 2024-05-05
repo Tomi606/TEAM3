@@ -1,5 +1,6 @@
 package kr.kh.team3.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,9 +11,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.siot.IamportRestClient.IamportClient;
+import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.response.IamportResponse;
+import com.siot.IamportRestClient.response.Payment;
 
 import kr.kh.team3.model.vo.HospitalProgramVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
@@ -154,4 +162,15 @@ public class ReservationScheduleController {
 		System.out.println("imp_uid : " + imp_uid);
 		System.out.println("merchant_uid : " + merchant_uid);
 	}
+	
+	private IamportClient iamportClient = new IamportClient("", "");
+
+    @ResponseBody
+    @PostMapping("/verify")
+    public IamportResponse<Payment> paymentByImpUid(@RequestParam("imp_uid") String imp_uid)
+            throws IamportResponseException, IOException {
+    	System.out.println(imp_uid + "nnnnn");
+    	System.out.println("nnnn" + iamportClient.paymentByImpUid(imp_uid));
+        return iamportClient.paymentByImpUid(imp_uid);
+    }
 }
