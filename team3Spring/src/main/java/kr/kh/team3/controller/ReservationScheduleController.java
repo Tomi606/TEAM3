@@ -142,4 +142,16 @@ public class ReservationScheduleController {
 		
 		return map;
     }
+	
+	
+	//rufwp
+	@GetMapping("bookingPay")
+	@ResponseBody
+	public void bookPay(int amount,String imp_uid, String merchant_uid) throws Exception{
+
+		System.out.println("결제 성공");
+		System.out.println("결제 금액 : " + amount);
+		System.out.println("imp_uid : " + imp_uid);
+		System.out.println("merchant_uid : " + merchant_uid);
+	}
 }
