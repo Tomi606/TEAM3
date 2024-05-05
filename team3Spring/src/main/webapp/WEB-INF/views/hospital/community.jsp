@@ -82,10 +82,12 @@
 
 <!-- 내 게시글 -->
 <script type="text/javascript">
+//게시글 전역 변수 설정
 let postPage = 1;
-getCommentList();
-function getCommentList() {
-	let site_id = "${user.site_id}";
+//댓글이면 이렇게 따로 전역변수를 설정 해야함. 아니면 같이 넘어감. let commentPage = 1;
+getPostList();
+function getPostList() {
+	let site_id = "${user.site_id}"; //마이페이지의 /hospital/mypage의 user
 	$.ajax({
 	    async: true,
 	    url: '<c:url value="/hospital/community/post"/>',
@@ -95,7 +97,6 @@ function getCommentList() {
 	        "site_id": site_id
 	    },
 	    success: function (data) {
-	    	console.log(data);
 	        displayPostList(data.pList);
 	        displayPostPagination(data.pm);
 	    },
@@ -184,9 +185,9 @@ function displayPostPagination(pm){
    $('.box-pagination-post>ul').html(str);
 }
 $(document).on('click','.box-pagination-post .page-link',function(){
-	  postPage = $(this).data('page');
-	  getCommentList();
-})	
+	postPage = $(this).data('page');
+	getPostList();
+});
 </script>
 
 <!-- 내 댓글 -->

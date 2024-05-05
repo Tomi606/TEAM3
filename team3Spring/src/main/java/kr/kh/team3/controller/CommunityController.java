@@ -51,13 +51,11 @@ public class CommunityController {
 		return "/hospital/community";
 	}
 	
+	//한 페이지에 3개의 페이지네이션이 필요하기 때문에 @RequestParam으로 각각 보내준다.
 	@ResponseBody
 	@PostMapping("/hospital/community/post")
-	public Map<String, Object> commentList(
-		@RequestParam("page") int page, 
-		@RequestParam("site_id") String site_id) {
+	public Map<String, Object> commentList(@RequestParam("page") int page, @RequestParam("site_id") String site_id) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		
 		log.info(site_id+"site_numsite_numsite_numsite_numsite_numsite_numsite_numsite_numsite_numsite_numsite_numsite_numsite_numsite_numsite_num");
 		log.info(page+"pagepagepagepagepagepagepagepagepagepagepagepagepagepagepagepagepagepagepagepagepagepagepagepagepagepagepage");
 		Criteria cri = new Criteria(page);
@@ -66,7 +64,6 @@ public class CommunityController {
 		log.info(pList+"pListpListpListpListpListpListpListpListpListpListpList");
 		int totalCount = communityService.getPostTotalCount(cri,site_id);
 		log.info(totalCount+"pList1231231234123123123123123123123123123");
-		
 		PageMaker pm = new PageMaker(3, cri, totalCount);
 		
 		map.put("pList", pList);
