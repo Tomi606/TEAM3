@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import kr.kh.team3.model.vo.BookmarkVO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
+import kr.kh.team3.model.vo.HospitalProgramVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.HsListVO;
@@ -200,5 +201,7 @@ public interface HospitalDAO {
 	void updateHospitalRpCount(@Param("id")String site_id);
 
 	HospitalDetailVO selectHospitalDetail(@Param("ho_id")String po_id);
+
+	HospitalProgramVO selectHospitalProgram(@Param("hp_num")int hp_num);
 
 }

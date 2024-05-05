@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.team3.model.vo.HospitalProgramVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
+import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.SiteManagement;
+import kr.kh.team3.service.HospitalService;
 import kr.kh.team3.service.ProgramService;
 import kr.kh.team3.service.ReservationScheduleService;
 import lombok.extern.log4j.Log4j;
@@ -33,6 +35,8 @@ public class ReservationScheduleController {
 	
 	@Autowired
 	ProgramService programService;
+	@Autowired
+	HospitalService hospitalService;
 	
 	//스케줄 수정 메서드
 	@GetMapping("/schedule")
@@ -42,6 +46,7 @@ public class ReservationScheduleController {
 		ho.setSite_id(ho_id);
 		ArrayList<HsListVO> subjectList = programService.getSubjectList(ho);
 		ArrayList<HospitalSubjectVO> list = new ArrayList<HospitalSubjectVO>();
+		 ArrayList<HospitalProgramVO> programList = programService.getProgramList(user); 
 		for(HsListVO tmp : subjectList) {
 			try {
 				HospitalSubjectVO subject = programService.getSubject(tmp.getHsl_hs_num(), ho);				
@@ -51,9 +56,9 @@ public class ReservationScheduleController {
 				
 			}
 		}
-		
+		HospitalVO hospital = hospitalService.getHoId(ho_id);
+		model.addAttribute("hospital",hospital);
 		model.addAttribute("list",list);
-		 ArrayList<HospitalProgramVO> programList = programService.getProgramList(user); 
 		 model.addAttribute("programList", programList);
 		 model.addAttribute("ho", ho);
 		 return "/schedule/schedule";
@@ -81,8 +86,11 @@ public class ReservationScheduleController {
 	@PostMapping("/getdate")
 	public Map<String, Object> updateProgramScheduleCheck(@RequestParam("hp_num") int hp_num, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		HospitalProgramVO hp = hospitalService.getHospitalProgram(hp_num);
 		//해당 과와아이디를 이용해 번호를 가져오는 메서드
 		ArrayList<ReservationScheduleVO> RSlist = programService.getRsList(hp_num);
+		log.info("RSlistRSlistRSlistRSlistRSlistRSlistRSlistRSlistRSlistRSlistRSlist"+RSlist);
+		map.put("hp", hp);
 		map.put("RSlist", RSlist);
 		return map;
     }
@@ -94,10 +102,12 @@ public class ReservationScheduleController {
 	@PostMapping("/gettime")
 	public Map<String, Object> getTime(@RequestParam("rs_num") int rs_num, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		
 		//해당 과와아이디를 이용해 번호를 가져오는 메서드
 		ReservationScheduleVO time = reservationScheduleService.getRsTime(rs_num);
 		ArrayList<ReservationScheduleVO> RSTimeList = reservationScheduleService.getRsList(time.getRsDate2());
 		map.put("timeList", RSTimeList);
+		map.put("time", time);
 		return map;
     }
 	

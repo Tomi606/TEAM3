@@ -175,6 +175,13 @@ h3 {
 
 <!--병원 과목을 선택하면 프로그램을 가져오는 메서드  -->
 <script type="text/javascript">
+let sgo = {
+	ho_name : '${hospital.ho_name}',
+	hp_title : '',
+	hp_payment : 0,
+	rs_date : '',
+	rs_time : ''
+}
 	$("[name=hs_num]").click(function(){
 		let hp_num = $("[name=hp_num]").val();
 		let hs_num = $("[name=hs_num]").val();
@@ -190,7 +197,7 @@ h3 {
 			success : function (data) {
 				let str = ``
 				for(let tmp of data.hpList){
-					str+=`<option value="\${tmp.hp_num}">\${tmp.hp_title}&nbsp;&nbsp;-&nbsp;&nbsp;\${tmp.payMentMoney}원</option>`
+					str+=`<option value="\${tmp.hp_num}" data-title="\${tmp.hp_title}">\${tmp.hp_title}&nbsp;&nbsp;-&nbsp;&nbsp;\${tmp.payMentMoney}원</option>`
 				}	
 				$("[name=hp_num]").html(str);
 			}
@@ -220,8 +227,10 @@ h3 {
 			},
 			success : function(data){
 				$(".table").empty();
-				console.log(data.RSlist)
-				cal(numMonth, numYear, data.RSlist)
+				console.log(data.RSlist);
+				sgo.hp_title = data.hp.hp_title;
+				sgo.hp_payment = data.hp.payMentMoney;
+				cal(numMonth, numYear, data.RSlist);
 			}
 		})
 	})
@@ -239,13 +248,14 @@ $(document).on("click", ".day-btn", function(){
 			"rs_num" : rs_num
 		},
 		success : function(data){
-			console.log(data)
+			console.log(data);
+			sgo.rs_date = data.time.rsDate;
 			let str = ``;
 			for(let tmp of data.timeList){
 				str+= 
 					`
 						<div class="time-box reserveBtn">
-							<a class="reserveBtn" >\${tmp.rsTime}</a>
+							<a class="reserveBtn1" data-time="\${tmp.rsTime}">\${tmp.rsTime}</a>
 						</div>
 					`
 			}
@@ -256,7 +266,15 @@ $(document).on("click", ".day-btn", function(){
 </script>
 <script type="text/javascript">
 $(document).on("click", ".reserveBtn", function(){
-	let res = confirm("reserveBtnreserveBtn\nreserveBtnreserveBtnreserveBtnreserveBtnreserveBtn\nreserveBtnreserveBtnreserveBtn");
+	sgo.rs_time = $(".reserveBtn1").data("time");
+	console.log(sgo.rs_time);
+	let res = confirm(
+			"병원명 : " + sgo.ho_name +
+			"\n프로그램 명 : " + sgo.hp_title +
+			"\n예약날짜 : " + sgo.rs_date +
+			"\n예약시간 : " + sgo.rs_time +
+			"\n금액 : " + sgo.hp_payment+"원"+
+			"\n\n위 내용을 예약 하시겠습니까?\n");
 	
 	if(res){
 		location.href="<c:url  value="/hospital/reserve"/>";

@@ -18,6 +18,7 @@ import kr.kh.team3.dao.MemberDAO;
 import kr.kh.team3.model.vo.BookmarkVO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
+import kr.kh.team3.model.vo.HospitalProgramVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.HsListVO;
@@ -870,6 +871,11 @@ public class HospitalServiceImp implements HospitalService {
 			return null;
 		}
 		return hospitalDao.selectHospitalDetail(po_id);
+	}
+
+	@Override
+	public HospitalProgramVO getHospitalProgram(int hp_num) {
+		return hospitalDao.selectHospitalProgram(hp_num);
 	}
 
 }

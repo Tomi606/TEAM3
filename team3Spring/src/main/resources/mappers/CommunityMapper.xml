@@ -47,7 +47,7 @@
 	</select>
 	
 	<!-- 좋아요 resultMap -->
-	<resultMap type="RecommendVO" id="recommendMap">
+	<resultMap type="kr.kh.team3.model.vo.RecommendVO" id="recommendMap">
 		<result property="re_num" column="re_num"/>
 		<result property="re_state" column="re_state"/>
 		<result property="re_po_num" column="re_po_num"/>
