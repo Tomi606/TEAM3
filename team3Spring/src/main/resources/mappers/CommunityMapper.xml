@@ -64,6 +64,21 @@
 		select * from recommend where re_mg_num = #{site_num}
 	</select>
 	
+	<!-- <select id="selectPostList" resultType="PostVO">
+		select * from post where po_mg_num = #{site_num} 
+		order by po_num desc
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select> -->
 	
+	<!-- ======================================================= -->
+	<select id="selectPostTotalCount" resultType="int">
+		select count(*) from post where po_mg_num = #{cri.search}
+	</select>
+	
+	<select id="selectCriPostList" resultType="PostVO">
+		select * from post where po_mg_num = #{cri.search} 
+		order by po_num desc 
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
 	
 </mapper>

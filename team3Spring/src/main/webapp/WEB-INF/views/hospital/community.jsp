@@ -82,28 +82,28 @@
 
 <!-- 내 게시글 -->
 <script type="text/javascript">
-let type = 'title';
-let po_id = "${po_id}";	
+let cri = {
+		page : 1,
+		search : "${pList}"
+}
+console.log(cri);
+getPostList(cri);
+function getPostList(cri){
+	$.ajax({
+		async : true, //비동기 : true(비동기), false(동기)
+		url : '<c:url value="/hospital/community/post"/>', 
+		type : 'post', 
+		data : JSON.stringify(cri),
+		contentType : "application/json; charset=utf-8",
+		dataType : "json", 
+		success : function (data){
+			displayPostList(data.pList);
+			displayPostPagination(data.pm);
+		},
+		error : function(jqXHR, textStatus, errorThrown){
 
-getPostList();
-function getPostList(){
-   $.ajax({
-      async : true,
-      url : '<c:url value="/hospital/community"/>', 
-      type : 'get', 
-      data : {
-    	  type : type,
-    	  po_id : po_id
-      },
-      dataType : "json", 
-      success : function (data){
-    	 displayPostList(data.pList);
-         /* displayPostPagination(data.pm); */
-      }, 
-      error : function(jqXHR, textStatus, errorThrown){
-
-      }
-   });
+		}
+	});
 }
 
 function displayPostList(pList){
@@ -160,7 +160,7 @@ function displayPostList(pList){
     `;
 	$('.post-list').html(str);
 }
-/* function displayPostPagination(pm){
+function displayPostPagination(pm){
    let str = '';
    if(pm.prev){
       str += `
@@ -182,7 +182,7 @@ function displayPostList(pList){
       </li>`;
    }
    $('.box-pagination>ul').html(str);
-} */
+}
 </script>
 
 <!-- 내 댓글 -->
