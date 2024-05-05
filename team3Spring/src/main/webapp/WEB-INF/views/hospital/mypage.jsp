@@ -494,7 +494,7 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 						<a href = '<c:url value="/hospital/schedule/change"/>'>4. 예약 관리</a><br>
 					</div>
 					<div class="choose-box">			
-						<a href='<c:url value="/hospital/community?ho_id=\${hospital.ho_id}"/>'>5. 커뮤니티 관리</a>
+						<a href='<c:url value="/hospital/community?site_id=${user.site_id}"/>'>5. 커뮤니티 관리</a>
 					</div>
 				</div>
 			</div>

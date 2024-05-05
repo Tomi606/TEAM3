@@ -49,7 +49,7 @@
 			<div class="post-list">
 				<!-- 내 게시글 출력 -->
 			</div>
-			<div class="box-pagination">
+			<div class="box-pagination-post">
 				<ul class="pagination justify-content-center">
 					<!-- 페이지네이션 출력 -->
 				</ul>
@@ -82,30 +82,30 @@
 
 <!-- 내 게시글 -->
 <script type="text/javascript">
-let cri = {
-		page : 1,
-		search : "${pList}"
-}
-console.log(cri);
-getPostList(cri);
-function getPostList(cri){
+let postPage = 1;
+getCommentList();
+function getCommentList() {
+	let site_id = "${user.site_id}";
 	$.ajax({
-		async : true, //비동기 : true(비동기), false(동기)
-		url : '<c:url value="/hospital/community/post"/>', 
-		type : 'post', 
-		data : JSON.stringify(cri),
-		contentType : "application/json; charset=utf-8",
-		dataType : "json", 
-		success : function (data){
-			displayPostList(data.pList);
-			displayPostPagination(data.pm);
-		},
-		error : function(jqXHR, textStatus, errorThrown){
-
-		}
+	    async: true,
+	    url: '<c:url value="/hospital/community/post"/>',
+	    type: 'post',
+	    data: {
+	        "page": postPage, 
+	        "site_id": site_id
+	    },
+	    success: function (data) {
+	    	console.log(data);
+	        displayPostList(data.pList);
+	        displayPostPagination(data.pm);
+	    },
+	    error: function(jqXHR, textStatus, errorThrown) {
+	        // 오류 처리 코드 추가
+	    }
 	});
-}
+};
 
+	
 function displayPostList(pList){
    let str = `
 	   <table style="width: 100%;">
@@ -181,8 +181,12 @@ function displayPostPagination(pm){
          <a class="page-link" href="javascript:void(0);" data-page="\${pm.endPage + 1}">다음</a>
       </li>`;
    }
-   $('.box-pagination>ul').html(str);
+   $('.box-pagination-post>ul').html(str);
 }
+$(document).on('click','.box-pagination-post .page-link',function(){
+	  postPage = $(this).data('page');
+	  getCommentList();
+})	
 </script>
 
 <!-- 내 댓글 -->

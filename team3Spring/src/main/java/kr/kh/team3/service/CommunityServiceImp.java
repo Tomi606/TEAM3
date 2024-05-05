@@ -45,19 +45,19 @@ public class CommunityServiceImp implements CommunityService {
 	}
 
 	@Override
-	public int getPostTotalCount(Criteria cri) {
+	public int getPostTotalCount(Criteria cri, String site_id) {
 		if(cri == null) {
 			return 0;
 		}
-		return communityDao.selectPostTotalCount(cri);
+		return communityDao.selectPostTotalCount( site_id);
 	}
 
 	@Override
-	public ArrayList<PostVO> getCriPostList(Criteria cri) {
+	public ArrayList<PostVO> getCriPostList(Criteria cri, String site_id) {
 		if(cri == null) {
 			return null;
 		}
-		return communityDao.selectCriPostList(cri);
+		return communityDao.selectCriPostList(cri, site_id);
 	}
 	
 	
