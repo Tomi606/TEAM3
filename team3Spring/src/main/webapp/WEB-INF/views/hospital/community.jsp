@@ -49,7 +49,7 @@
 			<div class="post-list">
 				<!-- 내 게시글 출력 -->
 			</div>
-			<div class="box-pagination">
+			<div class="box-pagination-post">
 				<ul class="pagination justify-content-center">
 					<!-- 페이지네이션 출력 -->
 				</ul>
@@ -82,30 +82,30 @@
 
 <!-- 내 게시글 -->
 <script type="text/javascript">
-let type = 'title';
-let po_id = "${po_id}";	
+let postPage = 1;
+getCommentList();
+function getCommentList() {
+	let site_id = "${user.site_id}";
+	$.ajax({
+	    async: true,
+	    url: '<c:url value="/hospital/community/post"/>',
+	    type: 'post',
+	    data: {
+	        "page": postPage, 
+	        "site_id": site_id
+	    },
+	    success: function (data) {
+	    	console.log(data);
+	        displayPostList(data.pList);
+	        displayPostPagination(data.pm);
+	    },
+	    error: function(jqXHR, textStatus, errorThrown) {
+	        // 오류 처리 코드 추가
+	    }
+	});
+};
 
-getPostList();
-function getPostList(){
-   $.ajax({
-      async : true,
-      url : '<c:url value="/hospital/community"/>', 
-      type : 'get', 
-      data : {
-    	  type : type,
-    	  po_id : po_id
-      },
-      dataType : "json", 
-      success : function (data){
-    	 displayPostList(data.pList);
-         /* displayPostPagination(data.pm); */
-      }, 
-      error : function(jqXHR, textStatus, errorThrown){
-
-      }
-   });
-}
-
+	
 function displayPostList(pList){
    let str = `
 	   <table style="width: 100%;">
@@ -160,7 +160,7 @@ function displayPostList(pList){
     `;
 	$('.post-list').html(str);
 }
-/* function displayPostPagination(pm){
+function displayPostPagination(pm){
    let str = '';
    if(pm.prev){
       str += `
@@ -181,8 +181,12 @@ function displayPostList(pList){
          <a class="page-link" href="javascript:void(0);" data-page="\${pm.endPage + 1}">다음</a>
       </li>`;
    }
-   $('.box-pagination>ul').html(str);
-} */
+   $('.box-pagination-post>ul').html(str);
+}
+$(document).on('click','.box-pagination-post .page-link',function(){
+	  postPage = $(this).data('page');
+	  getCommentList();
+})	
 </script>
 
 <!-- 내 댓글 -->

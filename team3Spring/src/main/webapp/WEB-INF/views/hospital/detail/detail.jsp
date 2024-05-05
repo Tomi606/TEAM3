@@ -500,7 +500,7 @@ function getReviewList(cri) {
 		async : true, 
 		url : '<c:url value="/hospital/review/list"/>', 
 		type : 'post', 
-		data : JSON.stringify(cri),
+		data : JSON.stringify(cri), 
 		//서버로 보낼 데이터 타입
 		contentType : "application/json; charset=utf-8",
 		//서버에서 보낸 데이터의 타입

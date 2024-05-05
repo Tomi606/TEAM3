@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 
 import kr.kh.team3.dao.CommunityDAO;
 import kr.kh.team3.model.vo.CommentVO;
-import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.RecommendVO;
 import kr.kh.team3.model.vo.SiteManagement;
+import kr.kh.team3.pagination.Criteria;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -42,6 +42,22 @@ public class CommunityServiceImp implements CommunityService {
 			return null;
 		}
 		return communityDao.selectRecommendList(user.getSite_num());
+	}
+
+	@Override
+	public int getPostTotalCount(Criteria cri, String site_id) {
+		if(cri == null) {
+			return 0;
+		}
+		return communityDao.selectPostTotalCount( site_id);
+	}
+
+	@Override
+	public ArrayList<PostVO> getCriPostList(Criteria cri, String site_id) {
+		if(cri == null) {
+			return null;
+		}
+		return communityDao.selectCriPostList(cri, site_id);
 	}
 	
 	
