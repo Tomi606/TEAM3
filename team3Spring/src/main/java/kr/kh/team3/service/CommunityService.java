@@ -24,7 +24,7 @@ public interface CommunityService {
 
 	int getCommentTotalCount(Criteria cri, String site_id);
 
-	ArrayList<RecommendVO> getCriRecommendList(Criteria cri, String site_id, int po_num);
+	ArrayList<RecommendVO> getCriRecommendList(Criteria cri, String site_id);
 
 	int getRecommendTotalCount(Criteria cri, String site_id);
 

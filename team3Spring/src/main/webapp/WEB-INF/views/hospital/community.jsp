@@ -304,17 +304,15 @@ getRecommendPage();
 
 function getRecommendPage() {
 	let site_id = "${user.site_id}";
-	let post = "${rList[0].post}";
-
-	console.log(post);
+	let post = "${rList[i].post}";
+	
 	$.ajax({
 	    async: true,
 	    url: '<c:url value="/hospital/community/recommend"/>',
 	    type: 'post',
 	    data: {
 	        "page" : recommendPage, 
-	        "site_id" : site_id,
-	        "po_num" : post
+	        "site_id" : site_id
 	    },
 	    success: function (data) {
 	    	console.log(data.rList);
@@ -357,8 +355,10 @@ function displayRecommendList(rList) {
 	   <tbody>
    `;
 
+   
+   console.log(post);
    for(let i=0; i<post.length; i++) {
-	   for(item of rList[i].post) {
+	   for(item of post) {
 		   console.log(item);
 	      str += 
 	      ` <tr style="height: 100px; border-bottom: 1px solid lightgray;">
