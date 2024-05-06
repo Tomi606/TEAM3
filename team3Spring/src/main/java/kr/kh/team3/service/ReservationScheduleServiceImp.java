@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 
 import kr.kh.team3.dao.ReservationScheduleDAO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
+import kr.kh.team3.model.vo.ReservationVO;
 
 @Controller
 public class ReservationScheduleServiceImp implements ReservationScheduleService{
@@ -21,9 +22,15 @@ public class ReservationScheduleServiceImp implements ReservationScheduleService
 	}
 
 	@Override
-	public ArrayList<ReservationScheduleVO> getRsList(String date) {
+	public ArrayList<ReservationScheduleVO> getRsList(String date, int hp_num) {
 		// TODO Auto-generated method stub
-		return RSDao.selectRSTimeList(date);
+		return RSDao.selectRSTimeList(date, hp_num);
+	}
+
+	@Override
+	public ReservationVO getReservationList(int rs_num) {
+		
+		return RSDao.selectReservationList(rs_num);
 	}
 
 }
