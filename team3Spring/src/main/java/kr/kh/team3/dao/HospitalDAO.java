@@ -110,7 +110,7 @@ public interface HospitalDAO {
 
 	int getHospitalListCount(@Param("la")LandVO land,@Param("cri") Criteria cri,@Param("hs_num") int hs_num);
 
-	ArrayList<BookmarkVO> selectBmkList(@Param("user")SiteManagement user, @Param("cri")Criteria cri);
+	ArrayList<HospitalVO> selectBmkList(@Param("user")SiteManagement user, @Param("cri")Criteria cri);
 
 	int selectBmkListCount(@Param("user")SiteManagement user, @Param("cri")Criteria cri);
 
