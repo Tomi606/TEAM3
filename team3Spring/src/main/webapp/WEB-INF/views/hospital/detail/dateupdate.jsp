@@ -87,9 +87,9 @@
 		</div>
 		<div class="date-box">
 			<h3>날짜와 시간은 스페이스바를 눌러 변경하거나 직접 입력해주세요</h3>
-			<input type="date" name="rs_date">
-			<input type="time" id="timeInput" name="rs_time">
-			<input type="number" name="rs_max_person">
+			<input type="date" name="rs_date" placeholder="날짜를 입력해주세요">
+			<input type="time" id="timeInput" name="rs_time" placeholder="시간를 입력해주세요">
+			<input type="number" name="rs_max_person" placeholder="최대 인원 입력해주세요">
 		</div>
 		<div class="list-box">
 			 <table class="table">
@@ -99,10 +99,10 @@
 			        <th>날짜</th>
 			        <th>시간</th>
 			        <th>최대인원</th>
+			        <th></th>
 			      </tr>
 			    </thead>
 			    <tbody class="itemList">
-				      
 			    </tbody>
 			  </table>
 		</div>
@@ -125,10 +125,11 @@
 					str+=
 						`
 							   <tr>
-						        <th><a class="rs-btn" data-rsnum="\${tmp.rs_num}">\${tmp.rs_num}</a></th>
+						        <th>\${tmp.rs_num}</th>
 						        <th>\${tmp.rsDate}</th>
 						        <th>\${tmp.rsTime}</th>
 						        <th>\${tmp.rs_max_person}</th>
+						        <th> <button class="update-btn" data-rsnum="\${tmp.rs_num}">수정</button></th>
 						      </tr>
 						`
 				}
@@ -138,8 +139,10 @@
 	})
 </script>
 
+
+
 <script type="text/javascript">
-	$(document).on('click', '.rs-btn', function(){
+	$(document).on('click', '.update-btn', function(){
 		let rs_date = $("[name=rs_date]").val();
 		let rs_time = $("[name=rs_time]").val();
 		let rs_max_person = $("[name=rs_max_person]").val();

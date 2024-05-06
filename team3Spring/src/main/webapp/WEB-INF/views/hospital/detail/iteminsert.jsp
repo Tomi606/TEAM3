@@ -187,6 +187,14 @@
 				<option value="${list.hs_num}">${list.hs_title}</option>
 			</c:forEach>
 		</select>
+		<br>
+		<div class="input-group mb-3" id="programBox">
+			<select name="hp_num" class="form-control">
+					<option value="none">프로그램을 선택해주세요</option>
+			</select>
+		</div>
+		<br>
+		
 		<h3>세부 항목 등록</h3>
 		<label for="it_name">세부 항목</label>
 	    <input  type="text" id="it_name" name="it_name" placeholder="등록하고 싶은 항목을 입력하세요" autofocus="autofocus">
@@ -198,6 +206,9 @@
 		    <a class="btn item-delete-btn">삭제</a>
 	    </div>
 	   	<br>
+	   	<label for="it_name" class="it_name"></label>
+	   	<div class="check-box-group" id="check-box-group"></div>
+	   	<br>
 		<label for="hp_title">프로그램 이름</label>
 	    <input  type="text" id="hp_title" name="hp_title" placeholder="프로그램 이름을 입력하세요">
 		<label for="hp_payment">프로그램 가격</label>
@@ -206,13 +217,8 @@
 	    <a class="btn program-update-btn" href='<c:url value="/program/update"/>'>수정</a>
 	    <a class="btn program-delete-btn">삭제</a>
 	</div>
-	<div class="check-box-group" id="check-box-group">
-	</div>
-	<div class="input-group mb-3" id="programBox">
-		<select name="hp_num" class="form-control">
-				<option value="none">프로그램을 선택해주세요</option>
-		</select>
-	</div>
+	
+	
 </div>
 
 <div class="list-box">
@@ -321,6 +327,7 @@
 <script type="text/javascript">
 	$("[name=hs_num]").click(function(){
 		let hs_num = $("[name=hs_num]").val();
+		let hs_num2 = $(this).find("option:selected").text();
 		if(hs_num == 'none'){
 			hs_num = 1;
 		}
@@ -342,7 +349,7 @@
 				}
 				$(".check-box-group").html(str);
 				$("[name=hp_num]").html(str2);
-				
+				$(".it_name").html(`\${hs_num2}` + "의 세부항목");
 			}
 		})
 	})
