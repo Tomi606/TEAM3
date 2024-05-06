@@ -5,6 +5,10 @@
 <!doctype html>
 <html>
 <head>
+<style type="text/css">
+h1,h2,h3,h4,h5{color:rgba(0, 128, 0, 0.5);
+}
+</style>
 <title>
 <c:choose>
   <c:when test="${title != null }">${title}</c:when>
