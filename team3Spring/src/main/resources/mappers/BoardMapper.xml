@@ -4,6 +4,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team3.dao.BoardDAO">
 
+	<!-- 게시글 삭제 -->
+	<select id="selectPosta" resultType="kr.kh.team3.model.vo.PostVO" >
+		select * from post where po_num = #{rp}
+	</select>
+	
+	<delete id="deleteFile">
+		delete from file where fi_num = #{rp}
+	</delete>	
+	<delete id="deletePost">
+		delete from post where po_num = #{rp}
+	</delete>	
+	
 	<resultMap type="kr.kh.team3.model.vo.BoardVO" id="boardMap">
 		<id column="bo_num" property="bo_num" />
 		<result column="bo_title" property="bo_title" />

@@ -66,6 +66,8 @@ public interface BoardService {
 
 	int getUserCmtListCount(String po_id, Criteria cri);
 
+	boolean deletePost(int po_num, SiteManagement user);
+
 
 	
 }

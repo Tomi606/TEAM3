@@ -57,6 +57,7 @@ font-weight: bold;
 width: 10%;
 }
 .로그인{
+display:flex;justify-content:flex-end;
 padding:20px 0 5px;
 margin:0 auto;
 width: 35%;
@@ -194,17 +195,21 @@ height:50px;width:100%;background-color: #fafafa;
 							<a class="nav-link" href='<c:url value="/logout"/>'>로그아웃</a>
 						</li>	
 					</c:if>
-					<%--<c:if test='${user.getSite_authority().equals("admin") and user != null}'> --%>
+					<c:if test='${user.getSite_authority().equals("admin") and user != null}'> 
 						<li>
 							<a class="nav-link" href='<c:url value="/admin/adminpage"/>'>관리자 페이지</a>
 						</li>		
-					<%-- </c:if> --%>
-						<li>				
-							<a class="nav-link" href='<c:url value="/member/mypage"/>'>마이페이지</a>
-						</li>		
+					 </c:if>
+					<c:if test="${user != null && user.getSite_authority().equals('USER')}">
+					    <li>				
+					        <a class="nav-link" href='<c:url value="/member/mypage"/>'>마이페이지</a>
+					    </li>
+					</c:if>
+					<c:if test="${user != null && user.getSite_authority().equals('MANAGER')}">
 						<li>
 							<a class="nav-link" href='<c:url value="/hospital/mypage"/>'>병원페이지</a>
-						</li>		
+						</li>	
+					</c:if>	
 				</ul>			
 			</div>
 		</div>
