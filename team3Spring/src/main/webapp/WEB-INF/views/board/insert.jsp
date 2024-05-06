@@ -11,8 +11,12 @@
 <style type="text/css">
 .post_list_container{width: 100%;height: 1500px;}
 .post_list_box{
-	border: 1px solid lightgray;width: 1400px;height: 93.4%;margin:100px auto;
+	    border: 2px solid green;width: 1400px;height: 93.4%;margin:100px auto;
 	padding:100px;
+}
+.post_list_box{
+   box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
+    transition: box-shadow 0.3s ease;    border-radius: 15px;
 }
 .hr{width: 100%;height: 0;border: 1px solid lightgray;margin: 50px 0 50px 0;}
 .post_insert_btn{
@@ -60,7 +64,7 @@ margin-top:50px;
 				<h1>글 쓰 기 </h1>
 			</div>
 			<div class="post_insert_btn_box">
-		    	<a href="<c:url value="/board/list"/>" class="post_insert_btn">목록으로</a>
+		    	<a href="<c:url value="/board/list?bo_num=${bo_num}"/>" class="post_insert_btn">목록으로</a>
 			</div>
 			<div class="hr"></div>
 			<form action="<c:url value='/board/insert'/>" method="post"  enctype="multipart/form-data">
