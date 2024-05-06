@@ -54,6 +54,8 @@
 		<result property="re_mg_num" column="re_mg_num"/>
 		<collection property="sitemanagement" ofType="SiteManagement"
 		column="re_mg_num" select="selectReMgNum"/>
+		<collection property="post" ofType="PostVO"
+		column="re_po_num" select="selectRePoNum"/>
 	</resultMap>
 	
 	<select id="selectReMgNum" resultType="SiteManagement">
@@ -63,37 +65,63 @@
 	<select id="selectRecommendList" resultMap="recommendMap">
 		select * from recommend where re_mg_num = #{site_num}
 	</select>
-	
-	<!-- <select id="selectPostList" resultType="PostVO">
-		select * from post where po_mg_num = #{site_num} 
-		order by po_num desc
-		limit #{cri.pageStart}, #{cri.perPageNum}
-	</select> -->
-	
-	<!-- ======================================================= -->
-	<select id="selectPostTotalCount" resultType="int">
-		select
-		count(*)
-		from
-		post
-		join
-		site_management on site_num = po_mg_num
-		where site_id = #{po_id}
-	</select>
+	<!-- resultMap 끝 -->
 	
 	<select id="selectCriPostList" resultType="PostVO">
-		select
-		post.*,
-		site_id as po_id
-		from
-		post
-		join
-		site_management on site_num = po_mg_num
+		select post.*, site_id as po_id
+		from post
+		join site_management on site_num = po_mg_num
 		where site_id = #{po_id}
 		group by po_num
 		order by po_num desc
-		LIMIT #{cri.pageStart},
-		#{cri.perPageNum}
+		LIMIT #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="selectPostTotalCount" resultType="int">
+		select count(*)
+		from post
+		join site_management on site_num = po_mg_num
+		where site_id = #{po_id}
+	</select>
+	
+	<select id="selectCriCommentList" resultType="CommentVO">
+		select comment.*, site_id as co_id
+		from comment
+		join site_management on site_num = co_mg_num
+		where site_id = #{co_id}
+		group by co_num
+		order by co_num desc
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="selectCommentTotalCount" resultType="int">
+		select count(*) 
+		from comment 
+		join site_management on site_num = co_mg_num
+		where site_id = #{co_id}
+	</select>
+	
+	<select id="selectRePoNum" resultType="PostVO">
+		select * from post where po_num = #{re_po_num}
+	</select>
+	
+	<select id="selectCriRecommendList" resultType="PostVO">
+		select post.*, site_id as re_id
+		from post 
+		join site_management on site_num = po_mg_num
+		join recommend on re_po_num = po_num 
+		where site_id = #{re_id} and re_state = 1
+		group by po_num
+		order by po_num desc
+		limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="selectRecommendTotalCount" resultType="int">
+		select count(*)
+		from post
+		join site_management on site_num = po_mg_num
+		join recommend on re_po_num = po_num 
+		where site_id = #{re_id} and re_state = 1
 	</select>
 	
 </mapper>

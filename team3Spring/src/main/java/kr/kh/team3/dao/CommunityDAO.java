@@ -13,12 +13,20 @@ public interface CommunityDAO {
 
 	ArrayList<PostVO> selectPostList(@Param("site_num") int site_num);
 
-
 	ArrayList<CommentVO> selectCommentList(@Param("site_num") int site_num);
 
 	ArrayList<RecommendVO> selectRecommendList(@Param("site_num") int site_num);
 
 	ArrayList<PostVO> selectCriPostList(@Param("cri") Criteria cri, @Param("po_id") String site_id);
 
-	int selectPostTotalCount( @Param("po_id") String site_id);
+	int selectPostTotalCount(@Param("po_id") String site_id);
+
+	ArrayList<CommentVO> selectCriCommentList(@Param("cri") Criteria cri, @Param("co_id") String site_id);
+
+	int selectCommentTotalCount(@Param("co_id") String site_id);
+
+	ArrayList<PostVO> selectCriRecommendList
+	(@Param("cri") Criteria cri, @Param("re_id") String site_id);
+
+	int selectRecommendTotalCount(@Param("re_id") String site_id);
 }

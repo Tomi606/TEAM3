@@ -43,15 +43,7 @@ public class CommunityServiceImp implements CommunityService {
 		}
 		return communityDao.selectRecommendList(user.getSite_num());
 	}
-
-	@Override
-	public int getPostTotalCount(Criteria cri, String site_id) {
-		if(cri == null) {
-			return 0;
-		}
-		return communityDao.selectPostTotalCount( site_id);
-	}
-
+	
 	@Override
 	public ArrayList<PostVO> getCriPostList(Criteria cri, String site_id) {
 		if(cri == null) {
@@ -59,7 +51,46 @@ public class CommunityServiceImp implements CommunityService {
 		}
 		return communityDao.selectCriPostList(cri, site_id);
 	}
-	
-	
+
+	@Override
+	public int getPostTotalCount(Criteria cri, String site_id) {
+		if(cri == null) {
+			return 0;
+		}
+		return communityDao.selectPostTotalCount(site_id);
+	}
+
+	@Override
+	public ArrayList<CommentVO> getCriCommentList(Criteria cri, String site_id) {
+		if(cri == null) {
+			return null;
+		}
+		return communityDao.selectCriCommentList(cri, site_id);
+	}
+
+	@Override
+	public int getCommentTotalCount(Criteria cri, String site_id) {
+		if(cri == null) {
+			return 0;
+		}
+		return communityDao.selectCommentTotalCount(site_id);
+	}
+
+	@Override
+	public ArrayList<PostVO> getCriRecommendList(Criteria cri, String site_id) {
+		if(cri == null) {
+			return null;
+		}
+		
+		return communityDao.selectCriRecommendList(cri, site_id);
+	}
+
+	@Override
+	public int getRecommendTotalCount(Criteria cri, String site_id) {
+		if(cri == null) {
+			return 0;
+		}
+		return communityDao.selectRecommendTotalCount(site_id);
+	}
 
 }
