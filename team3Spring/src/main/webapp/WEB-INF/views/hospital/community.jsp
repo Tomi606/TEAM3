@@ -408,7 +408,6 @@ $(document).on('click','.box-pagination-recommend .page-link',function(){
 	recommendPage = $(this).data('page');
 	getRecommendList();
 });
-
 </script>
 
 
