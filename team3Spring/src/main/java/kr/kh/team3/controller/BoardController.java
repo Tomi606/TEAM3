@@ -159,10 +159,12 @@ public class BoardController {
 	@GetMapping("/board/delete")
 	public String boardDelete(Model model, PostVO post, HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-
+		
+		PostVO delPost = boardService.getPost(post.getPo_num());
+		int bo_num = delPost.getPo_bo_num();
 		boolean res = boardService.deletePost(post.getPo_num(), user);
 		if (res) {
-			model.addAttribute("url", "/board/list?bo_num"+post.getPo_bo_num());
+			model.addAttribute("url", "/board/list?bo_num="+bo_num);
 			model.addAttribute("msg", "게시글을 삭제했습니다.");
 		}
 		else {

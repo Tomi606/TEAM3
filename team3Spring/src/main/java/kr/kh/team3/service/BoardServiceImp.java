@@ -349,4 +349,5 @@ public class BoardServiceImp implements BoardService {
 		return boardDao.deletePost(po_num);
 	}
 
+
 }

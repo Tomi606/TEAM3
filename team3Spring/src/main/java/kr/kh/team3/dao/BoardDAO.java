@@ -85,4 +85,6 @@ public interface BoardDAO {
 
 	boolean deletePost(@Param("rp")int po_num);
 
+	int selectboardNumber();
+
 }

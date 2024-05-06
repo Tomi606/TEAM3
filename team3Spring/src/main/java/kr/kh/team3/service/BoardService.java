@@ -69,5 +69,6 @@ public interface BoardService {
 	boolean deletePost(int po_num, SiteManagement user);
 
 
+
 	
 }
