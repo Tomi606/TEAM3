@@ -430,24 +430,6 @@ public class HospitalController {
 	
 	// 세부 항목을 추가하는 메서드
 	@ResponseBody
-	@PostMapping("/getitemlist")
-	public Map<String, Object> getItemList(ItemVO item, HttpSession session, 
-			@RequestParam("hs_num")int hs_num) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		ArrayList<ItemVO> itemList = programService.getAllItemList(user);
-		HsListVO hslist = programService.getHsList(hs_num, user);
-		boolean res =  programService.insertItem(item, user, hslist);
-		if(res) {
-			map.put("itemList", itemList);
-		}else {
-			map.put("msg", "추가에 실패했습니다.");
-		}
-		return map;
-	}
-	
-	// 세부 항목을 추가하는 메서드
-	@ResponseBody
 	@PostMapping("/item/insert")
 	public Map<String, Object> insertItem(ItemVO item, HttpSession session, 
 			@RequestParam("hs_num")int hs_num) {
