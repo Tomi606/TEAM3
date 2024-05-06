@@ -84,7 +84,7 @@ public class AdminController {
 	//대기 병원 리스트
 	@ResponseBody
 	@PostMapping("/admin/waitlist")
-	public Map<String, Object> waitList(@RequestBody Criteria cri){
+	public Map<String, Object> waitList(@RequestBody Criteria cri) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		cri.setPerPageNum(3);
 		ArrayList<HospitalVO> hospitalList = hospitalService.getWaitHospitalList(cri);

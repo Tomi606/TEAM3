@@ -15,6 +15,7 @@ public class CommentVO {
 	private int co_report_count;
 	private int co_po_num;
 	private int co_mg_num;
+	private String co_id;
 	private SiteManagement sitemanagement;
 
 	
