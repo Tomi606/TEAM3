@@ -242,7 +242,7 @@ let sgo = {
 <script type="text/javascript">
 $(document).on("click", ".day-btn", function(){
 	let rs_num = $(this).data("target");
-	console.log(rs_num)
+	console.log(rs_num);
 	$.ajax({
 		method : "post",
 		url : '<c:url value="/gettime"/>',
@@ -254,6 +254,7 @@ $(document).on("click", ".day-btn", function(){
 			sgo.rs_date = data.time.rsDate;
 			let str = ``;
 			for(let tmp of data.timeList){
+				console.log("ㅇㅇㅇㅇㅇ"+tmp.rsTime);
 				str+= 
 					`
 						<div class="time-box reserveBtn">
@@ -275,7 +276,7 @@ $(document).on("click", ".reserveBtn", function(){
 			"\n프로그램 명 : " + sgo.hp_title +
 			"\n예약날짜 : " + sgo.rs_date +
 			"\n예약시간 : " + sgo.rs_time +
-			"\n금액 : " + sgo.hpPayment+"원"+
+			"\n금액 : " + sgo.hpPayment + "원" +
 			"\n\n위 내용을 예약 하시겠습니까?\n");
 	
 	if(res){
@@ -445,28 +446,27 @@ $('.nextBtn').click(function(){
 <script type="text/javascript">
 function book(ho_name, hp_title, rs_date, rs_time, hp_payment) {
 	var IMP = window.IMP;
-	IMP.init("");   /* imp~ : 가맹점 식별코드*/
+	IMP.init("imp06120506");   /* imp~ : 가맹점 식별코드*/
 	
 	IMP.request_pay({
 		pg: 'html5_inicis',
 		pay_method: 'card',
 		merchant_uid: 'merchant_' + new Date().getTime(),
 
-		name: '예약 지점명 : ' + ho_name + '점',
+		name:  ho_name,
 		amount: hp_payment,
 		buyer_email: "wkdrn002@naver.com",  /*필수 항목이라 "" 로 남겨둠*/
 		buyer_name: hp_title,
-	}, function(rsp) {
-		console.log(rsp);
-		
-		 //결제 성공 시
+	}, 
+	function(rsp) {
 		if (rsp.success) {
 			var msg = '결제가 완료되었습니다.';
+			alert(msg);
 			console.log("결제성공 ");
-
+			location.href='<c:url value="/hospital/detail/detail?ho_id=\${hospital.ho_id}"/>';
 			$.ajax({
 				type: "GET",
-				url: 'bookingPay',
+				url: '<c:url value="bookingPay"/>',
 				data: {
 					amount: hp_payment,
 					imp_uid: rsp.imp_uid,
@@ -474,11 +474,11 @@ function book(ho_name, hp_title, rs_date, rs_time, hp_payment) {
 				}
 			});
 		} else {
-			var msg = '결제에 실패하였습니다.';
-			msg += '에러내용 : ' + rsp.error_msg;
+			var failMsg = '결제에 실패하였습니다.';
+			alert(failMsg);
+			location.href='<c:url value="/schedule?ho_id=${hospital.ho_id}"/>';
 		}
-		alert(msg);
-		location.href=<c:url value="/hospital/detail/detail?ho_id="\${hospital.ho_id}"/>
+		
 	});
 	
 }
