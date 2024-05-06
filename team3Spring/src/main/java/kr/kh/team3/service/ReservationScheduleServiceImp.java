@@ -22,9 +22,9 @@ public class ReservationScheduleServiceImp implements ReservationScheduleService
 	}
 
 	@Override
-	public ArrayList<ReservationScheduleVO> getRsList(String date) {
+	public ArrayList<ReservationScheduleVO> getRsList(String date, int hp_num) {
 		// TODO Auto-generated method stub
-		return RSDao.selectRSTimeList(date);
+		return RSDao.selectRSTimeList(date, hp_num);
 	}
 
 	@Override

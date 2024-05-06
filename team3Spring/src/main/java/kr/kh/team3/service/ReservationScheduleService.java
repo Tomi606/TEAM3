@@ -9,7 +9,7 @@ public interface ReservationScheduleService {
 
 	ReservationScheduleVO getRsTime(int rs_num);
 
-	ArrayList<ReservationScheduleVO> getRsList(String date);
+	ArrayList<ReservationScheduleVO> getRsList(String date, int hp_num);
 
 	ReservationVO getReservationList(int rs_num);
 

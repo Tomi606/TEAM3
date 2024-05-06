@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -110,12 +111,13 @@ public class ReservationScheduleController {
 	//프로그램을를 선택하면 여러 정보가 나옴
 	@ResponseBody
 	@PostMapping("/gettime")
-	public Map<String, Object> getTime(@RequestParam("rs_num") int rs_num, HttpSession session) {
+	public Map<String, Object> getTime(@RequestParam("rs_num") int rs_num, HttpSession session,
+			@RequestParam("hp_num") int hp_num) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		//해당 과와아이디를 이용해 번호를 가져오는 메서드
 		ReservationScheduleVO time = reservationScheduleService.getRsTime(rs_num);
-		ArrayList<ReservationScheduleVO> RSTimeList = reservationScheduleService.getRsList(time.getRsDate2());
+		ArrayList<ReservationScheduleVO> RSTimeList = reservationScheduleService.getRsList(time.getRsDate2(), time.getRs_hp_num());
 		map.put("timeList", RSTimeList);
 		map.put("time", time);
 		return map;
