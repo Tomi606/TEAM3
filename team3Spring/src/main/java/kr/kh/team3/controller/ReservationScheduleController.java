@@ -54,6 +54,7 @@ public class ReservationScheduleController {
 		ho.setSite_id(ho_id);
 		ArrayList<HsListVO> subjectList = programService.getSubjectList(ho);
 		ArrayList<HospitalSubjectVO> list = new ArrayList<HospitalSubjectVO>();
+		System.out.println("ddddddddddddddd"+list);
 		 ArrayList<HospitalProgramVO> programList = programService.getProgramList(user); 
 		for(HsListVO tmp : subjectList) {
 			try {
@@ -153,7 +154,7 @@ public class ReservationScheduleController {
 	
 	
 	//rufwp
-	@GetMapping("bookingPay")
+	@GetMapping("/bookingPay")
 	@ResponseBody
 	public void bookPay(int amount,String imp_uid, String merchant_uid) throws Exception{
 
