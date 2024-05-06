@@ -109,8 +109,8 @@
 		select recommend.*, site_id as re_id
 		from recommend 
 		join site_management on site_num = re_mg_num
-		join post on po_num = re_po_num 
-		where site_id = #{re_id} and re_state = 1
+		join post on po_num = re_po_num
+		where site_id = #{re_id} and re_po_num = #{po_num} and re_state = 1 
 	</select>
 	
 	<select id="selectRecommendTotalCount" resultType="int">

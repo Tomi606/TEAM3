@@ -77,12 +77,12 @@ public class CommunityServiceImp implements CommunityService {
 	}
 
 	@Override
-	public ArrayList<RecommendVO> getCriRecommendList(Criteria cri, String site_id) {
+	public ArrayList<RecommendVO> getCriRecommendList(Criteria cri, String site_id, int po_num) {
 		if(cri == null) {
 			return null;
 		}
 		
-		return communityDao.selectCriRecommendList(cri, site_id);
+		return communityDao.selectCriRecommendList(cri, site_id, po_num);
 	}
 
 	@Override
