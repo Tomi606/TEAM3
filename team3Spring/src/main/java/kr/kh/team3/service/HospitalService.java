@@ -105,7 +105,7 @@ public interface HospitalService {
 
 	int getHospitalCountEmd(LandVO land,int hs_num, Criteria cri);
 
-	ArrayList<BookmarkVO> getBmkList(SiteManagement user, Criteria cri);
+	ArrayList<HospitalVO> getBmkList(SiteManagement user, Criteria cri);
 
 	int getBmkListCount(SiteManagement user, Criteria cri);
 

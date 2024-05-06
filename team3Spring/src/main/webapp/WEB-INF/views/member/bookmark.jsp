@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <title>병원 리스트</title>
 <style type="text/css">
+.area-container{height: 48%;padding:50px;margin-top: 7%;margin-bottom: 10%;
+box-shadow: 0 8px 16px rgba(0, 128, 0, 0.3);}
 .aTag-btn1{
 margin-right: auto;
 } 
@@ -15,24 +17,24 @@ margin-left: auto;
 } 
 .aTag-btn1,
 .aTag-btn2{
-	
+	padding: 20px;
 	margin:90px 15px 15px 24px;
-    width: 300px;
+    width: 280px;
     height: 200px;
     color: black;
     text-decoration: none;
-    box-shadow: 1px 1px 2px 1px #C12DFF;
+ 	box-shadow: 0 8px 16px rgba(0, 128, 0, 0.2)
 }
-.active{background-color:#fff8f6;color: #ff501b;}
-.active1{background-color:#fff8f6;color: #ff501b;}
-.active2{background-color:#fff8f6;color: #ff501b;}
+
 .aTag-btn1:hover,
-.aTag-btn2:hover{text-decoration:none;box-shadow: 2px 2px 4px 1px #C12DFF; /* 그림자 효과 추가 */}
+.aTag-btn2:hover{text-decoration:none;box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
+    transition: box-shadow 0.3s ease;/* 그림자 효과 추가 */}
 .hospital-like-list h1,.hospital-area-list h1{margin: 30px auto 50px auto;}
 .hospital-list-home{width: 100%;height: 1500px;}
 .hospital-list-box{width: 1400px;height: 100%;margin: 0 auto;text-align: center;}
 .hospital-like-list{width: 100%;height: 400px;border: 1px solid #c8c8c8;margin-bottom: 150px;}
-.hospital-area-list{ width: 100%;height:1000px;border: 1px solid #c8c8c8;display: grid; grid-template-columns:1fr 1fr 1fr 1fr;}
+.hospital-area-list{ width: 100%;height:1000px;display: grid; grid-template-columns:1fr 1fr 1fr 1fr;
+border-top:1px solid rgba(0, 128, 0, 0.4);margin-top: 80px;}
 .area-select-all{width: 100%;height: 150px;padding: 30px 0;display: flex;}
 .area-select{margin: 0 auto;}
 .area-select-box{display: flex;border: 1px solid  #c8c8c8;width: 100%; height: 400px;margin: 100px 0 200px 0;}
@@ -48,19 +50,54 @@ margin-left: auto;
 .emd-list li {display: inline-block;padding: 20px;width: 33%;text-align: left;}
 .area-title{text-align: center;padding: 15px;border-bottom:1px solid  #c8c8c8;border-right: 1px solid  #c8c8c8; }
 .area-title-emd{text-align: center;padding: 15px;width: 997px;border-bottom:1px solid #c8c8c8;}
-.box-pagination{width:100%;display: flex;margin-top:60px;}
-.pagination{margin: 0 auto;}
+.box-pagination{width:100%;display: flex;margin-top:100px; height: 100px; }
+.pagination-custom{margin: 0 auto;display: flex;}
+.pagination-custom li{list-style: none; }
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: green;
+    border-color: green;
+ }
+ .page-link{
+color: green;
+}
+.ho-name{
+	font-weight: bold;
+	color: rgba(0, 128, 0, 0.5);
+	font-size: 23px;
+	margin-top: 20px;
+	text-align: left;
+}
+.hs-title{
+	color: gray;
+	font-size: 16px;
+	text-align: left;
+	margin-top: 10px;
+}
+.hd-time{
+	text-align: left;
+	margin-top: 5px;
+}
+.ho-address{
+	text-align: left;
+	margin-top: 5px;
+}
+.top-img {
+	height: 16px;
+	width: 16px;
+}
 </style>
 </head>
 <body>
-<div class="hospital-list-home">
-	<div class="hospital-list-box">
+<div class="hospital-list-box">
+	<div class="area-container">
 		<h1>북마크 리스트..</h1>
 		<div class="hospital-area-list">
 		</div>
-		<div class="box-pagination" style="border: 1px solid black; height: 100px; margin: 0 auto 200px auto">
+		<div class="box-pagination" style="height: 100px; margin: 100px auto 0 auto">
 			<!-- 페이지네이션 시작 -->
-			<ul class="pagination justify-content-center"></ul>
+			<ul class="pagination-custom pagination justify-content-center"></ul>
 			<!-- 페이지네이션 끝 -->
 		</div>
 	</div>
@@ -84,13 +121,48 @@ function getBmkHoList(){
             }
             else{
                 for(let ho of data.list){
+                	if(ho.hospital_detail == null){
+                		continue;
+                	}
+                	let hd_time = ho.hospital_detail.hd_time;
+            		let timeArray = hd_time.split(",");
+            		
+            		let today = new Date();
+            		let daysOfWeek = ['월', '화', '수', '목', '금', '토', '일'];
+            		let dayOfWeek = daysOfWeek[today.getDay() - 1]; //오늘 무슨요일
+					
+            		switch(dayOfWeek){
+            		case '월':
+            			hd_time = timeArray[1];
+            			break;
+            		case '화':
+            			hd_time = timeArray[2];
+            			break;
+            		case '수':
+            			hd_time = timeArray[3];
+            			break;
+            		case '목':
+            			hd_time = timeArray[4];
+            			break;
+            		case '금':
+            			hd_time = timeArray[5];
+            			break;
+            		case '토':
+            			hd_time = timeArray[6];
+            			break;
+            		case '일':
+            			hd_time = timeArray[7];
+            			break;
+            		}
                     str += 
                    	`
-	                    <a class="aTag-btn1" href="<c:url value='#'/>" style="padding: auto;" data-id="\${ho.hospital.ho_id}>"
-							<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
-							<h4>\${ho.hospital.ho_name}</h4>
-							<p>\${ho.hospital.ho_ceo}</p>
-							<p>\${ho.hospital.ho_id}</p>
+	                    <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=\${ho.ho_id}'/>" style="padding: auto;" data-id="\${ho.ho_id}">
+	                    	<div class="ho-name">\${ho.ho_name}</div>
+	                    	<div class="hs-title">\${ho.hospital_subject.hs_title}</div>
+	                    	<div class="ho-address"><img class="top-img"
+								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">\${ho.ho_address}</div>
+							<div class="hd-time"><img class="top-img"
+								alt="위치 이미지" src="<c:url value="/resources/img/time-line.svg"/>">(\${dayOfWeek}요일) \${hd_time}</div>
 						</a>
 					`; 
                 }

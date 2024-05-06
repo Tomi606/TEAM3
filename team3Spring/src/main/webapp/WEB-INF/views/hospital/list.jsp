@@ -20,7 +20,7 @@ margin-left: auto;
 .aTag-btn2{
 	padding: 20px;
 	margin:90px 15px 15px 24px;
-    width: 300px;
+    width: 280px;
     height: 200px;
     color: black;
     text-decoration: none;
@@ -129,6 +129,31 @@ padding:12px;margin-top:15px;width: 100%;border-bottom: 1px solid #c8c8c8;
 color: green;
 }
 
+.ho-name{
+	font-weight: bold;
+	color: rgba(0, 128, 0, 0.5);
+	font-size: 23px;
+	margin-top: 20px;
+	text-align: left;
+}
+.hs-title{
+	color: gray;
+	font-size: 16px;
+	text-align: left;
+	margin-top: 10px;
+}
+.hd-time{
+	text-align: left;
+	margin-top: 5px;
+}
+.ho-address{
+	text-align: left;
+	margin-top: 5px;
+}
+.top-img {
+	height: 16px;
+	width: 16px;
+}
 </style>
 </head>
 <body>
@@ -210,7 +235,7 @@ color: green;
 		</div>
 		
 	</div>	
-	<div class="hospital-list-box">
+	<div class="hospital-list-box area-hospital-list">
 		<div class="area-container">
 		<h1 style="margin-top:50px;color: rgba(0, 128, 0, 0.5); ">지역 병원</h1>
 			<div class="hospital-area-list">
@@ -383,12 +408,13 @@ function getSubHoList(){
                		 str += 
                         `
 
-       	                    <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=\${ho.ho_id}'/>" style="padding: auto;" data-id="\${ho.hospital_detail.hd_num}">
+       	                    <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=\${ho.hospital.ho_id}'/>" style="padding: auto;" data-id="\${ho.hospital_detail.hd_num}">
 
        							<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
-       							<h4>\${ho.hospital.ho_name}</h4>
-       							<p>\${ho.hospital_subject.hs_title}</p>
-       							<p>\${ho.hospital.ho_address}</p>
+       							<div class="ho-name">\${ho.hospital.ho_name}</div>
+       							<div class="hs-title">\${ho.hospital_subject.hs_title}</div>
+       							<div class="ho-address"><img class="top-img"
+       								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">\${ho.hospital.ho_address}</div>
        						</a>
        					`; 
                		
@@ -427,11 +453,13 @@ function getSubHoList(){
 
 	                    str += 
 	                   	`
-		                    <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=\${ho.ho_id}'/>" style="padding: auto;" data-num="\${ho.hospital_detail.hd_num}">
-								<h4>\${ho.hospital.ho_name}</h4>
-								<p>\${ho.hospital_subject.hs_title}</p>
-								<p>(\${dayOfWeek}요일) \${hd_time}</p>
-								<p>\${ho.hospital.ho_address}</p>
+		                    <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=\${ho.hospital.ho_id}'/>" style="padding: auto;" data-num="\${ho.hospital_detail.hd_num}">
+		                    	<div class="ho-name">\${ho.hospital.ho_name}</div>
+		                    	<div class="hs-title">\${ho.hospital_subject.hs_title}</div>
+		                    	<div class="ho-address"><img class="top-img"
+									alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">\${ho.hospital.ho_address}</div>
+								<div class="hd-time"><img class="top-img"
+									alt="위치 이미지" src="<c:url value="/resources/img/time-line.svg"/>">(\${dayOfWeek}요일) \${hd_time}</div>
 							</a>
 						`;
                	}
@@ -500,10 +528,12 @@ function getAreaHoList(){
                            	`
          	                    <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=\${ho.ho_id}'/>" style="padding: auto;" data-id="\${ho.hospital_detail.hd_num}">
          							<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
-         							<h4>\${ho.ho_name}</h4>
-         							<p>\${ho.hospital_subject.hs_title}</p>
-         							<p>(\${dayOfWeek}요일) \${hd_time}</p>
-         							<p>\${ho.ho_address}</p>
+         							<div class="ho-name">\${ho.ho_name}</div>
+         							<div class="hs-title">\${ho.hospital_subject.hs_title}</div>
+         							<div class="ho-address"><img class="top-img"
+         								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">\${ho.ho_address}</div>
+         							<div class="hd-time"><img class="top-img"
+         								alt="위치 이미지" src="<c:url value="/resources/img/time-line.svg"/>">(\${dayOfWeek}요일) \${hd_time}</div>
          						</a>
          					`; 
                 	}
@@ -513,10 +543,12 @@ function getAreaHoList(){
 	                   	`
 		                    <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=\${ho.ho_id}'/>" style="padding: auto;" data-id="\${ho.hospital_detail.hd_num}">
 								<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
-								<h4>\${ho.hospital.ho_name}</h4>
-								<p>\${ho.hospital_subject.hs_title}</p>
-								<p>(\${dayOfWeek}요일) \${hd_time}</p>
-								<p>\${ho.hospital.ho_address}</p>
+								<div class="ho-name">\${ho.hospital.ho_name}</div>
+								<div class="hs-title">\${ho.hospital_subject.hs_title}</div>
+								<div class="ho-address"><img class="top-img"
+     								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">\${ho.hospital.ho_address}</div>
+   								<div class="hd-time"><img class="top-img"
+       								alt="위치 이미지" src="<c:url value="/resources/img/time-line.svg"/>">(\${dayOfWeek}요일) \${hd_time}</div>
 							</a>
 						`;
                 	}
@@ -594,7 +626,7 @@ $(document).on('click', '.hs_btn', function(){
 $(document).on('click', '.search-btn', function(){
     area.search = $('.search-input').val();
     getAreaHoList();
-    var location = document.querySelector(".area-container").offsetTop;
+    var location = document.querySelector(".area-hospital-list").offsetTop;
     window.scrollTo({top:location, behavior:'smooth'});
 });
 
