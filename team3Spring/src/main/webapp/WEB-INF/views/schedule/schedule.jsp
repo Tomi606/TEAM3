@@ -74,20 +74,12 @@ h3 {
 }
 
 .week,
-.gray,
-.today {
+.gray {
   padding: 10px;
   border: 1px solid #ced4da;
   background-color: #fff;
 }
 
-.today {
-  background-color: #007bff;
-  color: #fff;
-  border-color: #007bff;
-  border-radius: 50%;
-  font-weight: bold;
-}
 
 .gray {
   color: #6c757d;
@@ -243,7 +235,6 @@ let sgo = {
 $(document).on("click", ".day-btn", function(){
 	let rs_num = $(this).data("target");
 	let hp_num = $("[name=hp_num]").val();
-	console.log(rs_num);
 	$.ajax({
 		method : "post",
 		url : '<c:url value="/gettime"/>',
@@ -271,7 +262,6 @@ $(document).on("click", ".day-btn", function(){
 <script type="text/javascript">
 $(document).on("click", ".reserveBtn", function(){
 	sgo.rs_time = $(".reserveBtn1").data("time");
-	console.log(sgo.rs_time);
 	let res = confirm(
 			"병원명 : " + sgo.ho_name +
 			"\n프로그램 명 : " + sgo.hp_title +
@@ -340,8 +330,8 @@ function cal(mon,ye, list){
 	}
 
 	for(var i=1;i<=42-sDay;i++){ 
-		let da = ye +"/"+ mon+"/" + i;
-		
+		let day = i < 10 ? '0' + i : i;
+	    let da = ye + "/" + mon + "/" + day;
 		if(list != null){
 			for(let tmp of list){
 				if(tmp.rsDate == da){

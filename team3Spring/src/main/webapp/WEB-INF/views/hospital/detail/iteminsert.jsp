@@ -187,6 +187,17 @@
 				<option value="${list.hs_num}">${list.hs_title}</option>
 			</c:forEach>
 		</select>
+		<h3>세부 항목 등록</h3>
+		<label for="it_name">세부 항목</label>
+	    <input  type="text" id="it_name" name="it_name" placeholder="등록하고 싶은 항목을 입력하세요" autofocus="autofocus">
+	    <label for="it_explanation">세부 항목설명</label>
+	    <input type="text" name="it_explanation" placeholder="세부 항목의 설명">
+	    <div class="program-btn-box">
+		    <a class="btn item-inset-btn">등록</a>
+		    <a class="btn item-update-btn" href='<c:url value="/date/update"/>'>수정</a>
+		    <a class="btn item-delete-btn">삭제</a>
+	    </div>
+	   	<br>
 		<label for="hp_title">프로그램 이름</label>
 	    <input  type="text" id="hp_title" name="hp_title" placeholder="프로그램 이름을 입력하세요">
 		<label for="hp_payment">프로그램 가격</label>
@@ -196,9 +207,6 @@
 	    <a class="btn program-delete-btn">삭제</a>
 	</div>
 	<div class="check-box-group" id="check-box-group">
-		<c:forEach items="${itemList}" var="item">
-			<input type="checkbox" value="${item.it_num}" name="li_list">${item.it_name}
-		</c:forEach>
 	</div>
 	<div class="input-group mb-3" id="programBox">
 		<select name="hp_num" class="form-control">
@@ -206,24 +214,6 @@
 		</select>
 	</div>
 </div>
-
-<!-- 중복확인 버튼 때문에 불 필요한 여백 발생하는중 고쳐야 함 -->
-<div class="input-box-group item-box">
-	<h3>세부 항목 등록</h3>
-	<label for="it_name">세부 항목</label>
-    <input  type="text" id="it_name" name="it_name" placeholder="등록하고 싶은 항목을 입력하세요" autofocus="autofocus">
-    <label for="it_explanation">세부 항목설명</label>
-    <input type="text" name="it_explanation" placeholder="세부 항목의 설명">
-    <div class="program-btn-box">
-	    <a class="btn item-inset-btn">등록</a>
-	    <a class="btn item-update-btn" href='<c:url value="/date/update"/>'>수정</a>
-	    <a class="btn item-delete-btn">삭제</a>
-    </div>
-</div>
-<br>
-
-
-
 
 <div class="list-box">
 	 <table class="table">
@@ -244,12 +234,11 @@
 	<input type="time" id="timeInput" name="rs_time">
 	<input type="number" name="rs_max_person">
 	<a class="btn date-inset-btn">등록</a>
-    <a class="btn date-update-btn" href='<c:url value="/date/update"/>'>수정</a>
-    <a class="btn date-delete-btn" href='<c:url value="/date/delete"/>'>삭제</a>
+    <a class="btn date-update-btn" href='<c:url value="/date/update"/>'>예약수정</a>
+    <a class="btn date-delete-btn" href='<c:url value="/date/delete"/>'>예약삭제</a>
 </div>
 	
 </div>
-
 
 <!-- 스케줄 등록 메서드 -->
 <script type="text/javascript">
@@ -330,9 +319,11 @@
 
 <!-- 진료과목을 선택하면 진료 과에해당하는 세부 항목 띄우기 -->
 <script type="text/javascript">
-	$("[name=hs_num]").change(function(){
+	$("[name=hs_num]").click(function(){
 		let hs_num = $("[name=hs_num]").val();
-		
+		if(hs_num == 'none'){
+			hs_num = 1;
+		}
 		$.ajax({
 			method : 'post',
 			url : '<c:url value="/subject/item"/>',

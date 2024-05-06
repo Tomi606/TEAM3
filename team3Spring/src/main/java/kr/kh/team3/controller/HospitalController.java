@@ -427,6 +427,7 @@ public class HospitalController {
 		model.addAttribute("list",list);
 		return "/hospital/detail/iteminsert";
 	}
+	
 	// 세부 항목을 추가하는 메서드
 	@ResponseBody
 	@PostMapping("/item/insert")
