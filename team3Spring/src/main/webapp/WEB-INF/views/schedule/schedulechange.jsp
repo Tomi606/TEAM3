@@ -38,7 +38,7 @@
 				<th>예약 프로그램</th>
 				<th>날짜</th>
 				<th>시간</th>
-				<th>승인/거절</th>
+				<th>변경/삭제</th>
 			</tr>
 		</thead>
 		<tbody class="box-hospital-list">
@@ -53,6 +53,9 @@
 <script type="text/javascript">
 	$("[name=hp_num]").click(function(){
 		let hp_num = $("[name=hp_num]").val();
+		if(hp_num == 'none'){
+			hp_num = 1;
+		}
 		$.ajax({
 			method : "post",
 			url : '<c:url value="/schedule/check"/>',
@@ -60,7 +63,26 @@
 				"hp_num" : hp_num
 			},
 			success : function(data){
-				console.log(data);
+				let str = ``;
+				console.log(data.list)
+				if(data.list != null){
+					for(let tmp of data.list){
+						if(tmp == null){
+							continue;
+						}else{
+							str+=`<tr>
+								<th>\${tmp.rv_num}</th>
+								<th>\${tmp.memberVO.me_id}</th>
+								<th>\${tmp.rv_rvs_name}</th>
+								<th>프로그램명 띄우기 고민해보기</th>
+								<th>\${tmp.reservationScheduleVO.rsDate2}</th>
+								<th>\${tmp.reservationScheduleVO.rsTime}</th>
+								<th>승인/거절</th>
+							  </tr>`;
+						}
+					}
+				}
+				$(".box-hospital-list").html(str);
 			}
 		});
 	});

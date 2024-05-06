@@ -12,7 +12,29 @@
 		select * from reservation_schedule where rs_date = #{date} and rs_hp_num = #{hp_num}
 	</select>
 	
-	<select id="selectReservationList" resultType="kr.kh.team3.model.vo.ReservationVO">
-		select * from reservation where rv_rs_num = #{rs_num}
+	<!-- 예약 테이블 resultMap -->
+	<resultMap type="kr.kh.team3.model.vo.ReservationVO" id="ReservationMap">
+		<id property="rv_num" column="rv_num"/>
+		<result property="rv_rvs_name" column="rv_rvs_name"/>
+		<result property="rv_rs_num" column="rv_rs_num"/>
+		<result property="rv_me_id" column="rv_me_id"/>
+		<collection property="ReservationScheduleVO" ofType="kr.kh.team3.model.vo.ReservationScheduleVO"
+			column="rv_rs_num" select="selectSchedule"/>
+		<collection property="MemberVO" ofType="kr.kh.team3.model.vo.MemberVO"
+			column="rv_me_id" select="selectMemberSchedule"/>
+	</resultMap>
+	
+	<select id="selectReservationList" resultMap="ReservationMap">
+		select * from reservation where rv_rs_num = #{rs_num}	
 	</select>
+	
+	<select id="selectSchedule" resultType="kr.kh.team3.model.vo.ReservationScheduleVO">
+		select * from reservation_schedule where rs_num = #{rv_rs_num}
+	</select>
+	
+	<select id="selectMemberSchedule" resultType="kr.kh.team3.model.vo.MemberVO">
+		select * from member where me_id = #{rv_me_id}
+	</select>
+	<!-- 예약 테이블 resultMap -->
+	
 </mapper>
