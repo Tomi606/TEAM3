@@ -304,13 +304,9 @@ getRecommendPage();
 
 function getRecommendPage() {
 	let site_id = "${user.site_id}";
-	let po_num = "${rList[0].post.po_title}";
-	// 배열 순회하여 모든 po_title 값을 확인하는 코드
-	for (let i = 0; i < rList.length; i++) {
-	    let po_title = po_num;
-	    console.log("Index", i, ":", po_title);
-	}
-	console.log(po_num);
+	let post = "${rList[0].post}";
+
+	console.log(post);
 	$.ajax({
 	    async: true,
 	    url: '<c:url value="/hospital/community/recommend"/>',
@@ -318,7 +314,7 @@ function getRecommendPage() {
 	    data: {
 	        "page" : recommendPage, 
 	        "site_id" : site_id,
-	        "po_num" : po_num
+	        "po_num" : post
 	    },
 	    success: function (data) {
 	    	console.log(data.rList);
@@ -361,17 +357,21 @@ function displayRecommendList(rList) {
 	   <tbody>
    `;
 
-   for(item of rList[i].post) {
-	   console.log(item);
-      str += 
-      ` <tr style="height: 100px; border-bottom: 1px solid lightgray;">
-			<td style="width: 5%;">\${item.po_num}</td>
-			<td style="width: 40%;">
-			<a href="<c:url value="/board/detail?po_num=\${item.po_num}"/>" class="title-link">\${item.po_title}</a>
-		</td>
-		</tr>
-      `;
-	}
+   for(let i=0; i<post.length; i++) {
+	   for(item of rList[i].post) {
+		   console.log(item);
+	      str += 
+	      ` <tr style="height: 100px; border-bottom: 1px solid lightgray;">
+				<td style="width: 5%;">\${item.po_num}</td>
+				<td style="width: 40%;">
+				<a href="<c:url value="/board/detail?po_num=\${item.po_num}"/>" class="title-link">\${item.po_title}</a>
+			</td>
+			</tr>
+	      `;
+		}
+   }
+   
+   
     str += `
 			</tbody>
 		</table>
