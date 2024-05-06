@@ -25,7 +25,7 @@ public interface CommunityDAO {
 
 	int selectCommentTotalCount(@Param("co_id") String site_id);
 
-	ArrayList<RecommendVO> selectCriRecommendList
+	ArrayList<PostVO> selectCriRecommendList
 	(@Param("cri") Criteria cri, @Param("re_id") String site_id);
 
 	int selectRecommendTotalCount(@Param("re_id") String site_id);

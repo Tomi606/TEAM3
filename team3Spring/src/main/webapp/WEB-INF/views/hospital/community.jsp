@@ -184,6 +184,7 @@ function displayPostPagination(pm) {
    }
    $('.box-pagination-post>ul').html(str);
 }
+
 $(document).on('click','.box-pagination-post .page-link',function(){
 	//전역변수 페이지네이션
 	postPage = $(this).data('page');
@@ -289,22 +290,21 @@ function displayCommentPagination(pm) {
 	   }
 	   $('.box-pagination-comment>ul').html(str);
 	}
-	$(document).on('click','.box-pagination-comment .page-link',function(){
-		//전역변수 페이지네이션
-		commentPage = $(this).data('page');
-		getCommentList();
-	});
+$(document).on('click','.box-pagination-comment .page-link',function(){
+	//전역변수 페이지네이션
+	commentPage = $(this).data('page');
+	getCommentList();
+});
 </script>
 
 <!-- 좋아요 -->
 <script type="text/javascript">
 //페이지네이션 전역변수 선언
 let recommendPage = 1;
-getRecommendPage();
+getRecommendList();
 
-function getRecommendPage() {
+function getRecommendList() {
 	let site_id = "${user.site_id}";
-	let post = "${rList[i].post}";
 	
 	$.ajax({
 	    async: true,
@@ -315,8 +315,8 @@ function getRecommendPage() {
 	        "site_id" : site_id
 	    },
 	    success: function (data) {
-	    	console.log(data.rList);
 	    	displayRecommendList(data.rList);
+	    	displayRecommendPagination(data.pm);
 	    },
 	    error: function(jqXHR, textStatus, errorThrown) {
 
@@ -331,6 +331,9 @@ function displayRecommendList(rList) {
 			<tr>
 				<th style="width: 5%;">No</th>
 				<th style="width: 40%;">제목</th>
+				<th style="width: 30%;">작성일</th>
+				<th style="width: 7.5%;">추천수</th>
+				<th style="width: 7.5%;">조회수</th>
 			</tr>
 		</thead>
 		<tr class="hr"></tr>
@@ -339,7 +342,7 @@ function displayRecommendList(rList) {
       str += `
     	  <tbody>
 	    	  <tr style="height: 400px;">
-				<td colspan="1">
+				<td colspan="6">
 					<div>
 						<h3 style="color: lightgray">좋아요한 게시글이 없습니다.</h3>
 					</div>
@@ -355,23 +358,20 @@ function displayRecommendList(rList) {
 	   <tbody>
    `;
 
-   
-   console.log(post);
-   for(let i=0; i<post.length; i++) {
-	   for(item of post) {
-		   console.log(item);
-	      str += 
-	      ` <tr style="height: 100px; border-bottom: 1px solid lightgray;">
-				<td style="width: 5%;">\${item.po_num}</td>
-				<td style="width: 40%;">
+   for(item of rList) {
+      str += 
+      ` <tr style="height: 100px; border-bottom: 1px solid lightgray;">
+			<td style="width: 5%;">\${item.po_num}</td>
+			<td style="width: 40%;">
 				<a href="<c:url value="/board/detail?po_num=\${item.po_num}"/>" class="title-link">\${item.po_title}</a>
+				<a href="<c:url value="/board/detail?po_num=\${item.po_num}#comments-section"/>" class="comment-link" data-po-num="\${item.po_num}"> [\${item.po_co_count}]</a>
 			</td>
-			</tr>
-	      `;
-		}
-   }
-   
-   
+			<td style="width: 30%;">\${item.changeDate1}</td>
+			<td style="width: 7.5%;">\${item.po_up}</td>
+			<td style="width: 7.5%;">\${item.po_view}</td>
+		</tr>
+      `;
+	}
     str += `
 			</tbody>
 		</table>
@@ -379,6 +379,35 @@ function displayRecommendList(rList) {
 	$('.recommend-list').html(str);
 }
 
+function displayRecommendPagination(pm) {
+   let str = '';
+   if(pm.prev){
+      str += `
+		<li class="page-item">
+			<a class="page-link" href="javascript:void(0);" data-page="\${pm.startPage - 1}">이전</a>
+		</li>`;
+   }
+   for(let i = pm.startPage; i<= pm.endPage; i++){
+      let active = pm.cri.page == i ? 'active' : '';
+      str += `
+      <li class="page-item \${active}">
+         <a class="page-link" href="javascript:void(0);" data-page="\${i}">\${i}</a>
+      </li>`;
+   }
+   if(pm.next){
+      str += `
+      <li class="page-item">
+         <a class="page-link" href="javascript:void(0);" data-page="\${pm.endPage + 1}">다음</a>
+      </li>`;
+   }
+   $('.box-pagination-recommend>ul').html(str);
+}
+	
+$(document).on('click','.box-pagination-recommend .page-link',function(){
+	//전역변수 페이지네이션
+	recommendPage = $(this).data('page');
+	getRecommendList();
+});
 
 </script>
 

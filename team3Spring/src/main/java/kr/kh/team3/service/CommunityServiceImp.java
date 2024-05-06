@@ -77,7 +77,7 @@ public class CommunityServiceImp implements CommunityService {
 	}
 
 	@Override
-	public ArrayList<RecommendVO> getCriRecommendList(Criteria cri, String site_id) {
+	public ArrayList<PostVO> getCriRecommendList(Criteria cri, String site_id) {
 		if(cri == null) {
 			return null;
 		}
