@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.siot.IamportRestClient.IamportClient;
+
 import kr.kh.team3.model.vo.BoardVO;
 import kr.kh.team3.model.vo.FileVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
