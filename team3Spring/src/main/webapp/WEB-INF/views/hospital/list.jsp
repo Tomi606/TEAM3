@@ -382,7 +382,9 @@ function getSubHoList(){
                 	if(ho.hospital_detail == null){
                		 str += 
                         `
+
        	                    <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=\${ho.ho_id}'/>" style="padding: auto;" data-id="\${ho.hospital_detail.hd_num}">
+
        							<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
        							<h4>\${ho.hospital.ho_name}</h4>
        							<p>\${ho.hospital_subject.hs_title}</p>

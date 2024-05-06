@@ -242,19 +242,20 @@ let sgo = {
 <script type="text/javascript">
 $(document).on("click", ".day-btn", function(){
 	let rs_num = $(this).data("target");
+	let hp_num = $("[name=hp_num]").val();
 	console.log(rs_num);
 	$.ajax({
 		method : "post",
 		url : '<c:url value="/gettime"/>',
 		data : {
-			"rs_num" : rs_num
+			"rs_num" : rs_num,
+			"hp_num" : hp_num
 		},
 		success : function(data){
 			console.log(data);
 			sgo.rs_date = data.time.rsDate;
 			let str = ``;
 			for(let tmp of data.timeList){
-				console.log("ㅇㅇㅇㅇㅇ"+tmp.rsTime);
 				str+= 
 					`
 						<div class="time-box reserveBtn">
