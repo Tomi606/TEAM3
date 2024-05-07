@@ -234,7 +234,7 @@ color: green;
 </style>
 </head>
 <body>
-<form action="<c:url value='/board/update'/>" method="post"  enctype="multipart/form-data">
+<form action="<c:url value='/board/update?po_num=${post.po_num} '/>" method="post"  enctype="multipart/form-data">
 	<div class="post_list_container">
 		<div class="post_list_box">
 			<div style="text-align: center;">

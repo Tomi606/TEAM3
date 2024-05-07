@@ -159,7 +159,6 @@ public class BoardController {
 	@GetMapping("/board/delete")
 	public String boardDelete(Model model, PostVO post, HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-
 		PostVO delPost = boardService.getPost(post.getPo_num());
 		int bo_num = delPost.getPo_bo_num();
 		boolean res = boardService.deletePost(post.getPo_num(), user);
@@ -191,6 +190,7 @@ public class BoardController {
 			HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		boolean res = boardService.updateMyPost(post, user, file, delNums);
+		log.info(res+"게시글수정게시글수정게시글수정게시글수정게시글수정게시글수정게시글수정게시글수정게시글수정게시글수정게시글수정게시글수정");
 		if (res) {
 			model.addAttribute("url", "/board/detail?po_num=" + post.getPo_num());
 			model.addAttribute("msg", "게시글을 수정했습니다.");

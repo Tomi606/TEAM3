@@ -355,14 +355,13 @@ public class BoardServiceImp implements BoardService {
 		if (user == null) {
 			return false;
 		}
-		// 작성자가 맞는지
-		PostVO dbPost = boardDao.selectPosta(post.getPo_num());
+		PostVO dbPost = boardDao.selectMyPostEq(user.getSite_num());
+		log.info(dbPost+"작성자가 맞는지작성자가 맞는지작성자가 맞는지작성자가 맞는지작성자가 맞는지작성자가 맞는지작성자가 맞는지");
 		if (dbPost == null || dbPost.getPo_mg_num() != user.getSite_num()) {
 			return false;
 		}
-		// 게시글 수정
 		boolean res = boardDao.updateMyPost(post);
-
+		log.info(res+"임플수정임플수정임플수정임플수정임플수정임플수정임플수정임플수정임플수정임플수정임플수정임플수정");
 		if (!res) {
 			return false;
 		}
