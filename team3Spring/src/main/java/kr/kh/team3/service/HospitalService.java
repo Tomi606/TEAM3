@@ -54,6 +54,10 @@ public interface HospitalService {
 	ArrayList<HospitalVO> hospitalList(Criteria cri);
 	//관리자 병원 관리 =========================================================
 	ArrayList<HospitalVO> getWaitHospitalList(Criteria cri);
+	
+	ArrayList<HospitalVO> getWaitHoList();
+
+	ArrayList<SiteManagement> getRpHoList();
 
 	int getWHTotalCount(Criteria cri);
 
