@@ -502,7 +502,7 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public ArrayList<BookmarkVO> getBmkList(SiteManagement user, Criteria cri) {
+	public ArrayList<HospitalVO> getBmkList(SiteManagement user, Criteria cri) {
 		if(user == null||user.getSite_id() == null||user.getSite_id().length() == 0)
 			return null;
 		return hospitalDao.selectBmkList(user, cri);

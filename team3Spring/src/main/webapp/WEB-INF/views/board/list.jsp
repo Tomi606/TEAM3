@@ -34,10 +34,12 @@
 }
 
 .검색 {
-	outline-style: none;
-	width: 400px;
-	padding: 10px 50px 10px 10px;
-	height: 100%;
+	 border
+	 : 1px solid rgba(0, 128, 0, 0.5);
+        outline-style: none;
+        width: 500px;
+        padding: 10px 50px 10px 10px;
+        height: 100%;
 }
 
 .post_insert_btn {
@@ -45,13 +47,13 @@
 	color: green;
 	height: 100%;
 	width: 100%;;
-	border: 1px solid green;
+	border: 1px solid  rgba(0, 128, 0, 0.5);;
 	padding: 13px;
 }
 
 .post_insert_btn:hover {
 	color: white;
-	background-color: green;
+	background-color:  rgba(0, 128, 0, 0.5);;
 	text-decoration: none;
 }
 
@@ -61,17 +63,11 @@
 	margin: 0 20px 40px auto;
 }
 
-.search-box {
-	height: 50px;
-	margin: 80px 0 100px 0;
+.search-box-group {
+	width:100%;
 }
 
-.search-btn {
-	height: 100%;
-	position: relative;
-	right: 52px;
-	bottom: 1px;
-}
+
 .title-link{
 	color: black;
 }
@@ -84,14 +80,48 @@
 }
 
 .page-link{
-color: green;
+color:  rgba(0, 128, 0, 0.5);
 }
 .page-item.active .page-link {
     z-index: 3;
     color: #fff;
     background-color: green;
-    border-color: green;
+    border-color:  rgba(0, 128, 0, 0.5);;
  }
+ .search-box-box{
+ width: 50%;display:flex;
+	height: 50px;
+	margin: 80px auto 100px auto;
+ }
+ 
+  .search_type {
+  		outline-style:none;
+       	border-color: rgba(0, 128, 0, 0.5);
+        padding: 5px;
+        width: 150px;
+        font-size: 16px; 
+        color: #333; 
+    }
+
+    .search_type option {
+        background-color: #fff;
+    }
+    .search-btn {
+    	background-color:white;
+    	border:1px solid rgba(0, 128, 0, 0.5);
+        width: 100px; 
+        height: 50px;
+        cursor: pointer;
+    }
+      .search-btn:hover{
+      background-color: rgba(0, 128, 0, 0.5);
+      
+      }
+
+    .search-btn:focus {
+        outline: none;
+    }
+   h1{color: #555;}
 </style>
 </head>
 <body>
@@ -100,20 +130,22 @@ color: green;
 			<h1>${bo_title}</h1>
 			<div class="hr"></div>
 			<form action="<c:url value='/board/list'/>" method="get">
-				<div class="search-box">
-					<input type="hidden" name="bo_num" value="${bo_num}">
-					<select name="type">
-						<option value="all"
-							<c:if test="${pm.cri.type == 'all'}">selected</c:if>>전체</option>
-						<option value="title"
-							<c:if test="${pm.cri.type == 'title'}">selected</c:if>>제목만</option>
-						<option value="titleContent"
-							<c:if test="${pm.cri.type == 'titleContent'}">selected</c:if>>제목 + 내용</option>
-						<option value="writer"
-							<c:if test="${pm.cri.type == 'writer'}">selected</c:if>>글작성자</option>
-					</select>
-					<input type="search" class="검색" name="search" placeholder="검색어를 입력하세요">
-					<button class="search-btn" type="submit">검색</button>
+				<div class="search-box-group">
+					<div class="search-box-box">
+						<input type="hidden" name="bo_num" value="${bo_num}">
+						<select name="type" id="type" class="search_type">
+							<option value="all"
+								<c:if test="${pm.cri.type == 'all'}">selected</c:if>>전체</option>
+							<option value="title"
+								<c:if test="${pm.cri.type == 'title'}">selected</c:if>>제목만</option>
+							<option value="titleContent"
+								<c:if test="${pm.cri.type == 'titleContent'}">selected</c:if>>제목 + 내용</option>
+							<option value="writer"
+								<c:if test="${pm.cri.type == 'writer'}">selected</c:if>>글작성자</option>
+						</select>
+						<input type="search" class="검색" name="search" placeholder="검색어를 입력하세요">
+						<button type="submit" class="search-btn">검색</button>
+					</div>	
 				</div>
 			</form>
 			<div class="post_insert_btn_box">
@@ -121,7 +153,7 @@ color: green;
 					class="post_insert_btn">작성하기</a>
 			</div>
 			<div>
-				<table style="width: 100%;">
+				<table style="width: 100%;height: 100%;margin-bottom: 20%;">
 					<thead>
 						<tr>
 							<th style="width: 5%;">No</th>
@@ -141,7 +173,7 @@ color: green;
 								<!-- 각 bo_num별 게시글 수 초기화 -->
 								<c:forEach items="${poList}" var="po" varStatus="poIndex">
 									<c:set var="boPostCount" value="${boPostCount + 1}" />
-									<tr style="height: 100px; border-bottom: 1px solid lightgray;">
+									<tr style="height: 100px; border-bottom: 1px solid lightgray;font-size: 18px;">
 										<td style="width: 5%;">${boPostCount}</td>
 										<td style="width: 40%;">
 											<a href="<c:url value="/board/detail?po_num=${po.po_num}"/>" class="title-link">${po.po_title}</a>
@@ -167,7 +199,7 @@ color: green;
 					</tbody>
 				</table>
 			</div>
-			<ul class="pagination justify-content-center" style="margin-top: 220px;">
+			<ul class="pagination justify-content-center" >
 				<c:if test="${pm.prev}">
 					<c:url value="/board/list?bo_num=${bo_num}" var="url">
 						<c:param name="page" value="${pm.startPage - 1}" />
@@ -200,5 +232,6 @@ color: green;
 			</ul>
 		</div>
 	</div>
+
 </body>
 </html>

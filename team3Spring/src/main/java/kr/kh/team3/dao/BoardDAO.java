@@ -79,4 +79,12 @@ public interface BoardDAO {
 
 	void updateCommentRpCount(@Param("rp")int co_num);
 
+	PostVO selectPosta(@Param("rp")int po_num);
+
+	void deleteFile(@Param("rp")int fi_num);
+
+	boolean deletePost(@Param("rp")int po_num);
+
+	int selectboardNumber();
+
 }

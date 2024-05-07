@@ -16,8 +16,16 @@ public interface CommunityService {
 
 	ArrayList<RecommendVO> getRecommendList(SiteManagement user);
 
+	ArrayList<PostVO> getCriPostList(Criteria cri, String site_id);
+
 	int getPostTotalCount(Criteria cri, String site_id);
 
-	ArrayList<PostVO> getCriPostList(Criteria cri, String site_id);
+	ArrayList<CommentVO> getCriCommentList(Criteria cri, String site_id);
+
+	int getCommentTotalCount(Criteria cri, String site_id);
+
+	ArrayList<PostVO> getCriRecommendList(Criteria cri, String site_id);
+
+	int getRecommendTotalCount(Criteria cri, String site_id);
 
 }

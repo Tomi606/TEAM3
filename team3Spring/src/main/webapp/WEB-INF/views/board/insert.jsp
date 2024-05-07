@@ -54,6 +54,7 @@ margin-top:50px;
 .fileList_box{width: 100%;height: 50px;}
 #fileList{display: flex;list-style: none;}
 #fileList li{margin: 10px;border: 1px solid lightgray;background-color: lightgray;padding: 5px;border-radius: 7px;}
+  h1{color: #555;}
 </style>
 </head>
 <body>
