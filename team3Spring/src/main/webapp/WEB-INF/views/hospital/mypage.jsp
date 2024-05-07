@@ -156,7 +156,6 @@ img {
 	margin: 70px 15px 30px 65px;
 	background-color: white;
 	border-radius: 30px;
-	/* box-shadow: 5px 5px 5px rgb(49,151,67); */
 	box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
 }
 
