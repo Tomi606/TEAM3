@@ -13,7 +13,7 @@
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.min.js" ></script>
 <style type="text/css">
 .body-tag{
-padding:200px 0 200px;
+padding:0 0 200px;
 width: 100%;
 display: felex;flex-direction: column;
 align-items: center;
@@ -104,12 +104,17 @@ label {
  .gender-buttons input[type="radio"] {
      display: none;
  }
-
+.signup_img{
+	width: 300px;height: 200px;
+}
 </style>
 </head>
 <body>
 <!-- 중복확인 버튼 때문에 불 필요한 여백 발생하는중 고쳐야 함 -->
 <div class="body-tag">
+	<div style="margin: 50px auto 0 auto;width: 300px;height: 250px;">
+		<img alt="asd" src="<c:url value='/resources/img/Hospital.png'/>" class="signup_img">
+	</div>
 	<form id="myForm" action="<c:url value="/member/signup"/>">
 	<div class="input-box">	
 		<div>

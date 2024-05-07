@@ -3,7 +3,24 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team3.dao.BoardDAO">
-
+	<!-- 게시글 수정 -->
+	<update id="updateMyPost">
+		update post set
+		po_title = #{po.po_title},
+		po_content = #{po.po_content},
+		po_bo_num = #{po.po_bo_num}
+		where po_num = #{po.po_num}
+	</update>
+	
+	<select id="selectMyPostEq" resultType="kr.kh.team3.model.vo.PostVO">
+		select * from post where po_mg_num = #{po}
+	</select>
+	
+	
+	<select id="selectFile" resultType="kr.kh.team3.model.vo.FileVO">
+		select * from file where
+		fi_num = #{fi}
+	</select>
 	<!-- 게시글 삭제 -->
 	<select id="selectPosta" resultType="kr.kh.team3.model.vo.PostVO" >
 		select * from post where po_num = #{rp}

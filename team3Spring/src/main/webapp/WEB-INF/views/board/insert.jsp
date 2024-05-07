@@ -6,8 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="http://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.css" rel="stylesheet">
-<script src="http://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.js"></script>
+ <!-- include libraries(jQuery, bootstrap) -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+    <!-- include plugin -->
+    <script src="[folder where script is located]/[plugin script].js"></script>
 <style type="text/css">
 .post_list_container{width: 100%;height: 1500px;}
 .post_list_box{
@@ -28,7 +37,7 @@
 .content_container{
 width: 100%;height: 100%;padding: 20px;}
 .content-input{width: 100%;display: flex;}
-.content-title{width: 95%;padding: 3px;outline-style: none;border: 1px solid lightgray;}
+.content-title{width: 95%;padding: 10px;outline-style: none;border: 1px solid lightgray;}
 .content-text{width: 100%;display: flex;margin: 60px 0;}
 .content-content{width: 93%;padding: 3px;outline-style: none; resize: none;
 min-height: 600px;max-height: 600px;}
@@ -95,11 +104,11 @@ margin-top:50px;
 		</div>
 	</div>
 <script type="text/javascript">
-   $('[name=content]').summernote({
+   $('[name=po_content]').summernote({
       placeholder: '내용',
       tabsize: 2,
-      maxHeight: 400,
-      minHeight: 400,
+      maxHeight: 600,
+      minHeight: 600,
       width:1200
    });
    $(document).ready(function() {

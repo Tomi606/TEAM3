@@ -38,21 +38,21 @@ margin-left: auto;
 } 
 .aTag-btn1,
 .aTag-btn2{
-	margin-top:100px;
+	margin-top:150px;
     display: inline-block;
     width: 300px;
-    height: 400px;
+    height: 200px;
     color: black;
     text-decoration:none;
     text-align: center;
-    line-height: 350px;
+    line-height: 200px;
     text-decoration: none;
-    box-shadow: 1px 1px 2px 1px #C12DFF;
+      border: 2px solid  rgba(0, 128, 0, 0.5);
 }
 .aTag-btn1:hover,
 .aTag-btn2:hover{
-text-decoration:none;
-  box-shadow: 2px 2px 4px 1px #C12DFF; /* 그림자 효과 추가 */
+box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
+    transition: box-shadow 0.3s ease;
 
 	
 }
@@ -63,6 +63,7 @@ text-decoration:none;
 <div class="전체화면박스">
 	<div class="왼쪽여백"></div>
 	<div class="signup-select">
+		<h1 style="margin-top: 50px;">회원가입</h1>
 		<div class="choice">
 		<a class="aTag-btn1" href="<c:url value='/member/signup'/>">개인 회원가입</a>
 		<a class="aTag-btn2" href="<c:url value='/hospital/signup'/>">사업자 회원가입</a>
