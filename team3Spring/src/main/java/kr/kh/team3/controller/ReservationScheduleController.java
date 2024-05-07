@@ -152,6 +152,7 @@ public class ReservationScheduleController {
 	public Map<String, Object> scheduleCheck(@RequestParam("hp_num") int hp_num, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		ArrayList<ReservationScheduleVO> RSlist = programService.getRsList(hp_num);
+		HospitalProgramVO HP = reservationScheduleService.getHospitalProgram(hp_num);
 		ArrayList<ReservationVO> list = new ArrayList<ReservationVO>();
 		for(ReservationScheduleVO tmp : RSlist) {
 			ReservationVO reservation = reservationScheduleService.getReservationList(tmp.getRs_num());	
@@ -162,8 +163,22 @@ public class ReservationScheduleController {
 			}
 		}
 		map.put("list", list);
+		map.put("HP", HP);
 		return map;
     }
+	
+	@GetMapping("/delete/schedule")
+	public String deleteSchedule(Model model, int rv_num) throws Exception{
+		boolean res = reservationScheduleService.deleteSchedule(rv_num);
+		if(res) {
+			model.addAttribute("msg", "삭제에 성공하였습니다.");
+			model.addAttribute("url", "/hospital/schedule/change");
+		}else {
+			model.addAttribute("msg", "삭제에 실패하였습니다.");
+			model.addAttribute("url", "/hospital/schedule/change");
+		}
+		return "message";
+	}
 	
 	
 	//rufwp
@@ -187,4 +202,6 @@ public class ReservationScheduleController {
     	System.out.println("nnnn" + iamportClient.paymentByImpUid(imp_uid));
         return iamportClient.paymentByImpUid(imp_uid);
     }
+    
+    
 }
