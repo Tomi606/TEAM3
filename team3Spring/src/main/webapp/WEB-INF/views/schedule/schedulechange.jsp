@@ -7,7 +7,29 @@
 <meta charset="UTF-8">
 <title>사업자 대기 회원 조회</title>
 <style type="text/css">
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
+/* 버튼 호버 효과 */
+.btn:hover {
+  background-color: #0056b3;
+}
+
+/* 버튼 클릭 효과 */
+.btn:active {
+  background-color: #004080;
+}
 .all-box{
 }
 </style>
