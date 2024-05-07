@@ -136,7 +136,7 @@ img {
 .profile-anything {
 	border: 1px solid black;
 	width: 300px;
-	height: 450px;
+	height: 395px;
 	margin: 0 auto;
 }
 
@@ -345,15 +345,13 @@ img {
 .new_ho_pw_hidden input {
 	width: 300px;
 }
- 
- .anything-box{
- 	margin-top:50px;
- }
+
 .choose-box{
-	padding:15px;
+	padding:23px;
 	text-align:center;
 	display:flex;
-	width: 100%;height: 75px;
+	width: 100%;
+	height: 75px;
  	flex-direction: column;
 }
 .choose-box a{
