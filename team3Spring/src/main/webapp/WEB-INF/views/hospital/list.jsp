@@ -24,11 +24,11 @@ margin-left: auto;
     height: 200px;
     color: black;
     text-decoration: none;
- 	box-shadow: 0 8px 16px rgba(0, 128, 0, 0.2)
+ 	  border: 2px solid  rgba(0, 128, 0, 0.5);
 }
 .area-container:hover{
-box-shadow: 0 8px 16px rgba(0, 128, 0, 0.6);
-    transition: box-shadow 0.3s ease;
+text-decoration:none;
+  box-shadow: 2px 2px 4px 1px #C12DFF; /* 그림자 효과 추가 */
 }
 .hs_btn{width:25%;height: 50px;line-height: 50px;list-style: none;}
 .active4{background-color:#fff8f6;color:rgba(0, 128, 0, 0.5);}

@@ -53,7 +53,7 @@
 
 .post_insert_btn:hover {
 	color: white;
-	background-color:  rgba(0, 128, 0, 0.5);;
+	background-color:  rgba(0, 128, 0, 0.5);
 	text-decoration: none;
 }
 

@@ -10,6 +10,7 @@
 <title>사업자 회원가입</title>
 <style type="text/css">
 .body-tag {
+padding:0 0 200px 0;
 width: 100%;
 display: felex;flex-direction: column;
 align-items: center;
@@ -21,11 +22,12 @@ align-items: center;
 	padding: 5px;
 }
 .input-tag {
+	
     border: 1px solid #ccc; 
     outline: none;
     margin-bottom: 15px; 
-    width: 400px;
-    padding: 10px;
+   width: 500px;
+    padding: 20px;
 }
 .input-tag:focus {
     border-bottom-color:  #C12DFF; 
@@ -42,7 +44,7 @@ align-items: center;
 }
 .signup-btn {
 text-align:center;font-size:20px;font-weight:bold;
-width: 400px;height:40px;border-radius:0;
+width: 500px;height:40px;border-radius:0;
 padding: 2px;border-bottom: 1px solid  #C12DFF;
 margin-left:34px;
 }
@@ -53,7 +55,7 @@ select {
     border: 1px solid #ccc; 
     background-color: #ffff; 
     outline: none; 
-    width: 200px; 
+    width: 500px; 
 }
 select:focus {
     border-color:  #C12DFF; 
@@ -73,10 +75,16 @@ img {
 label {
 	margin-left: 30px;
 }
+.signup_img{
+	width: 300px;height: 200px;
+}
 </style>
 </head>
 <body>
 <div class="body-tag">
+	<div style="margin: 50px auto 0 auto;width: 300px;height: 250px;">
+		<img alt="asd" src="<c:url value='/resources/img/Hospital.png'/>" class="signup_img">
+	</div>
 	<form action='<c:url value="/hospital/signup"/>' id="myForm">
 		<div class="input-box">
 			<div>
@@ -140,7 +148,7 @@ label {
 			</div>
 			<div class="hr" style="margin-top:30px; margin-bottom:40px; border: 1px solid #d2d2d2; width: 480px;"></div>
 			<div class="subject">
-				<select id="subject" name="ho_hs_num" style="width: 400px; margin-bottom: 20px" required>
+				<select id="subject" name="ho_hs_num" style="width: 500px; margin-bottom: 20px" required>
 					<option value="none">진료과목을 선택하세요</option>
 					<c:forEach items="${hospitalList}" var="hs">
 						<option value="${hs.hs_num}">${hs.hs_title}</option>
@@ -148,16 +156,16 @@ label {
 				</select>
 			</div>
 			<div>
-				<select name="sd_num" class="sd_num" style="width: 400px; margin-bottom: 20px" required>
+				<select name="sd_num" class="sd_num" style="width: 500px; margin-bottom: 20px" required>
 					<option value="none">시/도를 선택해주세요</option>
 					<c:forEach items="${sidoList}" var="sd">
 						<option value="${sd.sd_num}">${sd.sd_name}</option>
 					</c:forEach>
 				</select>	
-				<select name="sgg_num" class="sgg_num" style="width: 400px; margin-bottom: 20px" required>
+				<select name="sgg_num" class="sgg_num" style="width: 500px; margin-bottom: 20px" required>
 					<option value="none">시/군/구를 선택해주세요</option>
 				</select>	
-			 	<select name="emd_num" class="emd_num" style="width: 400px; margin-bottom: 20px" required>
+			 	<select name="emd_num" class="emd_num" style="width: 500px; margin-bottom: 20px" required>
 			         <option value="none">읍/면/동을 선택해주세요</option>
 			    </select>
 			</div>
