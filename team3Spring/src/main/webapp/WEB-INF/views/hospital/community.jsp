@@ -7,25 +7,43 @@
 <meta charset="UTF-8">
 <title>커뮤니티 관리</title>
 <style type="text/css">
-.community-toggle-group {
-	display:flex;
-	
+/* 전체 툴 */
+.community-container {
+	width: 100%;
+	height: 100%;
 }
 
+.community-box {
+	border: 1px solid black;
+	width: 1400px;
+	height: 93.4%;
+	margin: 100px auto;
+	padding: 100px;
+	text-align: center;
+}
+
+/* 버튼 */
 .community-toggle-btn {
-    border:1px solid lightgray;
-	outline-style:none;
-	height:100px;
-	width:33.33%;
-    font-size: 30px;
-    
+    background-color: white;
+	border: 0px solid black;
+	float: left;   
+}
+
+.community-toggle-group {
+	padding-bottom: 20px;
+}
+
+.community-toggle-btn:hover{
+	color: green;
+	border-bottom: 3px solid green;
 }
 
 .click-btn {
-	background-color: white;
-	border-bottom:0px solid white;
+	color: green;
+	border-bottom: 3px solid green;
 }
 
+/* 페이지 */
 .page {
     display: none;
     padding: 20px;
@@ -35,46 +53,57 @@
 .page.active {
     display: block;
 }
+
+/* 페이지네이션 */
+.pagination {
+	margin-top: 50px;
+}
+
 </style>
 </head>
 <body>
 <div class="community-container">
-	<div class="community-toggle-group">
-		<button id="btn1" class="community-toggle-btn click-btn">작성 게시글</button>
-		<button id="btn2" class="community-toggle-btn">작성 댓글</button>
-		<button id="btn3" class="community-toggle-btn">좋아요</button>
-	</div>
-	<div class="community-page">
-		<div id="page1" class="community-page1 page active">
-			<div class="post-list">
-				<!-- 내 게시글 출력 -->
-			</div>
-			<div class="box-pagination-post">
-				<ul class="pagination justify-content-center">
-					<!-- 페이지네이션 출력 -->
-				</ul>
-			</div>
+	<div class="community-box">
+		<h1>${ho.ho_id}</h1>
+		<span>병원 회원</span>
+		<hr style="width: 100%; height: 0px; border: 1px solid lightgray; margin: 50px 0 50px 0">
+		<div class="community-toggle-group">
+			<button id="btn1" class="community-toggle-btn click-btn">작성 게시글</button>
+			<button id="btn2" class="community-toggle-btn">작성 댓글</button>
+			<button id="btn3" class="community-toggle-btn">좋아요</button>
 		</div>
-		
-		<div id="page2" class="community-page2 page">
-			<div class="comment-list">
-				<!-- 내 댓글 출력 -->
+		<div class="community-page">
+			<div id="page1" class="community-page1 page active">
+				<div class="post-list">
+					<!-- 내 게시글 출력 -->
+				</div>
+				<div class="box-pagination-post">
+					<ul class="pagination justify-content-center">
+						<!-- 페이지네이션 출력 -->
+					</ul>
+				</div>
 			</div>
-			<div class="box-pagination-comment">
-				<ul class="pagination justify-content-center">
-					<!-- 페이지네이션 출력 -->
-				</ul>
+			
+			<div id="page2" class="community-page2 page">
+				<div class="comment-list">
+					<!-- 내 댓글 출력 -->
+				</div>
+				<div class="box-pagination-comment">
+					<ul class="pagination justify-content-center">
+						<!-- 페이지네이션 출력 -->
+					</ul>
+				</div>
 			</div>
-		</div>
-		
-		<div id="page3" class="community-page3 page">
-			<div class="recommend-list">
-				<!-- 좋아요 출력 -->
-			</div>
-			<div class="box-pagination-recommend">
-				<ul class="pagination justify-content-center">
-					<!-- 페이지네이션 출력 -->
-				</ul>
+			
+			<div id="page3" class="community-page3 page">
+				<div class="recommend-list">
+					<!-- 좋아요 출력 -->
+				</div>
+				<div class="box-pagination-recommend">
+					<ul class="pagination justify-content-center">
+						<!-- 페이지네이션 출력 -->
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -223,8 +252,8 @@ function displayCommentList(cList) {
 	   <table style="width: 100%;">
 		<thead>
 			<tr>
-				<th style="width: 20%; text-align: center;">No</th>
-				<th style="width: 66%; text-align: center;">작성 댓글</th>
+				<th style="width: 5%;">No</th>
+				<th style="width: 70%;">작성 댓글</th>
 				<th style="width: 15%;">작성일</th>
 			</tr>
 		</thead>
@@ -252,8 +281,8 @@ function displayCommentList(cList) {
    for(item of cList){
       str += 
       ` <tr style="height: 100px; border-bottom: 1px solid lightgray;">
-			<td style="width: 20%; text-align: center;">\${item.co_num}</td>
-			<td style="width: 66%; text-align: center;">
+			<td style="width: 5%; text-align: center;">\${item.co_num}</td>
+			<td style="width: 70%; text-align: center;">
 				<a href="<c:url value="/board/detail?po_num=\${item.co_po_num}"/>" class="title-link">\${item.co_content}</a>
 			</td>
 			<td style="width: 15%;">\${item.changeDate}</td>
@@ -455,6 +484,26 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 	}
 });
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	if(!checkLogin()) {
+		return;
+	}
+});
+
+function checkLogin() {
+  //로그인 했을 때
+  if("${ho.ho_id}" != null) {
+    return true;
+  }
+  //안 했을 때
+  if(confirm("로그인이 필요한 기능입니다. \n로그인 페이지로 이동하겠습니까?")) {
+    location.href = '<c:url value="/login"/>';
+  }
+  return false;
+}
 </script>
 </body>
 </html>
