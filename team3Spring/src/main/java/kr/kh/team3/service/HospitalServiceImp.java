@@ -18,6 +18,7 @@ import kr.kh.team3.dao.MemberDAO;
 import kr.kh.team3.model.vo.BookmarkVO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
+import kr.kh.team3.model.vo.HospitalProgramVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.HsListVO;
@@ -501,7 +502,7 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public ArrayList<BookmarkVO> getBmkList(SiteManagement user, Criteria cri) {
+	public ArrayList<HospitalVO> getBmkList(SiteManagement user, Criteria cri) {
 		if(user == null||user.getSite_id() == null||user.getSite_id().length() == 0)
 			return null;
 		return hospitalDao.selectBmkList(user, cri);
@@ -870,6 +871,11 @@ public class HospitalServiceImp implements HospitalService {
 			return null;
 		}
 		return hospitalDao.selectHospitalDetail(po_id);
+	}
+
+	@Override
+	public HospitalProgramVO getHospitalProgram(int hp_num) {
+		return hospitalDao.selectHospitalProgram(hp_num);
 	}
 
 }

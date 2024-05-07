@@ -5,6 +5,10 @@
 <!doctype html>
 <html>
 <head>
+<style type="text/css">
+h1,h2,h3,h4,h5{color:rgba(0, 128, 0, 0.5);
+}
+</style>
 <title>
 <c:choose>
   <c:when test="${title != null }">${title}</c:when>
@@ -23,6 +27,7 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="http://fastly.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript"	src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
 </head>
 <body>

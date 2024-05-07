@@ -60,7 +60,7 @@
 				"hp_num" : hp_num
 			},
 			success : function(data){
-						
+				console.log(data);
 			}
 		});
 	});

@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.kh.team3.model.vo.BookmarkVO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
+import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.SiDoVO;
@@ -221,7 +221,8 @@ public class MemberController {
 		//북마크 리스트 출력하려면
 		//1. 회원 아이디 필요
 		//2. 리저트맵 사용..
-		ArrayList<BookmarkVO> hoBmkList = hospitalService.getBmkList(user, cri);
+		ArrayList<HospitalVO> hoBmkList = hospitalService.getBmkList(user, cri);
+		System.out.println("fdas;kf h6546532 " + hoBmkList);
 		int totalCount = hospitalService.getBmkListCount(user, cri);
 		PageMaker pm = new PageMaker(5, cri, totalCount);
 		map.put("pm", pm);

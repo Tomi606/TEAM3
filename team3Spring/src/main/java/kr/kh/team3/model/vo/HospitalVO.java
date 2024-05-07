@@ -1,6 +1,7 @@
 package kr.kh.team3.model.vo;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -36,6 +37,7 @@ public class HospitalVO {
 	private HsListVO hsList;
 	private HospitalDetailVO hospital_detail;
 	private HospitalSubjectVO hospital_subject;
+	private ArrayList<BookmarkVO> bookmark;
 
 	public String getChangeDate() {
 		if (this.ho_stop != null) {

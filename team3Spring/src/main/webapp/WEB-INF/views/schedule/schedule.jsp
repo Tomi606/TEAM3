@@ -175,6 +175,14 @@ h3 {
 
 <!--병원 과목을 선택하면 프로그램을 가져오는 메서드  -->
 <script type="text/javascript">
+let sgo = {
+	ho_name : '${hospital.ho_name}',
+	hp_title : '',
+	hp_payment : 0,
+	hpPayment : '',
+	rs_date : '',
+	rs_time : ''
+}
 	$("[name=hs_num]").click(function(){
 		let hp_num = $("[name=hp_num]").val();
 		let hs_num = $("[name=hs_num]").val();
@@ -190,7 +198,7 @@ h3 {
 			success : function (data) {
 				let str = ``
 				for(let tmp of data.hpList){
-					str+=`<option value="\${tmp.hp_num}">\${tmp.hp_title}&nbsp;&nbsp;-&nbsp;&nbsp;\${tmp.payMentMoney}원</option>`
+					str+=`<option value="\${tmp.hp_num}" data-title="\${tmp.hp_title}">\${tmp.hp_title}&nbsp;&nbsp;-&nbsp;&nbsp;\${tmp.payMentMoney}원</option>`
 				}	
 				$("[name=hp_num]").html(str);
 			}
@@ -220,8 +228,11 @@ h3 {
 			},
 			success : function(data){
 				$(".table").empty();
-				console.log(data.RSlist)
-				cal(numMonth, numYear, data.RSlist)
+				console.log(data.RSlist);
+				sgo.hp_title = data.hp.hp_title;
+				sgo.hpPayment = data.hp.payMentMoney;
+				sgo.hp_payment = data.hp.hp_payment;
+				cal(numMonth, numYear, data.RSlist);
 			}
 		})
 	})
@@ -231,21 +242,24 @@ h3 {
 <script type="text/javascript">
 $(document).on("click", ".day-btn", function(){
 	let rs_num = $(this).data("target");
-	console.log(rs_num)
+	let hp_num = $("[name=hp_num]").val();
+	console.log(rs_num);
 	$.ajax({
 		method : "post",
 		url : '<c:url value="/gettime"/>',
 		data : {
-			"rs_num" : rs_num
+			"rs_num" : rs_num,
+			"hp_num" : hp_num
 		},
 		success : function(data){
-			console.log(data)
+			console.log(data);
+			sgo.rs_date = data.time.rsDate;
 			let str = ``;
 			for(let tmp of data.timeList){
 				str+= 
 					`
 						<div class="time-box reserveBtn">
-							<a class="reserveBtn" >\${tmp.rsTime}</a>
+							<a class="reserveBtn1" data-time="\${tmp.rsTime}">\${tmp.rsTime}</a>
 						</div>
 					`
 			}
@@ -256,10 +270,18 @@ $(document).on("click", ".day-btn", function(){
 </script>
 <script type="text/javascript">
 $(document).on("click", ".reserveBtn", function(){
-	let res = confirm("reserveBtnreserveBtn\nreserveBtnreserveBtnreserveBtnreserveBtnreserveBtn\nreserveBtnreserveBtnreserveBtn");
+	sgo.rs_time = $(".reserveBtn1").data("time");
+	console.log(sgo.rs_time);
+	let res = confirm(
+			"병원명 : " + sgo.ho_name +
+			"\n프로그램 명 : " + sgo.hp_title +
+			"\n예약날짜 : " + sgo.rs_date +
+			"\n예약시간 : " + sgo.rs_time +
+			"\n금액 : " + sgo.hpPayment + "원" +
+			"\n\n위 내용을 예약 하시겠습니까?\n");
 	
 	if(res){
-		location.href="<c:url  value="/hospital/reserve"/>";
+		book(sgo.ho_name, sgo.hp_title, sgo.rs_date, sgo.rs_time, sgo.hp_payment);
 		return true;
 	}else{
 		return false;
@@ -420,6 +442,47 @@ $('.nextBtn').click(function(){
 		}
 	})
 });
+
+</script>
+<script type="text/javascript">
+function book(ho_name, hp_title, rs_date, rs_time, hp_payment) {
+	var IMP = window.IMP;
+	IMP.init("imp06120506");   /* imp~ : 가맹점 식별코드*/
+	
+	IMP.request_pay({
+		pg: 'html5_inicis',
+		pay_method: 'card',
+		merchant_uid: 'merchant_' + new Date().getTime(),
+
+		name:  ho_name,
+		amount: hp_payment,
+		buyer_email: "wkdrn002@naver.com",  /*필수 항목이라 "" 로 남겨둠*/
+		buyer_name: hp_title,
+	}, 
+	function(rsp) {
+		if (rsp.success) {
+			var msg = '결제가 완료되었습니다.';
+			alert(msg);
+			console.log("결제성공 ");
+			location.href='<c:url value="/hospital/detail/detail?ho_id=\${hospital.ho_id}"/>';
+			$.ajax({
+				type: "GET",
+				url: '<c:url value="bookingPay"/>',
+				data: {
+					amount: hp_payment,
+					imp_uid: rsp.imp_uid,
+					merchant_uid: rsp.merchant_uid
+				}
+			});
+		} else {
+			var failMsg = '결제에 실패하였습니다.';
+			alert(failMsg);
+			location.href='<c:url value="/schedule?ho_id=${hospital.ho_id}"/>';
+		}
+		
+	});
+	
+}
 
 </script>
 </body>
