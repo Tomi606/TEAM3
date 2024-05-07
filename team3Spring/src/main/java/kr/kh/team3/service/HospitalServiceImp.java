@@ -235,6 +235,17 @@ public class HospitalServiceImp implements HospitalService {
 		return hospitalDao.selectHospitalCount(cri);
 	}
 	//관리자 병원 관리 =========================================================
+
+	@Override
+	public ArrayList<HospitalVO> getWaitHoList() {
+		return hospitalDao.selectWaitHoList();
+	}
+
+	@Override
+	public ArrayList<SiteManagement> getRpHoList() {
+		return hospitalDao.selectRpHoList();
+	}
+	
 	@Override
 	public ArrayList<HospitalVO> getWaitHospitalList(Criteria cri) {
 		if(cri == null) {

@@ -68,7 +68,12 @@ public class AdminController {
 		int totalCount = hospitalService.getHospitalCount(cri);
 		PageMaker pm = new PageMaker(3, cri, totalCount);
 		//대기 병원 리스트 가져오기
+		ArrayList<HospitalVO> hoWaitList = hospitalService.getWaitHoList();
 		//신고 병원 리스트 가져오기
+		ArrayList<SiteManagement> hoRpList = hospitalService.getRpHoList();
+		System.out.println("hohohohohfsadjflkjas5435244"+hoRpList);
+		model.addAttribute("hoWaitList",hoWaitList);
+		model.addAttribute("hoRpList",hoRpList);
 		model.addAttribute("hoList",hoList);
 		model.addAttribute("pm",pm);
 		return "/admin/hospital";
