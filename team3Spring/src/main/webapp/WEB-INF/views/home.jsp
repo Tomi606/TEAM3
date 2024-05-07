@@ -563,7 +563,7 @@ margin: 10px;
 							</c:if>
 							<c:if test="${user != null && user.getSite_authority().equals('ADMIN')}">
 								<li>
-									<a class="nav-link" href='<c:url value="/admin/adminpage"/>'>관리자페이지</a>
+									<a class="nav-link" href='<c:url value="/admin/adminpage"/>'>관리자 페이지</a>
 								</li>
 							</c:if>
 							<c:if test="${user != null && user.getSite_authority().equals('USER')}">

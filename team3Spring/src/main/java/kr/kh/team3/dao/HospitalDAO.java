@@ -204,4 +204,8 @@ public interface HospitalDAO {
 
 	HospitalProgramVO selectHospitalProgram(@Param("hp_num")int hp_num);
 
+	ArrayList<HospitalVO> selectWaitHoList();
+
+	ArrayList<SiteManagement> selectRpHoList();
+
 }
