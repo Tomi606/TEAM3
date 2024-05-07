@@ -109,7 +109,7 @@ width: 100%;height: 100%;padding: 5px;}
 .content-content{width: 95%;padding: 3px;outline-style: none; resize: none;border:1px solid lightgray;
 min-height: 600px;max-height: 600px;}
 .content-file{display:flex;
-width: 80%;margin: 0 auto 80px auto;
+width: 80%;margin: 0 auto 20px 0;
 
 }
 .insert-btn{
@@ -263,14 +263,12 @@ color: green;
 				</div>
 			
 			  </div> 
-			 	<label>첨부파일</label>
 			 	
-			 <div class="form-group file-box">	
-			 	
-			 		<div class="content-file">
-						<label style="margin: 0 20px 0 58px;">첨부파일</label>
-						<input type="file" name="file" multiple="multiple" id="fileInput">
-					</div>   
+				 	
+				 		<div class="content-file">
+							<label style="margin: 0 20px 0 58px;">첨부파일</label>
+							<input type="file" name="file" multiple="multiple" id="fileInput">
+						</div>   
 						<div class="fileList_box">
 						<div class="form-group box-attachment">
 								 <ul id="fileList">
@@ -285,8 +283,9 @@ color: green;
 					</div>	
 		 		 
 			
-			 </div>
-			 <button type="submit">수정하기</button>
+			<div class="insert-btn-box"style="text-align: center;margin-top: 30px;">	
+						<button class="insert-btn">수정하기</button>
+					</div>
 			</div>	
 		</div>
 </form>	
