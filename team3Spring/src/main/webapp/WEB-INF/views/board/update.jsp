@@ -231,6 +231,12 @@ color: green;
 	text-decoration: underline;
 	color:  rgba(0, 128, 0, 0.5);
 }
+
+.delete-button{cursor: pointer;margin-left:5px;color:#b4b4b4; }
+.delete-button:hover{color: gray;}
+.fileList_box{width: 100%;height: 50px;}
+#fileList{display: flex;list-style: none;}
+#fileList li{margin: 10px;border: 1px solid lightgray;background-color: lightgray;padding: 5px;border-radius: 7px;}
 </style>
 </head>
 <body>
@@ -258,17 +264,27 @@ color: green;
 			
 			  </div> 
 			 	<label>첨부파일</label>
+			 	
 			 <div class="form-group file-box">	
-			 	<c:forEach items="${fileList}" var="file">		
-			 			<c:if test="${file.img}">
-			 					<a href="<c:url value="/download${file.fi_name}"/>" download="${file.fi_ori_name}">
-									<img alt="이미지" height="100" src="<c:url value="/download${file.fi_name}"/>">
-								</a>
-			 			</c:if>
-			 			<c:if test="${!file.img }">
-					 			<a href="<c:url value="/download${file.fi_name}"/>" download="${file.fi_ori_name }">${file.fi_ori_name }</a>
-			 			</c:if>
-			 	</c:forEach>
+			 	
+			 		<div class="content-file">
+						<label style="margin: 0 20px 0 58px;">첨부파일</label>
+						<input type="file" name="file" multiple="multiple" id="fileInput">
+					</div>   
+						<div class="fileList_box">
+						<div class="form-group box-attachment">
+								 <ul id="fileList">
+									 <c:forEach items="${fileList}" var="file" >	
+							 			<li>
+							 				<span>${file.fi_ori_name }</span>
+							 				<a href="javascript:void(0);" class="btn-del" data-num="${file.fi_num}">&times;</a>
+							 			</li>
+								 	</c:forEach>
+								 </ul>
+						</div>	 
+					</div>	
+		 		 
+			
 			 </div>
 			 <button type="submit">수정하기</button>
 			</div>	
@@ -283,6 +299,30 @@ color: green;
       minHeight: 400,
       width:1200
    });
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#fileInput').on('change', function(event) {
+        let fileList = event.target.files;
+        let $listContainer = $('#fileList');
+        
+
+        for (let file of fileList) {
+            let $listItem = $('<li>').append(
+                $('<span>').text(file.name), 
+                $('<a>').addClass('btn-del').attr('href', 'javascript:void(0);').attr('data-num', file.fi_num).html('&times;') // 삭제 버튼
+            );
+            $listContainer.append($listItem);
+        }
+    });
+});
+$('#fileList').on('click', '.btn-del', function() {
+	let num = $(this).data("num");
+	$(this).parents(".box-attachment").prepend(`<input type="hidden" name="delNums" value="\${num}">`)
+	$(this).parents(".box-attachment").append(`<input type="hidden" class="form-control" name="file">`);	
+	  $(this).closest('li').remove();
+});
+
 </script>
  </body>
 </html>

@@ -264,7 +264,7 @@ color: green;
 					<p style="color: gray;margin-left: 20px;">조회수:${post.po_view}</p>
 					<c:if test="${post.po_id eq user.site_id}">
 						<a href="<c:url value="/board/delete?po_num=${post.po_num}"/>" style="margin-left: 20px;">삭제</a>
-						<a href="<c:url value="/board/update?po_num=${post.po_num }"/>">수정하기</a>
+						<a href="<c:url value="/board/update?po_num=${post.po_num}&&bo_num=${post.po_bo_num}"/>">수정하기</a>
 					</c:if>	
 				</div>	
 				<div class="content-text">
@@ -307,6 +307,7 @@ color: green;
 				 </div>
 				<!-- 작성자 게시글 더보기 -->
 			 	<label>첨부파일</label>
+			 	
 			 <div class="form-group file-box">	
 			 	<c:forEach items="${fileList}" var="file">		
 			 			<c:if test="${file.img}">

@@ -177,7 +177,7 @@ public class BoardController {
 	@GetMapping("/board/update")
 	public String getBoardUpdate(Model model, PostVO post, HttpSession session) {
 		ArrayList<BoardVO> boardList = boardService.getAllBoardList();
-		PostVO myPost = boardService.getPost(post.getPo_num());
+		PostVO myPost = boardService.getPostDetail(post.getPo_num());
 		ArrayList<FileVO> fileList = boardService.getFileList(post.getPo_num());
 		model.addAttribute("fileList", fileList);
 		model.addAttribute("post", myPost);
