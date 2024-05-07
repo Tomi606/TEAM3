@@ -118,6 +118,7 @@ background-color: rgba(0, 0, 0, 0);
 }
 
 .로그인 {
+display:flex;justify-content:flex-end;
 	padding: 20px 0 5px;
 	margin: 0 auto;
 	width: 35%;
@@ -513,7 +514,6 @@ margin: 10px;
 </style>
 </head>
 <body>
-<header class="nav-down">
 	<div class="home-box">
 		<div class="header-container">
 			<div class="header-box">
@@ -561,9 +561,21 @@ margin: 10px;
 									<a class="nav-link" href='<c:url value="/logout"/>'>로그아웃</a>
 								</li>
 							</c:if>
+							<c:if test='${user.getSite_authority().equals("admin") and user != null}'> 
 								<li>
 									<a class="nav-link" href='<c:url value="/admin/adminpage"/>'>관리자페이지</a>
 								</li>
+							</c:if>
+							<c:if test="${user != null && user.getSite_authority().equals('USER')}">
+							    <li>				
+							        <a class="nav-link" href='<c:url value="/member/mypage"/>'>마이페이지</a>
+							    </li>
+							</c:if>
+							<c:if test="${user != null && user.getSite_authority().equals('MANAGER')}">
+								<li>
+									<a class="nav-link" href='<c:url value="/hospital/mypage"/>'>병원페이지</a>
+								</li>	
+							</c:if>	
 						</ul>		
 					</div>
 				</div>
@@ -612,8 +624,6 @@ margin: 10px;
 			<div class="search-main-right"></div>
 		</div>
 	</div>
-</header>
-<main>
 	<div class="홈">
 		<div class="홈왼쪽"></div>
 		<div class="여기부터내용">
@@ -630,22 +640,26 @@ margin: 10px;
 				<p style="color: gray;">새롭고 재밌는 소식들을 여기서!</p>
 			</div>
 			<div class="hot-group" style="display: flex;margin:0 auto;width: 100%;text-align: center;margin-bottom: 15px">
-				<div>
-					<a href="#"></a>
-					<p style="display: block;">제목</p> 
-				</div>
-				<div>
-					<a href="#"></a>
-					<p style="display: block;">제목</p> 
-				</div>
-				<div>
-					<a href="#"></a>
-					<p style="display: block;">제목</p> 
-				</div>
-				<div>
-					<a href="#"></a>
-					<p style="display: block;">제목</p> 
-				</div>
+				<table>
+					<thead>
+						<tr>	
+							<th>여</th>
+							<th>기</th>
+							<th>게</th>
+							<th>시</th>
+							<th>글</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 			<div style="text-align: center;width: 100%;margin: 0 auto;display: block;" >
 			<div class="hr" style="margin-bottom:40px;border: 1px solid #d2d2d2;width: 100%;"></div>
@@ -709,7 +723,6 @@ margin: 10px;
 						<hr>
 				  </div>
 			</div>
-			
 			</div>
 			<div class="홈오른쪽"></div>
 		</div>
@@ -722,7 +735,6 @@ margin: 10px;
 				 style="line-height: 3.5;margin-right: 50px;color: gray;border: 1px solid #fafafa;"
 				 >더보기</a>
 			</div>
-		</main>	
 		  <div class="footer">
 		  	<div class="footer-info-area">
 			  	<div class="footer-img">
@@ -790,6 +802,7 @@ margin: 10px;
        	  	</div>
 	</div>
 </div>	
+
 </body>
 <button id="scrollToTopButton" onclick="scrollToTop()">위로가기</button>
 <script>

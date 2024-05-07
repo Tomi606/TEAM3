@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.siot.IamportRestClient.IamportClient;
 
 import kr.kh.team3.model.vo.BoardVO;
 import kr.kh.team3.model.vo.FileVO;
@@ -155,6 +154,27 @@ public class BoardController {
 
 		return "/board/detail";
 	}
+	
+	//게시글 삭제
+	@GetMapping("/board/delete")
+	public String boardDelete(Model model, PostVO post, HttpSession session) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		
+		PostVO delPost = boardService.getPost(post.getPo_num());
+		int bo_num = delPost.getPo_bo_num();
+		boolean res = boardService.deletePost(post.getPo_num(), user);
+		if (res) {
+			model.addAttribute("url", "/board/list?bo_num="+bo_num);
+			model.addAttribute("msg", "게시글을 삭제했습니다.");
+		}
+		else {
+			model.addAttribute("url", "/board/detail?po_num=" + post.getPo_num());
+			model.addAttribute("msg", "게시글을 삭제하지 못했습니다.");
+		}
+
+		return "message";
+	}
+
 
 	@ResponseBody
 	@PostMapping("/recommend/check")
