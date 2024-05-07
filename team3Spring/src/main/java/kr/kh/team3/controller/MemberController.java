@@ -197,9 +197,6 @@ public class MemberController {
 		ArrayList<EupMyeonDongVO> emdList = memberService.getEmd(sgg_num);
 		return emdList;
 	}
-	
-	
-	
 	// 북마크 페이지
 	@GetMapping("/member/bookmark")
 	public String bookmark(Model model, HttpSession session) {
@@ -229,6 +226,20 @@ public class MemberController {
 		map.put("list", hoBmkList);
 		return map;
 	}
-	
+	@GetMapping("/user/delete")
+	public String userDelete(Model model, HttpSession session,MemberVO member) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		boolean res = memberService.deleteMyInfo(member,user);
+		if (res) {
+			session.invalidate();
+			model.addAttribute("url", "/");
+			model.addAttribute("msg", "회원탈퇴 했습니다.");
+		} else {
+			model.addAttribute("url", "/member/mypage");
+			model.addAttribute("msg", "회원탈퇴 실패했습니다.");
+		}
+
+		return "message";
+	}
 
 }
