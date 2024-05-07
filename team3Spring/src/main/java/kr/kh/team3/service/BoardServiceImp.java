@@ -43,14 +43,15 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	private void deleteFile(FileVO file) {
-		if(file == null) {
+		if (file == null) {
 			return;
 		}
-		//서버에서 삭제
+		// 서버에서 삭제
 		UploadFileUtils.delteFile(uploadPath, file.getFi_name());
-		//DB에서 삭제
+		// DB에서 삭제
 		boardDao.deleteFile(file.getFi_num());
 	}
+
 	private void uploadFile(int po_num, MultipartFile file) {
 		if (file == null || file.getOriginalFilename().length() == 0) {
 			return;
@@ -160,7 +161,6 @@ public class BoardServiceImp implements BoardService {
 		}
 		post.setPo_mg_num(user.getSite_num());
 		boolean res = boardDao.insertPost(post);
-		// 게시글 등록 실패 => 파일 서버에 업로드할 필요 없음
 		if (!res) {
 			return false;
 		}
@@ -289,8 +289,7 @@ public class BoardServiceImp implements BoardService {
 
 		return boardDao.selectUserCmtListCount(site.getSite_num(), cri);
 	}
-	
-	
+
 	public boolean report(ReportVO report, SiteManagement user) {
 		if (report == null || user == null) {
 			return false;
@@ -308,10 +307,10 @@ public class BoardServiceImp implements BoardService {
 				hospitalDao.updateHospitalRpCount(member.getSite_id());
 			}
 			return true;
-		}else if(report.getRp_table().equals("post")) {
+		} else if (report.getRp_table().equals("post")) {
 			PostVO post = boardDao.selectPostTartget(report.getRp_target());
 			boardDao.updatePostRpCount(post.getPo_num());
-		}else if(report.getRp_table().equals("comment")) {
+		} else if (report.getRp_table().equals("comment")) {
 			CommentVO comment = boardDao.selectCommentTartget(report.getRp_target());
 			boardDao.updateCommentRpCount(comment.getCo_num());
 		}
@@ -325,29 +324,62 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public boolean deletePost(int po_num, SiteManagement user) {
-		if(user == null) {
+		if (user == null) {
 			return false;
 		}
-		//게시글 번호에 맞는 게시글을 가져옴
+		// 게시글 번호에 맞는 게시글을 가져옴
 		PostVO post = boardDao.selectPosta(po_num);
-		//게시글이 없거나 작성자가 아니면 false를 리턴
-		if( post == null || 
-			post.getPo_mg_num() != user.getSite_num()) {
+		// 게시글이 없거나 작성자가 아니면 false를 리턴
+		if (post == null || post.getPo_mg_num() != user.getSite_num()) {
 			return false;
 		}
-		//맞으면 삭제 후 결과를 리턴
-		//서버의 첨부파일 삭제 및 DB에서 제거
-		//게시글 번호에 맞는 첨부파일 리스트를 가져옴
+		// 맞으면 삭제 후 결과를 리턴
+		// 서버의 첨부파일 삭제 및 DB에서 제거
+		// 게시글 번호에 맞는 첨부파일 리스트를 가져옴
 		ArrayList<FileVO> fileList = boardDao.selectFileList(po_num);
-		//첨부파일 리스트가 있으면 반복문으로 첨부파일을 삭제
-		if(fileList != null) {
-			for(FileVO file : fileList) {
+		// 첨부파일 리스트가 있으면 반복문으로 첨부파일을 삭제
+		if (fileList != null) {
+			for (FileVO file : fileList) {
 				deleteFile(file);
 			}
 		}
-		//게시글 삭제
+		// 게시글 삭제
 		return boardDao.deletePost(po_num);
 	}
 
+	@Override
+	public boolean updateMyPost(PostVO post, SiteManagement user, MultipartFile[] file, int[] delNums) {
+		if (post == null || !checkString(post.getPo_title()) || !checkString(post.getPo_content())) {
+			return false;
+		}
+		if (user == null) {
+			return false;
+		}
+		// 작성자가 맞는지
+		PostVO dbPost = boardDao.selectPosta(post.getPo_num());
+		if (dbPost == null || dbPost.getPo_mg_num() != user.getSite_num()) {
+			return false;
+		}
+		// 게시글 수정
+		boolean res = boardDao.updateMyPost(post);
+
+		if (!res) {
+			return false;
+		}
+
+		if (file != null) {
+			for (MultipartFile tmp : file) {
+				uploadFile(post.getPo_num(), tmp);
+			}
+		}
+		if (delNums == null) {
+			return true;
+		}
+		for (int tmp : delNums) {
+			FileVO fileVo = boardDao.selectFile(tmp);
+			deleteFile(fileVo);
+		}
+		return true;
+	}
 
 }

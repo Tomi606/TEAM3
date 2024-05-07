@@ -87,4 +87,8 @@ public interface BoardDAO {
 
 	int selectboardNumber();
 
+	boolean updateMyPost(@Param("po")PostVO post);
+
+	FileVO selectFile(@Param("fi")int tmp);
+
 }

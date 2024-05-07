@@ -1,6 +1,8 @@
 package kr.kh.team3.controller;
 
 import java.util.ArrayList;
+
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
-
 import kr.kh.team3.model.vo.BoardVO;
 import kr.kh.team3.model.vo.FileVO;
 import kr.kh.team3.model.vo.HospitalDetailVO;
@@ -43,7 +43,7 @@ public class BoardController {
 	 */
 	@Autowired
 	private BoardService boardService;
-	
+
 	@Autowired
 	private HospitalService hospitalService;
 
@@ -154,20 +154,19 @@ public class BoardController {
 
 		return "/board/detail";
 	}
-	
-	//게시글 삭제
+
+	// 게시글 삭제
 	@GetMapping("/board/delete")
 	public String boardDelete(Model model, PostVO post, HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		
+
 		PostVO delPost = boardService.getPost(post.getPo_num());
 		int bo_num = delPost.getPo_bo_num();
 		boolean res = boardService.deletePost(post.getPo_num(), user);
 		if (res) {
-			model.addAttribute("url", "/board/list?bo_num="+bo_num);
+			model.addAttribute("url", "/board/list?bo_num=" + bo_num);
 			model.addAttribute("msg", "게시글을 삭제했습니다.");
-		}
-		else {
+		} else {
 			model.addAttribute("url", "/board/detail?po_num=" + post.getPo_num());
 			model.addAttribute("msg", "게시글을 삭제하지 못했습니다.");
 		}
@@ -175,6 +174,34 @@ public class BoardController {
 		return "message";
 	}
 
+	// 게시글 슈정
+	@GetMapping("/board/update")
+	public String getBoardUpdate(Model model, PostVO post, HttpSession session) {
+		ArrayList<BoardVO> boardList = boardService.getAllBoardList();
+		PostVO myPost = boardService.getPost(post.getPo_num());
+		ArrayList<FileVO> fileList = boardService.getFileList(post.getPo_num());
+		model.addAttribute("fileList", fileList);
+		model.addAttribute("post", myPost);
+		model.addAttribute("board", boardList);
+		return "/board/update";
+	}
+
+	@PostMapping("/board/update")
+	public String postBoardUpdate(Model model, PostVO post,MultipartFile[] file, int[] delNums,
+			HttpSession session) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		boolean res = boardService.updateMyPost(post, user, file, delNums);
+		if (res) {
+			model.addAttribute("url", "/board/detail?po_num=" + post.getPo_num());
+			model.addAttribute("msg", "게시글을 수정했습니다.");
+		} else {
+			model.addAttribute("url", "/board/detail?po_num=" + post.getPo_num());
+			model.addAttribute("msg", "게시글을 수정하지 못했습니다.");
+		}
+
+
+		return "/board/update";
+	}
 
 	@ResponseBody
 	@PostMapping("/recommend/check")
@@ -214,8 +241,6 @@ public class BoardController {
 		return map;
 	}
 
-
-	
 //	@ResponseBody
 //	@PostMapping("/report/Post")
 //	public Map<String, Object> reportPost(@RequestParam("rp_table") String rp_table,
@@ -229,7 +254,6 @@ public class BoardController {
 //		return map;
 //	}
 
-
 	@ResponseBody
 	@PostMapping("/report/community")
 	public Map<String, Object> reportPost(@RequestParam("rp_table") String rp_table,
@@ -241,6 +265,7 @@ public class BoardController {
 		map.put("result", res);
 		return map;
 	}
+
 	@ResponseBody
 	@PostMapping("/report/comment")
 	public Map<String, Object> reportComment(@RequestParam("rp_table") String rp_table,
@@ -252,6 +277,5 @@ public class BoardController {
 		map.put("result", res);
 		return map;
 	}
-
 
 }

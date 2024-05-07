@@ -258,7 +258,7 @@ color: green;
 					<p style="color: gray;margin-left: 20px;">조회수:${post.po_view}</p>
 					<c:if test="${post.po_id eq user.site_id}">
 						<a href="<c:url value="/board/delete?po_num=${post.po_num}"/>" style="margin-left: 20px;">삭제</a>
-						<a href="<c:url value="/board/update"/>">수정하기</a>
+						<a href="<c:url value="/board/update?po_num=${post.po_num }"/>">수정하기</a>
 					</c:if>	
 				</div>	
 				<div class="content-text">
@@ -308,7 +308,7 @@ color: green;
 									<img alt="이미지" height="100" src="<c:url value="/download${file.fi_name}"/>">
 								</a>
 			 			</c:if>
-			 			<c:if test="${!file.img }">
+			 			<c:if test="${!file.img}">
 					 			<a href="<c:url value="/download${file.fi_name}"/>" download="${file.fi_ori_name }">${file.fi_ori_name }</a>
 			 			</c:if>
 			 	</c:forEach>
