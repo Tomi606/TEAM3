@@ -37,7 +37,7 @@
 .content_container{
 width: 100%;height: 100%;padding: 20px;}
 .content-input{width: 100%;display: flex;}
-.content-title{width: 95%;padding: 3px;outline-style: none;border: 1px solid lightgray;}
+.content-title{width: 95%;padding: 10px;outline-style: none;border: 1px solid lightgray;}
 .content-text{width: 100%;display: flex;margin: 60px 0;}
 .content-content{width: 93%;padding: 3px;outline-style: none; resize: none;
 min-height: 600px;max-height: 600px;}
@@ -107,8 +107,8 @@ margin-top:50px;
    $('[name=po_content]').summernote({
       placeholder: '내용',
       tabsize: 2,
-      maxHeight: 400,
-      minHeight: 400,
+      maxHeight: 600,
+      minHeight: 600,
       width:1200
    });
    $(document).ready(function() {

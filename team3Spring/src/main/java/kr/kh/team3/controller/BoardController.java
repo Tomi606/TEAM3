@@ -195,12 +195,12 @@ public class BoardController {
 			model.addAttribute("url", "/board/detail?po_num=" + post.getPo_num());
 			model.addAttribute("msg", "게시글을 수정했습니다.");
 		} else {
-			model.addAttribute("url", "/board/detail?po_num=" + post.getPo_num());
+			model.addAttribute("url", "/board/update?po_num=" + post.getPo_num());
 			model.addAttribute("msg", "게시글을 수정하지 못했습니다.");
 		}
 
 
-		return "/board/update";
+		return "message";
 	}
 
 	@ResponseBody

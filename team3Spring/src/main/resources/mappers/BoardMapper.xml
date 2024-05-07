@@ -8,6 +8,7 @@
 	update post set
 		po_title = #{po.po_title},
 		po_content = #{po.po_content}
+		po_bo_num = #{po.po_bo_num}
 		where po_num = #{po.po_num}
 	</update>
 	<select id="selectFile" resultType="kr.kh.team3.model.vo.FileVO">

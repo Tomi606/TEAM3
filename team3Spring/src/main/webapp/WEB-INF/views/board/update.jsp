@@ -234,6 +234,7 @@ color: green;
 </style>
 </head>
 <body>
+<form action="<c:url value='/board/update'/>" method="post"  enctype="multipart/form-data">
 	<div class="post_list_container">
 		<div class="post_list_box">
 			<div style="text-align: center;">
@@ -244,7 +245,7 @@ color: green;
 			</div>
 			<div class="hr"></div>
 			<div class="content_container">
-				<input type="hidden" name="po_bo_num" value="${bo_num}"  >
+				<input type="hidden" name="po_bo_num" value="${post.po_bo_num}"  >
 				<div class="content-input">
 					<label style="width: 5%;">제목</label>
 					<input type="text" class="content-title" name="po_title" value="${post.po_title}" > 
@@ -269,9 +270,10 @@ color: green;
 			 			</c:if>
 			 	</c:forEach>
 			 </div>
+			 <button type="submit">수정하기</button>
 			</div>	
 		</div>
-	
+</form>	
 <!-- 썸머노트 -->
 <script type="text/javascript">
    $('[name=po_content]').summernote({

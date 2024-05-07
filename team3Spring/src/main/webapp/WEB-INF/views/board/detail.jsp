@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="http://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.css" rel="stylesheet">
-<script src="htts://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.js"></script>
 <style type="text/css">
 .report-box li{
 	list-style: none;width: 50px;height: 50px;
@@ -95,7 +95,7 @@ textarea{outline-style: none;}
 .content_container{
 width: 100%;height: 100%;padding: 5px;}
 .content-input{width: 100%;display: flex;}
-.content-title{width: 95%;padding: 3px;outline-style: none;border: 1px solid lightgray;}
+.content-title{width: 95%;padding: 10px;outline-style: none;border: 1px solid lightgray;}
 .content-text{width: 100%;display: flex;}
 .content-content{width: 95%;padding: 3px;outline-style: none; resize: none;border:1px solid lightgray;
 min-height: 600px;max-height: 600px;}
@@ -221,6 +221,12 @@ color: green;
 .p_tag>a:hover {
 	text-decoration: underline;
 	color:  rgba(0, 128, 0, 0.5);
+}
+.note-popover .popover-content, .note-editor .note-toolbar {
+	display: none;
+}
+.note-statusbar{
+	display: none;
 }
 </style>
 </head>
@@ -349,13 +355,21 @@ color: green;
 	
 <!-- 썸머노트 -->
 <script type="text/javascript">
-   $('[name=content]').summernote({
-      placeholder: '내용',
-      tabsize: 2,
-      maxHeight: 400,
-      minHeight: 400,
-      width:1200
-   });
+$(document).ready(function() {
+    $('[name=po_content]').summernote({
+        placeholder: '내용',
+        tabsize: 2,
+        maxHeight: 600,
+        minHeight: 600,
+        backgroundColor: 'white',
+        width: 1200
+    });
+
+    $('[name=po_content]').summernote('disable');
+    $('[name=po_content]').siblings('.note-editor').find('.note-editable').css("background-color", "white");
+
+    
+});
 </script>
 
 <!-- 게시글 신고 -->
