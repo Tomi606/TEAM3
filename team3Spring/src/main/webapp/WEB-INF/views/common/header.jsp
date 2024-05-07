@@ -195,7 +195,7 @@ height:50px;width:100%;background-color: #fafafa;
 							<a class="nav-link" href='<c:url value="/logout"/>'>로그아웃</a>
 						</li>	
 					</c:if>
-					<c:if test='${user.getSite_authority().equals("admin") and user != null}'> 
+					<c:if test="${user != null && user.getSite_authority().equals('ADMIN')}">
 						<li>
 							<a class="nav-link" href='<c:url value="/admin/adminpage"/>'>관리자 페이지</a>
 						</li>		
