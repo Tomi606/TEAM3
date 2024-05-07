@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
 
+import kr.kh.team3.model.vo.HospitalProgramVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.ReservationVO;
 
@@ -15,5 +16,9 @@ public interface ReservationScheduleDAO {
 			@Param ("hp_num") int hp_num);
 
 	ReservationVO selectReservationList(@Param("rs_num")int rs_num);
+
+	HospitalProgramVO selectHospitalProgram(@Param("hp_num")int hp_num);
+
+	boolean deleteScheule(@Param("rv_num")int rv_num);
 
 }

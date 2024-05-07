@@ -12,7 +12,7 @@
 		<result property="il_hp_num" column="il_hp_num"/>
 		<result property="il_it_num" column="il_it_num"/>
 		<collection property="hospital_program" ofType="kr.kh.team3.model.vo.HospitalProgramVO"
-				column="{li_hp_num:}" select="selectItemListByProgram"/>
+				column="li_hp_num" select="selectItemListByProgram"/>
 		<collection property="item" ofType="kr.kh.team3.model.vo.ItemVO"
 				column="il_it_num" select="selectItemListByItem2"/>
 	</resultMap>

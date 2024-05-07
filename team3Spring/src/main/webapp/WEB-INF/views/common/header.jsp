@@ -180,7 +180,7 @@ height:50px;width:100%;background-color: #fafafa;
 		<div class="로그인">
 			<div class="join-groub">
 				<ul>
-					<c:if test="${user == null }">	
+					<c:if test="${user == null}">	
 						<li>
 							<a class="nav-link" href="<c:url value='/main/login'/>">
 							<img alt="로고이미지" style="width: 30px;"
