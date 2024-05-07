@@ -100,4 +100,6 @@ public interface MemberService {
 
 	boolean selectDetailBookmark(BookmarkVO bookmark, MemberVO member, String hd_ho_id);
 
+	boolean deleteMyInfo(MemberVO member, SiteManagement user);
+
 }

@@ -263,29 +263,25 @@ color: green;
 				</div>
 			
 			  </div> 
-			 	
-				 	
-				 		<div class="content-file">
-							<label style="margin: 0 20px 0 58px;">첨부파일</label>
-							<input type="file" name="file" multiple="multiple" id="fileInput">
-						</div>   
-						<div class="fileList_box">
-						<div class="form-group box-attachment">
-								 <ul id="fileList">
-									 <c:forEach items="${fileList}" var="file" >	
-							 			<li>
-							 				<span>${file.fi_ori_name }</span>
-							 				<a href="javascript:void(0);" class="btn-del" data-num="${file.fi_num}">&times;</a>
-							 			</li>
-								 	</c:forEach>
-								 </ul>
-						</div>	 
-					</div>	
-		 		 
-			
-			<div class="insert-btn-box"style="text-align: center;margin-top: 30px;">	
-						<button class="insert-btn">수정하기</button>
-					</div>
+		 		<div class="content-file">
+					<label style="margin: 0 20px 0 58px;">첨부파일</label>
+					<input type="file" name="file" multiple="multiple" id="fileInput">
+				</div>   
+				<div class="fileList_box">
+					<div class="form-group box-attachment">
+						 <ul id="fileList">
+							 <c:forEach items="${fileList}" var="file" >	
+					 			<li>
+					 				<span>${file.fi_ori_name }</span>
+					 				<a href="javascript:void(0);" class="btn-del" data-num="${file.fi_num}">&times;</a>
+					 			</li>
+						 	</c:forEach>
+						 </ul>
+					</div>	 
+				</div>	
+				<div class="insert-btn-box"style="text-align: center;margin-top: 30px;">	
+					<button class="insert-btn">수정하기</button>
+				</div>
 			</div>	
 		</div>
 </form>	
