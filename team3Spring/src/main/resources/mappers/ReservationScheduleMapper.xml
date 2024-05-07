@@ -12,6 +12,10 @@
 		select * from reservation_schedule where rs_date = #{date} and rs_hp_num = #{hp_num}
 	</select>
 	
+	<select id="selectHospitalProgram" resultType="kr.kh.team3.model.vo.HospitalProgramVO">
+		select * from hospital_program where hp_num = #{hp_num};
+	</select>
+	
 	<!-- 예약 테이블 resultMap -->
 	<resultMap type="kr.kh.team3.model.vo.ReservationVO" id="ReservationMap">
 		<id property="rv_num" column="rv_num"/>
@@ -36,5 +40,9 @@
 		select * from member where me_id = #{rv_me_id}
 	</select>
 	<!-- 예약 테이블 resultMap -->
+	
+	<delete id="deleteScheule">
+		delete from reservation where rv_num = #{rv_num};
+	</delete>
 	
 </mapper>
