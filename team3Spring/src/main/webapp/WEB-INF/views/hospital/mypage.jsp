@@ -134,14 +134,15 @@ img {
 }
 
 .profile-anything {
-	border: 1px solid black;
+	border: 1px solid green;
 	width: 300px;
 	height: 395px;
 	margin: 0 auto;
+	border-radius: 5px;
 }
 
 .profile-container {
-	background-color:lightgray;
+	background-color: rgb(202,238,208);
 	width: 1000px;
 	height: 800px;
 	display: block;
@@ -150,11 +151,13 @@ img {
 .mypage-profile-info {
 	padding:0 50px;
 	width: 800px;
-	height: 777px;
-	border: 1px solid black;
-	margin: 11px 20px 40px 120px;
+	height: 80%;
+	border: 1px solid rgb(202,238,208);
+	margin: 70px 15px 30px 65px;
 	background-color: white;
 	border-radius: 30px;
+	/* box-shadow: 5px 5px 5px rgb(49,151,67); */
+	box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
 }
 
 .mypage-profile-detail {
@@ -173,14 +176,16 @@ img {
 }
 
 .mypage-img-name {
-	align-content: space-around;
-	flex-direction: column;
-	flex-wrap: wrap;
 	display: flex;
-	width:1000px;
-	margin: 30px auto;
-	height: 125px;
-	padding: 20px;
+    width: 1000px;
+    margin: 30px auto;
+    height: 125px;
+    padding: 20px;
+    flex-direction: column;
+    align-items: stretch;
+    flex-wrap: wrap;
+    align-content: space-between;
+    justify-content: space-evenly;
 }
 
 .hr {
@@ -189,7 +194,7 @@ img {
 }
 
 .mypage-phone {
-	margin:auto 0;
+	margin:3px 0px -8px 0px;
 	height:70px;
 	width: 100%;
 	display: flex;
@@ -225,7 +230,7 @@ img {
 
 .mypage-hospital-address {
 	display: flex;
-	margin: 20px 48px 0 47px;
+    justify-content: space-between;
 }
 
 .new_ho_name_hidden {
@@ -355,54 +360,69 @@ img {
  	flex-direction: column;
 }
 .choose-box a{
-	border-radius:5px;
-	line-height:45px;
-	margin:0 auto;
-	border:1px solid black;
-	width:100%;
-	height:50px;
-	color:black;
-	text-decoration:none;
+	border-radius: 5px;
+	line-height: 45px;
+	margin: 0 auto;
+	border: 1px solid green;
+	width: 100%;
+	height: 50px;
+	color: green;
+	text-decoration: none;
 	font-size: 20px;
 }
+
+.choose-box a:hover {
+	border-radius: 5px;
+	line-height: 45px;
+	margin: 0 auto;
+	border: 1px solid green;
+	width: 100%;
+	height: 50px;
+	color: white;
+	text-decoration: none;
+	font-size: 20px;
+	background: green;
+}
+
 .subject{
-	width: 100%; 
-	height: 70px;
+	width: 100%;
+    height: 40px;
+    margin: -3px 0px 8px 0px;
 
 }
 .phone-width{
-	width: 80%;
-	margin:auto;
+	width: 90%;
+	margin: 15px 0px 0px 35px;
 	display: flex;
 	justify-content: space-between;
 }
 .email-width{
-	width: 80%;
-	margin:auto;
+	width: 90%;
+    margin: 20px auto;
 	display: flex;
 	justify-content: space-between;
 }
 .ceo-width{
-	width: 80%;
-	margin:auto;
+	width: 90%;
+    margin: 20px auto;
 	display: flex;
 	justify-content: space-between;
 }
 .detail-address-width{
-	width: 80%;
-	margin:auto;
+	width: 90%;
+    margin: 15px 0px 10px 35px;
 	display: flex;
 	justify-content: space-between;
 }
 .subject-width{
-	width: 80%;
-	margin: 20px auto;
-	display: flex;
-	justify-content: space-between;
+	width: 90%;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
 }
 .address-width{
-	width: 93%;
-	margin:auto;
+	width: 90%;
+    margin: 20px auto;
 	display: flex;
 	justify-content: space-between;
 }
@@ -428,6 +448,22 @@ select:focus {
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
 }
 
+.a-btn {
+	color: rgba(0, 128, 0, 0.5);
+	text-decoration-line: none;
+}
+
+.a-btn:hover {
+	color: green;
+	font-weight: bold;
+	text-decoration-line: none;
+}
+
+.p-title {
+	margin-top: 0;
+    margin-bottom: 0;
+    font-size: 20px;
+}
 </style>
 </head>
 <body>
@@ -489,10 +525,10 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 						<a href='<c:url value="/hospital/item/insert"/>'>프로그램 등록/수정/삭제</a><br>
 					</div>
 					<div class="choose-box">
-						<a href = '<c:url value="/hospital/schedule/change"/>'>4. 예약 관리</a><br>
+						<a href = '<c:url value="/hospital/schedule/change"/>'>예약 관리</a><br>
 					</div>
 					<div class="choose-box">			
-						<a href='<c:url value="/hospital/community?site_id=${user.site_id}"/>'>5. 커뮤니티 관리</a>
+						<a href='<c:url value="/hospital/community?site_id=${user.site_id}"/>'>커뮤니티 관리</a>
 					</div>
 				</div>
 			</div>
@@ -502,14 +538,13 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 			<div class="mypage-profile-info">
 				<div class="profile-img-name-container">
 					<div class="mypage-img-name">
-						<h4 class="box-name">\${hospital.ho_name}</h4>
+						<h4 class="box-name" style="font-size: 50px; font-weight: bold;">\${hospital.ho_name}</h4>
 						<div class="new_ho_name_hidden">
 							<input type="text" id="new_ho_name" class="box-name2" value="\${hospital.ho_name}"/>
 						</div>
-						<p>\${hospital.ho_email}</p>
-						<span class="name_update_btn_wrap"><a type="button" class="name-update">상호명 수정</a></span>
-						<span class="name_save_btn_wrap"><a type="button" class="name_save_btn">수정 완료</a></span>
-						<span class="pw_update_btn_wrap"><a type="button" class="pw-update">비밀번호 변경</a></span>
+						<span class="name_update_btn_wrap"><a type="button" class="name-update a-btn">상호명 수정</a></span>
+						<span class="name_save_btn_wrap"><a type="button" class="name_save_btn a-btn">수정 완료</a></span>
+						<span class="pw_update_btn_wrap"><a type="button" class="pw-update a-btn">비밀번호 변경</a></span>
 						<div id="myModal" class="modal">
 							<div class="modal-content">
 								<span class="close">&times;</span>
@@ -528,7 +563,7 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 								<div class="new_ho_pw_hidden">
 									<input type="password" id="new_ho_pw2" name="ho_pw2" class="box-pw2"/>
 								</div>
-								<a type="button" class="pw-update-success-btn">비밀번호 변경하기</a>
+								<a type="button" class="pw-update-success-btn a-btn">비밀번호 변경하기</a>
 							</div>
 						</div>
 
@@ -542,9 +577,9 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 						<div class="new_ho_ceo_hidden">
 							<input type="text" id="new_ho_ceo" class="box-ceo2" value="\${hospital.ho_ceo}"/>
 						</div>
-						<p class="box-ceo" id="my_ceo_name">\${hospital.ho_ceo}</p>
-						<span class="ceo_update_btn_wrap"><a type="button" class="ceo-update">변경</a></span>
-						<span class="ceo_save_btn_wrap"><a type="button" class="ceo_save_btn">수정완료</a></span>
+						<p class="box-ceo p-title" id="my_ceo_name">\${hospital.ho_ceo}</p>
+						<span class="ceo_update_btn_wrap"><a type="button" class="ceo-update a-btn">변경</a></span>
+						<span class="ceo_save_btn_wrap"><a type="button" class="ceo_save_btn a-btn">수정완료</a></span>
 					</div>
 				</div>
 
@@ -555,9 +590,9 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 						<div class="new_ho_phone_hidden">
 							<input type="text" id="new_ho_phone" class="box-phone2" value="\${hospital.ho_phone}"/>
 						</div>
-						<p class="box-phone">\${hospital.ho_phone}</p>
-						<span class="phone_update_btn_wrap"><a type="button" class="phone-update">변경</a></span>
-						<span class="phone_save_btn_wrap"><a type="button" class="phone_save_btn">수정완료</a></span>
+						<p class="box-phone p-title">\${hospital.ho_phone}</p>
+						<span class="phone_update_btn_wrap"><a type="button" class="phone-update a-btn">변경</a></span>
+						<span class="phone_save_btn_wrap"><a type="button" class="phone_save_btn a-btn">수정완료</a></span>
 					</div>
 				</div>
 				
@@ -568,9 +603,9 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 						<div class="new_ho_email_hidden">
 							<input type="text" id="new_ho_email" class="box-email2" value="\${hospital.ho_email}"/>
 						</div>
-						<p class="box-email">\${hospital.ho_email}</p>
-						<span class="email_update_btn_wrap"><a type="button" class="email-update">변경</a></span>
-						<span class="email_save_btn_wrap"><a type="button" class="email_save_btn">수정완료</a></span>
+						<p class="box-email p-title">\${hospital.ho_email}</p>
+						<span class="email_update_btn_wrap"><a type="button" class="email-update a-btn">변경</a></span>
+						<span class="email_save_btn_wrap"><a type="button" class="email_save_btn a-btn">수정완료</a></span>
 					</div>
 				</div>
 				
@@ -578,7 +613,7 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 				<div class="hr"></div>
 				<div class="subject">
 					<div class="subject-width">
-						<p class="my-hs-subject" id="my-subject">\${ho_sub.hs_title}</p>
+						<p class="my-hs-subject p-title" id="my-subject">\${ho_sub.hs_title}</p>
 						<div class="new_ho_subject_hidden">
 							<select id="subject" class="my-subject-list" name="ho_hs_num">
 								<option value="none">대표 진료 과목을 선택하세요</option>
@@ -587,8 +622,8 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 								</c:forEach>
 							</select>
 						</div>
-						<span class="subject_update_btn_wrap"><a type="button" class="subject-update">변경</a></span>
-						<span class="subject_save_btn_wrap"><a type="button" class="subject_save_btn">수정완료</a></span>
+						<span class="subject_update_btn_wrap"><a type="button" class="subject-update a-btn">변경</a></span>
+						<span class="subject_save_btn_wrap"><a type="button" class="subject_save_btn a-btn">수정완료</a></span>
 					</div>
 				</div>
 				
@@ -610,9 +645,9 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 								<option value="none">읍/면/동을 선택해주세요</option>
 							</select>
 						</div>
-						<p class="box-address">\${ho_land.sd_name} \${ho_land.sgg_name} \${ho_land.emd_name}</p>
-						<span class="address_update_btn_wrap"><a type="button" class="address-update">변경</a></span>
-						<span class="address_save_btn_wrap"><a type="button" class="address_save_btn">수정완료</a></span>
+						<p class="box-address p-title">\${ho_land.sd_name} \${ho_land.sgg_name} \${ho_land.emd_name}</p>
+						<span class="address_update_btn_wrap"><a type="button" class="address-update a-btn">변경</a></span>
+						<span class="address_save_btn_wrap"><a type="button" class="address_save_btn a-btn">수정완료</a></span>
 					</div>
 				</div>
 				
@@ -623,9 +658,9 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 						<div class="new_ho_detail_address_hidden">
 							<input type="text" id="new_ho_detail_address" class="box-detail-address2" value="\${hospital.ho_address}"/>
 						</div>
-						<p class="box-detail-address">\${hospital.ho_address}</p>
-						<span class="detail_address_update_btn_wrap"><a type="button" class="detail-address-update">변경</a></span>
-						<span class="detail_address_save_btn_wrap"><a type="button" class="detail_address_save_btn">수정완료</a></span>
+						<p class="box-detail-address p-title">\${hospital.ho_address}</p>
+						<span class="detail_address_update_btn_wrap"><a type="button" class="detail-address-update a-btn">변경</a></span>
+						<span class="detail_address_save_btn_wrap"><a type="button" class="detail_address_save_btn a-btn">수정완료</a></span>
 					</div>
 				</div>
 				
@@ -687,10 +722,12 @@ $(document).on('click','.name-update', function(){
     resetAll();
     $('.box-name').css('display', 'none');
     $('.name_update_btn_wrap').css('display', 'none');
+    $('.name_update_btn_wrap').css('flex-direction', 'row');
     $('.new_ho_name_hidden').css('display', 'block');
     $('.name_save_btn_wrap').css('display', 'block');
     $('#my_ceo_name').css('display', 'block');
     $('#my-subject').css('display','block');
+    $('.pw-update').css('display', 'none');
 });
 
 $(document).on('click','.ceo-update', function(){
