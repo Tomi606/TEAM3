@@ -11,67 +11,77 @@
 </style>
 </head>
 <body>
-<form action='<c:url value="/hospital/detail/insert"/>' method="post">
-	<h2 style="font-weight: bold;">병원 소개</h2>
-	<div class="info">
-		<label for="hd_info" style="font-weight: bold">병원 소개</label>
-	   	<textarea class="hd_info col-10" id="hd_info" name="hd_info" 
-	   	placeholder="병원 소개말을 입력하세요." oninput="autoTextarea(this)">${hoDetail.hd_info}</textarea>
+<div class="info-container">
+	<div class="all-info-box">
+		<form action='<c:url value="/hospital/detail/insert"/>' method="post">
+			<div class="info1-box">	
+				<h2 style="font-weight: bold;">병원 소개</h2>
+				<div class="info">
+					<label for="hd_info" style="font-weight: bold">병원 소개</label>
+				   	<textarea class="hd_info col-10" id="hd_info" name="hd_info" 
+				   	placeholder="병원 소개말을 입력하세요." oninput="autoTextarea(this)">${hoDetail.hd_info}</textarea>
+				</div>
+				<div class="hd_time" id="hd_time">
+					<label for="hd_time" style="font-weight: bold">영업 시간</label>
+					<textarea class="hd_time col-10" id="hd_time" name="hd_time" required
+					placeholder="영업시간 및 점심시간을 입력하세요. 예시)월~금 : 9:00~18:00 / 토,일 : 휴무" oninput="autoTextarea(this)">${hoDetail.hd_time}</textarea>
+				</div>
+				<div class="hd_park" id="hd_park">
+					<label for="hd_park" style="font-weight: bold">주차 정보</label>
+					<textarea class="hd_park col-10" id="hd_park" name="hd_park" 
+					placeholder="주차 정보를 입력하세요." oninput="autoTextarea(this)">${hoDetail.hd_park}</textarea>
+				</div>
+				<div class="hd_announce">
+					<label for="hd_announce" style="font-weight: bold">공지 사항</label>
+					<textarea class="hd_announce col-10" id="hd_announce" name="hd_announce" 
+					placeholder="공지 사항을 입력하세요." oninput="autoTextarea(this)">${hoDetail.hd_announce}</textarea>
+				</div>
+				<div class="hd_etc">
+					<label for="hd_etc" style="font-weight: bold">기타 사항</label>
+					<textarea class="hd_etc col-10" id="hd_etc" name="hd_etc" 
+					placeholder="기타 사항을 입력하세요." oninput="autoTextarea(this)">${hoDetail.hd_etc}</textarea>
+				</div>
+			</div>
+			
+			<div class="info2-box">
+				<h2 style="font-weight: bold;">진료 과목</h2>
+				<div class="hd_hs_num">
+					<label for="hd_hs_num" style="font-weight: bold">대표 진료 과목</label>
+					<div class="subject-checkbox">
+					    <c:choose>
+					        <c:when test="${subjects != null}">
+					            <c:forEach items="${hsList}" var="hs">
+					                <c:set var="isChecked" value="false"/>
+					                <c:forEach items="${subjects}" var="sub">
+					                    <c:if test="${sub.hsl_hs_num == hs.hs_num}">
+					                        <c:set var="isChecked" value="true"/>
+					                        <input type="checkbox" name="hsl_hs_num" value="${sub.hsl_hs_num}" checked>${hs.hs_title}
+					                    </c:if>
+					                </c:forEach>
+					                <c:if test="${isChecked == 'false'}">
+					                    <input type="checkbox" name="hs_num" value="${hs.hs_num}">${hs.hs_title}
+					                </c:if>
+					            </c:forEach>
+					        </c:when>
+					        <c:otherwise>
+					            <c:forEach items="${hsList}" var="hs">
+					                <input type="checkbox" name="hs_num" value="${hs.hs_num}">${hs.hs_title}
+					            </c:forEach>
+					        </c:otherwise>
+					    </c:choose>
+					</div>
+				 </div>
+				<div>
+				 	<label for="hd_subject_detail" style="font-weight: bold">상세 진료 항목</label>
+				 	<textarea class="hd_subject_detail col-10" id="hd_subject_detail" name="hd_subject_detail" 
+				 	oninput="autoTextarea(this)" placeholder="감염성 질환 / 알레르기 / 만성 질환 / 호흡기 질환 / 피부 질환...">${hoDetail.hd_subject_detail}</textarea>
+				</div>
+				<button type="submit" class="hospital-btn" name="hospital-btn">병원 소개 등록</button>
+			</div>
+		</form>
 	</div>
-	<div class="hd_time" id="hd_time">
-		<label for="hd_time" style="font-weight: bold">영업 시간</label>
-		<textarea class="hd_time col-10" id="hd_time" name="hd_time" required
-		placeholder="영업시간 및 점심시간을 입력하세요. 예시)월~금 : 9:00~18:00 / 토,일 : 휴무" oninput="autoTextarea(this)">${hoDetail.hd_time}</textarea>
-	</div>
-	<div class="hd_park" id="hd_park">
-		<label for="hd_park" style="font-weight: bold">주차 정보</label>
-		<textarea class="hd_park col-10" id="hd_park" name="hd_park" 
-		placeholder="주차 정보를 입력하세요." oninput="autoTextarea(this)">${hoDetail.hd_park}</textarea>
-	</div>
-	<div class="hd_announce">
-		<label for="hd_announce" style="font-weight: bold">공지 사항</label>
-		<textarea class="hd_announce col-10" id="hd_announce" name="hd_announce" 
-		placeholder="공지 사항을 입력하세요." oninput="autoTextarea(this)">${hoDetail.hd_announce}</textarea>
-	</div>
-	<div class="hd_etc">
-		<label for="hd_etc" style="font-weight: bold">기타 사항</label>
-		<textarea class="hd_etc col-10" id="hd_etc" name="hd_etc" 
-		placeholder="기타 사항을 입력하세요." oninput="autoTextarea(this)">${hoDetail.hd_etc}</textarea>
-	</div>
-	<h2 style="font-weight: bold;">진료 과목</h2>
-	<div class="hd_hs_num">
-		<label for="hd_hs_num" style="font-weight: bold">대표 진료 과목</label>
-		<div class="subject-checkbox">
-		    <c:choose>
-		        <c:when test="${subjects != null}">
-		            <c:forEach items="${hsList}" var="hs">
-		                <c:set var="isChecked" value="false"/>
-		                <c:forEach items="${subjects}" var="sub">
-		                    <c:if test="${sub.hsl_hs_num == hs.hs_num}">
-		                        <c:set var="isChecked" value="true"/>
-		                        <input type="checkbox" name="hsl_hs_num" value="${sub.hsl_hs_num}" checked>${hs.hs_title}
-		                    </c:if>
-		                </c:forEach>
-		                <c:if test="${isChecked == 'false'}">
-		                    <input type="checkbox" name="hs_num" value="${hs.hs_num}">${hs.hs_title}
-		                </c:if>
-		            </c:forEach>
-		        </c:when>
-		        <c:otherwise>
-		            <c:forEach items="${hsList}" var="hs">
-		                <input type="checkbox" name="hs_num" value="${hs.hs_num}">${hs.hs_title}
-		            </c:forEach>
-		        </c:otherwise>
-		    </c:choose>
-		</div>
-	 </div>
-	<div>
-	 	<label for="hd_subject_detail" style="font-weight: bold">상세 진료 항목</label>
-	 	<textarea class="hd_subject_detail col-10" id="hd_subject_detail" name="hd_subject_detail" 
-	 	oninput="autoTextarea(this)" placeholder="감염성 질환 / 알레르기 / 만성 질환 / 호흡기 질환 / 피부 질환...">${hoDetail.hd_subject_detail}</textarea>
-	</div>
-	<button type="submit" class="hospital-btn" name="hospital-btn">병원 소개 등록</button>
-</form>
+</div>
+
 
 <!-- 상세페이지 등록(insert) : 상세페이지와 선택한 과목 배열 서버로 전송 -->
 <script type="text/javascript">
