@@ -263,7 +263,8 @@ color: green;
 				<div class="p_tag">	
 					<p style="color: gray;margin-left: 20px;">조회수:${post.po_view}</p>
 					<c:if test="${post.po_id eq user.site_id}">
-						<a href="<c:url value="/board/delete?po_num=${post.po_num}"/>" style="margin-left: 20px;">삭제</a>
+						<a  style="margin-left: 20px;cursor: pointer;"
+						class="board_delete_btn">삭제</a>
 						<a href="<c:url value="/board/update?po_num=${post.po_num}&&bo_num=${post.po_bo_num}"/>">수정하기</a>
 					</c:if>	
 				</div>	
@@ -817,6 +818,14 @@ function initComment(){
 	$('.box-btn').show();
 	$('.text-comment').show();
 }
+$(document).on("click",".board_delete_btn",function () {
+    let answer = confirm("게시글을 삭제 하시겠습니까?");
+    if (!answer) {
+    	return;
+    } else {
+    	location.href="<c:url value="/board/delete?po_num=${post.po_num}"/>"
+    }
+});
 </script>
 
 
