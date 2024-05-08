@@ -173,7 +173,7 @@ height:50px;width:100%;background-color: #FCF9F7;
 						<a href="#">게시판1</a> 
 					</li>
 					<li>
-						<a href="#">공지사항</a>
+						<a href="<c:url value='/board/list?bo_num=1'/>">공지사항</a>
 					</li>
 					<li>
 						<a href="<c:url value="/member/bookmark"/>">북마크</a>
@@ -289,10 +289,12 @@ height:50px;width:100%;background-color: #FCF9F7;
     	        return;
     	    } else {
     	        for (let kieun of list) {
-    	            str +=
-    	                `
-    	               	 <li><a href="<c:url value='/board/list'/>?bo_num=\${kieun.bo_num}" class="bo_btn">\${kieun.bo_title}</a></li>
-    	                `;
+    	        	if(kieun.bo_num > 1){
+	    	            str +=
+	    	                `
+	    	               	 <li><a href="<c:url value='/board/list'/>?bo_num=\${kieun.bo_num}" class="bo_btn">\${kieun.bo_title}</a></li>
+	    	                `;
+    	        	}
     	        }
     	    }
     	    $('.category-board>ul').html(str); // 클래스를 사용하여 목록에 접근
