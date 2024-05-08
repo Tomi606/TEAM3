@@ -63,16 +63,6 @@
 	font-weight: bold;
 	color: rgb(65, 65, 65);
 }
-    
-/* textarea {
-      width: 100%;
-      resize: none;
-      overflow-y: hidden;
-      border: 0px solid white;
-      cursor: inherit;
-      text-align: center;
-      font-size: 20px;
-    } */
 
 #page3 textarea {
 	resize: none;
