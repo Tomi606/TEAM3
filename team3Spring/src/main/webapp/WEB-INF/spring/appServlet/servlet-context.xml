@@ -72,8 +72,10 @@
 			<mapping path="/member/bookmark"/>
 			<mapping path="/member/mypage"/>
 			<mapping path="/board/*"/>
-			<mapping path="/hospital/*/*"/>
-			<mapping path="/hospital/*"/>
+		    <mapping path="/hospital/detail/**"/>
+			<mapping path="/hospital/community"/>
+			<mapping path="/hospital/list"/>
+			<mapping path="/hospital/mypage"/>
 			<mapping path="/admin/*"/>
 			<mapping path="/schedule/*"/>
 			<beans:ref bean="memberInterceptor"/>
