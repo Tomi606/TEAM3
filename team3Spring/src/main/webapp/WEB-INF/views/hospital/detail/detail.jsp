@@ -71,16 +71,16 @@
 	color: rgba(0, 128, 0, 0.5);
 }
 
+p {
+	margin: 10px 10px 5px 10px;
+}
+
 #page3 textarea {
 	resize: none;
     overflow-y: hidden;
     width: 88%;
-}
-
-p {
-	margin-bottom: 0px;
-	font-size: 25px;
-	cursor: default;
+    border-radius: 10px;
+    border: 1px solid green;
 }
 
 .hospital-subject-btn {
@@ -88,6 +88,11 @@ p {
     margin: 8px 5px 8px 5px;
     display: inline-block;
     padding: 1px 5px 1px 5px;
+    margin-bottom: 0px;
+	font-size: 25px;
+	cursor: default;
+	border-radius: 50px;
+	
 }
 
 .review-btn {
@@ -101,17 +106,20 @@ p {
 	font-size: 25px;
 	padding-left: 10px;
 	font-weight: bolder;
+	margin: 5px 10px;
 }
 
 .review-content {
-	font-size: 18px;
+	font-size: 20px;
 	padding-left: 10px;
-	width : 90%;
+	width : 100%;
+	margin-bottom: 30px;
 }
 
 .text-review {
-	width: 88%;
+	width: 100%;
 	text-align: left;
+	margin: 5px 1px 15px 10px;
 }
 
 .vw_num {
@@ -126,18 +134,21 @@ p {
 	 font-weight: bold; 
 	 font-size: 30px;
 	 text-align: left;
+	 color: rgba(0, 128, 0, 0.5);
 }
 
 .ho_name {
 	font-weight: bold;
 	size: 50px;
 	font-stretch: expanded;
+	color: green;
 }
 
 .top-span {
 	font-weight: bold; 
-	 font-size: 30px;
-	 text-align: center;
+	font-size: 30px;
+	text-align: center;
+	color: rgba(0, 128, 0, 0.5);
 }
 
 .top-img {
@@ -204,14 +215,28 @@ p {
 }
 
 #myTextarea {
-	  width: 100%;
-      resize: none;
-      overflow-y: hidden;
-      border: 0px solid white;
-      cursor: inherit;
-      text-align: left;
-      font-size: 24px;
-      outline-style: none;
+	width: 100%;
+    height: 150px;
+    margin-bottom: 30px;
+    border: 0px solid white;
+    padding: 3px 5px 5px 3px;
+    margin: -15px -10px 10px 5px;
+    font-size: 24px;
+    resize: none;
+    overflow: auto;
+    cursor: inherit;
+    outline-style: none;
+    
+}
+
+#myTextarea::-webkit-scrollbar {
+    width: 16px; /* 스크롤바의 너비 */
+}
+
+/* 스크롤바의 Thumb (드래그할 수 있는 부분) 색상 */
+#myTextarea::-webkit-scrollbar-thumb {
+    background-color: green; /* 색상 변경 */
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 }
 
 .book-btn {
@@ -257,6 +282,15 @@ p {
     margin: -10px 0px 3px -20px;
 }
 
+.box-review-list {
+	display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: space-between;
+    justify-content: center;
+    align-items: stretch;
+
+}
 </style>
 </head>
 <body>
@@ -294,7 +328,7 @@ p {
 		</div>
 	</div>
 		
-	<hr style="border: 1px solid gray; width: 100%;">
+	<hr style="border: 2px solid green; width: 100%; border-style: dashed;">
 
 	<div class="detail-page-sub2">
 		<div class="toggle-page">
@@ -308,25 +342,25 @@ p {
 					<label class="label" for="hd_info" style="font-weight: bold;">병원 소개</label>
 				   	<textarea class="hd_info" id="myTextarea"  oninput="autoResize(this)" readonly>${detail.hd_info}</textarea>
 				</div>
-				<hr style="border: 1px solid gray; margin: 10px auto;">
+				<hr style="border: 1px solid green; margin: 10px auto;">
 				<div class="hd_time page1" id="hd_time">
 					<label class="label" for="hd_time" style="font-weight: bold">영업 시간</label>
 					<textarea class="hd_time" id="myTextarea" name="hd_time"
 					placeholder="월~금 : 9:00~18:00 / 토,일 : 휴무"  oninput="autoResize(this)" readonly>${detail.hd_time}</textarea>
 				</div>
-				<hr style="border: 1px solid gray; margin: 10px auto;">
+				<hr style="border: 1px solid green; margin: 10px auto;">
 				<div class="hd_park page1" id="hd_park">
 					<label class="label" for="hd_park" style="font-weight: bold">주차 정보</label>
 					<textarea class="hd_park" id="myTextarea" name="hd_park" 
 					readonly>${detail.hd_park}</textarea>
 				</div>
-				<hr style="border: 1px solid gray; margin: 10px auto;">
+				<hr style="border: 1px solid green; margin: 10px auto;">
 				<div class="hd_announce page1">
 					<label class="label" for="hd_announce" style="font-weight: bold">공지 사항</label>
 					<textarea class="hd_announce" id="myTextarea" name="hd_announce" 
 					readonly>${detail.hd_announce}</textarea>
 				</div>
-				<hr style="border: 1px solid gray; margin: 10px auto;">
+				<hr style="border: 1px solid green; margin: 10px auto;">
 				<div class="hd_etc page1">
 					<label class="label" for="hd_etc" style="font-weight: bold">기타 사항</label>
 					<textarea class="hd_etc" id="myTextarea" name="hd_etc" 
@@ -339,13 +373,13 @@ p {
 					<label for="hsList" class="label">대표 진료 과목</label>
 					<div class="subject-checkbox hsList">
 					  	<c:forEach var="i" begin="0" end="${sub.size() - 1}">
-							<button class="hospital-subject-btn btn-outline-dark" style="cursor: text;">
+							<button class="hospital-subject-btn btn btn-outline-success" style="cursor: text;">
 							<p><c:out value="${sub.get(i).hospital_subject.hs_title}"/></p>
 							</button>
 					  	</c:forEach>
 					</div>
 				 </div>
-				 <hr style="border: 1px solid gray; margin: 10px auto;">
+				 <hr style="border: 1px solid green; margin: 10px auto;">
 				 <div class="hd_subject_detail">
 				 	<label class="label" for="hd_subject_detail">상세 진료 항목</label><br>
 				 	<textarea class="hd_subject_detail" id="myTextarea" name="hd_subject_detail" style="outline-style: none;"
