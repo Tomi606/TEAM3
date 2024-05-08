@@ -173,7 +173,7 @@ color:  rgba(0, 128, 0, 0.5);
 					</div>	
 					<div style="padding-top: 1px;">
 						<a  class="here-title atitle">
-							게시글
+							${bo_title}
 						</a>
 					</div>
 				</div>

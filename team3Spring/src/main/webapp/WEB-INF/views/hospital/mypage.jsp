@@ -102,21 +102,21 @@ img {
 	grid-template-columns: 1fr 1fr;
 	grid-gap: 20px;
 }
-/*아래부터 병원 마이페이지 구현
- 패딩,마진은 상 우 하 좌 시계 방향으로 설정 하면 됨.
- */
+
 .mypage-container {
-	width: 1905px;
-	height: 800px;
-	padding: 0 300px 0 300px;
-	display: flex;
+	width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
 }
 
 .mypage-profile {
 	width: 400px;
-	height: 100%;
-	border-left: 1px solid lightgray;
-	border-right: 1px solid lightgray;
+    height: 989px;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
 }
 
 .profile-img {
@@ -129,34 +129,34 @@ img {
 }
 
 .profile-name {
-	margin: 0 auto;
-	text-align: center;
+	margin: 20px 0px -20px 0px;
+    text-align: center;
 }
 
 .profile-anything {
 	border: 1px solid green;
-	width: 300px;
-	height: 395px;
-	margin: 0 auto;
-	border-radius: 5px;
+    width: 300px;
+    height: 500px;
+    margin: 50px auto;
+    border-radius: 5px;
 }
 
 .profile-container {
-	background-color: rgb(202,238,208);
-	width: 1000px;
-	height: 800px;
-	display: block;
+	background-color: rgb(202, 238, 208);
+    width: 1000px;
+    height: 989px;
+    display: block;
 }
 
 .mypage-profile-info {
-	padding:0 50px;
-	width: 800px;
-	height: 80%;
-	border: 1px solid rgb(202,238,208);
-	margin: 70px 15px 30px 65px;
-	background-color: white;
-	border-radius: 30px;
-	box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
+	padding: 0 50px;
+    width: 800px;
+    height: 70%;
+    border: 1px solid rgb(202, 238, 208);
+    margin: 130px 15px 30px 95px;
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
 }
 
 .mypage-profile-detail {
@@ -357,17 +357,21 @@ img {
 	width: 100%;
 	height: 75px;
  	flex-direction: column;
+ 	margin: 15px 0px 15px 0px;
 }
 .choose-box a{
 	border-radius: 5px;
-	line-height: 45px;
-	margin: 0 auto;
-	border: 1px solid green;
-	width: 100%;
-	height: 50px;
-	color: green;
-	text-decoration: none;
-	font-size: 20px;
+    line-height: 45px;
+    margin: 0 auto;
+    border: 1px solid green;
+    width: 100%;
+    height: 50px;
+    color: green;
+    text-decoration: none;
+    font-size: 20px;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
 }
 
 .choose-box a:hover {
@@ -381,6 +385,16 @@ img {
 	text-decoration: none;
 	font-size: 20px;
 	background: green;
+	
+	ackground: linear-gradient(45deg, white, green);
+	border: 0px solid white;
+	animation: colorChange 1.5s infinite alternate;
+}
+
+@keyframes colorChange {
+    0% { background-color: white; color: green; } /* 초기 색상 */
+    50% { background-color: green; color: white; } /* 중간 색상 */
+    100% { background-color: green; color: white; } /* 끝 색상 */
 }
 
 .subject{

@@ -11,9 +11,9 @@
 	box-shadow: 0px 2px 4px 6px rgba(0, 128, 0, 0.5);
     transition: box-shadow 0.3s ease;
     padding: 20px 30px 20px 30px;
-    margin: 40px 30px 40px 70px;
+    margin: 70px 30px 70px 480px;
     border-radius: 5px;
-    width: 90%;
+    width: 60%;
 }
 
 textarea {
@@ -49,12 +49,14 @@ textarea {
 }
 
 .info-textarea {
-	width: 100%;
+	width: 95%;
     height: 150px;
     margin-bottom: 30px;
+    margin-left: 20px;
     border: 1px solid green;
     padding: 10px 15px 5px 10px;
-    font-size: 16px;
+    font-size: 20px;
+    border-radius: 5px;
 }
 
 input[type="checkbox"] {

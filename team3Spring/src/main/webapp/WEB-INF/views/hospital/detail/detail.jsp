@@ -11,8 +11,8 @@
 .detail-page{
  	box-shadow: 0px 2px 4px 6px rgba(0, 128, 0, 0.5);
     transition: box-shadow 0.3s ease;
-    padding: 20px 30px 20px 30px;
-    margin: 50px 300px 50px 300px;
+    padding: 50px 30px 20px 30px;
+    margin: 80px 300px 50px 300px;
     border-radius: 5px;
 }
 
@@ -28,6 +28,7 @@
 
 .toggle-btn{
 	display:flex;
+	justify-content: space-around;
 }
 
 .toggle-button {
@@ -277,9 +278,8 @@ p {
 }
 
 .bookmark-btn {
-	width: 70px;
-    height: 60px;
-    margin: -10px 0px 3px -20px;
+	width: 90px;
+    margin: -10px 0px 3px -30px;
 }
 
 .box-review-list {

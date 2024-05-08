@@ -137,63 +137,66 @@ width: 70px;height: 50px;border: 1px solid green;color:green; line-height: 50px;
     <c:choose>
         <c:when test="${not empty boList}">
             <c:forEach items="${boList}" var="bo" varStatus="boIndex">
-                <div class="board_list">
-                	<div style="margin-bottom: 20px;">
-	                	<div class="board_title_img">
-	                		<img alt="이미지" src="<c:url value='/resources/img/board_img.png'/>" 
-	                			style="width: 100px;z-index: 2;position: absolute;background-color: white;bottom:65px">
-	                		
-	                	</div>
-	                    <div class="board_header">
-	                        <h2 style="color: #555;margin-left: 100px">${bo.bo_title}</h2>
-	                        <a href="<c:url value="/board/list?bo_num=${bo.bo_num}"/>" class="a_btn">이동하기</a>
-	                    </div>
-	                 </div>   
-                    <table>
-                        <thead>
-                            <tr style="border-bottom: 1px solid lightgray;text-align: center;">
-                                <th style="width: 5%">No</th>
-                                <th style="width: 40%">제목</th>
-                                <th style="width: 15%">작성자</th>
-                                <th style="width: 20%">날짜</th>
-                                <th style="width: 10%">추천수</th>
-                                <th style="width: 10%">조회수</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:choose>
-                                <c:when test="${not empty poList}">
-                                    <c:set var="postFound" value="false"/>
-                                    <c:set var="boPostCount" value="0"/>
-                                    <c:forEach items="${poList}" var="po" varStatus="poIndex">
-                                        <c:if test="${po.po_bo_num eq bo.bo_num}">
-                                            <c:set var="boPostCount" value="${boPostCount + 1}"/> 
-                                            <tr style="height: 50px;font-size: 17px;text-align: center;border-bottom: 1px solid lightgray">
-                                                <td>${boPostCount}</td>
-                                                <td style="max-width: 30px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                                	<a href="<c:url value='/board/detail?po_num=${po.po_num}'/>" class="title-link">${po.po_title}</a>
-                                                	<a href="<c:url value="/board/detail?po_num=${po.po_num}#comments-section"/>" class="comment-link"> [${po.po_co_count}]</a>
-                                                </td>                             
-                                                <td>${po.po_id}</td>
-                                                <td>${po.changeDate1}</td>
-                                                <td>${po.po_up}</td>
-                                                <td>${po.po_view}</td>
-                                            </tr>
-                                            <c:set var="postFound" value="true"/>
-                                        </c:if>
-                                    </c:forEach>
-                                    <c:if test="${not postFound}">
-                                        <tr>
-                                            <td colspan="6" style="text-align: center;height: 100px;">
-                                                <h3 style="color: lightgray">게시글이 존재하지 않습니다.</h3>
-                                            </td>
-                                        </tr>
-                                    </c:if>
-                                </c:when>
-                            </c:choose>
-                        </tbody>
-                    </table>
-                </div>
+
+            	<c:if test="${bo.bo_num > 1}">
+	                <div class="board_list">
+	                	<div style="margin-bottom: 20px;">
+		                	<div class="board_title_img">
+		                		<img alt="이미지" src="<c:url value='/resources/img/board_img.png'/>" 
+		                			style="width: 100px;z-index: 2;position: absolute;background-color: white;bottom:65px">
+		                		
+		                	</div>
+		                    <div class="board_header">
+		                        <h2 style="color: #555;margin-left: 100px">${bo.bo_title}</h2>
+		                        <a href="<c:url value="/board/list?bo_num=${bo.bo_num}"/>" class="a_btn">이동하기</a>
+		                    </div>
+		                 </div>   
+	                    <table>
+	                        <thead>
+	                            <tr style="border-bottom: 1px solid lightgray;text-align: center;">
+	                                <th style="width: 5%">No</th>
+	                                <th style="width: 40%">제목</th>
+	                                <th style="width: 15%">작성자</th>
+	                                <th style="width: 20%">날짜</th>
+	                                <th style="width: 10%">추천수</th>
+	                                <th style="width: 10%">조회수</th>
+	                            </tr>
+	                        </thead>
+	                        <tbody>
+	                            <c:choose>
+	                                <c:when test="${not empty poList}">
+	                                    <c:set var="postFound" value="false"/>
+	                                    <c:set var="boPostCount" value="0"/> <!-- 각 bo_num별 게시글 수 초기화 -->
+	                                    <c:forEach items="${poList}" var="po" varStatus="poIndex">
+	                                        <c:if test="${po.po_bo_num eq bo.bo_num}">
+	                                            <c:set var="boPostCount" value="${boPostCount + 1}"/> 
+	                                            <tr style="height: 50px;font-size: 17px;text-align: center;border-bottom: 1px solid lightgray">
+	                                                <td>${boPostCount}</td>
+	                                                <td style="max-width: 30px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+	                                                	<a href="<c:url value='/board/detail?po_num=${po.po_num}'/>" class="title-link">${po.po_title}</a>
+	                                                	<a href="<c:url value="/board/detail?po_num=${po.po_num}#comments-section"/>" class="comment-link"> [${po.po_co_count}]</a>
+	                                                </td>                             
+	                                                <td>${po.po_id}</td>
+	                                                <td>${po.changeDate1}</td>
+	                                                <td>${po.po_up}</td>
+	                                                <td>${po.po_view}</td>
+	                                            </tr>
+	                                            <c:set var="postFound" value="true"/>
+	                                        </c:if>
+	                                    </c:forEach>
+	                                    <c:if test="${not postFound}">
+	                                        <tr>
+	                                            <td colspan="6" style="text-align: center;height: 100px;">
+	                                                <h3 style="color: lightgray">게시글이 존재하지 않습니다.</h3>
+	                                            </td>
+	                                        </tr>
+	                                    </c:if>
+	                                </c:when>
+	                            </c:choose>
+	                        </tbody>
+	                    </table>
+	                </div>
+                </c:if>
             </c:forEach>
         </c:when>
         <c:otherwise>

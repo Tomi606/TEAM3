@@ -537,7 +537,7 @@ margin: 10px;
 								<a href="#">게시판1</a> 
 							</li>
 							<li>
-								<a href="#">공지사항</a>
+								<a href="<c:url value='/board/list?bo_num=1'/>">공지사항</a>
 							</li>
 							<li>
 								<a href="<c:url value="/member/bookmark"/>">북마크</a>
@@ -592,9 +592,11 @@ margin: 10px;
 	  		</div>
 			<div class="category-board" style="display: none ;" >
 		        <c:forEach items="${boList}" var="bo">
-		            <tr>
-		                <th><a href="<c:url value="/board/list?bo_num=${bo.bo_num}"/>" class="bo_btn">${bo.bo_title}</a></th>
-		            </tr>
+		        	<c:if test="${bo.bo_num > 1}">
+			            <tr>
+			                <th><a href="<c:url value="/board/list?bo_num=${bo.bo_num}"/>" class="bo_btn">${bo.bo_title}</a></th>
+			            </tr>
+		            </c:if>
 		        </c:forEach>
 	  		</div>
   		</div>
