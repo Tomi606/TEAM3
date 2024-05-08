@@ -166,6 +166,7 @@ $(document).ready(function() {
         var firstItem = container.find('.rolling-item:first');
         var itemWidth = firstItem.outerWidth(); 
 
+
         container.find('.롤링-내용').animate({
             marginLeft: -itemWidth
         }, 500, function() {
@@ -175,6 +176,7 @@ $(document).ready(function() {
         });
     }
 });
+
 	
 	checkLogin();
     function checkLogin() {
