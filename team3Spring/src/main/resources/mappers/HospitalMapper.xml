@@ -3,6 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team3.dao.HospitalDAO">
+
+	<select id="selectHospitalSubjectListHome" resultType="HospitalSubjectVO">
+		select * from hospital_subject order by hs_title limit 13
+	</select>
+
+
 	<resultMap type="SiteManagement" id="siteMap">
 		<id column="site_num" property="site_num"/>
 		<result column="site_la_num" property="site_la_num"/>
@@ -38,28 +44,7 @@
 		select * from hospital
 	
 	</select>
-	
-<!-- 	<resultMap type="BookmarkVO" id="bookmarkMap">
-		<id column="bmk_num" property="bmk_num"/>
-		<result column="bmk_me_id" property="bmk_me_id"/>
-		<result column="bmk_ho_id" property="bmk_ho_id"/>
-		<collection property="hospital"
-			ofType="HospitalVO" column="bmk_ho_id"
-			select="selectBmkHospital"/>
-		<collection property="hospital_detail" ofType="HospitalDetailVO" 
-		column="bmk_ho_id" select="selectHoDeBmk"/>
-		<collection property="hospital_subject" ofType="HospitalSubjectVO" 
-		column="ho_hs_num" select="selectHoSubBmk"/>
-	</resultMap>
-	
-	<select id="selectHoDeBmk" resultType="HospitalDetailVO">
-		select * from hospital_detail where hd_ho_id = #{bmk_ho_id}
-	</select>
 
-	<select id="selectHoSubBmk" resultType="HospitalSubjectVO">
-		select * from hospital_subject where hs_num = #{ho_hs_num}
-	</select> -->
-	
 	<resultMap type="HospitalVO" id="bookmarkMap">
       <id column="ho_id" property="ho_id"/>
       <result column="ho_hs_num" property="ho_hs_num"/>

@@ -87,7 +87,7 @@ width: 70px;height: 50px;border: 1px solid green;color:green; line-height: 50px;
             <c:forEach items="${boList}" var="bo" varStatus="boIndex">
                 <div class="board_list">
                     <div class="board_header">
-                        <h2>${bo.bo_title}</h2>
+                        <h2 style="color: #555;">${bo.bo_title}</h2>
                         <a href="<c:url value="/board/list?bo_num=${bo.bo_num}"/>" class="a_btn">이동하기</a>
                     </div>
                     <table>

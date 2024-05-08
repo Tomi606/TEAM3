@@ -824,6 +824,11 @@ margin: 10px;
      });
      $('.category-board').mouseleave(function() {
     	 $('.category-board').hide();
+    	 $('.header-box').removeClass('hovered');
+     });
+     $('.board_btn').mouseleave(function() {
+    	 $('.category-board').hide();
+    	 $('.header-box').removeClass('hovered');
      });
  
 </script>

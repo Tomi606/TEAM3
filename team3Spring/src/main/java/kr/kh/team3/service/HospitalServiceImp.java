@@ -354,7 +354,7 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	public ArrayList<HospitalSubjectVO> selectSubject() {
-		return hospitalDao.selectHospitalSubjectList();
+		return hospitalDao.selectHospitalSubjectListHome();
 	}
 	//병원 상세 페이지 - 선진, 민석 ==============================================
 	@Override

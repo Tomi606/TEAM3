@@ -208,4 +208,6 @@ public interface HospitalDAO {
 
 	ArrayList<SiteManagement> selectRpHoList();
 
+	ArrayList<HospitalSubjectVO> selectHospitalSubjectListHome();
+
 }
