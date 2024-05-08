@@ -210,6 +210,13 @@
 	<delete id="deleteMember">
 		delete from member where me_id = #{me_id}
 	</delete>
+		
+	<delete id="deleteMyInfo">
+		delete member,site_management 
+		from member join site_management 
+		on me_id = site_id 
+		where me_id = #{id}
+	</delete>
 
 	<select id="selectSiteMemberId" resultType="SiteManagement">
 		select * from

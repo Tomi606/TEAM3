@@ -550,6 +550,18 @@ public class MemberServiceImp implements MemberService {
 		}
 	}
 
+	@Override
+	public boolean deleteMyInfo(MemberVO member, SiteManagement user) {
+		if(member == null || user == null)
+			return false;
+		boolean dbMember =memberDao.deleteMyInfo(user.getSite_id());
+		log.info(dbMember+"asdasd123asdasd123asdasd123asdasd123asdasd123asdasd123");
+		if(!dbMember)
+			return false;
+		
+		return dbMember;
+	}
+
 	
 	 
 

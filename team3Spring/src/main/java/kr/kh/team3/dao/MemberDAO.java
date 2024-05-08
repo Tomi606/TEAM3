@@ -128,5 +128,8 @@ public interface MemberDAO {
 
 	SiteManagement selectSiteMember(@Param("rp_target") int rp_target);
 
+	boolean deleteMyInfo(@Param("id")String site_id);
+
+
 
 }

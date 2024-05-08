@@ -68,6 +68,8 @@ public interface BoardService {
 
 	boolean deletePost(int po_num, SiteManagement user);
 
+	boolean updateMyPost(PostVO post, SiteManagement user, MultipartFile[] file, int[] delNums);
+
 
 
 	
