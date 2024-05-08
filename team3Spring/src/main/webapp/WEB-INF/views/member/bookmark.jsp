@@ -135,8 +135,8 @@ color: green;
 						src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
 				</div>	
 				<div style="padding-top: 1px;">
-					<a href="<c:url value='/hospital/list?hs_num=0'/>" class="here-title">
-						병원
+					<a href="<c:url value="/member/bookmark"/>" class="here-title">
+						북마크
 					</a>
 				</div>
 			</div>

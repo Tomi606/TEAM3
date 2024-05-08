@@ -49,6 +49,16 @@ public class HomeController {
 		model.addAttribute("list", list);
 		return "home";
 	}
+	@ResponseBody
+	@PostMapping("/common/header")
+	public Map<String, Object> header(Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		ArrayList<BoardVO> boList = boardService.selectBoard();
+		ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
+		map.put("boList", boList);
+		map.put("list", list);
+		return map;
+	}
 
 	// 회원가입 메인페이지
 	@GetMapping("/main/signup")
