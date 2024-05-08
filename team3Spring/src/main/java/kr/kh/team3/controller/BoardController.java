@@ -75,7 +75,6 @@ public class BoardController {
 	public String boardUser(Model model, Criteria cri, String po_id) {
 		String site_authority = boardService.getUserAuthority(po_id);
 		HospitalDetailVO hd = hospitalService.getHospitalDetail(po_id);
-		log.info(hd + "hdhdhdhdhddhdhdhdhdhdhdhdhdh");
 		model.addAttribute("po_id", po_id);
 		model.addAttribute("hd", hd);
 		model.addAttribute("site_authority", site_authority);

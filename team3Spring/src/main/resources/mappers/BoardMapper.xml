@@ -361,7 +361,7 @@
 				po_content like concat('%', #{cri.search}, '%'))
 			</when>
 			<when test='cri.type == "writer"'>
-				and (site_id like concat('%', #{cri.search}, '%')
+				and (site_id like concat('%', #{cri.search}, '%'))
 			</when>
 		</choose>
 		order by po_num desc
@@ -394,7 +394,7 @@
 					po_content like concat('%', #{cri.search}, '%'))
 				</when>
 				<when test='cri.type == "writer"'>
-					and (site_id like concat('%', #{cri.search}, '%')
+					and (site_id like concat('%', #{cri.search}, '%'))
 				</when>
 			</choose>
 		) AS counted_posts
