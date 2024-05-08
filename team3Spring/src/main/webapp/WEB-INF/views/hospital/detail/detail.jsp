@@ -28,6 +28,7 @@
 
 .toggle-btn{
 	display:flex;
+	justify-content: space-around;
 }
 
 .toggle-button {
