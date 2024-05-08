@@ -151,9 +151,9 @@ img {
 .mypage-profile-info {
 	padding: 0 50px;
     width: 800px;
-    height: 80%;
+    height: 70%;
     border: 1px solid rgb(202, 238, 208);
-    margin: 90px 15px 30px 95px;
+    margin: 130px 15px 30px 95px;
     background-color: white;
     border-radius: 30px;
     box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
