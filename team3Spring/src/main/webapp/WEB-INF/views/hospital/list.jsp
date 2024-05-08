@@ -92,7 +92,7 @@ border-top:1px solid rgba(0, 128, 0, 0.4);margin-top: 80px;}
     overflow-y: auto;
 flex-wrap: wrap;} 
 .category{
-width: 100%; height: 400px;border: 1px solid #c8c8c8;margin-top: 100px;
+width: 100%; height: 400px;border: 1px solid #c8c8c8;
 }
 .title{
 padding:12px;margin-top:15px;width: 100%;border-bottom: 1px solid #c8c8c8;
@@ -151,20 +151,55 @@ color: green;
 	margin-top: 5px;
 }
 .top-img {
-	height: 16px;
-	width: 16px;
+	height: 20px;
+	width: 20px;
+	color: gray;
+}
+.here-title{
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+}
+.here-title:hover{
+	text-decoration: none;
+	color: gray;
+}
+.page-title{
+	text-align: left;
+	font-size: 50px;
+	color: rgba(0, 100, 60, 0.8);
+	font-weight: bold;
+	margin: 50px 0 70px 0;
 }
 </style>
 </head>
 <body>
 <div class="hospital-list-home">
 	<div class="hospital-list-box">
-	
+	<div style="text-align: left;display: flex;height: 50px;line-height: 50px; margin: 50px 0;">
+		<a href="<c:url value='/'/>">
+			<img class="top-img" alt="위치 이미지"
+			src="<c:url value='/resources/img/home-4-line.svg'/>">
+		</a>
+		<div style="margin: auto 16px;" >
+			<img class="top-img" alt="위치 이미지"
+				src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+		</div>	
+		<div style="padding-top: 1px;">
+			<a href="<c:url value='/hospital/list?hs_num=0'/>" class="here-title">
+				병원
+			</a>
+		</div>
+	</div>
+	<div class="page-title">
+		병원
+	</div>
 	<div class="area-select-container">
 		
 			<div class="category">
 				<div class="title">
-					<h3 >원하시는 과목을 선택하세요</h3>
+					<h3>원하시는 과목을 선택하세요</h3>
 				</div>
 				<div class="li-box" >
 				   <li role="button" class="hs_btn" data-hsnum="0">전체</li>
