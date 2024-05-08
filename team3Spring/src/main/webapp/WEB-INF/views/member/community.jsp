@@ -58,31 +58,14 @@
 .pagination {
 	margin-top: 50px;
 }
-.page-item.active .page-link {
-    z-index: 3;
-    color: #fff;
-    background-color: green;
-    border-color: green;
-}
-tbody td {
-	font-size: 20px;
-}
-.abc{margin-top: 60px;}
-tbody td a{color: black;}
-tbody td a:hover{color: black;}
+
 </style>
 </head>
 <body>
 <div class="community-container">
 	<div class="community-box">
-		<c:if test="${user != null && user.getSite_authority().equals('MANAGER')}">
-			<h1 style="color: #555">${ho.ho_id}</h1>
-			<span>병원 회원</span>
-		</c:if>
-		<c:if test="${user != null && user.getSite_authority().equals('USER')}">	
-			<h1 style="color: #555">${me.me_id }</h1>
-			<span >일반 회원</span>
-		</c:if>	
+		<h1>${ho.ho_id}</h1>
+		<span>병원 회원</span>
 		<hr style="width: 100%; height: 0px; border: 1px solid lightgray; margin: 50px 0 50px 0">
 		<div class="community-toggle-group">
 			<button id="btn1" class="community-toggle-btn click-btn">작성 게시글</button>
@@ -91,7 +74,7 @@ tbody td a:hover{color: black;}
 		</div>
 		<div class="community-page">
 			<div id="page1" class="community-page1 page active">
-				<div class="post-list abc" >
+				<div class="post-list">
 					<!-- 내 게시글 출력 -->
 				</div>
 				<div class="box-pagination-post">
@@ -102,7 +85,7 @@ tbody td a:hover{color: black;}
 			</div>
 			
 			<div id="page2" class="community-page2 page">
-				<div class="comment-list abc">
+				<div class="comment-list">
 					<!-- 내 댓글 출력 -->
 				</div>
 				<div class="box-pagination-comment">
@@ -113,7 +96,7 @@ tbody td a:hover{color: black;}
 			</div>
 			
 			<div id="page3" class="community-page3 page">
-				<div class="recommend-list abc">
+				<div class="recommend-list">
 					<!-- 좋아요 출력 -->
 				</div>
 				<div class="box-pagination-recommend">

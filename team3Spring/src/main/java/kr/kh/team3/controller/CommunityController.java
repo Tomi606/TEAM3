@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.kh.team3.model.vo.CommentVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.RecommendVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -24,6 +25,7 @@ import kr.kh.team3.pagination.Criteria;
 import kr.kh.team3.pagination.PageMaker;
 import kr.kh.team3.service.CommunityService;
 import kr.kh.team3.service.HospitalService;
+import kr.kh.team3.service.MemberService;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -37,12 +39,17 @@ public class CommunityController {
 	
 	@Autowired
 	private HospitalService hospitalService;
+	@Autowired
+	private MemberService memberService;
+	
+	
 	
 	@GetMapping("/hospital/community")
 	public String hospitalCommunity(Model model, HttpSession session) {
 		log.info("병원 커뮤니티 관리 화면");
 		SiteManagement user = (SiteManagement)session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospital(user);
+		MemberVO member = memberService.getMemberInfo(user);
 		//해당 병원 회원이 쓴 게시글(post)
 		ArrayList<PostVO> pList = communityService.getPostList(user);
 		//해당 병원 회원이 쓴 댓글(comment)
@@ -50,6 +57,7 @@ public class CommunityController {
 		//해당 병원 회원 좋아요(recommend)
 		ArrayList<RecommendVO> rList = communityService.getRecommendList(user);
 		
+		model.addAttribute("me", member);
 		model.addAttribute("ho", hospital);
 		model.addAttribute("pList", pList);
 		model.addAttribute("cList", cList);
