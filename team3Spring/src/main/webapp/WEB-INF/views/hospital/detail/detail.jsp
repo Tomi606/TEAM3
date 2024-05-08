@@ -12,7 +12,7 @@
  	box-shadow: 0px 2px 4px 6px rgba(0, 128, 0, 0.5);
     transition: box-shadow 0.3s ease;
     padding: 20px 30px 20px 30px;
-    margin: 20px 70px 20px 70px;
+    margin: 50px 300px 50px 300px;
     border-radius: 5px;
 }
 
@@ -78,7 +78,7 @@ p {
 #page3 textarea {
 	resize: none;
     overflow-y: hidden;
-    width: 88%;
+    width: 78%;
     border-radius: 10px;
     border: 1px solid green;
 }
@@ -99,7 +99,6 @@ p {
 	font-size: 25px;
     font-weight: lighter;
     padding: 10px 10px 10px 10px;
-    margin-left: 20px;
 }
 
 .review-id {
@@ -142,6 +141,7 @@ p {
 	size: 50px;
 	font-stretch: expanded;
 	color: green;
+	margin-top: 20px;
 }
 
 .top-span {
@@ -243,10 +243,10 @@ p {
     color: green;
     border-color: green;
     font-weight: bold;
-	font-size: 50px;
-	height: 80px;
-	width: 100%;
-	padding: 0px 10px;
+    font-size: 40px;
+    height: 60px;
+    width: 100%;
+    padding: 0px 10px;
 }
 
 .book-btn:hover {
@@ -256,8 +256,8 @@ p {
 	border: 0px solid white;
 	animation: colorChange 1s infinite alternate; /* 1초 동안 반복되며 왔다갔다하는 애니메이션 적용 */
 	font-weight: bold;
-	font-size: 50px;
-	height: 80px;
+	font-size: 40px;
+    height: 60px;
 	width: 100%;
 	padding: 0px 10px;
 }
@@ -289,8 +289,30 @@ p {
     align-content: space-between;
     justify-content: center;
     align-items: stretch;
-
 }
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: green;
+    border-color: green;
+}
+.page-link {
+	background-color: white;
+	border-color: green;
+}
+
+.review-textarea {
+	position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+    align-content: space-between;
+    justify-content: space-around;
+        justify-content: space-evenly;
+}
+
 </style>
 </head>
 <body>
@@ -399,7 +421,7 @@ p {
 					<ul class="pagination justify-content-center"></ul>
 				</div>
 				<div class="box-review-insert">
-					<div class="input-group mb-3">				
+					<div class="input-group mb-3 review-textarea">				
 				        <textarea id="review" class="vw_num textarea-review" id="vw_num" name="vw_num" style="height: 100px;"></textarea>
 				        <button class="btn btn-outline-success review-insert-btn review-btn" name="review-btn" data-hd-num="${detail.hd_num}">리뷰 등록</button>		
 					</div>
