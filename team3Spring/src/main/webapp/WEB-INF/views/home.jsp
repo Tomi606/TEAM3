@@ -45,6 +45,7 @@ text-decoration: underline;
 	background-size: cover;
     background-origin: content-box;
     background-attachment: fixed;
+    border-bottom: 4px solid lightgray; 
 }
 
 .search-box {
@@ -162,12 +163,19 @@ display:flex;justify-content:flex-end;
 }
 
 .홈 {
+	background:#fafafa;
 	width: 100%;
  	height:100%;
     height: auto;
 	display: flex;
 	text-align: center;
     flex-direction: column;
+}
+.home-body{
+	padding:100px;
+	margin:0 auto;
+	background-color:white;
+ 	width: 80%;
 }
 
 .홈왼쪽, .홈오른쪽 {
@@ -619,7 +627,7 @@ margin: 10px;
 		</div>
 	</div>
 	<div class="홈">
-		<div class="홈왼쪽"></div>
+		<div class="home-body">
 		<div class="여기부터내용">
 			<div class="롤링">
 			    <div class="롤링-내용">
@@ -654,7 +662,7 @@ margin: 10px;
 					<tbody>
 					<c:forEach items="${poList}" var="po">
 					 <c:set var="boPostCount" value="${boPostCount + 1}"/> 
-						<tr style="height: 50px;border-bottom: 1px solid lightgray;font-size: 18px;color: #555">
+						<tr style="height: 50px;border-bottom: 2px solid #ffebec;font-size: 18px;color: #555">
 							<td>${boPostCount}</td>
 							<td style=" white-space: nowrap;
 							    overflow: hidden;
@@ -675,7 +683,8 @@ margin: 10px;
 				<a href="<c:url value='/board/all'/>"  class="button-link" style="margin-top: 50px">더보기</a>
 			</div>
 			<div class="hospital-group">
-			<h3 style="font-weight: bold;">&lt;우리 지역 병원&gt;</h3>
+			<h3 style="font-weight: bold;">&lt;내 지역 병원&gt;</h3>
+			<p style="color: gray;">내 동네 병원들!</p>
 			<div class="hot-group" style="display: flex;width: 100%;height:400px;text-align: center;margin-bottom: 15px">
 				<div>
 					<a href="#"></a>
@@ -732,8 +741,9 @@ margin: 10px;
 				  </div>
 			</div>
 			</div>
-			<div class="홈오른쪽"></div>
-		</div>
+		</div>	
+		</div>	
+	</div>
 			 <div class="공지사항">
 				 <img alt="미니공지" style="width: 48px;margin-left: 100px"
 				 src="<c:url value='/resources/img/미니공지.png'/>">
@@ -743,6 +753,7 @@ margin: 10px;
 				 style="line-height: 3.5;margin-right: 50px;color: gray;border: 1px solid #fafafa;"
 				 >더보기</a>
 			</div>
+			
 		  <div class="footer">
 		  	<div class="footer-info-area">
 			  	<div class="footer-img">
@@ -809,7 +820,7 @@ margin: 10px;
 	        	  <p>&copy; 2024 정경호. All rights reserved.</p>
        	  	</div>
 	</div>
-</div>	
+
 
 </body>
 <button id="scrollToTopButton" onclick="scrollToTop()">위로가기</button>
