@@ -164,7 +164,7 @@ width: 70px;height: 50px;border: 1px solid green;color:green; line-height: 50px;
                             <c:choose>
                                 <c:when test="${not empty poList}">
                                     <c:set var="postFound" value="false"/>
-                                    <c:set var="boPostCount" value="0"/> <!-- 각 bo_num별 게시글 수 초기화 -->
+                                    <c:set var="boPostCount" value="0"/>
                                     <c:forEach items="${poList}" var="po" varStatus="poIndex">
                                         <c:if test="${po.po_bo_num eq bo.bo_num}">
                                             <c:set var="boPostCount" value="${boPostCount + 1}"/> 
