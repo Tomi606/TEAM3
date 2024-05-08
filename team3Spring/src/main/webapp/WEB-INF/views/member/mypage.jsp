@@ -488,7 +488,7 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 				</div>
 			</div>
 			<div>
-				<a href='<c:url value="/user/delete"/>'>회원탈퇴</a>
+				<li role="button" class="member_delete_btn">회원탈퇴</li>
 			</div>
 		</div>
 	<div class="profile-container">
@@ -1027,6 +1027,16 @@ $(document).ready(function() {
 	    }
 	  });
 	}
+	
+    $(document).on("click",".member_delete_btn",function () {
+        let answer = confirm("회원 탈퇴를 진행 하시겠습니까?");
+        if (!answer) {
+        	return;
+        } else {
+        	location.href='<c:url value="/user/delete"/>';
+        }
+    });
 </script>
+
 </body>
 </html>
