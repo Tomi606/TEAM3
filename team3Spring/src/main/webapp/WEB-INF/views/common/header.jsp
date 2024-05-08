@@ -235,7 +235,7 @@ height:50px;width:100%;background-color: #fafafa;
      $('.category-board').mouseleave(function() {
     	 $('.category-board').hide();
      });
- 
+     
 </script>
 </body>
 </html>

@@ -711,9 +711,13 @@ function checkLogin() {
 	    return true;
 	  }
 	  //안 했을 때
-	  if (confirm("로그인이 필요한 기능입니다. \n로그인 페이지로 이동하겠습니까?")) {
-	    location.href = '<c:url value="/login"/>';
-	  }
+	  let answer = confirm("로그인이 필요한 기능입니다. \n로그인 페이지로 이동하겠습니까?");
+	  if (answer) {
+	    location.href = '<c:url value="/main/login"/>';
+	  }else {
+		  alert("로그인후 이용 해주세요.")
+		  location.href = '<c:url value="/"/>';
+	}
 	  return false;
 	}
 </script>

@@ -718,6 +718,23 @@ $(".li-box [data-hsnum='${hs_num}']").click();
 $(".sido-list [data-num=${la.la_sd_num}]").click();
 $(".sgg-list [data-num=${la.la_sgg_num}]").click();
 $(".emd-list [data-num=${la.la_emd_num}]").click();
+
+checkLogin();
+function checkLogin() {
+	  //로그인 했을 때
+	  if ('${user.site_id}' != '') {
+	    return true;
+	  }
+	  //안 했을 때
+	  let answer = confirm("로그인이 필요한 기능입니다. \n로그인 페이지로 이동하겠습니까?");
+	  if (answer) {
+	    location.href = '<c:url value="/main/login"/>';
+	  }else {
+		  alert("로그인후 이용 해주세요.")
+		  location.href = '<c:url value="/"/>';
+	}
+	  return false;
+	}
 </script>
 
 </body>
