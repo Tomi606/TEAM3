@@ -47,16 +47,6 @@ textarea {
     margin-left: -80px;
 }
 
-.hospital-btn {
-	display: block;
-    margin: 0 auto;
-    height: 70px;
-    width: 50%;
-    margin-top: 20px;
-    font-size: 40px;
-    font-weight: bold;
-}
-
 .info-textarea {
 	width: 100%;
     height: 150px;
@@ -115,15 +105,38 @@ input[type="checkbox"]:checked::before {
     align-items: center;
 }
 
+.hospital-btn {
+	display: block;
+    margin: 0 auto;
+    height: 70px;
+    width: 50%;
+    margin-top: 20px;
+    font-size: 40px;
+    font-weight: bold;
+    
+}
+
 .btn-outline-success {
     color: green;
     border-color: green;
+    /* 45도 각도로 그라데이션 */
+	/* background: linear-gradient(45deg, white, green); */
 }
 
 .btn-outline-success:hover {
     color: white;
     border-color: green;
     background-color: green;
+    /* 45도 각도로 그라데이션 */
+	background: linear-gradient(45deg, white, green);
+	border: 0px solid white;
+	animation: colorChange 1.5s infinite alternate; /* 1초 동안 반복되며 왔다갔다하는 애니메이션 적용 */
+}
+
+@keyframes colorChange {
+    0% { background-color: white; color: green; } /* 초기 색상 */
+    50% { background-color: green; color: white; } /* 중간 색상 */
+    100% { background-color: white; color: green; } /* 끝 색상 */
 }
 </style>
 </head>
