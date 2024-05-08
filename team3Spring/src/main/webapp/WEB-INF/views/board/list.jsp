@@ -17,7 +17,7 @@
 	width: 1400px;
 	height: 93.4%;
 	margin: 100px auto;
-	padding: 100px;
+	padding:0 100px 100px 100px;
 	text-align: center;
 	border-radius: 15px;
 }
@@ -122,12 +122,28 @@ color:  rgba(0, 128, 0, 0.5);
         outline: none;
     }
    h1{color: #555;}
+   .board_location,.board_location>a{
+ 		color: #555;
+ 	}
+   .board_title_container{width: 100%;}
+   .board_location{
+   	height: 80px;padding-top: 20px;width: 100px;
+   }
+   .prev_btnBtn{color: black;}
 </style>
 </head>
 <body>
 	<div class="post_list_container">
 		<div class="post_list_box">
-			<h1>${bo_title}</h1>
+			<div class="board_title_container">
+				<div class="board_location">
+						<a class="prev_btnBtn" 
+					href="<c:url value="/board/all"/>">게시판</a> ><a> 게시글</a>
+				</div>
+				<div>
+				<h1>${bo_title}</h1>
+				</div>
+			</div>	
 			<div class="hr"></div>
 			<form action="<c:url value='/board/list'/>" method="get">
 				<div class="search-box-group">

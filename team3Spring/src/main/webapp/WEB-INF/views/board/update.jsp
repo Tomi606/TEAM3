@@ -88,7 +88,7 @@ textarea{outline-style: none;}
 .post_list_container{width: 100%;height: 100%;}
 .post_list_box{
 	border:2px solid green;width: 1400px;height: 100%;margin:100px auto;
-	padding:100px;	border-radius: 15px;
+	padding:0 100px 100px 100px;	border-radius: 15px;
 }
 .hr{width: 100%;height: 0;border: 1px solid lightgray;margin: 50px 0 50px 0;}
 .post_insert_btn{
@@ -104,7 +104,7 @@ textarea{outline-style: none;}
 .content_container{
 width: 100%;height: 100%;padding: 5px;}
 .content-input{width: 100%;display: flex;}
-.content-title{width: 95%;padding: 3px;outline-style: none;border: 1px solid lightgray;}
+.content-title{width: 95%;padding: 10px;outline-style: none;border: 1px solid lightgray;}
 .content-text{width: 100%;display: flex;}
 .content-content{width: 95%;padding: 3px;outline-style: none; resize: none;border:1px solid lightgray;
 min-height: 600px;max-height: 600px;}
@@ -237,28 +237,45 @@ color: green;
 .fileList_box{width: 100%;height: 50px;}
 #fileList{display: flex;list-style: none;}
 #fileList li{margin: 10px;border: 1px solid lightgray;background-color: lightgray;padding: 5px;border-radius: 7px;}
+
+ .board_title_container{width: 100%;}
+ 	.board_location,.board_location>a{
+ 		color: #555;
+ 	}
+   .board_location{
+   	height: 80px;padding-top: 20px;width: 400px;
+   }
+   .prev_btnBtn{color: black;}
 </style>
 </head>
 <body>
 <form action="<c:url value='/board/update?po_num=${post.po_num} '/>" method="post"  enctype="multipart/form-data">
 	<div class="post_list_container">
 		<div class="post_list_box">
+			<div class="board_location">
+					<a class="prev_btnBtn" 
+					href="<c:url value="/board/all"/>">게시판</a> >
+					<a class="prev_btnBtn" 
+					href="<c:url value="/board/list?bo_num=${post.po_bo_num}"/>"> 게시글</a> >
+					<a class="prev_btnBtn" 
+					href="<c:url value="/board/detail?po_num=${post.po_num}"/>"> 상세페이지</a> ><a> 게시글 수정</a>
+				</div>
 			<div style="text-align: center;">
-				<h1>${post.po_bo_title}</h1>
+				<h1 style="color: #555">${post.po_bo_title}</h1>
 			</div>
 			<div class="post_insert_btn_box">
-		    	<a href="<c:url value="/board/list?bo_num=${post.po_bo_num}"/>" class="post_insert_btn">목록으로</a>
+		    	<a href="<c:url value="/board/detail?po_num=${post.po_num}"/>" class="post_insert_btn">뒤로가기</a>
 			</div>
 			<div class="hr"></div>
 			<div class="content_container">
 				<input type="hidden" name="po_bo_num" value="${post.po_bo_num}"  >
 				<div class="content-input">
 					<label style="width: 5%;">제목</label>
-					<input type="text" class="content-title" name="po_title" value="${post.po_title}" > 
+					<input type="text" class="content-title" name="po_title" value="${post.po_title}" required="required"placeholder="제목을 입력하세요"> 
 				</div>   	
 				<div class="content-text" style="margin-top: 40px">
 					<label style="width: 5%;">내용</label>
-					<textarea class="content-content" name="po_content"   
+					<textarea class="content-content" name="po_content"  required="required"  
 					style="max-height: 400px;">${post.po_content}</textarea>
 				</div>
 			
@@ -288,10 +305,10 @@ color: green;
 <!-- 썸머노트 -->
 <script type="text/javascript">
    $('[name=po_content]').summernote({
-      placeholder: '내용',
+      placeholder: '내용을 입력하세요',
       tabsize: 2,
-      maxHeight: 400,
-      minHeight: 400,
+      maxHeight: 600,
+      minHeight: 600,
       width:1200
    });
 </script>

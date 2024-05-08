@@ -149,13 +149,100 @@
 .detail-btn:hover {
 	cursor: pointer;
 }
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: green;
+    border-color: green;
+}
+
+.search-box-box{
+ width: 50%;display:flex;
+	height: 50px;
+	margin: 80px auto 100px auto;
+	text-align: center;
+ }
+ 
+	 .search-type {
+ 		outline-style:none;
+      	border-color: rgba(0, 128, 0, 0.5);
+       padding: 5px;
+       width: 150px;
+       font-size: 16px; 
+       color: #333; 
+   }
+
+   .search-type option {
+       background-color: #fff;
+   }
+  .cmt-search-type {
+  		outline-style:none;
+       	border-color: rgba(0, 128, 0, 0.5);
+        padding: 5px;
+        width: 150px;
+        font-size: 16px; 
+        color: #333; 
+    }
+
+    .cmt-search-type option {
+        background-color: #fff;
+    }
+    .search-btn {
+    	background-color:white;
+    	border:1px solid rgba(0, 128, 0, 0.5);
+        width: 100px; 
+        height: 50px;
+        position: static;
+    }
+    .cmt-search-btn {
+    	background-color:white;
+    	border:1px solid rgba(0, 128, 0, 0.5);
+        width: 100px; 
+        height: 50px;
+        cursor: pointer;
+    }
+      .search-btn:hover{
+      background-color: rgba(0, 128, 0, 0.5);
+      
+      }
+
+    .search-btn:focus {
+        outline: none;
+    }
+    }
+      .cmt-search-btn:hover{
+      background-color: rgba(0, 128, 0, 0.5);
+      
+      }
+
+    .cmt-search-btn:focus {
+        outline: none;
+    }
+    .검색 {
+	 border
+	 : 1px solid rgba(0, 128, 0, 0.5);
+        outline-style: none;
+        width: 500px;
+        padding: 10px 50px 10px 10px;
+        height: 100%;
+}
+    .댓글검색 {
+	 border
+	 : 1px solid rgba(0, 128, 0, 0.5);
+        outline-style: none;
+        width: 500px;
+        padding: 10px 50px 10px 10px;
+        height: 100%;
+}
+.pagination{margin-top:50px; }
+.post-search-box{text-align: center;width: 100%}
 </style>
 </head>
 <body>
 	<div class="post_list_container">
 	<!-- 병원이면 누르면 병원 상세 뜨는 버튼 만들어도 좋을 것 같다. -->
 		<div class="post_list_box">
-			<h1>${po_id}</h1>
+			<h1 style="color: #555;">${po_id}</h1>
 			<c:if test="${site_authority eq 'MANAGER'}">
 				<span>병원 회원</span>
 				<c:if test="${po_id ne user.site_id}">
@@ -401,21 +488,25 @@ function displayPostSearchBox(){
 	let str = '';
 	if(type_po == 'title'){		
 		str = `
-			<select name="type" class="search-type">
-				<option value="title" selected>제목만</option>
-				<option value="titleContent">제목 + 내용</option>
-			</select>
-			<input type="search" class="검색 search-search" name="search" placeholder="검색어를 입력하세요" value="\${search_po}">
-			<button class="search-btn" type="button">검색</button>
+			<div class="search-box-box">
+				<select name="type" class="search-type">
+					<option value="title" selected>제목만</option>
+					<option value="titleContent">제목 + 내용</option>
+				</select>
+				<input type="search" class="검색 search-search" name="search" placeholder="검색어를 입력하세요" value="\${search_po}">
+				<button class="search-btn" type="button">검색</button>
+			</div>	
 		`;
 	}else{
 		str = `
-			<select name="type" class="search-type">
-				<option value="title">제목만</option>
-				<option value="titleContent" selected>제목 + 내용</option>
-			</select>
-			<input type="search" class="검색 search-search" name="search" placeholder="검색어를 입력하세요" value="\${search_po}">
-			<button class="search-btn" type="button">검색</button>
+			<div class="search-box-box">
+				<select name="type" class="search-type">
+					<option value="title">제목만</option>
+					<option value="titleContent" selected>제목 + 내용</option>
+				</select>
+				<input type="search" class="검색 search-search" name="search" placeholder="검색어를 입력하세요" value="\${search_po}">
+				<button class="search-btn" type="button">검색</button>
+			</div>	
 		`;
 	}
 	$('.post-search-box').html(str);
@@ -541,34 +632,40 @@ function displayCmtSearchBox(){
 	let str = '';
 	if(type_cmt == 'title'){		
 		str = `
+		<div class="search-box-box">
 			<select name="type" class="cmt-search-type">
 				<option value="title" selected>제목만</option>
 				<option value="titleContent">제목 + 내용</option>
 				<option value="writer">글작성자</option>
 			</select>
-			<input type="search" class="검색 cmt-search-search" name="search" placeholder="검색어를 입력하세요" value="\${search_cmt}">
+			<input type="search" class="cmt-search-search 댓글검색" name="search" placeholder="검색어를 입력하세요" value="\${search_cmt}">
 			<button class="cmt-search-btn" type="button">검색</button>
+		</div>	
 		`;
 	}else if(type_cmt == 'titleContent'){
 		str = `
-			<select name="type" class="cmt-search-type">
-				<option value="title">제목만</option>
-				<option value="titleContent" selected>제목 + 내용</option>
-				<option value="writer">글작성자</option>
-			</select>
-			<input type="search" class="검색 cmt-search-search" name="search" placeholder="검색어를 입력하세요" value="\${search_cmt}">
-			<button class="cmt-search-btn" type="button">검색</button>
+			<div class="search-box-box">
+				<select name="type" class="cmt-search-type">
+					<option value="title">제목만</option>
+					<option value="titleContent" selected>제목 + 내용</option>
+					<option value="writer">글작성자</option>
+				</select>
+				<input type="search" class="검색 cmt-search-search" name="search" placeholder="검색어를 입력하세요" value="\${search_cmt}">
+				<button class="cmt-search-btn" type="button">검색</button>
+			</div>		
 		`;
 	}
 	else{
 		str = `
-			<select name="type" class="cmt-search-type">
-				<option value="title">제목만</option>
-				<option value="titleContent">제목 + 내용</option>
-				<option value="writer" selected>글작성자</option>
-			</select>
-			<input type="search" class="검색 cmt-search-search" name="search" placeholder="검색어를 입력하세요" value="\${search_cmt}">
-			<button class="cmt-search-btn" type="button">검색</button>
+			<div class="search-box-box">
+				<select name="type" class="cmt-search-type">
+					<option value="title">제목만</option>
+					<option value="titleContent">제목 + 내용</option>
+					<option value="writer" selected>글작성자</option>
+				</select>
+				<input type="search" class="검색 cmt-search-search" name="search" placeholder="검색어를 입력하세요" value="\${search_cmt}">
+				<button class="cmt-search-btn" type="button">검색</button>
+			</div>	
 		`;
 	}
 	$('.post-search-box').html(str);
