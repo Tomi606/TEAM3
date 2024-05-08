@@ -511,16 +511,20 @@ $(document).ready(function() {
 });
 
 function checkLogin() {
-  //로그인 했을 때
-  if("${ho.ho_id}" != null) {
-    return true;
-  }
-  //안 했을 때
-  if(confirm("로그인이 필요한 기능입니다. \n로그인 페이지로 이동하겠습니까?")) {
-    location.href = '<c:url value="/login"/>';
-  }
-  return false;
-}
+	  //로그인 했을 때
+	  if ('${user.site_id}' != '') {
+	    return true;
+	  }
+	  //안 했을 때
+	  let answer = confirm("로그인이 필요한 기능입니다. \n로그인 페이지로 이동하겠습니까?");
+	  if (answer) {
+	    location.href = '<c:url value="/main/login"/>';
+	  }else {
+		  alert("로그인후 이용 해주세요.")
+		  location.href = '<c:url value="/"/>';
+	}
+	  return false;
+	}
 </script>
 </body>
 </html>

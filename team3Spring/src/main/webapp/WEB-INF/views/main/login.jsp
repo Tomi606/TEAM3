@@ -262,7 +262,7 @@ background-color: white;
 				</form>
 				<div class="find-signup-box">
 					<a class="" href="">아이디/비밀번호 찾기</a> <span>|</span> <a class=""
-						href="">회원가입</a>
+						href="<c:url value="/main/signup"/>">회원가입</a>
 				</div>
 			</div>
 		</div>
