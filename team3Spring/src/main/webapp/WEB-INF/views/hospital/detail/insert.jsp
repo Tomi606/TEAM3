@@ -11,8 +11,9 @@
 	box-shadow: 0px 2px 4px 6px rgba(0, 128, 0, 0.5);
     transition: box-shadow 0.3s ease;
     padding: 20px 30px 20px 30px;
-    margin: 20px 30px 20px 30px;
+    margin: 40px 30px 40px 70px;
     border-radius: 5px;
+    width: 90%;
 }
 
 textarea {
@@ -111,6 +112,7 @@ input[type="checkbox"]:checked::before {
     height: 70px;
     width: 50%;
     margin-top: 20px;
+    margin-bottom: 20px;
     font-size: 40px;
     font-weight: bold;
     

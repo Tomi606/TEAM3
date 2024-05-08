@@ -35,16 +35,21 @@
     padding: 20px;
 }
 .detail-page{
- 	width: 100%;
+ 	/* width: 100%;
  	height: 100%;
- 	display: flex;
+ 	display: flex; */
+ 	box-shadow: 0px 2px 4px 6px rgba(0, 128, 0, 0.5);
+    transition: box-shadow 0.3s ease;
+    padding: 20px 30px 20px 30px;
+    margin: 20px 30px 20px 30px;
+    border-radius: 5px;
 }
-.detail-page-sub{
+/* .detail-page-sub{
  	width: 1500px;
  	height: 100%;
  	margin: 100px auto;
  	text-align: center;
-}
+} */
 
 .body-container{
 	width: 100%;
@@ -227,7 +232,7 @@ outline-style: none;
 </head>
 <body>
 <div class="detail-page">
-	<div class="detail-page-sub">
+	<div class="detail-page-sub1">
 		<div class="ho_name">
 			<h1 class="ho_name" id="ho_name" style="size: 60px;">${detail.hospital.ho_name}
 				<c:choose>
@@ -258,7 +263,12 @@ outline-style: none;
 		<div style="margin: 50px;">
 			<a href='<c:url value="/schedule?ho_id=${detail.hospital.ho_id}"/>' class="btn btn-outline-success 예약">예약하기</a>
 		</div>
-		<hr style="border: 1px solid gray; margin: 30px auto;">
+	</div>
+		
+	<div class="detail-page-sub2">
+	
+	</div>
+		<hr style="border: 1px solid gray; width: 100%;">
 		<div class="body-container">
 		<div class="toggle-page">
 			<div class="toggle-btn">
@@ -336,7 +346,7 @@ outline-style: none;
 			</div>
 			</div>
 		</div>
-	</div>
+
 </div>
 
 <!-- 북마크 추가 버튼 -->
@@ -738,7 +748,7 @@ function initReview() {
 </script>
 
 <!-- textarea 자동 스크롤 -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 window.addEventListener('DOMContentLoaded', function() {
 	let textarea = document.getElementById("myTextarea");
 	adjustTextareaHeight(textarea);
@@ -748,7 +758,7 @@ function adjustTextareaHeight(textarea) {
 	textarea.style.height = "auto";
 	textarea.style.height = textarea.scrollHeight + "px";
 }
-</script>
+</script> -->
 
 
 <!-- 여러개 선택한 진료과목을 체크박스에 띄우는 스크립트 -->
