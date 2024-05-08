@@ -78,7 +78,7 @@ p {
 #page3 textarea {
 	resize: none;
     overflow-y: hidden;
-    width: 88%;
+    width: 78%;
     border-radius: 10px;
     border: 1px solid green;
 }
@@ -99,7 +99,6 @@ p {
 	font-size: 25px;
     font-weight: lighter;
     padding: 10px 10px 10px 10px;
-    margin-left: 20px;
 }
 
 .review-id {
@@ -302,6 +301,18 @@ p {
 	background-color: white;
 	border-color: green;
 }
+
+.review-textarea {
+	position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    width: 100%;
+    align-content: space-between;
+    justify-content: space-around;
+        justify-content: space-evenly;
+}
+
 </style>
 </head>
 <body>
@@ -410,7 +421,7 @@ p {
 					<ul class="pagination justify-content-center"></ul>
 				</div>
 				<div class="box-review-insert">
-					<div class="input-group mb-3">				
+					<div class="input-group mb-3 review-textarea">				
 				        <textarea id="review" class="vw_num textarea-review" id="vw_num" name="vw_num" style="height: 100px;"></textarea>
 				        <button class="btn btn-outline-success review-insert-btn review-btn" name="review-btn" data-hd-num="${detail.hd_num}">리뷰 등록</button>		
 					</div>
