@@ -20,6 +20,7 @@ import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
+import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -44,7 +45,9 @@ public class HomeController {
 	@GetMapping("/")
 	public String home(Model model) {
 		ArrayList<BoardVO> boList = boardService.selectBoard();
+		ArrayList<PostVO> poList = boardService.selectHotPostList();
 		ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
+		model.addAttribute("poList", poList);
 		model.addAttribute("boList", boList);
 		model.addAttribute("list", list);
 		return "home";

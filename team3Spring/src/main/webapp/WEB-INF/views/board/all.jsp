@@ -137,6 +137,7 @@ width: 70px;height: 50px;border: 1px solid green;color:green; line-height: 50px;
     <c:choose>
         <c:when test="${not empty boList}">
             <c:forEach items="${boList}" var="bo" varStatus="boIndex">
+
             	<c:if test="${bo.bo_num > 1}">
 	                <div class="board_list">
 	                	<div style="margin-bottom: 20px;">

@@ -45,6 +45,7 @@ text-decoration: underline;
 	background-size: cover;
     background-origin: content-box;
     background-attachment: fixed;
+    border-bottom: 4px solid lightgray; 
 }
 
 .search-box {
@@ -162,12 +163,19 @@ display:flex;justify-content:flex-end;
 }
 
 .홈 {
+	background:#fafafa;
 	width: 100%;
  	height:100%;
     height: auto;
 	display: flex;
 	text-align: center;
     flex-direction: column;
+}
+.home-body{
+	padding:100px;
+	margin:0 auto;
+	background-color:white;
+ 	width: 80%;
 }
 
 .홈왼쪽, .홈오른쪽 {
@@ -222,12 +230,17 @@ display:flex;justify-content:flex-end;
 }
 
 /*hot group*/
-.hot-group {
-	border: 1px solid white;
+.hot-group { 
+	box-shadow: 0 4px 16px rgba(0, 128, 0, 0.2);
 	display: flex;
 	margin: 0 auto;
 	width: 100%;
-	height: 350px;
+	height: 100%;
+	padding:20px 30px 40px 30px;
+}
+.hot-group:hover{
+	box-shadow: 0 6px 16px rgba(0, 128, 0, 0.4);
+	   transition: box-shadow 0.3s ease;
 }
 
 /*검색창 시작*/
@@ -245,18 +258,6 @@ display:flex;justify-content:flex-end;
 	margin-left: auto; 
 }
 
-.hot-group a {
-	display: inline-block;
-	width: 300px;
-	height: 200px;
-	background-color: white;
-	border: 2px solid black;
-	text-align: center;
-	line-height: 50px;
-	margin: 15px;
-	text-decoration: none;
-	color: black;
-}
 .hot-group a:hover{
 color:#a0a0a0;
 text-decoration: underline;
@@ -383,7 +384,7 @@ padding: 10px;
 }
 
 .button-link:hover {
-text-decoration:underline;
+text-decoration:none;
  color: #a0a0a0;
 }
 .공지사항{
@@ -509,7 +510,9 @@ height:50px;width:100%;background-color: #FCF9F7;
 margin: 10px;
 }
 .rolling-item{width: 100%;height: 100%;}
-
+.hot-group td{
+	white-space: nowrap;
+}
 </style>
 </head>
 <body>
@@ -626,7 +629,7 @@ margin: 10px;
 		</div>
 	</div>
 	<div class="홈">
-		<div class="홈왼쪽"></div>
+		<div class="home-body">
 		<div class="여기부터내용">
 			<div class="롤링">
 			    <div class="롤링-내용">
@@ -646,35 +649,44 @@ margin: 10px;
 				<h3>&lt;Hot & New&gt;</h3>
 				<p style="color: gray;">새롭고 재밌는 소식들을 여기서!</p>
 			</div>
-			<div class="hot-group" style="display: flex;margin:0 auto;width: 100%;text-align: center;margin-bottom: 15px">
-				<table>
-					<thead>
-						<tr>	
-							<th>여</th>
-							<th>기</th>
-							<th>게</th>
-							<th>시</th>
-							<th>글</th>
+			<div class="hot-group" style="display: flex;margin:0 auto;width: 100%;margin-bottom: 25px;">
+				<table style="width: 100%;text-align: center;height: 50px;">
+					<thead style="width: 100%;margin-bottom: 20px;">
+						<tr style="height: 60px;">	
+							 <th style="width: 5%">No</th>
+                             <th style="width: 40%">제목</th>
+                             <th style="width: 15%">작성자</th>
+                             <th style="width: 20%">날짜</th>
+                             <th style="width: 10%">좋아요</th>
+                             <th style="width: 10%">조회수</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+					<c:forEach items="${poList}" var="po">
+					 <c:set var="boPostCount" value="${boPostCount + 1}"/> 
+						<tr style="height: 50px;border-bottom: 2px solid #ffebec;font-size: 18px;color: #555">
+							<td>${boPostCount}</td>
+							<td style=" white-space: nowrap;
+							    overflow: hidden;
+							    text-overflow: ellipsis;
+							    max-width: 100px;
+								"><a href="<c:url value='/board/detail?po_num=${po.po_num}'/>">${po.po_title}</a></td>
+							<td><a href="<c:url value='/board/userpost?po_id=${po.po_id}'/>">${po.po_id}</a></td>
+							<td>${po.changeDate1}</td>
+							<td>${po.po_up}</td>
+							<td>${po.po_view}</td>
 						</tr>
+					</c:forEach>	
 					</tbody>
 				</table>
 			</div>
 			<div style="text-align: center;width: 100%;margin: 0 auto;display: block;" >
 			<div class="hr" style="margin-bottom:40px;border: 1px solid #d2d2d2;width: 100%;"></div>
-				<a href="#" class="button-link" style="margin-top: 50px">더보기</a>
-				<p>누르면 커뮤니티로 이동하기</p>
+				<a href="<c:url value='/board/all'/>"  class="button-link" style="margin-top: 50px">더보기</a>
 			</div>
 			<div class="hospital-group">
-			<h3 style="font-weight: bold;">&lt;우리 지역 병원&gt;</h3>
+			<h3 style="font-weight: bold;">&lt;내 지역 병원&gt;</h3>
+			<p style="color: gray;">내 동네 병원들!</p>
 			<div class="hot-group" style="display: flex;width: 100%;height:400px;text-align: center;margin-bottom: 15px">
 				<div>
 					<a href="#"></a>
@@ -731,8 +743,9 @@ margin: 10px;
 				  </div>
 			</div>
 			</div>
-			<div class="홈오른쪽"></div>
-		</div>
+		</div>	
+		</div>	
+	</div>
 			 <div class="공지사항">
 				 <img alt="미니공지" style="width: 48px;margin-left: 100px"
 				 src="<c:url value='/resources/img/미니공지.png'/>">
@@ -742,6 +755,7 @@ margin: 10px;
 				 style="line-height: 3.5;margin-right: 50px;color: gray;border: 1px solid #fafafa;"
 				 >더보기</a>
 			</div>
+			
 		  <div class="footer">
 		  	<div class="footer-info-area">
 			  	<div class="footer-img">
@@ -808,7 +822,7 @@ margin: 10px;
 	        	  <p>&copy; 2024 정경호. All rights reserved.</p>
        	  	</div>
 	</div>
-</div>	
+
 
 </body>
 <button id="scrollToTopButton" onclick="scrollToTop()">위로가기</button>
@@ -864,17 +878,13 @@ $(document).ready(function() {
 
 <script type="text/javascript">
 $(document).ready(function() {
-    // 스크롤 이벤트 핸들러를 등록합니다.
     $(window).scroll(function() {
-        // 스크롤 위치가 20px 이상인 경우에만 버튼을 표시합니다.
         if ($(this).scrollTop() > 20) {
             $("#scrollToTopButton").fadeIn();
         } else {
             $("#scrollToTopButton").fadeOut();
         }
     });
-
-    // 위로가기 버튼을 클릭하면 천천히 페이지의 맨 위로 스크롤됩니다.
     $("#scrollToTopButton").click(function() {
         $("html, body").animate({ scrollTop: 0 }, "slow");
         return false;
@@ -905,6 +915,18 @@ $(document).ready(function() {
         setInterval(typeText, 400); 
     });
 </script>
+<!-- 1 ,2 3 이면 tr태그 배경 바꾸기 -->
+<script>
+$(document).ready(function() {
+    let boPostCount = ${boPostCount};
 
+    $("tr").each(function() {
+        let countCell = $(this).find("td:first-child"); 
+        if (countCell.text() == "1" || countCell.text() == "2" || countCell.text() == "3") {
+            $(this).css("background-color", "#fff8f6"); 
+        }
+    });
+});
+</script>
 
 </html>

@@ -378,4 +378,10 @@ public class BoardServiceImp implements BoardService {
 		return true;
 	}
 
+	@Override
+	public ArrayList<PostVO> selectHotPostList() {
+		// TODO Auto-generated method stub
+		return boardDao.selectHotPostList();
+	}
+
 }

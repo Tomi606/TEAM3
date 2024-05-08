@@ -93,4 +93,6 @@ public interface BoardDAO {
 
 	ArrayList<PostVO> selectMyPostEq(@Param("po")int po_num);
 
+	ArrayList<PostVO> selectHotPostList();
+
 }

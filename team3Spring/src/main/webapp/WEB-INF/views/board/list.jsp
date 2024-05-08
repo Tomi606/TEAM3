@@ -34,8 +34,7 @@
 }
 
 .검색 {
-	 border
-	 : 1px solid rgba(0, 128, 0, 0.5);
+	 border : 1px solid rgba(0, 128, 0, 0.5);
         outline-style: none;
         width: 500px;
         padding: 10px 50px 10px 10px;
