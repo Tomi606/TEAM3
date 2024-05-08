@@ -261,7 +261,9 @@ background-color: white;
 					<button class="submit-btn login-btn-r">로그인</button>
 				</form>
 				<div class="find-signup-box">
-					<a class="" href="">아이디/비밀번호 찾기</a> <span>|</span> <a class=""
+
+					<a class="" href="">아이디/비밀번호 찾기</a> <span>|</span> <a class="123"
+
 						href="<c:url value="/main/signup"/>">회원가입</a>
 				</div>
 			</div>
