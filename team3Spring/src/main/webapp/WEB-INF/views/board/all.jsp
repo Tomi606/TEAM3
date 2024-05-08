@@ -10,9 +10,8 @@
 .롤링 {
 	margin:100px auto;
 	display:flex;
-	max-width: 1000px;
-	height: 90px;
-	border: 1px solid black;
+	max-width: 1300px;
+	height: 150px;
 	overflow: hidden;
 	position: relative;
 }
@@ -21,13 +20,7 @@
 	display: flex;
 	transition: transform 0.5s ease;
 }
-
-.롤링-내용 h1 {
-	flex: 0 0 1000px;
-	text-align: center;
-	line-height: 90px;
-	margin: 0;
-}
+ 
 .board_all_home_container{
 width: 100%;height: 100%;display: flex;margin: 0 auto;
 }
@@ -70,14 +63,21 @@ width: 70px;height: 50px;border: 1px solid green;color:green; line-height: 50px;
 .comment-link:hover{
 	color: black;
 }
+.rolling-item{width: 100%;height: 100%;}
 </style>
 </head>
 <body>
 <div class="롤링">
     <div class="롤링-내용">
-		<h1 style="background-color: orange;">첫 번째 내용</h1>
-		<h1 style="background-color: green;">두 번째 내용</h1>
-		<h1 style="background-color: yellow;">세 번째 내용</h1>
+		<div class="rolling-item" style="background-image: url('<c:url value="/resources/img/풍경1.jpg"/>');">
+			<img alt="" src="<c:url value="/resources/img/풍경1.jpg"/>" style="width: 1300px;height: 100%;background-repeat: no-repeat;background-size: cover;">
+		</div>
+		<div class="rolling-item" style="background-image: url('<c:url value="/resources/img/풍경22.jpg"/>');">
+			<img alt="" src="<c:url value="/resources/img/풍경22.jpg"/>" style="width: 1300px;height: 100%;background-repeat: no-repeat;background-size: cover;">
+		</div>
+		<div class="rolling-item" style="background-image: url('<c:url value="/resources/img/풍경3.jpg"/>');">
+			<img alt="" src="<c:url value="/resources/img/풍경3.jpg"/>" style="width: 1300px;height: 100%;background-repeat: no-repeat;background-size: cover;">
+		</div>
     </div>
 </div>
 <div class="board_all_home_container">
@@ -89,7 +89,8 @@ width: 70px;height: 50px;border: 1px solid green;color:green; line-height: 50px;
                 	<div style="margin-bottom: 20px;">
 	                	<div class="board_title_img">
 	                		<img alt="이미지" src="<c:url value='/resources/img/board_img.png'/>" 
-	                			style="width: 100px;z-index: 2;position: absolute;background-color: white;top: 390px;">
+	                			style="width: 100px;z-index: 2;position: absolute;background-color: white;top: 430px;">
+	                		
 	                	</div>
 	                    <div class="board_header">
 	                        <h2 style="color: #555;margin-left: 100px">${bo.bo_title}</h2>
@@ -157,23 +158,25 @@ width: 70px;height: 50px;border: 1px solid green;color:green; line-height: 50px;
 
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		var interval = setInterval(roll, 3000); // n초마다 롤링
+$(document).ready(function() {
+    var interval = setInterval(roll, 3000); // 3초마다 롤링
 
-		function roll() {
-			var container = $('.롤링');
-			var firstItem = container.find('.롤링-내용 h1:first');
-			var itemWidth = firstItem.outerWidth(); // 롤링되는 각 내용의 너비
+    function roll() {
+        var container = $('.롤링');
+        var firstItem = container.find('.rolling-item:first');
+        var itemWidth = firstItem.outerWidth(); 
 
-			container.find('.롤링-내용').animate({
-				marginLeft : -itemWidth
-			}, 500, function() {
-				$(this).append(firstItem.remove()).css({
-					marginLeft : 0
-				});
-			});
-		}
-	});
+
+        container.find('.롤링-내용').animate({
+            marginLeft: -itemWidth
+        }, 500, function() {
+            $(this).append(firstItem.remove()).css({
+                marginLeft: 0
+            });
+        });
+    }
+});
+
 	
 	checkLogin();
     function checkLogin() {
