@@ -7,10 +7,14 @@
 <meta charset="UTF-8">
 <title>병원 리스트</title>
 <style type="text/css">
-.area-container{height: 48%;padding:50px;margin-top: 7%;margin-bottom: 10%;
+.area-container{ width: 1400px; height: 48%;padding: 0 50px 50px 50px;margin: 0 auto 100px auto;
 box-shadow: 0 8px 16px rgba(0, 128, 0, 0.3);}
+.area-container:hover{
+text-decoration:none;box-shadow: 0 8px 16px rgba(0, 128, 0, 0.6);
+    transition: box-shadow 0.3s ease;/* 그림자 효과 추가 */
+}
 .aTag-btn1{
-margin-right: auto;
+margin-right: auto; border: 2px solid rgba(0, 128, 0, 0.5);
 } 
 .aTag-btn2{
 margin-left: auto;
@@ -31,10 +35,9 @@ margin-left: auto;
     transition: box-shadow 0.3s ease;/* 그림자 효과 추가 */}
 .hospital-like-list h1,.hospital-area-list h1{margin: 30px auto 50px auto;}
 .hospital-list-home{width: 100%;height: 1500px;}
-.hospital-list-box{width: 1400px;height: 100%;margin: 0 auto;text-align: center;}
+.hospital-list-box{width: 100%;height: 100%;margin: 0 auto;text-align: center;display: inline-block;}
 .hospital-like-list{width: 100%;height: 400px;border: 1px solid #c8c8c8;margin-bottom: 150px;}
-.hospital-area-list{ width: 100%;height:1000px;display: grid; grid-template-columns:1fr 1fr 1fr 1fr;
-border-top:1px solid rgba(0, 128, 0, 0.4);margin-top: 80px;}
+.hospital-area-list{width: 100%;height:1000px;display: grid; grid-template-columns:1fr 1fr 1fr 1fr;}
 .area-select-all{width: 100%;height: 150px;padding: 30px 0;display: flex;}
 .area-select{margin: 0 auto;}
 .area-select-box{display: flex;border: 1px solid  #c8c8c8;width: 100%; height: 400px;margin: 100px 0 200px 0;}
@@ -84,15 +87,62 @@ color: green;
 	margin-top: 5px;
 }
 .top-img {
-	height: 16px;
-	width: 16px;
+	height: 20px;
+	width: 20px;
+	color: gray;
+}
+.here-title{
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+}
+.here-title:hover{
+	text-decoration: none;
+	color: gray;
+}
+.page-title{
+	text-align: left;
+	font-size: 50px;
+	color: rgba(0, 100, 60, 0.8);
+	font-weight: bold;
+	margin: 0 0 80px 0;
+}
+.home-box1 {
+	width: 100%;
+	height: 350px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
 }
 </style>
 </head>
 <body>
 <div class="hospital-list-box">
+	<div class="home-box1">
+		<div style="width: 80%;margin: 0 auto;padding-top: 80px">
+			<div class="page-title">
+				북마크
+			</div>
+			<div style="text-align: left;display: flex;height: 50px;line-height: 50px; margin: 20px 0 50px 0;">
+				<a href="<c:url value='/'/>">
+					<img class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/home-4-line.svg'/>">
+				</a>
+				<div style="margin: auto 16px;" >
+					<img class="top-img" alt="위치 이미지"
+						src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+				</div>	
+				<div style="padding-top: 1px;">
+					<a href="<c:url value='/hospital/list?hs_num=0'/>" class="here-title">
+						병원
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="area-container">
-		<h1>북마크 리스트..</h1>
 		<div class="hospital-area-list">
 		</div>
 		<div class="box-pagination" style="height: 100px; margin: 100px auto 0 auto">

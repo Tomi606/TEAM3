@@ -249,8 +249,8 @@ $(document).on("click", ".day-btn", function(){
 			for(let tmp of data.timeList){
 				str+= 
 					`
-						<div class="time-box reserveBtn">
-							<a class="reserveBtn1" data-time="\${tmp.rsTime}">\${tmp.rsTime}</a>
+						<div class="time-box reserveBtn" data-time="\${tmp.rsTime}">
+							<a class="reserveBtn" data-time="\${tmp.rsTime}">\${tmp.rsTime}</a>
 						</div>
 					`
 			}
@@ -261,7 +261,7 @@ $(document).on("click", ".day-btn", function(){
 </script>
 <script type="text/javascript">
 $(document).on("click", ".reserveBtn", function(){
-	sgo.rs_time = $(".reserveBtn1").data("time");
+	sgo.rs_time = $(this).data("time");
 	let res = confirm(
 			"병원명 : " + sgo.ho_name +
 			"\n프로그램 명 : " + sgo.hp_title +

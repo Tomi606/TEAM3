@@ -19,9 +19,12 @@ textarea {
 	  resize: none;
 }
 
-.info1-label {
+.info-label {
 	display: flex;
-	align-items: center;
+    align-items: center;
+    font-size: 24px;
+    color: green;
+    font-weight: bold;
 }
 
 .subject-checkbox {
@@ -33,24 +36,107 @@ textarea {
     align-items: stretch;
 }
 
-.checkbox {
-	margin: 2px 2px 2px 80px;
-    width: 20px;
-    height: 20px;
-}
-
 .subject-checkbox {
 	display: grid;
-    grid-template-columns: repeat(14, 2fr);
+    grid-template-columns: repeat(12, 2fr);
     align-items: stretch;
     align-content: stretch;
     justify-content: space-between;
     justify-items: start;
+    margin-bottom: 30px;
+    margin-left: -80px;
+}
+
+.info-textarea {
+	width: 100%;
+    height: 150px;
+    margin-bottom: 30px;
+    border: 1px solid green;
+    padding: 10px 15px 5px 10px;
+    font-size: 16px;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    appearance: none;
+    cursor: pointer;
+    background-color: rgba(0, 128, 0, 0.5);
+    border: 0px solid white;
+    margin: 4px 20px 4px 90px;
+}
+
+/* Chrome 및 Safari에서 스크롤바의 색상 변경 */
+/* 스크롤바의 Track 색상 */
+.info-textarea::-webkit-scrollbar {
+    width: 16px; /* 스크롤바의 너비 */
+}
+
+/* 스크롤바의 Thumb (드래그할 수 있는 부분) 색상 */
+.info-textarea::-webkit-scrollbar-thumb {
+    background-color: green; /* 색상 변경 */
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+}
+
+/* 체크박스가 체크되었을 때의 스타일 */
+input[type="checkbox"]:checked {
+    /* 체크된 상태의 배경색 */
+    background-color: transparent; /* 예: 파란색 */
+    /* 체크된 상태의 외곽선 색상 */
+    border-color: transparent; /* 예: 파란색 */
+}
+
+/* 체크박스가 체크되었을 때의 색상 변경 */
+input[type="checkbox"]:checked::before {
+    content: '\2713';
+    display: flex;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    background-color: green;
+    color: white;
+    border-radius: 20px;
+    flex-direction: row;
+    align-content: stretch;
+    justify-content: space-evenly;
+    margin: 0px;
+    flex-wrap: nowrap;
+    align-items: center;
 }
 
 .hospital-btn {
 	display: block;
     margin: 0 auto;
+    height: 70px;
+    width: 50%;
+    margin-top: 20px;
+    font-size: 40px;
+    font-weight: bold;
+    
+}
+
+.btn-outline-success {
+    color: green;
+    border-color: green;
+    /* 45도 각도로 그라데이션 */
+	/* background: linear-gradient(45deg, white, green); */
+}
+
+.btn-outline-success:hover {
+    color: white;
+    border-color: green;
+    background-color: green;
+    /* 45도 각도로 그라데이션 */
+	background: linear-gradient(45deg, white, green);
+	border: 0px solid white;
+	animation: colorChange 1.5s infinite alternate; /* 1초 동안 반복되며 왔다갔다하는 애니메이션 적용 */
+}
+
+@keyframes colorChange {
+    0% { background-color: white; color: green; } /* 초기 색상 */
+    50% { background-color: green; color: white; } /* 중간 색상 */
+    100% { background-color: white; color: green; } /* 끝 색상 */
 }
 </style>
 </head>
@@ -59,38 +145,38 @@ textarea {
 	<div class="all-info-box">
 		<form action='<c:url value="/hospital/detail/insert"/>' method="post">
 			<div class="info1-box">	
-				<h2 style="font-weight: bold; text-align: center;">병원 소개</h2>
-				<div class="info">
-					<label for="hd_info" style="font-weight: bold" class="info1-label">병원 소개</label>
-				   	<textarea class="hd_info col-10" id="hd_info" name="hd_info" 
+				<h2 style="font-weight: bold; text-align: center; font-size: 60px; color: green;">💚병원 소개💚</h2>
+				<div class="hd_info" id="hd_info">
+					<label for="hd_info" style="font-weight: bold" class="info-label">병원 소개</label>
+				   	<textarea class="hd_info info-textarea" id="hd_info" name="hd_info" 
 				   	placeholder="병원 소개말을 입력하세요." oninput="autoTextarea(this)">${hoDetail.hd_info}</textarea>
 				</div>
 				<div class="hd_time" id="hd_time">
-					<label for="hd_time" style="font-weight: bold" class="info1-label">영업 시간</label>
-					<textarea class="hd_time col-10" id="hd_time" name="hd_time" required
+					<label for="hd_time" style="font-weight: bold" class="info-label">영업 시간</label>
+					<textarea class="hd_time info-textarea" id="hd_time" name="hd_time" required
 					placeholder="영업시간 및 점심시간을 입력하세요. 예시)월~금 : 9:00~18:00 / 토,일 : 휴무" oninput="autoTextarea(this)">${hoDetail.hd_time}</textarea>
 				</div>
 				<div class="hd_park" id="hd_park">
-					<label for="hd_park" style="font-weight: bold" class="info1-label">주차 정보</label>
-					<textarea class="hd_park col-10" id="hd_park" name="hd_park" 
+					<label for="hd_park" style="font-weight: bold" class="info-label">주차 정보</label>
+					<textarea class="hd_park info-textarea" id="hd_park" name="hd_park" 
 					placeholder="주차 정보를 입력하세요." oninput="autoTextarea(this)">${hoDetail.hd_park}</textarea>
 				</div>
 				<div class="hd_announce">
-					<label for="hd_announce" style="font-weight: bold" class="info1-label">공지 사항</label>
-					<textarea class="hd_announce col-10" id="hd_announce" name="hd_announce" 
+					<label for="hd_announce" style="font-weight: bold" class="info-label">공지 사항</label>
+					<textarea class="hd_announce info-textarea" id="hd_announce" name="hd_announce" 
 					placeholder="공지 사항을 입력하세요." oninput="autoTextarea(this)">${hoDetail.hd_announce}</textarea>
 				</div>
 				<div class="hd_etc">
-					<label for="hd_etc" style="font-weight: bold" class="info1-label">기타 사항</label>
-					<textarea class="hd_etc col-10" id="hd_etc" name="hd_etc" 
+					<label for="hd_etc" style="font-weight: bold" class="info-label">기타 사항</label>
+					<textarea class="hd_etc info-textarea" id="hd_etc" name="hd_etc" 
 					placeholder="기타 사항을 입력하세요." oninput="autoTextarea(this)">${hoDetail.hd_etc}</textarea>
 				</div>
 			</div>
 			
 			<div class="info2-box">
-				<h2 style="font-weight: bold; text-align: center;">진료 과목</h2>
+				<h2 style="font-weight: bold; text-align: center; font-size: 60px; color: green; margin-top: 30px;">💚진료 과목💚</h2>
 				<div class="hd_hs_num">
-					<label for="hd_hs_num" style="font-weight: bold">대표 진료 과목</label>
+					<label for="hd_hs_num" class="info-label" style="font-weight: bold">대표 진료 과목</label>
 					<div class="subject-checkbox">
 					    <c:choose>
 					        <c:when test="${subjects != null}">
@@ -116,8 +202,8 @@ textarea {
 					</div>
 				 </div>
 				<div>
-				 	<label for="hd_subject_detail" style="font-weight: bold">상세 진료 항목</label>
-				 	<textarea class="hd_subject_detail col-10" id="hd_subject_detail" name="hd_subject_detail" 
+				 	<label for="hd_subject_detail" class="info-label" style="font-weight: bold">상세 진료 항목</label>
+				 	<textarea class="hd_subject_detail info-textarea" id="hd_subject_detail" name="hd_subject_detail" 
 				 	oninput="autoTextarea(this)" placeholder="감염성 질환 / 알레르기 / 만성 질환 / 호흡기 질환 / 피부 질환...">${hoDetail.hd_subject_detail}</textarea>
 				</div>
 				<button type="submit" class="hospital-btn btn btn-outline-success" name="hospital-btn">병원 소개 등록</button>
@@ -174,7 +260,9 @@ $("form").submit(function(e) {
 
 <!-- 상세 페이지 수정(update) -->
 <script type="text/javascript">
-
+$(document).ready(function() {
+	document.querySelector('element').removeAttribute('style');
+});
 </script>
 
 <!-- 체크박스로 체크한 객체를 배열로 넣는 스크립트 -->
@@ -192,17 +280,15 @@ function getCheckedBox() {
 
 <!-- 체크한 체크박스들 숨기기 -->
 <script type="text/javascript">
-function hiddenBox() {
-	let checkedBox = document.getElementById('hs_num');
-	if(checkedBox.checked) {
-		checkedBox.styl.display = 'none';
-	}
-}
+document.addEventListener('DOMContentLoaded', function() {
+    var element = document.querySelector('element');
+    element.removeAttribute('style');
+});
 </script>
 
 <!-- textarea 자동 스크롤 -->
 <script type="text/javascript">
-function autoTextarea(element) {
+/* function autoTextarea(element) {
 	//초기 높이 설정
 	element.style.height = 'auto';
 	//스크롤 높이에 따라 텍스트 영역 높이 조절
@@ -217,7 +303,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	textarea.addEventListener('input', function() {
 		autoTextarea(this);
 	});
-});
+}); */
 </script>
 
 <!-- 여러개의 진료과목 선택하는 스크립트(안씀) -->

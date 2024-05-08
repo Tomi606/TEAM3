@@ -92,7 +92,7 @@ border-top:1px solid rgba(0, 128, 0, 0.4);margin-top: 80px;}
     overflow-y: auto;
 flex-wrap: wrap;} 
 .category{
-width: 100%; height: 400px;border: 1px solid #c8c8c8;margin-top: 100px;
+width: 100%; height: 400px;border: 1px solid #c8c8c8;
 }
 .title{
 padding:12px;margin-top:15px;width: 100%;border-bottom: 1px solid #c8c8c8;
@@ -151,20 +151,71 @@ color: green;
 	margin-top: 5px;
 }
 .top-img {
+	height: 20px;
+	width: 20px;
+	color: gray;
+}
+.small-img {
 	height: 16px;
 	width: 16px;
+}
+.here-title{
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+}
+.here-title:hover{
+	text-decoration: none;
+	color: gray;
+}
+.page-title{
+	text-align: left;
+	font-size: 50px;
+	color: rgba(0, 100, 60, 0.8);
+	font-weight: bold;
+	margin: 0 0 80px 0;
+}
+.home-box1 {
+	width: 100%;
+	height: 350px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
 }
 </style>
 </head>
 <body>
 <div class="hospital-list-home">
+		<div class="home-box1">
+			<div style="width: 80%;margin: 0 auto;padding-top: 80px">
+				<div class="page-title">
+					병원
+				</div>
+				<div style="text-align: left;display: flex;height: 50px;line-height: 50px; margin: 20px 0 50px 0;">
+					<a href="<c:url value='/'/>">
+						<img class="top-img" alt="위치 이미지"
+						src="<c:url value='/resources/img/home-4-line.svg'/>">
+					</a>
+					<div style="margin: auto 16px;" >
+						<img class="top-img" alt="위치 이미지"
+							src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+					</div>	
+					<div style="padding-top: 1px;">
+						<a href="<c:url value='/hospital/list?hs_num=0'/>" class="here-title">
+							병원
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
 	<div class="hospital-list-box">
-	
 	<div class="area-select-container">
 		
 			<div class="category">
 				<div class="title">
-					<h3 >원하시는 과목을 선택하세요</h3>
+					<h3>원하시는 과목을 선택하세요</h3>
 				</div>
 				<div class="li-box" >
 				   <li role="button" class="hs_btn" data-hsnum="0">전체</li>
@@ -413,7 +464,7 @@ function getSubHoList(){
        							<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
        							<div class="ho-name">\${ho.hospital.ho_name}</div>
        							<div class="hs-title">\${ho.hospital_subject.hs_title}</div>
-       							<div class="ho-address"><img class="top-img"
+       							<div class="ho-address"><img class="small-img"
        								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">\${ho.hospital.ho_address}</div>
        						</a>
        					`; 
@@ -456,9 +507,9 @@ function getSubHoList(){
 		                    <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=\${ho.hospital.ho_id}'/>" style="padding: auto;" data-num="\${ho.hospital_detail.hd_num}">
 		                    	<div class="ho-name">\${ho.hospital.ho_name}</div>
 		                    	<div class="hs-title">\${ho.hospital_subject.hs_title}</div>
-		                    	<div class="ho-address"><img class="top-img"
+		                    	<div class="ho-address"><img class="small-img"
 									alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">\${ho.hospital.ho_address}</div>
-								<div class="hd-time"><img class="top-img"
+								<div class="hd-time"><img class="small-img"
 									alt="위치 이미지" src="<c:url value="/resources/img/time-line.svg"/>">(\${dayOfWeek}요일) \${hd_time}</div>
 							</a>
 						`;
@@ -530,9 +581,9 @@ function getAreaHoList(){
          							<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
          							<div class="ho-name">\${ho.ho_name}</div>
          							<div class="hs-title">\${ho.hospital_subject.hs_title}</div>
-         							<div class="ho-address"><img class="top-img"
+         							<div class="ho-address"><img class="small-img"
          								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">\${ho.ho_address}</div>
-         							<div class="hd-time"><img class="top-img"
+         							<div class="hd-time"><img class="small-img"
          								alt="위치 이미지" src="<c:url value="/resources/img/time-line.svg"/>">(\${dayOfWeek}요일) \${hd_time}</div>
          						</a>
          					`; 
@@ -545,9 +596,9 @@ function getAreaHoList(){
 								<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
 								<div class="ho-name">\${ho.hospital.ho_name}</div>
 								<div class="hs-title">\${ho.hospital_subject.hs_title}</div>
-								<div class="ho-address"><img class="top-img"
+								<div class="ho-address"><img class="small-img"
      								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">\${ho.hospital.ho_address}</div>
-   								<div class="hd-time"><img class="top-img"
+   								<div class="hd-time"><img class="small-img"
        								alt="위치 이미지" src="<c:url value="/resources/img/time-line.svg"/>">(\${dayOfWeek}요일) \${hd_time}</div>
 							</a>
 						`;
