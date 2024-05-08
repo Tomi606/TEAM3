@@ -142,8 +142,13 @@ z-index:9;position:absolute;line-height:50px;
 height:50px;width:100%;background-color: #fafafa;
 
 }
- 
-
+.trtr{display: flex;list-style: none;width: 75%;margin: 0 auto;}
+.trtr>li a{
+	margin-right: 30px;color: black;
+}
+.trtr>li a:hover {
+	text-decoration: underline;
+}
  
 </style>
 </head>
@@ -215,6 +220,16 @@ height:50px;width:100%;background-color: #fafafa;
 		</div>
 		<div class="공백"></div>
 	</div>
+		<div class="category-sub" style="display: none;" >
+			<ul class="trtr">
+			
+			</ul>
+  		</div>
+  		<div class="category-board" style="display: none;" >
+			<ul class="trtr">
+			
+			</ul>
+  		</div>
 </div>
 	 
  <script>
@@ -236,6 +251,55 @@ height:50px;width:100%;background-color: #fafafa;
     	 $('.category-board').hide();
      });
      
+     $(document).on('mouseenter','.hos-btn, .board_btn',function() {
+    	    $.ajax({
+    	        async: true,
+    	        method: "post",
+    	        url: '<c:url value="/common/header"/>',
+    	        success: function(data) {
+    	            HeadList(data.list);
+    	            HeadCoList(data.boList);
+    	            console.log("54454 ", data.list);
+    	        },
+    	        error: function(jqXHR, textStatus, errorThrown) {
+
+    	        }
+    	    });
+    	});
+
+     function HeadList(list) {
+    	    let str = '';
+
+    	    if (list == null) {
+    	        return;
+    	    } else {
+    	        for (let kieun of list) {
+    	            str +=
+    	                `
+    	              	  <li><a href="<c:url value='/hospital/list'/>?hs_num=\${kieun.hs_num}" class="hs_btn">\${kieun.hs_title}</a></li>
+    	                `;
+    	        }
+    	    }
+    	    $('.category-sub>ul').html(str); // 클래스를 사용하여 목록에 접근
+    	}
+
+    	function HeadCoList(list) {
+    	    let str = '';
+
+    	    if (list == null) {
+    	        return;
+    	    } else {
+    	        for (let kieun of list) {
+    	            str +=
+    	                `
+    	               	 <li><a href="<c:url value='/board/list'/>?bo_num=\${kieun.bo_num}" class="bo_btn">\${kieun.bo_title}</a></li>
+    	                `;
+    	        }
+    	    }
+    	    $('.category-board>ul').html(str); // 클래스를 사용하여 목록에 접근
+    	}
+
+
 </script>
 </body>
 </html>
