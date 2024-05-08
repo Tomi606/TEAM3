@@ -243,23 +243,87 @@ color: green;
  		color: #555;
  	}
    .board_location{
-   	height: 80px;padding-top: 20px;width: 400px;
+   display:flex;
+   	height: 80px;padding-top: 20px;width: 1000px;line-height: 80px;
    }
    .prev_btnBtn{color: black;}
+   
+   }
+  .here-title-box a {
+        text-decoration: none;
+        color: black;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .here-title-box .atitle:hover {
+        color: gray;
+    }
+
+    .top-img {
+        height: 20px;
+        width: 20px;
+        color: gray;
+    }
+
+    .here-title-box > a:hover {
+        color: gray;
+    }
 </style>
 </head>
 <body>
-<form action="<c:url value='/board/update?po_num=${post.po_num} '/>" method="post"  enctype="multipart/form-data">
+<form action="<c:url value='/board/update?po_num=${post.po_num}'/>" method="post"  enctype="multipart/form-data">
 	<div class="post_list_container">
 		<div class="post_list_box">
 			<div class="board_location">
-					<a class="prev_btnBtn" 
-					href="<c:url value="/board/all"/>">게시판</a> >
-					<a class="prev_btnBtn" 
-					href="<c:url value="/board/list?bo_num=${post.po_bo_num}"/>"> 게시글</a> >
-					<a class="prev_btnBtn" 
-					href="<c:url value="/board/detail?po_num=${post.po_num}"/>"> 상세페이지</a> ><a> 게시글 수정</a>
-				</div>
+						<a href="<c:url value='/'/>" >
+							<img class="top-img" alt="위치 이미지"
+						src="<c:url value='/resources/img/home-4-line.svg'/>">
+					</a>
+					<div style="margin: auto 16px;">
+						<img class="top-img" alt="위치 이미지"
+							src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+					</div>	
+					<div style="padding-top: 1px;" class="here-title-box" >
+						<a href="<c:url value='/board/all'/>" class="here-title"style="padding-top: 1px;text-decoration: none;
+						color: black;font-size: 15px;font-weight: bold;"  onmouseover="this.style.color='gray'" 
+  						 onmouseout="this.style.color='black'">
+							게시판
+						</a>
+					</div>
+					<div style="margin: auto 16px;" >
+						<img class="top-img" alt="위치 이미지"
+							src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+					</div>	
+					<div style="padding-top: 1px;" class="here-title-box">
+						<a  class="here-title" style="padding-top: 1px;text-decoration: none;
+						color: black;font-size: 15px;font-weight: bold;"  onmouseover="this.style.color='gray'" 
+ 						  onmouseout="this.style.color='black'"
+							href="<c:url value='/board/list?po_bo_num=${post.po_bo_num}'/>"> 게시글
+						</a>
+					</div> 
+					<div style="margin: auto 16px;" >
+						<img class="top-img" alt="위치 이미지"
+							src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+					</div>	
+					<div style="padding-top: 1px;"class="here-title-box">
+						<a href="<c:url value="/board/detail?po_num=${post.po_num}"/>"style="padding-top: 1px;text-decoration: none;
+						color: black;font-size: 15px;font-weight: bold;"  onmouseover="this.style.color='gray'" 
+ 						  onmouseout="this.style.color='black'" class="here-title">
+							상세페이지
+						</a>
+					</div> 
+					<div style="margin: auto 16px;" >
+						<img class="top-img" alt="위치 이미지"
+							src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+					</div>	
+					<div style="padding-top: 1px;" class="here-title-box">
+						<a  class="here-title atitle"style="padding-top: 1px;text-decoration: none;
+						color: black;font-size: 15px;font-weight: bold;" >
+							게시글 수정
+						</a>
+					</div> 
+			</div>
 			<div style="text-align: center;">
 				<h1 style="color: #555">${post.po_bo_title}</h1>
 			</div>

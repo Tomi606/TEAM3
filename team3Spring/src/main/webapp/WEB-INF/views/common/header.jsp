@@ -134,12 +134,12 @@ body {
 }
  .category-sub{
 z-index:9;position:absolute;line-height:50px;
-height:50px;width:100%;background-color: #fafafa;
+height:50px;width:100%;background-color:#FCF9F7;
 
 }
 .category-board{
 z-index:9;position:absolute;line-height:50px;
-height:50px;width:100%;background-color: #fafafa;
+height:50px;width:100%;background-color: #FCF9F7;
 
 }
 .trtr{display: flex;list-style: none;width: 75%;margin: 0 auto;}
@@ -259,7 +259,6 @@ height:50px;width:100%;background-color: #fafafa;
     	        success: function(data) {
     	            HeadList(data.list);
     	            HeadCoList(data.boList);
-    	            console.log("54454 ", data.list);
     	        },
     	        error: function(jqXHR, textStatus, errorThrown) {
 

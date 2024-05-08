@@ -70,9 +70,28 @@ margin-top:50px;
  		color: #555;
  	}
    .board_location{
-   	height: 80px;padding-top: 20px;width: 200px;
+   display:flex;
+   	height: 80px;padding-top: 20px;width: 1000px;line-height: 80px;
    }
    .prev_btnBtn{color: black;}
+     .here-title{
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+}
+.here-title:hover{
+	text-decoration: none;
+	color: gray;
+}
+.atitle:hover{
+	text-decoration: none;
+	color: black;
+}
+   .top-img {
+	height: 20px;
+	width: 20px;
+	color: gray;
 </style>
 </head>
 <body>
@@ -80,10 +99,38 @@ margin-top:50px;
 
 		<div class="post_list_box">
 			<div class="board_location">
-					<a class="prev_btnBtn" 
-					href="<c:url value="/board/all"/>">게시판</a> >
-					<a class="prev_btnBtn" 
-					href="<c:url value="/board/list?bo_num=${bo_num}"/>"> 게시글</a> ><a> 게시글 작성</a>
+							<a href="<c:url value='/'/>">
+							<img class="top-img" alt="위치 이미지"
+						src="<c:url value='/resources/img/home-4-line.svg'/>">
+					</a>
+					<div style="margin: auto 16px;" >
+						<img class="top-img" alt="위치 이미지"
+							src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+					</div>	
+					<div style="padding-top: 1px;">
+						<a href="<c:url value='/board/all'/>" class="here-title">
+							게시판
+						</a>
+					</div>
+					<div style="margin: auto 16px;" >
+						<img class="top-img" alt="위치 이미지"
+							src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+					</div>	
+					<div style="padding-top: 1px;">
+						<a  class="here-title"
+							href="<c:url value='/board/list?bo_num=${bo_num}'/>"> 게시글
+						</a>
+					</div> 
+					<div style="margin: auto 16px;" >
+						<img class="top-img" alt="위치 이미지"
+							src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+					</div>	
+					
+					<div style="padding-top: 1px;">
+						<a  class="here-title atitle">
+							게시글 등록
+						</a>
+					</div> 
 				</div>
 			<div style="text-align: center;">
 				<h1>글 쓰 기 </h1>
