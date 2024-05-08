@@ -121,8 +121,6 @@ input[type="checkbox"]:checked::before {
 .btn-outline-success {
     color: green;
     border-color: green;
-    /* 45도 각도로 그라데이션 */
-	/* background: linear-gradient(45deg, white, green); */
 }
 
 .btn-outline-success:hover {

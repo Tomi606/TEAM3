@@ -7,6 +7,25 @@
 <meta charset="UTF-8">
 <title>병원 상세 페이지 조회</title>
 <style type="text/css">
+/* 전체 툴 */
+.detail-page{
+ 	box-shadow: 0px 2px 4px 6px rgba(0, 128, 0, 0.5);
+    transition: box-shadow 0.3s ease;
+    padding: 20px 30px 20px 30px;
+    margin: 20px 30px 20px 30px;
+    border-radius: 5px;
+}
+
+.detail-page-sub1 {
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.detail-page-sub2 {
+
+}
+
 .예약{
  width: 350px;
  height: 50px;
@@ -34,22 +53,6 @@
     display: block;
     padding: 20px;
 }
-.detail-page{
- 	/* width: 100%;
- 	height: 100%;
- 	display: flex; */
- 	box-shadow: 0px 2px 4px 6px rgba(0, 128, 0, 0.5);
-    transition: box-shadow 0.3s ease;
-    padding: 20px 30px 20px 30px;
-    margin: 20px 30px 20px 30px;
-    border-radius: 5px;
-}
-/* .detail-page-sub{
- 	width: 1500px;
- 	height: 100%;
- 	margin: 100px auto;
- 	text-align: center;
-} */
 
 .body-container{
 	width: 100%;
@@ -129,15 +132,13 @@ p {
 	 font-weight: bold; 
 	 font-size: 30px;
 	 text-align: left;
-	 
 }
 
 .ho_name {
-	margin-bottom: 20px;
 	font-weight: bold;
 	size: 50px;
 	font-stretch: expanded;
-
+	color: green;
 }
 
 .top-span {
@@ -219,15 +220,38 @@ p {
       font-size: 24px;
 }
 
-.book-btn {
+/* .book-btn {
 	font-size: 40px;
     margin: 8px 5px 8px 5px;
     display: inline-block;
     padding: 1px 5px 1px 5px;
-}
-#myTextarea{
+} */
+
+#myTextarea {
 outline-style: none;
 }
+
+.btn-outline-success {
+    color: green;
+    border-color: green;
+}
+
+.btn-outline-success:hover {
+    color: white;
+    border-color: green;
+    background-color: green;
+    /* 45도 각도로 그라데이션 */
+	background: linear-gradient(45deg, white, green);
+	border: 0px solid white;
+	animation: colorChange 1.5s infinite alternate; /* 1초 동안 반복되며 왔다갔다하는 애니메이션 적용 */
+}
+
+@keyframes colorChange {
+    0% { background-color: white; color: green; } /* 초기 색상 */
+    50% { background-color: green; color: white; } /* 중간 색상 */
+    100% { background-color: white; color: green; } /* 끝 색상 */
+}
+
 </style>
 </head>
 <body>
@@ -265,11 +289,9 @@ outline-style: none;
 		</div>
 	</div>
 		
+	<hr style="border: 1px solid gray; width: 100%;">
+
 	<div class="detail-page-sub2">
-	
-	</div>
-		<hr style="border: 1px solid gray; width: 100%;">
-		<div class="body-container">
 		<div class="toggle-page">
 			<div class="toggle-btn">
 				<button id="btn1" class="toggle-button login-btn-click">병원 소개</button>
@@ -344,9 +366,8 @@ outline-style: none;
 					</div>
 				</div>			
 			</div>
-			</div>
 		</div>
-
+	</div>
 </div>
 
 <!-- 북마크 추가 버튼 -->
