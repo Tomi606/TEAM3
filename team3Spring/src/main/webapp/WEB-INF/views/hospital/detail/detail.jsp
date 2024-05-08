@@ -12,7 +12,7 @@
  	box-shadow: 0px 2px 4px 6px rgba(0, 128, 0, 0.5);
     transition: box-shadow 0.3s ease;
     padding: 20px 30px 20px 30px;
-    margin: 20px 30px 20px 30px;
+    margin: 20px 70px 20px 70px;
     border-radius: 5px;
 }
 
@@ -26,22 +26,22 @@
 
 }
 
-.예약{
- width: 350px;
- height: 50px;
- line-height: 50px;
-
-}
 .toggle-btn{
 	display:flex;
-
 }
+
 .toggle-button {
-	border:1px solid lightgray;
-	outline-style:none;
-	height:100px;
-	width:33.33%;
+	border: 1px solid green;
+    height: 80px;
+    width: 25%;
     font-size: 30px;
+    border-radius: 50px;
+    margin: 20px 50px;
+    color: rgba(0, 128, 0, 0.5);
+    background-color: white;
+    text-decoration: none;
+    font-size: 40px;
+    font-weight: bold;
 }
 
 .page {
@@ -52,6 +52,8 @@
 .page.active {
     display: block;
     padding: 20px;
+    
+    
 }
 
 .body-container{
@@ -60,16 +62,13 @@
 	border: 1px solid gray; 
 
 }
-.login-btn-click{
-	background-color: white;
-	border-bottom:2px solid white;
-}
+
 
 .label {
 	text-align: center;
 	font-size: 30px;
 	font-weight: bold;
-	color: rgb(65, 65, 65);
+	color: rgba(0, 128, 0, 0.5);
 }
 
 #page3 textarea {
@@ -84,12 +83,7 @@ p {
 	cursor: default;
 }
 
-.btn-info {
-	margin: 500px;
-	font: 50px;
-}
-
-.btn {
+.hospital-subject-btn {
 	font-size: 18px;
     margin: 8px 5px 8px 5px;
     display: inline-block;
@@ -138,7 +132,6 @@ p {
 	font-weight: bold;
 	size: 50px;
 	font-stretch: expanded;
-	color: green;
 }
 
 .top-span {
@@ -216,40 +209,52 @@ p {
       overflow-y: hidden;
       border: 0px solid white;
       cursor: inherit;
-      text-align: center;
+      text-align: left;
       font-size: 24px;
+      outline-style: none;
 }
 
-/* .book-btn {
-	font-size: 40px;
-    margin: 8px 5px 8px 5px;
-    display: inline-block;
-    padding: 1px 5px 1px 5px;
-} */
-
-#myTextarea {
-outline-style: none;
-}
-
-.btn-outline-success {
+.book-btn {
     color: green;
     border-color: green;
+    font-weight: bold;
+	font-size: 50px;
+	height: 80px;
+	width: 100%;
+	padding: 0px 10px;
 }
 
-.btn-outline-success:hover {
+.book-btn:hover {
     color: white;
     border-color: green;
     background-color: green;
-    /* 45도 각도로 그라데이션 */
-	background: linear-gradient(45deg, white, green);
 	border: 0px solid white;
-	animation: colorChange 1.5s infinite alternate; /* 1초 동안 반복되며 왔다갔다하는 애니메이션 적용 */
+	animation: colorChange 1s infinite alternate; /* 1초 동안 반복되며 왔다갔다하는 애니메이션 적용 */
+	font-weight: bold;
+	font-size: 50px;
+	height: 80px;
+	width: 100%;
+	padding: 0px 10px;
 }
 
 @keyframes colorChange {
     0% { background-color: white; color: green; } /* 초기 색상 */
     50% { background-color: green; color: white; } /* 중간 색상 */
     100% { background-color: white; color: green; } /* 끝 색상 */
+}
+
+.login-btn-click{
+	background-color: rgba(0, 128, 0, 0.5);
+    border: 0px solid rgba(0, 128, 0, 0.5);
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.bookmark-btn {
+	width: 70px;
+    height: 60px;
+    margin: -10px 0px 3px -20px;
 }
 
 </style>
@@ -261,14 +266,14 @@ outline-style: none;
 			<h1 class="ho_name" id="ho_name" style="size: 60px;">${detail.hospital.ho_name}
 				<c:choose>
 					<c:when test="${detailAlready == true}">
-						<img class="btn btn-lg bookmark-after" data-id="${user.site_id}" alt="북마크 후" 
-						data-tooltip="북마크 설정" src="<c:url value="/resources/img/bookmark-after.svg"/>">
-						<img class="btn btn-lg bookmark-before" style="display: none;" data-id="${user.site_id}" alt="북마크 전" src="<c:url value="/resources/img/bookmark-before.svg"/>">			
+						<img class="btn bookmark-btn bookmark-after" data-id="${user.site_id}" alt="북마크 후" 
+						data-tooltip="북마크 설정" src="<c:url value="/resources/img/bookmark-after.png"/>">
+						<img class="btn bookmark-btn bookmark-before" style="display: none;" data-id="${user.site_id}" alt="북마크 전" src="<c:url value="/resources/img/bookmark-before.png"/>">			
 					</c:when>
 					<c:otherwise>
-						<img class="btn btn-lg bookmark-after" style="display: none;" data-id="${user.site_id}" alt="북마크 후" src="<c:url value="/resources/img/bookmark-after.svg"/>">
-						<img class="btn btn-lg bookmark-before" data-id="${user.site_id}" alt="북마크 전" 
-						src="<c:url value="/resources/img/bookmark-before.svg"/>">
+						<img class="btn bookmark-btn bookmark-after" style="display: none;" data-id="${user.site_id}" alt="북마크 후" src="<c:url value="/resources/img/bookmark-after.png"/>">
+						<img class="btn bookmark-btn bookmark-before" data-id="${user.site_id}" alt="북마크 전" 
+						src="<c:url value="/resources/img/bookmark-before.png"/>">
 					</c:otherwise>
 				</c:choose>
 			</h1>
@@ -285,7 +290,7 @@ outline-style: none;
 			<img class="top-img" style="cursor: pointer;" alt="전화 이미지" src="<c:url value="/resources/img/detail-phone.svg"/>">
 		</div>
 		<div style="margin: 50px;">
-			<a href='<c:url value="/schedule?ho_id=${detail.hospital.ho_id}"/>' class="btn btn-outline-success 예약">예약하기</a>
+			<a href='<c:url value="/schedule?ho_id=${detail.hospital.ho_id}"/>' class="book-btn btn btn-outline-success">예약하기</a>
 		</div>
 	</div>
 		
@@ -301,13 +306,13 @@ outline-style: none;
 			<div id="page1" class="page active">
 				<div class="hd_info page1">
 					<label class="label" for="hd_info" style="font-weight: bold;">병원 소개</label>
-				   	<textarea class="hd_info" id="myTextarea" readonly>${detail.hd_info}</textarea>
+				   	<textarea class="hd_info" id="myTextarea"  oninput="autoResize(this)" readonly>${detail.hd_info}</textarea>
 				</div>
 				<hr style="border: 1px solid gray; margin: 10px auto;">
 				<div class="hd_time page1" id="hd_time">
 					<label class="label" for="hd_time" style="font-weight: bold">영업 시간</label>
-					<textarea class="hd_time" id="myTextarea" name="hd_time" style="height: auto;"
-					placeholder="월~금 : 9:00~18:00 / 토,일 : 휴무" readonly>${detail.hd_time}</textarea>
+					<textarea class="hd_time" id="myTextarea" name="hd_time"
+					placeholder="월~금 : 9:00~18:00 / 토,일 : 휴무"  oninput="autoResize(this)" readonly>${detail.hd_time}</textarea>
 				</div>
 				<hr style="border: 1px solid gray; margin: 10px auto;">
 				<div class="hd_park page1" id="hd_park">
@@ -334,7 +339,7 @@ outline-style: none;
 					<label for="hsList" class="label">대표 진료 과목</label>
 					<div class="subject-checkbox hsList">
 					  	<c:forEach var="i" begin="0" end="${sub.size() - 1}">
-							<button class="btn btn-outline-dark btn-lg" style="cursor: text;">
+							<button class="hospital-subject-btn btn-outline-dark" style="cursor: text;">
 							<p><c:out value="${sub.get(i).hospital_subject.hs_title}"/></p>
 							</button>
 					  	</c:forEach>
@@ -424,7 +429,7 @@ function getBookmarkAfter(already) {
 };
 </script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(document).ready(function() {
     $('.page').on( 'load', 'textarea', function (e){
       $(this).css('height', 'auto' );
@@ -432,7 +437,31 @@ $(document).ready(function() {
     });
     $('.page').find( 'textarea' ).keyup();
   });
-</script>
+</script> -->
+
+<!-- textarea 자동 스크롤 -->
+<!-- <script type="text/javascript">
+window.addEventListener('DOMContentLoaded', function() {
+	let textarea = document.getElementById("myTextarea");
+	adjustTextareaHeight(textarea);
+});
+
+function adjustTextareaHeight(textarea) {
+	textarea.style.height = "auto";
+	textarea.style.height = textarea.scrollHeight + "px";
+}
+</script> -->
+
+<!-- <script type="text/javascript">
+function autoResize(textarea) {
+	const targetTextarea = document.querySelector(`#target`);
+
+	 if(targetTextarea.scrollHeight > targetTextarea.clientHeight) //textarea height 확장
+	    targetTextarea.style.height= targetTextarea.scrollHeight + "px";
+	 else //textarea height 축소
+	    targetTextarea.style.height= (targetTextarea.scrollHeight-18) + "px";
+}
+</script> -->
 
 <!-- 북마크 해제 버튼 -->
 <script type="text/javascript">
@@ -768,20 +797,6 @@ function initReview() {
 }
 </script>
 
-<!-- textarea 자동 스크롤 -->
-<!-- <script type="text/javascript">
-window.addEventListener('DOMContentLoaded', function() {
-	let textarea = document.getElementById("myTextarea");
-	adjustTextareaHeight(textarea);
-});
-
-function adjustTextareaHeight(textarea) {
-	textarea.style.height = "auto";
-	textarea.style.height = textarea.scrollHeight + "px";
-}
-</script> -->
-
-
 <!-- 여러개 선택한 진료과목을 체크박스에 띄우는 스크립트 -->
 <script type="text/javascript">
 // 체크박스 클릭 시 hd_hs_num 업데이트
@@ -806,37 +821,6 @@ window.onload = function() {
     });
 };
 </script>
-
-<!-- 영업 시간 : 배열로 저장된 시간들 인덱스와 클래스 이름 매핑 -->
-<!-- <script type="text/javascript">
-//서버에서 받은 hd_time 문자열
-let hd_time = "${detail.hd_time}";
-//쉼표로 문자열 분할
-let timeArray = hd_time.split(',');
-//각 요일에 대한 인덱스와 클래스 이름 매핑
-let days = {
-	'lunch' : 0,
-	'mon' : 1,
-	'tue' : 2,
-	'wed' : 3,
-	'thu' : 4,
-	'fri' : 5,
-	'sat' : 6,
-	'sun' : 7,
-	'holiday' : 8
-};
-
-//각 요일의 input 필드에 시간 설정
-for(let day in days) {
-	let index = days[day];
-	let inputField = document.querySelector('.' + day);
-	
-	//시간이 존재하면 input 필드에 설정
-	if(timeArray[index]) {
-		inputField.value = timeArray[index];
-	}
-}
-</script> -->
 
 <!-- 토글 버튼 -->
 <script type="text/javascript">
