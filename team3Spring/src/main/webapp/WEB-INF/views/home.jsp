@@ -453,12 +453,12 @@ display: flex;
 }
 .category{
 z-index:9999;position:absolute;line-height:50px;
-height:50px;width:100%;background-color: #fafafa;
+height:50px;width:100%;background-color: #FCF9F7;
 
 }
 .category-board{
 z-index:9999;position:absolute;line-height:50px;
-height:50px;width:100%;background-color: #fafafa;
+height:50px;width:100%;background-color: #FCF9F7;
 
 }
 

@@ -64,9 +64,61 @@ width: 70px;height: 50px;border: 1px solid green;color:green; line-height: 50px;
 	color: black;
 }
 .rolling-item{width: 100%;height: 100%;}
+
+.page-title{
+	text-align: left;
+	font-size: 50px;
+	color: rgba(0, 100, 60, 0.8);
+	font-weight: bold;
+	margin: 0 0 80px 0;
+}
+.home-box1 {
+	width: 100%;
+	height: 350px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
+}
+.top-img {
+	height: 20px;
+	width: 20px;
+	color: gray;
+}.here-title{
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+}
+.here-title:hover{
+	text-decoration: none;
+	color: gray;
+}
 </style>
 </head>
 <body>
+<div class="home-box1">
+			<div style="width: 80%;margin: 0 auto;padding-top: 80px">
+				<div class="page-title">
+					커뮤니티
+				</div>
+				<div style="text-align: left;display: flex;height: 50px;line-height: 50px; margin: 20px 0 50px 0;">
+					<a href="<c:url value='/'/>">
+						<img class="top-img" alt="위치 이미지"
+						src="<c:url value='/resources/img/home-4-line.svg'/>">
+					</a>
+					<div style="margin: auto 16px;" >
+						<img class="top-img" alt="위치 이미지"
+							src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+					</div>	
+					<div style="padding-top: 1px;">
+						<a href="<c:url value='/board/all'/>" class="here-title">
+							게시판
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
 <div class="롤링">
     <div class="롤링-내용">
 		<div class="rolling-item" style="background-image: url('<c:url value="/resources/img/풍경1.jpg"/>');">
@@ -89,7 +141,7 @@ width: 70px;height: 50px;border: 1px solid green;color:green; line-height: 50px;
                 	<div style="margin-bottom: 20px;">
 	                	<div class="board_title_img">
 	                		<img alt="이미지" src="<c:url value='/resources/img/board_img.png'/>" 
-	                			style="width: 100px;z-index: 2;position: absolute;background-color: white;top: 430px;">
+	                			style="width: 100px;z-index: 2;position: absolute;background-color: white;bottom:65px">
 	                		
 	                	</div>
 	                    <div class="board_header">

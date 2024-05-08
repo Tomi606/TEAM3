@@ -231,21 +231,66 @@ color: green;
 }
  .board_title_container{width: 100%;}
    .board_location{
-   	height: 80px;padding-top: 20px;width: 300px;
+   display:flex;
+   	height: 80px;padding-top: 20px;width: 800px;line-height: 80px;
    }
    .prev_btnBtn{color: black;}
-   
+      .top-img {
+	height: 20px;
+	width: 20px;
+	color: gray;
+}.here-title{
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+}
+.here-title:hover{
+	text-decoration: none;
+	color: gray;
+}
+.atitle:hover{
+	text-decoration: none;
+	color: black;
+}
 </style>
 </head>
 <body>
 	<div class="post_list_container">
 		<div class="post_list_box">
 			<div class="board_location">
-					<a class="prev_btnBtn" 
-					href="<c:url value="/board/all"/>">게시판</a> >
-					<a class="prev_btnBtn" 
-					href="<c:url value="/board/list?bo_num=${post.po_bo_num}"/>"> 게시글</a> ><a> 상세페이지</a>
-				</div>
+					<a href="<c:url value='/'/>">
+							<img class="top-img" alt="위치 이미지"
+						src="<c:url value='/resources/img/home-4-line.svg'/>">
+					</a>
+					<div style="margin: auto 16px;" >
+						<img class="top-img" alt="위치 이미지"
+							src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+					</div>	
+					<div style="padding-top: 1px;">
+						<a href="<c:url value='/board/all'/>" class="here-title">
+							게시판
+						</a>
+					</div>
+					<div style="margin: auto 16px;" >
+						<img class="top-img" alt="위치 이미지"
+							src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+					</div>	
+					<div style="padding-top: 1px;">
+						<a  class="here-title"
+							href="<c:url value='/board/list?bo_num=${post.po_bo_num}'/>"> 게시글
+						</a>
+					</div> 
+					<div style="margin: auto 16px;" >
+						<img class="top-img" alt="위치 이미지"
+							src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+					</div>	
+					<div style="padding-top: 1px;">
+						<a  class="here-title atitle">
+							상세페이지
+						</a>
+					</div> 
+			</div>
 			<div style="text-align: center;">
 				<h1 style="color: #555">${post.po_bo_title}</h1>
 			</div>

@@ -159,16 +159,7 @@ color: green;
 	height: 16px;
 	width: 16px;
 }
-.here-title{
-	text-decoration: none;
-	color: black;
-	font-size: 15px;
-	font-weight: bold;
-}
-.here-title:hover{
-	text-decoration: none;
-	color: gray;
-}
+
 .page-title{
 	text-align: left;
 	font-size: 50px;
@@ -184,6 +175,7 @@ color: green;
 	background-size: cover;
     background-origin: content-box;
 }
+
 </style>
 </head>
 <body>
