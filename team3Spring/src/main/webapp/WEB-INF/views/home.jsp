@@ -751,8 +751,8 @@ margin: 10px;
 				 <img alt="미니공지" style="width: 48px;margin-left: 100px"
 				 src="<c:url value='/resources/img/미니공지.png'/>">
 				 <span style="color: gray;margin-right:auto;line-height: 3.5;margin-left: 23px ">공지사항 : 
-				 <a href="#" style="color:gray ">공지링크</a></span>
-				 <a href="#" 
+				 <a href="<c:url value='/board/list'/>" style="color:gray ">누르지마</a></span>
+				 <a href="<c:url value='/board/list?bo_num=1'/>"
 				 style="line-height: 3.5;margin-right: 50px;color: gray;border: 1px solid #fafafa;"
 				 >더보기</a>
 			</div>
