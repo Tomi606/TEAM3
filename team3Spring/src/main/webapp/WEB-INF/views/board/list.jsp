@@ -285,6 +285,5 @@ color:  rgba(0, 128, 0, 0.5);
 			</ul>
 		</div>
 	</div>
- 
 </body>
 </html>

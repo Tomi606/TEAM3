@@ -176,6 +176,7 @@ display:flex;justify-content:flex-end;
 	margin:0 auto;
 	background-color:white;
  	width: 80%;
+ 	 box-shadow: 10px 0px 10px -5px rgba(0, 180, 0, 0.1), -10px 0px 10px -5px rgba(0, 180, 0, 0.1);
 }
 
 .홈왼쪽, .홈오른쪽 {
