@@ -170,31 +170,43 @@ color: green;
 	font-size: 50px;
 	color: rgba(0, 100, 60, 0.8);
 	font-weight: bold;
-	margin: 50px 0 70px 0;
+	margin: 0 0 80px 0;
+}
+.home-box1 {
+	width: 100%;
+	height: 350px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
 }
 </style>
 </head>
 <body>
 <div class="hospital-list-home">
-	<div class="hospital-list-box">
-	<div style="text-align: left;display: flex;height: 50px;line-height: 50px; margin: 50px 0;">
-		<a href="<c:url value='/'/>">
-			<img class="top-img" alt="위치 이미지"
-			src="<c:url value='/resources/img/home-4-line.svg'/>">
-		</a>
-		<div style="margin: auto 16px;" >
-			<img class="top-img" alt="위치 이미지"
-				src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
-		</div>	
-		<div style="padding-top: 1px;">
-			<a href="<c:url value='/hospital/list?hs_num=0'/>" class="here-title">
-				병원
-			</a>
+		<div class="home-box1">
+			<div style="width: 80%;margin: 0 auto;padding-top: 80px">
+				<div class="page-title">
+					병원
+				</div>
+				<div style="text-align: left;display: flex;height: 50px;line-height: 50px; margin: 20px 0 50px 0;">
+					<a href="<c:url value='/'/>">
+						<img class="top-img" alt="위치 이미지"
+						src="<c:url value='/resources/img/home-4-line.svg'/>">
+					</a>
+					<div style="margin: auto 16px;" >
+						<img class="top-img" alt="위치 이미지"
+							src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+					</div>	
+					<div style="padding-top: 1px;">
+						<a href="<c:url value='/hospital/list?hs_num=0'/>" class="here-title">
+							병원
+						</a>
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
-	<div class="page-title">
-		병원
-	</div>
+	<div class="hospital-list-box">
 	<div class="area-select-container">
 		
 			<div class="category">
