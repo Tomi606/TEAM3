@@ -316,9 +316,6 @@ $('#detail_btn').click(function() {
 <script type="text/javascript">
 $(document).ready(function() {
 	  // 로그인 여부를 체크
-	  if (!checkLogin()) {
-	    return;
-	  }
 	  $(document).on('click', '.btn-report', function() {
 	    let target_id = $(this).closest('.report-box').data('target');
 	    $("#myModal").css("display", "block");
@@ -705,21 +702,7 @@ $(document).on('click','.user-cmt-btn',function(){
    getCmtList();
 });
 
-function checkLogin() {
-	  //로그인 했을 때
-	  if ('${user.site_id}' != '') {
-	    return true;
-	  }
-	  //안 했을 때
-	  let answer = confirm("로그인이 필요한 기능입니다. \n로그인 페이지로 이동하겠습니까?");
-	  if (answer) {
-	    location.href = '<c:url value="/main/login"/>';
-	  }else {
-		  alert("로그인후 이용 해주세요.")
-		  location.href = '<c:url value="/"/>';
-	}
-	  return false;
-	}
+ 
 </script>
 </body>
 </html>
