@@ -91,6 +91,6 @@ public interface BoardDAO {
 
 	FileVO selectFile(@Param("fi")int tmp);
 
-	PostVO selectMyPostEq(@Param("po")int po_num);
+	ArrayList<PostVO> selectMyPostEq(@Param("po")int po_num);
 
 }

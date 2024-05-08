@@ -36,7 +36,7 @@ width: 1700px;height: 1500px;display: grid; grid-template-columns: 1fr 1fr;paddi
 display: grid;margin: 0 auto;
 }
 .board_list{
-	width: 800px;height: 400px;border: 2px solid green;border-radius: 15px;padding: 20px;margin: 20px 20px 80px 20px; overflow: hidden;
+	width: 800px;height: 417px;border: 2px solid green;border-radius: 15px;padding: 20px;margin: 20px 20px 80px 20px; overflow: hidden;
 }
 .board_list:hover{
    box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);

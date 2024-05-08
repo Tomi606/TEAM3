@@ -79,7 +79,7 @@ textarea{outline-style: none;}
 .post_list_container{width: 100%;height: 100%;}
 .post_list_box{
 	border:2px solid green;width: 1400px;height: 100%;margin:100px auto;
-	padding:100px;	border-radius: 15px;
+	padding:0 100px 100px 100px;	border-radius: 15px;
 }
 .hr{width: 100%;height: 0;border: 1px solid lightgray;margin: 50px 0 50px 0;}
 .post_insert_btn{
@@ -129,7 +129,7 @@ width: 80%;margin: 0 auto 80px auto;
 	color: gray;
 }
 .comment_content{ resize: none; width: 92%;}
-.box-comment{margin:30px 0 20px 0;
+.box-comment{margin:30px 0 20px 0;font-size:18px;
 width: 100%;height: 60px;border-bottom: 1px solid gray;
 
 }
@@ -221,20 +221,33 @@ color: green;
 .p_tag>a:hover {
 	text-decoration: underline;
 	color:  rgba(0, 128, 0, 0.5);
-}
+} 
+.note-editable{font-size: 18px;}
 .note-popover .popover-content, .note-editor .note-toolbar {
 	display: none;
 }
 .note-statusbar{
 	display: none;
 }
+ .board_title_container{width: 100%;}
+   .board_location{
+   	height: 80px;padding-top: 20px;width: 300px;
+   }
+   .prev_btnBtn{color: black;}
+   
 </style>
 </head>
 <body>
 	<div class="post_list_container">
 		<div class="post_list_box">
+			<div class="board_location">
+					<a class="prev_btnBtn" 
+					href="<c:url value="/board/all"/>">게시판</a> >
+					<a class="prev_btnBtn" 
+					href="<c:url value="/board/list?bo_num=${post.po_bo_num}"/>"> 게시글</a> ><a> 상세페이지</a>
+				</div>
 			<div style="text-align: center;">
-				<h1>${post.po_bo_title}</h1>
+				<h1 style="color: #555">${post.po_bo_title}</h1>
 			</div>
 			<div class="post_insert_btn_box">
 		    	<a href="<c:url value="/board/list?bo_num=${post.po_bo_num}"/>" class="post_insert_btn">목록으로</a>
@@ -324,7 +337,8 @@ color: green;
 				<!-- 댓글 -->  
 				<div class="container-comment mt-3 mb-3" id="comments-section">
 					<h2>
-						<img style="width:80px;margin-right: 10px;" alt="댓글이미지" src="<c:url value="/resources/img/comment.png"/>"><span class="comment-total">2</span>
+						<img style="width:80px;margin-right: 10px;" alt="댓글이미지" src="<c:url value="/resources/img/comment.png"/>">
+						<span class="comment-total"style="color: #555"></span>
 					</h2>
 					<div style="width: 100%;border-bottom: 1px solid lightgray;display: flex;text-align: center;padding: 15px;">
 				 	   <span style="width: 25%;">작성자</span>
@@ -617,7 +631,7 @@ let cri = {
 function displayCommentList(commentList){
    let str = '';
    if(commentList == null || commentList.length == 0){
-      str = '<h3>등록된 댓글이 없습니다.</h3>';
+      str = '<h3 style="color: #555">등록된 댓글이 없습니다.</h3>';
       $('.box-comment-list').html(str);
       return;
    }		
