@@ -32,7 +32,7 @@
 width: 100%;height: 100%;display: flex;margin: 0 auto;
 }
 .board_list_container{
-width: 1700px;height: 100%;display: grid; grid-template-columns: 1fr 1fr;padding: 25px;
+width: 1700px;height: 1500px;display: grid; grid-template-columns: 1fr 1fr;padding: 25px;
 display: grid;margin: 0 auto;
 }
 .board_list{
@@ -86,10 +86,16 @@ width: 70px;height: 50px;border: 1px solid green;color:green; line-height: 50px;
         <c:when test="${not empty boList}">
             <c:forEach items="${boList}" var="bo" varStatus="boIndex">
                 <div class="board_list">
-                    <div class="board_header">
-                        <h2 style="color: #555;">${bo.bo_title}</h2>
-                        <a href="<c:url value="/board/list?bo_num=${bo.bo_num}"/>" class="a_btn">이동하기</a>
-                    </div>
+                	<div style="margin-bottom: 20px;">
+	                	<div class="board_title_img">
+	                		<img alt="이미지" src="<c:url value='/resources/img/board_img.png'/>" 
+	                			style="width: 100px;z-index: 2;position: absolute;background-color: white;top: 390px;">
+	                	</div>
+	                    <div class="board_header">
+	                        <h2 style="color: #555;margin-left: 100px">${bo.bo_title}</h2>
+	                        <a href="<c:url value="/board/list?bo_num=${bo.bo_num}"/>" class="a_btn">이동하기</a>
+	                    </div>
+	                 </div>   
                     <table>
                         <thead>
                             <tr style="border-bottom: 1px solid lightgray;text-align: center;">
