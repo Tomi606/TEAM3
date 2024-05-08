@@ -12,7 +12,7 @@
  	box-shadow: 0px 2px 4px 6px rgba(0, 128, 0, 0.5);
     transition: box-shadow 0.3s ease;
     padding: 20px 30px 20px 30px;
-    margin: 20px 70px 20px 70px;
+    margin: 50px 300px 50px 300px;
     border-radius: 5px;
 }
 
@@ -142,6 +142,7 @@ p {
 	size: 50px;
 	font-stretch: expanded;
 	color: green;
+	margin-top: 20px;
 }
 
 .top-span {
@@ -243,10 +244,10 @@ p {
     color: green;
     border-color: green;
     font-weight: bold;
-	font-size: 50px;
-	height: 80px;
-	width: 100%;
-	padding: 0px 10px;
+    font-size: 40px;
+    height: 60px;
+    width: 100%;
+    padding: 0px 10px;
 }
 
 .book-btn:hover {
@@ -256,8 +257,8 @@ p {
 	border: 0px solid white;
 	animation: colorChange 1s infinite alternate; /* 1초 동안 반복되며 왔다갔다하는 애니메이션 적용 */
 	font-weight: bold;
-	font-size: 50px;
-	height: 80px;
+	font-size: 40px;
+    height: 60px;
 	width: 100%;
 	padding: 0px 10px;
 }
@@ -289,7 +290,17 @@ p {
     align-content: space-between;
     justify-content: center;
     align-items: stretch;
+}
 
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: green;
+    border-color: green;
+}
+.page-link {
+	background-color: white;
+	border-color: green;
 }
 </style>
 </head>
