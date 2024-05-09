@@ -11,20 +11,11 @@
 		<result column="site_phone" property="site_phone"/>
 		<result column="site_email" property="site_email"/>
 		<result column="site_authority" property="site_authority"/>
-		<collection property="member" ofType="MemberVO" column="site_id" select="siteMembergetId"/>
-		<collection property="report" ofType="ReportVO" column="site_num" select="siteMembergetReport"/>
+		<collection property="member" ofType="MemberVO" 
+		column="site_id" select="siteMembergetId"/>
+		<collection property="report" ofType="ReportVO" 
+		column="site_num" select="siteMembergetReport"/>
 	</resultMap>
-	
-	<select id="siteMembergetId" resultType="MemberVO">
-		select * from member where me_id = #{site_id}
-	</select>
-	
-	<select id="selectReportMemberList" resultMap="siteMap">
-		select * from site_management
-		where site_authority = "USER"
-		order by site_num
-		limit #{cri.pageStart}, #{cri.perPageNum}
-	</select>
 	
 	<select id="siteMembergetReport" resultType="ReportVO">
 		select * from report where rp_target = #{site_num}
@@ -35,6 +26,17 @@
 		where site_authority = "USER"
 		order by site_num
 		limit 4
+	</select>
+	
+	<select id="siteMembergetId" resultType="MemberVO">
+		select * from member where me_id = #{site_id}
+	</select>
+	
+	<select id="selectReportMemberList" resultMap="siteMap">
+		select * from site_management
+		where site_authority = "USER"
+		order by site_num
+		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
 	<select id="selectReportMemberTotalCount" resultType="int">
@@ -112,10 +114,6 @@
 		select * from hospital_subject where hs_num = #{me.me_hs_num}
 	</select>
 
-
-
-
-
 	<!-- 회원가입 -->
 	<insert id="insertMember">
 		insert into
@@ -128,9 +126,6 @@
 		site_management(site_la_num,site_id,site_email,site_phone,site_authority)
 		value(#{la.la_num},#{si.site_id},#{si.site_email},#{si.site_phone},"USER")
 	</insert>
-
-
-
 
 	<select id="selectSiDo" resultType="kr.kh.team3.model.vo.SiDoVO">
 		select * from si_do
@@ -145,8 +140,6 @@
 		resultType="kr.kh.team3.model.vo.EupMyeonDongVO">
 		select * from eup_myeon_dong where emd_sgg_num = #{sgg_num}
 	</select>
-
-
 
 	<!-- 로그인 -->
 	<select id="selectMember"
@@ -192,10 +185,48 @@
 		<result property="me_email" column="me_email" />
 		<result property="me_address" column="me_address" />
 		<result property="me_hs_num" column="me_hs_num" />
+		<result property="me_la_num" column="me_la_num"/>
 		<collection property="hospitalSubject"
 			ofType="HospitalSubjectVO" column="me_hs_num"
 			select="selectHospitalSubject" />
+		<collection property="land" ofType="LandVO" 
+		column="me_la_num" select="selectMeLaNum" />
 	</resultMap>
+	
+	<select id="selectMeLaNum" resultType="LandVO">
+		select * from land where la_num = #{me_la_num}
+	</select>
+	
+	<resultMap type="LandVO" id="landMap">
+		<id property="la_num" column="la_num"/>
+		<result property="la_sd_num" column="la_sd_num"/>
+		<result property="la_sgg_num" column="la_sgg_num"/>
+		<result property="la_emd_num" column="la_emd_num"/>
+		<collection property="sido" ofType="SiDoVO" 
+		column="la_sd_num" select="selectLaSdNum"/>
+		<collection property="sgg" ofType="SiGoonGuVO" 
+		column="la_sgg_num" select="selectLaSggNum"/>
+		<collection property="emd" ofType="EupMyeonDongVO" 
+		column="la_emd_num" select="selectLaEmdNum"/>
+	</resultMap>
+	
+	<select id="selectLaSdNum" resultType="SiDoVO">
+		select sd_name from si_do where sd_num = #{la_sd_num}
+	</select>
+	
+	<select id="selectLaSggNum" resultType="SiGoonGuVO">
+		select sgg_name from si_goon_gu where sgg_num = #{la_sgg_num}
+	</select>
+	
+	<select id="selectLaEmdNum" resultType="EupMyeonDongVO">
+		select emd_name from eup_myeon_dong where emd_num = #{la_emd_num}
+	</select>
+	
+	<select id="selectMemberLand" resultType="MemberVO">
+		select me_la_num from member
+	</select>
+	
+	
 
 	<select id="selectHospitalSubject"
 		resultType="HospitalSubjectVO">
@@ -324,4 +355,5 @@
 	<select id="selectTarget" resultType="int">
 		select site_num from site_management where site_id =#{id}
 	</select>
+
 </mapper>

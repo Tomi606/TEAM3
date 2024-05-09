@@ -563,9 +563,15 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public ArrayList<SiteManagement> getMeRpList() {
+	public ArrayList<ReportVO> getMeRpList() {
 		return memberDao.selectMeRpList();
 	}
+
+	@Override
+	public ArrayList<MemberVO> getMemberLand() {
+		return memberDao.selectMemberLand();
+	}
+
 
 	
 	 

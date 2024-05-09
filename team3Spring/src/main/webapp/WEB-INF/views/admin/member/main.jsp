@@ -127,7 +127,7 @@ table{
 	        </thead>
 	        <tbody>
 	            <c:choose>
-	                <c:when test="${not empty meRpList}">
+	                <c:when test="${meRpList != null}">
 	                    <c:forEach items="${meRpList}" var="me">
 	                    	<c:forEach items="${me.report}" var="report">
 	                         <tr style="height: 50px; font-size: 17px; text-align: center; border-bottom: 1px solid lightgray">
@@ -150,7 +150,7 @@ table{
 	        </tbody>
 	    </table>
 	</div>
-	
+
 	<div class="all-box" style="text-align: center;">
 		<div class="all-me-list">
 			<div class="board_header">						
@@ -179,7 +179,7 @@ table{
 							<td>${me.me_job}</td>
 							<td>${me.me_phone}</td>
 							<td>${me.me_email}</td>
-							<td>${me.me_address}</td>
+							<td>${me.land.sido.sido_name} ${me.land.sgg.sgg_name} ${me.land.emd.emd_name}</td>
 							<td>${me.hospitalSubject.hs_title}</td>
 						</tr>
 					</c:forEach>

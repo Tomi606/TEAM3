@@ -102,6 +102,8 @@ public interface MemberService {
 
 	boolean deleteMyInfo(MemberVO member, SiteManagement user);
 
-	ArrayList<SiteManagement> getMeRpList();
+	ArrayList<ReportVO> getMeRpList();
+
+	ArrayList<MemberVO> getMemberLand();
 
 }
