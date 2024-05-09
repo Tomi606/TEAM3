@@ -1,7 +1,10 @@
 package kr.kh.team3.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,11 +13,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -100,7 +100,6 @@ public class ReservationScheduleController {
 		HospitalProgramVO hp = hospitalService.getHospitalProgram(hp_num);
 		//해당 과와아이디를 이용해 번호를 가져오는 메서드
 		ArrayList<ReservationScheduleVO> RSlist = programService.getRsList(hp_num);
-		log.info("RSlistRSlistRSlistRSlistRSlistRSlistRSlistRSlistRSlistRSlistRSlist"+RSlist);
 		map.put("hp", hp);
 		map.put("RSlist", RSlist);
 		return map;
@@ -180,15 +179,21 @@ public class ReservationScheduleController {
 		return "message";
 	}
 	
-	@GetMapping("/update/userschedule	")
-	public String updateUserSchedule(Model model, int rv_num, int hs_num, 
-			String date, String time) throws Exception{
-		boolean res = reservationScheduleService.updateUserSchedule(rv_num, hs_num, date, time);
+	@GetMapping("/update/userschedule")
+	public String updateUserSchedule(Model model, int rv_num, String date, 
+			String time2, int hp_num) throws Exception{
+		
+		date = date.replaceAll("/", "-");
+		time2 = time2.replaceAll(" ", "");
+		time2 = time2.replace("시", ":");		
+		time2 = time2.replace("분", ":");		
+		time2 = time2+"00";		
+		boolean res = reservationScheduleService.updateUserSchedule(rv_num, date, time2, hp_num);
 		if(res) {
-			model.addAttribute("msg", "삭제에 성공하였습니다.");
+			model.addAttribute("msg", "예약 변경에 성공하였습니다.");
 			model.addAttribute("url", "/hospital/schedule/change");
 		}else {
-			model.addAttribute("msg", "삭제에 실패하였습니다.");
+			model.addAttribute("msg", "예약 변경에 실패하였습니다.");
 			model.addAttribute("url", "/hospital/schedule/change");
 		}
 		return "message";
