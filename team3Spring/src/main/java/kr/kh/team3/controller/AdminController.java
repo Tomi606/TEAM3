@@ -107,8 +107,11 @@ public class AdminController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		boolean res = hospitalService.hospitalWaitOk(hospital);
+		//대표 과목 추가
+		boolean insertHsList = hospitalService.insertHoSub(hospital.getHo_id(), hospital.getHo_hs_num());
 
 		map.put("res", res);
+		map.put("insertHsList", insertHsList);
 		return map;
 	}
 	

@@ -210,4 +210,9 @@ public interface HospitalDAO {
 
 	ArrayList<HospitalSubjectVO> selectHospitalSubjectListHome();
 
+	boolean deleteSiteHospital(@Param("site_id") String site_id);
+
+	boolean insertHoSub(@Param("ho_id") String ho_id, @Param("ho_hs_num") int ho_hs_num);
+
+
 }

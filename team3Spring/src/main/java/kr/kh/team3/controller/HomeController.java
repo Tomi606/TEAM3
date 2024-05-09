@@ -18,6 +18,7 @@ import kr.kh.team3.model.vo.BoardVO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.PostVO;
@@ -174,8 +175,9 @@ public class HomeController {
 	// 사업자 회원가입 페이지(post)
 	@ResponseBody
 	@PostMapping("/hospital/signup")
-	public boolean hospitalSignupPost(HospitalVO hospital, SiteManagement site, @RequestParam Map<String, String> obj
-			, LandVO land) {
+	public boolean hospitalSignupPost(
+			HospitalVO hospital, SiteManagement site, HospitalSubjectVO hoSub,
+			@RequestParam Map<String, String> obj, LandVO land) {
 		boolean addLand = hospitalService.insertLand(land);
 		if (!addLand) {
 			return false;
@@ -184,6 +186,7 @@ public class HomeController {
 		if (getLand == null) {
 			return false;
 		}
+		
 		boolean memberRes = hospitalService.signup(hospital, getLand);
 		boolean siteRes = hospitalService.siteSignup(site, getLand);
 		return !memberRes || !siteRes;
