@@ -196,13 +196,6 @@ public class ReservationScheduleController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		ReservationVO rv = new ReservationVO("예약완료", rs_num, user.getSite_id());
-//		
-//		System.out.println("결제 성공");
-//		System.out.println("결제 금액 : " + amount);
-//		System.out.println("imp_uid : " + imp_uid);
-//		System.out.println("merchant_uid : " + merchant_uid);
-//		System.out.println("rs_num : " + rs_num);
-//		System.out.println("ho_id : " + ho_id);
 
 		boolean reserve = programService.insertReservation(rv);
 		ReservationVO reservation = programService.selectReservation(rv);
@@ -229,6 +222,16 @@ public class ReservationScheduleController {
 		System.out.println(imp_uid + "nnnnn");
 		System.out.println("nnnn" + iamportClient.paymentByImpUid(imp_uid));
 		return iamportClient.paymentByImpUid(imp_uid);
+	}
+
+	@ResponseBody
+	@PostMapping("/checkReserve")
+	public Map<String, Object> checkReserve(HttpSession session, int rv_rs_num) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		boolean reserve = programService.selectUserReserve(user.getSite_id(), rv_rs_num);
+		map.put("res", reserve);
+		return map;
 	}
 
 }

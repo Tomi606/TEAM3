@@ -62,4 +62,6 @@ public interface ProgramService {
 
 	boolean insertPay(PaymentVO payment);
 
+	boolean selectUserReserve(String site_id, int rv_rs_num);
+
 }

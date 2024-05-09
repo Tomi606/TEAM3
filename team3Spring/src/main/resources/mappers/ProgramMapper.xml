@@ -157,4 +157,8 @@
 		insert into payment (pm_num,pm_type,pm_ps_name,pm_price,pm_rv_num,pm_ho_id)
 		value(#{pay.pm_num},#{pay.pm_type},"결제완료",#{pay.pm_price},#{pay.pm_rv_num},#{pay.pm_ho_id})
 	</insert>
+	
+	<select id="selectUserReserve" resultType="kr.kh.team3.model.vo.ReservationVO">
+			select * from reservation where rv_me_id = #{site_id} and rv_rs_num = #{rv_rs_num}
+	</select>
 </mapper>
