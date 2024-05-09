@@ -72,25 +72,6 @@
 	</div>
 </div>
 
-<script>
-    // th를 클릭하면 텍스트가 사라지고 input 태그로 변경
-    $(document).on("click", '.change_btn', function() {
-      // 클릭한 th 요소의 내용을 저장
-      var currentText = $('#reservation_table th').text().trim();
-      
-      // 현재 요소를 input 요소로 변경
-      //$(this).html('<input type="text" class="editable" value="' + currentText + '">');
-      
-      // input 요소에 포커스 주기
-      $(this).find('.editable').focus();
-    });
-    
-    // input 요소에서 포커스가 빠져나가면 값을 저장하고 텍스트로 변경
-    $(document).on('blur', '.editable', function() {
-      var newText = $(this).val().trim();
-      $(this).parent().text(newText);
-	 });
-</script>
 
 <!-- 변경 버튼을 눌렀을때 인풋태그가 바뀌는 코드 -->
 <script type="text/javascript">
@@ -114,40 +95,59 @@
 		/* 옵션 str */
 		let dis = displayHospitalUpdateProgram(list);
 		
-		$(this).parents(".tr").find(".date").html('<select name="date">' + '</select>');
-		$(this).parents(".tr").find(".time").html('<select name="time">'+ '</select>');
+		$(this).parents(".tr").find(".date").html('<select name="date" class="date">' + '</select>');
+		$(this).parents(".tr").find(".time").html('<select name="time" class="time">'+ '</select>');
 		$(this).parents(".tr").find(".program").html('<select name=uhp_num>'+ dis +'</select>');
 		
 		$(this).parents(".tr").find(".change_btn").html('<a class="btn success_btn">확인</a>')
 	})
 </script>
 
-<!-- 프로그램을 선택할 때마다 날짜를 가져오는 코드 -->
-<!-- <script type="text/javascript">
-$(document).on("click", "[name=uhp_num]", function(){
-	let hp_num = $("[name=uhp_num]").val()
-	$.ajax({
-        method : "post",
-        url : '<c:url value="/getdate"/>',
-        data : {"hp_num" : hp_num},
-        success : function (data) {
-            res=data.RSlist;
-            let option = strOption(data.RSlist);
-            $(this).parents(".tr").find(".date").html('<select name="date">'+ option +'</select>');
-        }
-    });
-})
 
-/* 날짜를 option으로ㅓ 만드는 메서드 */
-function strOption(list){
-	let str = ``;
-	console.log(list)
-	for(let tmp of list){
-		str+= `<option>` + tmp.rsDate + `</option>`
+<!-- 프로그램을 선택하면 날짜를 가져오는 메서드 -->
+<script type="text/javascript">
+	$(document).on("click", "[name=hp_num]", function(){
+		let list = selectDate();
+		console.log(list)
+		let option = optionStr(list);
+		$(this).parents(".tr").find(".date").html('<select name="date" class="date">'+ option +'</select>');
+	})
+	
+	function selectDate(){
+		let uhp_num = $("[name=uhp_num]").val();
+		if(uhp_num == 'none'){
+			uhp_num = 1;
+			return;
+		}
+		let res = null;
+		$.ajax({
+			async : false,
+			method : "post",
+			url : '<c:url value="/getdate"/>',
+			data : {
+				"hp_num" : uhp_num
+			},
+			success : function(data){
+				res = data.RSlist
+			}
+		});
+		return res;
 	}
-	return str
-}
-</script> -->
+	
+	function optionStr(list){
+		let str = ``;
+		if(list == null){
+			$("[name=date]").html(str);
+		}
+        for(let tmp of list){
+            str += `<option value="\${tmp.rs_num}">\${tmp.rsDate}</option>`;
+        }
+		return str;
+	}
+	
+	
+</script>
+
 
 <script type="text/javascript">
 	$(document).on("click", ".success_btn", function(){
@@ -158,6 +158,8 @@ function strOption(list){
 		location.href='<c:url value="/update/userschedule?rv_num="/>' + rv_num + "&uhs_num=" + uhs_num + "&date=" + date + "&time" + time
 	})
 </script>
+
+
 
 <!-- 병원 과목을 선택하면 프로그램을 가져옴 -->
 <script type="text/javascript">
