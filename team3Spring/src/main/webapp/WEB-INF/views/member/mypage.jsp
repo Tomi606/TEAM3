@@ -142,7 +142,7 @@ border-radius:5px;
 }
 
 .profile-container {
-	background-color: rgb(202,238,208);
+	background-color: rgb(360, 304, 246);
 	width: 1000px;
 	height: 800px;
 	display: block;
@@ -485,7 +485,7 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 			<div class="profile-anything">
 				<div class="anything-box">		
 					<div class="choose-box">
-						<a href='<c:url value=""/>'>예약 관리</a><br>
+						<a href='<c:url value="/member/reservemgr?site_id=${user.site_id}"/>'>예약 관리</a><br>
 					</div>
 					<div class="choose-box">
 						<a href='<c:url value="/member/bookmark"/>'>북마크</a><br>

@@ -11,39 +11,41 @@ import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.ItemListVO;
 import kr.kh.team3.model.vo.ItemVO;
+import kr.kh.team3.model.vo.PaymentVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
+import kr.kh.team3.model.vo.ReservationVO;
 import kr.kh.team3.model.vo.SiteManagement;
 
 @Controller
-public class ProgramServiceImp implements ProgramService{
-	
+public class ProgramServiceImp implements ProgramService {
+
 	@Autowired
 	ProgramDAO programDao;
 
 	@Override
 	public boolean insertItem(ItemVO item, SiteManagement user, HsListVO hslist) {
-		/* 회원가입 수정 후 나중에 주석 제거해야함
-		 * if(item.getIt_name() == "" || item.getIt_explanation() == "" ||
-		 * user.getSite_id() == "") { return false; }
+		/*
+		 * 회원가입 수정 후 나중에 주석 제거해야함 if(item.getIt_name() == "" || item.getIt_explanation()
+		 * == "" || user.getSite_id() == "") { return false; }
 		 */
 		ArrayList<ItemVO> itemList = programDao.selectItemList(user);
-		for(ItemVO tmp : itemList) {
-			if(tmp.getIt_name().equals(item)) {
+		for (ItemVO tmp : itemList) {
+			if (tmp.getIt_name().equals(item)) {
 				System.out.println("중복값 있음");
 				return false;
 			}
 		}
 
-		//회원가입 수정 후 나중에 주석 제거해야함
-		 if(user.getSite_authority().equals("MANAGER")) { 		 
-			 return programDao.insertItem(item, user, hslist);	
-		 }
+		// 회원가입 수정 후 나중에 주석 제거해야함
+		if (user.getSite_authority().equals("MANAGER")) {
+			return programDao.insertItem(item, user, hslist);
+		}
 		return false;
 	}
 
 	@Override
 	public ArrayList<ItemVO> getAllItemList(SiteManagement user) {
-		
+
 		return programDao.selectItemList(user);
 	}
 
@@ -51,9 +53,9 @@ public class ProgramServiceImp implements ProgramService{
 	public boolean updateItem(ItemVO item, SiteManagement user, int it_num, int hs_num) {
 		HsListVO hl = programDao.selelctHsList(hs_num, user);
 		ArrayList<ItemVO> itemList = programDao.selectItemSubjectByList(user, hl.getHsl_num());
-		for(ItemVO tmp : itemList) {
+		for (ItemVO tmp : itemList) {
 			System.out.println(tmp.getIt_name().equals(item.getIt_name()));
-			if(tmp.getIt_name().equals(item.getIt_name())) {
+			if (tmp.getIt_name().equals(item.getIt_name())) {
 				return false;
 			}
 		}
@@ -62,73 +64,71 @@ public class ProgramServiceImp implements ProgramService{
 
 	@Override
 	public boolean deleteItem(ArrayList<Integer> intList) {
-		
-		for(int tmp : intList) {
+
+		for (int tmp : intList) {
 			boolean res = programDao.deleteItem(tmp);
-			if(!res) {
+			if (!res) {
 				return false;
 			}
 		}
 		return true;
 	}
-	//==================================아이템 기능 끝=====================================
-	
-	//==================================프로그램 기능 시작=====================================
-	
+	// ==================================아이템 기능
+	// 끝=====================================
+
+	// ==================================프로그램 기능
+	// 시작=====================================
+
 	@Override
-	public boolean insertProgram(HospitalProgramVO program
-			, SiteManagement user, ArrayList<Integer> list, int hs_num) {
-		if(program.getHp_payment() == 0 || program.getHp_ho_id() == ""
-				|| user.getSite_id() == null) {
+	public boolean insertProgram(HospitalProgramVO program, SiteManagement user, ArrayList<Integer> list, int hs_num) {
+		if (program.getHp_payment() == 0 || program.getHp_ho_id() == "" || user.getSite_id() == null) {
 			return false;
 		}
 		ArrayList<HospitalProgramVO> ProgramList = programDao.selectProgramList(user);
-		for(HospitalProgramVO tmp : ProgramList) {
-			if(tmp.getHp_title().equals(program.getHp_title())) {
+		for (HospitalProgramVO tmp : ProgramList) {
+			if (tmp.getHp_title().equals(program.getHp_title())) {
 				System.out.println("중복값 있음");
 				return false;
 			}
 		}
-		
+
 		boolean programRes = false;
 		boolean listRes = false;
-		if(user.getSite_authority().equals("MANAGER")) {	
-			//항목 리스트, 항목 리스트 제목, 병원 프로그램 명(번호) 가져와서 itemList에 넣기
-			programRes =  programDao.insertProgram(program, user, hs_num);	
+		if (user.getSite_authority().equals("MANAGER")) {
+			// 항목 리스트, 항목 리스트 제목, 병원 프로그램 명(번호) 가져와서 itemList에 넣기
+			programRes = programDao.insertProgram(program, user, hs_num);
 		}
-		if(programRes) {
+		if (programRes) {
 			HospitalProgramVO pr = programDao.selectProgram(program);
-			if(pr == null) {
+			if (pr == null) {
 				return false;
 			}
-			for(int tmp : list) {
+			for (int tmp : list) {
 				listRes = programDao.insertItemList(pr, tmp);
-				if(!listRes) {
+				if (!listRes) {
 					return false;
 				}
 			}
 		}
 		return true;
 	}
-	
+
 	@Override
 	public ArrayList<HospitalProgramVO> getProgramList(SiteManagement user) {
-		if(user == null) {
+		if (user == null) {
 			return null;
 		}
 		return programDao.selectProgramList(user);
 	}
 
-
 	@Override
 	public boolean deleteProgram(int hp_num) {
 		boolean res = programDao.deleteItemList(hp_num);
-		if(res) {			
+		if (res) {
 			return programDao.deleteProgram(hp_num);
 		}
 		return false;
 	}
-
 
 	@Override
 	public ArrayList<ItemListVO> getItemListList(SiteManagement user, int hp_num) {
@@ -147,17 +147,17 @@ public class ProgramServiceImp implements ProgramService{
 
 	@Override
 	public ArrayList<HsListVO> getSubjectList(SiteManagement user) {
-		
+
 		return programDao.selectHospitalSubject(user);
 	}
 
 	@Override
 	public HospitalSubjectVO getSubject(int hs_num, SiteManagement user) {
-		if(user == null) {
+		if (user == null) {
 			return null;
 		}
 
-		return programDao.selectSubject(hs_num); 					
+		return programDao.selectSubject(hs_num);
 	}
 
 	@Override
@@ -167,7 +167,7 @@ public class ProgramServiceImp implements ProgramService{
 
 	@Override
 	public ArrayList<ItemVO> getItemList(SiteManagement user, HsListVO hslist) {
-		if(user == null || hslist == null) {
+		if (user == null || hslist == null) {
 			return null;
 		}
 
@@ -181,15 +181,15 @@ public class ProgramServiceImp implements ProgramService{
 
 	@Override
 	public ArrayList<HospitalProgramVO> getSubjectByProgram(SiteManagement user, HsListVO hslist) {
-		if(user == null || hslist == null) {
+		if (user == null || hslist == null) {
 			return null;
 		}
 		return programDao.selectSubjectByProgramList(hslist.getHsl_num(), user);
 	}
 
 	@Override
-	public HospitalProgramVO getHospitalProgram(HsListVO hslist,int hp_num ,SiteManagement user) {
-		if(hslist == null) {
+	public HospitalProgramVO getHospitalProgram(HsListVO hslist, int hp_num, SiteManagement user) {
+		if (hslist == null) {
 			return null;
 		}
 		return programDao.selectItemListByProgram(hslist.getHsl_num(), hp_num, user);
@@ -216,5 +216,36 @@ public class ProgramServiceImp implements ProgramService{
 		return programDao.deleteSchedule(rs_num);
 	}
 
+	@Override
+	public boolean insertReservation(ReservationVO rv) {
+		if (rv == null || rv.getRv_me_id() == null)
+			return false;
+
+		return programDao.insertResrvationBook(rv);
+	}
+
+	@Override
+	public ReservationVO selectReservation(ReservationVO rv) {
+		if (rv == null || rv.getRv_me_id() == null)
+			return null;
+		return programDao.selectReservation(rv);
+	}
+
+	@Override
+	public boolean insertPay(PaymentVO payment) {
+		
+		
+		return programDao.insertPay(payment);
+	}
+
+	@Override
+	public boolean selectUserReserve(String site_id, int rv_rs_num) {
+		ReservationVO reserve =  programDao.selectUserReserve(site_id, rv_rs_num);
+		System.out.println("여기" + reserve);
+		if(reserve != null)
+			return false;
+		
+		return true;
+	}
 
 }

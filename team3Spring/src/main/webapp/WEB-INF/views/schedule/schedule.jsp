@@ -173,7 +173,8 @@ let sgo = {
 	hp_payment : 0,
 	hpPayment : '',
 	rs_date : '',
-	rs_time : ''
+	rs_time : '',
+	rs_num : 0
 }
 	$("[name=hs_num]").click(function(){
 		let hp_num = $("[name=hp_num]").val();
@@ -249,8 +250,8 @@ $(document).on("click", ".day-btn", function(){
 			for(let tmp of data.timeList){
 				str+= 
 					`
-						<div class="time-box reserveBtn" data-time="\${tmp.rsTime}">
-							<a class="reserveBtn" data-time="\${tmp.rsTime}">\${tmp.rsTime}</a>
+						<div class="time-box reserveBtn" data-time="\${tmp.rsTime}" data-target="\${tmp.rs_num}">
+							<a class="reserveBtn" data-time="\${tmp.rsTime}" data-target="\${tmp.rs_num}">\${tmp.rsTime}</a>
 						</div>
 					`
 			}
@@ -262,17 +263,18 @@ $(document).on("click", ".day-btn", function(){
 <script type="text/javascript">
 $(document).on("click", ".reserveBtn", function(){
 	sgo.rs_time = $(this).data("time");
+	sgo.rs_num = $(this).data("target");
+	console.log("sfda;jkljflsdjf;lsaj" + sgo.rs_num)
 	let res = confirm(
 			"병원명 : " + sgo.ho_name +
 			"\n프로그램 명 : " + sgo.hp_title +
 			"\n예약날짜 : " + sgo.rs_date +
 			"\n예약시간 : " + sgo.rs_time +
-			"\n금액 : " + sgo.hpPayment + "원" +
+			"\n결제금액 : " + sgo.hpPayment + "원" +
 			"\n\n위 내용을 예약 하시겠습니까?\n");
 	
 	if(res){
-		book(sgo.ho_name, sgo.hp_title, sgo.rs_date, sgo.rs_time, sgo.hp_payment);
-		return true;
+		checkReserve();
 	}else{
 		return false;
 	}
@@ -439,7 +441,29 @@ $('.nextBtn').click(function(){
 
 </script>
 <script type="text/javascript">
+function checkReserve() {
+	$.ajax({
+		type: "post",
+		url: '<c:url value="checkReserve"/>',
+		data: {
+			rv_rs_num: sgo.rs_num
+		},
+		success : function (data){
+			if(data.res == false){
+				alert("이미 예약한 프로그램입니다.");
+			}else{
+				book(sgo.ho_name, sgo.hp_title, sgo.rs_date, sgo.rs_time, sgo.hp_payment);
+			}
+
+		}, 
+		error : function(jqXHR, textStatus, errorThrown){
+			console.log("기은아에러야" + error);
+
+		}
+	});//ajax end
+} // function end
 function book(ho_name, hp_title, rs_date, rs_time, hp_payment) {
+	
 	var IMP = window.IMP;
 	IMP.init("imp06120506");   /* imp~ : 가맹점 식별코드*/
 	
@@ -447,25 +471,33 @@ function book(ho_name, hp_title, rs_date, rs_time, hp_payment) {
 		pg: 'html5_inicis',
 		pay_method: 'card',
 		merchant_uid: 'merchant_' + new Date().getTime(),
-
-		name:  ho_name,
+		name: ho_name + " " + hp_title,
 		amount: hp_payment,
-		buyer_email: "wkdrn002@naver.com",  /*필수 항목이라 "" 로 남겨둠*/
-		buyer_name: hp_title,
+		buyer_email: "${user.site_email}",  /*필수 항목이라 "" 로 남겨둠*/
+		buyer_name: "${me.me_name}"
 	}, 
 	function(rsp) {
 		if (rsp.success) {
 			var msg = '결제가 완료되었습니다.';
 			alert(msg);
-			console.log("결제성공 ");
-			location.href='<c:url value="/hospital/detail/detail?ho_id=\${hospital.ho_id}"/>';
+			console.log("결제성공");
 			$.ajax({
-				type: "GET",
-				url: '<c:url value="bookingPay"/>',
+				type: "post",
+				url: '<c:url value="bookingPbay"/>',
 				data: {
+					rs_num: sgo.rs_num,
 					amount: hp_payment,
 					imp_uid: rsp.imp_uid,
-					merchant_uid: rsp.merchant_uid
+					merchant_uid: rsp.merchant_uid,
+					ho_id: "${hospital.ho_id}"
+				},
+				success : function (data){
+					console.log(data);
+					console.log(data.payment);
+					location.href='<c:url value="/hospital/detail/detail?ho_id=${hospital.ho_id}"/>';
+				}, 
+				error : function(jqXHR, textStatus, errorThrown){
+
 				}
 			});
 		} else {
@@ -477,7 +509,7 @@ function book(ho_name, hp_title, rs_date, rs_time, hp_payment) {
 	});
 	
 }
- 
+
 </script>
 </body>
 </html>
