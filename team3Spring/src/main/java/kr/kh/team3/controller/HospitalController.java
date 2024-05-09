@@ -1,9 +1,6 @@
 package kr.kh.team3.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -237,6 +234,24 @@ public class HospitalController {
 	public ArrayList<EupMyeonDongVO> postEupMyeonDong(int sgg_num) {
 		ArrayList<EupMyeonDongVO> emdList = hospitalService.getEmd(sgg_num);
 		return emdList;
+	}
+	
+	//회원탈퇴
+	@GetMapping("/hospital/delete")
+	public String userDelete(Model model, HttpSession session) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		HospitalVO hospital = hospitalService.getHospital(user);
+		boolean res = hospitalService.deleteMyInfo(hospital, user);
+		if (res) {
+			session.invalidate();
+			model.addAttribute("url", "/");
+			model.addAttribute("msg", "회원탈퇴 했습니다.");
+		} else {
+			model.addAttribute("url", "/hospital/mypage");
+			model.addAttribute("msg", "회원탈퇴 실패했습니다.");
+		}
+
+		return "message";
 	}
 
 	//-----------------------------[병원 상세 페이지]------------------------------

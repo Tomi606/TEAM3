@@ -189,4 +189,6 @@ public interface HospitalService {
 
 	HospitalProgramVO getHospitalProgram(int hp_num);
 
+	boolean deleteMyInfo(HospitalVO hospital, SiteManagement user);
+
 }

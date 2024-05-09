@@ -174,8 +174,9 @@ public class HomeController {
 	// 사업자 회원가입 페이지(post)
 	@ResponseBody
 	@PostMapping("/hospital/signup")
-	public boolean hospitalSignupPost(HospitalVO hospital, SiteManagement site, @RequestParam Map<String, String> obj
-			, LandVO land) {
+	public boolean hospitalSignupPost(
+			HospitalVO hospital, SiteManagement site, 
+			@RequestParam Map<String, String> obj, LandVO land) {
 		boolean addLand = hospitalService.insertLand(land);
 		if (!addLand) {
 			return false;

@@ -47,4 +47,5 @@ public class HospitalVO {
 			return "없당ㅎㅎ";
 		}
 	}
+
 }

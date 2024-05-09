@@ -477,6 +477,11 @@ select:focus {
     margin-bottom: 0;
     font-size: 20px;
 }
+
+.hospital_delete_box {
+	color:gray;
+	list-style: none;padding-left: 33px;
+}
 </style>
 </head>
 <body>
@@ -544,6 +549,9 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 						<a href='<c:url value="/hospital/community?site_id=${user.site_id}"/>'>커뮤니티 관리</a>
 					</div>
 				</div>
+			</div>
+			<div class="hospital_delete_box">
+				<li role="button" class="hospital_delete_btn">회원탈퇴</li>
 			</div>
 		</div>
 		
@@ -1141,8 +1149,18 @@ $(document).on('change', '[name=sd_num]', function() {
         }
     });
 });
- 
-  
+</script>
+
+<!-- 회원 탈퇴 -->
+<script type="text/javascript">
+$(document).on("click",".hospital_delete_btn",function () {
+    let answer = confirm("회원 탈퇴를 진행 하시겠습니까?");
+    if (!answer) {
+    	return;
+    } else {
+    	location.href='<c:url value="/hospital/delete"/>';
+    }
+});
 </script>
 </body>
 </html>
