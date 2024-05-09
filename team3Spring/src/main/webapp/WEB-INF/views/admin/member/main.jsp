@@ -174,7 +174,7 @@ table{
 					<c:forEach items="${list}" var="me">			
 						<tr>
 							<td>${me.me_id}</td>
-							<td>${me.me_name}</td>${list.land.sgg.sgg_name}
+							<td>${me.me_name}</td>
 							<td>${me.me_gender}</td>
 							<td>${me.me_job}</td>
 							<td>${me.me_phone}</td>
