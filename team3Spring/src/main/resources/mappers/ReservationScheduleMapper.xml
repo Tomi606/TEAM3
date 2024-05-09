@@ -41,8 +41,12 @@
 	</select>
 	<!-- 예약 테이블 resultMap -->
 	
-	<delete id="deleteScheule">
+	<delete id="deleteUserSchedule">
 		delete from reservation where rv_num = #{rv_num};
 	</delete>
+	
+	<!-- <update id="updateUserChedule">
+		update reservation set 
+	</update> -->
 	
 </mapper>
