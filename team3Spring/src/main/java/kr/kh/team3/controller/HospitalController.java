@@ -56,9 +56,9 @@ public class HospitalController {
 	public String myPage(Model model, HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospitalMypage(user);
-		log.info(hospital+"awgvhijfneqwp;lifbnhwqep;igvfbhewpi;lgbwa;rehbg;owaergower;gubhweoghbnwe;opgihwepgiohwegoiwehgoieh");
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.selectSubject();
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
+		
 		model.addAttribute("hospital", hospital);
 		model.addAttribute("hsList", hsList);
 		model.addAttribute("sidoList", sidoList);
@@ -73,19 +73,19 @@ public class HospitalController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospitalMypage(user);
 		HospitalSubjectVO hs = hospitalService.getSubject(hospital);
+		
 		LandVO land = hospitalService.getMyLand(hospital);
 		String sd_name = hospitalService.getSdName(land);
 		String sgg_name = hospitalService.getSggName(land);
 		String emd_name = hospitalService.getEmdName(land);
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.selectSubject();
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
-		log.info(hospital+"asddsadasdsadsadsadsad");
 		
 		map.put("hospital", hospital);
 		map.put("hsList", hsList);
 		map.put("sidoList", sidoList);
-		
 		map.put("hs", hs);
+		
 		map.put("land", land);
 		map.put("sd_name", sd_name);
 		map.put("sgg_name", sgg_name);
