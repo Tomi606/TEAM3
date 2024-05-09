@@ -45,7 +45,6 @@ text-decoration: underline;
 	background-size: cover;
     background-origin: content-box;
     background-attachment: fixed;
-    border-bottom: 4px solid lightgray; 
 }
 
 .search-box {
@@ -176,7 +175,6 @@ display:flex;justify-content:flex-end;
 	margin:0 auto;
 	background-color:white;
  	width: 80%;
- 	 box-shadow: 10px 0px 10px -5px rgba(0, 180, 0, 0.1), -10px 0px 10px -5px rgba(0, 180, 0, 0.1);
 }
 
 .홈왼쪽, .홈오른쪽 {
@@ -232,15 +230,18 @@ display:flex;justify-content:flex-end;
 
 /*hot group*/
 .hot-group { 
-	box-shadow: 0 4px 16px rgba(0, 128, 0, 0.2);
+	box-shadow: 0 3px 16px rgba(0, 0, 0, 0.1);
 	display: flex;
 	margin: 0 auto;
 	width: 100%;
 	height: 100%;
 	padding:20px 30px 40px 30px;
 }
+.롤링{
+	box-shadow: 0 3px 16px rgba(0, 0, 0, 0.6);
+}
 .hot-group:hover{
-	box-shadow: 0 6px 16px rgba(0, 128, 0, 0.4);
+	box-shadow: 0 6px 16px rgba(0, 20, 0, 0.2);
 	   transition: box-shadow 0.3s ease;
 }
 
@@ -632,7 +633,8 @@ margin: 10px;
 	<div class="홈">
 		<div class="home-body">
 		<div class="여기부터내용">
-			<div class="롤링">
+			<h3>&lt;인기 병원&gt;</h3>
+			<div class="롤링" style="margin-top: 50px">
 			    <div class="롤링-내용">
 					<div class="rolling-item" style="background-image: url('<c:url value="/resources/img/풍경1.jpg"/>');">
 						<img alt="" src="<c:url value="/resources/img/풍경1.jpg"/>" style="width: 1300px;height: 100%;background-repeat: no-repeat;background-size: cover;">
@@ -664,19 +666,24 @@ margin: 10px;
 					</thead>
 					<tbody>
 					<c:forEach items="${poList}" var="po">
-					 <c:set var="boPostCount" value="${boPostCount + 1}"/> 
-						<tr style="height: 50px;border-bottom: 2px solid #ffebec;font-size: 18px;color: #555">
-							<td>${boPostCount}</td>
-							<td style=" white-space: nowrap;
-							    overflow: hidden;
-							    text-overflow: ellipsis;
-							    max-width: 100px;
-								"><a href="<c:url value='/board/detail?po_num=${po.po_num}'/>">${po.po_title}</a></td>
-							<td><a href="<c:url value='/board/userpost?po_id=${po.po_id}'/>">${po.po_id}</a></td>
-							<td>${po.changeDate1}</td>
-							<td>${po.po_up}</td>
-							<td>${po.po_view}</td>
-						</tr>
+					    <c:set var="boPostCount" value="${boPostCount + 1}"/> 
+						<c:if test="${boPostCount eq null }">
+						<h2>게시글이 없습니다.</h2>
+						</c:if>
+						<c:if test="${poList ne null}">
+							<tr style="height: 50px;border-bottom: 2px solid #ffebec;font-size: 18px;color: #555">
+								<td>${boPostCount}</td>
+								<td style=" white-space: nowrap;
+								    overflow: hidden;
+								    text-overflow: ellipsis;
+								    max-width: 100px;
+									"><a href="<c:url value='/board/detail?po_num=${po.po_num}'/>">${po.po_title}</a></td>
+								<td><a href="<c:url value='/board/userpost?po_id=${po.po_id}'/>">${po.po_id}</a></td>
+								<td>${po.changeDate1}</td>
+								<td>${po.po_up}</td>
+								<td>${po.po_view}</td>
+							</tr>
+						</c:if>	
 					</c:forEach>	
 					</tbody>
 				</table>
@@ -919,14 +926,19 @@ $(document).ready(function() {
 <!-- 1 ,2 3 이면 tr태그 배경 바꾸기 -->
 <script>
 $(document).ready(function() {
-    let boPostCount = ${boPostCount};
-
-    $("tr").each(function() {
-        let countCell = $(this).find("td:first-child"); 
-        if (countCell.text() == "1" || countCell.text() == "2" || countCell.text() == "3") {
-            $(this).css("background-color", "#fff8f6"); 
-        }
-    });
+    let boPostCount = "${boPostCount}";
+    
+	if(boPostCount == null || boPostCount.length == 0 || boPostCount == ""){	
+	   return;
+	}else{
+		 boPostCount = "${boPostCount}";
+		 $("tr").each(function() {
+	        let countCell = $(this).find("td:first-child"); 
+	        if (countCell.text() == "1" || countCell.text() == "2" || countCell.text() == "3") {
+	            $(this).css("background-color", "#fff8f6"); 
+	        }
+	    });
+	}
 });
 </script>
 
