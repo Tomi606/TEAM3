@@ -57,7 +57,6 @@ public class BoardController {
 		}
 		ArrayList<BoardVO> boList = boardService.getAllBoardList();
 		ArrayList<PostVO> poList = boardService.getAllPostList();
-		log.info(poList);
 		model.addAttribute("boList", boList);
 		model.addAttribute("poList", poList);
 		return "/board/all";
@@ -195,7 +194,6 @@ public class BoardController {
 			HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		boolean res = boardService.updateMyPost(post, user, file, delNums);
-		log.info(res+"게시글수정게시글수정게시글수정게시글수정게시글수정게시글수정게시글수정게시글수정게시글수정게시글수정게시글수정게시글수정");
 		if (res) {
 			model.addAttribute("url", "/board/detail?po_num=" + post.getPo_num());
 			model.addAttribute("msg", "게시글을 수정했습니다.");
@@ -222,10 +220,8 @@ public class BoardController {
 	@PostMapping("/recommend")
 	public Map<String, Object> recommend(@RequestParam("num") int num, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		// 로그인한 회원의 추천 정보
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		int state = boardService.getUserRecommend(num, user);
-		// 게시글의 추천/비추천수를 가져옴
 		PostVO post = boardService.getPost(num);
 		map.put("state", state);
 		map.put("post", post);
@@ -246,18 +242,7 @@ public class BoardController {
 		return map;
 	}
 
-//	@ResponseBody
-//	@PostMapping("/report/Post")
-//	public Map<String, Object> reportPost(@RequestParam("rp_table") String rp_table,
-//			@RequestParam("rp_target") int rp_target, @RequestParam("rp_name") String rp_name, HttpSession session) {
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		int rp_target_Post = boardService.getRpPostTarget(rp_target);
-//		ReportVO report = new ReportVO(rp_target, rp_name, rp_table);
-//		SiteManagement user = (SiteManagement) session.getAttribute("user");
-//		boolean res = boardService.report(report, user);
-//		map.put("result", res);
-//		return map;
-//	}
+ 
 
 	@ResponseBody
 	@PostMapping("/report/community")
