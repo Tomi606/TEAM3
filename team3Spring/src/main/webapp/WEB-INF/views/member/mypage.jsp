@@ -142,7 +142,7 @@ border-radius:5px;
 }
 
 .profile-container {
-	background-color: rgb(202,238,208);
+	background-color: rgb(360, 304, 246);
 	width: 1000px;
 	height: 800px;
 	display: block;
