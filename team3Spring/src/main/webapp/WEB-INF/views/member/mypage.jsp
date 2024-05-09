@@ -122,7 +122,7 @@ img {
 .profile-img {
 	width: 250px;
 	height: 250px;
-	border: 1px solid black;
+	border: 1px solid green;
 	margin: 0 auto;
 	margin-top: 50px;
 	border-radius: 100%;
@@ -134,7 +134,8 @@ img {
 }
 
 .profile-anything {
-	border: 1px solid black;
+border-radius:5px;
+	border: 1px solid green;
 	width: 300px;
 	height: 400px;
 	margin: 0 auto;
@@ -427,7 +428,14 @@ select:focus {
     border-color: #007bff;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
 }
-
+.member_delete_box{
+	color:gray;
+	list-style: none;padding-left: 33px;
+}
+.member_delete_box>li{width: 16%;}
+.member_delete_box>li:hover {
+	text-decoration: underline;
+}
 </style>
 </head>
 <body>
@@ -471,7 +479,7 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 			<div class="profile-img">
 			</div>
 			<div class="profile-name">
-				<h4>${member.me_id}</h4>
+				<h4 style="color:rgba(51, 51, 51, 0.9);">${member.me_id}</h4>
 				<p>${member.me_email}</p>
 			</div>
 			<div class="profile-anything">
@@ -480,15 +488,15 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 						<a href='<c:url value=""/>'>예약 관리</a><br>
 					</div>
 					<div class="choose-box">
-						<a href='<c:url value=""/>'>북마크</a><br>
+						<a href='<c:url value="/member/bookmark"/>'>북마크</a><br>
 					</div>
 					<div class="choose-box">
-						<a href='<c:url value=""/>'>커뮤니티</a>
+						<a href='<c:url value="/hospital/community?site_id=${user.site_id}"/>'>커뮤니티</a>
 					</div>
 				</div>
 			</div>
-			<div>
-				<a href='<c:url value="/user/delete"/>'>회원탈퇴</a>
+			<div class="member_delete_box">
+				<li role="button" class="member_delete_btn">회원탈퇴</li>
 			</div>
 		</div>
 	<div class="profile-container">
@@ -496,7 +504,7 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 		<div class="profile-img-name-container">
 			
 			<div class="mypage-img-name">
-				<h4 class="box-name"style="font-size: 33px; font-weight: bold;">\${member.me_name}</h4>
+				<h4 class="box-name"style="font-size: 33px; font-weight: bold;color:rgba(51, 51, 51, 0.9);">\${member.me_name}</h4>
 				<div class="new_me_name_hidden">
 					<input type='text' id="new_me_name" class="box-name2" value="\${member.me_name}"/>
 				</div>
@@ -1027,6 +1035,16 @@ $(document).ready(function() {
 	    }
 	  });
 	}
+	
+    $(document).on("click",".member_delete_btn",function () {
+        let answer = confirm("회원 탈퇴를 진행 하시겠습니까?");
+        if (!answer) {
+        	return;
+        } else {
+        	location.href='<c:url value="/user/delete"/>';
+        }
+    });
 </script>
+
 </body>
 </html>

@@ -249,8 +249,8 @@ $(document).on("click", ".day-btn", function(){
 			for(let tmp of data.timeList){
 				str+= 
 					`
-						<div class="time-box reserveBtn">
-							<a class="reserveBtn1" data-time="\${tmp.rsTime}">\${tmp.rsTime}</a>
+						<div class="time-box reserveBtn" data-time="\${tmp.rsTime}">
+							<a class="reserveBtn" data-time="\${tmp.rsTime}">\${tmp.rsTime}</a>
 						</div>
 					`
 			}
@@ -261,7 +261,7 @@ $(document).on("click", ".day-btn", function(){
 </script>
 <script type="text/javascript">
 $(document).on("click", ".reserveBtn", function(){
-	sgo.rs_time = $(".reserveBtn1").data("time");
+	sgo.rs_time = $(this).data("time");
 	let res = confirm(
 			"병원명 : " + sgo.ho_name +
 			"\n프로그램 명 : " + sgo.hp_title +
@@ -328,23 +328,27 @@ function cal(mon,ye, list){
 	for(var i=0;i<sDay;i++){
 		output += '<div class="gray">'+ (last2-sDay+(i+1)) +'</div>';
 	}
-
-	for(var i=1;i<=42-sDay;i++){ 
+	for(var i=1;i<=42-sDay;i++){
+		let j = i;
 		let day = i < 10 ? '0' + i : i;
 	    let da = ye + "/" + mon + "/" + day;
 		if(list != null){
 			for(let tmp of list){
 				if(tmp.rsDate == da){
-					output += '<div>' + `<a class="day-btn" data-target="\${tmp.rs_num}">` + i + '</a>' + '</div>';
-					i+=1;
+					output += '<div>' + `<a class="day-btn" data-target="\${tmp.rs_num}">` + j + '</a>' + '</div>';
+					j+=1;
 					break;
 				}
 			}
+		}
+		if(j == i+1){
+			continue;
 		}
 		output += '<div>' + i + '</div>';
 		if(i==last){
 			break;
 		}
+		
 	}
 	for(var i=1;i<=etc;i++){
 		output += '<div class="gray">' + i +'</div>';
@@ -473,7 +477,7 @@ function book(ho_name, hp_title, rs_date, rs_time, hp_payment) {
 	});
 	
 }
-
+ 
 </script>
 </body>
 </html>

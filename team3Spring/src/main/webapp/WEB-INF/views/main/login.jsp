@@ -89,7 +89,7 @@ label::after {
 .login-box {
 	border:1px solid white;
 	border-radius:14%;
-	background-color:#E8F5FF;
+	background-color:rgba(0, 128, 0, 0.3);
 	text-align: center;
 	margin-top: 100px;
 }
@@ -261,8 +261,10 @@ background-color: white;
 					<button class="submit-btn login-btn-r">로그인</button>
 				</form>
 				<div class="find-signup-box">
-					<a class="" href="">아이디/비밀번호 찾기</a> <span>|</span> <a class=""
-						href="">회원가입</a>
+
+					<a class="" href="">아이디/비밀번호 찾기</a> <span>|</span> <a class="123"
+
+						href="<c:url value="/main/signup"/>">회원가입</a>
 				</div>
 			</div>
 		</div>

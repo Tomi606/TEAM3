@@ -515,7 +515,5 @@ $("form").submit(function(event){
     return false;
 })
 </script>
-
-
 </body>
 </html>

@@ -70,6 +70,8 @@ public interface BoardService {
 
 	boolean updateMyPost(PostVO post, SiteManagement user, MultipartFile[] file, int[] delNums);
 
+	ArrayList<PostVO> selectHotPostList();
+
 
 
 	

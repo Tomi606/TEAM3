@@ -355,23 +355,20 @@ public class BoardServiceImp implements BoardService {
 		if (user == null) {
 			return false;
 		}
-		PostVO dbPost = boardDao.selectMyPostEq(user.getSite_num());
-		log.info(dbPost+"작성자가 맞는지작성자가 맞는지작성자가 맞는지작성자가 맞는지작성자가 맞는지작성자가 맞는지작성자가 맞는지");
-		if (dbPost == null || dbPost.getPo_mg_num() != user.getSite_num()) {
+		ArrayList<PostVO> dbPost = boardDao.selectMyPostEq(user.getSite_num());
+		if (dbPost == null || dbPost.isEmpty()) {
 			return false;
 		}
 		boolean res = boardDao.updateMyPost(post);
-		log.info(res+"임플수정임플수정임플수정임플수정임플수정임플수정임플수정임플수정임플수정임플수정임플수정임플수정");
 		if (!res) {
 			return false;
 		}
-
 		if (file != null) {
 			for (MultipartFile tmp : file) {
 				uploadFile(post.getPo_num(), tmp);
 			}
 		}
-		if (delNums == null) {
+		if (delNums == null ||file==null) {
 			return true;
 		}
 		for (int tmp : delNums) {
@@ -379,6 +376,12 @@ public class BoardServiceImp implements BoardService {
 			deleteFile(fileVo);
 		}
 		return true;
+	}
+
+	@Override
+	public ArrayList<PostVO> selectHotPostList() {
+		// TODO Auto-generated method stub
+		return boardDao.selectHotPostList();
 	}
 
 }

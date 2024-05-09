@@ -21,7 +21,7 @@
 .post_list_container{width: 100%;height: 1500px;}
 .post_list_box{
 	    border: 2px solid green;width: 1400px;height: 93.4%;margin:100px auto;
-	padding:100px;
+	padding:0 100px 100px 100px;
 }
 .post_list_box{
    box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
@@ -64,12 +64,74 @@ margin-top:50px;
 #fileList{display: flex;list-style: none;}
 #fileList li{margin: 10px;border: 1px solid lightgray;background-color: lightgray;padding: 5px;border-radius: 7px;}
   h1{color: #555;}
+  
+   .board_title_container{width: 100%;}
+   .board_location,.board_location>a{
+ 		color: #555;
+ 	}
+   .board_location{
+   display:flex;
+   	height: 80px;padding-top: 20px;width: 1000px;line-height: 80px;
+   }
+   .prev_btnBtn{color: black;}
+     .here-title{
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+}
+.here-title:hover{
+	text-decoration: none;
+	color: gray;
+}
+.atitle:hover{
+	text-decoration: none;
+	color: black;
+}
+   .top-img {
+	height: 20px;
+	width: 20px;
+	color: gray;
 </style>
 </head>
 <body>
 	<div class="post_list_container">
 
 		<div class="post_list_box">
+			<div class="board_location">
+							<a href="<c:url value='/'/>">
+							<img class="top-img" alt="위치 이미지"
+						src="<c:url value='/resources/img/home-4-line.svg'/>">
+					</a>
+					<div style="margin: auto 16px;" >
+						<img class="top-img" alt="위치 이미지"
+							src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+					</div>	
+					<div style="padding-top: 1px;">
+						<a href="<c:url value='/board/all'/>" class="here-title">
+							게시판
+						</a>
+					</div>
+					<div style="margin: auto 16px;" >
+						<img class="top-img" alt="위치 이미지"
+							src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+					</div>	
+					<div style="padding-top: 1px;">
+						<a  class="here-title"
+							href="<c:url value='/board/list?bo_num=${bo_num}'/>"> 게시글
+						</a>
+					</div> 
+					<div style="margin: auto 16px;" >
+						<img class="top-img" alt="위치 이미지"
+							src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+					</div>	
+					
+					<div style="padding-top: 1px;">
+						<a  class="here-title atitle">
+							게시글 등록
+						</a>
+					</div> 
+				</div>
 			<div style="text-align: center;">
 				<h1>글 쓰 기 </h1>
 			</div>
@@ -82,11 +144,11 @@ margin-top:50px;
 					<input type="hidden" name="po_bo_num" value="${bo_num}">
 					<div class="content-input">
 						<label style="width: 5%;">제목</label>
-						<input type="text" class="content-title" name="po_title">
+						<input type="text" class="content-title" name="po_title" required="required"  placeholder="제목을 입력하세요">
 					</div>   	
 					<div class="content-text">
 						<label style="width: 5%;">내용</label>
-						<textarea class="content-content" name="po_content"
+						<textarea class="content-content" name="po_content"required="required"
 						style="max-height: 400px;"></textarea>
 					</div>
 					<div class="content-file">
@@ -105,7 +167,7 @@ margin-top:50px;
 	</div>
 <script type="text/javascript">
    $('[name=po_content]').summernote({
-      placeholder: '내용',
+      placeholder: '내용을 입력하세요',
       tabsize: 2,
       maxHeight: 600,
       minHeight: 600,
@@ -133,8 +195,7 @@ margin-top:50px;
 	    });
 	});
 
-
-
+    
 </script>
 </body>
 </html>

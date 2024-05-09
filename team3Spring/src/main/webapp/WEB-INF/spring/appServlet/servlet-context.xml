@@ -55,12 +55,40 @@
 	<!-- 인터셉터 등록 -->
 	<beans:bean id="loginInterceptor"
 		class="kr.kh.team3.interceptor.LoginInterceptor" />
+	<beans:bean id="memberInterceptor"
+		class="kr.kh.team3.interceptor.MemberInterceptor" />
+	<beans:bean id="autoLoginInterceptor"
+		class="kr.kh.team3.interceptor.AutoLoginInterceptor" />
+		<beans:bean id="guestInterceptor" 
+		class="kr.kh.team3.interceptor.GuestInterceptor"/>
 	<!-- 인터셉터 맵핑 -->
 	<interceptors>
 		<interceptor>
 			<mapping path="/member/login" />
 			<mapping path="/hospital/login" />
 			<beans:ref bean="loginInterceptor" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/member/bookmark"/>
+			<mapping path="/member/mypage"/>
+			<mapping path="/board/*"/>
+		    <mapping path="/hospital/detail/**"/>
+			<mapping path="/hospital/community"/>
+			<mapping path="/hospital/list"/>
+			<mapping path="/hospital/mypage"/>
+			<mapping path="/admin/*"/>
+			<mapping path="/schedule/*"/>
+			<beans:ref bean="memberInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/login"/>
+			<mapping path="/signup"/>
+			<mapping path="/find/pw"/>
+			<beans:ref bean="guestInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/*"/>
+			<beans:ref bean="autoLoginInterceptor"/>
 		</interceptor>
 	</interceptors>
 

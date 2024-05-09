@@ -79,7 +79,7 @@ textarea{outline-style: none;}
 .post_list_container{width: 100%;height: 100%;}
 .post_list_box{
 	border:2px solid green;width: 1400px;height: 100%;margin:100px auto;
-	padding:100px;	border-radius: 15px;
+	padding:0 100px 100px 100px;	border-radius: 15px;
 }
 .hr{width: 100%;height: 0;border: 1px solid lightgray;margin: 50px 0 50px 0;}
 .post_insert_btn{
@@ -129,7 +129,7 @@ width: 80%;margin: 0 auto 80px auto;
 	color: gray;
 }
 .comment_content{ resize: none; width: 92%;}
-.box-comment{margin:30px 0 20px 0;
+.box-comment{margin:30px 0 20px 0;font-size:18px;
 width: 100%;height: 60px;border-bottom: 1px solid gray;
 
 }
@@ -221,20 +221,78 @@ color: green;
 .p_tag>a:hover {
 	text-decoration: underline;
 	color:  rgba(0, 128, 0, 0.5);
-}
+} 
+.note-editable{font-size: 18px;}
 .note-popover .popover-content, .note-editor .note-toolbar {
 	display: none;
 }
 .note-statusbar{
 	display: none;
 }
+ .board_title_container{width: 100%;}
+   .board_location{
+   display:flex;
+   	height: 80px;padding-top: 20px;width: 800px;line-height: 80px;
+   }
+   .prev_btnBtn{color: black;}
+      .top-img {
+	height: 20px;
+	width: 20px;
+	color: gray;
+}.here-title{
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+}
+.here-title:hover{
+	text-decoration: none;
+	color: gray;
+}
+.atitle:hover{
+	text-decoration: none;
+	color: black;
+}
 </style>
 </head>
 <body>
 	<div class="post_list_container">
 		<div class="post_list_box">
+			<div class="board_location">
+					<a href="<c:url value='/'/>">
+							<img class="top-img" alt="위치 이미지"
+						src="<c:url value='/resources/img/home-4-line.svg'/>">
+					</a>
+					<div style="margin: auto 16px;" >
+						<img class="top-img" alt="위치 이미지"
+							src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+					</div>	
+					<div style="padding-top: 1px;">
+						<a href="<c:url value='/board/all'/>" class="here-title">
+							게시판
+						</a>
+					</div>
+					<div style="margin: auto 16px;" >
+						<img class="top-img" alt="위치 이미지"
+							src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+					</div>	
+					<div style="padding-top: 1px;">
+						<a  class="here-title"
+							href="<c:url value='/board/list?bo_num=${post.po_bo_num}'/>"> 게시글
+						</a>
+					</div> 
+					<div style="margin: auto 16px;" >
+						<img class="top-img" alt="위치 이미지"
+							src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+					</div>	
+					<div style="padding-top: 1px;">
+						<a  class="here-title atitle">
+							상세페이지
+						</a>
+					</div> 
+			</div>
 			<div style="text-align: center;">
-				<h1>${post.po_bo_title}</h1>
+				<h1 style="color: #555">${post.po_bo_title}</h1>
 			</div>
 			<div class="post_insert_btn_box">
 		    	<a href="<c:url value="/board/list?bo_num=${post.po_bo_num}"/>" class="post_insert_btn">목록으로</a>
@@ -263,7 +321,8 @@ color: green;
 				<div class="p_tag">	
 					<p style="color: gray;margin-left: 20px;">조회수:${post.po_view}</p>
 					<c:if test="${post.po_id eq user.site_id}">
-						<a href="<c:url value="/board/delete?po_num=${post.po_num}"/>" style="margin-left: 20px;">삭제</a>
+						<a  style="margin-left: 20px;cursor: pointer;"
+						class="board_delete_btn">삭제</a>
 						<a href="<c:url value="/board/update?po_num=${post.po_num}&&bo_num=${post.po_bo_num}"/>">수정하기</a>
 					</c:if>	
 				</div>	
@@ -323,7 +382,8 @@ color: green;
 				<!-- 댓글 -->  
 				<div class="container-comment mt-3 mb-3" id="comments-section">
 					<h2>
-						<img style="width:80px;margin-right: 10px;" alt="댓글이미지" src="<c:url value="/resources/img/comment.png"/>"><span class="comment-total">2</span>
+						<img style="width:80px;margin-right: 10px;" alt="댓글이미지" src="<c:url value="/resources/img/comment.png"/>">
+						<span class="comment-total"style="color: #555"></span>
 					</h2>
 					<div style="width: 100%;border-bottom: 1px solid lightgray;display: flex;text-align: center;padding: 15px;">
 				 	   <span style="width: 25%;">작성자</span>
@@ -616,7 +676,7 @@ let cri = {
 function displayCommentList(commentList){
    let str = '';
    if(commentList == null || commentList.length == 0){
-      str = '<h3>등록된 댓글이 없습니다.</h3>';
+      str = '<h3 style="color: #555">등록된 댓글이 없습니다.</h3>';
       $('.box-comment-list').html(str);
       return;
    }		
@@ -817,6 +877,15 @@ function initComment(){
 	$('.box-btn').show();
 	$('.text-comment').show();
 }
+$(document).on("click",".board_delete_btn",function () {
+    let answer = confirm("게시글을 삭제 하시겠습니까?");
+    if (!answer) {
+    	return;
+    } else {
+    	location.href="<c:url value="/board/delete?po_num=${post.po_num}"/>"
+    }
+});
+ 
 </script>
 
 

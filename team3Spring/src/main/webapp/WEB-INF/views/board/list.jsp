@@ -17,7 +17,7 @@
 	width: 1400px;
 	height: 93.4%;
 	margin: 100px auto;
-	padding: 100px;
+	padding:0 100px 100px 100px;
 	text-align: center;
 	border-radius: 15px;
 }
@@ -34,8 +34,7 @@
 }
 
 .검색 {
-	 border
-	 : 1px solid rgba(0, 128, 0, 0.5);
+	 border : 1px solid rgba(0, 128, 0, 0.5);
         outline-style: none;
         width: 500px;
         padding: 10px 50px 10px 10px;
@@ -122,12 +121,66 @@ color:  rgba(0, 128, 0, 0.5);
         outline: none;
     }
    h1{color: #555;}
+   .board_location,.board_location>a{
+ 		color: #555;
+ 	}
+   .board_title_container{width: 100%;}
+   .board_location{display:flex;
+   	height: 80px;padding-top: 20px;width: 800px;line-height: 80px;
+   }
+   .prev_btnBtn{color: black;}
+   .top-img {
+	height: 20px;
+	width: 20px;
+	color: gray;
+}.here-title{
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+}
+.here-title:hover{
+	text-decoration: none;
+	color: gray;
+}
+.atitle:hover{
+	text-decoration: none;
+	color: black;
+}
 </style>
 </head>
 <body>
 	<div class="post_list_container">
 		<div class="post_list_box">
-			<h1>${bo_title}</h1>
+			<div class="board_title_container">
+			<div class="board_location">
+					<a href="<c:url value='/'/>">
+							<img class="top-img" alt="위치 이미지"
+						src="<c:url value='/resources/img/home-4-line.svg'/>">
+					</a>
+					<div style="margin: auto 16px;" >
+						<img class="top-img" alt="위치 이미지"
+							src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+					</div>	
+					<div style="padding-top: 1px;">
+						<a href="<c:url value='/board/all'/>" class="here-title">
+							게시판
+						</a>
+					</div>
+					<div style="margin: auto 16px;" >
+						<img class="top-img" alt="위치 이미지"
+							src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+					</div>	
+					<div style="padding-top: 1px;">
+						<a  class="here-title atitle">
+							${bo_title}
+						</a>
+					</div>
+				</div>
+				<div>
+				<h1>${bo_title}</h1>
+				</div>
+			</div>	
 			<div class="hr"></div>
 			<form action="<c:url value='/board/list'/>" method="get">
 				<div class="search-box-group">
@@ -232,6 +285,5 @@ color:  rgba(0, 128, 0, 0.5);
 			</ul>
 		</div>
 	</div>
-
 </body>
 </html>

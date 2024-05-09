@@ -602,14 +602,318 @@ REFERENCES `hospital` (
 	`ho_id`
 );
 
+
+#파일 null 체크
+ALTER TABLE `hospital_mediation`.`file` 
+CHANGE COLUMN `fi_name` `fi_name` VARCHAR(255) NULL ,
+CHANGE COLUMN `fi_ori_name` `fi_ori_name` VARCHAR(255) NULL ,
+CHANGE COLUMN `fi_po_num` `fi_po_num` INT NULL ;
+
+#북마크 cascade
+ALTER TABLE `hospital_mediation`.`bookmark` 
+DROP FOREIGN KEY `FK_hospital_TO_bookmark_1`;
+ALTER TABLE `hospital_mediation`.`bookmark` 
+ADD CONSTRAINT `FK_hospital_TO_bookmark_1`
+  FOREIGN KEY (`bmk_ho_id`)
+  REFERENCES `hospital_mediation`.`hospital` (`ho_id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+ALTER TABLE `hospital_mediation`.`bookmark` 
+DROP FOREIGN KEY `FK_member_TO_bookmark_1`;
+ALTER TABLE `hospital_mediation`.`bookmark` 
+ADD CONSTRAINT `FK_member_TO_bookmark_1`
+  FOREIGN KEY (`bmk_me_id`)
+  REFERENCES `hospital_mediation`.`member` (`me_id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+#댓글 cascade
+ALTER TABLE `hospital_mediation`.`comment` 
+DROP FOREIGN KEY `FK_post_TO_comment_1`;
+ALTER TABLE `hospital_mediation`.`comment` 
+ADD CONSTRAINT `FK_post_TO_comment_1`
+  FOREIGN KEY (`co_po_num`)
+  REFERENCES `hospital_mediation`.`post` (`po_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+ALTER TABLE `hospital_mediation`.`comment` 
+DROP FOREIGN KEY `FK_site_management_TO_comment_1`;
+ALTER TABLE `hospital_mediation`.`comment` 
+ADD CONSTRAINT `FK_site_management_TO_comment_1`
+  FOREIGN KEY (`co_mg_num`)
+  REFERENCES `hospital_mediation`.`site_management` (`site_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+#병원
+
+ALTER TABLE `hospital_mediation`.`hospital` 
+DROP FOREIGN KEY `FK_hospital_subject_TO_hospital_1`;
+ALTER TABLE `hospital_mediation`.`hospital` 
+ADD CONSTRAINT `FK_hospital_subject_TO_hospital_1`
+  FOREIGN KEY (`ho_hs_num`)
+  REFERENCES `hospital_mediation`.`hospital_subject` (`hs_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+ALTER TABLE `hospital_mediation`.`hospital` 
+DROP FOREIGN KEY `FK_land_TO_hospital_1`;
+ALTER TABLE `hospital_mediation`.`hospital` 
+ADD CONSTRAINT `FK_land_TO_hospital_1`
+  FOREIGN KEY (`ho_la_num`)
+  REFERENCES `hospital_mediation`.`land` (`la_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+ALTER TABLE `hospital_mediation`.`hospital` 
+DROP FOREIGN KEY `FK_member_state_TO_hospital_1`;
+ALTER TABLE `hospital_mediation`.`hospital` 
+ADD CONSTRAINT `FK_member_state_TO_hospital_1`
+  FOREIGN KEY (`ho_ms_state`)
+  REFERENCES `hospital_mediation`.`member_state` (`ms_state`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+#상세
+
+ALTER TABLE `hospital_mediation`.`hospital_detail` 
+DROP FOREIGN KEY `FK_hospital_TO_hospital_detail_1`;
+ALTER TABLE `hospital_mediation`.`hospital_detail` 
+ADD CONSTRAINT `FK_hospital_TO_hospital_detail_1`
+  FOREIGN KEY (`hd_ho_id`)
+  REFERENCES `hospital_mediation`.`hospital` (`ho_id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+#프로그램
+
+ALTER TABLE `hospital_mediation`.`hospital_program` 
+DROP FOREIGN KEY `FK_hospital_TO_hospital_program_1`;
+ALTER TABLE `hospital_mediation`.`hospital_program` 
+ADD CONSTRAINT `FK_hospital_TO_hospital_program_1`
+  FOREIGN KEY (`hp_ho_id`)
+  REFERENCES `hospital_mediation`.`hospital` (`ho_id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+ALTER TABLE `hospital_mediation`.`hospital_program` 
+DROP FOREIGN KEY `FK_hs_list_TO_hospital_program_1`;
+ALTER TABLE `hospital_mediation`.`hospital_program` 
+ADD CONSTRAINT `FK_hs_list_TO_hospital_program_1`
+  FOREIGN KEY (`hp_hsl_num`)
+  REFERENCES `hospital_mediation`.`hs_list` (`hsl_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+#과목리스트
+
+ALTER TABLE `hospital_mediation`.`hs_list` 
+DROP FOREIGN KEY `FK_hospital_subject_TO_hs_list_1`,
+DROP FOREIGN KEY `FK_hospital_TO_hs_list_1`;
+ALTER TABLE `hospital_mediation`.`hs_list` 
+ADD CONSTRAINT `FK_hospital_subject_TO_hs_list_1`
+  FOREIGN KEY (`hsl_hs_num`)
+  REFERENCES `hospital_mediation`.`hospital_subject` (`hs_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+ADD CONSTRAINT `FK_hospital_TO_hs_list_1`
+  FOREIGN KEY (`hsl_ho_id`)
+  REFERENCES `hospital_mediation`.`hospital` (`ho_id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+#아이템
+ALTER TABLE `hospital_mediation`.`item` 
+DROP FOREIGN KEY `FK_hs_list_TO_item_1`;
+ALTER TABLE `hospital_mediation`.`item` 
+ADD CONSTRAINT `FK_hs_list_TO_item_1`
+  FOREIGN KEY (`it_hsl_num`)
+  REFERENCES `hospital_mediation`.`hs_list` (`hsl_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+#아이템 리스트
+
+ALTER TABLE `hospital_mediation`.`item_list` 
+DROP FOREIGN KEY `FK_hospital_program_TO_item_list_1`,
+DROP FOREIGN KEY `FK_item_TO_item_list_1`;
+ALTER TABLE `hospital_mediation`.`item_list` 
+ADD CONSTRAINT `FK_hospital_program_TO_item_list_1`
+  FOREIGN KEY (`il_hp_num`)
+  REFERENCES `hospital_mediation`.`hospital_program` (`hp_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+ADD CONSTRAINT `FK_item_TO_item_list_1`
+  FOREIGN KEY (`il_it_num`)
+  REFERENCES `hospital_mediation`.`item` (`it_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+#멤버
+
+ALTER TABLE `hospital_mediation`.`member` 
+DROP FOREIGN KEY `FK_hospital_subject_TO_member_1`,
+DROP FOREIGN KEY `FK_land_TO_member_1`,
+DROP FOREIGN KEY `FK_member_state_TO_member_1`;
+ALTER TABLE `hospital_mediation`.`member` 
+ADD CONSTRAINT `FK_hospital_subject_TO_member_1`
+  FOREIGN KEY (`me_hs_num`)
+  REFERENCES `hospital_mediation`.`hospital_subject` (`hs_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+ADD CONSTRAINT `FK_land_TO_member_1`
+  FOREIGN KEY (`me_la_num`)
+  REFERENCES `hospital_mediation`.`land` (`la_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+ADD CONSTRAINT `FK_member_state_TO_member_1`
+  FOREIGN KEY (`me_ms_state`)
+  REFERENCES `hospital_mediation`.`member_state` (`ms_state`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+#페이먼트
+
+ALTER TABLE `hospital_mediation`.`payment` 
+DROP FOREIGN KEY `FK_payment_state_TO_payment_1`,
+DROP FOREIGN KEY `FK_reservation_TO_payment_1`;
+ALTER TABLE `hospital_mediation`.`payment` 
+ADD CONSTRAINT `FK_payment_state_TO_payment_1`
+  FOREIGN KEY (`pm_ps_name`)
+  REFERENCES `hospital_mediation`.`payment_state` (`ps_name`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+ADD CONSTRAINT `FK_reservation_TO_payment_1`
+  FOREIGN KEY (`pm_rv_num`)
+  REFERENCES `hospital_mediation`.`reservation` (`rv_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+#포스트
+ALTER TABLE `hospital_mediation`.`post` 
+DROP FOREIGN KEY `FK_board_TO_post_1`,
+DROP FOREIGN KEY `FK_site_management_TO_post_1`;
+ALTER TABLE `hospital_mediation`.`post` 
+ADD CONSTRAINT `FK_board_TO_post_1`
+  FOREIGN KEY (`po_bo_num`)
+  REFERENCES `hospital_mediation`.`board` (`bo_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+ADD CONSTRAINT `FK_site_management_TO_post_1`
+  FOREIGN KEY (`po_mg_num`)
+  REFERENCES `hospital_mediation`.`site_management` (`site_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+#리커맨드
+
+ALTER TABLE `hospital_mediation`.`recommend` 
+DROP FOREIGN KEY `FK_post_TO_recommend_1`,
+DROP FOREIGN KEY `FK_site_management_TO_recommend_1`;
+ALTER TABLE `hospital_mediation`.`recommend` 
+ADD CONSTRAINT `FK_post_TO_recommend_1`
+  FOREIGN KEY (`re_po_num`)
+  REFERENCES `hospital_mediation`.`post` (`po_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+ADD CONSTRAINT `FK_site_management_TO_recommend_1`
+  FOREIGN KEY (`re_mg_num`)
+  REFERENCES `hospital_mediation`.`site_management` (`site_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+#리포트
+
+ALTER TABLE `hospital_mediation`.`report` 
+DROP FOREIGN KEY `FK_report_state_TO_report_1`,
+DROP FOREIGN KEY `FK_site_management_TO_report_1`;
+ALTER TABLE `hospital_mediation`.`report` 
+ADD CONSTRAINT `FK_report_state_TO_report_1`
+  FOREIGN KEY (`rp_rs_name`)
+  REFERENCES `hospital_mediation`.`report_state` (`rs_name`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+ADD CONSTRAINT `FK_site_management_TO_report_1`
+  FOREIGN KEY (`rp_site_num`)
+  REFERENCES `hospital_mediation`.`site_management` (`site_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+#리저베이션
+
+ALTER TABLE `hospital_mediation`.`reservation` 
+DROP FOREIGN KEY `FK_member_TO_reservation_1`,
+DROP FOREIGN KEY `FK_reservation_schedule_TO_reservation_1`,
+DROP FOREIGN KEY `FK_reservation_state_TO_reservation_1`;
+ALTER TABLE `hospital_mediation`.`reservation` 
+ADD CONSTRAINT `FK_member_TO_reservation_1`
+  FOREIGN KEY (`rv_me_id`)
+  REFERENCES `hospital_mediation`.`member` (`me_id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+ADD CONSTRAINT `FK_reservation_schedule_TO_reservation_1`
+  FOREIGN KEY (`rv_rs_num`)
+  REFERENCES `hospital_mediation`.`reservation_schedule` (`rs_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+ADD CONSTRAINT `FK_reservation_state_TO_reservation_1`
+  FOREIGN KEY (`rv_rvs_name`)
+  REFERENCES `hospital_mediation`.`reservation_state` (`rvs_name`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+#리저베이션 스케쥴
+
+ALTER TABLE `hospital_mediation`.`reservation_schedule` 
+DROP FOREIGN KEY `FK_hospital_program_TO_reservation_schedule_1`;
+ALTER TABLE `hospital_mediation`.`reservation_schedule` 
+ADD CONSTRAINT `FK_hospital_program_TO_reservation_schedule_1`
+  FOREIGN KEY (`rs_hp_num`)
+  REFERENCES `hospital_mediation`.`hospital_program` (`hp_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+#리뷰
+
+ALTER TABLE `hospital_mediation`.`review` 
+DROP FOREIGN KEY `FK_hospital_detail_TO_review_1`,
+DROP FOREIGN KEY `FK_member_TO_review_1`;
+ALTER TABLE `hospital_mediation`.`review` 
+ADD CONSTRAINT `FK_hospital_detail_TO_review_1`
+  FOREIGN KEY (`vw_hd_num`)
+  REFERENCES `hospital_mediation`.`hospital_detail` (`hd_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+ADD CONSTRAINT `FK_member_TO_review_1`
+  FOREIGN KEY (`vw_me_id`)
+  REFERENCES `hospital_mediation`.`member` (`me_id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+#사이트매니지먼트
+
+ALTER TABLE `hospital_mediation`.`site_management` 
+DROP FOREIGN KEY `FK_land_TO_site_management_1`;
+ALTER TABLE `hospital_mediation`.`site_management` 
+ADD CONSTRAINT `FK_land_TO_site_management_1`
+  FOREIGN KEY (`site_la_num`)
+  REFERENCES `hospital_mediation`.`land` (`la_num`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+
+
+
  INSERT INTO MEMBER_STATE VALUES('승인대기'), ('이용중'), ('기간정지'), ('영구정지'), ('탈퇴'),('가입대기');
 # 병원 과목
 insert into hospital_subject(hs_title) 
 values 
-('내과'), ('호흡기내과'), ('순환기내과'), ('소화기내과'), ('혈액종양내과'), ('내분비대사내과'), ('알레르기내과'), ('신장내과'), ('감염내과'), 
-('류마티스내과'), ('외과'), ('위장관외과'), ('대장항문외과'), ('외상외과'), ('산부인과'), ('가정의학과'), ('건강증진센터'), ('마취통증학과'),
-('방사선종양학과'), ('병리과'), ('비뇨의학과'), ('성형외과'), ('신경과'), ('신경외과'), ('심장혈관흉부외과'), ('안과'), ('영상의학과'), ('응급의학과'), 
-('이비인후과'), ('재활의학과'), ('정신건강의학과'), ('정형외과'), ('중환자의학과'), ('진단검사의학과'), ('피부과'), ('핵의학과');
+ ('가정의학과'),('내과'),('외과'),('이비인후과'), ('안과'), ('비뇨의학과'), ('피부과'),('산부인과'),('정형외과'),('성형외과'),('치과'), ('이비인후과'),('순환기내과'), 
+ ('소화기내과'), ('혈액종양내과'), ('내분비대사내과'), ('알레르기내과'), ('신장내과'), ('감염내과'), ('류마티스내과'),  ('위장관외과'), ('대장항문외과'), 
+ ('외상외과'),  ('건강증진센터'), ('마취통증학과'),('방사선종양학과'), ('병리과'),   ('신경과'), ('신경외과'), ('심장혈관흉부외과'), ('영상의학과'), 
+ ('응급의학과'), ('재활의학과'), ('정신건강의학과'),  ('중환자의학과'), ('진단검사의학과'),('호흡기내과'), ('핵의학과');
 
 # 지역 DB 넣은 후 실행
 -- insert into land value(1,1,1,1);

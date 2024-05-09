@@ -11,8 +11,9 @@
 	box-shadow: 0px 2px 4px 6px rgba(0, 128, 0, 0.5);
     transition: box-shadow 0.3s ease;
     padding: 20px 30px 20px 30px;
-    margin: 20px 30px 20px 30px;
+    margin: 70px 30px 70px 480px;
     border-radius: 5px;
+    width: 60%;
 }
 
 textarea {
@@ -22,8 +23,9 @@ textarea {
 .info-label {
 	display: flex;
     align-items: center;
-    font-size: 20px;
+    font-size: 24px;
     color: green;
+    font-weight: bold;
 }
 
 .subject-checkbox {
@@ -43,34 +45,41 @@ textarea {
     justify-content: space-between;
     justify-items: start;
     margin-bottom: 30px;
-}
-
-.hospital-btn {
-	display: block;
-    margin: 0 auto;
-    height: 70px;
-    width: 20%;
-    margin-top: 20px;
-    font-size: 20px;
-    font-weight: bold;
+    margin-left: -80px;
 }
 
 .info-textarea {
-	width: 100%;
-	height: 150px;
-	margin-bottom: 30px;
+	width: 95%;
+    height: 150px;
+    margin-bottom: 30px;
+    margin-left: 20px;
+    border: 1px solid green;
+    padding: 10px 15px 5px 10px;
+    font-size: 20px;
+    border-radius: 5px;
 }
 
 input[type="checkbox"] {
-    /* 사용자 정의 색상으로 변경 */
-    checkbox-color: pink; /* 예: 파란색 */
-    /* 체크박스 크기 조정 */
     width: 20px;
     height: 20px;
-    border-radius: 10px;
-    background-color: transparent;
+    border-radius: 50%;
+    appearance: none;
+    cursor: pointer;
+    background-color: rgba(0, 128, 0, 0.5);
     border: 0px solid white;
-    margin: 4px 20px 4px 80px;
+    margin: 4px 20px 4px 90px;
+}
+
+/* Chrome 및 Safari에서 스크롤바의 색상 변경 */
+/* 스크롤바의 Track 색상 */
+.info-textarea::-webkit-scrollbar {
+    width: 16px; /* 스크롤바의 너비 */
+}
+
+/* 스크롤바의 Thumb (드래그할 수 있는 부분) 색상 */
+.info-textarea::-webkit-scrollbar-thumb {
+    background-color: green; /* 색상 변경 */
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 }
 
 /* 체크박스가 체크되었을 때의 스타일 */
@@ -85,8 +94,8 @@ input[type="checkbox"]:checked {
 input[type="checkbox"]:checked::before {
     content: '\2713';
     display: flex;
-    width: 26px;
-    height: 26px;
+    width: 20px;
+    height: 20px;
     text-align: center;
     background-color: green;
     color: white;
@@ -94,9 +103,21 @@ input[type="checkbox"]:checked::before {
     flex-direction: row;
     align-content: stretch;
     justify-content: space-evenly;
-    margin: -3px;
+    margin: 0px;
     flex-wrap: nowrap;
     align-items: center;
+}
+
+.hospital-btn {
+	display: block;
+    margin: 0 auto;
+    height: 70px;
+    width: 50%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 40px;
+    font-weight: bold;
+    
 }
 
 .btn-outline-success {
@@ -108,6 +129,16 @@ input[type="checkbox"]:checked::before {
     color: white;
     border-color: green;
     background-color: green;
+    /* 45도 각도로 그라데이션 */
+	background: linear-gradient(45deg, white, green);
+	border: 0px solid white;
+	animation: colorChange 1.5s infinite alternate; /* 1초 동안 반복되며 왔다갔다하는 애니메이션 적용 */
+}
+
+@keyframes colorChange {
+    0% { background-color: white; color: green; } /* 초기 색상 */
+    50% { background-color: green; color: white; } /* 중간 색상 */
+    100% { background-color: white; color: green; } /* 끝 색상 */
 }
 </style>
 </head>

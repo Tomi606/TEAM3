@@ -48,7 +48,13 @@ public class BoardController {
 	private HospitalService hospitalService;
 
 	@GetMapping("/board/all")
-	public String boardAll(Model model) {
+	public String boardAll(HttpSession session, Model model) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		if (user == null) {
+			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
+			model.addAttribute("url", "/main/login");
+			return "message";
+		}
 		ArrayList<BoardVO> boList = boardService.getAllBoardList();
 		ArrayList<PostVO> poList = boardService.getAllPostList();
 		log.info(poList);
@@ -58,7 +64,7 @@ public class BoardController {
 	}
 
 	@GetMapping("/board/list")
-	public String boardList(Model model, Criteria cri, int bo_num) {
+	public String boardList(HttpSession session,Model model, Criteria cri, int bo_num) {
 		String bo_name = boardService.getBoardName(bo_num);
 		cri.setPerPageNum(5);
 		ArrayList<PostVO> poList = boardService.getPostList(bo_num, cri);
@@ -72,10 +78,9 @@ public class BoardController {
 	}
 
 	@GetMapping("/board/userpost")
-	public String boardUser(Model model, Criteria cri, String po_id) {
+	public String boardUser(HttpSession session,Model model, Criteria cri, String po_id) {
 		String site_authority = boardService.getUserAuthority(po_id);
 		HospitalDetailVO hd = hospitalService.getHospitalDetail(po_id);
-		log.info(hd + "hdhdhdhdhddhdhdhdhdhdhdhdhdh");
 		model.addAttribute("po_id", po_id);
 		model.addAttribute("hd", hd);
 		model.addAttribute("site_authority", site_authority);
@@ -112,7 +117,7 @@ public class BoardController {
 	}
 
 	@GetMapping("/board/insert")
-	public String boardInsertGet(Model model, HttpSession session, int bo_num) {
+	public String boardInsertGet(HttpSession session,Model model, int bo_num) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		if (user == null) {
 			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
