@@ -143,4 +143,18 @@
 	<delete id="deleteSchedule">
 		delete from reservation_schedule where rs_num = #{rs_num};
 	</delete>
+	
+	<!-- 예약 -->
+	<insert id="insertResrvationBook">
+		insert into reservation(rv_me_id, rv_rvs_name, rv_rs_num)
+		values(#{rv.rv_me_id},#{rv.rv_rvs_name},#{rv.rv_rs_num})
+	</insert>
+	<select id="selectReservation" resultType="kr.kh.team3.model.vo.ReservationVO">
+		select * from reservation where rv_me_id = #{rv.rv_me_id} and rv_rs_num = #{rv.rv_rs_num}
+		
+	</select>
+	<insert id="insertPay">
+		insert into payment (pm_num,pm_type,pm_ps_name,pm_price,pm_rv_num,pm_ho_id)
+		value(#{pay.pm_num},#{pay.pm_type},"결제완료",#{pay.pm_price},#{pay.pm_rv_num},#{pay.pm_ho_id})
+	</insert>
 </mapper>

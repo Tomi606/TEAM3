@@ -7,7 +7,9 @@ import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.ItemListVO;
 import kr.kh.team3.model.vo.ItemVO;
+import kr.kh.team3.model.vo.PaymentVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
+import kr.kh.team3.model.vo.ReservationVO;
 import kr.kh.team3.model.vo.SiteManagement;
 
 public interface ProgramService {
@@ -53,7 +55,11 @@ public interface ProgramService {
 	boolean updateDate(int rs_num, String rs_date, String rs_time, int rs_max_person);
 
 	boolean DeleteDate(int rs_num);
-	
 
+	boolean insertReservation(ReservationVO rv);
+
+	ReservationVO selectReservation(ReservationVO rv);
+
+	boolean insertPay(PaymentVO payment);
 
 }

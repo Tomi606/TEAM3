@@ -9,7 +9,9 @@ import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.ItemListVO;
 import kr.kh.team3.model.vo.ItemVO;
+import kr.kh.team3.model.vo.PaymentVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
+import kr.kh.team3.model.vo.ReservationVO;
 import kr.kh.team3.model.vo.SiteManagement;
 
 public interface ProgramDAO {
@@ -59,6 +61,12 @@ public interface ProgramDAO {
 	boolean updateSchedule(@Param("rs_num")int rs_num, @Param("rs_date")String rs_date, @Param("rs_time")String rs_time, @Param("rs_max_person")int rs_max_person);
 
 	boolean deleteSchedule(@Param("rs_num")int rs_num);
+
+	boolean insertResrvationBook(@Param("rv")ReservationVO rv);
+
+	ReservationVO selectReservation(@Param("rv")ReservationVO rv);
+
+	boolean insertPay(@Param("pay")PaymentVO payment);
 
 
 }

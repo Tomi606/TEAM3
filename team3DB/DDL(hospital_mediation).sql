@@ -79,11 +79,12 @@ CREATE TABLE `bookmark` (
 DROP TABLE IF EXISTS `payment`;
 
 CREATE TABLE `payment` (
-	`pm_num`	int	primary key auto_increment,
+	`pm_num`	varchar(255) primary key,
 	`pm_price`	int	NOT NULL,
 	`pm_type`	VARCHAR(20)	NOT NULL,
 	`pm_ps_name`	VARCHAR(20)	NOT NULL,
-	`pm_rv_num`	int	NOT NULL
+	`pm_rv_num`	int	NOT NULL,
+    `pm_ho_id`	varchar(13)	NOT NULL
 );
 
 DROP TABLE IF EXISTS `recommend`;
@@ -602,6 +603,12 @@ REFERENCES `hospital` (
 	`ho_id`
 );
 
+ALTER TABLE `payment` ADD CONSTRAINT `FK_hospital_TO_payment_1` FOREIGN KEY (
+	`pm_ho_id`
+)
+REFERENCES `hospital` (
+	`ho_id`
+);
 
 #파일 null 체크
 ALTER TABLE `hospital_mediation`.`file` 
