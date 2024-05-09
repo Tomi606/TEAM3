@@ -328,23 +328,27 @@ function cal(mon,ye, list){
 	for(var i=0;i<sDay;i++){
 		output += '<div class="gray">'+ (last2-sDay+(i+1)) +'</div>';
 	}
-
-	for(var i=1;i<=42-sDay;i++){ 
+	for(var i=1;i<=42-sDay;i++){
+		let j = i;
 		let day = i < 10 ? '0' + i : i;
 	    let da = ye + "/" + mon + "/" + day;
 		if(list != null){
 			for(let tmp of list){
 				if(tmp.rsDate == da){
-					output += '<div>' + `<a class="day-btn" data-target="\${tmp.rs_num}">` + i + '</a>' + '</div>';
-					i+=1;
+					output += '<div>' + `<a class="day-btn" data-target="\${tmp.rs_num}">` + j + '</a>' + '</div>';
+					j+=1;
 					break;
 				}
 			}
+		}
+		if(j == i+1){
+			continue;
 		}
 		output += '<div>' + i + '</div>';
 		if(i==last){
 			break;
 		}
+		
 	}
 	for(var i=1;i<=etc;i++){
 		output += '<div class="gray">' + i +'</div>';
