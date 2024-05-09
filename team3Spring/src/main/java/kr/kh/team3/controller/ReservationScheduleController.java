@@ -168,8 +168,22 @@ public class ReservationScheduleController {
     }
 	
 	@GetMapping("/delete/schedule")
-	public String deleteSchedule(Model model, int rv_num) throws Exception{
-		boolean res = reservationScheduleService.deleteSchedule(rv_num);
+	public String deleteUserSchedule(Model model, int rv_num) throws Exception{
+		boolean res = reservationScheduleService.deleteUserSchedule(rv_num);
+		if(res) {
+			model.addAttribute("msg", "삭제에 성공하였습니다.");
+			model.addAttribute("url", "/hospital/schedule/change");
+		}else {
+			model.addAttribute("msg", "삭제에 실패하였습니다.");
+			model.addAttribute("url", "/hospital/schedule/change");
+		}
+		return "message";
+	}
+	
+	@GetMapping("/update/userschedule	")
+	public String updateUserSchedule(Model model, int rv_num, int hs_num, 
+			String date, String time) throws Exception{
+		boolean res = reservationScheduleService.updateUserSchedule(rv_num, hs_num, date, time);
 		if(res) {
 			model.addAttribute("msg", "삭제에 성공하였습니다.");
 			model.addAttribute("url", "/hospital/schedule/change");

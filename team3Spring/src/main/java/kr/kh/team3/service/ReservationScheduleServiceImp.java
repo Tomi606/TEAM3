@@ -41,9 +41,14 @@ public class ReservationScheduleServiceImp implements ReservationScheduleService
 	}
 
 	@Override
-	public boolean deleteSchedule(int rv_num) {
+	public boolean deleteUserSchedule(int rv_num) {
 		// TODO Auto-generated method stub
-		return RSDao.deleteScheule(rv_num);
+		return RSDao.deleteUserSchedule(rv_num);
+	}
+
+	@Override
+	public boolean updateUserSchedule(int rv_num, int hs_num, String date, String time) {
+		return RSDao.updateUserChedule(rv_num, hs_num, date, time);
 	}
 
 }
