@@ -62,12 +62,10 @@ public class ReservationScheduleController {
 		ho.setSite_id(ho_id);
 		ArrayList<HsListVO> subjectList = programService.getSubjectList(ho);
 		ArrayList<HospitalSubjectVO> list = new ArrayList<HospitalSubjectVO>();
-		System.out.println("ddddddddddddddd" + list);
 		ArrayList<HospitalProgramVO> programList = programService.getProgramList(user);
 		for (HsListVO tmp : subjectList) {
 			try {
 				HospitalSubjectVO subject = programService.getSubject(tmp.getHsl_hs_num(), ho);
-				System.out.println(subject);
 				list.add(subject);
 			} catch (Exception e) {
 
@@ -108,7 +106,6 @@ public class ReservationScheduleController {
 		HospitalProgramVO hp = hospitalService.getHospitalProgram(hp_num);
 		// 해당 과와아이디를 이용해 번호를 가져오는 메서드
 		ArrayList<ReservationScheduleVO> RSlist = programService.getRsList(hp_num);
-		log.info("RSlistRSlistRSlistRSlistRSlistRSlistRSlistRSlistRSlistRSlistRSlist" + RSlist);
 		map.put("hp", hp);
 		map.put("RSlist", RSlist);
 		return map;
@@ -139,7 +136,6 @@ public class ReservationScheduleController {
 		for (HsListVO tmp : subjectList) {
 			try {
 				HospitalSubjectVO subject = programService.getSubject(tmp.getHsl_hs_num(), user);
-				System.out.println(subject);
 				list.add(subject);
 			} catch (Exception e) {
 
@@ -233,8 +229,6 @@ public class ReservationScheduleController {
 	@PostMapping("/verify")
 	public IamportResponse<Payment> paymentByImpUid(@RequestParam("imp_uid") String imp_uid)
 			throws IamportResponseException, IOException {
-		System.out.println(imp_uid + "nnnnn");
-		System.out.println("nnnn" + iamportClient.paymentByImpUid(imp_uid));
 		return iamportClient.paymentByImpUid(imp_uid);
 	}
 

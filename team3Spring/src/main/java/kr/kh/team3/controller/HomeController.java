@@ -67,7 +67,6 @@ public class HomeController {
 	// 회원가입 메인페이지
 	@GetMapping("/main/signup")
 	public String mainSignup() {
-		log.info("회원가입 화면");
 		return "/main/signup";
 	}
 
@@ -160,12 +159,9 @@ public class HomeController {
 	// 사업자 회원가입 페이지(get)
 	@GetMapping("/hospital/signup")
 	public String hospitalSignup(HospitalVO hospital, Model model, String ho_id, SiDoVO siDo, String email) {
-		// 병원 진료과목 리스트
 		ArrayList<HospitalSubjectVO> hospitalList = hospitalService.getHospitalSubjectList();
-		model.addAttribute("hospitalList", hospitalList);
-
-		// 시도
 		ArrayList<SiDoVO> sidoList = hospitalService.getSiDoList();
+		model.addAttribute("hospitalList", hospitalList);
 		model.addAttribute("hospital", hospital);
 		model.addAttribute("sidoList", sidoList);
 		model.addAttribute("email", email);
@@ -195,7 +191,6 @@ public class HomeController {
 	// 로그인 메인 페이지
 	@GetMapping("/main/login")
 	public String mainLogin() {
-		log.info("메인 로그인");
 		return "/main/login";
 	}
 

@@ -37,7 +37,6 @@ public class CommentController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		cri.setPerPageNum(10);
 		ArrayList<CommentVO> commentList = commentService.getCommentList(cri);
-		log.info(commentList+"commentListcommentListcommentListcommentListcommentListcommentListcommentListcommentListcommentListcommentList");
 		int totalCount = commentService.getTotalCount(cri);
 		PageMaker pm = new PageMaker(5, cri, totalCount);
 		map.put("commentList", commentList);
@@ -73,7 +72,6 @@ public class CommentController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		boolean res = commentService.updateComment(comment, user);
 		map.put("result", res);
-		System.out.println(comment);
 		return map;
 	}
 	

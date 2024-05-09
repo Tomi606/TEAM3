@@ -778,10 +778,8 @@ public class HospitalController {
 	@ResponseBody
 	@PostMapping("/hospital/emd/list")
 	public Map<String, Object> postHospital(@RequestParam("emd_num") int emd_num, int hs_num, String search, @RequestParam("page")int page) {
-		//log.info(search + "    검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어");
 		Map<String, Object> map = new HashMap<String, Object>();
 		Criteria cri = new Criteria(page, 12, null, search);
-		//cri.setPerPageNum(12);
 		LandVO land = hospitalService.getLand(emd_num);
 		ArrayList<HospitalVO> hoList;
 		int totalCount;
@@ -792,7 +790,6 @@ public class HospitalController {
 			hoList = hospitalService.getHospitalEmd(land, hs_num, cri);
 			totalCount = hospitalService.getHospitalCountEmd(land, hs_num, cri);
 		}
-		log.info(hoList + "hoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoList");
 		PageMaker pm = new PageMaker(5, cri, totalCount);
 		map.put("pm", pm);
 		map.put("hoList", hoList);
@@ -832,11 +829,6 @@ public class HospitalController {
 		return map;
 
 	}
-	/* 시간을 누르면 ##시##분에 ###프로그램을 예약하시겠습니까? confirm으로 물어봐 true면 예약확인페이지 false면 페이지 머뭄
-	 * 예약 확인페이지로 이동하면 병원이름 , 프로그램 이름 , 세부항목 , 프로그램 설명 , 가격
-	 * 
-	 * 
-	 * 
-	 * */
+	 
 
 }
