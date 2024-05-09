@@ -186,11 +186,6 @@ public class HomeController {
 		if (getLand == null) {
 			return false;
 		}
-		//대표 과목 추가
-		boolean insertHsList = hospitalService.insertHoSub(hospital.getHo_id(), hospital.getHo_hs_num());
-		if (!insertHsList) {
-			return false;
-		}
 		
 		boolean memberRes = hospitalService.signup(hospital, getLand);
 		boolean siteRes = hospitalService.siteSignup(site, getLand);
