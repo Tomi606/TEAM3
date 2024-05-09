@@ -191,4 +191,7 @@ public interface HospitalService {
 
 	boolean deleteMyInfo(HospitalVO hospital, SiteManagement user);
 
+	boolean insertHoSub(String ho_id, int ho_hs_num);
+
+
 }

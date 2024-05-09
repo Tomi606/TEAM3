@@ -660,4 +660,9 @@
 	<delete id="deleteSiteHospital">
 		delete from site_management where site_id = #{site_id}
 	</delete>
+	
+	<insert id="insertHoSub">
+		insert into hs_list(hsl_ho_id, hsl_hs_num) 
+		values(#{ho_id}, #{ho_hs_num})
+	</insert>
 </mapper>

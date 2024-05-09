@@ -900,4 +900,11 @@ public class HospitalServiceImp implements HospitalService {
 		return deleteHospital && deleteSite;
 	}
 
+	@Override
+	public boolean insertHoSub(String ho_id, int ho_hs_num) {
+		
+		return hospitalDao.insertHoSub(ho_id, ho_hs_num);
+	}
+
+
 }

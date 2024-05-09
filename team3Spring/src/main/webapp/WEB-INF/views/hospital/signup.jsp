@@ -492,9 +492,13 @@ $("form").submit(function(event){
     var la_emd_num = $("select[name='emd_num'] option:selected").val();
     console.log("읍 면 동"+la_emd_num	);
     
+	var hsl_hs_num = $("select[name='ho_hs_num'] option:selected").val();
+	console.log("병원 대표 과목 : " + hsl_hs_num);
+    
  // Serialize된 form 데이터를 직접 사용하고 str 파라미터를 추가합니다.
     var formData = $(this).serialize();
-    formData += '&la_sd_num=' + la_sd_num + '&la_sgg_num=' + la_sgg_num + '&la_emd_num=' + la_emd_num; // str 파라미터 추가
+    formData += '&la_sd_num=' + la_sd_num + '&la_sgg_num=' + la_sgg_num 
+    		+ '&la_emd_num=' + la_emd_num + '&hsl_hs_num=' + hsl_hs_num; // str 파라미터 추가
     
     $.ajax({
     	   async : true, //비동기 : true(비동기), false(동기)
@@ -515,5 +519,29 @@ $("form").submit(function(event){
     return false;
 })
 </script>
+
+<!-- 병원 과목 추가 -->
+<!-- <script type="text/javascript">
+$("form").submit(function (event) {
+	
+	$.ajax({
+ 	   async : true, //비동기 : true(비동기), false(동기)
+ 	   url : '<c:url value="/hospital/signup"/>', 
+ 	   type : 'post', 
+ 	   data : formData,
+ 	   success : function (data){
+ 		   if(data == false){
+ 			   location.href = '<c:url value="/message?res="/>' + data;
+ 		   }else{
+ 			   location.href = '<c:url value="/message?res="/>' + data;
+ 		   }
+ 	   }, 
+ 	   error : function(jqXHR, textStatus, errorThrown){
+
+ 	   }
+ 	});
+	return false;
+});
+</script> -->
 </body>
 </html>
