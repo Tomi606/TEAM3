@@ -1029,8 +1029,8 @@ $(document).ready(function() {
 $(document).on('click', '.subject_save_btn', function() {
 	let ho_hs_num = $("select[name='ho_hs_num'] option:selected").val();
 	let hospital = {
-			ho_hs_num : ho_hs_num,
-		    ho_id : '${hospital.ho_id}'
+			"ho_hs_num" : ho_hs_num,
+		    "ho_id" : '${hospital.ho_id}'
 		  };
 
 	$.ajax({

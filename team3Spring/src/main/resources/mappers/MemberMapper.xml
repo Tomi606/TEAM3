@@ -12,7 +12,7 @@
 		<result column="site_email" property="site_email"/>
 		<result column="site_authority" property="site_authority"/>
 		<collection property="member" ofType="MemberVO" column="site_id" select="siteMembergetId"/>
-		<collection property="report" ofType="ReportVO" column="site_num" select="siteHospitalgetReport"/>
+		<collection property="report" ofType="ReportVO" column="site_num" select="siteMembergetReport"/>
 	</resultMap>
 	
 	<select id="siteMembergetId" resultType="MemberVO">
@@ -26,8 +26,15 @@
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
-	<select id="siteHospitalgetReport" resultType="kr.kh.team3.model.vo.ReportVO">
+	<select id="siteMembergetReport" resultType="ReportVO">
 		select * from report where rp_target = #{site_num}
+	</select>
+	
+	<select id="selectMeRpList" resultMap="siteMap">
+		select * from site_management
+		where site_authority = "USER"
+		order by site_num
+		limit 4
 	</select>
 	
 	<select id="selectReportMemberTotalCount" resultType="int">

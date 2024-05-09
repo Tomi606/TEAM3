@@ -183,6 +183,10 @@ public class AdminController {
 		ArrayList<MemberVO> list = memberService.getMemberList(cri);
 		int totalCount = memberService.getMemberTotalCount(cri);
 		PageMaker pm = new PageMaker(3, cri, totalCount);
+		//신고 회원 리스트 가져오기
+		ArrayList<SiteManagement> meRpList = memberService.getMeRpList();
+		
+		model.addAttribute("meRpList",meRpList);
 		model.addAttribute("list", list);
 		model.addAttribute("pm", pm);
 		return "/admin/member/main";

@@ -562,6 +562,11 @@ public class MemberServiceImp implements MemberService {
 		return dbMember;
 	}
 
+	@Override
+	public ArrayList<SiteManagement> getMeRpList() {
+		return memberDao.selectMeRpList();
+	}
+
 	
 	 
 

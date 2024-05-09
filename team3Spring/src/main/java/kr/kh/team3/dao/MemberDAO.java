@@ -130,6 +130,8 @@ public interface MemberDAO {
 
 	boolean deleteMyInfo(@Param("id")String site_id);
 
+	ArrayList<SiteManagement> selectMeRpList();
+
 
 
 }
