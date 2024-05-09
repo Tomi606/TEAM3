@@ -16,6 +16,8 @@ public interface ReservationScheduleService {
 
 	HospitalProgramVO getHospitalProgram(int hp_num);
 
-	boolean deleteSchedule(int rv_num);
+	boolean deleteUserSchedule(int rv_num);
+
+	boolean updateUserSchedule(int rv_num, int hs_num, String date, String time);
 
 }

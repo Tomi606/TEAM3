@@ -74,22 +74,89 @@
 
 <script>
     // th를 클릭하면 텍스트가 사라지고 input 태그로 변경
-    $(document).on("click", '#reservation_table th', function() {
-	      // 클릭한 th 요소의 내용을 저장
-	      var currentText = $(this).text().trim();
-	      
-	      // 현재 요소를 input 요소로 변경
-	      $(this).html('<input type="text" class="editable" value="' + currentText + '">');
-	      
-	      // input 요소에 포커스 주기
-	      $(this).find('.editable').focus();
-	    });
-	    
-	    // input 요소에서 포커스가 빠져나가면 값을 저장하고 텍스트로 변경
-	    $(document).on('blur', '.editable', function() {
-	      var newText = $(this).val().trim();
-	      $(this).parent().text(newText);
+    $(document).on("click", '.change_btn', function() {
+      // 클릭한 th 요소의 내용을 저장
+      var currentText = $('#reservation_table th').text().trim();
+      
+      // 현재 요소를 input 요소로 변경
+      //$(this).html('<input type="text" class="editable" value="' + currentText + '">');
+      
+      // input 요소에 포커스 주기
+      $(this).find('.editable').focus();
     });
+    
+    // input 요소에서 포커스가 빠져나가면 값을 저장하고 텍스트로 변경
+    $(document).on('blur', '.editable', function() {
+      var newText = $(this).val().trim();
+      $(this).parent().text(newText);
+	 });
+</script>
+
+<!-- 변경 버튼을 눌렀을때 인풋태그가 바뀌는 코드 -->
+<script type="text/javascript">
+	$(document).on("click", ".change_btn", function(){
+		/* let list = selectProgram();
+		let dis = displayHospitalUpdateProgram(list);
+		let date = $(this).parents(".tr").find(".date").html('<input class="date-update" type="date">');
+		let time = $(this).parents(".tr").find(".time").html('<input class="time-update"type="time">');
+		let select = $(this).parents(".tr").find(".program").html('<select name=uhs_num>'+ dis +'</select>');
+		let rv_num = $(this).parents(".tr").find(".rv_num").text();
+		let btn =  */
+		/* let date = $(this).parents(".tr").find(".date").hide();
+		let time = $(this).parents(".tr").find(".time").hide();
+		let rv_num = $(this).parents(".tr").find(".rv_num").text();
+		let btn = $(this).parents(".tr").find(".change_btn").hide(); */
+		
+		$(this).parents(".tr").find(".change-box").css('display', 'none');
+		
+		
+		let list = selectProgram();
+		/* 옵션 str */
+		let dis = displayHospitalUpdateProgram(list);
+		
+		$(this).parents(".tr").find(".date").html('<select name="date">' + '</select>');
+		$(this).parents(".tr").find(".time").html('<select name="time">'+ '</select>');
+		$(this).parents(".tr").find(".program").html('<select name=uhp_num>'+ dis +'</select>');
+		
+		$(this).parents(".tr").find(".change_btn").html('<a class="btn success_btn">확인</a>')
+	})
+</script>
+
+<!-- 프로그램을 선택할 때마다 날짜를 가져오는 코드 -->
+<!-- <script type="text/javascript">
+$(document).on("click", "[name=uhp_num]", function(){
+	let hp_num = $("[name=uhp_num]").val()
+	$.ajax({
+        method : "post",
+        url : '<c:url value="/getdate"/>',
+        data : {"hp_num" : hp_num},
+        success : function (data) {
+            res=data.RSlist;
+            let option = strOption(data.RSlist);
+            $(this).parents(".tr").find(".date").html('<select name="date">'+ option +'</select>');
+        }
+    });
+})
+
+/* 날짜를 option으로ㅓ 만드는 메서드 */
+function strOption(list){
+	let str = ``;
+	console.log(list)
+	for(let tmp of list){
+		str+= `<option>` + tmp.rsDate + `</option>`
+	}
+	return str
+}
+</script> -->
+
+<script type="text/javascript">
+	$(document).on("click", ".success_btn", function(){
+		let rv_num = $(this).parents(".tr").find(".rv_num").text();
+		let uhs_num = $("[name=hs_num]").val();
+		let date = $(".date-update").val();
+		let time = $(".time-update").val();
+		location.href='<c:url value="/update/userschedule?rv_num="/>' + rv_num + "&uhs_num=" + uhs_num + "&date=" + date + "&time" + time
+	})
 </script>
 
 <!-- 병원 과목을 선택하면 프로그램을 가져옴 -->
@@ -107,24 +174,23 @@
 			},
 			success : function(data){
 				let str = ``;
-				console.log(data)
 				if(data.list != null){
 					for(let tmp of data.list){
 						if(tmp == null){
 							continue;
 						}else{
-							str+=`<tr>
-									<th>\${tmp.rv_num}</th>
-									<th>\${tmp.memberVO.me_id}</th>
-									<th>\${tmp.rv_rvs_name}</th>
-									<th>\${data.HP.hp_title}</th>
-									<th>\${tmp.reservationScheduleVO.rsDate2}</th>
-									<th>\${tmp.reservationScheduleVO.rsTime}</th>
-									<th>
-										<button class="change_btn">변경</button>
-										<a class="btn delete_btn" href='<c:url value="/delete/schedule?rv_num=\${tmp.rv_num}"/>'>취소</a>
-									</th>
-							  </tr>`;
+							str+=`<tr class="tr">	
+										<td class="rv_num">\${tmp.rv_num}</td>
+										<td>\${tmp.memberVO.me_id}</td>
+										<td>\${tmp.rv_rvs_name}</td>
+										<td class="program"><div class="change-box">\${data.HP.hp_title}</div></td>
+										<td class="date"><div class="change-box">\${tmp.reservationScheduleVO.rsDate2}</div></td>
+										<td class="time"><div class="change-box">\${tmp.reservationScheduleVO.rsTime}</div></td>
+										<td>
+											<a class="btn change_btn">변경</a>
+											<a class="btn delete_btn" href='<c:url value="/delete/schedule?rv_num=\${tmp.rv_num}"/>'>취소</a>
+										</td>
+								  </tr>`;
 						}
 					}
 				}
@@ -137,27 +203,53 @@
 <!-- 병원 과목을 선택하면 프로그램을 가져오는 메서드  -->
 <script type="text/javascript">
 	$("[name=hs_num]").click(function(){
-		let hp_num = $("[name=hp_num]").val();
-		let hs_num = $("[name=hs_num]").val();
-		if(hs_num == 'none' || hp_num == 'none'){
-			hs_num = 1;
-			hp_num = 1;
-		}
-		let ho = '${ho.site_id}';
-		$.ajax({
-			method : "post",
-			url : '<c:url value="/program/updatecheck2"/>',
-			data : {"hs_num" : hs_num,
-					"ho" : ho},
-			success : function (data) {
-				let str = ``
-				for(let tmp of data.hpList){
-					str+=`<option value="\${tmp.hp_num}">\${tmp.hp_title}</option>`
-				}	
-				$("[name=hp_num]").html(str);
-			}
-		});
+		let list = selectProgram();
+		displayHospitalProgram(list);
 	});
+	function selectProgram(){
+	    let hp_num = $("[name=hp_num]").val();
+	    let hs_num = $("[name=hs_num]").val();
+	    if(hs_num == 'none' || hp_num == 'none'){
+	        hs_num = 1;
+	        hp_num = 1;
+	    }
+	    let ho = '${ho.site_id}';
+	 	let res = null;
+	    $.ajax({
+	    	async : false,
+	        method : "post",
+	        url : '<c:url value="/program/updatecheck2"/>',
+	        data : {"hs_num" : hs_num,
+	                "ho" : ho},
+	        success : function (data) {
+	            res=data.hpList;
+	        }
+	    });
+	    return res;
+	}
+	function displayHospitalProgram(hpList){
+		let str = ``;
+		if(hpList == null){
+			$("[name=hp_num]").html(str);
+		}
+        for(let tmp of hpList){
+            str += `<option value="\${tmp.hp_num}">\${tmp.hp_title}</option>`;
+        }
+        //callback(str);
+        $("[name=hp_num]").html(str);
+	}
+	
+	function displayHospitalUpdateProgram(hpList){
+		let str = ``;
+		if(hpList == null){
+			$("[name=hp_num]").html(str);
+		}
+        for(let tmp of hpList){
+            str += `<option value="\${tmp.hp_num}">\${tmp.hp_title}</option>`;
+        }
+        return str;
+	}
 </script> 
+
 </body>
 </html>
