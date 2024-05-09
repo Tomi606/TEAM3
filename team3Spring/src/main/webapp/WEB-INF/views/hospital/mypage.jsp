@@ -137,7 +137,7 @@ img {
 	border: 1px solid green;
     width: 300px;
     height: 500px;
-    margin: 50px auto;
+    margin: 50px 20px 20px 48px;
     border-radius: 5px;
 }
 
@@ -479,8 +479,10 @@ select:focus {
 }
 
 .hospital_delete_box {
-	color:gray;
-	list-style: none;padding-left: 33px;
+	color: gray;
+    list-style: none;
+    padding-left: 33px;
+    margin: 20px 0px 0px 10px;
 }
 </style>
 </head>

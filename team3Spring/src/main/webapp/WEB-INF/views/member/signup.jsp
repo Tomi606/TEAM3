@@ -128,7 +128,8 @@ label {
 }
 
 .signup_img{
-	width: 300px;height: 200px;
+	width: 300px;
+	height: 200px;
 }
 </style>
 </head>
