@@ -60,7 +60,6 @@
 
 .signup-btn:hover {
 	background-color: green;
-	
 }
 
 select {
@@ -82,11 +81,13 @@ select:hover {
 img{
  width: 30px;
 }
+
 .duplicate{
     float:right;
 	border-radius:0;
 	height: 43px;
 }
+
 label {
 	margin-left: 30px;
 }
@@ -95,14 +96,14 @@ label {
      margin-right: 15px;
  }
  
- .gender-buttons label {
- 	width:100px;text-align:center;
- 	border:1px solid  #007bff;
-     display: inline-block;
-     padding: 8px 16px;
-     border-radius: 5px;
-     cursor: pointer;
- }
+.gender-buttons label {
+	width:100px;text-align:center;
+	border:1px solid  #007bff;
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
 .male {
 	margin-left: 100px;
