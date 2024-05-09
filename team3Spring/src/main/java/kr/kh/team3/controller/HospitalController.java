@@ -1,9 +1,6 @@
 package kr.kh.team3.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,9 +56,9 @@ public class HospitalController {
 	public String myPage(Model model, HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospitalMypage(user);
-		log.info(hospital+"awgvhijfneqwp;lifbnhwqep;igvfbhewpi;lgbwa;rehbg;owaergower;gubhweoghbnwe;opgihwepgiohwegoiwehgoieh");
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.selectSubject();
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
+		
 		model.addAttribute("hospital", hospital);
 		model.addAttribute("hsList", hsList);
 		model.addAttribute("sidoList", sidoList);
@@ -76,19 +73,19 @@ public class HospitalController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospitalMypage(user);
 		HospitalSubjectVO hs = hospitalService.getSubject(hospital);
+		
 		LandVO land = hospitalService.getMyLand(hospital);
 		String sd_name = hospitalService.getSdName(land);
 		String sgg_name = hospitalService.getSggName(land);
 		String emd_name = hospitalService.getEmdName(land);
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.selectSubject();
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
-		log.info(hospital+"asddsadasdsadsadsadsad");
 		
 		map.put("hospital", hospital);
 		map.put("hsList", hsList);
 		map.put("sidoList", sidoList);
-		
 		map.put("hs", hs);
+		
 		map.put("land", land);
 		map.put("sd_name", sd_name);
 		map.put("sgg_name", sgg_name);
@@ -237,6 +234,24 @@ public class HospitalController {
 	public ArrayList<EupMyeonDongVO> postEupMyeonDong(int sgg_num) {
 		ArrayList<EupMyeonDongVO> emdList = hospitalService.getEmd(sgg_num);
 		return emdList;
+	}
+	
+	//회원탈퇴
+	@GetMapping("/hospital/delete")
+	public String userDelete(Model model, HttpSession session) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		HospitalVO hospital = hospitalService.getHospital(user);
+		boolean res = hospitalService.deleteMyInfo(hospital, user);
+		if (res) {
+			session.invalidate();
+			model.addAttribute("url", "/");
+			model.addAttribute("msg", "회원탈퇴 했습니다.");
+		} else {
+			model.addAttribute("url", "/hospital/mypage");
+			model.addAttribute("msg", "회원탈퇴 실패했습니다.");
+		}
+
+		return "message";
 	}
 
 	//-----------------------------[병원 상세 페이지]------------------------------

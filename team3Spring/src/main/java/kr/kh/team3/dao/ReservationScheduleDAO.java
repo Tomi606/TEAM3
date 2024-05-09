@@ -19,6 +19,8 @@ public interface ReservationScheduleDAO {
 
 	HospitalProgramVO selectHospitalProgram(@Param("hp_num")int hp_num);
 
-	boolean deleteScheule(@Param("rv_num")int rv_num);
+	boolean deleteUserSchedule(@Param("rv_num")int rv_num);
+
+	boolean updateUserChedule(@Param("rv_num")int rv_num, @Param("hs_num")int hs_num, @Param("date")String date,@Param("time") String time);
 
 }
