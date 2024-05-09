@@ -238,4 +238,14 @@ public class ProgramServiceImp implements ProgramService {
 		return programDao.insertPay(payment);
 	}
 
+	@Override
+	public boolean selectUserReserve(String site_id, int rv_rs_num) {
+		ReservationVO reserve =  programDao.selectUserReserve(site_id, rv_rs_num);
+		System.out.println("여기" + reserve);
+		if(reserve != null)
+			return false;
+		
+		return true;
+	}
+
 }

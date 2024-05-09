@@ -22,4 +22,5 @@ public class ReservationVO {
 		this.rv_me_id = rv_me_id;
 	}
 
+
 }
