@@ -117,7 +117,6 @@ public class ReservationScheduleController {
 	public Map<String, Object> getTime(@RequestParam("rs_num") int rs_num, HttpSession session,
 			@RequestParam("hp_num") int hp_num) {
 		Map<String, Object> map = new HashMap<String, Object>();
-
 		// 해당 과와아이디를 이용해 번호를 가져오는 메서드
 		ReservationScheduleVO time = reservationScheduleService.getRsTime(rs_num);
 		ArrayList<ReservationScheduleVO> RSTimeList = reservationScheduleService.getRsList(time.getRsDate2(),
@@ -127,7 +126,7 @@ public class ReservationScheduleController {
 		return map;
 	}
 
-//	예약된 회원을 관리하는 페이지 get
+	// 예약된 회원을 관리하는 페이지 get
 	@GetMapping("/hospital/schedule/change")
 	public String ScheduleMemberCheck(HttpSession session, Model model) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
@@ -162,7 +161,6 @@ public class ReservationScheduleController {
 			try {
 				list.add(reservation);
 			} catch (Exception e) {
-				// TODO: handle exception
 			}
 		}
 		map.put("list", list);
@@ -171,23 +169,22 @@ public class ReservationScheduleController {
 	}
 
 	@GetMapping("/delete/schedule")
-	public String deleteUserSchedule(Model model, int rv_num) throws Exception{
+	public String deleteUserSchedule(Model model, int rv_num) throws Exception {
 		boolean res = reservationScheduleService.deleteUserSchedule(rv_num);
-		if(res) {
+		if (res) {
 			model.addAttribute("msg", "삭제에 성공하였습니다.");
 			model.addAttribute("url", "/hospital/schedule/change");
-		}else {
+		} else {
 			model.addAttribute("msg", "삭제에 실패하였습니다.");
 			model.addAttribute("url", "/hospital/schedule/change");
 		}
 		return "message";
 	}
-	
-	@GetMapping("/update/userschedule	")
-	public String updateUserSchedule(Model model, int rv_num, int hs_num, 
-			String date, String time) throws Exception{
+
+	@GetMapping("/update/userschedule")
+	public String updateUserSchedule(Model model, int rv_num, int hs_num, String date, String time) throws Exception {
 		boolean res = reservationScheduleService.updateUserSchedule(rv_num, hs_num, date, time);
-		if(res) {
+		if (res) {
 			model.addAttribute("msg", "삭제에 성공하였습니다.");
 			model.addAttribute("url", "/hospital/schedule/change");
 		} else {
