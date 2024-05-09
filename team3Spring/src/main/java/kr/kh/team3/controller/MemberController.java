@@ -241,5 +241,15 @@ public class MemberController {
 
 		return "message";
 	}
+	@GetMapping("/member/reservemgr")
+	public String memberReservemgr(Model model, HttpSession session, String site_id) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		
+		
+		
+		return "/member/reservemgr";
+	}
+	
+	
 
 }
