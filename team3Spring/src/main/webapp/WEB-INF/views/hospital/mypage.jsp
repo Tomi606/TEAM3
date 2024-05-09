@@ -142,7 +142,7 @@ img {
 }
 
 .profile-container {
-	background-color: rgb(202, 238, 208);
+	background-color: rgb(237, 250, 239);
     width: 1000px;
     height: 989px;
     display: block;
