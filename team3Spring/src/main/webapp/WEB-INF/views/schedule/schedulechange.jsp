@@ -92,6 +92,7 @@
 	 });
 </script>
 
+<!-- 변경 버튼을 눌렀을때 인풋태그가 바뀌는 코드 -->
 <script type="text/javascript">
 	$(document).on("click", ".change_btn", function(){
 		/* let list = selectProgram();
@@ -113,22 +114,48 @@
 		/* 옵션 str */
 		let dis = displayHospitalUpdateProgram(list);
 		
-		$(this).parents(".tr").find(".date").html('<input class="date-update" type="date">');
-		$(this).parents(".tr").find(".time").html('<input class="time-update"type="time">');
-		$(this).parents(".tr").find(".program").html('<select name=uhs_num>'+ dis +'</select>');
+		$(this).parents(".tr").find(".date").html('<select name="date">' + '</select>');
+		$(this).parents(".tr").find(".time").html('<select name="time">'+ '</select>');
+		$(this).parents(".tr").find(".program").html('<select name=uhp_num>'+ dis +'</select>');
 		
 		$(this).parents(".tr").find(".change_btn").html('<a class="btn success_btn">확인</a>')
 	})
 </script>
 
+<!-- 프로그램을 선택할 때마다 날짜를 가져오는 코드 -->
+<!-- <script type="text/javascript">
+$(document).on("click", "[name=uhp_num]", function(){
+	let hp_num = $("[name=uhp_num]").val()
+	$.ajax({
+        method : "post",
+        url : '<c:url value="/getdate"/>',
+        data : {"hp_num" : hp_num},
+        success : function (data) {
+            res=data.RSlist;
+            let option = strOption(data.RSlist);
+            $(this).parents(".tr").find(".date").html('<select name="date">'+ option +'</select>');
+        }
+    });
+})
+
+/* 날짜를 option으로ㅓ 만드는 메서드 */
+function strOption(list){
+	let str = ``;
+	console.log(list)
+	for(let tmp of list){
+		str+= `<option>` + tmp.rsDate + `</option>`
+	}
+	return str
+}
+</script> -->
 
 <script type="text/javascript">
 	$(document).on("click", ".success_btn", function(){
 		let rv_num = $(this).parents(".tr").find(".rv_num").text();
-		let uhs_num = $("[name=uhs_num]").val();
+		let uhs_num = $("[name=hs_num]").val();
 		let date = $(".date-update").val();
 		let time = $(".time-update").val();
-		
+		location.href='<c:url value="/update/userschedule?rv_num="/>' + rv_num + "&uhs_num=" + uhs_num + "&date=" + date + "&time" + time
 	})
 </script>
 
@@ -224,65 +251,6 @@
         return str;
 	}
 </script> 
-
-<!-- <script type="text/javascript">
-let cri = {
-	page : 1
-}
-getWaitList(cri);
-
-function getWaitList(cri){
-	$.ajax({
-		async : true,
-		url : '<c:url value="/admin/waitlist"/>', 
-		type : 'post', 
-		data : JSON.stringify(cri),
-		//서버로 보낼 데이터 타입
-		contentType : "application/json; charset=utf-8",
-		//서버에서 보낸 데이터의 타입
-		dataType : "json", 
-		success : function (data){
-			displayWaitList(data.list);
-			displayWaitPagination(data.pm);
-			/* $('.wait-total').text(data.pm.totalCount); */
-		}, 
-		error : function(jqXHR, textStatus, errorThrown){
-
-		}
-	});
-}
-
-
-function displayWaitPagination(pm){
-    
-	let str = '';
-	if(pm.prev){
-		str += `
-		<li class="page-item">
-			<a class="page-link" href="javascript:void(0);" data-page="\${pm.startPage - 1}">이전</a>
-		</li>`;		
-	}
-	for(let i = pm.startPage; i<= pm.endPage; i++){
-		let active = pm.cri.page == i ? 'active' : '';
-		str += `
-		<li class="page-item \${active}">
-			<a class="page-link" href="javascript:void(0);" data-page="\${i}">\${i}</a>
-		</li>`;	
-	}
-	
-	if(pm.next){
-		str += `
-		<li class="page-item">
-			<a class="page-link" href="javascript:void(0);" data-page="\${pm.endPage + 1}">다음</a>
-		</li>`;	
-	}
-	$('.box-pagination>ul').html(str);
-}
-$(document).on('click','.box-pagination .page-link',function(){
-	cri.page = $(this).data('page');
-	getWaitList(cri);
-})
-</script>-->
 
 
 </body>
