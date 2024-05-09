@@ -562,6 +562,17 @@ public class MemberServiceImp implements MemberService {
 		return dbMember;
 	}
 
+	@Override
+	public ArrayList<ReportVO> getMeRpList() {
+		return memberDao.selectMeRpList();
+	}
+
+	@Override
+	public ArrayList<MemberVO> getMemberLand() {
+		return memberDao.selectMemberLand();
+	}
+
+
 	
 	 
 

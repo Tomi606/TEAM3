@@ -137,12 +137,12 @@ img {
 	border: 1px solid green;
     width: 300px;
     height: 500px;
-    margin: 50px auto;
+    margin: 50px 20px 20px 48px;
     border-radius: 5px;
 }
 
 .profile-container {
-	background-color: rgb(202, 238, 208);
+	background-color: rgb(237, 250, 239);
     width: 1000px;
     height: 989px;
     display: block;
@@ -479,8 +479,10 @@ select:focus {
 }
 
 .hospital_delete_box {
-	color:gray;
-	list-style: none;padding-left: 33px;
+	color: gray;
+    list-style: none;
+    padding-left: 33px;
+    margin: 20px 0px 0px 10px;
 }
 </style>
 </head>
@@ -1029,8 +1031,8 @@ $(document).ready(function() {
 $(document).on('click', '.subject_save_btn', function() {
 	let ho_hs_num = $("select[name='ho_hs_num'] option:selected").val();
 	let hospital = {
-			ho_hs_num : ho_hs_num,
-		    ho_id : '${hospital.ho_id}'
+			"ho_hs_num" : ho_hs_num,
+		    "ho_id" : '${hospital.ho_id}'
 		  };
 
 	$.ajax({
