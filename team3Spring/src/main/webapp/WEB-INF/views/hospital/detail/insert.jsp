@@ -1,19 +1,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>상세 페이지 등록</title>
 <style type="text/css">
 .info-container {
-	box-shadow: 0px 2px 4px 6px rgba(0, 128, 0, 0.5);
-    transition: box-shadow 0.3s ease;
-    padding: 20px 30px 20px 30px;
-    margin: 70px 30px 70px 480px;
-    border-radius: 5px;
-    width: 60%;
+    padding: 60px 80px;
+    margin: -250px auto 70px auto;
+    width: 80%;
+    background-color: white;
+    border-radius: 15px;
+    display: block;
+    box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.2);
 }
 
 textarea {
@@ -21,42 +22,47 @@ textarea {
 }
 
 .info-label {
+	padding-left:25px;
 	display: flex;
     align-items: center;
     font-size: 24px;
-    color: green;
-    font-weight: bold;
+    color: #555;
+    margin-bottom: 35px;
 }
 
-.subject-checkbox {
-	isplay: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: space-between;
-    justify-content: flex-start;
-    align-items: stretch;
-}
+ 
 
 .subject-checkbox {
 	display: grid;
-    grid-template-columns: repeat(12, 2fr);
-    align-items: stretch;
-    align-content: stretch;
-    justify-content: space-between;
-    justify-items: start;
+    grid-template-columns: repeat(8, 2fr);
+    align-items: center;
     margin-bottom: 30px;
     margin-left: -80px;
+    font-size: 16px;
 }
 
 .info-textarea {
-	width: 95%;
+	/* width: 95%;
     height: 150px;
     margin-bottom: 30px;
     margin-left: 20px;
     border: 1px solid green;
     padding: 10px 15px 5px 10px;
     font-size: 20px;
-    border-radius: 5px;
+    border-radius: 5px; */
+    
+    width: 94%;
+    height: 150px;
+    border: 1px solid #c8c8c8;
+    border-radius: 15px;
+    margin: 10px 5px 5px 30px;
+    font-size: 20px;
+    resize: none;
+    overflow: auto;
+    cursor: inherit;
+    outline-style: none;
+    padding: 15px;
+    
 }
 
 input[type="checkbox"] {
@@ -65,7 +71,7 @@ input[type="checkbox"] {
     border-radius: 50%;
     appearance: none;
     cursor: pointer;
-    background-color: rgba(0, 128, 0, 0.5);
+    background-color: #c8c8c8;
     border: 0px solid white;
     margin: 4px 20px 4px 90px;
 }
@@ -140,43 +146,102 @@ input[type="checkbox"]:checked::before {
     50% { background-color: green; color: white; } /* 중간 색상 */
     100% { background-color: white; color: green; } /* 끝 색상 */
 }
+.home-box1 {
+	width: 100%;
+	height: 500px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
+}
+
+.page-title{
+color:rgba(0, 100, 60, 0.8);
+	text-align: left;
+	font-size: 50px;
+	font-weight: bold;
+	margin: 0 0 80px 0;
+}
+
+.hr-line {
+	margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, .1);
+}
+
+.info1-box{
+	margin-top:80px;
+	color:#555;
+	box-shadow:inset 0 1px 5px 2px rgba(0, 0, 0, 0.2);
+	padding: 50px;
+	border-radius: 10px;
+}
+
+.info2-box {
+	margin-top:80px;
+	color:#555;
+	box-shadow:inset 0 1px 5px 2px rgba(0, 0, 0, 0.2);
+	padding: 50px;
+	border-radius: 10px;
+}
 </style>
 </head>
 <body>
+<div class="home-box1">
+			<div style="width: 80%;margin: 0 auto;padding-top: 80px">
+				<div class="page-title">
+					병원
+				</div>
+			</div>
+		</div>
 <div class="info-container">
 	<div class="all-info-box">
 		<form action='<c:url value="/hospital/detail/insert"/>' method="post">
+				<h2 style="font-weight: bold; text-align: center; font-size: 50px; color: #555;">병원 소개</h2>
 			<div class="info1-box">	
-				<h2 style="font-weight: bold; text-align: center; font-size: 60px; color: green;">💚병원 소개💚</h2>
 				<div class="hd_info" id="hd_info">
 					<label for="hd_info" style="font-weight: bold" class="info-label">병원 소개</label>
 				   	<textarea class="hd_info info-textarea" id="hd_info" name="hd_info" 
 				   	placeholder="병원 소개말을 입력하세요." oninput="autoTextarea(this)">${hoDetail.hd_info}</textarea>
 				</div>
+				
+				<hr class="hr-line">
+				
 				<div class="hd_time" id="hd_time">
 					<label for="hd_time" style="font-weight: bold" class="info-label">영업 시간</label>
 					<textarea class="hd_time info-textarea" id="hd_time" name="hd_time" required
 					placeholder="영업시간 및 점심시간을 입력하세요. 예시)월~금 : 9:00~18:00 / 토,일 : 휴무" oninput="autoTextarea(this)">${hoDetail.hd_time}</textarea>
 				</div>
+				
+				<hr class="hr-line">
+				
 				<div class="hd_park" id="hd_park">
 					<label for="hd_park" style="font-weight: bold" class="info-label">주차 정보</label>
 					<textarea class="hd_park info-textarea" id="hd_park" name="hd_park" 
 					placeholder="주차 정보를 입력하세요." oninput="autoTextarea(this)">${hoDetail.hd_park}</textarea>
 				</div>
+				
+				<hr class="hr-line">
+				
 				<div class="hd_announce">
 					<label for="hd_announce" style="font-weight: bold" class="info-label">공지 사항</label>
 					<textarea class="hd_announce info-textarea" id="hd_announce" name="hd_announce" 
 					placeholder="공지 사항을 입력하세요." oninput="autoTextarea(this)">${hoDetail.hd_announce}</textarea>
 				</div>
+				
+				<hr class="hr-line">
+				
 				<div class="hd_etc">
 					<label for="hd_etc" style="font-weight: bold" class="info-label">기타 사항</label>
 					<textarea class="hd_etc info-textarea" id="hd_etc" name="hd_etc" 
 					placeholder="기타 사항을 입력하세요." oninput="autoTextarea(this)">${hoDetail.hd_etc}</textarea>
 				</div>
 			</div>
+			<hr style="margin-top: 70px;">
 			
+			<h2 style="font-weight: bold; text-align: center; font-size: 50px; color: #555; margin-top: 80px;">진료 과목</h2>
 			<div class="info2-box">
-				<h2 style="font-weight: bold; text-align: center; font-size: 60px; color: green; margin-top: 30px;">💚진료 과목💚</h2>
 				<div class="hd_hs_num">
 					<label for="hd_hs_num" class="info-label" style="font-weight: bold">대표 진료 과목</label>
 					<div class="subject-checkbox">
@@ -187,7 +252,7 @@ input[type="checkbox"]:checked::before {
 					                <c:forEach items="${subjects}" var="sub">
 					                    <c:if test="${sub.hsl_hs_num == hs.hs_num}">
 					                        <c:set var="isChecked" value="true"/>
-					                        <input type="checkbox" class="checkbox" name="hsl_hs_num" value="${sub.hsl_hs_num}" checked>${hs.hs_title}
+					                        <input type="checkbox" class="checkbox" name="hs_num" value="${sub.hsl_hs_num}" checked>${hs.hs_title}
 					                    </c:if>
 					                </c:forEach>
 					                <c:if test="${isChecked == 'false'}">
@@ -203,6 +268,9 @@ input[type="checkbox"]:checked::before {
 					    </c:choose>
 					</div>
 				 </div>
+				 
+				 <hr class="hr-line">
+				 
 				<div>
 				 	<label for="hd_subject_detail" class="info-label" style="font-weight: bold">상세 진료 항목</label>
 				 	<textarea class="hd_subject_detail info-textarea" id="hd_subject_detail" name="hd_subject_detail" 
@@ -220,6 +288,7 @@ input[type="checkbox"]:checked::before {
 $("form").submit(function(e) {
 	/* e.preventDefault(); */
 	let hsList = getCheckedBox();
+	console.log(hsList);
 	let hd_info = $('[name=hd_info]').val();
 	let hd_time = $('[name=hd_time]').val();
 	let hd_park = $('[name=hd_park]').val();

@@ -8,12 +8,14 @@
 <title>병원 상세 페이지 조회</title>
 <style type="text/css">
 /* 전체 툴 */
-.detail-page{
- 	box-shadow: 0px 2px 4px 6px rgba(0, 128, 0, 0.5);
+.detail-page {
+ 	box-shadow: 0px 10px 100px -20px rgba(0, 0, 0, 0.2);
     transition: box-shadow 0.3s ease;
-    padding: 50px 30px 20px 30px;
-    margin: 80px 300px 50px 300px;
+    padding: 50px 40px;
+    margin: -250px auto 200px auto;
     border-radius: 5px;
+    background-color: white;
+    width: 80%;
 }
 
 .detail-page-sub1 {
@@ -25,19 +27,22 @@
 .detail-page-sub2 {
 
 }
-
+.toggle-btn ul li{
+	text-align:center;
+	width: 100%;
+	list-style: none;
+	line-height: 30px;
+}
 .toggle-btn{
+	padding:50px;
 	display:flex;
-	justify-content: space-around;
+	width: 100%;
 }
 
 .toggle-button {
-	border: 1px solid green;
+	border-bottom:1px solid #c8c8c8;
+	padding:30px 0 30px 0;
     height: 80px;
-    width: 25%;
-    font-size: 30px;
-    border-radius: 50px;
-    margin: 20px 50px;
     color: rgba(0, 128, 0, 0.5);
     background-color: white;
     text-decoration: none;
@@ -46,18 +51,19 @@
 }
 
 .page {
+	padding:50px;
     display: none;
-    padding: 20px;
 }
 
 .page.active {
+	border-radius:15px;
     display: block;
-    padding: 20px;
+    box-shadow:inset 0 1px 5px 2px rgba(0,0,0,0.2);
     
     
 }
 
-.body-container{
+.body-container {
 	width: 100%;
 	height: 100%;
 	border: 1px solid gray; 
@@ -66,10 +72,9 @@
 
 
 .label {
+	color:#555;
 	text-align: center;
 	font-size: 30px;
-	font-weight: bold;
-	color: rgba(0, 128, 0, 0.5);
 }
 
 p {
@@ -77,10 +82,11 @@ p {
 }
 
 #page3 textarea {
+	outline-style:none;
 	resize: none;
     overflow-y: hidden;
-    width: 78%;
-    border-radius: 10px;
+    width: 99%;
+    border-radius: 4px;
     border: 1px solid green;
 }
 
@@ -103,7 +109,7 @@ p {
 }
 
 .review-id {
-	font-size: 25px;
+	font-size: 22px;
 	padding-left: 10px;
 	font-weight: bolder;
 	margin: 5px 10px;
@@ -113,13 +119,12 @@ p {
 	font-size: 20px;
 	padding-left: 10px;
 	width : 100%;
-	margin-bottom: 30px;
 }
 
 .text-review {
 	width: 100%;
 	text-align: left;
-	margin: 5px 1px 15px 10px;
+	margin: 5px 1px 15px 45px;
 }
 
 .vw_num {
@@ -134,24 +139,24 @@ p {
 	 font-weight: bold; 
 	 font-size: 30px;
 	 text-align: left;
-	 color: rgba(0, 128, 0, 0.5);
 }
 
 .ho_name {
+	height:100px;
+	width:100%;
+	display:block;
 	font-weight: bold;
-	size: 50px;
-	font-stretch: expanded;
-	color: green;
-	margin-top: 20px;
+	margin-bottom: 60px;
 }
 
 .top-span {
 	font-weight: bold; 
 	font-size: 30px;
 	text-align: center;
-	color: rgba(0, 128, 0, 0.5);
 }
-
+.pagination {
+	margin-top: 10%;
+}
 .top-img {
 	height: 30px;
 	width: 30px;
@@ -159,14 +164,12 @@ p {
 	margin-left: 10px;
 }
 
-/* span태그 위치 option */
 .tooltip-link{
   position: absolute;
   left: 25%;
   top:80px;
 }
 
-/* span태그 option */
 .tooltip-link{
     position: relative;
     background-color: #aad;
@@ -176,91 +179,40 @@ p {
     box-sizing: border-box;
 }
 
-/* 툴팁 option */
-.tooltip-link[data-tooltip]:not([data-tooltip=""])::before {
-    content: attr(data-tooltip);
-    position: absolute;
-    background-color: rgba(0,0,0,0.5);
-    color: #fff;
-    padding: 10px 7px;
-    border-radius: 10px;
-    max-width: 300px;
-    width: 300px;
-    left: 25%;
-    bottom: 120%;
-    opacity: 0;
-    transition: all 0.5s linear;
-}
-
-/* 툴팁 말풍선 방향 팁 추가 */
-.tooltip-link[data-tooltip]:not([data-tooltip=""])::after {
-    content: '';
-    border-width: 6px;
-    border-style: solid;
-    border-color: transparent;
-    border-top-color: rgba(0,0,0,0.5);
-    width: 0;
-    height: 0;
-    display: inline-block;
-    position: absolute;
-    left: 50%;
-    bottom: 90%;
-    transform: translate(-50%, 0);
-    opacity: 0;
-    transition: all 0.5s linear;
-}
-
-.tooltip-link:hover[data-tooltip]:not([data-tooltip=""])::before
-, .tooltip-link:hover[data-tooltip]:not([data-tooltip=""])::after {
-    opacity: 1;
-}
-
 #myTextarea {
-	width: 100%;
+	width: 94%;
     height: 150px;
-    margin-bottom: 30px;
-    border: 0px solid white;
-    padding: 3px 5px 5px 3px;
-    margin: -15px -10px 10px 5px;
-    font-size: 24px;
+    border: 1px solid #c8c8c8;
+    border-radius:15px;
+    margin: 10px 5px 5px 30px;
+    font-size: 20px;
     resize: none;
     overflow: auto;
     cursor: inherit;
     outline-style: none;
-    
+    padding: 15px;
 }
 
 #myTextarea::-webkit-scrollbar {
-    width: 16px; /* 스크롤바의 너비 */
+    width: 16px;
 }
 
-/* 스크롤바의 Thumb (드래그할 수 있는 부분) 색상 */
 #myTextarea::-webkit-scrollbar-thumb {
-    background-color: green; /* 색상 변경 */
+    background-color: green;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 }
 
 .book-btn {
-    color: green;
+	margin:0 auto;
     border-color: green;
-    font-weight: bold;
     font-size: 40px;
-    height: 60px;
-    width: 100%;
-    padding: 0px 10px;
+ 
+    width: 300px;
 }
 
 .book-btn:hover {
-    color: white;
-    border-color: green;
-    background-color: green;
-	border: 0px solid white;
-	animation: colorChange 1s infinite alternate; /* 1초 동안 반복되며 왔다갔다하는 애니메이션 적용 */
-	font-weight: bold;
-	font-size: 40px;
-    height: 60px;
-	width: 100%;
-	padding: 0px 10px;
+	/* 1초 동안 반복되며 왔다갔다하는 애니메이션 적용 */
+	animation: colorChange 1s infinite alternate;
 }
 
 @keyframes colorChange {
@@ -276,20 +228,39 @@ p {
     font-size: 40px;
     font-weight: bold;
 }
-
-.bookmark-btn {
-	width: 90px;
-    margin: -10px 0px 3px -30px;
+.home-box1 {
+	width: 100%;
+	height: 500px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
 }
 
+.page-title{
+	color:rgba(0, 100, 60, 0.8);
+	text-align: left;
+	font-size: 50px;
+	font-weight: bold;
+	margin: 0 0 80px 0;
+}
+.bookmark-btn {
+
+	margin-left:auto;
+	    height: 60px;
+	position:relative;
+	width: 70px;
+}
+.t_btn_box{
+
+	width: 33.3%;
+}
 .box-review-list {
 	display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-content: space-between;
-    justify-content: center;
-    align-items: stretch;
-}
+	width: 100%;
+	height: 100%;
+	flex-direction: column;
+}	
 
 .page-item.active .page-link {
     z-index: 3;
@@ -303,23 +274,72 @@ p {
 }
 
 .review-textarea {
-	position: relative;
     display: flex;
     flex-wrap: wrap;
-    align-items: stretch;
-    width: 100%;
-    align-content: space-between;
-    justify-content: space-around;
-        justify-content: space-evenly;
+    width: 90%;
 }
-
+.ho_name_div{
+	width: 100%;
+	text-align: center;
+}
+.book_mark_container {
+	width: 100%;
+}
+.book_mark_box {
+	width: 70px;
+	margin-left: auto;
+}
+.ho_info_box {
+	width: 100%;
+	text-align: left;
+}
+.book_btn_box {
+	width: 100%;
+	display: flex;
+	margin: 70px 0 50px 0;
+	padding: 10px;
+	height: 90px;
+}
+.ho_info_detail {
+	width: 80%;margin: 0 auto;color: #555;
+}
+#ho_name {
+	color: #555;
+	font-size: 50px;
+    font-weight: bold;
+}
+.page_container {
+	width: 100%
+	;height: 100%;
+	padding: 50px;
+}
+.box-review {
+	width: 100%;
+	height:100%;
+	border-bottom: 1px solid #c8c8c8;
+}
+.review-btn-div {
+	width: 14%;
+}
+.box-review-insert {
+	width:100%;
+	display: flex;
+}
 </style>
 </head>
 <body>
+<div class="home-box1">
+	<div style="width: 80%;margin: 0 auto;padding-top: 80px">
+		<div class="page-title">
+			병원
+		</div>
+	</div>
+</div>
 <div class="detail-page">
 	<div class="detail-page-sub1">
 		<div class="ho_name">
-			<h1 class="ho_name" id="ho_name" style="size: 60px;">${detail.hospital.ho_name}
+		<div class="book_mark_container">
+			<div class="book_mark_box">
 				<c:choose>
 					<c:when test="${detailAlready == true}">
 						<img class="btn bookmark-btn bookmark-after" data-id="${user.site_id}" alt="북마크 후" 
@@ -332,100 +352,122 @@ p {
 						src="<c:url value="/resources/img/bookmark-before.png"/>">
 					</c:otherwise>
 				</c:choose>
-			</h1>
+			</div>
 		</div>
-		<div class="ho_address tooltip-container">
-			<label class="top-label" for="ho_address">찾아오시는 길  |  </label>
-			<span class="ho_address top-span" id="ho_address">${sido.sd_name} ${sgg.sgg_name} ${emd.emd_name} ${detail.hospital.ho_address}</span>
-			<img class="top-img tooltip-contents" data-tooltip="data-tooltip을 활용하여 툴팁 생성하기"
-			style="cursor: pointer;" alt="공유 이미지" src="<c:url value="/resources/img/detail-map.svg"/>">
+			<div class="ho_name_div">
+				<h1 class="ho_name1" id="ho_name" >${detail.hospital.ho_name}</h1>
+			</div>
+			
 		</div>
-		<div class="ho_phone">
-			<label class="top-label" for="ho_phone">대표 전화번호  |  </label>
-			<span class="ho_phone top-span" id="ho_phone">${detail.hospital.ho_phone}</span>
-			<img class="top-img" style="cursor: pointer;" alt="전화 이미지" src="<c:url value="/resources/img/detail-phone.svg"/>">
+		<div class="ho_info_box" >
+			<div class="ho_info_detail">
+				<div class="ho_address tooltip-container">
+					<label class="top-label" for="ho_address">찾아오시는 길  |  </label>
+					<span class="ho_address top-span" id="ho_address">${sido.sd_name} ${sgg.sgg_name} ${emd.emd_name} ${detail.hospital.ho_address}</span>
+					<img class="top-img tooltip-contents" data-tooltip="data-tooltip을 활용하여 툴팁 생성하기"
+					style="cursor: pointer;" alt="공유 이미지" src="<c:url value="/resources/img/detail-map.svg"/>">
+				</div>
+				<div class="ho_phone">
+					<label class="top-label" for="ho_phone">대표 전화번호  |  </label>
+					<span class="ho_phone top-span" id="ho_phone">${detail.hospital.ho_phone}</span>
+					<img class="top-img" style="cursor: pointer;" alt="전화 이미지" src="<c:url value="/resources/img/detail-phone.svg"/>">
+				</div>
+			</div>	
 		</div>
-		<div style="margin: 50px;">
+		<div class="book_btn_box">
 			<a href='<c:url value="/schedule?ho_id=${detail.hospital.ho_id}"/>' class="book-btn btn btn-outline-success">예약하기</a>
 		</div>
 	</div>
 		
-	<hr style="border: 2px solid green; width: 100%; border-style: dashed;">
+	<hr >
 
 	<div class="detail-page-sub2">
 		<div class="toggle-page">
 			<div class="toggle-btn">
-				<button id="btn1" class="toggle-button login-btn-click">병원 소개</button>
-				<button id="btn2" class="toggle-button">진료 과목</button>
-				<button id="btn3" class="toggle-button">리뷰</button>
+				<ul class="t_btn_box" >
+					<li role="button" id="btn1" 
+					class="toggle-button login-btn-click" >병원 소개</li>
+				</ul>
+				<ul class="t_btn_box">
+					<li role="button" id="btn2" class="toggle-button">진료 과목</li>
+				</ul>
+				<ul class="t_btn_box">
+					<li role="button" id="btn3" class="toggle-button">리뷰</li>
+				</ul>
 			</div>
-			<div id="page1" class="page active">
-				<div class="hd_info page1">
-					<label class="label" for="hd_info" style="font-weight: bold;">병원 소개</label>
-				   	<textarea class="hd_info" id="myTextarea"  oninput="autoResize(this)" readonly>${detail.hd_info}</textarea>
-				</div>
-				<hr style="border: 1px solid green; margin: 10px auto;">
-				<div class="hd_time page1" id="hd_time">
-					<label class="label" for="hd_time" style="font-weight: bold">영업 시간</label>
-					<textarea class="hd_time" id="myTextarea" name="hd_time"
-					placeholder="월~금 : 9:00~18:00 / 토,일 : 휴무"  oninput="autoResize(this)" readonly>${detail.hd_time}</textarea>
-				</div>
-				<hr style="border: 1px solid green; margin: 10px auto;">
-				<div class="hd_park page1" id="hd_park">
-					<label class="label" for="hd_park" style="font-weight: bold">주차 정보</label>
-					<textarea class="hd_park" id="myTextarea" name="hd_park" 
-					readonly>${detail.hd_park}</textarea>
-				</div>
-				<hr style="border: 1px solid green; margin: 10px auto;">
-				<div class="hd_announce page1">
-					<label class="label" for="hd_announce" style="font-weight: bold">공지 사항</label>
-					<textarea class="hd_announce" id="myTextarea" name="hd_announce" 
-					readonly>${detail.hd_announce}</textarea>
-				</div>
-				<hr style="border: 1px solid green; margin: 10px auto;">
-				<div class="hd_etc page1">
-					<label class="label" for="hd_etc" style="font-weight: bold">기타 사항</label>
-					<textarea class="hd_etc" id="myTextarea" name="hd_etc" 
-					readonly>${detail.hd_etc}</textarea>
-				</div>
-			</div>
-			
-			<div id="page2" class="page">
-				<div class="hsList">
-					<label for="hsList" class="label">대표 진료 과목</label>
-					<div class="subject-checkbox hsList">
-					  	<c:forEach var="i" begin="0" end="${sub.size() - 1}">
-							<button class="hospital-subject-btn btn btn-outline-success" style="cursor: text;">
-							<p><c:out value="${sub.get(i).hospital_subject.hs_title}"/></p>
-							</button>
-					  	</c:forEach>
+			<div class="page_container">	
+				<div id="page1" class="page active">
+					<div class="hd_info page1">
+						<label class="label" for="hd_info" style="font-weight: bold;">병원 소개</label>
+					   	<textarea class="hd_info" id="myTextarea"  oninput="autoResize(this)" readonly>${detail.hd_info}</textarea>
 					</div>
-				 </div>
-				 <hr style="border: 1px solid green; margin: 10px auto;">
-				 <div class="hd_subject_detail">
-				 	<label class="label" for="hd_subject_detail">상세 진료 항목</label><br>
-				 	<textarea class="hd_subject_detail" id="myTextarea" name="hd_subject_detail" style="outline-style: none;"
-				 	readonly>${detail.hd_subject_detail}</textarea>
-				</div>
-			</div>
-			
-			<div id="page3" class="page">
-				<h2 style="text-align: left;">리뷰(<span class="review-total"></span>)</h2>
-				<div class="box-review-list">
-					<div class="box-review row">				
-						<div class="review-id">아이디</div>
-						<div class="review-content">내용</div>
+					<hr>
+					<div class="hd_time page1" id="hd_time">
+						<label class="label" for="hd_time" style="font-weight: bold">영업 시간</label>
+						<textarea class="hd_time" id="myTextarea" name="hd_time"
+						placeholder="월~금 : 9:00~18:00 / 토,일 : 휴무"  oninput="autoResize(this)" readonly>${detail.hd_time}</textarea>
+					</div>
+					<hr>
+					<div class="hd_park page1" id="hd_park">
+						<label class="label" for="hd_park" style="font-weight: bold">주차 정보</label>
+						<textarea class="hd_park" id="myTextarea" name="hd_park" 
+						readonly>${detail.hd_park}</textarea>
+					</div>
+					<hr>
+					<div class="hd_announce page1">
+						<label class="label" for="hd_announce" style="font-weight: bold">공지 사항</label>
+						<textarea class="hd_announce" id="myTextarea" name="hd_announce" 
+						readonly>${detail.hd_announce}</textarea>
+					</div>
+					<hr >
+					<div class="hd_etc page1">
+						<label class="label" for="hd_etc" style="font-weight: bold">기타 사항</label>
+						<textarea class="hd_etc" id="myTextarea" name="hd_etc" 
+						readonly>${detail.hd_etc}</textarea>
 					</div>
 				</div>
-				<div class="box-pagination">
-					<ul class="pagination justify-content-center"></ul>
-				</div>
-				<div class="box-review-insert">
-					<div class="input-group mb-3 review-textarea">				
-				        <textarea id="review" class="vw_num textarea-review" id="vw_num" name="vw_num" style="height: 100px;"></textarea>
-				        <button class="btn btn-outline-success review-insert-btn review-btn" name="review-btn" data-hd-num="${detail.hd_num}">리뷰 등록</button>		
+				
+				<div id="page2" class="page">
+					<div class="hsList">
+						<label for="hsList" class="label">대표 진료 과목</label>
+						<div class="subject-checkbox hsList">
+						  	<c:forEach var="i" begin="0" end="${sub.size() - 1}">
+								<button class="hospital-subject-btn btn btn-outline-success" style="cursor: text;">
+								<p><c:out value="${sub.get(i).hospital_subject.hs_title}"/></p>
+								</button>
+						  	</c:forEach>
+						</div>
+					 </div>
+					 <hr >
+					 <div class="hd_subject_detail">
+					 	<label class="label" for="hd_subject_detail">상세 진료 항목</label><br>
+					 	<textarea class="hd_subject_detail" id="myTextarea" name="hd_subject_detail" style="outline-style: none;"
+					 	readonly>${detail.hd_subject_detail}</textarea>
 					</div>
-				</div>			
+				</div>
+				
+				<div id="page3" class="page">
+					<div style="margin-bottom: 70px;">
+						<h2 style="text-align: left;color: #555;">리뷰(<span class="review-total"></span>)</h2>
+					</div>
+					<div class="box-review-list">
+						<div class="box-review">				
+							<div class="review-id">아이디</div>
+							<div class="review-content">내용</div>
+						</div>
+					</div>
+					<div class="box-pagination">
+						<ul class="pagination justify-content-center"></ul>
+					</div>
+					<div class="box-review-insert">
+						<div class="input-group review-textarea">				
+					        <textarea id="review" class="vw_num textarea-review" id="vw_num" name="vw_num" "></textarea>
+						</div>
+						<div class="review-btn-div">
+					        <button class="btn btn-outline-success review-insert-btn review-btn " name="review-btn" data-hd-num="${detail.hd_num}">리뷰 등록</button>		
+					    </div>    
+					</div>			
+				</div>
 			</div>
 		</div>
 	</div>
@@ -649,7 +691,7 @@ function displayReviewList(reviewList) {
 		//리뷰에 작성자 | 작성 내용 | 버튼
 		str +=
 		`
-		<div class="box-review row">
+		<div class="box-review">
 			<div class="review-id">\${item.vw_me_id}</div>
 			<div class="review-content clearfix input-group">
 				<span class="text-review c">\${item.vw_content}</span>

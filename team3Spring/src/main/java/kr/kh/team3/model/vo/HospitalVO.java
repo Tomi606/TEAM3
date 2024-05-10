@@ -36,8 +36,9 @@ public class HospitalVO {
 	
 	private HsListVO hsList;
 	private HospitalDetailVO hospital_detail;
-	private HospitalSubjectVO hospital_subject;
+	private ArrayList<HospitalSubjectVO> hospital_subject;
 	private ArrayList<BookmarkVO> bookmark;
+	private LandVO land;
 
 	public String getChangeDate() {
 		if (this.ho_stop != null) {
@@ -47,4 +48,5 @@ public class HospitalVO {
 			return "없당ㅎㅎ";
 		}
 	}
+
 }

@@ -31,13 +31,30 @@
   background-color: #004080;
 }
 .all-box{
+	width: 100%;
+	margin-top: 100px;
+	/* border: 1px solid black; */
+	height: 100%;
+	padding: 20px 20px;
+	box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.2);
+	border-radius: 15px;
+
+}
+
+.table thead th {
+	text-align: center;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table td {
+	text-align: center;
 }
 </style>
 </head>
 <body>
 <!-- 전체 병원 조회 박스 -->
-<div class="all-box container mt-3">
-	<div style="display: flex; align-items: center;">
+<div class="all-box container">
+	<div style="display: flex; ">
 	    <select name="hs_num" class="form-control">
 				<option value="none">진료과를 선택해주세요</option>
 			<c:forEach items="${list}" var="list">
@@ -51,7 +68,7 @@
 			</select>
 		</div>
 	</div>
-	<table class="table table-hover mt-3" >
+	<table class="table table-hover" >
 		<thead>
 			<tr>
 				<th>예약번호</th>

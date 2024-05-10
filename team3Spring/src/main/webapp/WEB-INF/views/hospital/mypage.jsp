@@ -122,13 +122,14 @@ img {
 .profile-img {
 	width: 250px;
 	height: 250px;
-	border: 1px solid black;
+	border: 1px solid green;
 	margin: 0 auto;
 	margin-top: 50px;
 	border-radius: 100%;
 }
 
 .profile-name {
+	
 	margin: 20px 0px -20px 0px;
     text-align: center;
 }
@@ -137,12 +138,12 @@ img {
 	border: 1px solid green;
     width: 300px;
     height: 500px;
-    margin: 50px auto;
+    margin: 50px 20px 20px 48px;
     border-radius: 5px;
 }
 
 .profile-container {
-	background-color: rgb(202, 238, 208);
+	background-color: rgb(237, 250, 239);
     width: 1000px;
     height: 989px;
     display: block;
@@ -179,7 +180,7 @@ img {
     width: 1000px;
     margin: 30px auto;
     height: 125px;
-    padding: 20px;
+    padding: 25px;
     flex-direction: column;
     align-items: stretch;
     flex-wrap: wrap;
@@ -477,6 +478,13 @@ select:focus {
     margin-bottom: 0;
     font-size: 20px;
 }
+
+.hospital_delete_box {
+	color: gray;
+    list-style: none;
+    padding-left: 33px;
+    margin: 20px 0px 0px 10px;
+}
 </style>
 </head>
 <body>
@@ -522,8 +530,8 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 		<div class="mypage-profile">
 			<div class="profile-img">
 			</div>
-			<div class="profile-name">
-				<h4>${hospital.ho_id}</h4>
+			<div class="profile-name" >
+				<h4 style="color:#555;">${hospital.ho_id}</h4>
 				<p>${hospital.ho_email}</p>
 			</div>
 			<div class="profile-anything">
@@ -545,13 +553,16 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 					</div>
 				</div>
 			</div>
+			<div class="hospital_delete_box">
+				<li role="button" class="hospital_delete_btn">회원탈퇴</li>
+			</div>
 		</div>
 		
 		<div class="profile-container">
 			<div class="mypage-profile-info">
 				<div class="profile-img-name-container">
 					<div class="mypage-img-name">
-						<h4 class="box-name" style="font-size: 50px; font-weight: bold;">\${hospital.ho_name}</h4>
+						<h4 class="box-name" style="font-size: 40px;color:#555; font-weight: bold;">\${hospital.ho_name}</h4>
 						<div class="new_ho_name_hidden">
 							<input type="text" id="new_ho_name" class="box-name2" value="\${hospital.ho_name}"/>
 						</div>
@@ -1021,8 +1032,8 @@ $(document).ready(function() {
 $(document).on('click', '.subject_save_btn', function() {
 	let ho_hs_num = $("select[name='ho_hs_num'] option:selected").val();
 	let hospital = {
-			ho_hs_num : ho_hs_num,
-		    ho_id : '${hospital.ho_id}'
+			"ho_hs_num" : ho_hs_num,
+		    "ho_id" : '${hospital.ho_id}'
 		  };
 
 	$.ajax({
@@ -1141,8 +1152,18 @@ $(document).on('change', '[name=sd_num]', function() {
         }
     });
 });
- 
-  
+</script>
+
+<!-- 회원 탈퇴 -->
+<script type="text/javascript">
+$(document).on("click",".hospital_delete_btn",function () {
+    let answer = confirm("회원 탈퇴를 진행 하시겠습니까?");
+    if (!answer) {
+    	return;
+    } else {
+    	location.href='<c:url value="/hospital/delete"/>';
+    }
+});
 </script>
 </body>
 </html>

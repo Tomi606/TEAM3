@@ -889,4 +889,27 @@ public class HospitalServiceImp implements HospitalService {
 		return hospitalDao.selectHospitalProgram(hp_num);
 	}
 
+	@Override
+	public boolean deleteMyInfo(HospitalVO hospital, SiteManagement user) {
+		if(hospital == null || user == null) {
+			return false;
+		}
+		
+		boolean deleteHospital = hospitalDao.deleteHospital(hospital.getHo_id());
+		boolean deleteSite = hospitalDao.deleteSiteHospital(user.getSite_id());
+		return deleteHospital && deleteSite;
+	}
+
+	@Override
+	public boolean insertHoSub(String ho_id, int ho_hs_num) {
+		
+		return hospitalDao.insertHoSub(ho_id, ho_hs_num);
+	}
+
+	@Override
+	public ArrayList<HospitalVO> getMyAreaHospitalList(int site_la_num) {
+		return hospitalDao.selectMyAreaHospitalList(site_la_num);
+	}
+
+
 }

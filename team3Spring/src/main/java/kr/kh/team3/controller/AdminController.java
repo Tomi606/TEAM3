@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.kh.team3.model.vo.BoardVO;
 import kr.kh.team3.model.vo.CommentVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.ReportVO;
+import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiteManagement;
 import kr.kh.team3.pagination.Criteria;
 import kr.kh.team3.pagination.PageMaker;
@@ -55,7 +57,6 @@ public class AdminController {
 	//회원가입 메인페이지
 	@GetMapping("/admin/adminpage")
 	public String adminpage() {
-		log.info("관리자 화면");
 		return "/admin/adminpage";
 	}
 	
@@ -71,7 +72,6 @@ public class AdminController {
 		ArrayList<HospitalVO> hoWaitList = hospitalService.getWaitHoList();
 		//신고 병원 리스트 가져오기
 		ArrayList<SiteManagement> hoRpList = hospitalService.getRpHoList();
-		System.out.println("hohohohohfsadjflkjas5435244"+hoRpList);
 		model.addAttribute("hoWaitList",hoWaitList);
 		model.addAttribute("hoRpList",hoRpList);
 		model.addAttribute("hoList",hoList);
@@ -107,8 +107,11 @@ public class AdminController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		boolean res = hospitalService.hospitalWaitOk(hospital);
+		//대표 과목 추가
+		boolean insertHsList = hospitalService.insertHoSub(hospital.getHo_id(), hospital.getHo_hs_num());
 
 		map.put("res", res);
+		map.put("insertHsList", insertHsList);
 		return map;
 	}
 	
@@ -140,7 +143,6 @@ public class AdminController {
 		ArrayList<SiteManagement> hospitalList = hospitalService.getReportHospitalList(cri);
 		int totalCount = hospitalService.getRHTotalCount(cri);
 		PageMaker pm = new PageMaker(3, cri, totalCount);
-		System.out.println(hospitalList+"dddddddddddddddddddddddddddddddddd");
 		map.put("list", hospitalList);
 		map.put("pm", pm);
 		return map;
@@ -175,13 +177,18 @@ public class AdminController {
 	
 	//회원 관리 메인 페이지("이용중" 전체 회원 리스트)
 	@GetMapping("/admin/member/main")
-	public String memberList(Model model, MemberVO member, Criteria cri) {
+	public String memberList(Model model, MemberVO member, LandVO land, Criteria cri) {
 		cri.setPerPageNum(3);
 		ArrayList<MemberVO> list = memberService.getMemberList(cri);
 		int totalCount = memberService.getMemberTotalCount(cri);
 		PageMaker pm = new PageMaker(3, cri, totalCount);
+		//신고 회원 리스트 가져오기
+		ArrayList<ReportVO> meRpList = memberService.getMeRpList();
+
+		model.addAttribute("meRpList",meRpList);
 		model.addAttribute("list", list);
 		model.addAttribute("pm", pm);
+		
 		return "/admin/member/main";
 	}
 	
@@ -351,8 +358,6 @@ public class AdminController {
 			Criteria cri = new Criteria(page, 2);
 			int totalCount = commentService.getCommentNoCount(cri, po_num);
 			ArrayList<CommentVO> list = commentService.getCommentNoByPostList(cri, po_num);
-			System.out.println(list);
-			System.out.println(page);
 			PageMaker pm = new PageMaker(3, cri, totalCount);
 			map.put("list", list);
 			map.put("pm", pm);

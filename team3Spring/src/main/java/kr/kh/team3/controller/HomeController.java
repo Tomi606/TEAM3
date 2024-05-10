@@ -18,6 +18,7 @@ import kr.kh.team3.model.vo.BoardVO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
+import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.PostVO;
@@ -43,13 +44,29 @@ public class HomeController {
 	private HospitalService hospitalService;
 	
 	@GetMapping("/")
-	public String home(Model model) {
-		ArrayList<BoardVO> boList = boardService.selectBoard();
-		ArrayList<PostVO> poList = boardService.selectHotPostList();
-		ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
-		model.addAttribute("poList", poList);
-		model.addAttribute("boList", boList);
-		model.addAttribute("list", list);
+	public String home(Model model,HttpSession session) {
+		SiteManagement user = (SiteManagement)session.getAttribute("user");
+		if(user == null) {
+			ArrayList<BoardVO> boList = boardService.selectBoard();
+			ArrayList<PostVO> poList = boardService.selectHotPostList();
+			ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
+			
+			model.addAttribute("poList", poList);
+			model.addAttribute("boList", boList);
+			model.addAttribute("list", list);
+		}
+		else {
+			ArrayList<HospitalVO> hoList = hospitalService.getMyAreaHospitalList(user.getSite_la_num());
+			ArrayList<BoardVO> boList = boardService.selectBoard();
+			ArrayList<PostVO> poList = boardService.selectHotPostList();
+			ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
+			
+			model.addAttribute("hoList", hoList);
+			model.addAttribute("poList", poList);
+			model.addAttribute("boList", boList);
+			model.addAttribute("list", list);
+		}
+
 		return "home";
 	}
 	@ResponseBody
@@ -66,7 +83,6 @@ public class HomeController {
 	// 회원가입 메인페이지
 	@GetMapping("/main/signup")
 	public String mainSignup() {
-		log.info("회원가입 화면");
 		return "/main/signup";
 	}
 
@@ -159,12 +175,9 @@ public class HomeController {
 	// 사업자 회원가입 페이지(get)
 	@GetMapping("/hospital/signup")
 	public String hospitalSignup(HospitalVO hospital, Model model, String ho_id, SiDoVO siDo, String email) {
-		// 병원 진료과목 리스트
 		ArrayList<HospitalSubjectVO> hospitalList = hospitalService.getHospitalSubjectList();
-		model.addAttribute("hospitalList", hospitalList);
-
-		// 시도
 		ArrayList<SiDoVO> sidoList = hospitalService.getSiDoList();
+		model.addAttribute("hospitalList", hospitalList);
 		model.addAttribute("hospital", hospital);
 		model.addAttribute("sidoList", sidoList);
 		model.addAttribute("email", email);
@@ -174,8 +187,9 @@ public class HomeController {
 	// 사업자 회원가입 페이지(post)
 	@ResponseBody
 	@PostMapping("/hospital/signup")
-	public boolean hospitalSignupPost(HospitalVO hospital, SiteManagement site, @RequestParam Map<String, String> obj
-			, LandVO land) {
+	public boolean hospitalSignupPost(
+			HospitalVO hospital, SiteManagement site, HospitalSubjectVO hoSub,
+			@RequestParam Map<String, String> obj, LandVO land) {
 		boolean addLand = hospitalService.insertLand(land);
 		if (!addLand) {
 			return false;
@@ -184,6 +198,7 @@ public class HomeController {
 		if (getLand == null) {
 			return false;
 		}
+		
 		boolean memberRes = hospitalService.signup(hospital, getLand);
 		boolean siteRes = hospitalService.siteSignup(site, getLand);
 		return !memberRes || !siteRes;
@@ -192,7 +207,6 @@ public class HomeController {
 	// 로그인 메인 페이지
 	@GetMapping("/main/login")
 	public String mainLogin() {
-		log.info("메인 로그인");
 		return "/main/login";
 	}
 

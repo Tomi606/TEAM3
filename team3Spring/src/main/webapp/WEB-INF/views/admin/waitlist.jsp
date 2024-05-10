@@ -85,7 +85,7 @@ function displayWaitList(list){
 				<td>\${item.ho_phone}</td>
 				<td>\${item.ho_email}</td>
 				<td>\${item.ho_address}</td>
-				<td><button class="btn-wait-ok" data-id="\${item.ho_id}">승인</button><button class="btn-wait-no" data-id="\${item.ho_id}">거절</button></td>
+				<td><button class="btn-wait-ok" data-id="\${item.ho_id}" data-num="\${item.ho_hs_num}">승인</button><button class="btn-wait-no" data-id="\${item.ho_id}">거절</button></td>
 			</tr>
 		`
 	}
@@ -130,7 +130,8 @@ $(document).on('click','.btn-wait-ok',function(){
 	}
 	//서버로 보낼 데이터
 	let wait = {
-		ho_id : $(this).data('id')
+		ho_id : $(this).data('id'), 
+		ho_hs_num : $(this).data('num')
 	}
 	//서버로 데이터 전송
 	$.ajax({
@@ -141,7 +142,7 @@ $(document).on('click','.btn-wait-ok',function(){
 		contentType : "application/json; charset=utf-8",
 		dataType : "json", 
 		success : function (data){
-			if(data.res){
+			if(data.res && data.insertHsList){
 				alert("회원 승인이 완료되었습니다.");
 				getWaitList(cri);
 			}else{

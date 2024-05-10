@@ -17,7 +17,26 @@
 <script src="http://fastly.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <style type="text/css">
-
+.small-img {
+	height: 16px;
+	width: 16px;
+}
+.aTag-btn1{
+margin-right: auto;
+} 
+.aTag-btn1,
+.aTag-btn2{
+	padding: 20px;
+	margin:90px 15px 15px 24px;
+    width: 280px;
+    height: 200px;
+    color: black;
+    text-decoration: none;
+ 	  border: 2px solid  rgba(0, 128, 0, 0.5);
+}
+.aTag-btn1:hover,
+.aTag-btn2:hover{text-decoration:none;box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
+    transition: box-shadow 0.3s ease;/* 그림자 효과 추가 */}
 
 
 .join-groub li:hover{
@@ -45,7 +64,6 @@ text-decoration: underline;
 	background-size: cover;
     background-origin: content-box;
     background-attachment: fixed;
-    border-bottom: 4px solid lightgray; 
 }
 
 .search-box {
@@ -176,7 +194,6 @@ display:flex;justify-content:flex-end;
 	margin:0 auto;
 	background-color:white;
  	width: 80%;
- 	 box-shadow: 10px 0px 10px -5px rgba(0, 180, 0, 0.1), -10px 0px 10px -5px rgba(0, 180, 0, 0.1);
 }
 
 .홈왼쪽, .홈오른쪽 {
@@ -232,15 +249,18 @@ display:flex;justify-content:flex-end;
 
 /*hot group*/
 .hot-group { 
-	box-shadow: 0 4px 16px rgba(0, 128, 0, 0.2);
+	box-shadow: 0 3px 16px rgba(0, 0, 0, 0.1);
 	display: flex;
 	margin: 0 auto;
 	width: 100%;
 	height: 100%;
 	padding:20px 30px 40px 30px;
 }
+.롤링{
+	box-shadow: 0 3px 16px rgba(0, 0, 0, 0.6);
+}
 .hot-group:hover{
-	box-shadow: 0 6px 16px rgba(0, 128, 0, 0.4);
+	box-shadow: 0 6px 16px rgba(0, 20, 0, 0.2);
 	   transition: box-shadow 0.3s ease;
 }
 
@@ -514,6 +534,28 @@ margin: 10px;
 .hot-group td{
 	white-space: nowrap;
 }
+
+.ho-name{
+	font-weight: bold;
+	color: rgba(0, 128, 0, 0.5);
+	font-size: 23px;
+	margin-top: 20px;
+	text-align: left;
+}
+.hs-title{
+	color: gray;
+	font-size: 16px;
+	text-align: left;
+	margin-top: 10px;
+}
+.hd-time{
+	text-align: left;
+	margin-top: 5px;
+}
+.ho-address{
+	text-align: left;
+	margin-top: 5px;
+}
 </style>
 </head>
 <body>
@@ -632,7 +674,8 @@ margin: 10px;
 	<div class="홈">
 		<div class="home-body">
 		<div class="여기부터내용">
-			<div class="롤링">
+			<h3>&lt;인기 병원&gt;</h3>
+			<div class="롤링" style="margin-top: 50px">
 			    <div class="롤링-내용">
 					<div class="rolling-item" style="background-image: url('<c:url value="/resources/img/풍경1.jpg"/>');">
 						<img alt="" src="<c:url value="/resources/img/풍경1.jpg"/>" style="width: 1300px;height: 100%;background-repeat: no-repeat;background-size: cover; object-fit:cover;">
@@ -650,7 +693,7 @@ margin: 10px;
 				<h3>&lt;Hot & New&gt;</h3>
 				<p style="color: gray;">새롭고 재밌는 소식들을 여기서!</p>
 			</div>
-			<div class="hot-group" style="display: flex;margin:0 auto;width: 100%;margin-bottom: 25px;">
+			<div class="hot-group" style="display: flex;margin:0 auto;width: 100%;margin-bottom: 35px;">
 				<table style="width: 100%;text-align: center;height: 50px;">
 					<thead style="width: 100%;margin-bottom: 20px;">
 						<tr style="height: 60px;">	
@@ -664,19 +707,24 @@ margin: 10px;
 					</thead>
 					<tbody>
 					<c:forEach items="${poList}" var="po">
-					 <c:set var="boPostCount" value="${boPostCount + 1}"/> 
-						<tr style="height: 50px;border-bottom: 2px solid #ffebec;font-size: 18px;color: #555">
-							<td>${boPostCount}</td>
-							<td style=" white-space: nowrap;
-							    overflow: hidden;
-							    text-overflow: ellipsis;
-							    max-width: 100px;
-								"><a href="<c:url value='/board/detail?po_num=${po.po_num}'/>">${po.po_title}</a></td>
-							<td><a href="<c:url value='/board/userpost?po_id=${po.po_id}'/>">${po.po_id}</a></td>
-							<td>${po.changeDate1}</td>
-							<td>${po.po_up}</td>
-							<td>${po.po_view}</td>
-						</tr>
+					    <c:set var="boPostCount" value="${boPostCount + 1}"/> 
+						<c:if test="${boPostCount eq null }">
+						<h2>게시글이 없습니다.</h2>
+						</c:if>
+						<c:if test="${poList ne null}">
+							<tr style="height: 50px;border-bottom: 2px solid #ffebec;font-size: 18px;color: #555">
+								<td>${boPostCount}</td>
+								<td style=" white-space: nowrap;
+								    overflow: hidden;
+								    text-overflow: ellipsis;
+								    max-width: 100px;
+									"><a href="<c:url value='/board/detail?po_num=${po.po_num}'/>">${po.po_title}</a></td>
+								<td><a href="<c:url value='/board/userpost?po_id=${po.po_id}'/>">${po.po_id}</a></td>
+								<td>${po.changeDate1}</td>
+								<td>${po.po_up}</td>
+								<td>${po.po_view}</td>
+							</tr>
+						</c:if>	
 					</c:forEach>	
 					</tbody>
 				</table>
@@ -688,27 +736,33 @@ margin: 10px;
 			<div class="hospital-group">
 			<h3 style="font-weight: bold;">&lt;내 지역 병원&gt;</h3>
 			<p style="color: gray;">내 동네 병원들!</p>
-			<div class="hot-group" style="display: flex;width: 100%;height:400px;text-align: center;margin-bottom: 15px">
-				<div>
-					<a href="#"></a>
-					<p style="display: block;">제목</p> 
-				</div>
-				<div>
-					<a href="#"></a>
-					<p style="display: block;">제목</p> 
-				</div>
-				<div>
-					<a href="#"></a>
-					<p style="display: block;">제목</p> 
-				</div>
-				<div>
-					<a href="#"></a>
-					<p style="display: block;">제목</p> 
-				</div>
+			<div class="hot-group" style="display: flex;width: 100%;height:400px;text-align: center;margin-bottom: 35px">
+			<c:choose>
+				<c:when test="${empty hoList}">
+					<div style="font-size: 50px; color: #c8c8c8; text-align: center;">현재 지역에 있는 병원이 없습니다.</div>
+				</c:when>
+				<c:otherwise>
+					<c:forEach items="${hoList}" var="ho">
+						 <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=${ho.ho_id}'/>" style="padding: auto;">
+											<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
+									<div class="ho-name">${ho.ho_name}</div>
+									<div class="hs-title">${ho.hospital_subject.hs_title}</div>
+									<div class="ho-address"><img class="small-img"
+			   								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">${ho.ho_address}</div>
+								<%-- <div class="hd-time"><img class="small-img"
+		   								alt="위치 이미지" src="<c:url value="/resources/img/time-line.svg"/>">(${dayOfWeek}요일) ${hd_time}</div> --%>
+						 </a>
+					 </c:forEach>
+				 </c:otherwise>
+			</c:choose>
+			
+			
+			
+			
 			</div>
 			<div style="text-align: center;width: 100%;" >
 			<div class="hr" style="margin-bottom:40px;border: 1px solid #d2d2d2;width: 100%;"></div>
-				<a href="#" class="button-link" style="margin-top: 50px">더보기</a>
+				<a href="<c:url value='/hospital/list?hs_num=0'/>" class="button-link" style="margin-top: 50px">더보기</a>
 				<p>누르면 병원으로 이동하기</p>
 			</div>
 			<div class="hospital-reservation" style="margin-top: 150px">
@@ -919,14 +973,19 @@ $(document).ready(function() {
 <!-- 1 ,2 3 이면 tr태그 배경 바꾸기 -->
 <script>
 $(document).ready(function() {
-    let boPostCount = ${boPostCount};
-
-    $("tr").each(function() {
-        let countCell = $(this).find("td:first-child"); 
-        if (countCell.text() == "1" || countCell.text() == "2" || countCell.text() == "3") {
-            $(this).css("background-color", "#fff8f6"); 
-        }
-    });
+    let boPostCount = "${boPostCount}";
+    
+	if(boPostCount == null || boPostCount.length == 0 || boPostCount == ""){	
+	   return;
+	}else{
+		 boPostCount = "${boPostCount}";
+		 $("tr").each(function() {
+	        let countCell = $(this).find("td:first-child"); 
+	        if (countCell.text() == "1" || countCell.text() == "2" || countCell.text() == "3") {
+	            $(this).css("background-color", "#fff8f6"); 
+	        }
+	    });
+	}
 });
 </script>
 

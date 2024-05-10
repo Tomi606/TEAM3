@@ -1,9 +1,6 @@
 package kr.kh.team3.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,9 +56,9 @@ public class HospitalController {
 	public String myPage(Model model, HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospitalMypage(user);
-		log.info(hospital+"awgvhijfneqwp;lifbnhwqep;igvfbhewpi;lgbwa;rehbg;owaergower;gubhweoghbnwe;opgihwepgiohwegoiwehgoieh");
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.selectSubject();
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
+		
 		model.addAttribute("hospital", hospital);
 		model.addAttribute("hsList", hsList);
 		model.addAttribute("sidoList", sidoList);
@@ -76,19 +73,19 @@ public class HospitalController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospitalMypage(user);
 		HospitalSubjectVO hs = hospitalService.getSubject(hospital);
+		
 		LandVO land = hospitalService.getMyLand(hospital);
 		String sd_name = hospitalService.getSdName(land);
 		String sgg_name = hospitalService.getSggName(land);
 		String emd_name = hospitalService.getEmdName(land);
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.selectSubject();
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
-		log.info(hospital+"asddsadasdsadsadsadsad");
 		
 		map.put("hospital", hospital);
 		map.put("hsList", hsList);
 		map.put("sidoList", sidoList);
-		
 		map.put("hs", hs);
+		
 		map.put("land", land);
 		map.put("sd_name", sd_name);
 		map.put("sgg_name", sgg_name);
@@ -237,6 +234,24 @@ public class HospitalController {
 	public ArrayList<EupMyeonDongVO> postEupMyeonDong(int sgg_num) {
 		ArrayList<EupMyeonDongVO> emdList = hospitalService.getEmd(sgg_num);
 		return emdList;
+	}
+	
+	//회원탈퇴
+	@GetMapping("/hospital/delete")
+	public String userDelete(Model model, HttpSession session) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		HospitalVO hospital = hospitalService.getHospital(user);
+		boolean res = hospitalService.deleteMyInfo(hospital, user);
+		if (res) {
+			session.invalidate();
+			model.addAttribute("url", "/");
+			model.addAttribute("msg", "회원탈퇴 했습니다.");
+		} else {
+			model.addAttribute("url", "/hospital/mypage");
+			model.addAttribute("msg", "회원탈퇴 실패했습니다.");
+		}
+
+		return "message";
 	}
 
 	//-----------------------------[병원 상세 페이지]------------------------------
@@ -763,10 +778,8 @@ public class HospitalController {
 	@ResponseBody
 	@PostMapping("/hospital/emd/list")
 	public Map<String, Object> postHospital(@RequestParam("emd_num") int emd_num, int hs_num, String search, @RequestParam("page")int page) {
-		//log.info(search + "    검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어검색어");
 		Map<String, Object> map = new HashMap<String, Object>();
 		Criteria cri = new Criteria(page, 12, null, search);
-		//cri.setPerPageNum(12);
 		LandVO land = hospitalService.getLand(emd_num);
 		ArrayList<HospitalVO> hoList;
 		int totalCount;
@@ -777,7 +790,6 @@ public class HospitalController {
 			hoList = hospitalService.getHospitalEmd(land, hs_num, cri);
 			totalCount = hospitalService.getHospitalCountEmd(land, hs_num, cri);
 		}
-		log.info(hoList + "hoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoListhoList");
 		PageMaker pm = new PageMaker(5, cri, totalCount);
 		map.put("pm", pm);
 		map.put("hoList", hoList);
@@ -817,11 +829,6 @@ public class HospitalController {
 		return map;
 
 	}
-	/* 시간을 누르면 ##시##분에 ###프로그램을 예약하시겠습니까? confirm으로 물어봐 true면 예약확인페이지 false면 페이지 머뭄
-	 * 예약 확인페이지로 이동하면 병원이름 , 프로그램 이름 , 세부항목 , 프로그램 설명 , 가격
-	 * 
-	 * 
-	 * 
-	 * */
+	 
 
 }
