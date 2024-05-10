@@ -8,7 +8,7 @@
 <title>병원 리스트</title>
 <style type="text/css">
 .area-container{height: 48%;padding:50px;margin-top: 15%;margin-bottom: 10%;
-box-shadow: 0 8px 16px rgba(0, 128, 0, 0.3);}
+box-shadow: 0 8px 16px rgba(0, 128, 0, 0.3); border-radius: 20px;}
 
 .aTag-btn1{
 margin-right: auto;
@@ -92,10 +92,17 @@ border-top:1px solid rgba(0, 128, 0, 0.4);margin-top: 80px;}
     overflow-y: auto;
 flex-wrap: wrap;} 
 .category{
-width: 100%; height: 400px;border: 1px solid #c8c8c8;
+	width: 100%;
+	height: 400px;
+	border: 1px solid #c8c8c8;
+	background: white;
+	margin-top: -150px;
+	box-shadow: 0 0 16px rgba(0,0,0,0.1);
+	border-radius: 15px; 
+ 
 }
 .title{
-padding:12px;margin-top:15px;width: 100%;border-bottom: 1px solid #c8c8c8;
+padding:12px;margin:15px auto;width: 95%;border-bottom: 1px solid #c8c8c8;
 }
 
 
@@ -169,7 +176,7 @@ color: green;
 }
 .home-box1 {
 	width: 100%;
-	height: 350px;
+	height: 500px;
 	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
 	background-repeat: no-repeat;
 	background-size: cover;
