@@ -20,4 +20,6 @@ public interface ReservationScheduleService {
 
 	boolean updateUserSchedule(int rv_num, String date, String time, int hp_num);
 
+	boolean MaxPersonCheck(int rs_num);
+
 }

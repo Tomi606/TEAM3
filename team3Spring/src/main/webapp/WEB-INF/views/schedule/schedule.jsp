@@ -130,16 +130,34 @@ h3 {
   cursor: pointer;
 }
 
+.time-box-gray{
+	pointer-events: none;
+    opacity: 0.5; 
+    cursor: not-allowed; 
+}
+.date-box {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.date-box,
+.time-list-box {
+  overflow-y: auto; /* time-list-box가 calendar보다 크면 스크롤이 생기도록 함 */
+  margin-left: 30px;
+}
 </style>
 </head>
 <body>
 <div class="container">
+		<label>검진 과</label>
 		<select name="hs_num" class="form-control">
 				<option value="none">진료과를 선택해주세요</option>
 			<c:forEach items="${list}" var="list">
 				<option value="${list.hs_num}">${list.hs_title}</option>
 			</c:forEach>
 		</select>
+			<label>검진 프로그램</label>
 		<div class="input-group mb-3">
 			<select name="hp_num" class="form-control">
 				<option value="none" class="null_option">프로그램을 선택해주세요</option>
@@ -188,7 +206,8 @@ let sgo = {
 			data : {"hs_num" : hs_num,
 					"ho" : ho},
 			success : function (data) {
-				let str = ``
+				let str = ``;
+				console.log(data);
 				for(let tmp of data.hpList){
 					str+=`<option value="\${tmp.hp_num}" data-title="\${tmp.hp_title}">\${tmp.hp_title}&nbsp;&nbsp;-&nbsp;&nbsp;\${tmp.payMentMoney}원</option>`
 				}	
@@ -243,21 +262,45 @@ $(document).on("click", ".day-btn", function(){
 			"hp_num" : hp_num
 		},
 		success : function(data){
-			console.log(data);
-			sgo.rs_date = data.time.rsDate;
 			let str = ``;
 			for(let tmp of data.timeList){
-				str+= 
-					`
-						<div class="time-box reserveBtn" data-time="\${tmp.rsTime}">
-							<a class="reserveBtn" data-time="\${tmp.rsTime}">\${tmp.rsTime}</a>
-						</div>
-					`
+				let res = maxPersonCheck(tmp);
+				if(res){
+					str+= 
+						`
+							<div class="time-box reserveBtn" data-time="\${tmp.rsTime}">
+								<a class="reserveBtn" data-time="\${tmp.rsTime}" data-value="\${tmp.rs_hp_num}">\${tmp.rsTime}</a>
+							</div>
+						`
+				}else{
+					str+= 
+						`
+							<div class="time-box time-box-gray" data-time="\${tmp.rsTime}">
+								<a class="reserveBtn" data-time="\${tmp.rsTime}" data-value="\${tmp.rs_hp_num}">\${tmp.rsTime}</a>
+							</div>
+						`
+				}
+				
 			}
 			$(".time-list-box").html(str);
 		}
 	})
 })
+function maxPersonCheck(tmp){
+	let res = null;
+	$.ajax({
+		async : false,
+		method : "get",
+		url : '<c:url value="/date/maxperson/check"/>',
+		data : {"rs_num" : tmp.rs_num},
+		success : function(data){
+			res = data;
+		}
+	})
+	return res;
+}
+
+
 </script>
 <script type="text/javascript">
 $(document).on("click", ".reserveBtn", function(){

@@ -71,4 +71,16 @@ public class ReservationScheduleServiceImp implements ReservationScheduleService
 		return RSDao.updateUserChedule(rs.getRs_num(), rv_num);
 	}
 
+	@Override
+	public boolean MaxPersonCheck(int rs_num) {
+		ReservationScheduleVO max =  RSDao.selectRSTime(rs_num);
+		int reservationCount = RSDao.reservationCount(rs_num);
+		System.out.println("aaaaaaaaaa");
+		System.out.println(max);
+		System.out.println(reservationCount);
+		
+		 
+		return max.getRs_max_person() <= reservationCount ? false : true;
+	}
+
 }

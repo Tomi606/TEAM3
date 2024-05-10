@@ -122,6 +122,13 @@ public class ReservationScheduleController {
 		return map;
     }
 	
+	@ResponseBody
+	@GetMapping("/date/maxperson/check")
+	public boolean maxPersonCheck(HttpSession session, Model model, int rs_num) {
+		boolean res =  reservationScheduleService.MaxPersonCheck(rs_num);
+		return res;
+	}
+	
 //	예약된 회원을 관리하는 페이지 get
 	@GetMapping("/hospital/schedule/change")
 	public String ScheduleMemberCheck(HttpSession session, Model model) {

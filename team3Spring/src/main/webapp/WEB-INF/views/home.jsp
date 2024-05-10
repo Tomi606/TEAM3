@@ -635,13 +635,13 @@ margin: 10px;
 			<div class="롤링">
 			    <div class="롤링-내용">
 					<div class="rolling-item" style="background-image: url('<c:url value="/resources/img/풍경1.jpg"/>');">
-						<img alt="" src="<c:url value="/resources/img/풍경1.jpg"/>" style="width: 1300px;height: 100%;background-repeat: no-repeat;background-size: cover;">
+						<img alt="" src="<c:url value="/resources/img/풍경1.jpg"/>" style="width: 1300px;height: 100%;background-repeat: no-repeat;background-size: cover; object-fit:cover;">
 					</div>
 					<div class="rolling-item" style="background-image: url('<c:url value="/resources/img/풍경22.jpg"/>');">
-						<img alt="" src="<c:url value="/resources/img/풍경22.jpg"/>" style="width: 1300px;height: 100%;background-repeat: no-repeat;background-size: cover;">
+						<img alt="" src="<c:url value="/resources/img/풍경22.jpg"/>" style="width: 1300px;height: 100%;background-repeat: no-repeat;background-size: cover; object-fit:cover;">
 					</div>
 					<div class="rolling-item" style="background-image: url('<c:url value="/resources/img/풍경3.jpg"/>');">
-						<img alt="" src="<c:url value="/resources/img/풍경3.jpg"/>" style="width: 1300px;height: 100%;background-repeat: no-repeat;background-size: cover;">
+						<img alt="" src="<c:url value="/resources/img/풍경3.jpg"/>" style="width: 1300px;height: 100%;background-repeat: no-repeat;background-size: cover; object-fit:cover;">
 					</div>
 			    </div>
 			</div>
