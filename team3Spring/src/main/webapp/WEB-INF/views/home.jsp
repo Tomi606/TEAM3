@@ -749,8 +749,8 @@ margin: 10px;
 									<div class="hs-title">${ho.hospital_subject.hs_title}</div>
 									<div class="ho-address"><img class="small-img"
 			   								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">${ho.ho_address}</div>
-									<%-- <div class="hd-time"><img class="small-img"
-			   								alt="위치 이미지" src="<c:url value="/resources/img/time-line.svg"/>">(${dayOfWeek}요일) ${hd_time}</div> --%>
+								<%-- <div class="hd-time"><img class="small-img"
+		   								alt="위치 이미지" src="<c:url value="/resources/img/time-line.svg"/>">(${dayOfWeek}요일) ${hd_time}</div> --%>
 						 </a>
 					 </c:forEach>
 				 </c:otherwise>
@@ -762,7 +762,7 @@ margin: 10px;
 			</div>
 			<div style="text-align: center;width: 100%;" >
 			<div class="hr" style="margin-bottom:40px;border: 1px solid #d2d2d2;width: 100%;"></div>
-				<a href="#" class="button-link" style="margin-top: 50px">더보기</a>
+				<a href="<c:url value='/hospital/list?hs_num=0'/>" class="button-link" style="margin-top: 50px">더보기</a>
 				<p>누르면 병원으로 이동하기</p>
 			</div>
 			<div class="hospital-reservation" style="margin-top: 150px">
