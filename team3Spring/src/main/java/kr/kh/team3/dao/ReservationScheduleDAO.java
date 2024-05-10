@@ -21,6 +21,11 @@ public interface ReservationScheduleDAO {
 
 	boolean deleteUserSchedule(@Param("rv_num")int rv_num);
 
-	boolean updateUserChedule(@Param("rv_num")int rv_num, @Param("hs_num")int hs_num, @Param("date")String date,@Param("time") String time);
+	boolean updateUserChedule(@Param("rs_num")int rs_num, @Param("rv_num")int rv_num);
+
+	int reservationCount(@Param("rs_num")int rs_num);
+
+	ReservationScheduleVO programByMaxPerson(@Param("time") String time, @Param("date") String date);
+
 
 }

@@ -18,6 +18,8 @@ public interface ReservationScheduleService {
 
 	boolean deleteUserSchedule(int rv_num);
 
-	boolean updateUserSchedule(int rv_num, int hs_num, String date, String time);
+	boolean updateUserSchedule(int rv_num, String date, String time, int hp_num);
+
+	boolean MaxPersonCheck(int rs_num);
 
 }

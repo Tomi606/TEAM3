@@ -47,8 +47,40 @@ public class ReservationScheduleServiceImp implements ReservationScheduleService
 	}
 
 	@Override
-	public boolean updateUserSchedule(int rv_num, int hs_num, String date, String time) {
-		return RSDao.updateUserChedule(rv_num, hs_num, date, time);
+	public boolean updateUserSchedule(int rv_num, String date, String time, int hp_num) {
+		System.out.println("aaaaaaaaaaaaaa");
+		System.out.println(time);
+		System.out.println(date);
+		//1. 새로 입력 받은 날짜와 시간에 스케줄 번호를 가져옴
+		ReservationScheduleVO rs = RSDao.programByMaxPerson(time, date);
+		if(rs == null) {
+			System.out.println("11111111111");
+			return false;
+		}
+		//2. 새로 입력받은 스케줄 번호로 예약인원 체크
+		int reservationCount = RSDao.reservationCount(rs.getRs_num());
+		if(reservationCount < 1) {
+			System.out.println("222222222222222222");
+			return false;
+		}
+		//3. 예약 총인원이 예약 스케줄에 최대인원보다 같거나 많으면 false 리턴
+		if(rs.getRs_max_person() <= reservationCount) {
+			System.out.println("333333333333333333");
+			return false;
+		}
+		return RSDao.updateUserChedule(rs.getRs_num(), rv_num);
+	}
+
+	@Override
+	public boolean MaxPersonCheck(int rs_num) {
+		ReservationScheduleVO max =  RSDao.selectRSTime(rs_num);
+		int reservationCount = RSDao.reservationCount(rs_num);
+		System.out.println("aaaaaaaaaa");
+		System.out.println(max);
+		System.out.println(reservationCount);
+		
+		 
+		return max.getRs_max_person() <= reservationCount ? false : true;
 	}
 
 }
