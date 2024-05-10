@@ -525,7 +525,7 @@ function book(ho_name, hp_title, rs_date, rs_time, hp_payment) {
 			console.log("결제성공");
 			$.ajax({
 				type: "post",
-				url: '<c:url value="bookingPbay"/>',
+				url: '<c:url value="bookingPay"/>',
 				data: {
 					rs_num: sgo.rs_num,
 					amount: hp_payment,

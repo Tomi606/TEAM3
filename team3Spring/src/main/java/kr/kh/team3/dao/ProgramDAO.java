@@ -10,9 +10,11 @@ import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.ItemListVO;
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.PaymentVO;
+import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.ReservationVO;
 import kr.kh.team3.model.vo.SiteManagement;
+import kr.kh.team3.pagination.Criteria;
 
 public interface ProgramDAO {
 
@@ -69,6 +71,10 @@ public interface ProgramDAO {
 	boolean insertPay(@Param("pay")PaymentVO payment);
 
 	ReservationVO selectUserReserve(@Param("site_id")String site_id, @Param("rv_rs_num")int rv_rs_num);
+
+	ArrayList<PostVO> selectBookList(@Param("user")SiteManagement user, @Param("cri")Criteria cri);
+
+	int selectBookListCount(@Param("user")SiteManagement user, @Param("cri")Criteria cri);
 
 
 }
