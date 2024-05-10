@@ -153,7 +153,46 @@
 		<collection property="hospital_subject"
 			ofType="HospitalSubjectVO" column="ho_hs_num"
 			select="selectHospitalSubject"/>
+			<collection property="land" ofType="LandVO" 
+		column="ho_la_num" select="selectHoLaNum" />
 	</resultMap>
+	
+	<select id="selectHoLaNum" resultMap="landMapp">
+		select * from land where la_num = #{ho_la_num}
+	</select>
+	
+	<resultMap type="LandVO" id="landMapp">
+		<id property="la_num" column="la_num"/>
+		<result property="la_sd_num" column="la_sd_num"/>
+		<result property="la_sgg_num" column="la_sgg_num"/>
+		<result property="la_emd_num" column="la_emd_num"/>
+		<collection property="sido" ofType="SiDoVO" 
+		column="la_sd_num" select="selectLaSdNum"/>
+		<collection property="sgg" ofType="SiGoonGuVO" 
+		column="la_sgg_num" select="selectLaSggNum"/>
+		<collection property="emd" ofType="EupMyeonDongVO" 
+		column="la_emd_num" select="selectLaEmdNum"/>
+	</resultMap>
+	
+	<select id="selectLaSdNum" resultType="SiDoVO">
+		select sd_name from si_do where sd_num = #{la_sd_num}
+	</select>
+	
+	<select id="selectLaSggNum" resultType="SiGoonGuVO">
+		select sgg_name from si_goon_gu where sgg_num = #{la_sgg_num}
+	</select>
+	
+	<select id="selectLaEmdNum" resultType="EupMyeonDongVO">
+		select emd_name from eup_myeon_dong where emd_num = #{la_emd_num}
+	</select>
+	
+	<select id="selectMemberLand" resultType="HospitalVO">
+		select ho_la_num from hospital
+	</select>
+	
+	
+	
+	
 	
 	<select id="selectHospitalDetail" resultType="HospitalDetailVO">
 		select * from hospital_detail where hd_ho_id = #{ho_id}
@@ -312,7 +351,7 @@
 	</select>
 	
 	<!-- 정경호 이용중인 병원만 조회하는 쿼리 -->
-	<select id="hospitalList" resultType="HospitalVO">
+	<select id="hospitalList" resultMap="hospitalMap">
 		select * from hospital where ho_ms_state = "이용중"
 		order by ho_id
 		limit #{cri.pageStart}, #{cri.perPageNum}

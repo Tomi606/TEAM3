@@ -179,7 +179,7 @@ table{
 							<td>${me.me_job}</td>
 							<td>${me.me_phone}</td>
 							<td>${me.me_email}</td>
-							<td>${me.land.sido.sido_name} ${me.land.sgg.sgg_name} ${me.land.emd.emd_name}</td>
+							<td>${me.land.sido.sd_name} ${me.land.sgg.sgg_name} ${me.land.emd.emd_name}</td>
 							<td>${me.hospitalSubject.hs_title}</td>
 						</tr>
 					</c:forEach>

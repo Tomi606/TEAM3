@@ -122,13 +122,14 @@ img {
 .profile-img {
 	width: 250px;
 	height: 250px;
-	border: 1px solid black;
+	border: 1px solid green;
 	margin: 0 auto;
 	margin-top: 50px;
 	border-radius: 100%;
 }
 
 .profile-name {
+	
 	margin: 20px 0px -20px 0px;
     text-align: center;
 }
@@ -179,7 +180,7 @@ img {
     width: 1000px;
     margin: 30px auto;
     height: 125px;
-    padding: 20px;
+    padding: 25px;
     flex-direction: column;
     align-items: stretch;
     flex-wrap: wrap;
@@ -529,8 +530,8 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 		<div class="mypage-profile">
 			<div class="profile-img">
 			</div>
-			<div class="profile-name">
-				<h4>${hospital.ho_id}</h4>
+			<div class="profile-name" >
+				<h4 style="color:#555;">${hospital.ho_id}</h4>
 				<p>${hospital.ho_email}</p>
 			</div>
 			<div class="profile-anything">
@@ -561,7 +562,7 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 			<div class="mypage-profile-info">
 				<div class="profile-img-name-container">
 					<div class="mypage-img-name">
-						<h4 class="box-name" style="font-size: 50px; font-weight: bold;">\${hospital.ho_name}</h4>
+						<h4 class="box-name" style="font-size: 40px;color:#555; font-weight: bold;">\${hospital.ho_name}</h4>
 						<div class="new_ho_name_hidden">
 							<input type="text" id="new_ho_name" class="box-name2" value="\${hospital.ho_name}"/>
 						</div>
