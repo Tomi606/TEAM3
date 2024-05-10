@@ -13,7 +13,7 @@ public class ReservationVO {
 	private String rv_rvs_name;
 	private int rv_rs_num;
 	private String rv_me_id;
-	private ReservationScheduleVO ReservationScheduleVO;
+	private ReservationScheduleVO schedule;
 	private MemberVO MemberVO;
 	
 	public ReservationVO(String rv_rvs_name, int rv_rs_num, String rv_me_id) {

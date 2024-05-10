@@ -735,36 +735,32 @@ margin: 10px;
 			</div>
 			<div class="hospital-group">
 			<h3 style="font-weight: bold;">&lt;내 지역 병원&gt;</h3>
-			<p style="color: gray;">내 동네 병원들!</p>
 			<div class="hot-group" style="display: flex;width: 100%;height:400px;text-align: center;margin-bottom: 35px">
-			<c:choose>
-				<c:when test="${empty hoList}">
-					<div style="font-size: 50px; color: #c8c8c8; text-align: center;">현재 지역에 있는 병원이 없습니다.</div>
-				</c:when>
-				<c:otherwise>
-					<c:forEach items="${hoList}" var="ho">
-						 <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=${ho.ho_id}'/>" style="padding: auto;">
-											<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
-									<div class="ho-name">${ho.ho_name}</div>
-									<div class="hs-title">${ho.hospital_subject.hs_title}</div>
-									<div class="ho-address"><img class="small-img"
-			   								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">${ho.ho_address}</div>
-								<%-- <div class="hd-time"><img class="small-img"
-		   								alt="위치 이미지" src="<c:url value="/resources/img/time-line.svg"/>">(${dayOfWeek}요일) ${hd_time}</div> --%>
-						 </a>
-					 </c:forEach>
-				 </c:otherwise>
-			</c:choose>
-			
-			
-			
-			
+				<c:choose>
+					<c:when test="${empty hoList}">
+						<div style="font-size: 50px; color: #c8c8c8; text-align: center;">현재 지역에 있는 병원이 없습니다.</div>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${hoList}" var="ho">
+							 <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=${ho.ho_id}'/>" style="padding: auto;">
+												<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
+										<div class="ho-name">${ho.ho_name}</div>
+										<div class="hs-title">${ho.hospital_subject.hs_title}</div>
+										<div class="ho-address"><img class="small-img"
+				   								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">${ho.ho_address}</div>
+									<%-- <div class="hd-time"><img class="small-img"
+			   								alt="위치 이미지" src="<c:url value="/resources/img/time-line.svg"/>">(${dayOfWeek}요일) ${hd_time}</div> --%>
+							 </a>
+						 </c:forEach>
+					 </c:otherwise>
+				</c:choose>
 			</div>
-			<div style="text-align: center;width: 100%;" >
+			<div style="text-align: center;width: 100%;">
 			<div class="hr" style="margin-bottom:40px;border: 1px solid #d2d2d2;width: 100%;"></div>
 				<a href="<c:url value='/hospital/list?hs_num=0'/>" class="button-link" style="margin-top: 50px">더보기</a>
-				<p>누르면 병원으로 이동하기</p>
 			</div>
+			
+			
 			<div class="hospital-reservation" style="margin-top: 150px">
 				<div class="total-hos" style="margin-bottom: 150px;">
 					<h3>전체 예약 현황</h3>
@@ -775,24 +771,14 @@ margin: 10px;
 							<div class="new_hospital-res" style="margin: auto;">
 								<h4 >최근 예약이 많은 병원</h4>
 							</div>
+							<c:forEach items="${reList}" var="re">
 							<div class="new_hospital-sub">
 								<div class="hos-sub">
-									<a>성형외과</a>
+									<a>${re.schedule.program.hsList.hospital_subject.hs_title }</a>
 									<p>125</p>
 								</div>
-								<div class="hos-sub">
-									<a>피부과</a>
-									<p>76</p>
-								</div>
-								<div class="hos-sub">
-									<a>내과</a>
-									<p>26</p>
-								</div>
-								<div class="hos-sub">
-									<a>치과</a>
-									<p>25</p>
-								</div>
 							</div>
+							</c:forEach>
 						</div>
 						<hr>
 				  </div>

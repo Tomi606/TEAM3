@@ -14,6 +14,7 @@ public class ReservationScheduleVO {
 	private Date rs_date;
 	private Date rs_time;
 	private int rs_max_person;
+	private HospitalProgramVO program;
 	
 	public String getRsDate() {
 	    if (this.rs_date != null) {

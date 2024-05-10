@@ -11,6 +11,7 @@ public class HospitalProgramVO {
 	private int hp_payment;
 	private String hp_ho_id;
 	private int hp_hsl_num;
+	private HsListVO hsList;
 	
 	public String getPayMentMoney() {
         String paymentStr = String.valueOf(hp_payment);
