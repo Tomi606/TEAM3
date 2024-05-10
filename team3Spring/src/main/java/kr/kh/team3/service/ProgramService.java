@@ -8,9 +8,11 @@ import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.ItemListVO;
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.PaymentVO;
+import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.ReservationVO;
 import kr.kh.team3.model.vo.SiteManagement;
+import kr.kh.team3.pagination.Criteria;
 
 public interface ProgramService {
 	
@@ -63,5 +65,9 @@ public interface ProgramService {
 	boolean insertPay(PaymentVO payment);
 
 	boolean selectUserReserve(String site_id, int rv_rs_num);
+
+	ArrayList<PostVO> getBookList(SiteManagement user, Criteria cri);
+
+	int getBookListCount(SiteManagement user, Criteria cri);
 
 }
