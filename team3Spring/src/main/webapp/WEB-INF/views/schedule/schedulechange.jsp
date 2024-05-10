@@ -36,8 +36,8 @@
 </head>
 <body>
 <!-- 전체 병원 조회 박스 -->
-<div class="all-box container mt-3">
-	<div style="display: flex; align-items: center;">
+<div class="all-box container 3조">
+	<div style="display: flex; ">
 	    <select name="hs_num" class="form-control">
 				<option value="none">진료과를 선택해주세요</option>
 			<c:forEach items="${list}" var="list">
