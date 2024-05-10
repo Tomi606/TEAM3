@@ -707,4 +707,65 @@
 		insert into hs_list(hsl_ho_id, hsl_hs_num) 
 		values(#{ho_id}, #{ho_hs_num})
 	</insert>
+	
+	<!-- programMap -->
+		<resultMap type="HsListVO" id="hslMapp">
+		<result property="hsl_num" column="hsl_num"/>
+		<result property="hsl_hs_num" column="hsl_hs_num"/>
+		<result property="hsl_ho_id" column="hsl_ho_id"/>
+		<collection property="hospital_subject" ofType="HospitalSubjectVO"
+					column="hsl_hs_num" select="selectSubjectListMap"/>
+		</resultMap>
+	
+	<!-- programMap -->
+		<resultMap type="HospitalProgramVO" id="programMap">
+		<result property="hp_num" column="hp_num"/>
+		<result property="hp_title" column="hp_title"/>
+		<result property="hp_payment" column="hp_payment"/>
+		<result property="hp_ho_id" column="hp_ho_id"/>
+		<result property="hp_hsl_num" column="hp_hsl_num"/>
+		<collection property="hsList" ofType="HsListVO"
+					column="hp_hsl_num" select="selectHsListMap"/>
+		</resultMap>
+		
+	<!-- reservation_scheduleMap -->
+		<resultMap type="ReservationScheduleVO" id="scheduleMap">
+		<result property="rs_num" column="rs_num"/>
+		<result property="rs_hp_num" column="rs_hp_num"/>
+		<result property="rs_date" column="rs_date"/>
+		<result property="rs_time" column="rs_time"/>
+		<collection property="program" ofType="HospitalProgramVO"
+					column="rs_hp_num" select="selectHospitalPrograms"/>
+	</resultMap>
+		<!-- reservationMap -->
+		<resultMap type="ReservationVO" id="reservationMap">
+		<result property="rv_num" column="rv_num"/>
+		<result property="rv_rvs_name" column="rv_rvs_name"/>
+		<result property="rv_rs_num" column="rv_rs_num"/>
+		<result property="rv_me_id" column="rv_me_id"/>
+		<collection property="schedule" ofType="ReservationScheduleVO"
+					column="rv_rs_num" select="selectScheduleList"/>
+	</resultMap>
+	<!-- subject -->
+	<select id="selectSubjectListMap" resultType="HospitalSubjectVO">
+		select * from hospital_subject where hs_num = #{hsl_hs_num}
+	</select>
+	<!-- HsList -->
+	<select id="selectHsListMap" resultMap="hslMapp">
+			select * from hs_list where hsl_num = #{hp_hsl_num}
+	</select>
+	<!-- hospital_program -->
+	<select id="selectHospitalPrograms" resultMap="programMap">
+		select * from hospital_program where hp_num = #{rs_hp_num}
+	</select>
+	
+	<!-- reservation_schedule -->
+	<select id="selectScheduleList" resultMap="scheduleMap">
+		select * from reservation_schedule where rs_num = #{rv_rs_num}
+	</select>
+	<!-- reservation -->
+	<select id="selectAllReservationList" resultMap="reservationMap">
+		select * from reservation	
+	</select>
+	
 </mapper>

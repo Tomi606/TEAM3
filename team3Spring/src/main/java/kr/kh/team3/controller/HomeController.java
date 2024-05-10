@@ -22,6 +22,7 @@ import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.PostVO;
+import kr.kh.team3.model.vo.ReservationVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -50,7 +51,8 @@ public class HomeController {
 			ArrayList<BoardVO> boList = boardService.selectBoard();
 			ArrayList<PostVO> poList = boardService.selectHotPostList();
 			ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
-			
+			ArrayList<ReservationVO> reList = hospitalService.selectAllReservationList();
+			model.addAttribute("reList", reList);
 			model.addAttribute("poList", poList);
 			model.addAttribute("boList", boList);
 			model.addAttribute("list", list);
