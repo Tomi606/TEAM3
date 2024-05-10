@@ -183,7 +183,8 @@ width: 70px;height: 50px;border: 1px solid green;color:green; line-height: 50px;
 						<th>사업자 번호</th>
 						<th>전화번호</th>
 						<th>이메일</th>
-						<th>소재지</th>
+						<th>주소</th>
+						<th>상세 주소</th>
 						<th>신고 받은 횟수</th>
 					</tr>
 				</thead>
@@ -204,6 +205,7 @@ width: 70px;height: 50px;border: 1px solid green;color:green; line-height: 50px;
 					               <td>${ho.ho_num}</td>
 					               <td>${ho.ho_phone}</td>
 					               <td>${ho.ho_email}</td>
+					               <td>${ho.land.sido.sd_name} ${ho.land.sgg.sgg_name} ${ho.land.emd.emd_name}</td>
 					               <td>${ho.ho_address}</td>
 					               <td>${ho.ho_report_count}</td>
 					           </tr>

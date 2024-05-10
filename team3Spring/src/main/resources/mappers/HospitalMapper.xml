@@ -3,7 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team3.dao.HospitalDAO">
-
+	<select id="selectMyAreaHospitalList" resultType="HospitalVO">
+		select * from hospital where ho_la_num = #{n}
+	</select>
+	
 	<select id="selectHospitalSubjectListHome" resultType="HospitalSubjectVO">
 		select * from hospital_subject order by hs_title limit 13
 	</select>
@@ -153,7 +156,46 @@
 		<collection property="hospital_subject"
 			ofType="HospitalSubjectVO" column="ho_hs_num"
 			select="selectHospitalSubject"/>
+			<collection property="land" ofType="LandVO" 
+		column="ho_la_num" select="selectHoLaNum" />
 	</resultMap>
+	
+	<select id="selectHoLaNum" resultMap="landMapp">
+		select * from land where la_num = #{ho_la_num}
+	</select>
+	
+	<resultMap type="LandVO" id="landMapp">
+		<id property="la_num" column="la_num"/>
+		<result property="la_sd_num" column="la_sd_num"/>
+		<result property="la_sgg_num" column="la_sgg_num"/>
+		<result property="la_emd_num" column="la_emd_num"/>
+		<collection property="sido" ofType="SiDoVO" 
+		column="la_sd_num" select="selectLaSdNum"/>
+		<collection property="sgg" ofType="SiGoonGuVO" 
+		column="la_sgg_num" select="selectLaSggNum"/>
+		<collection property="emd" ofType="EupMyeonDongVO" 
+		column="la_emd_num" select="selectLaEmdNum"/>
+	</resultMap>
+	
+	<select id="selectLaSdNum" resultType="SiDoVO">
+		select sd_name from si_do where sd_num = #{la_sd_num}
+	</select>
+	
+	<select id="selectLaSggNum" resultType="SiGoonGuVO">
+		select sgg_name from si_goon_gu where sgg_num = #{la_sgg_num}
+	</select>
+	
+	<select id="selectLaEmdNum" resultType="EupMyeonDongVO">
+		select emd_name from eup_myeon_dong where emd_num = #{la_emd_num}
+	</select>
+	
+	<select id="selectMemberLand" resultType="HospitalVO">
+		select ho_la_num from hospital
+	</select>
+	
+	
+	
+	
 	
 	<select id="selectHospitalDetail" resultType="HospitalDetailVO">
 		select * from hospital_detail where hd_ho_id = #{ho_id}
@@ -312,7 +354,7 @@
 	</select>
 	
 	<!-- 정경호 이용중인 병원만 조회하는 쿼리 -->
-	<select id="hospitalList" resultType="HospitalVO">
+	<select id="hospitalList" resultMap="hospitalMap">
 		select * from hospital where ho_ms_state = "이용중"
 		order by ho_id
 		limit #{cri.pageStart}, #{cri.perPageNum}
@@ -665,4 +707,65 @@
 		insert into hs_list(hsl_ho_id, hsl_hs_num) 
 		values(#{ho_id}, #{ho_hs_num})
 	</insert>
+	
+	<!-- programMap -->
+		<resultMap type="HsListVO" id="hslMapp">
+		<result property="hsl_num" column="hsl_num"/>
+		<result property="hsl_hs_num" column="hsl_hs_num"/>
+		<result property="hsl_ho_id" column="hsl_ho_id"/>
+		<collection property="hospital_subject" ofType="HospitalSubjectVO"
+					column="hsl_hs_num" select="selectSubjectListMap"/>
+		</resultMap>
+	
+	<!-- programMap -->
+		<resultMap type="HospitalProgramVO" id="programMap">
+		<result property="hp_num" column="hp_num"/>
+		<result property="hp_title" column="hp_title"/>
+		<result property="hp_payment" column="hp_payment"/>
+		<result property="hp_ho_id" column="hp_ho_id"/>
+		<result property="hp_hsl_num" column="hp_hsl_num"/>
+		<collection property="hsList" ofType="HsListVO"
+					column="hp_hsl_num" select="selectHsListMap"/>
+		</resultMap>
+		
+	<!-- reservation_scheduleMap -->
+		<resultMap type="ReservationScheduleVO" id="scheduleMap">
+		<result property="rs_num" column="rs_num"/>
+		<result property="rs_hp_num" column="rs_hp_num"/>
+		<result property="rs_date" column="rs_date"/>
+		<result property="rs_time" column="rs_time"/>
+		<collection property="program" ofType="HospitalProgramVO"
+					column="rs_hp_num" select="selectHospitalPrograms"/>
+	</resultMap>
+		<!-- reservationMap -->
+		<resultMap type="ReservationVO" id="reservationMap">
+		<result property="rv_num" column="rv_num"/>
+		<result property="rv_rvs_name" column="rv_rvs_name"/>
+		<result property="rv_rs_num" column="rv_rs_num"/>
+		<result property="rv_me_id" column="rv_me_id"/>
+		<collection property="schedule" ofType="ReservationScheduleVO"
+					column="rv_rs_num" select="selectScheduleList"/>
+	</resultMap>
+	<!-- subject -->
+	<select id="selectSubjectListMap" resultType="HospitalSubjectVO">
+		select * from hospital_subject where hs_num = #{hsl_hs_num}
+	</select>
+	<!-- HsList -->
+	<select id="selectHsListMap" resultMap="hslMapp">
+			select * from hs_list where hsl_num = #{hp_hsl_num}
+	</select>
+	<!-- hospital_program -->
+	<select id="selectHospitalPrograms" resultMap="programMap">
+		select * from hospital_program where hp_num = #{rs_hp_num}
+	</select>
+	
+	<!-- reservation_schedule -->
+	<select id="selectScheduleList" resultMap="scheduleMap">
+		select * from reservation_schedule where rs_num = #{rv_rs_num}
+	</select>
+	<!-- reservation -->
+	<select id="selectAllReservationList" resultMap="reservationMap">
+		select * from reservation	
+	</select>
+	
 </mapper>

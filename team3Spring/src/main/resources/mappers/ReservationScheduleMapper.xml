@@ -41,12 +41,21 @@
 	</select>
 	<!-- 예약 테이블 resultMap -->
 	
+	<select id="reservationCount" resultType="int">
+		select count(*) from reservation where rv_rs_num = #{rs_num} and rv_rvs_name = "예약완료"
+	</select>
+	
+	<select id="programByMaxPerson" resultType="kr.kh.team3.model.vo.ReservationScheduleVO">
+		select * from reservation_schedule where rs_date = #{date} and rs_time = #{time};
+	</select>
+	
 	<delete id="deleteUserSchedule">
-		delete from reservation where rv_num = #{rv_num};
+		delete from reservation where rv_rs_num = #{rv_num};
 	</delete>
 	
-	<!-- <update id="updateUserChedule">
-		update reservation set 
-	</update> -->
+	<update id="updateUserChedule">
+		update reservation set rv_rs_num = #{rs_num} where rv_num = #{rv_num};
+	</update>
+	
 	
 </mapper>

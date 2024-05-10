@@ -193,7 +193,7 @@
 		column="me_la_num" select="selectMeLaNum" />
 	</resultMap>
 	
-	<select id="selectMeLaNum" resultType="LandVO">
+	<select id="selectMeLaNum" resultMap="landMap">
 		select * from land where la_num = #{me_la_num}
 	</select>
 	

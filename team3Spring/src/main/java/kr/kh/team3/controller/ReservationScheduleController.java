@@ -1,7 +1,10 @@
 package kr.kh.team3.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -124,9 +127,16 @@ public class ReservationScheduleController {
 		map.put("timeList", RSTimeList);
 		map.put("time", time);
 		return map;
+    }
+	
+	@ResponseBody
+	@GetMapping("/date/maxperson/check")
+	public boolean maxPersonCheck(HttpSession session, Model model, int rs_num) {
+		boolean res =  reservationScheduleService.MaxPersonCheck(rs_num);
+		return res;
 	}
-
-	// 예약된 회원을 관리하는 페이지 get
+	
+//	예약된 회원을 관리하는 페이지 get
 	@GetMapping("/hospital/schedule/change")
 	public String ScheduleMemberCheck(HttpSession session, Model model) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
@@ -180,15 +190,22 @@ public class ReservationScheduleController {
 		}
 		return "message";
 	}
-
+	
 	@GetMapping("/update/userschedule")
-	public String updateUserSchedule(Model model, int rv_num, int hs_num, String date, String time) throws Exception {
-		boolean res = reservationScheduleService.updateUserSchedule(rv_num, hs_num, date, time);
-		if (res) {
-			model.addAttribute("msg", "삭제에 성공하였습니다.");
+	public String updateUserSchedule(Model model, int rv_num, String date, 
+			String time2, int hp_num) throws Exception{
+		
+		date = date.replaceAll("/", "-");
+		time2 = time2.replaceAll(" ", "");
+		time2 = time2.replace("시", ":");		
+		time2 = time2.replace("분", ":");		
+		time2 = time2+"00";		
+		boolean res = reservationScheduleService.updateUserSchedule(rv_num, date, time2, hp_num);
+		if(res) {
+			model.addAttribute("msg", "예약 변경에 성공하였습니다.");
 			model.addAttribute("url", "/hospital/schedule/change");
-		} else {
-			model.addAttribute("msg", "삭제에 실패하였습니다.");
+		}else {
+			model.addAttribute("msg", "예약 변경에 실패하였습니다.");
 			model.addAttribute("url", "/hospital/schedule/change");
 		}
 		return "message";

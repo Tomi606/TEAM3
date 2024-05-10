@@ -25,6 +25,7 @@ import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
+import kr.kh.team3.model.vo.ReservationVO;
 import kr.kh.team3.model.vo.ReviewVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
@@ -904,6 +905,16 @@ public class HospitalServiceImp implements HospitalService {
 	public boolean insertHoSub(String ho_id, int ho_hs_num) {
 		
 		return hospitalDao.insertHoSub(ho_id, ho_hs_num);
+	}
+
+	@Override
+	public ArrayList<HospitalVO> getMyAreaHospitalList(int site_la_num) {
+		return hospitalDao.selectMyAreaHospitalList(site_la_num);
+	}
+
+	@Override
+	public ArrayList<ReservationVO> selectAllReservationList() {
+		return hospitalDao.selectAllReservationList();
 	}
 
 
