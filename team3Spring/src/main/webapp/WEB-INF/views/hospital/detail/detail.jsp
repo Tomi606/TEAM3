@@ -8,8 +8,7 @@
 <title>병원 상세 페이지 조회</title>
 <style type="text/css">
 /* 전체 툴 */
-
-.detail-page{
+.detail-page {
  	box-shadow: 0px 10px 100px -20px rgba(0, 0, 0, 0.2);
     transition: box-shadow 0.3s ease;
     padding: 50px 40px;
@@ -64,7 +63,7 @@
     
 }
 
-.body-container{
+.body-container {
 	width: 100%;
 	height: 100%;
 	border: 1px solid gray; 
@@ -155,7 +154,7 @@ p {
 	font-size: 30px;
 	text-align: center;
 }
-.pagination{
+.pagination {
 	margin-top: 10%;
 }
 .top-img {
@@ -165,14 +164,12 @@ p {
 	margin-left: 10px;
 }
 
-/* span태그 위치 option */
 .tooltip-link{
   position: absolute;
   left: 25%;
   top:80px;
 }
 
-/* span태그 option */
 .tooltip-link{
     position: relative;
     background-color: #aad;
@@ -180,45 +177,6 @@ p {
     border: 3px solid #eee;
     padding: 10px;
     box-sizing: border-box;
-}
-
-/* 툴팁 option */
-.tooltip-link[data-tooltip]:not([data-tooltip=""])::before {
-    content: attr(data-tooltip);
-    position: absolute;
-    background-color: rgba(0,0,0,0.5);
-    color: #fff;
-    padding: 10px 7px;
-    border-radius: 10px;
-    max-width: 300px;
-    width: 300px;
-    left: 25%;
-    bottom: 120%;
-    opacity: 0;
-    transition: all 0.5s linear;
-}
-
-/* 툴팁 말풍선 방향 팁 추가 */
-.tooltip-link[data-tooltip]:not([data-tooltip=""])::after {
-    content: '';
-    border-width: 6px;
-    border-style: solid;
-    border-color: transparent;
-    border-top-color: rgba(0,0,0,0.5);
-    width: 0;
-    height: 0;
-    display: inline-block;
-    position: absolute;
-    left: 50%;
-    bottom: 90%;
-    transform: translate(-50%, 0);
-    opacity: 0;
-    transition: all 0.5s linear;
-}
-
-.tooltip-link:hover[data-tooltip]:not([data-tooltip=""])::before
-, .tooltip-link:hover[data-tooltip]:not([data-tooltip=""])::after {
-    opacity: 1;
 }
 
 #myTextarea {
@@ -236,12 +194,11 @@ p {
 }
 
 #myTextarea::-webkit-scrollbar {
-    width: 16px; /* 스크롤바의 너비 */
+    width: 16px;
 }
 
-/* 스크롤바의 Thumb (드래그할 수 있는 부분) 색상 */
 #myTextarea::-webkit-scrollbar-thumb {
-    background-color: green; /* 색상 변경 */
+    background-color: green;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
 }
 
@@ -254,7 +211,8 @@ p {
 }
 
 .book-btn:hover {
-	animation: colorChange 1s infinite alternate; /* 1초 동안 반복되며 왔다갔다하는 애니메이션 적용 */
+	/* 1초 동안 반복되며 왔다갔다하는 애니메이션 적용 */
+	animation: colorChange 1s infinite alternate;
 }
 
 @keyframes colorChange {
@@ -321,36 +279,49 @@ p {
     width: 90%;
 }
 .ho_name_div{
-	width: 100%;text-align: center;
+	width: 100%;
+	text-align: center;
 }
-.book_mark_container{
+.book_mark_container {
 	width: 100%;
 }
-.book_mark_box{width: 70px;margin-left: auto;}
-.ho_info_box{
-	width: 100%;text-align: left;
+.book_mark_box {
+	width: 70px;
+	margin-left: auto;
 }
-.book_btn_box{
-	width: 100%;display: flex;margin: 70px 0 50px 0;padding: 10px;   height: 90px;
+.ho_info_box {
+	width: 100%;
+	text-align: left;
 }
-.boxboxboxbox{
+.book_btn_box {
+	width: 100%;
+	display: flex;
+	margin: 70px 0 50px 0;
+	padding: 10px;
+	height: 90px;
+}
+.ho_info_detail {
 	width: 80%;margin: 0 auto;color: #555;
 }
-#ho_name{
+#ho_name {
 	color: #555;
+	font-size: 50px;
+    font-weight: bold;
 }
-.page_container{
-	width: 100%;height: 100%;padding: 50px;
+.page_container {
+	width: 100%
+	;height: 100%;
+	padding: 50px;
 }
-.box-review{
+.box-review {
 	width: 100%;
 	height:100%;
 	border-bottom: 1px solid #c8c8c8;
 }
-.asdasd{
+.review-btn-div {
 	width: 14%;
 }
-.box-review-insert{
+.box-review-insert {
 	width:100%;
 	display: flex;
 }
@@ -389,7 +360,7 @@ p {
 			
 		</div>
 		<div class="ho_info_box" >
-			<div class="boxboxboxbox">
+			<div class="ho_info_detail">
 				<div class="ho_address tooltip-container">
 					<label class="top-label" for="ho_address">찾아오시는 길  |  </label>
 					<span class="ho_address top-span" id="ho_address">${sido.sd_name} ${sgg.sgg_name} ${emd.emd_name} ${detail.hospital.ho_address}</span>
@@ -402,7 +373,7 @@ p {
 					<img class="top-img" style="cursor: pointer;" alt="전화 이미지" src="<c:url value="/resources/img/detail-phone.svg"/>">
 				</div>
 			</div>	
-			</div>
+		</div>
 		<div class="book_btn_box">
 			<a href='<c:url value="/schedule?ho_id=${detail.hospital.ho_id}"/>' class="book-btn btn btn-outline-success">예약하기</a>
 		</div>
@@ -492,7 +463,7 @@ p {
 						<div class="input-group review-textarea">				
 					        <textarea id="review" class="vw_num textarea-review" id="vw_num" name="vw_num" "></textarea>
 						</div>
-						<div class="asdasd">
+						<div class="review-btn-div">
 					        <button class="btn btn-outline-success review-insert-btn review-btn " name="review-btn" data-hd-num="${detail.hd_num}">리뷰 등록</button>		
 					    </div>    
 					</div>			

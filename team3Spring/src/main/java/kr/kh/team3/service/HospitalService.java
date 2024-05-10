@@ -193,5 +193,7 @@ public interface HospitalService {
 
 	boolean insertHoSub(String ho_id, int ho_hs_num);
 
+	ArrayList<HospitalVO> getMyAreaHospitalList(int site_la_num);
+
 
 }
