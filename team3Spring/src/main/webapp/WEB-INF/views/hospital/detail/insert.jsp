@@ -9,11 +9,11 @@
 <style type="text/css">
 .info-container {
 	box-shadow: 0px 2px 4px 6px rgba(0, 128, 0, 0.5);
-    transition: box-shadow 0.3s ease;
-    padding: 20px 30px 20px 30px;
-    margin: 70px 30px 70px 480px;
+    padding: 60px 30px;
+    margin: -250px auto 70px auto;
     border-radius: 5px;
-    width: 60%;
+    width: 80%;
+    background-color: white;
 }
 
 textarea {
@@ -28,14 +28,7 @@ textarea {
     font-weight: bold;
 }
 
-.subject-checkbox {
-	isplay: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: space-between;
-    justify-content: flex-start;
-    align-items: stretch;
-}
+ 
 
 .subject-checkbox {
 	display: grid;
@@ -140,9 +133,31 @@ input[type="checkbox"]:checked::before {
     50% { background-color: green; color: white; } /* 중간 색상 */
     100% { background-color: white; color: green; } /* 끝 색상 */
 }
+.home-box1 {
+	width: 100%;
+	height: 500px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
+}
+
+.page-title{
+	text-align: left;
+	font-size: 50px;
+	font-weight: bold;
+	margin: 0 0 80px 0;
+}
 </style>
 </head>
 <body>
+<div class="home-box1">
+			<div style="width: 80%;margin: 0 auto;padding-top: 80px">
+				<div class="page-title">
+					병원
+				</div>
+			</div>
+		</div>
 <div class="info-container">
 	<div class="all-info-box">
 		<form action='<c:url value="/hospital/detail/insert"/>' method="post">
