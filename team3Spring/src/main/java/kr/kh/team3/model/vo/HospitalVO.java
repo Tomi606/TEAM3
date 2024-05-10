@@ -38,6 +38,7 @@ public class HospitalVO {
 	private HospitalDetailVO hospital_detail;
 	private ArrayList<HospitalSubjectVO> hospital_subject;
 	private ArrayList<BookmarkVO> bookmark;
+	private LandVO land;
 
 	public String getChangeDate() {
 		if (this.ho_stop != null) {

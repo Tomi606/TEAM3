@@ -280,6 +280,7 @@ p {
 }
 
 .page-title{
+	color:rgba(0, 100, 60, 0.8);
 	text-align: left;
 	font-size: 50px;
 	font-weight: bold;
