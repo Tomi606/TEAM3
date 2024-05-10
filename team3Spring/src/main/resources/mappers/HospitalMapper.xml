@@ -534,7 +534,7 @@
 	</update>
 	
 	<select id="selectHsNum" resultType="HospitalVO">
-		select ho_hs_num from hospital where ho_hs_num = #{hospital.ho_hs_num}
+		select ho_hs_num from hospital where ho_id = #{hospital.ho_id}
 	</select>
 	
 	<select id="selectSubjects" resultType="HsListVO">
