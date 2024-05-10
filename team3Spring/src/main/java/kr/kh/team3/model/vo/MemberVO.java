@@ -33,6 +33,7 @@ public class MemberVO {
 	private HospitalSubjectVO hospitalSubject;
 	private ReportVO report;
 	private SiteManagement siteManagement;
+	private LandVO land;
 
 	public String getChangeDate() {
 		if (this.me_stop != null) {

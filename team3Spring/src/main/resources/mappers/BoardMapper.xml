@@ -407,8 +407,8 @@
 	</select>
 	
 	<insert id="insertReport">
-		insert into report(rp_target,rp_name,rp_rs_name,rp_site_num,rp_table)
-		values(#{rp.rp_target},#{rp.rp_name},#{rp.rp_rs_name},#{rp.rp_site_num},#{rp.rp_table})
+		insert into report(rp_target,rp_name,rp_site_num,rp_table)
+		values(#{rp.rp_target},#{rp.rp_name},#{rp.rp_site_num},#{rp.rp_table})
 	</insert>
 	
 	

@@ -12,19 +12,20 @@
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.js" ></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/additional-methods.min.js" ></script>
 <style type="text/css">
-.body-tag{
-padding:0 0 200px;
-width: 100%;
-display: felex;flex-direction: column;
-align-items: center;
+.body-tag {
+	padding:0 0 200px;
+	width: 100%;
+	display: felex;
+	flex-direction: column;
+	align-items: center;
 }
-.input-box{
+.input-box {
 	border:1px solid white;
 	width: 547px;height:100%; 
 	margin: 0 auto;
 	padding: 5px;
 }
-.input-tag{
+.input-tag {
     border: 1px solid #ccc; 
     outline: none;
     margin-bottom: 15px; 
@@ -32,24 +33,35 @@ align-items: center;
     padding: 20px;
 }
 .input-tag:focus {
-    border-bottom-color:  #C12DFF; 
-    box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
+    border-bottom-color: green;
+    box-shadow: 0 0 5px rgba(0, 128, 0, 0.5);
 }
 .btn{
 	text-decoration: none;
-	border:1px solid  #C12DFF;
+	border:1px solid green;
 	width: 100px;
 }
 .btn:hover {
-	background-color:  #C12DFF;
+	background-color: rgba(0, 128, 0, 0.5);
 	color: white;
 }
-.signup-btn{
-text-align:center;font-size:20px;font-weight:bold;
-width: 500px;height:40px;border-radius:0;
-padding: 2px;border-bottom: 1px solid  #C12DFF;
-margin-left:34px;
+.signup-btn {
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+	width: 500px;
+	height: 50px;
+	padding: 2px;
+	border-bottom: 1px solid green;
+	border-radius: 5px;
+	margin-left: 34px;
+	margin-top: 10px;
 }
+
+.signup-btn:hover {
+	background-color: green;
+}
+
 select {
 	margin-left:34px;
     padding: 10px;
@@ -60,8 +72,8 @@ select {
     width: 500px; 
 }
 select:focus {
-    border-color:  #C12DFF; 
-    box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
+    border-color: rgba(0, 128, 0, 0.5);
+    box-shadow: 0 0 5px rgba(0, 128, 0, 0.5);
 }
 select:hover {
     background-color: #eaeaea;
@@ -69,11 +81,13 @@ select:hover {
 img{
  width: 30px;
 }
+
 .duplicate{
     float:right;
 	border-radius:0;
 	height: 43px;
 }
+
 label {
 	margin-left: 30px;
 }
@@ -82,37 +96,47 @@ label {
      margin-right: 15px;
  }
  
- .gender-buttons label {
- 	width:100px;text-align:center;
- 	border:1px solid  #007bff;
-     display: inline-block;
-     padding: 8px 16px;
-     border-radius: 5px;
-     cursor: pointer;
- }
+.gender-buttons label {
+	width:100px;text-align:center;
+	border:1px solid  #007bff;
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.male {
+	margin-left: 100px;
+}
+
+.female {
+	margin-left: 50px;
+}
+
+#male:checked + label {
+    background-color: #007bff;
+    color: #fff;
+}
+
+#female:checked + label {
+    background-color: #ff69b4;
+    color: #fff;
+}
  
- #male:checked + label {
-     background-color: #007bff;
-     color: #fff;
- }
- 
- #female:checked + label {
-     background-color: #ff69b4;
-     color: #fff;
- }
- 
- .gender-buttons input[type="radio"] {
-     display: none;
- }
+.gender-buttons input[type="radio"] {
+    display: none;
+}
+
 .signup_img{
-	width: 300px;height: 200px;
+	width: 300px;
+	height: 200px;
 }
 </style>
 </head>
 <body>
 <!-- 중복확인 버튼 때문에 불 필요한 여백 발생하는중 고쳐야 함 -->
 <div class="body-tag">
-	<div style="margin: 50px auto 0 auto;width: 300px;height: 250px;">
+	<div style="margin: 50px auto 0 auto; width: 300px; height: 180px;">
 		<img alt="asd" src="<c:url value='/resources/img/Hospital.png'/>" class="signup_img">
 	</div>
 	<form id="myForm" action="<c:url value="/member/signup"/>">
@@ -154,12 +178,12 @@ label {
 		<div class="gender-buttons">
 			<img alt="아이디이미지" src="<c:url value="/resources/img/gender.svg"/>">
 	   		 <input type="radio" id="male" name="me_gender" value="남자">
-	   		 <label for="male">남자</label>
+	   		 <label for="male" class="male">남자</label>
 		</div>
 
 		<div class="gender-buttons">
 		    <input type="radio" id="female" name="me_gender" value="여자" >
-		    <label for="female"style="border:1px solid #ff69b4;">여자</label>
+		    <label for="female"  class="female" style="border:1px solid #ff69b4;">여자</label>
 		</div>
 		<div style="margin-top: 15px;">
 			<img alt="아이디이미지" src="<c:url value="/resources/img/job.svg"/>">
@@ -176,7 +200,7 @@ label {
 	    	<input type="hidden" id="phone2" name="me_phone">
 		</div>
 		<div class="subject">
-		<div class="hr" style="margin-top:30px;margin-bottom:40px;border: 1px solid #d2d2d2;width: 560px;"></div>
+		<div class="hr" style="margin-top:0px; margin-bottom:30px; border: 1px solid #d2d2d2; width: 560px;"></div>
 			<select id="subject" name="me_hs_num" style="margin-bottom: 15px;width: 500px" >
 				<option value="none">관심 병원 과목을 선택하세요</option>
 				<option value="none">없음</option>

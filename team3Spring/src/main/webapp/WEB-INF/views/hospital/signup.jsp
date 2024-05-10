@@ -22,32 +22,42 @@ align-items: center;
 	padding: 5px;
 }
 .input-tag {
-	
-    border: 1px solid #ccc; 
+	border: 1px solid #ccc; 
     outline: none;
     margin-bottom: 15px; 
-   width: 500px;
+    width: 500px;
     padding: 20px;
 }
 .input-tag:focus {
-    border-bottom-color:  #C12DFF; 
-    box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
+    border-bottom-color: green;
+    box-shadow: 0 0 5px rgba(0, 128, 0, 0.5);
 }
 .btn {
 	text-decoration: none;
-	border:1px solid  #C12DFF;
+	border:1px solid green;
 	width: 100px;
 }
 .btn:hover {
-	background-color:  #C12DFF;
+	background-color: rgba(0, 128, 0, 0.5);
 	color: white;
 }
 .signup-btn {
-text-align:center;font-size:20px;font-weight:bold;
-width: 500px;height:40px;border-radius:0;
-padding: 2px;border-bottom: 1px solid  #C12DFF;
-margin-left:34px;
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+	width: 500px;
+	height: 50px;
+	padding: 2px;
+	border-bottom: 1px solid green;
+	border-radius: 5px;
+	margin-left: 34px;
+	margin-top: 10px;
 }
+
+.signup-btn:hover {
+	background-color: green;
+}
+
 select {
 	margin-left:34px;
     padding: 10px;
@@ -58,31 +68,36 @@ select {
     width: 500px; 
 }
 select:focus {
-    border-color:  #C12DFF; 
-    box-shadow: 0 0 5px rgba(0, 0, 255, 0.5);
+    border-color: rgba(0, 128, 0, 0.5); 
+    box-shadow: 0 0 5px rgba(0, 128, 0, 0.5);
 }
 select:hover {
     background-color: #eaeaea;
 }
+
 img {
  width: 30px;
 }
+
 .duplicate {
     float:right;
 	border-radius:0;
 	height: 43px;
 }
+
 label {
 	margin-left: 30px;
 }
+
 .signup_img{
-	width: 300px;height: 200px;
+	width: 300px;
+	height: 200px;
 }
 </style>
 </head>
 <body>
 <div class="body-tag">
-	<div style="margin: 50px auto 0 auto;width: 300px;height: 250px;">
+	<div style="margin: 50px auto 0 auto; width: 300px; height: 180px;">
 		<img alt="asd" src="<c:url value='/resources/img/Hospital.png'/>" class="signup_img">
 	</div>
 	<form action='<c:url value="/hospital/signup"/>' id="myForm">
@@ -146,7 +161,7 @@ label {
 			<div>
 		    	<input type="hidden" id="phone2" name="ho_phone">
 			</div>
-			<div class="hr" style="margin-top:30px; margin-bottom:40px; border: 1px solid #d2d2d2; width: 480px;"></div>
+			<div class="hr" style="margin-top:0px; margin-bottom:30px; border: 1px solid #d2d2d2; width: 560px;"></div>
 			<div class="subject">
 				<select id="subject" name="ho_hs_num" style="width: 500px; margin-bottom: 20px" required>
 					<option value="none">진료과목을 선택하세요</option>

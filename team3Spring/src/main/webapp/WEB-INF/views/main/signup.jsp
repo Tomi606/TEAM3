@@ -47,14 +47,18 @@ margin-left: auto;
     text-align: center;
     line-height: 200px;
     text-decoration: none;
-      border: 2px solid  rgba(0, 128, 0, 0.5);
+    border: 2px solid rgba(0, 128, 0, 0.5);
+    font-size: 25px;
+    color: green;
 }
 .aTag-btn1:hover,
 .aTag-btn2:hover{
-box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
+	box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
     transition: box-shadow 0.3s ease;
-
-	
+	text-decoration: none;
+	font-size: 25px;
+    font-weight: bold;
+    color: green;
 }
 
 </style>
