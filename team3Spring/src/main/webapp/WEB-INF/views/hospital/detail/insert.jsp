@@ -187,7 +187,7 @@ input[type="checkbox"]:checked::before {
 					                <c:forEach items="${subjects}" var="sub">
 					                    <c:if test="${sub.hsl_hs_num == hs.hs_num}">
 					                        <c:set var="isChecked" value="true"/>
-					                        <input type="checkbox" class="checkbox" name="hsl_hs_num" value="${sub.hsl_hs_num}" checked>${hs.hs_title}
+					                        <input type="checkbox" class="checkbox" name="hs_num" value="${sub.hsl_hs_num}" checked>${hs.hs_title}
 					                    </c:if>
 					                </c:forEach>
 					                <c:if test="${isChecked == 'false'}">
@@ -220,6 +220,7 @@ input[type="checkbox"]:checked::before {
 $("form").submit(function(e) {
 	/* e.preventDefault(); */
 	let hsList = getCheckedBox();
+	console.log(hsList);
 	let hd_info = $('[name=hd_info]').val();
 	let hd_time = $('[name=hd_time]').val();
 	let hd_park = $('[name=hd_park]').val();
