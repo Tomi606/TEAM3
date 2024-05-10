@@ -44,13 +44,29 @@ public class HomeController {
 	private HospitalService hospitalService;
 	
 	@GetMapping("/")
-	public String home(Model model) {
-		ArrayList<BoardVO> boList = boardService.selectBoard();
-		ArrayList<PostVO> poList = boardService.selectHotPostList();
-		ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
-		model.addAttribute("poList", poList);
-		model.addAttribute("boList", boList);
-		model.addAttribute("list", list);
+	public String home(Model model,HttpSession session) {
+		SiteManagement user = (SiteManagement)session.getAttribute("user");
+		if(user == null) {
+			ArrayList<BoardVO> boList = boardService.selectBoard();
+			ArrayList<PostVO> poList = boardService.selectHotPostList();
+			ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
+			
+			model.addAttribute("poList", poList);
+			model.addAttribute("boList", boList);
+			model.addAttribute("list", list);
+		}
+		else {
+			ArrayList<HospitalVO> hoList = hospitalService.getMyAreaHospitalList(user.getSite_la_num());
+			ArrayList<BoardVO> boList = boardService.selectBoard();
+			ArrayList<PostVO> poList = boardService.selectHotPostList();
+			ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
+			
+			model.addAttribute("hoList", hoList);
+			model.addAttribute("poList", poList);
+			model.addAttribute("boList", boList);
+			model.addAttribute("list", list);
+		}
+
 		return "home";
 	}
 	@ResponseBody

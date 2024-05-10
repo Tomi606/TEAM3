@@ -3,7 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team3.dao.HospitalDAO">
-
+	<select id="selectMyAreaHospitalList" resultType="HospitalVO">
+		select * from hospital where ho_la_num = #{n}
+	</select>
+	
 	<select id="selectHospitalSubjectListHome" resultType="HospitalSubjectVO">
 		select * from hospital_subject order by hs_title limit 13
 	</select>

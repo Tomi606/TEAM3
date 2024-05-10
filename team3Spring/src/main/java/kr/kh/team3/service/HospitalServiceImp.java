@@ -906,5 +906,10 @@ public class HospitalServiceImp implements HospitalService {
 		return hospitalDao.insertHoSub(ho_id, ho_hs_num);
 	}
 
+	@Override
+	public ArrayList<HospitalVO> getMyAreaHospitalList(int site_la_num) {
+		return hospitalDao.selectMyAreaHospitalList(site_la_num);
+	}
+
 
 }
