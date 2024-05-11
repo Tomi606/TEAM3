@@ -33,7 +33,7 @@ CREATE TABLE `post` (
 	`po_title`	varchar(30) NOT	NULL,
 	`po_report_count` int not null default 0, 
     `po_view` INT NULL DEFAULT '0',
-	`po_date` date not null,
+	`po_date` DATETIME not null,
 	`po_content`	TEXT NOT NULL,
 	`po_bo_num`	int	NOT NULL,
 	`po_mg_num`	int	NOT NULL,
@@ -45,7 +45,7 @@ DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
 	`co_num`	int	primary key auto_increment,
 	`co_content`	TEXT NOT NULL,
-	`co_date` date not null,
+	`co_date` DATETIME not null,
 	`co_report_count` int not null default 0,
 	`co_po_num`	int	NOT NULL,
 	`co_mg_num`	int	NOT NULL
@@ -64,7 +64,8 @@ CREATE TABLE `reservation` (
 	`rv_num`	int	primary key auto_increment,
 	`rv_me_id`	varchar(13)	NOT NULL,
 	`rv_rvs_name`	varchar(10)	NOT NULL,
-	`rv_rs_num`	int	NOT NULL
+	`rv_rs_num`	int	NOT NULL,
+    `rv_date`	datetime default CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS `bookmark`;

@@ -1,6 +1,7 @@
 package kr.kh.team3.model.vo;
 
 import java.text.SimpleDateFormat;
+
 import java.util.Date;
 
 import lombok.Data;
@@ -38,15 +39,15 @@ public class PostVO {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			return format.format(this.po_date);
 		} else {
-			return "없당ㅎㅎ";
+			return "존재하지 않습니다.";
 		}
 	}
 	public String getChangeDate1() {
 		if (this.po_date != null) {
-			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			return format.format(this.po_date);
 		} else {
-			return "없당ㅎㅎ";
+			return "존재하지 않습니다.";
 		}
 	}
 	

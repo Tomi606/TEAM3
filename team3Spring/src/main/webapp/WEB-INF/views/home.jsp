@@ -462,14 +462,15 @@ margin-top: 15px;
 /*전체 예역 현황*/
 
 .total-reservation{
-padding:20px;display:flex;
-border:1px solid black;width: 700px;height: 400px;
+padding:20px;display:flex;flex-direction: column;
+    box-shadow: 0 3px 16px rgba(0, 0, 0, 0.1);width: 100%;height: 460px;margin: 0 auto;
 }
 .hos-sub{
-width:110px;height:70px;border:1px solid black;
-margin:10;
+width:85%;height:120px;border:2px solid green;
+margin:15px;padding:10px;
 }
 .reservation-box{
+width:100%;
 display: flex;
 
 }
@@ -525,7 +526,8 @@ height:50px;width:100%;background-color: #FCF9F7;
     padding: 10px; 
 }
 .new_hospital-sub{
-	width: 100%;height: 150px;display: flex;padding: 3px;margin-top:10px; 
+	width: 100%;height: 150px;display: grid;padding: 3px;margin-top:10px; 
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 .hs_btn,.bo_btn{
 margin: 10px;
@@ -762,23 +764,21 @@ margin: 10px;
 			
 			
 			<div class="hospital-reservation" style="margin-top: 150px">
-				<div class="total-hos" style="margin-bottom: 150px;">
-					<h3>전체 예약 현황</h3>
-					<p></p>
-				</div>
 					<div class="reservation-box">	
 						<div class="total-reservation">
-							<div class="new_hospital-res" style="margin: auto;">
-								<h4 >최근 예약이 많은 병원</h4>
+							<div class="new_hospital-res" style="margin:0 auto;">
+								<h4 style="color: #555">< 실시간 예약 현황 ></h4>
 							</div>
-							<c:forEach items="${reList}" var="re">
 							<div class="new_hospital-sub">
+							<c:forEach items="${reList}" var="re">
 								<div class="hos-sub">
-									<a>${re.schedule.program.hsList.hospital_subject.hs_title }</a>
-									<p>125</p>
+									<h5>${re.schedule.program.hospital.ho_name}</h5>
+									<p>${re.schedule.program.hsList.hospital_subject.hs_title}</p>
+									<p>${re.maskedId}님</p>
+									<p>${re.changeDate}</p>
 								</div>
-							</div>
 							</c:forEach>
+							</div>
 						</div>
 						<hr>
 				  </div>

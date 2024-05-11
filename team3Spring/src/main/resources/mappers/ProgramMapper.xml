@@ -202,7 +202,7 @@
 				and (hp_title like concat('%', #{cri.search}, '%'))
 			</when>
 		</choose>
-		order by rs_date asc
+		order by rs_num desc
 		LIMIT #{cri.pageStart},#{cri.perPageNum}
 	</select>
 	

@@ -45,7 +45,7 @@ public class HospitalVO {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			return format.format(this.ho_stop);
 		} else {
-			return "없당ㅎㅎ";
+			return "존재하지 않습니다.";
 		}
 	}
 
