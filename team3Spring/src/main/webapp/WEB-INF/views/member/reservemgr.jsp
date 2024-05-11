@@ -8,12 +8,14 @@
 <title>회원 예약 관리</title>
 <style type="text/css">
 .post_list_box {
-	border: 1px solid black;
 	width: 1400px;
 	height: 93.4%;
 	margin: 100px auto;
 	padding: 100px;
 	text-align: center;
+	
+    box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
 }
 .hr {
 	width: 100%;
@@ -70,6 +72,10 @@
 .search-btn:focus {
     outline: none;
 }
+th{
+border-top: 1px solid #dee2e6;
+padding: .75rem;
+}
 .pagination{margin-top:50px; }
 .post-search-box{text-align: center;width: 100%}
 </style>
@@ -93,6 +99,7 @@ let page = 1;
 let type = 'hoName';
 let search = '';
 let rv_num = 0;
+
 
 getPostList();
 function getPostList(){
@@ -126,7 +133,7 @@ function displayPostList(bookList){
 				<th style="width: 10%;">날짜</th>
 				<th style="width: 10%;">시간</th>
 				<th style="width: 10%;">예약상태</th>
-				<th style="width: 10%;"></th>
+				<th style="width: 10%;">예약취소</th>
 			</tr>
 		</thead>
 		<tr class="hr"></tr>
@@ -161,15 +168,20 @@ function displayPostList(bookList){
 			<td>\${item.reservationScheduleVO.rsTime}</td>
 			<td>\${item.rv_rvs_name}</td>
 	  `;
-      
-      if(item.rv_rvs_name == "예약완료"){
+      var currentDate = new Date();
+      if(currentDate > item.reservationScheduleVO.rs_date){
     	  str += `
-    		  <td><button type="button" class="cancelBtn" data-target="\${item.rv_num}">취소</button></td>
+    		  <td>취소 불가</td>
+    		</tr>
+    	  `;
+      }else if(item.rv_rvs_name == "예약취소"){
+    	  str += `
+    		  <td>취소 완료</td>
     		</tr>
     	  `;
       }else{
     	  str += `
-    		  <td>취소 완료</td>
+    		  <td><button type="button" class="cancelBtn" data-target="\${item.rv_num}">취소</button></td>
     		</tr>
     	  `;
       }
