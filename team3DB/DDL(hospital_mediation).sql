@@ -931,6 +931,10 @@ insert into report_state values('1'),('3'),('7'),('15'),('30'),('60'),('180'),('
 #예약상태 
 insert into reservation_state values ("예약취소"),("예약완료");
 
+#결제상태
+INSERT INTO `hospital_mediation`.`payment_state` (`ps_name`) VALUES ('결제완료');
+INSERT INTO `hospital_mediation`.`payment_state` (`ps_name`) VALUES ('결제취소');
+
 # site_management 추가
 -- insert into site_management value(1, 1, 'qqqq1111', "01011111111", "qqqq1111@naver.com", "USER");
 select * from site_management;
