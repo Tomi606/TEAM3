@@ -160,9 +160,19 @@ function displayPostList(bookList){
 			<td>\${item.reservationScheduleVO.rsDate}</td>
 			<td>\${item.reservationScheduleVO.rsTime}</td>
 			<td>\${item.rv_rvs_name}</td>
-			<td><button type="button" class="cancelBtn" data-target="\${item.rv_num}">취소</button></td>
-		</tr>
-      `;
+	  `;
+      
+      if(item.rv_rvs_name == "예약완료"){
+    	  str += `
+    		  <td><button type="button" class="cancelBtn" data-target="\${item.rv_num}">취소</button></td>
+    		</tr>
+    	  `;
+      }else{
+    	  str += `
+    		  <td>취소 완료</td>
+    		</tr>
+    	  `;
+      }
 	}
     str += `
 			</tbody>
