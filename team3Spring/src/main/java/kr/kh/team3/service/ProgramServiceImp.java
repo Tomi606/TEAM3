@@ -273,4 +273,10 @@ public class ProgramServiceImp implements ProgramService {
 		return programDao.selectBookListCount(user, cri);
 	}
 
+	@Override
+	public boolean updateRvRvsName(int rv_num) {
+		
+		return programDao.updateRvRvsName(rv_num);
+	}
+
 }

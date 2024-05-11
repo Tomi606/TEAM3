@@ -78,40 +78,6 @@
 <div class="post_list_box">
 	<div class="box-post-list">
 		<!-- 회원 게시글, 댓글 출력 -->
-		<table style="width: 100%;">
-		<thead>
-			<tr>
-				<th style="width: 20%;">병원명</th>
-				<th style="width: 20%;">프로그램명</th>
-				<th style="width: 20%;">프로그램 가격</th>
-				<th style="width: 10%;">날짜</th>
-				<th style="width: 10%;">시간</th>
-				<th style="width: 10%;">예약상태</th>
-				<th style="width: 10%;"></th>
-			</tr>
-		</thead>
-		<tr class="hr"></tr>
-		<tbody>
-			<tr style="height: 100px; border-bottom: 1px solid lightgray;">
-				<td>df</td>
-				<td>df</td>
-				<td>df</td>
-				<td>df</td>
-				<td>df</td>
-				<td>df</td>
-				<td><button>취소</button></td>
-			</tr>
-			<tr style="height: 100px; border-bottom: 1px solid lightgray;">
-				<td>df</td>
-				<td>df</td>
-				<td>df</td>
-				<td>df</td>
-				<td>df</td>
-				<td>df</td>
-				<td>취소 불가</td>
-			</tr>
-		</tbody>
-		</table>
 	</div>
 	<div class="box-pagination">
 		<ul class="pagination justify-content-center">
@@ -126,6 +92,7 @@
 let page = 1;
 let type = 'hoName';
 let search = '';
+let rv_num = 0;
 
 getPostList();
 function getPostList(){
@@ -193,7 +160,7 @@ function displayPostList(bookList){
 			<td>\${item.reservationScheduleVO.rsDate}</td>
 			<td>\${item.reservationScheduleVO.rsTime}</td>
 			<td>\${item.rv_rvs_name}</td>
-			<td><button>취소</button></td>
+			<td><button type="button" class="cancelBtn" data-target="\${item.rv_num}">취소</button></td>
 		</tr>
       `;
 	}
@@ -265,6 +232,32 @@ $(document).on('click','.search-btn',function(){
    search = $('.search-search').val();
    
    getPostList();
+});
+
+$(document).on('click','.cancelBtn',function(){
+   rv_num = $(this).data('target');
+   
+   $.ajax({
+      async : true,
+      url : '<c:url value="/member/bookcancel"/>', 
+      type : 'post', 
+      data : {
+    	  rv_num : rv_num
+      },
+      success : function (data){
+    	  if(data){
+    		  alert("예약 취소가 완료되었습니다.");
+    		  getPostList();
+    	  }
+    	  else{
+    		  alert("예약 취소를 실패하였습니다.");
+    		  getPostList();
+    	  }
+      }, 
+      error : function(jqXHR, textStatus, errorThrown){
+
+      }
+   });
 });
 </script>
 </body>

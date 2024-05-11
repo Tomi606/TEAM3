@@ -70,4 +70,6 @@ public interface ProgramService {
 
 	int getBookListCount(SiteManagement user, Criteria cri);
 
+	boolean updateRvRvsName(int rv_num);
+
 }

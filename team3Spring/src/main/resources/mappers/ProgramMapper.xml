@@ -222,5 +222,9 @@
 		</choose>
 	</select>
 	
+	<update id="updateRvRvsName">
+		update reservation set rv_rvs_name = "예약취소"
+		where rv_num = #{rv_num}
+	</update>
 	
 </mapper>
