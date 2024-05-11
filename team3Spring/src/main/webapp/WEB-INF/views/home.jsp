@@ -263,6 +263,10 @@ display:flex;justify-content:flex-end;
 	box-shadow: 0 6px 16px rgba(0, 20, 0, 0.2);
 	   transition: box-shadow 0.3s ease;
 }
+.total-reservation:hover{
+box-shadow: 0 6px 16px rgba(0, 20, 0, 0.2);
+	   transition: box-shadow 0.3s ease;
+}
 
 /*검색창 시작*/
 .search-main-left, .search-main-right {
@@ -462,7 +466,7 @@ margin-top: 15px;
 /*전체 예역 현황*/
 
 .total-reservation{
-padding:20px;display:flex;flex-direction: column;
+padding:30px;display:grid;grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     box-shadow: 0 3px 16px rgba(0, 0, 0, 0.1);width: 100%;height: 460px;margin: 0 auto;
 }
 .hos-sub{
@@ -526,8 +530,8 @@ height:50px;width:100%;background-color: #FCF9F7;
     padding: 10px; 
 }
 .new_hospital-sub{
-	width: 100%;height: 150px;display: grid;padding: 3px;margin-top:10px; 
-	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	width: 100%;height: 150px;padding: 3px;margin-top:10px; 
+	
 }
 .hs_btn,.bo_btn{
 margin: 10px;
@@ -557,6 +561,11 @@ margin: 10px;
 .ho-address{
 	text-align: left;
 	margin-top: 5px;
+}
+.text-boxBox{
+	width:100%;height:300px;
+	text-align: center;
+	
 }
 </style>
 </head>
@@ -692,7 +701,7 @@ margin: 10px;
 			</div>
  
 			<div class="hot-new">
-				<h3>&lt;Hot & New&gt;</h3>
+				<h3 style="font-weight: bold;color: #555">&lt;Hot & New&gt;</h3>
 				<p style="color: gray;">새롭고 재밌는 소식들을 여기서!</p>
 			</div>
 			<div class="hot-group" style="display: flex;margin:0 auto;width: 100%;margin-bottom: 35px;">
@@ -736,26 +745,34 @@ margin: 10px;
 				<a href="<c:url value='/board/all'/>"  class="button-link" style="margin-top: 50px">더보기</a>
 			</div>
 			<div class="hospital-group">
-			<h3 style="font-weight: bold;">&lt;내 지역 병원&gt;</h3>
+			<h3 style="font-weight: bold;color: #555">&lt;내 지역 병원&gt;</h3>
+			<p style="color: gray;">내 지역 병원 소개!</p>
 			<div class="hot-group" style="display: flex;width: 100%;height:400px;text-align: center;margin-bottom: 35px">
-				<c:choose>
-					<c:when test="${empty hoList}">
-						<div style="font-size: 50px; color: #c8c8c8; text-align: center;">현재 지역에 있는 병원이 없습니다.</div>
-					</c:when>
-					<c:otherwise>
-						<c:forEach items="${hoList}" var="ho">
-							 <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=${ho.ho_id}'/>" style="padding: auto;">
-												<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
-										<div class="ho-name">${ho.ho_name}</div>
-										<div class="hs-title">${ho.hospital_subject.hs_title}</div>
-										<div class="ho-address"><img class="small-img"
-				   								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">${ho.ho_address}</div>
-									<%-- <div class="hd-time"><img class="small-img"
-			   								alt="위치 이미지" src="<c:url value="/resources/img/time-line.svg"/>">(${dayOfWeek}요일) ${hd_time}</div> --%>
-							 </a>
-						 </c:forEach>
-					 </c:otherwise>
-				</c:choose>
+				<c:if test="${user==null}">
+					<div class="text-boxBox">
+						<h4 style=" color: #c8c8c8;line-height:100px;">로그인후 확인 가능합니다</h4>
+					</div>	
+				</c:if>
+				<c:if test="${user != null }">
+					<c:choose>
+						<c:when test="${empty hoList}">
+							<h4 style="color: #c8c8c8; text-align: center;">현재 지역에 있는 병원이 없습니다.</h4>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${hoList}" var="ho">
+								 <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=${ho.ho_id}'/>" style="padding: auto;">
+													<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
+											<div class="ho-name">${ho.ho_name}</div>
+											<div class="hs-title">${ho.hospital_subject.hs_title}</div>
+											<div class="ho-address"><img class="small-img"
+					   								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">${ho.ho_address}</div>
+										<%-- <div class="hd-time"><img class="small-img"
+				   								alt="위치 이미지" src="<c:url value="/resources/img/time-line.svg"/>">(${dayOfWeek}요일) ${hd_time}</div> --%>
+								 </a>
+							 </c:forEach>
+						 </c:otherwise>
+					</c:choose>
+				</c:if>
 			</div>
 			<div style="text-align: center;width: 100%;">
 			<div class="hr" style="margin-bottom:40px;border: 1px solid #d2d2d2;width: 100%;"></div>
@@ -764,21 +781,34 @@ margin: 10px;
 			
 			
 			<div class="hospital-reservation" style="margin-top: 150px">
+					<div class="new_hospital-res" style="margin:0 auto;">
+						<h4 style="font-weight: bold;color: #555">< 실시간 예약 현황 ></h4>
+						<p style="color: gray;">실시간 예약 현황들은 여기서!</p>
+					</div>
 					<div class="reservation-box">	
 						<div class="total-reservation">
-							<div class="new_hospital-res" style="margin:0 auto;">
-								<h4 style="color: #555">< 실시간 예약 현황 ></h4>
-							</div>
-							<div class="new_hospital-sub">
-							<c:forEach items="${reList}" var="re">
-								<div class="hos-sub">
-									<h5>${re.schedule.program.hospital.ho_name}</h5>
-									<p>${re.schedule.program.hsList.hospital_subject.hs_title}</p>
-									<p>${re.maskedId}님</p>
-									<p>${re.changeDate}</p>
-								</div>
-							</c:forEach>
-							</div>
+							<c:choose>
+								<c:when test="${user != null}">
+									<c:forEach items="${reList}" var="re">
+									<div class="new_hospital-sub">
+										<div class="hos-sub">
+											<h5><a href="<c:url value='/hospital/detail/detail?ho_id=${re.schedule.program.hp_ho_id}'/>">${re.schedule.program.hospital.ho_name}</a></h5>
+											<p>${re.schedule.program.hsList.hospital_subject.hs_title}</p>
+											<p>${re.maskedId}님</p>
+											<p>${re.changeDate}</p>
+										</div>
+									</div>	
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<div class="new_hospital-sub" >
+										<div class="text-boxBox"style="right: 10px; position: absolute;" >
+											<h4 style=" color: #c8c8c8;line-height: 100px;">로그인후 확인 가능합니다</h4>
+										</div>
+									</div>	
+								</c:otherwise>
+							</c:choose>
+							
 						</div>
 						<hr>
 				  </div>
