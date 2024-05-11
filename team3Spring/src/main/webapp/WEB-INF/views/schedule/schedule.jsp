@@ -263,21 +263,22 @@ $(document).on("click", ".day-btn", function(){
 			"hp_num" : hp_num
 		},
 		success : function(data){
+			sgo.rs_date = data.time.rsDate;
 			let str = ``;
 			for(let tmp of data.timeList){
 				let res = maxPersonCheck(tmp);
 				if(res){
 					str+= 
 						`
-							<div class="time-box reserveBtn" data-time="\${tmp.rsTime}">
-								<a class="reserveBtn" data-time="\${tmp.rsTime}" data-value="\${tmp.rs_hp_num}">\${tmp.rsTime}</a>
+							<div class="time-box reserveBtn" data-time="\${tmp.rsTime}" data-target="\${tmp.rs_num}">
+								<a class="reserveBtn" data-time="\${tmp.rsTime}" data-value="\${tmp.rs_hp_num}" data-target="\${tmp.rs_num}">\${tmp.rsTime}</a>
 							</div>
 						`
 				}else{
 					str+= 
 						`
-							<div class="time-box time-box-gray" data-time="\${tmp.rsTime}">
-								<a class="reserveBtn" data-time="\${tmp.rsTime}" data-value="\${tmp.rs_hp_num}">\${tmp.rsTime}</a>
+							<div class="time-box time-box-gray" data-time="\${tmp.rsTime}" data-target="\${tmp.rs_num}">
+								<a class="reserveBtn" data-time="\${tmp.rsTime}" data-value="\${tmp.rs_hp_num}" data-target="\${tmp.rs_num}">\${tmp.rsTime}</a>
 							</div>
 						`
 				}
