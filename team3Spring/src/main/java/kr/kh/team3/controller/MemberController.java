@@ -259,8 +259,6 @@ public class MemberController {
 	}
 	
 	
-	//@RequestParam("page") int page, @RequestParam("type") String type,
-	//@RequestParam("search") String search, @RequestParam("po_id") String po_id, 
 	@ResponseBody
 	@PostMapping("/member/reservemgr")
 	public Map<String, Object> memberReservemgrPost(@RequestParam("page") int page, @RequestParam("type") String type, @RequestParam("search") String search, HttpSession session) {
@@ -273,6 +271,15 @@ public class MemberController {
 		map.put("bookList", bookList);
 		map.put("pm", pm);
 		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/member/bookcancel")
+	public boolean memberBookCancelPost(@RequestParam("rv_num") int rv_num) {
+		
+		boolean cancel = programService.updateRvRvsName(rv_num);
+		
+		return cancel;
 	}
 
 }

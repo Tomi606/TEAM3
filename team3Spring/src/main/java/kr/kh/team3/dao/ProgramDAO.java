@@ -76,5 +76,6 @@ public interface ProgramDAO {
 
 	int selectBookListCount(@Param("user")SiteManagement user, @Param("cri")Criteria cri);
 
+	boolean updateRvRvsName(@Param("rv_num")int rv_num);
 
 }
