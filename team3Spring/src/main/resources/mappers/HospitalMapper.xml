@@ -726,6 +726,9 @@
 		<result property="hp_hsl_num" column="hp_hsl_num"/>
 		<collection property="hsList" ofType="HsListVO"
 					column="hp_hsl_num" select="selectHsListMap"/>
+		<collection property="hospital" ofType="HospitalVO"
+					column="hp_ho_id" select="selectHospitalListMap"/>
+					
 		</resultMap>
 		
 	<!-- reservation_scheduleMap -->
@@ -746,6 +749,10 @@
 		<collection property="schedule" ofType="ReservationScheduleVO"
 					column="rv_rs_num" select="selectScheduleList"/>
 	</resultMap>
+	<!-- hospital -->
+	<select id="selectHospitalListMap" resultType="HospitalVO">
+		select * from hospital where ho_id = #{hp_ho_id}
+	</select>
 	<!-- subject -->
 	<select id="selectSubjectListMap" resultType="HospitalSubjectVO">
 		select * from hospital_subject where hs_num = #{hsl_hs_num}
@@ -763,9 +770,11 @@
 	<select id="selectScheduleList" resultMap="scheduleMap">
 		select * from reservation_schedule where rs_num = #{rv_rs_num}
 	</select>
+	
 	<!-- reservation -->
 	<select id="selectAllReservationList" resultMap="reservationMap">
-		select * from reservation	
+		select * from reservation 
+		order by rv_num desc limit 10
 	</select>
 	
 </mapper>

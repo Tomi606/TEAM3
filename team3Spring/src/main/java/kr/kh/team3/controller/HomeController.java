@@ -52,6 +52,7 @@ public class HomeController {
 			ArrayList<PostVO> poList = boardService.selectHotPostList();
 			ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
 			ArrayList<ReservationVO> reList = hospitalService.selectAllReservationList();
+			log.info(reList);
 			model.addAttribute("reList", reList);
 			model.addAttribute("poList", poList);
 			model.addAttribute("boList", boList);

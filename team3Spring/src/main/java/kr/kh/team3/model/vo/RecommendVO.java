@@ -23,12 +23,4 @@ public class RecommendVO {
 		
 	}
 
-//	public String getChangeDate1() {
-//		if (post.getChangeDate1() != null) {
-//			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-//			return format.format(post.getChangeDate1());
-//		} else {
-//			return "없당ㅎㅎ";
-//		}
-//	}
 }

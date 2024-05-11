@@ -37,10 +37,10 @@ public class MemberVO {
 
 	public String getChangeDate() {
 		if (this.me_stop != null) {
-			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 			return format.format(this.me_stop);
 		} else {
-			return "없당ㅎㅎ";
+			return "존재하지 않습니다.";
 		}
 	}
 }
