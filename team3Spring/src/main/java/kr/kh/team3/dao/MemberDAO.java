@@ -134,6 +134,11 @@ public interface MemberDAO {
 
 	ArrayList<MemberVO> selectMemberLand();
 
+	MemberVO selectReservationId(@Param("me_id") String me_id, @Param("hd_ho_id") String hd_ho_id);
+
+	boolean selectReservationState(@Param("me_id") String reId);
+
+
 
 
 }

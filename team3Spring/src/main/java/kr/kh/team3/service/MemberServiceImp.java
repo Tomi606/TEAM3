@@ -539,8 +539,6 @@ public class MemberServiceImp implements MemberService {
 		}
 		//통과되면 select
 		BookmarkVO result = memberDao.selectDetailBookmark(member.getMe_id(), hd_ho_id);
-		System.out.println("memberㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ" + member.getMe_id());
-		System.out.println("detailㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ" + hd_ho_id);
 		
 		if(result != null) {
 			return true;
@@ -571,6 +569,21 @@ public class MemberServiceImp implements MemberService {
 	public ArrayList<MemberVO> getMemberLand() {
 		return memberDao.selectMemberLand();
 	}
+
+	@Override
+	public MemberVO getReservationId(String hd_ho_id, MemberVO member) {
+		if(member == null) {
+			return null;
+		}
+		return memberDao.selectReservationId(hd_ho_id, member.getMe_id());
+	}
+
+	@Override
+	public boolean getReservationState(String reId) {
+		return memberDao.selectReservationState(reId);
+	}
+
+	
 
 
 	

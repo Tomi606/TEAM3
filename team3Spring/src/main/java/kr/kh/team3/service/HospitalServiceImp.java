@@ -917,5 +917,10 @@ public class HospitalServiceImp implements HospitalService {
 		return hospitalDao.selectAllReservationList();
 	}
 
+	@Override
+	public HospitalDetailVO getDetailHoId() {
+		return hospitalDao.selectDetailHoId();
+	}
+
 
 }

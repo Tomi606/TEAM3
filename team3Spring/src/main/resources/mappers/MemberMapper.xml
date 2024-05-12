@@ -355,5 +355,15 @@
 	<select id="selectTarget" resultType="int">
 		select site_num from site_management where site_id =#{id}
 	</select>
+	
+	<select id="selectReservationId" resultType="ReservationVO">
+		select * from reservation 
+		join hospital on ho_id = #{hd_ho_id}
+		where rv_rvs_name="예약완료"
+	</select>
+	
+	<!-- <select id="selectReservationState" resultType="ReservationVO">
+		select
+	</select> -->
 
 </mapper>

@@ -259,7 +259,7 @@ public class HospitalController {
 	@GetMapping("/hospital/detail/detail")
 	public String hospitalDetail(Model model, HttpSession session, String ho_id, BookmarkVO bookmark) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		MemberVO member = memberService.getSiteMember(user);
+		MemberVO member = memberService.getSiteMember(user); 
 		//상세 페이지를 가져옴
 		HospitalDetailVO detail = hospitalService.getDetail(ho_id);
 		if(detail == null) {
@@ -294,7 +294,7 @@ public class HospitalController {
 	//리뷰 리스트
 	@ResponseBody
 	@PostMapping("/hospital/review/list")
-	public Map<String, Object> reviewList(@RequestBody Criteria cri) {
+	public Map<String, Object> reviewList(@RequestBody Criteria cri, String ho_id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		cri.setPerPageNum(3); //1페이지 당 댓글 3개
 		//한 페이지(cri)를 주면서 리뷰 리스트를 가져오라고 시킴
@@ -302,6 +302,12 @@ public class HospitalController {
 		//페이지네이션
 		int reviewTotalCount = hospitalService.getTotalReviewCount(cri);
 		PageMaker pm = new PageMaker(3, cri, reviewTotalCount);
+		
+		//리뷰 상세페이지 병원 아이디
+//		HospitalDetailVO detail = hospitalService.getDetailHoId();
+		//상세 페이지를 가져옴
+		HospitalDetailVO detail = hospitalService.getDetail(ho_id);
+		log.info(detail + " 111111111111111111111");
 		
 		map.put("reviewList", reviewList);
 		map.put("pm", pm);
@@ -316,7 +322,14 @@ public class HospitalController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO member = memberService.getSiteMember(user);
 		boolean res = hospitalService.insertReview(review, member);
-		
+		//리뷰 상세페이지 병원 아이디
+		HospitalDetailVO detail = hospitalService.getDetailHoId();
+		log.info(detail + "detaildetaildetaildetaildetaildetaildetaildetaildetaildetaildetaildetail");
+		//예약
+//		MemberVO reId = memberService.getReservationId(detail.getHd_ho_id(), member);
+		MemberVO reId = memberService.getReservationId(member);
+		log.info(detail + "reIdreIdreIdreIdreIdreIdreIdreIdreIdreIdreIdreIdreIdreId");
+		map.put("reId", reId);
 		map.put("result", res);
 		return map;
 	}

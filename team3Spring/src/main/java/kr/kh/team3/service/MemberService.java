@@ -106,4 +106,8 @@ public interface MemberService {
 
 	ArrayList<MemberVO> getMemberLand();
 
+	MemberVO getReservationId(String hd_ho_id, MemberVO member);
+
+	boolean getReservationState(String reId);
+
 }
