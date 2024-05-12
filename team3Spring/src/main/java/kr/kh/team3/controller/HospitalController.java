@@ -791,6 +791,7 @@ public class HospitalController {
 			totalCount = hospitalService.getHospitalSubAllCount(land,cri);
 		}else {
 			hoList = hospitalService.getHospitalEmd(land, hs_num, cri);
+			log.info("ㅗㅜㅘㅓㅏㅏal;sdfjlskadmkmj15321 "+hoList);
 			totalCount = hospitalService.getHospitalCountEmd(land, hs_num, cri);
 		}
 		PageMaker pm = new PageMaker(5, cri, totalCount);

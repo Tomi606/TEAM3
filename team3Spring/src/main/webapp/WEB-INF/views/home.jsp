@@ -1001,14 +1001,37 @@ $(document).ready(function () {
 		homeSearch();
 	})//search-btn end;
 	$('.search').keypress(function () {
-		homeSearch();
+		 if (event.keyCode === 13) {
+			 homeSearch();
+		    }
+		
 	})//search end;
 	function homeSearch() {
+		
 		let search = $('.search').val();
-		for(let A of ${list}){
-			alert(A);
-		}
-		let hs_num = '<c:url value="/hospital/list?hs_num=${hs.hs_num}"/>';
+		
+		$.ajax({
+			method : "post",
+			url : "<c:url value='/hospital/search'/>",
+			success : function (data){
+				console.log(data);
+				for(item of data){
+					let A = false;
+					console.log(item.hs_num);
+					if(item.hs_title == search){
+						A = true;
+						location.href=`<c:url value="/hospital/list?hs_num=\${item.hs_num}"/>`;
+						return;
+					}
+				}
+			}, 
+			error : function(jqXHR, textStatus, errorThrown){
+
+			}
+		});
+		
+		
+		
 	}
 });//function end;
 
