@@ -810,6 +810,7 @@ public class HospitalController {
 		cri.setPerPageNum(8);
 		int totalCount = hospitalService.getLikeSub(me,land,cri);
 		ArrayList<HospitalVO> hoSubList = hospitalService.getSubHoList(me, land,cri);
+		log.info("al;sdfjlskadmkmj15321 "+hoSubList);
 		PageMaker pm = new PageMaker(5, cri, totalCount);
 		map.put("pm", pm);
 		map.put("hoSubList",hoSubList);
