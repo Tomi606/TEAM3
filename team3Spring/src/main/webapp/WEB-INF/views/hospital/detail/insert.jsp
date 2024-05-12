@@ -210,8 +210,50 @@ color:rgba(0, 100, 60, 0.8);
 				
 				<div class="hd_time" id="hd_time">
 					<label for="hd_time" style="font-weight: bold" class="info-label">영업 시간</label>
-					<textarea class="hd_time info-textarea" id="hd_time" name="hd_time" required
-					placeholder="영업시간 및 점심시간을 입력하세요. 예시)월~금 : 9:00~18:00 / 토,일 : 휴무" oninput="autoTextarea(this)">${hoDetail.hd_time}</textarea>
+					<table class="hd_time" id="hd_time">
+						<tbody>
+							<tr>
+						        <td>점심 시간</td>
+						        <td><input type="text" class="lunch" name="hd_time" placeholder="12:00~13:00"
+						        onkeyup="this.value=this.value.replace(/[^0-9~:]/g,'');" required></td>
+					 		</tr>
+						    <tr>
+						        <td>월요일</td>
+						        <td><input type="text" class="mon" name="hd_time" placeholder="9:00~18:00"
+						        onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
+					 		</tr>
+						 <tr>
+						     <td>화요일</td>
+						     <td><input type="text" class="tue" name="hd_time" placeholder="9:00~18:00"
+						     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
+						 </tr>
+						 <tr>
+						     <td>수요일</td>
+						     <td><input type="text" class="wed" name="hd_time" placeholder="9:00~18:00"
+						     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
+						 </tr>
+						 <tr>
+						     <td>목요일</td>
+						     <td><input type="text" class="thu" name="hd_time" placeholder="9:00~18:00"
+						     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
+						 </tr>
+						 <tr>
+						     <td>금요일</td>
+						     <td><input type="text" class="fri" name="hd_time" placeholder="9:00~18:00" 
+						     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
+						 </tr>
+						 <tr>
+						     <td>토요일</td>
+						     <td><input type="text" class="sat" name="hd_time" placeholder="9:00~18:00"
+						     onkeyup="this.value=this.value.replace(/[^ㅎㅁ휴무0-9~:]/g,'');" required></td>
+						 </tr>
+						 <tr>
+						     <td>일요일</td> 
+						     <td><input type="text" class="sun" name="hd_time" placeholder="9:00~18:00"
+						     onkeyup="this.value=this.value.replace(/[^ㅎㅁ휴무0-9~:]/g,'');" required></td>
+						 </tr>
+						</tbody>
+					</table>
 				</div>
 				
 				<hr class="hr-line">
@@ -295,9 +337,19 @@ $("form").submit(function(e) {
 	let hd_announce = $('[name=hd_announce]').val();
 	let hd_etc = $('[name=hd_etc]').val();
 	let hd_subject_detail = $('[name=hd_subject_detail]').val();
+	let lunch = $('.lunch').val();
+	let mon = $('.mon').val();
+	let tue = $('.tue').val();
+	let wed = $('.wed').val();
+	let thu = $('.thu').val();
+	let fri = $('.fri').val();
+	let sat = $('.sat').val();
+	let sun = $('.sun').val();
+	let hd_time_array = [lunch, mon, tue, wed, thu, fri, sat, sun];
+	let hd_times = hd_time_array.join(",");
 	let detail  = {
 		      "hd_info" : hd_info, 
-		      "hd_time" : hd_time, 
+		      "hd_time" : hd_times, 
 		      "hd_park" : hd_park,
 		      "hd_announce" : hd_announce,
 		      "hd_etc" : hd_etc,
@@ -357,26 +409,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<!-- textarea 자동 스크롤 -->
-<script type="text/javascript">
-/* function autoTextarea(element) {
-	//초기 높이 설정
-	element.style.height = 'auto';
-	//스크롤 높이에 따라 텍스트 영역 높이 조절
-	element.style.height = (element.scrollHeight) + 'px';
-}
-//textarea에 이벤트 핸들러 추가
-document.addEventListener('DOMContentLoaded', function() {
-	let textarea = document.querySelector('textarea');
-	//페이지 로드 시 높이 조절
-	autoTextarea(textarea);
-	//키 입력 시 높이 주절
-	textarea.addEventListener('input', function() {
-		autoTextarea(this);
-	});
-}); */
-</script>
-
 <!-- 여러개의 진료과목 선택하는 스크립트(안씀) -->
 <script type="text/javascript">
 // 체크박스 클릭 시 hd_hs_num 업데이트
@@ -417,8 +449,7 @@ let days = {
 	'thu' : 4,
 	'fri' : 5,
 	'sat' : 6,
-	'sun' : 7,
-	'holiday' : 8
+	'sun' : 7
 };
 
 //각 요일의 input 필드에 시간 설정

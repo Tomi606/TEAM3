@@ -36,6 +36,7 @@ public class HospitalVO {
 	
 	private HsListVO hsList;
 	private HospitalDetailVO hospital_detail;
+	private HospitalSubjectVO hs;
 	private ArrayList<HospitalSubjectVO> hospital_subject;
 	private ArrayList<BookmarkVO> bookmark;
 	private LandVO land;
