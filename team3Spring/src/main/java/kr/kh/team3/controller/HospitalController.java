@@ -352,6 +352,7 @@ public class HospitalController {
 	public String detailInsert(Model model, HospitalDetailVO detail, HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospital(user);
+		log.info(detail.getHd_time());
 		//병원과목 리스트
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
 		//현재 로그인한 병원이 회원가입 시 선택했던 과목
@@ -785,12 +786,14 @@ public class HospitalController {
 		int totalCount;
 		if(hs_num == 0) {
 			hoList = hospitalService.getHospitalSubAll(land,cri);
+			log.info("al;sdfjlskadmkmj15321 "+hoList);
 			totalCount = hospitalService.getHospitalSubAllCount(land,cri);
 		}else {
 			hoList = hospitalService.getHospitalEmd(land, hs_num, cri);
 			totalCount = hospitalService.getHospitalCountEmd(land, hs_num, cri);
 		}
 		PageMaker pm = new PageMaker(5, cri, totalCount);
+		
 		map.put("pm", pm);
 		map.put("hoList", hoList);
 		return map;

@@ -808,9 +808,8 @@ margin: 10px;
 									</div>	
 								</c:otherwise>
 							</c:choose>
-							
 						</div>
-						<hr>
+					 <hr>
 				  </div>
 			</div>
 			</div>
