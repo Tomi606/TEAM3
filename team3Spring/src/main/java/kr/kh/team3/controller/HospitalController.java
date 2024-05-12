@@ -259,7 +259,7 @@ public class HospitalController {
 	@GetMapping("/hospital/detail/detail")
 	public String hospitalDetail(Model model, HttpSession session, String ho_id, BookmarkVO bookmark) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		MemberVO member = memberService.getSiteMember(user); 
+		MemberVO member = memberService.getSiteMember(user);
 		//상세 페이지를 가져옴
 		HospitalDetailVO detail = hospitalService.getDetail(ho_id);
 		if(detail == null) {
@@ -281,9 +281,15 @@ public class HospitalController {
 		//북마크 유무 : 병원페이지 아이디(detail에서 받아옴), 회원 아이디, 북마크
 		boolean detailAlready = memberService.selectDetailBookmark(bookmark, member, detail.getHd_ho_id());
 		
+		//해당 예약페이지의 병원에 예약한 회원이면
+		boolean booked = memberService.getReservationId(detail.getHd_ho_id(), member);
+		
+		model.addAttribute("booked", booked);
+		
 		model.addAttribute("detail", detail);
 		model.addAttribute("sub", sub);
 		model.addAttribute("detailAlready", detailAlready);
+		
 		model.addAttribute("land", land);
 		model.addAttribute("sido", sido);
 		model.addAttribute("sgg", sgg);
@@ -303,12 +309,6 @@ public class HospitalController {
 		int reviewTotalCount = hospitalService.getTotalReviewCount(cri);
 		PageMaker pm = new PageMaker(3, cri, reviewTotalCount);
 		
-		//리뷰 상세페이지 병원 아이디
-//		HospitalDetailVO detail = hospitalService.getDetailHoId();
-		//상세 페이지를 가져옴
-		HospitalDetailVO detail = hospitalService.getDetail(ho_id);
-		log.info(detail + " 111111111111111111111");
-		
 		map.put("reviewList", reviewList);
 		map.put("pm", pm);
 		return map;
@@ -322,14 +322,8 @@ public class HospitalController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO member = memberService.getSiteMember(user);
 		boolean res = hospitalService.insertReview(review, member);
-		//리뷰 상세페이지 병원 아이디
-		HospitalDetailVO detail = hospitalService.getDetailHoId();
-		log.info(detail + "detaildetaildetaildetaildetaildetaildetaildetaildetaildetaildetaildetail");
-		//예약
-//		MemberVO reId = memberService.getReservationId(detail.getHd_ho_id(), member);
-		MemberVO reId = memberService.getReservationId(member);
-		log.info(detail + "reIdreIdreIdreIdreIdreIdreIdreIdreIdreIdreIdreIdreIdreId");
-		map.put("reId", reId);
+		
+
 		map.put("result", res);
 		return map;
 	}

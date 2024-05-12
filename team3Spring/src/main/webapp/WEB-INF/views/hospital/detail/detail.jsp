@@ -736,15 +736,15 @@ $(document).on('click', '.box-pagination .page-link', function() {
 <!-- 리뷰 등록 -->
 <script type="text/javascript">
 //리뷰 등록 버튼의 클릭 이벤트를 등록
-$('.review-insert-btn').click(function() {
+$(document).on('click', '.review-insert-btn', function() {
 	//로그인 안되있으면 return
 	if(!checkLogin()) {
 		return false;
 	}
 	
-	//예약 완료가 되있으면 true
-	if(checkBook()) {
-		return true;
+	//예약 완료가 안 되있으면 return;
+	if(!checkBook()) {
+		return false;
 	}
 
 	let review = {
@@ -789,8 +789,8 @@ $('.review-insert-btn').click(function() {
 <!-- 예약 완료 회원 체크 -->
 <script type="text/javascript">
 function checkBook() {
-	//해당 상세페이지의 병원 아이디로 "예약완료"한 회원이면
-	if("${reId}") {
+	//해당 상세페이지의 병원 아이디로 "예약완료" 한 회원이면
+	if("${booked}" == "true") {
 		return true;
 	}
 	else {

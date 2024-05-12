@@ -465,6 +465,11 @@ public class HospitalServiceImp implements HospitalService {
 			return false;
 		}
 		
+		ReservationVO reservation = memberDao.getMemberReservation(member.getMe_id());
+		if(reservation == null) {
+			return false;
+		}
+		
 		review.setVw_me_id(member.getMe_id());
 		return hospitalDao.insertReview(review);
 	}

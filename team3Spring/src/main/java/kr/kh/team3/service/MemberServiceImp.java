@@ -23,6 +23,7 @@ import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
+import kr.kh.team3.model.vo.ReservationVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -571,22 +572,18 @@ public class MemberServiceImp implements MemberService {
 	}
 
 	@Override
-	public MemberVO getReservationId(String hd_ho_id, MemberVO member) {
+	public boolean getReservationId(String ho_id, MemberVO member) {
 		if(member == null) {
-			return null;
+			return false;
 		}
-		return memberDao.selectReservationId(hd_ho_id, member.getMe_id());
+		
+		int res = memberDao.selectReservationId(ho_id, member.getMe_id());
+		if(res == 0) {			
+			return false; 
+		}
+		else {
+			return true;
+		}
 	}
-
-	@Override
-	public boolean getReservationState(String reId) {
-		return memberDao.selectReservationState(reId);
-	}
-
-	
-
-
-	
-	 
 
 }
