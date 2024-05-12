@@ -765,6 +765,7 @@ public class HospitalController {
 			model.addAttribute("url", "/main/login");
 			return "message";
 		}
+		
 		ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
 		model.addAttribute("list", list);
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();

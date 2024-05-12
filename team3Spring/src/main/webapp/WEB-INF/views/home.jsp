@@ -659,10 +659,9 @@ margin: 10px;
 			<div class="search-main-left"></div>
 			<div class="main-search-area">
 				<div class="search-box">
-					<input type="search" class="search "  > 
+					<input type="search" class="search"> 
 					  <span class="typing-placeholder"></span>
-					<input type="image" value="" class="search-btn"
-						src="<c:url value='/resources/img/sarchbtn.png'/>">
+					<input type="image" value="" class="search-btn" src="<c:url value='/resources/img/sarchbtn.png'/>">
 				</div>
 				<div class="btnbtnbtn">
 					<a href="<c:url value="/hospital/list?hs_num=0"/>"> <img alt="병원이미지"
@@ -676,7 +675,6 @@ margin: 10px;
 					</a> <a href="<c:url value="/member/bookmark"/>"> <img alt="로고이미지"
 						src="<c:url value='/resources/img/bookmark.png'/>"> <span>북마크</span>
 					</a>
-
 				</div>
 			</div>
 			<div class="search-main-right"></div>
@@ -897,8 +895,6 @@ margin: 10px;
 </body>
 <button id="scrollToTopButton" onclick="scrollToTop()">위로가기</button>
 <script>
-
-
      $('.hos-btn').hover(function() {
          $('.category').show();
          $('.header-box').addClass('hovered');
@@ -921,10 +917,7 @@ margin: 10px;
     	 $('.category-board').hide();
     	 $('.header-box').removeClass('hovered');
      });
- 
 </script>
-
-
 <script type="text/javascript">
 $(document).ready(function() {
     var interval = setInterval(roll, 3000); // 3초마다 롤링
@@ -962,7 +955,7 @@ $(document).ready(function() {
 });
 </script>
 <script>
-    $(document).ready(function() {
+     $(document).ready(function() {
         var searchInput = $('.search');
         var defaultTexts = [
             "내과", "외과", "안과", "소아과", "정형외과", "이비인후과", "치과",
@@ -983,7 +976,7 @@ $(document).ready(function() {
         }
 
         setInterval(typeText, 400); 
-    });
+    }); 
 </script>
 <!-- 1 ,2 3 이면 tr태그 배경 바꾸기 -->
 <script>
@@ -1002,6 +995,24 @@ $(document).ready(function() {
 	    });
 	}
 });
-</script>
+$(document).ready(function () {
+	
+	$('.search-btn').click(function () {
+		homeSearch();
+	})//search-btn end;
+	$('.search').keypress(function () {
+		homeSearch();
+	})//search end;
+	function homeSearch() {
+		let search = $('.search').val();
+		for(let A of ${list}){
+			alert(A);
+		}
+		let hs_num = '<c:url value="/hospital/list?hs_num=${hs.hs_num}"/>';
+	}
+});//function end;
 
+
+
+</script>
 </html>

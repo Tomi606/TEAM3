@@ -223,7 +223,7 @@ color: green;
 		
 			<div class="category">
 				<div class="title">
-					<h3>원하시는 과목을 선택하세요</h3>
+					<h3>진료 과목을 선택하세요</h3>
 				</div>
 				<div class="li-box" >
 				   <li role="button" class="hs_btn" data-hsnum="0">전체</li>
