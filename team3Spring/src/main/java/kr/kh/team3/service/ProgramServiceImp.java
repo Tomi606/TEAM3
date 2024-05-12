@@ -242,12 +242,25 @@ public class ProgramServiceImp implements ProgramService {
 
 	@Override
 	public boolean selectUserReserve(String site_id, int rv_rs_num) {
-		ReservationVO reserve =  programDao.selectUserReserve(site_id, rv_rs_num);
-		System.out.println("여기" + reserve);
-		if(reserve != null)
-			return false;
+		ArrayList<ReservationVO> reserve =  programDao.selectUserReserve(site_id, rv_rs_num);
 		
-		return true;
+		if(reserve == null)
+			return true;
+		
+		
+		int a = 0;
+		for(ReservationVO res : reserve) {
+			if(res.getRv_rvs_name().equals("예약완료")) {
+				a += 1;
+			}
+			
+		}
+		
+		if(a == 0) {
+			return true;
+		}
+		
+		return false;
 	}
 
 	@Override

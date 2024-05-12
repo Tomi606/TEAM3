@@ -70,7 +70,7 @@ public interface ProgramDAO {
 
 	boolean insertPay(@Param("pay")PaymentVO payment);
 
-	ReservationVO selectUserReserve(@Param("site_id")String site_id, @Param("rv_rs_num")int rv_rs_num);
+	ArrayList<ReservationVO> selectUserReserve(@Param("site_id")String site_id, @Param("rv_rs_num")int rv_rs_num);
 
 	ArrayList<PostVO> selectBookList(@Param("user")SiteManagement user, @Param("cri")Criteria cri);
 

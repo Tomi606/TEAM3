@@ -281,9 +281,15 @@ public class HospitalController {
 		//북마크 유무 : 병원페이지 아이디(detail에서 받아옴), 회원 아이디, 북마크
 		boolean detailAlready = memberService.selectDetailBookmark(bookmark, member, detail.getHd_ho_id());
 		
+		//해당 예약페이지의 병원에 예약한 회원이면
+		boolean booked = memberService.getReservationId(detail.getHd_ho_id(), member);
+		
+		model.addAttribute("booked", booked);
+		
 		model.addAttribute("detail", detail);
 		model.addAttribute("sub", sub);
 		model.addAttribute("detailAlready", detailAlready);
+		
 		model.addAttribute("land", land);
 		model.addAttribute("sido", sido);
 		model.addAttribute("sgg", sgg);
@@ -294,7 +300,7 @@ public class HospitalController {
 	//리뷰 리스트
 	@ResponseBody
 	@PostMapping("/hospital/review/list")
-	public Map<String, Object> reviewList(@RequestBody Criteria cri) {
+	public Map<String, Object> reviewList(@RequestBody Criteria cri, String ho_id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		cri.setPerPageNum(3); //1페이지 당 댓글 3개
 		//한 페이지(cri)를 주면서 리뷰 리스트를 가져오라고 시킴
@@ -317,6 +323,7 @@ public class HospitalController {
 		MemberVO member = memberService.getSiteMember(user);
 		boolean res = hospitalService.insertReview(review, member);
 		
+
 		map.put("result", res);
 		return map;
 	}

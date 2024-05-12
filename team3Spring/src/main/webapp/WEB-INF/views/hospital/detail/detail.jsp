@@ -572,40 +572,6 @@ function getBookmarkAfter(already) {
 };
 </script>
 
-<!-- <script type="text/javascript">
-$(document).ready(function() {
-    $('.page').on( 'load', 'textarea', function (e){
-      $(this).css('height', 'auto' );
-      $(this).height( this.scrollHeight );
-    });
-    $('.page').find( 'textarea' ).keyup();
-  });
-</script> -->
-
-<!-- textarea 자동 스크롤 -->
-<!-- <script type="text/javascript">
-window.addEventListener('DOMContentLoaded', function() {
-	let textarea = document.getElementById("myTextarea");
-	adjustTextareaHeight(textarea);
-});
-
-function adjustTextareaHeight(textarea) {
-	textarea.style.height = "auto";
-	textarea.style.height = textarea.scrollHeight + "px";
-}
-</script> -->
-
-<!-- <script type="text/javascript">
-function autoResize(textarea) {
-	const targetTextarea = document.querySelector(`#target`);
-
-	 if(targetTextarea.scrollHeight > targetTextarea.clientHeight) //textarea height 확장
-	    targetTextarea.style.height= targetTextarea.scrollHeight + "px";
-	 else //textarea height 축소
-	    targetTextarea.style.height= (targetTextarea.scrollHeight-18) + "px";
-}
-</script> -->
-
 <!-- 북마크 해제 버튼 -->
 <script type="text/javascript">
 $('.bookmark-after').click(function() {
@@ -657,24 +623,6 @@ $('.bookmark-after').click(function() {
 			return;
 		}
 	};
-});
-</script>
-
-<script type="text/javascript">
-$("#btn1").click(function() {
-	$("#btn1").addClass("login-btn-click");
-	$("#btn2").removeClass("login-btn-click");
-	$("#btn3").removeClass("login-btn-click");
-});
-$("#btn2").click(function() {
-	$("#btn1").removeClass("login-btn-click");
-	$("#btn3").removeClass("login-btn-click");
-	$("#btn2").addClass("login-btn-click");
-});
-$("#btn3").click(function() {
-	$("#btn3").addClass("login-btn-click");
-	$("#btn1").removeClass("login-btn-click");
-	$("#btn2").removeClass("login-btn-click");
 });
 </script>
 
@@ -788,12 +736,17 @@ $(document).on('click', '.box-pagination .page-link', function() {
 <!-- 리뷰 등록 -->
 <script type="text/javascript">
 //리뷰 등록 버튼의 클릭 이벤트를 등록
-$('.review-insert-btn').click(function() {
+$(document).on('click', '.review-insert-btn', function() {
 	//로그인 안되있으면 return
 	if(!checkLogin()) {
 		return false;
 	}
 	
+	//예약 완료가 안 되있으면 return;
+	if(!checkBook()) {
+		return false;
+	}
+
 	let review = {
 	        vw_hd_num : $(this).data('hd-num'), 
 	        vw_content : $('.textarea-review').val()
@@ -831,7 +784,20 @@ $('.review-insert-btn').click(function() {
 		}
 	});
 });
+</script>
 
+<!-- 예약 완료 회원 체크 -->
+<script type="text/javascript">
+function checkBook() {
+	//해당 상세페이지의 병원 아이디로 "예약완료" 한 회원이면
+	if("${booked}" == "true") {
+		return true;
+	}
+	else {
+		alert("진료받은 병원만 리뷰를 적을 수 있습니다.");	
+		return false;
+	}
+}
 </script>
 
 <!-- 로그인 체크 -->
@@ -1001,6 +967,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 });
 </script>
+
 <!-- 영업 시간 : 배열로 저장된 시간들 인덱스와 클래스 이름 매핑(안씀) -->
 <script type="text/javascript">
 //서버에서 받은 hd_time 문자열
@@ -1029,6 +996,25 @@ for(let day in days) {
 		inputField.value = timeArray[index];
 	}
 }
+</script>
+
+
+<script type="text/javascript">
+$("#btn1").click(function() {
+	$("#btn1").addClass("login-btn-click");
+	$("#btn2").removeClass("login-btn-click");
+	$("#btn3").removeClass("login-btn-click");
+});
+$("#btn2").click(function() {
+	$("#btn1").removeClass("login-btn-click");
+	$("#btn3").removeClass("login-btn-click");
+	$("#btn2").addClass("login-btn-click");
+});
+$("#btn3").click(function() {
+	$("#btn3").addClass("login-btn-click");
+	$("#btn1").removeClass("login-btn-click");
+	$("#btn2").removeClass("login-btn-click");
+});
 </script>
 </body>
 </html>

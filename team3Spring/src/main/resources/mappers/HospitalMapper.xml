@@ -808,4 +808,9 @@
 		order by rv_num desc limit 10
 	</select>
 	
+	<select id="selectDetailHoId" resultType="HospitalVO">
+		select * from hospital_detail;
+	</select>
+	
+	
 </mapper>

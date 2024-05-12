@@ -251,7 +251,8 @@
 		
 	<delete id="deleteMyInfo">
 		delete member,site_management 
-		from member join site_management 
+		from member 
+		join site_management 
 		on me_id = site_id 
 		where me_id = #{id}
 	</delete>
@@ -354,6 +355,16 @@
 	
 	<select id="selectTarget" resultType="int">
 		select site_num from site_management where site_id =#{id}
+	</select>
+	
+	<select id="selectReservationId" resultType="int">
+		select count(*) from reservation 
+		join payment on pm_rv_num = rv_num
+		where rv_rvs_name = "예약완료" and pm_ho_id = #{ho_id} and rv_me_id = #{me_id}
+	</select>
+	
+	<select id="getMemberReservation" resultType="ReservationVO">
+		select * from reservation where rv_me_id = #{me_id}
 	</select>
 
 </mapper>

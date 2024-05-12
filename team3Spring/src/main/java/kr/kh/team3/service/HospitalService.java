@@ -198,5 +198,7 @@ public interface HospitalService {
 
 	ArrayList<ReservationVO> selectAllReservationList();
 
+	HospitalDetailVO getDetailHoId();
+
 
 }

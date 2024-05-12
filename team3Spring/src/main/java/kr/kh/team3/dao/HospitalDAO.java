@@ -219,5 +219,7 @@ public interface HospitalDAO {
 
 	ArrayList<ReservationVO> selectAllReservationList();
 
+	HospitalDetailVO selectDetailHoId();
+
 
 }
