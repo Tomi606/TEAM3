@@ -71,6 +71,7 @@ public class HomeController {
 
 		return "home";
 	}
+	
 	@ResponseBody
 	@PostMapping("/common/header")
 	public Map<String, Object> header(Model model) {

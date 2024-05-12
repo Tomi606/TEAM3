@@ -223,7 +223,7 @@ color: green;
 		
 			<div class="category">
 				<div class="title">
-					<h3>원하시는 과목을 선택하세요</h3>
+					<h3>진료 과목을 선택하세요</h3>
 				</div>
 				<div class="li-box" >
 				   <li role="button" class="hs_btn" data-hsnum="0">전체</li>
@@ -588,7 +588,7 @@ function getAreaHoList(){
          	                    <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=\${ho.ho_id}'/>" style="padding: auto;" data-id="\${ho.hospital_detail.hd_num}">
          							<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
          							<div class="ho-name">\${ho.ho_name}</div>
-         							<div class="hs-title">\${ho.hospital_subject.hs_title}</div>
+         							<div class="hs-title">\${ho.hs.hs_title}</div>
          							<div class="ho-address"><img class="small-img"
          								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">\${ho.ho_address}</div>
          							<div class="hd-time"><img class="small-img"
@@ -603,7 +603,7 @@ function getAreaHoList(){
 		                    <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=\${ho.ho_id}'/>" style="padding: auto;" data-id="\${ho.hospital_detail.hd_num}">
 								<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
 								<div class="ho-name">\${ho.hospital.ho_name}</div>
-								<div class="hs-title">\${ho.hospital_subject.hs_title}</div>
+								<div class="hs-title">\${ho.hospital.hs.hs_title}</div>
 								<div class="ho-address"><img class="small-img"
      								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">\${ho.hospital.ho_address}</div>
    								<div class="hd-time"><img class="small-img"
@@ -726,9 +726,7 @@ $(".li-box [data-hsnum='${hs_num}']").click();
 $(".sido-list [data-num=${la.la_sd_num}]").click();
 $(".sgg-list [data-num=${la.la_sgg_num}]").click();
 $(".emd-list [data-num=${la.la_emd_num}]").click();
-
  
 </script>
-
 </body>
 </html>
