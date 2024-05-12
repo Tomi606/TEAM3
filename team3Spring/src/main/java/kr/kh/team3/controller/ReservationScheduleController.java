@@ -167,11 +167,7 @@ public class ReservationScheduleController {
 		HospitalProgramVO HP = reservationScheduleService.getHospitalProgram(hp_num);
 		ArrayList<ReservationVO> list = new ArrayList<ReservationVO>();
 		for (ReservationScheduleVO tmp : RSlist) {
-			ReservationVO reservation = reservationScheduleService.getReservationList(tmp.getRs_num());
-			try {
-				list.add(reservation);
-			} catch (Exception e) {
-			}
+			 list = reservationScheduleService.getReservationList(tmp.getRs_num());
 		}
 		map.put("list", list);
 		map.put("HP", HP);

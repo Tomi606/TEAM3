@@ -29,7 +29,7 @@ public class ReservationScheduleServiceImp implements ReservationScheduleService
 	}
 
 	@Override
-	public ReservationVO getReservationList(int rs_num) {
+	public ArrayList<ReservationVO> getReservationList(int rs_num) {
 		
 		return RSDao.selectReservationList(rs_num);
 	}
