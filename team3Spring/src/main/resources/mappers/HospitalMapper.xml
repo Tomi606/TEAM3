@@ -326,7 +326,7 @@
 	
 	<!-- 정경호 : 과목 ㄱㄴㄷㄹ순으로 정렬을 위해 order by hs_title 추가 -->
 	<select id="selectHospitalSubjectList" resultType="HospitalSubjectVO">
-		select * from hospital_subject order by hs_title
+		select * from hospital_subject order by hs_num
 	</select>
 	
 	<!-- 로그인 -->

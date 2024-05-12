@@ -603,7 +603,7 @@ function getAreaHoList(){
 		                    <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=\${ho.ho_id}'/>" style="padding: auto;" data-id="\${ho.hospital_detail.hd_num}">
 								<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
 								<div class="ho-name">\${ho.hospital.ho_name}</div>
-								<div class="hs-title">\${ho.hospital.hs.hs_title}</div>
+								<div class="hs-title">\${ho.hospital_subject.hs_title}</div>
 								<div class="ho-address"><img class="small-img"
      								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">\${ho.hospital.ho_address}</div>
    								<div class="hd-time"><img class="small-img"

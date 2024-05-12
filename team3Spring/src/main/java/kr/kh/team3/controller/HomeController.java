@@ -2,6 +2,7 @@ package kr.kh.team3.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -18,7 +19,6 @@ import kr.kh.team3.model.vo.BoardVO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
-import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.PostVO;
@@ -70,6 +70,15 @@ public class HomeController {
 		}
 
 		return "home";
+	}
+	
+	@ResponseBody
+	@PostMapping("/hospital/search")
+	public List<HospitalSubjectVO> hospitalSearch(Model model) {
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		ArrayList<HospitalSubjectVO> list = 
+//		map.put("list", list);
+		return hospitalService.getHospitalSubjectList();
 	}
 	
 	@ResponseBody
