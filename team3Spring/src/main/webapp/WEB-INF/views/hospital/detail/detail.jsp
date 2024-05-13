@@ -797,6 +797,8 @@ $(document).on('click', '.review-insert-btn', function() {
 				alert('예약후 리뷰를 작성할 수 있습니다.');
 			}else if(data.result=="초과"){
 				alert('작성할 수 있는 리뷰 수를 초과하였습니다.\n(예약 1번에 리뷰 1개 제한)');
+			}else if(data.result=="사업자"){
+				alert('병원 회원은 리뷰를 작성할 수 없습니다.');
 			}else {
 				alert('리뷰 작성에 실패했습니다.');
 			}
@@ -817,7 +819,7 @@ function checkBook() {
 		return true;
 	}
 	else {
-		alert("진료받은 병원만 리뷰를 적을 수 있습니다.");	
+		alert("진료받은 회원만 리뷰를 작성할 수 있습니다.");	
 		return false;
 	}
 }

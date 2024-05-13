@@ -370,4 +370,8 @@
 	<select id="selectReviews" resultType="int">
 		select count(*) from review where vw_me_id = #{id} and vw_hd_num = #{ho.hd_num}
 	</select>
+	
+	<select id="selectMyIddd" resultType="SiteManagement">
+		select * from site_management where site_id = #{id}
+	</select>
 </mapper>

@@ -142,5 +142,7 @@ public interface MemberDAO {
 
 	int selectReviews(@Param("id")String me_id, @Param("ho")HospitalDetailVO ho);
 
+	SiteManagement selectMyIddd(@Param("id")String me_id);
+
 
 }
