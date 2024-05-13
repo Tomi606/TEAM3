@@ -189,12 +189,12 @@ color:rgba(0, 100, 60, 0.8);
 </head>
 <body>
 <div class="home-box1">
-			<div style="width: 80%;margin: 0 auto;padding-top: 80px">
-				<div class="page-title">
-					병원
-				</div>
-			</div>
+	<div style="width: 80%;margin: 0 auto;padding-top: 80px">
+		<div class="page-title">
+			병원
 		</div>
+	</div>
+</div>
 <div class="info-container">
 	<div class="all-info-box">
 		<form action='<c:url value="/hospital/detail/insert"/>' method="post">

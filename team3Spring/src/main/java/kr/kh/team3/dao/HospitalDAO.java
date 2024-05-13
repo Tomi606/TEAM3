@@ -221,5 +221,7 @@ public interface HospitalDAO {
 
 	HospitalDetailVO selectDetailHoId();
 
+	HospitalDetailVO selectHospitalDet(@Param("hd_num")int vw_hd_num);
+
 
 }

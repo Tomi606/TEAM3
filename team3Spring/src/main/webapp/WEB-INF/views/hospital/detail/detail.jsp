@@ -325,6 +325,16 @@ p {
 	width:100%;
 	display: flex;
 }
+.hd_time_container{
+display:flex;border:1px solid lightgray;border-radius:15px;
+ width: 94%;padding: 15px ;   margin: 10px 5px 5px 30px;
+}
+.hd_time_container input{
+	border: none;outline-style: none;font-size: 20px;
+}
+.hd_time_container td{
+	font-size: 20px;font-weight: bold;width: 120px;height: 40px;
+}
 </style>
 </head>
 <body>
@@ -407,50 +417,50 @@ p {
 <%-- 						<textarea class="hd_time" id="myTextarea" name="hd_time"
 						placeholder="월~금 : 9:00~18:00 / 토,일 : 휴무"  oninput="autoResize(this)" readonly>${detail.hd_time}</textarea>
 						 --%>
+					 <div class="hd_time_container">
 						<table class="hd_time" id="hd_time">
-						<tbody>
 							<tr>
 						        <td>점심 시간</td>
 						        <td><input type="text" class="lunch" name="hd_time" placeholder="12:00~13:00" value="${detail.hd_time}"
-						        onkeyup="this.value=this.value.replace(/[^0-9~:]/g,'');" required></td>
+						        onkeyup="this.value=this.value.replace(/[^0-9~:]/g,'');" readonly></td>
 					 		</tr>
 						    <tr>
 						        <td>월요일</td>
 						        <td><input type="text" class="mon" name="hd_time" placeholder="9:00~18:00"value="${detail.hd_time}"
-						        onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
+						        onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" readonly></td>
 					 		</tr>
-						 <tr>
-						     <td>화요일</td>
-						     <td><input type="text" class="tue" name="hd_time" placeholder="9:00~18:00"value="${detail.hd_time}"
-						     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
-						 </tr>
-						 <tr>
-						     <td>수요일</td>
-						     <td><input type="text" class="wed" name="hd_time" placeholder="9:00~18:00"
-						     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
-						 </tr>
-						 <tr>
-						     <td>목요일</td>
-						     <td><input type="text" class="thu" name="hd_time" placeholder="9:00~18:00"
-						     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
-						 </tr>
-						 <tr>
-						     <td>금요일</td>
-						     <td><input type="text" class="fri" name="hd_time" placeholder="9:00~18:00"
-						     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
-						 </tr>
-						 <tr>
-						     <td>토요일</td>
-						     <td><input type="text" class="sat" name="hd_time" placeholder="9:00~18:00"
-						     onkeyup="this.value=this.value.replace(/[^ㅎㅁ휴무0-9~:]/g,'');" required></td>
-						 </tr>
-						 <tr>
-						     <td>일요일</td> 
-						     <td><input type="text" class="sun" name="hd_time" placeholder="9:00~18:00"
-						     onkeyup="this.value=this.value.replace(/[^ㅎㅁ휴무0-9~:]/g,'');" required></td>
-						 </tr>
-						</tbody>
-					</table>
+							 <tr>
+							     <td>화요일</td>
+							     <td><input type="text" class="tue" name="hd_time" placeholder="9:00~18:00"value="${detail.hd_time}"
+							     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" readonly></td>
+							 </tr>
+							 <tr>
+							     <td>수요일</td>
+							     <td><input type="text" class="wed" name="hd_time" placeholder="9:00~18:00"
+							     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" readonly></td>
+							 </tr>
+							 <tr>
+							     <td>목요일</td>
+							     <td><input type="text" class="thu" name="hd_time" placeholder="9:00~18:00"
+							     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" readonly></td>
+							 </tr>
+							 <tr>
+							     <td>금요일</td>
+							     <td><input type="text" class="fri" name="hd_time" placeholder="9:00~18:00"
+							     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" readonly></td>
+							 </tr>
+							 <tr>
+							     <td>토요일</td>
+							     <td><input type="text" class="sat" name="hd_time" placeholder="9:00~18:00"
+							     onkeyup="this.value=this.value.replace(/[^ㅎㅁ휴무0-9~:]/g,'');" readonly></td>
+							 </tr>
+							 <tr>
+							     <td>일요일</td> 
+							     <td><input type="text" class="sun" name="hd_time" placeholder="9:00~18:00"
+							     onkeyup="this.value=this.value.replace(/[^ㅎㅁ휴무0-9~:]/g,'');" readonly></td>
+							 </tr>
+						</table>
+						</div>
 					</div>
 					<hr>
 					<div class="hd_park page1" id="hd_park">
@@ -506,7 +516,7 @@ p {
 					</div>
 					<div class="box-review-insert">
 						<div class="input-group review-textarea">				
-					        <textarea id="review" class="vw_num textarea-review" id="vw_num" name="vw_num" "></textarea>
+					        <textarea id="review" class="vw_num textarea-review" id="vw_num" name="vw_num"></textarea>
 						</div>
 						<div class="review-btn-div">
 					        <button class="btn btn-outline-success review-insert-btn review-btn " name="review-btn" data-hd-num="${detail.hd_num}">리뷰 등록</button>		
@@ -767,20 +777,35 @@ $(document).on('click', '.review-insert-btn', function() {
 		contentType : "application/json; charset=utf-8",
 		dataType : "json", 
 		success : function (data){
-			if(data.result) {
-				alert('댓글을 등록했습니다.');
+			if(data.result=="성공") {
+				alert('리뷰를 등록했습니다.');
 				$('.textarea-review').val('');
 				cri.page = 1;
 				getReviewList(cri);
+			}else if(data.result=="리뷰널"){
+				alert('내용을 입력하세요.');
+			}else if(data.result=="회원널"){
+				let answer = confirm('로그인후 이용가능 합니다.\n로그인 페이지로 이동하시겠습니까?');
+					if(!answer){
+						return;
+					}else{
+						location.href='<c:url value="/main/login"/>';
+					}
+			}else if(data.result=="병원널"){
+				alert('알아서 해 진짜');
+			}else if(data.result=="예약널"){
+				alert('예약후 리뷰를 작성할 수 있습니다.');
+			}else if(data.result=="초과"){
+				alert('작성할 수 있는 리뷰 수를 초과하였습니다.\n(예약 1번에 리뷰 1개 제한)');
+			}else if(data.result=="사업자"){
+				alert('병원 회원은 리뷰를 작성할 수 없습니다.');
+			}else {
+				alert('리뷰 작성에 실패했습니다.');
 			}
-			else {
-				alert('사업자 회원은 댓글을 달 수 없습니다.');
-			}
+			
 		}, 
 		error : function(xhr, textStatus, errorThrown){
-			console.error(xhr);
-			console.error(textStatus);
-			alert('로그인 후 이용해주세요.');
+			console.log(error);
 		}
 	});
 });
@@ -794,7 +819,7 @@ function checkBook() {
 		return true;
 	}
 	else {
-		alert("진료받은 병원만 리뷰를 적을 수 있습니다.");	
+		alert("진료받은 회원만 리뷰를 작성할 수 있습니다.");	
 		return false;
 	}
 }

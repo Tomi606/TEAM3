@@ -321,8 +321,8 @@ public class HospitalController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO member = memberService.getSiteMember(user);
-		boolean res = hospitalService.insertReview(review, member);
-		
+		HospitalDetailVO ho = hospitalService.getHospitalDetail(review.getVw_hd_num());
+		String res = hospitalService.insertReview(review, member, ho);
 
 		map.put("result", res);
 		return map;
@@ -669,7 +669,7 @@ public class HospitalController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		boolean res = programService.insertReservationSechedule(rs_hp_num, rs_date, rs_time, rs_max_person);
 		 if (res) {
-				map.put("msg","추가에성공했습니다.");
+				map.put("msg","추가되었습니다.");
 			}else {
 				map.put("msg","추가를 실패했습니다.");
 			}
