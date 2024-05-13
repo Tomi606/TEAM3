@@ -305,11 +305,7 @@ input[type="checkbox"]:checked::before {
 		<hr class="hr_line">
 				
 		<div class="box2-group" style="margin-bottom: 50px;">		
-		<div class="program-update-del-box">
-			<label class="label">등록할 세부 항목을 입력하세요</label>
-		    <a class="btn item-update-btn" href='<c:url value="/item/update"/>'>수정</a>
-		    <a class="btn item-delete-btn">삭제</a>
-	    </div> 
+			<label class="label">등록할 세부 항목을 입력하세요</label><br>
 			<label for="it_name" class="sub_label">항목명</label>
 		    <input  type="text" id="it_name" name="it_name" placeholder="등록하고 싶은 항목을 입력하세요" autofocus="autofocus">
 		    <label for="it_explanation" class="sub_label">항목 설명</label>
@@ -321,8 +317,12 @@ input[type="checkbox"]:checked::before {
 
 		    <hr class="hr_line">
 
-	   	<div class="box3-group">	
-	   	 	<label class="label">등록할 세부항목들을 선택하세요</label><br>
+	   	<div class="box3-group">
+		   	<div class="program-update-del-box">
+		   	 	<label class="label">등록할 세부항목들을 선택하세요</label><br>
+			    <a class="btn item-update-btn" href='<c:url value="/item/update"/>'>수정</a>
+			    <a class="btn item-delete-btn">삭제</a>
+		    </div> 
 		   	<label for="it_name" class="it_name sub_label"></label>
 		   	<div class="check-box-group" id="check-box-group"></div>
 		   	
