@@ -363,8 +363,11 @@
 		where rv_rvs_name = "예약완료" and pm_ho_id = #{ho_id} and rv_me_id = #{me_id}
 	</select>
 	
-	<select id="getMemberReservation" resultType="ReservationVO">
-		select * from reservation where rv_me_id = #{me_id}
+	<select id="getMemberReservation" resultType="int">
+		select count(*) from reservation join payment on pm_rv_num = rv_num where rv_me_id = #{me_id} and pm_ho_id = #{ho.hd_ho_id}
 	</select>
 
+	<select id="selectReviews" resultType="int">
+		select count(*) from review where vw_me_id = #{id} and vw_hd_num = #{ho.hd_num}
+	</select>
 </mapper>

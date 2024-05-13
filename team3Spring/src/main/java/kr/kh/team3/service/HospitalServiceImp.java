@@ -3,6 +3,7 @@ package kr.kh.team3.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 import javax.mail.internet.MimeMessage;
 
@@ -456,22 +457,34 @@ public class HospitalServiceImp implements HospitalService {
 	}
 
 	@Override
-	public boolean insertReview(ReviewVO review, MemberVO member) {
+	public String insertReview(ReviewVO review, MemberVO member, HospitalDetailVO ho) {
 		if(review == null || review.getVw_content().length() == 0) {
-			return false;
+			return "리뷰널";
 		}
 		
 		if(member == null || member.getMe_id() == null) {
-			return false;
+			return "회원널";
 		}
 		
-		ReservationVO reservation = memberDao.getMemberReservation(member.getMe_id());
-		if(reservation == null) {
-			return false;
+		if(ho.getHd_ho_id() == null || ho.getHd_ho_id().length() == 0) {
+			return "병원널";
 		}
+		
+		
+		int reservation = memberDao.getMemberReservation(member.getMe_id(), ho);
+		int dbReview = memberDao.selectReviews(member.getMe_id(), ho);
+		
+		if(reservation == 0) {
+			return "예약널";
+		}
+		if(dbReview == reservation) 
+			return "초과";
 		
 		review.setVw_me_id(member.getMe_id());
-		return hospitalDao.insertReview(review);
+		if(!hospitalDao.insertReview(review)) {
+			return "실패";
+		}
+		return "성공";
 	}
 
 	@Override
@@ -925,6 +938,11 @@ public class HospitalServiceImp implements HospitalService {
 	@Override
 	public HospitalDetailVO getDetailHoId() {
 		return hospitalDao.selectDetailHoId();
+	}
+
+	@Override
+	public HospitalDetailVO getHospitalDetail(int vw_hd_num) {
+		return hospitalDao.selectHospitalDet(vw_hd_num);
 	}
 
 

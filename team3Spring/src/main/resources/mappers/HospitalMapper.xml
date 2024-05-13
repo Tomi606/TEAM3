@@ -812,5 +812,9 @@
 		select * from hospital_detail;
 	</select>
 	
+	<select id="selectHospitalDet" resultType="HospitalDetailVO">
+		select * from hospital_detail where hd_num = #{hd_num}
+	</select>
+	
 	
 </mapper>

@@ -100,7 +100,7 @@ public interface HospitalService {
 
 	ArrayList<HospitalVO> getHospitalEmd(LandVO land,int hs_num, Criteria cri);
 
-	boolean insertReview(ReviewVO review, MemberVO member);
+	String insertReview(ReviewVO review, MemberVO member, HospitalDetailVO ho);
 
 	HospitalDetailVO getDetail(String ho_id);
 
@@ -199,6 +199,8 @@ public interface HospitalService {
 	ArrayList<ReservationVO> selectAllReservationList();
 
 	HospitalDetailVO getDetailHoId();
+
+	HospitalDetailVO getHospitalDetail(int vw_hd_num);
 
 
 }
