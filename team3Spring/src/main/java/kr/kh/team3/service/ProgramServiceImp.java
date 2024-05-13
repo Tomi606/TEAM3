@@ -98,9 +98,10 @@ public class ProgramServiceImp implements ProgramService {
 
 		boolean programRes = false;
 		boolean listRes = false;
+		HsListVO hslist = programDao.selelctHsList(hs_num, user);
 		if (user.getSite_authority().equals("MANAGER")) {
 			// 항목 리스트, 항목 리스트 제목, 병원 프로그램 명(번호) 가져와서 itemList에 넣기
-			programRes = programDao.insertProgram(program, user, hs_num);
+			programRes = programDao.insertProgram(program, user, hs_num, hslist);
 		}
 		if (programRes) {
 			HospitalProgramVO pr = programDao.selectProgram(program);

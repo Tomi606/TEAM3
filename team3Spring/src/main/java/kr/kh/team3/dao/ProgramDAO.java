@@ -24,7 +24,7 @@ public interface ProgramDAO {
 
 	ArrayList<HospitalProgramVO> selectProgramList(@Param("user") SiteManagement user);
 
-	boolean insertProgram(@Param("pr")HospitalProgramVO program,@Param("user") SiteManagement user, @Param("hs_num") int hs_num);
+	boolean insertProgram(@Param("pr")HospitalProgramVO program,@Param("user") SiteManagement user, @Param("hs_num") int hs_num, @Param("hsl")HsListVO hslist);
 
 	boolean updateItem(@Param("item")ItemVO item, @Param("it_num") int it_num,@Param("hsl_nul") HsListVO hl);
 

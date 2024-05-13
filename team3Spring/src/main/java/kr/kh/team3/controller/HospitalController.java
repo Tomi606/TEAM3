@@ -529,8 +529,7 @@ public class HospitalController {
 	@PostMapping("/item/delete")
 	 public Map<String, Object> deleteItem(@RequestParam("checkedValues[]") ArrayList<Integer> list){
 		Map<String, Object> map = new HashMap<String, Object>();
-		System.out.println("aaaaaaaaaaaaaaaaa");
-		System.out.println(list);
+		
         boolean res = programService.deleteItem(list);
 		
 		if (res) { 
@@ -605,20 +604,20 @@ public class HospitalController {
 	//과를 선택하면 여러 정보가 나옴
 	@ResponseBody
 	@PostMapping("/program/update")
-	public String updateProgramInsert(Model model, @RequestParam("hs_num") int hs_num, HttpSession session,
+	public boolean updateProgramInsert(Model model, @RequestParam("hs_num") int hs_num, HttpSession session,
 			HospitalProgramVO hospitalProgram, @RequestParam("list[]") ArrayList<Integer> list) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		boolean res = programService.deleteProgram(hospitalProgram.getHp_num());
 		boolean insertres = programService.insertProgram(hospitalProgram, user, list, hs_num);
-				
+		
 		if(res) {
 			if(insertres) {
-				model.addAttribute("msg", "수정에 성공했습니다.");
+				return true;
 
 			}
 		}
-		model.addAttribute("msg", "수정에 실패했습니다.");
-		return "message";
+		
+		return false;
     }
 	
 	

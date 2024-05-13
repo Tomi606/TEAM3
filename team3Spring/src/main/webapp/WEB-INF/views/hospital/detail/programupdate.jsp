@@ -210,7 +210,13 @@
 						"hs_num" : hs_num
 					},
 			success : function (data) {
-									
+					if(data){
+						alert("수정에 성공했습니다.");
+						location.href = '<c:url value="/hospital/item/insert"/>';
+					}else{
+						alert("수정에 실패했습니다.");
+						location.href = '<c:url value="/hospital/item/insert"/>';
+					}
 			}
 		});
 	});

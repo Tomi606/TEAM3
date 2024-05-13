@@ -107,7 +107,8 @@
 	</insert>
 	
 	<insert id="insertProgram">
-		insert into hospital_program (hp_title, hp_payment, hp_ho_id, hp_hsl_num) value(#{pr.hp_title},#{pr.hp_payment}, #{user.site_id}, #{hs_num})
+		insert into hospital_program (hp_title, hp_payment, hp_ho_id, hp_hsl_num) 
+		value(#{pr.hp_title},#{pr.hp_payment}, #{user.site_id}, #{hsl.hsl_num})
 	</insert>
 	
 	<insert id="insertItemList">
