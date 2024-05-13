@@ -7,6 +7,9 @@
 <meta charset="UTF-8">
 <title>회원 마이페이지</title>
 <style type="text/css">
+.my-subect-list{
+	position: relative;bottom: 8px;
+}
 .body-tag {
 	width: 100%;
 	display: felex;
@@ -558,17 +561,6 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 					<span class="email_save_btn_wrap"><a type="button" class="email_save_btn">수정완료</a></span>
 				</div>
 			</div>
-			<div class="hr"></div>
-				 <div class="mypage-job">
-					<div class="job-width">
-					 <div class="new_me_job_hidden">
-						<input type='text' id="new_me_job" class="box-job2" value="\${member.me_job}"/>
-					</div>	
-						<p class"box-job" id="my_job_name">\${member.me_job}</p>
-						<span class="job_update_btn_wrap"><a type="button" class="job-update">변경</a></span>
-						<span class="job_save_btn_wrap"><a type="button" class="job_save_btn">수정완료</a></span>
-					</div>	
-				</div>
 				<!-- 관심 과목 시작 -->
 				<div class="subject">
 					<div class="hr"></div>
@@ -622,9 +614,7 @@ $('.mypage-container').html(str);
 //수정 버튼을 누른 상태에서 다른 수정 버튼을 누르면 기존에 누른 댓글을 원상태로 돌려주는 함수
 function initComment(){
 	  $('.btn-complete').remove();
-	  $('.box-job2').remove();
 	  $('.box-btn').show();
-	  $('.box-job').show();
 	  $(".job-update").show();
 }
 function resetAll() {
@@ -642,11 +632,8 @@ function resetAll() {
     $('.email_update_btn_wrap').css('display', 'block');
     $('.new_me_email_hidden').css('display', 'none');
     $('.email_save_btn_wrap').css('display', 'none');
-    $('.box-job').css('display', 'block');
     $('.job_update_btn_wrap').css('display', 'block');
 
-    $('.new_me_job_hidden').css('display', 'none');
-    $('.job_save_btn_wrap').css('display', 'none');
 
     $('.box-address').css('display', 'block');
     $('.address_update_btn_wrap').css('display', 'block');
@@ -665,7 +652,6 @@ $(document).on('click','.name-update', function(){
     $('.name_update_btn_wrap').css('display', 'none');
     $('.new_me_name_hidden').css('display', 'block');
     $('.name_save_btn_wrap').css('display', 'block');
-    $('#my_job_name').css('display', 'block');
     $('#my-subject').css('display','block');
 });
   
@@ -675,7 +661,6 @@ $(document).on('click','.phone-update', function(){
     $('.phone_update_btn_wrap').css('display', 'none');
     $('.new_me_phone_hidden').css('display', 'block');
     $('.phone_save_btn_wrap').css('display', 'block');
-    $('#my_job_name').css('display', 'block');
     $('#my-subject').css('display','block');
 });
 
@@ -685,19 +670,9 @@ $(document).on('click','.email-update', function(){
     $('.email_update_btn_wrap').css('display', 'none');
     $('.new_me_email_hidden').css('display', 'block');
     $('.email_save_btn_wrap').css('display', 'block');
-    $('#my_job_name').css('display', 'block');
     $('#my-subject').css('display','block');
 });
 
-$(document).on('click','.job-update', function(){
-    resetAll();
-    $('#my_job_name').css('display', 'none');
-    $('.box-job').css('display', 'none');
-    $('.job_update_btn_wrap').css('display', 'none');
-    $('.new_me_job_hidden').css('display', 'block');
-    $('.job_save_btn_wrap').css('display', 'block');
-    $('#my-subject').css('display','block');
-});
 $(document).on('click','.address-update', function(){
     resetAll();
     
@@ -705,7 +680,6 @@ $(document).on('click','.address-update', function(){
     $('.address_update_btn_wrap').css('display', 'none');
     $('.new_me_address_hidden').css('display', 'block');
     $('.address_save_btn_wrap').css('display', 'block');
-    $('#my_job_name').css('display', 'block');
     $('#my-subject').css('display','block');
 });
 $(document).on('click','.subject-update', function(){
@@ -715,7 +689,6 @@ $(document).on('click','.subject-update', function(){
     $('.subject_update_btn_wrap').css('display', 'none');
     $('.new_me_subject_hidden').css('display', 'block');
     $('.subject_save_btn_wrap').css('display', 'block');
-    $('#my_job_name').css('display', 'block');
 });
 
 	$(document).on('click', '.name_save_btn', function(){
@@ -815,41 +788,6 @@ $(document).on('click','.subject-update', function(){
 		    }
 		  });
 		});
-<!-- 직업 수정 -->
-		$(document).on('click', '.job_save_btn', function(){
-		  //전송할 데이터를 생성 => 댓글 수정 => 댓글 번호, 댓글 내용
-		  let member = {
-		    me_job : $('.box-job2').val(),
-		    me_id : '${member.me_id}'
-		  };
-		  console.log(member);
-		  //서버에 ajax로 데이터를 전송 후 처리
-		  $.ajax({
-		    async : true,
-		    url : '<c:url value="/member/job"/>',
-		    type : 'post',
-		    data : JSON.stringify(member),
-		    contentType : "application/json; charset=utf-8",
-		    dataType : "json",
-		    success : function (data){
-		      if(data.res){
-		        alert("직업을 수정했습니다.");
-		        initComment();
-		        getMypageInfo(data.me,me_land.sd_name,me_land.sgg_name,me_land.emd_name,me_sub.hs_title);
-		        $('.box-job2').val(member.me_job);
-		        $('#my_job_name').text(member.me_job);
-				return;	        
-		      }else{
-		        alert("직업을 수정하지 못했습니다.");
-		        return;
-		      }
-		    },
-		    error : function(jqXHR, textStatus, errorThrown){
-		
-		    }
-		  });
-		});
-
 
 <!-- 주소 수정 -->
 $(document).on('click', '.address_save_btn', function(){

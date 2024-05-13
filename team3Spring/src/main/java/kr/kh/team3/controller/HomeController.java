@@ -87,9 +87,6 @@ public class HomeController {
 	@ResponseBody
 	@PostMapping("/hospital/search")
 	public List<HospitalSubjectVO> hospitalSearch(Model model) {
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		ArrayList<HospitalSubjectVO> list = 
-//		map.put("list", list);
 		return hospitalService.getHospitalSubjectList();
 	}
 	

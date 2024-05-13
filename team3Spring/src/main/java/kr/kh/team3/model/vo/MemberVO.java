@@ -19,7 +19,6 @@ public class MemberVO {
 	private String me_pw;
 	private String me_name;
 	private String me_gender;
-	private String me_job;
 	private String me_phone;
 	private String me_email;
 	private String me_address;

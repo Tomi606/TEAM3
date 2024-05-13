@@ -19,7 +19,8 @@
 	margin: 100px auto;
 	padding:0 100px 100px 100px;
 	text-align: center;
-	border-radius: 15px;
+	border-radius: 10px;
+	margin-top: -140px;background: white;
 }
 
 .post_list_box{
@@ -45,14 +46,14 @@
 	line-height: 50px;
 	color: green;
 	height: 100%;
-	width: 100%;;
-	border: 1px solid  rgba(0, 128, 0, 0.5);;
+	width: 100%;border-radius:10px;
+	border: 1px solid  rgba(0, 128, 0, 0.5);
 	padding: 13px;
 }
 
 .post_insert_btn:hover {
 	color: white;
-	background-color:  rgba(0, 128, 0, 0.5);
+	background-color:  green;
 	text-decoration: none;
 }
 
@@ -147,9 +148,31 @@ color:  rgba(0, 128, 0, 0.5);
 	text-decoration: none;
 	color: black;
 }
+.page-title{
+	text-align: left;
+	font-size: 50px;
+	color: rgba(0, 100, 60, 0.8);
+	font-weight: bold;
+	margin: 0 0 80px 0;
+}
+.home-box1 {
+	width: 100%;
+	height: 350px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
+}
 </style>
 </head>
 <body>
+<div class="home-box1">
+	<div style="width: 80%;margin: 0 auto;padding-top: 80px">
+		<div class="page-title">
+			게시글
+		</div>
+	</div>
+</div>
 	<div class="post_list_container">
 		<div class="post_list_box">
 			<div class="board_title_container">

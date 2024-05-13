@@ -7,16 +7,31 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+.page-title{
+	text-align: left;
+	font-size: 50px;
+	color: rgba(0, 100, 60, 0.8);
+	font-weight: bold;
+	margin: 0 0 80px 0;
+}
+.home-box1 {
+	width: 100%;
+	height: 350px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
+}
 .post_list_container {
 	width: 100%;
 	height: 1500px;
 }
 
 .post_list_box {
-	border: 1px solid black;
+	border: 2px solid green;    box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);border-radius:5px;
 	width: 1400px;
 	height: 93.4%;
-	margin: 100px auto;
+	margin:-140px auto 100px auto;background:white;
 	padding: 100px;
 	text-align: center;
 }
@@ -236,37 +251,55 @@
 }
 .pagination{margin-top:50px; }
 .post-search-box{text-align: center;width: 100%}
+.prev_btn{padding: 13px;border: 1px solid green;color: green;text-decoration: none;border-radius: 10px;}
+.prev_btn:hover{background: green;color: white;text-decoration: none;}
 </style>
 </head>
 <body>
+<div class="home-box1">
+	<div style="width: 80%;margin: 0 auto;padding-top: 80px">
+		<div class="page-title">
+			${po_id}님의 게시글 목록
+		</div>
+	</div>
+</div>
 	<div class="post_list_container">
 	<!-- 병원이면 누르면 병원 상세 뜨는 버튼 만들어도 좋을 것 같다. -->
 		<div class="post_list_box">
-			<h1 style="color: #555;">${po_id}</h1>
-			<c:if test="${site_authority eq 'MANAGER'}">
-				<span>병원 회원</span>
-				<c:if test="${po_id ne user.site_id}">
-					<span>
-						<a class="detail-btn" id="detail_btn" >병원 상세 바로가기</a>
-					</span>
+			<div style="width: 100%">
+				<h1 style="color: #555;">${po_id}</h1>
+				<c:if test="${site_authority eq 'MANAGER'}">
+					<span  style="margin-right:10px; ">병원 회원</span>
+					<c:if test="${po_id ne user.site_id}">
+						<span>
+							<a class="detail-btn" id="detail_btn" >병원 상세 바로가기</a>
+						</span>
+					</c:if>
 				</c:if>
-			</c:if>
-			<c:if test="${site_authority eq 'USER'}">
-				<span>일반 회원</span>
-			</c:if>
-			<c:if test="${site_authority eq 'ADMIN'}">
-				<span>관리자</span>
-			</c:if>
-			<c:choose>
-			    <c:when test="${site_authority eq 'ADMIN' || po_id eq user.site_id}">
-			        <c:set var="displayStyle" value="none" />
-			    </c:when>
-			    <c:otherwise>
-			       <div class="report-box"data-target="${po_id}">
-						<li role="button" class="btn-report"></li>
-					</div>
-			    </c:otherwise>
-			</c:choose>
+				<c:if test="${site_authority eq 'USER'}">
+					<span>일반 회원</span>
+				</c:if>
+				<c:if test="${site_authority eq 'ADMIN'}">
+					<span>관리자</span>
+				</c:if>
+				<c:choose>
+				    <c:when test="${site_authority eq 'ADMIN' || po_id eq user.site_id}">
+				        <c:set var="displayStyle" value="none" />
+				    </c:when>
+				    <c:otherwise>
+				  
+				       <div class="report-box"data-target="${po_id}">
+							<li role="button" class="btn-report"></li>
+							
+						</div>
+				    </c:otherwise>
+				</c:choose>
+				<div style="width: 80px;margin-left: auto;">
+			 		<a href="<c:url value='/board/detail?po_num=${po_num}'/>"
+			 		class="prev_btn"
+			 		>뒤로가기</a>
+			 	</div>
+			 </div>	
 			 <div id="myModal" class="modal">
 					  <div class="modal-content">
 					    <span class="close">&times;</span>
@@ -419,7 +452,7 @@ function displayPostList(poList){
 	    	  <tr style="height: 400px;">
 				<td colspan="6">
 					<div>
-						<h3 style="color: lightgray">게시글이 존재하지 않습니다.</h3>
+						<h3 style="color:lightgray">게시글이 존재하지 않습니다.</h3>
 					</div>
 				</td>
 			  </tr>
