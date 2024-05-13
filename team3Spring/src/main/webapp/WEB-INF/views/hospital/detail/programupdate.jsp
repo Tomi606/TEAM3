@@ -49,7 +49,7 @@
 }
 
 .sub_label {
-    color: #555;
+    color: rgb(219,0,0);
     text-align: center;
     font-size: 16px;
     font-weight: 600;
@@ -96,6 +96,43 @@
 	border: 0px solid white;
 	border-radius: 5px;
 }
+
+.check-box-group {
+	display: grid;
+    grid-template-columns: repeat(14, 2fr);
+    align-items: center;
+    margin-bottom: 30px;
+    font-size: 16px;
+    margin-left: -20px;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    appearance: none;
+    cursor: pointer;
+    background-color: #c8c8c8;
+    border: 0px solid white;
+    margin: 4px 0px 4px 30px;
+}
+
+input[type="checkbox"]:checked::before {
+    content: '\2713';
+    display: flex;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    background-color: green;
+    color: white;
+    border-radius: 20px;
+    flex-direction: row;
+    align-content: stretch;
+    justify-content: space-evenly;
+    margin: 0px;
+    flex-wrap: nowrap;
+    align-items: center;
+}
 </style>
 </head>
 <body>
@@ -128,6 +165,14 @@
 	
 	<hr class="hr_line">
 	
+	<div class="update_pay_box">
+		<label class="label" for="hp_payment">추가 및 삭제할 세부항목 선택</label>
+		<label class="sub_label">※다중선택 가능</label>
+		<div class="check-box-group" id="check-box-group"></div>
+	</div>
+	
+	<hr class="hr_line">
+	
 	<div class="update_title_box">
 		<label class="label" for="hp_title">새 프로그램명 입력</label>
 		<input class="form-control" placeholder="새 프로그램 입력하세요" name="hp_title">
@@ -136,11 +181,9 @@
 	<hr class="hr_line">
 	
 	<div class="update_pay_box">
-		<label class="label" for="hp_payment">프로그램 가격 변경</label><br>
+		<label class="label" for="hp_payment">프로그램 가격 변경</label>
 		<label class="sub_label" for="hp_payment">※숫자만 입력(원단위는 생략)</label>
 		<input type="number" class="form-control" placeholder="프로그램 가격을 변경하세요" name="hp_payment">
-	</div>
-	<div class="check-box-group" id="check-box-group">	
 	</div>
 	<button class="btn update-btn">프로그램 수정</button>
 

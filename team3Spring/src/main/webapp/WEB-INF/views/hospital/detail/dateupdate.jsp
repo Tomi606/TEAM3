@@ -7,16 +7,78 @@
 <!-- jquery validation -->
 <script src="http://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
 <script src="http://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
-<title>세부 항목  수정</title>
+<title>세부 항목 수정</title>
 <style type="text/css">
+/* 헤더 */
+.home-box1 {
+	width: 100%;
+	height: 500px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
+}
+
+.page-title{
+	color:rgba(0, 100, 60, 0.8);
+	text-align: left;
+	font-size: 50px;
+	font-weight: bold;
+	margin: 0 0 80px 0;
+}
+
+/* 전체 툴 */
 .container {
-  margin: 20px auto;
-  max-width: 800px;
-  padding: 20px;
-  background-color: #f8f9fa;
-  border: 1px solid #dee2e6;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    margin: -250px auto 70px auto;
+    background-color: white;
+    width: 80%;
+    height: 100%;
+    border: 1px solid #ced4da;
+    padding: 60px 80px;
+    display: block;
+}
+
+.label {
+	color: black;
+    text-align: center;
+    font-size: 23px;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.sub_label {
+    color: rgb(219,0,0);
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    margin: -15px 10px 0px 10px;
+}
+
+.hr_line {
+	margin: 30px auto;
+}
+
+.update-btn {
+    border-radius: 5px;
+    border: 1px solid green;
+    width: 50%;
+    height: 40px;
+    color: green;
+    text-decoration: none;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+	margin: auto;
+}
+
+.update-btn:hover {
+	color: white;
+	background: green;
+	border: 0px solid white;
+	border-radius: 5px;
 }
 
 .list-box {
@@ -28,9 +90,17 @@
   animation: fadeIn 0.5s ease-in-out;
 }
 
-.date-box {
-  margin-top: 20px;
+.th {
+	font-size: 18px;
 }
+
+.td {
+	font-size: 16px;
+}
+
+/* ----------------------------------------------------------------------- */
+
+
 
 .date-box input[type="date"],
 .date-box input[type="time"],
@@ -41,6 +111,7 @@
   border: 1px solid #ced4da;
   border-radius: 5px;
   box-sizing: border-box;
+  margin-bottom: 15px;
 }
 
 .date-box input[type="date"]::-webkit-inner-spin-button,
@@ -48,6 +119,7 @@
 .date-box input[type="time"]::-webkit-inner-spin-button,
 .date-box input[type="time"]::-webkit-calendar-picker-indicator {
   display: none;
+
 }
 
 .date-box input[type="date"]:focus,
@@ -71,41 +143,57 @@
 </style>
 </head>
 <body>
+<div class="home-box1">
+	<div style="width: 80%; margin: 0 auto; padding-top: 80px;">
+		<div class="page-title">
+			프로그램 스케쥴 수정
+		</div>
+	</div>
+</div>
 <div class="container">
-		<h3>진료과와 프로그램을 선택후 수정 사항을 모두 기입후 번호를 눌러주세요</h3>
+	<div class="select_subject_box">		
+		<label class="label">수정할 진료과</label>
 		<select name="hs_num" class="form-control">
-				<option value="none">진료과를 선택해주세요</option>
+			<option value="none">진료과를 선택해주세요</option>
 			<c:forEach items="${list}" var="list">
 				<option value="${list.hs_num}">${list.hs_title}</option>
 			</c:forEach>
 		</select>
-		<div class="input-group mb-3">
-			<select name="hp_num" class="form-control">
-				<option value="none">수정할 프로그램을 선택해주세요</option>
-					
-			</select>
-		</div>
-		<div class="date-box">
-			<h3>날짜와 시간은 스페이스바를 눌러 변경하거나 직접 입력해주세요</h3>
-			<input type="date" name="rs_date" placeholder="날짜를 입력해주세요">
-			<input type="time" id="timeInput" name="rs_time" placeholder="시간를 입력해주세요">
-			<input type="number" name="rs_max_person" placeholder="최대 인원 입력해주세요">
-		</div>
-		<div class="list-box">
-			 <table class="table">
-			    <thead>
-			      <tr>
-			        <th>번호</th>
-			        <th>날짜</th>
-			        <th>시간</th>
-			        <th>최대인원</th>
-			        <th></th>
-			      </tr>
-			    </thead>
-			    <tbody class="itemList">
-			    </tbody>
-			  </table>
-		</div>
+	</div>
+	
+	<hr class="hr_line">
+	
+	<div class="select_program_box">
+		<label class="label">수정할 프로그램</label>
+		<select name="hp_num" class="form-control">
+			<option value="none">수정할 프로그램을 선택해주세요</option>	
+		</select>
+	</div>
+	
+	<hr class="hr_line">
+	
+	<div class="date-box">
+		<label class="label">날짜/시간/최대인원 변경</label>
+		<label class="sub_label">※날짜/시간은 칸을 클릭 후 스페이스바를 눌러서 변경</label>
+		<input type="date" name="rs_date" placeholder="날짜를 입력">
+		<input type="time" id="timeInput" name="rs_time" placeholder="시간를 입력">
+		<input type="number" name="rs_max_person" placeholder="최대인원을 입력하세요">
+	</div>
+	<div class="list-box">
+		 <table class="table" style="text-align: center;">
+		    <thead>
+		      <tr class="th">
+		        <th>번호</th>
+		        <th>날짜</th>
+		        <th>시간</th>
+		        <th>최대인원</th>
+		        <th>수정</th>
+		      </tr>
+		    </thead>
+		    <tbody class="itemList">
+		    </tbody>
+		  </table>
+	</div>
 
 </div>
 
@@ -124,12 +212,12 @@
 				for(let tmp of data.RSlist){
 					str+=
 						`
-							   <tr>
-						        <th>\${tmp.rs_num}</th>
-						        <th>\${tmp.rsDate}</th>
-						        <th>\${tmp.rsTime}</th>
-						        <th>\${tmp.rs_max_person}</th>
-						        <th> <button class="update-btn" data-rsnum="\${tmp.rs_num}">수정</button></th>
+							   <tr class="td">
+						        <td>\${tmp.rs_num}</td>
+						        <td>\${tmp.rsDate}</td>
+						        <td>\${tmp.rsTime}</td>
+						        <td>\${tmp.rs_max_person}</td>
+						        <td> <button class="btn update-btn" data-rsnum="\${tmp.rs_num}">수정</button></td>
 						      </tr>
 						`
 				}
