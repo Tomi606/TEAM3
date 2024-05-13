@@ -8,7 +8,6 @@
 <title>프로그램 등록</title>
 <style type="text/css">
 .container {
-	
   margin: 100px auto;
   max-width: 1000px;
   padding: 50px;
@@ -179,8 +178,8 @@
 <body>
 <div class="container">
 <div class="program-box">
-	<h3>프로그램 등록</h3>
 	<div class="input-box-group">
+		<h3>세부항목을 등록할 과를 고르세요</h3>
 		<select name="hs_num" class="form-control">
 				<option value="none">진료과를 선택해주세요</option>
 			<c:forEach items="${list}" var="list">
@@ -188,17 +187,11 @@
 			</c:forEach>
 		</select>
 		<br>
-		<div class="input-group mb-3" id="programBox">
-			<select name="hp_num" class="form-control">
-					<option value="none">프로그램을 선택해주세요</option>
-			</select>
-		</div>
-		<br>
-		
-		<h3>세부 항목 등록</h3>
-		<label for="it_name">세부 항목</label>
+				
+		<h3>등록할 세부 항목을 입력하세요</h3>
+		<label for="it_name">항목명</label>
 	    <input  type="text" id="it_name" name="it_name" placeholder="등록하고 싶은 항목을 입력하세요" autofocus="autofocus">
-	    <label for="it_explanation">세부 항목설명</label>
+	    <label for="it_explanation">항목 설명</label>
 	    <input type="text" name="it_explanation" placeholder="세부 항목의 설명">
 	    <div class="program-btn-box">
 		    <a class="btn item-inset-btn">등록</a>
@@ -209,7 +202,9 @@
 	   	<label for="it_name" class="it_name"></label>
 	   	<div class="check-box-group" id="check-box-group"></div>
 	   	<br>
-		<label for="hp_title">프로그램 이름</label>
+	   
+	   	<h3>등록할 세부항목들을 선택후 프로그램을 등록하세요</h3>
+		<label for="hp_title">프로그램명</label>
 	    <input  type="text" id="hp_title" name="hp_title" placeholder="프로그램 이름을 입력하세요">
 		<label for="hp_payment">프로그램 가격</label>
 	    <input  type="number" id="hp_payment" name="hp_payment" placeholder="프로그램 가격을 입력하세요">
@@ -222,6 +217,14 @@
 </div>
 
 <div class="list-box">
+	<div>
+		<h3>시간, 날짜, 최대인원을 등록할 프로그램을 고르세요</h3>
+	</div>
+	<div class="input-group mb-3" id="programBox">
+		<select name="hp_num" class="form-control">
+				<option value="none">프로그램을 선택해주세요</option>
+		</select>
+	</div>
 	 <table class="table">
 	    <thead>
 	      <tr>
@@ -238,7 +241,7 @@
 <div class="date-box">
 	<input type="date" name="rs_date">
 	<input type="time" id="timeInput" name="rs_time">
-	<input type="number" name="rs_max_person">
+	<input type="number" name="rs_max_person" placeholder="최대인원을 입력하세요.">
 	<a class="btn date-inset-btn">등록</a>
     <a class="btn date-update-btn" href='<c:url value="/date/update"/>'>예약수정</a>
     <a class="btn date-delete-btn" href='<c:url value="/date/delete"/>'>예약삭제</a>
@@ -328,9 +331,7 @@
 	$("[name=hs_num]").click(function(){
 		let hs_num = $("[name=hs_num]").val();
 		let hs_num2 = $(this).find("option:selected").text();
-		if(hs_num == 'none'){
-			hs_num = 1;
-		}
+		
 		$.ajax({
 			method : 'post',
 			url : '<c:url value="/subject/item"/>',
@@ -338,6 +339,10 @@
 				"hs_num" : hs_num,
 			},
 			success : function (data) {
+				if(hs_num == 'none'){
+					let str3 = `<option value="none">프로그램을 선택해주세요</option>`;
+					$("[name=hp_num]").html(str3);
+				}
 				let str = ``;
 				let str2 = ``;
 				for(let tmp of data.itemList){

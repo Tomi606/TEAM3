@@ -12,7 +12,7 @@ public interface ReservationScheduleService {
 
 	ArrayList<ReservationScheduleVO> getRsList(String date, int hp_num);
 
-	ReservationVO getReservationList(int rs_num);
+	ArrayList<ReservationVO> getReservationList(int rs_num);
 
 	HospitalProgramVO getHospitalProgram(int hp_num);
 

@@ -15,7 +15,7 @@ public interface ReservationScheduleDAO {
 	ArrayList<ReservationScheduleVO> selectRSTimeList(@Param("date") String date, 
 			@Param ("hp_num") int hp_num);
 
-	ReservationVO selectReservationList(@Param("rs_num")int rs_num);
+	ArrayList<ReservationVO> selectReservationList(@Param("rs_num")int rs_num);
 
 	HospitalProgramVO selectHospitalProgram(@Param("hp_num")int hp_num);
 
