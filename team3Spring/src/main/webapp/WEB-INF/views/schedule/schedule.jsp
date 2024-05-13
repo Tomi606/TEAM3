@@ -263,21 +263,22 @@ $(document).on("click", ".day-btn", function(){
 			"hp_num" : hp_num
 		},
 		success : function(data){
+			sgo.rs_date = data.time.rsDate;
 			let str = ``;
 			for(let tmp of data.timeList){
 				let res = maxPersonCheck(tmp);
 				if(res){
 					str+= 
 						`
-							<div class="time-box reserveBtn" data-time="\${tmp.rsTime}">
-								<a class="reserveBtn" data-time="\${tmp.rsTime}" data-value="\${tmp.rs_hp_num}">\${tmp.rsTime}</a>
+							<div class="time-box reserveBtn" data-time="\${tmp.rsTime}" data-target="\${tmp.rs_num}">
+								<a class="reserveBtn" data-time="\${tmp.rsTime}" data-value="\${tmp.rs_hp_num}" data-target="\${tmp.rs_num}">\${tmp.rsTime}</a>
 							</div>
 						`
 				}else{
 					str+= 
 						`
-							<div class="time-box time-box-gray" data-time="\${tmp.rsTime}">
-								<a class="reserveBtn" data-time="\${tmp.rsTime}" data-value="\${tmp.rs_hp_num}">\${tmp.rsTime}</a>
+							<div class="time-box time-box-gray" data-time="\${tmp.rsTime}" data-target="\${tmp.rs_num}">
+								<a class="reserveBtn" data-time="\${tmp.rsTime}" data-value="\${tmp.rs_hp_num}" data-target="\${tmp.rs_num}">\${tmp.rsTime}</a>
 							</div>
 						`
 				}
@@ -525,7 +526,7 @@ function book(ho_name, hp_title, rs_date, rs_time, hp_payment) {
 			console.log("결제성공");
 			$.ajax({
 				type: "post",
-				url: '<c:url value="bookingPbay"/>',
+				url: '<c:url value="bookingPay"/>',
 				data: {
 					rs_num: sgo.rs_num,
 					amount: hp_payment,

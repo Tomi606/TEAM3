@@ -36,6 +36,7 @@ public class HospitalVO {
 	
 	private HsListVO hsList;
 	private HospitalDetailVO hospital_detail;
+	private HospitalSubjectVO hs;
 	private ArrayList<HospitalSubjectVO> hospital_subject;
 	private ArrayList<BookmarkVO> bookmark;
 	private LandVO land;
@@ -45,7 +46,7 @@ public class HospitalVO {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 			return format.format(this.ho_stop);
 		} else {
-			return "없당ㅎㅎ";
+			return "존재하지 않습니다.";
 		}
 	}
 

@@ -2,6 +2,7 @@ package kr.kh.team3.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,11 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.kh.team3.dao.ProgramDAO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
+import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -27,6 +30,7 @@ import kr.kh.team3.pagination.Criteria;
 import kr.kh.team3.pagination.PageMaker;
 import kr.kh.team3.service.HospitalService;
 import kr.kh.team3.service.MemberService;
+import kr.kh.team3.service.ProgramService;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -38,6 +42,8 @@ public class MemberController {
 	MemberService memberService;
 	@Autowired
 	PasswordEncoder passwordEncoder;
+	@Autowired
+	ProgramService programService;
 
 	/*
 	 * 관리자 전용 컨트롤러 회원 관리용 게시판 리스트 부터 추가 삭제 수정 순으로 기능 구현 전부다 비동기로 진행 수업때 댓글 비동기 한거
@@ -240,6 +246,9 @@ public class MemberController {
 
 		return "message";
 	}
+	
+	
+	//회원 - 예약 관리
 	@GetMapping("/member/reservemgr")
 	public String memberReservemgr(Model model, HttpSession session, String site_id) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
@@ -250,5 +259,27 @@ public class MemberController {
 	}
 	
 	
+	@ResponseBody
+	@PostMapping("/member/reservemgr")
+	public Map<String, Object> memberReservemgrPost(@RequestParam("page") int page, @RequestParam("type") String type, @RequestParam("search") String search, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		Criteria cri = new Criteria(page, 2, type, search);
+		ArrayList<PostVO> bookList = programService.getBookList(user, cri);
+		int totalCount = programService.getBookListCount(user, cri);
+		PageMaker pm = new PageMaker(3, cri, totalCount);
+		map.put("bookList", bookList);
+		map.put("pm", pm);
+		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/member/bookcancel")
+	public boolean memberBookCancelPost(@RequestParam("rv_num") int rv_num) {
+		
+		boolean cancel = programService.updateRvRvsName(rv_num);
+		
+		return cancel;
+	}
 
 }

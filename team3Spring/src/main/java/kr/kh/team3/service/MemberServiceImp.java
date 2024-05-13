@@ -23,6 +23,7 @@ import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
+import kr.kh.team3.model.vo.ReservationVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -539,8 +540,6 @@ public class MemberServiceImp implements MemberService {
 		}
 		//통과되면 select
 		BookmarkVO result = memberDao.selectDetailBookmark(member.getMe_id(), hd_ho_id);
-		System.out.println("memberㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ" + member.getMe_id());
-		System.out.println("detailㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ" + hd_ho_id);
 		
 		if(result != null) {
 			return true;
@@ -572,8 +571,19 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.selectMemberLand();
 	}
 
-
-	
-	 
+	@Override
+	public boolean getReservationId(String ho_id, MemberVO member) {
+		if(member == null) {
+			return false;
+		}
+		
+		int res = memberDao.selectReservationId(ho_id, member.getMe_id());
+		if(res == 0) {			
+			return false; 
+		}
+		else {
+			return true;
+		}
+	}
 
 }

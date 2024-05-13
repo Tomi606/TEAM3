@@ -14,13 +14,14 @@ public class ReservationScheduleVO {
 	private Date rs_date;
 	private Date rs_time;
 	private int rs_max_person;
+	private HospitalProgramVO program;
 	
 	public String getRsDate() {
 	    if (this.rs_date != null) {
 	        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
 	        return format.format(this.rs_date);
 	    } else {
-	        return "없당ㅎㅎ";
+	        return "존재하지 않습니다.";
 	    }
 	}
 	
@@ -29,7 +30,7 @@ public class ReservationScheduleVO {
 	        SimpleDateFormat format = new SimpleDateFormat("HH시 mm분");
 	        return format.format(this.rs_time);
 	    } else {
-	        return "없당ㅎㅎ";
+	        return "존재하지 않습니다.";
 	    }
 	}
 	
@@ -38,7 +39,7 @@ public class ReservationScheduleVO {
 	        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	        return format.format(this.rs_date);
 	    } else {
-	        return "없당ㅎㅎ";
+	        return "존재하지 않습니다.";
 	    }
 	}
 	

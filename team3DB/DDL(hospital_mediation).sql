@@ -33,7 +33,7 @@ CREATE TABLE `post` (
 	`po_title`	varchar(30) NOT	NULL,
 	`po_report_count` int not null default 0, 
     `po_view` INT NULL DEFAULT '0',
-	`po_date` date not null,
+	`po_date` DATETIME not null,
 	`po_content`	TEXT NOT NULL,
 	`po_bo_num`	int	NOT NULL,
 	`po_mg_num`	int	NOT NULL,
@@ -45,7 +45,7 @@ DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
 	`co_num`	int	primary key auto_increment,
 	`co_content`	TEXT NOT NULL,
-	`co_date` date not null,
+	`co_date` DATETIME not null,
 	`co_report_count` int not null default 0,
 	`co_po_num`	int	NOT NULL,
 	`co_mg_num`	int	NOT NULL
@@ -64,7 +64,8 @@ CREATE TABLE `reservation` (
 	`rv_num`	int	primary key auto_increment,
 	`rv_me_id`	varchar(13)	NOT NULL,
 	`rv_rvs_name`	varchar(10)	NOT NULL,
-	`rv_rs_num`	int	NOT NULL
+	`rv_rs_num`	int	NOT NULL,
+    `rv_date`	datetime default CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS `bookmark`;
@@ -922,6 +923,7 @@ values
  ('외상외과'),  ('건강증진센터'), ('마취통증학과'),('방사선종양학과'), ('병리과'),   ('신경과'), ('신경외과'), ('심장혈관흉부외과'), ('영상의학과'), 
  ('응급의학과'), ('재활의학과'), ('정신건강의학과'),  ('중환자의학과'), ('진단검사의학과'),('호흡기내과'), ('핵의학과');
 
+insert into post(po_title) values('공지'),('건강정보나눔');
 # 지역 DB 넣은 후 실행
 -- insert into land value(1,1,1,1);
 
@@ -930,6 +932,10 @@ insert into report_state values('1'),('3'),('7'),('15'),('30'),('60'),('180'),('
 
 #예약상태 
 insert into reservation_state values ("예약취소"),("예약완료");
+
+#결제상태
+INSERT INTO `hospital_mediation`.`payment_state` (`ps_name`) VALUES ('결제완료');
+INSERT INTO `hospital_mediation`.`payment_state` (`ps_name`) VALUES ('결제취소');
 
 # site_management 추가
 -- insert into site_management value(1, 1, 'qqqq1111', "01011111111", "qqqq1111@naver.com", "USER");

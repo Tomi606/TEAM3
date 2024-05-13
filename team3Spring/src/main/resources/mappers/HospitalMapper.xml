@@ -118,7 +118,7 @@
 		select count(*) from hs_list where hsl_hs_num = #{me.me_hs_num} 
 	</select>
 	
-	<select id="selectHospitalAll" resultMap="hospitalMap">
+	<select id="selectHospitalAll" resultMap="hospitalMap2">
 		select * from hospital
 		where ho_la_num = #{la.la_num}
 		and ho_name like concat('%', #{cri.search}, '%')
@@ -130,6 +130,38 @@
 		where ho_la_num = #{la.la_num}
 		and ho_name like concat('%', #{cri.search}, '%')
 	</select>
+	
+	<resultMap type="HospitalVO" id="hospitalMap2">
+		<id column="ho_id" property="ho_id"/>
+		<result column="ho_ms_state" property="ho_ms_state"/>
+		<result column="ho_hs_num" property="ho_hs_num"/>
+		<result column="ho_pw" property="ho_pw"/>
+		<result column="ho_name" property="ho_name"/>
+		<result column="ho_ceo" property="ho_ceo"/>
+		<result column="ho_num" property="ho_num"/>
+		<result column="ho_address" property="ho_address"/>
+		<result column="ho_phone" property="ho_phone"/>
+		<result column="ho_authority" property="ho_authority"/>
+		<result column="ho_cookie" property="ho_cookie"/>
+		<result column="ho_cookie_limit" property="ho_cookie_limit"/>
+		<result column="ho_fail" property="ho_fail"/>
+		<result column="ho_email" property="ho_email"/>
+		<result column="ho_report_count" property="ho_report_count"/>
+		<result column="ho_stop" property="ho_stop"/>
+		<result column="ho_stop_count" property="ho_stop_count"/>
+		<result column="ho_la_num" property="ho_la_num"/>
+		<collection property="hospital_detail"
+			ofType="HospitalDetailVO" column="ho_id"
+			select="selectHospitalDetail"/>
+		<collection property="hs" ofType="HospitalSubjectVO" column="ho_hs_num"
+			select="selectHsMap"/>
+			<collection property="land" ofType="LandVO" 
+		column="ho_la_num" select="selectHoLaNum" />
+	</resultMap>
+	
+	<select id="selectHsMap" resultType="HospitalSubjectVO">
+		select * from hospital_subject where hs_num = #{ho_hs_num}
+	</select> 
 	
 	<resultMap type="HospitalVO" id="hospitalMap">
 		<id column="ho_id" property="ho_id"/>
@@ -153,8 +185,7 @@
 		<collection property="hospital_detail"
 			ofType="HospitalDetailVO" column="ho_id"
 			select="selectHospitalDetail"/>
-		<collection property="hospital_subject"
-			ofType="HospitalSubjectVO" column="ho_hs_num"
+		<collection property="hospital_subject" ofType="HospitalSubjectVO" column="ho_hs_num"
 			select="selectHospitalSubject"/>
 			<collection property="land" ofType="LandVO" 
 		column="ho_la_num" select="selectHoLaNum" />
@@ -295,7 +326,7 @@
 	
 	<!-- 정경호 : 과목 ㄱㄴㄷㄹ순으로 정렬을 위해 order by hs_title 추가 -->
 	<select id="selectHospitalSubjectList" resultType="HospitalSubjectVO">
-		select * from hospital_subject order by hs_title
+		select * from hospital_subject order by hs_num
 	</select>
 	
 	<!-- 로그인 -->
@@ -707,4 +738,79 @@
 		insert into hs_list(hsl_ho_id, hsl_hs_num) 
 		values(#{ho_id}, #{ho_hs_num})
 	</insert>
+	
+	<!-- programMap -->
+		<resultMap type="HsListVO" id="hslMapp">
+		<result property="hsl_num" column="hsl_num"/>
+		<result property="hsl_hs_num" column="hsl_hs_num"/>
+		<result property="hsl_ho_id" column="hsl_ho_id"/>
+		<collection property="hospital_subject" ofType="HospitalSubjectVO"
+					column="hsl_hs_num" select="selectSubjectListMap"/>
+		</resultMap>
+	
+	<!-- programMap -->
+		<resultMap type="HospitalProgramVO" id="programMap">
+		<result property="hp_num" column="hp_num"/>
+		<result property="hp_title" column="hp_title"/>
+		<result property="hp_payment" column="hp_payment"/>
+		<result property="hp_ho_id" column="hp_ho_id"/>
+		<result property="hp_hsl_num" column="hp_hsl_num"/>
+		<collection property="hsList" ofType="HsListVO"
+					column="hp_hsl_num" select="selectHsListMap"/>
+		<collection property="hospital" ofType="HospitalVO"
+					column="hp_ho_id" select="selectHospitalListMap"/>
+					
+		</resultMap>
+		
+	<!-- reservation_scheduleMap -->
+		<resultMap type="ReservationScheduleVO" id="scheduleMap">
+		<result property="rs_num" column="rs_num"/>
+		<result property="rs_hp_num" column="rs_hp_num"/>
+		<result property="rs_date" column="rs_date"/>
+		<result property="rs_time" column="rs_time"/>
+		<collection property="program" ofType="HospitalProgramVO"
+					column="rs_hp_num" select="selectHospitalPrograms"/>
+	</resultMap>
+		<!-- reservationMap -->
+		<resultMap type="ReservationVO" id="reservationMap">
+		<result property="rv_num" column="rv_num"/>
+		<result property="rv_rvs_name" column="rv_rvs_name"/>
+		<result property="rv_rs_num" column="rv_rs_num"/>
+		<result property="rv_me_id" column="rv_me_id"/>
+		<collection property="schedule" ofType="ReservationScheduleVO"
+					column="rv_rs_num" select="selectScheduleList"/>
+	</resultMap>
+	<!-- hospital -->
+	<select id="selectHospitalListMap" resultType="HospitalVO">
+		select * from hospital where ho_id = #{hp_ho_id}
+	</select>
+	<!-- subject -->
+	<select id="selectSubjectListMap" resultType="HospitalSubjectVO">
+		select * from hospital_subject where hs_num = #{hsl_hs_num}
+	</select>
+	<!-- HsList -->
+	<select id="selectHsListMap" resultMap="hslMapp">
+			select * from hs_list where hsl_num = #{hp_hsl_num}
+	</select>
+	<!-- hospital_program -->
+	<select id="selectHospitalPrograms" resultMap="programMap">
+		select * from hospital_program where hp_num = #{rs_hp_num}
+	</select>
+	
+	<!-- reservation_schedule -->
+	<select id="selectScheduleList" resultMap="scheduleMap">
+		select * from reservation_schedule where rs_num = #{rv_rs_num}
+	</select>
+	
+	<!-- reservation -->
+	<select id="selectAllReservationList" resultMap="reservationMap">
+		select * from reservation 
+		order by rv_num desc limit 10
+	</select>
+	
+	<select id="selectDetailHoId" resultType="HospitalVO">
+		select * from hospital_detail;
+	</select>
+	
+	
 </mapper>

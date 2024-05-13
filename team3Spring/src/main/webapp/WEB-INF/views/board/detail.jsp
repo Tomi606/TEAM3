@@ -698,7 +698,7 @@ function displayCommentList(commentList){
 	            </div>
 	            <div class="col-9 clearfix input-group">
 	            	<span class="text-comment" style="width: 69%;">\${item.co_content}</span>
-	            	<span class="comment-date date" style="width: 8%;font-size:14px;color:gray">\${item.changeDate}</span>
+	            	<span class="comment-date date" style="width: 12%;font-size:14px;color:gray">\${item.changeDate}</span>
 	            	<c:if test="${item.co_num eq user.site_num}">
 			        	<div class="report-box-comment"data-targetco="\${item.co_num}">
 							<li role="button" class="btn-report-comment"></li>

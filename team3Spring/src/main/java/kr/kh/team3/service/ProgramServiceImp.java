@@ -12,9 +12,11 @@ import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.ItemListVO;
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.PaymentVO;
+import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.ReservationVO;
 import kr.kh.team3.model.vo.SiteManagement;
+import kr.kh.team3.pagination.Criteria;
 
 @Controller
 public class ProgramServiceImp implements ProgramService {
@@ -240,12 +242,54 @@ public class ProgramServiceImp implements ProgramService {
 
 	@Override
 	public boolean selectUserReserve(String site_id, int rv_rs_num) {
-		ReservationVO reserve =  programDao.selectUserReserve(site_id, rv_rs_num);
-		System.out.println("여기" + reserve);
-		if(reserve != null)
-			return false;
+		ArrayList<ReservationVO> reserve =  programDao.selectUserReserve(site_id, rv_rs_num);
 		
-		return true;
+		if(reserve == null)
+			return true;
+		
+		
+		int a = 0;
+		for(ReservationVO res : reserve) {
+			if(res.getRv_rvs_name().equals("예약완료")) {
+				a += 1;
+			}
+			
+		}
+		
+		if(a == 0) {
+			return true;
+		}
+		
+		return false;
+	}
+
+	@Override
+	public ArrayList<PostVO> getBookList(SiteManagement user, Criteria cri) {
+		if(user == null || user.getSite_id() == null || user.getSite_id().length() == 0) {
+			return null;
+		}
+		if (cri == null) {
+			cri = new Criteria(1, 5);
+		}
+		
+		return programDao.selectBookList(user, cri);
+	}
+
+	@Override
+	public int getBookListCount(SiteManagement user, Criteria cri) {
+		if(user == null || user.getSite_id() == null || user.getSite_id().length() == 0) {
+			return 0;
+		}
+		if (cri == null) {
+			cri = new Criteria(1, 5);
+		}
+		return programDao.selectBookListCount(user, cri);
+	}
+
+	@Override
+	public boolean updateRvRvsName(int rv_num) {
+		
+		return programDao.updateRvRvsName(rv_num);
 	}
 
 }

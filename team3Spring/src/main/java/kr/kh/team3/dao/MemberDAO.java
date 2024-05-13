@@ -13,6 +13,7 @@ import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
+import kr.kh.team3.model.vo.ReservationVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
 import kr.kh.team3.model.vo.SiteManagement;
@@ -133,6 +134,12 @@ public interface MemberDAO {
 	ArrayList<ReportVO> selectMeRpList();
 
 	ArrayList<MemberVO> selectMemberLand();
+
+	int selectReservationId(@Param("ho_id") String ho_id, @Param("me_id") String me_id);
+
+	ReservationVO getMemberReservation(@Param("me_id") String me_id);
+
+
 
 
 

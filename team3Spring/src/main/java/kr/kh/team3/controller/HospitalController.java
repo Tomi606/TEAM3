@@ -281,9 +281,15 @@ public class HospitalController {
 		//북마크 유무 : 병원페이지 아이디(detail에서 받아옴), 회원 아이디, 북마크
 		boolean detailAlready = memberService.selectDetailBookmark(bookmark, member, detail.getHd_ho_id());
 		
+		//해당 예약페이지의 병원에 예약한 회원이면
+		boolean booked = memberService.getReservationId(detail.getHd_ho_id(), member);
+		
+		model.addAttribute("booked", booked);
+		
 		model.addAttribute("detail", detail);
 		model.addAttribute("sub", sub);
 		model.addAttribute("detailAlready", detailAlready);
+		
 		model.addAttribute("land", land);
 		model.addAttribute("sido", sido);
 		model.addAttribute("sgg", sgg);
@@ -294,7 +300,7 @@ public class HospitalController {
 	//리뷰 리스트
 	@ResponseBody
 	@PostMapping("/hospital/review/list")
-	public Map<String, Object> reviewList(@RequestBody Criteria cri) {
+	public Map<String, Object> reviewList(@RequestBody Criteria cri, String ho_id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		cri.setPerPageNum(3); //1페이지 당 댓글 3개
 		//한 페이지(cri)를 주면서 리뷰 리스트를 가져오라고 시킴
@@ -317,6 +323,7 @@ public class HospitalController {
 		MemberVO member = memberService.getSiteMember(user);
 		boolean res = hospitalService.insertReview(review, member);
 		
+
 		map.put("result", res);
 		return map;
 	}
@@ -352,6 +359,7 @@ public class HospitalController {
 	public String detailInsert(Model model, HospitalDetailVO detail, HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HospitalVO hospital = hospitalService.getHospital(user);
+		log.info(detail.getHd_time());
 		//병원과목 리스트
 		ArrayList<HospitalSubjectVO> hsList = hospitalService.getHospitalSubjectList();
 		//현재 로그인한 병원이 회원가입 시 선택했던 과목
@@ -764,6 +772,7 @@ public class HospitalController {
 			model.addAttribute("url", "/main/login");
 			return "message";
 		}
+		
 		ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
 		model.addAttribute("list", list);
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
@@ -785,12 +794,15 @@ public class HospitalController {
 		int totalCount;
 		if(hs_num == 0) {
 			hoList = hospitalService.getHospitalSubAll(land,cri);
+			log.info("al;sdfjlskadmkmj15321 "+hoList);
 			totalCount = hospitalService.getHospitalSubAllCount(land,cri);
 		}else {
 			hoList = hospitalService.getHospitalEmd(land, hs_num, cri);
+			log.info("ㅗㅜㅘㅓㅏㅏal;sdfjlskadmkmj15321 "+hoList);
 			totalCount = hospitalService.getHospitalCountEmd(land, hs_num, cri);
 		}
 		PageMaker pm = new PageMaker(5, cri, totalCount);
+		
 		map.put("pm", pm);
 		map.put("hoList", hoList);
 		return map;
@@ -807,6 +819,7 @@ public class HospitalController {
 		cri.setPerPageNum(8);
 		int totalCount = hospitalService.getLikeSub(me,land,cri);
 		ArrayList<HospitalVO> hoSubList = hospitalService.getSubHoList(me, land,cri);
+		log.info("al;sdfjlskadmkmj15321 "+hoSubList);
 		PageMaker pm = new PageMaker(5, cri, totalCount);
 		map.put("pm", pm);
 		map.put("hoSubList",hoSubList);

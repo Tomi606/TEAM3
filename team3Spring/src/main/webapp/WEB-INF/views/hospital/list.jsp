@@ -223,7 +223,7 @@ color: green;
 		
 			<div class="category">
 				<div class="title">
-					<h3>원하시는 과목을 선택하세요</h3>
+					<h3>진료 과목을 선택하세요</h3>
 				</div>
 				<div class="li-box" >
 				   <li role="button" class="hs_btn" data-hsnum="0">전체</li>
@@ -483,31 +483,31 @@ function getSubHoList(){
                		let timeArray = hd_time.split(",");
                		
                		let today = new Date();
-               		let daysOfWeek = ['월', '화', '수', '목', '금', '토', '일'];
-               		let dayOfWeek = daysOfWeek[today.getDay() - 1]; //오늘 무슨요일
+               		let daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+               		let dayOfWeek = daysOfWeek[today.getDay()]; //오늘 무슨요일
 						
                		switch(dayOfWeek){
                		case '월':
-               			hd_time = timeArray[1];
-               			break;
-               		case '화':
-               			hd_time = timeArray[2];
-               			break;
-               		case '수':
-               			hd_time = timeArray[3];
-               			break;
-               		case '목':
-               			hd_time = timeArray[4];
-               			break;
-               		case '금':
-               			hd_time = timeArray[5];
-               			break;
-               		case '토':
-               			hd_time = timeArray[6];
-               			break;
-               		case '일':
-               			hd_time = timeArray[7];
-               			break;
+            			hd_time = timeArray[2];
+            			break;
+            		case '화':
+            			hd_time = timeArray[3];
+            			break;
+            		case '수':
+            			hd_time = timeArray[4];
+            			break;
+            		case '목':
+            			hd_time = timeArray[5];
+            			break;
+            		case '금':
+            			hd_time = timeArray[6];
+            			break;
+            		case '토':
+            			hd_time = timeArray[7];
+            			break;
+            		case '일':
+            			hd_time = timeArray[1];
+            			break;
                		}
 
 	                    str += 
@@ -556,30 +556,30 @@ function getAreaHoList(){
             		let timeArray = hd_time.split(",");
             		
             		let today = new Date();
-            		let daysOfWeek = ['월', '화', '수', '목', '금', '토', '일'];
-            		let dayOfWeek = daysOfWeek[today.getDay() - 1]; //오늘 무슨요일
+            		let daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+            		let dayOfWeek = daysOfWeek[today.getDay()]; //오늘 무슨요일
 					
             		switch(dayOfWeek){
             		case '월':
-            			hd_time = timeArray[1];
-            			break;
-            		case '화':
             			hd_time = timeArray[2];
             			break;
-            		case '수':
+            		case '화':
             			hd_time = timeArray[3];
             			break;
-            		case '목':
+            		case '수':
             			hd_time = timeArray[4];
             			break;
-            		case '금':
+            		case '목':
             			hd_time = timeArray[5];
             			break;
-            		case '토':
+            		case '금':
             			hd_time = timeArray[6];
             			break;
-            		case '일':
+            		case '토':
             			hd_time = timeArray[7];
+            			break;
+            		case '일':
+            			hd_time = timeArray[1];
             			break;
             		}
                 	if(area.hs_num == 0){
@@ -588,7 +588,7 @@ function getAreaHoList(){
          	                    <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=\${ho.ho_id}'/>" style="padding: auto;" data-id="\${ho.hospital_detail.hd_num}">
          							<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
          							<div class="ho-name">\${ho.ho_name}</div>
-         							<div class="hs-title">\${ho.hospital_subject.hs_title}</div>
+         							<div class="hs-title">\${ho.hs.hs_title}</div>
          							<div class="ho-address"><img class="small-img"
          								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">\${ho.ho_address}</div>
          							<div class="hd-time"><img class="small-img"
@@ -726,9 +726,7 @@ $(".li-box [data-hsnum='${hs_num}']").click();
 $(".sido-list [data-num=${la.la_sd_num}]").click();
 $(".sgg-list [data-num=${la.la_sgg_num}]").click();
 $(".emd-list [data-num=${la.la_emd_num}]").click();
-
  
 </script>
-
 </body>
 </html>

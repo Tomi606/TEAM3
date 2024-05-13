@@ -404,8 +404,53 @@ p {
 					<hr>
 					<div class="hd_time page1" id="hd_time">
 						<label class="label" for="hd_time" style="font-weight: bold">영업 시간</label>
-						<textarea class="hd_time" id="myTextarea" name="hd_time"
+<%-- 						<textarea class="hd_time" id="myTextarea" name="hd_time"
 						placeholder="월~금 : 9:00~18:00 / 토,일 : 휴무"  oninput="autoResize(this)" readonly>${detail.hd_time}</textarea>
+						 --%>
+						<table class="hd_time" id="hd_time">
+						<tbody>
+							<tr>
+						        <td>점심 시간</td>
+						        <td><input type="text" class="lunch" name="hd_time" placeholder="12:00~13:00" value="${detail.hd_time}"
+						        onkeyup="this.value=this.value.replace(/[^0-9~:]/g,'');" required></td>
+					 		</tr>
+						    <tr>
+						        <td>월요일</td>
+						        <td><input type="text" class="mon" name="hd_time" placeholder="9:00~18:00"value="${detail.hd_time}"
+						        onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
+					 		</tr>
+						 <tr>
+						     <td>화요일</td>
+						     <td><input type="text" class="tue" name="hd_time" placeholder="9:00~18:00"value="${detail.hd_time}"
+						     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
+						 </tr>
+						 <tr>
+						     <td>수요일</td>
+						     <td><input type="text" class="wed" name="hd_time" placeholder="9:00~18:00"
+						     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
+						 </tr>
+						 <tr>
+						     <td>목요일</td>
+						     <td><input type="text" class="thu" name="hd_time" placeholder="9:00~18:00"
+						     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
+						 </tr>
+						 <tr>
+						     <td>금요일</td>
+						     <td><input type="text" class="fri" name="hd_time" placeholder="9:00~18:00"
+						     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
+						 </tr>
+						 <tr>
+						     <td>토요일</td>
+						     <td><input type="text" class="sat" name="hd_time" placeholder="9:00~18:00"
+						     onkeyup="this.value=this.value.replace(/[^ㅎㅁ휴무0-9~:]/g,'');" required></td>
+						 </tr>
+						 <tr>
+						     <td>일요일</td> 
+						     <td><input type="text" class="sun" name="hd_time" placeholder="9:00~18:00"
+						     onkeyup="this.value=this.value.replace(/[^ㅎㅁ휴무0-9~:]/g,'');" required></td>
+						 </tr>
+						</tbody>
+					</table>
 					</div>
 					<hr>
 					<div class="hd_park page1" id="hd_park">
@@ -527,40 +572,6 @@ function getBookmarkAfter(already) {
 };
 </script>
 
-<!-- <script type="text/javascript">
-$(document).ready(function() {
-    $('.page').on( 'load', 'textarea', function (e){
-      $(this).css('height', 'auto' );
-      $(this).height( this.scrollHeight );
-    });
-    $('.page').find( 'textarea' ).keyup();
-  });
-</script> -->
-
-<!-- textarea 자동 스크롤 -->
-<!-- <script type="text/javascript">
-window.addEventListener('DOMContentLoaded', function() {
-	let textarea = document.getElementById("myTextarea");
-	adjustTextareaHeight(textarea);
-});
-
-function adjustTextareaHeight(textarea) {
-	textarea.style.height = "auto";
-	textarea.style.height = textarea.scrollHeight + "px";
-}
-</script> -->
-
-<!-- <script type="text/javascript">
-function autoResize(textarea) {
-	const targetTextarea = document.querySelector(`#target`);
-
-	 if(targetTextarea.scrollHeight > targetTextarea.clientHeight) //textarea height 확장
-	    targetTextarea.style.height= targetTextarea.scrollHeight + "px";
-	 else //textarea height 축소
-	    targetTextarea.style.height= (targetTextarea.scrollHeight-18) + "px";
-}
-</script> -->
-
 <!-- 북마크 해제 버튼 -->
 <script type="text/javascript">
 $('.bookmark-after').click(function() {
@@ -612,24 +623,6 @@ $('.bookmark-after').click(function() {
 			return;
 		}
 	};
-});
-</script>
-
-<script type="text/javascript">
-$("#btn1").click(function() {
-	$("#btn1").addClass("login-btn-click");
-	$("#btn2").removeClass("login-btn-click");
-	$("#btn3").removeClass("login-btn-click");
-});
-$("#btn2").click(function() {
-	$("#btn1").removeClass("login-btn-click");
-	$("#btn3").removeClass("login-btn-click");
-	$("#btn2").addClass("login-btn-click");
-});
-$("#btn3").click(function() {
-	$("#btn3").addClass("login-btn-click");
-	$("#btn1").removeClass("login-btn-click");
-	$("#btn2").removeClass("login-btn-click");
 });
 </script>
 
@@ -743,12 +736,17 @@ $(document).on('click', '.box-pagination .page-link', function() {
 <!-- 리뷰 등록 -->
 <script type="text/javascript">
 //리뷰 등록 버튼의 클릭 이벤트를 등록
-$('.review-insert-btn').click(function() {
+$(document).on('click', '.review-insert-btn', function() {
 	//로그인 안되있으면 return
 	if(!checkLogin()) {
 		return false;
 	}
 	
+	//예약 완료가 안 되있으면 return;
+	if(!checkBook()) {
+		return false;
+	}
+
 	let review = {
 	        vw_hd_num : $(this).data('hd-num'), 
 	        vw_content : $('.textarea-review').val()
@@ -786,7 +784,20 @@ $('.review-insert-btn').click(function() {
 		}
 	});
 });
+</script>
 
+<!-- 예약 완료 회원 체크 -->
+<script type="text/javascript">
+function checkBook() {
+	//해당 상세페이지의 병원 아이디로 "예약완료" 한 회원이면
+	if("${booked}" == "true") {
+		return true;
+	}
+	else {
+		alert("진료받은 병원만 리뷰를 적을 수 있습니다.");	
+		return false;
+	}
+}
 </script>
 
 <!-- 로그인 체크 -->
@@ -957,5 +968,53 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<!-- 영업 시간 : 배열로 저장된 시간들 인덱스와 클래스 이름 매핑(안씀) -->
+<script type="text/javascript">
+//서버에서 받은 hd_time 문자열
+let hd_time = "${detail.hd_time}";
+//쉼표로 문자열 분할
+let timeArray = hd_time.split(',');
+//각 요일에 대한 인덱스와 클래스 이름 매핑
+let days = {
+	'lunch' : 0,
+	'mon' : 1,
+	'tue' : 2,
+	'wed' : 3,
+	'thu' : 4,
+	'fri' : 5,
+	'sat' : 6,
+	'sun' : 7
+};
+
+//각 요일의 input 필드에 시간 설정
+for(let day in days) {
+	let index = days[day];
+	let inputField = document.querySelector('.' + day);
+	
+	//시간이 존재하면 input 필드에 설정
+	if(timeArray[index]) {
+		inputField.value = timeArray[index];
+	}
+}
+</script>
+
+
+<script type="text/javascript">
+$("#btn1").click(function() {
+	$("#btn1").addClass("login-btn-click");
+	$("#btn2").removeClass("login-btn-click");
+	$("#btn3").removeClass("login-btn-click");
+});
+$("#btn2").click(function() {
+	$("#btn1").removeClass("login-btn-click");
+	$("#btn3").removeClass("login-btn-click");
+	$("#btn2").addClass("login-btn-click");
+});
+$("#btn3").click(function() {
+	$("#btn3").addClass("login-btn-click");
+	$("#btn1").removeClass("login-btn-click");
+	$("#btn2").removeClass("login-btn-click");
+});
+</script>
 </body>
 </html>

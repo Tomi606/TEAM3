@@ -25,6 +25,7 @@ import kr.kh.team3.model.vo.HsListVO;
 import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.ReportVO;
+import kr.kh.team3.model.vo.ReservationVO;
 import kr.kh.team3.model.vo.ReviewVO;
 import kr.kh.team3.model.vo.SiDoVO;
 import kr.kh.team3.model.vo.SiGoonGuVO;
@@ -461,6 +462,11 @@ public class HospitalServiceImp implements HospitalService {
 		}
 		
 		if(member == null || member.getMe_id() == null) {
+			return false;
+		}
+		
+		ReservationVO reservation = memberDao.getMemberReservation(member.getMe_id());
+		if(reservation == null) {
 			return false;
 		}
 		
@@ -909,6 +915,16 @@ public class HospitalServiceImp implements HospitalService {
 	@Override
 	public ArrayList<HospitalVO> getMyAreaHospitalList(int site_la_num) {
 		return hospitalDao.selectMyAreaHospitalList(site_la_num);
+	}
+
+	@Override
+	public ArrayList<ReservationVO> selectAllReservationList() {
+		return hospitalDao.selectAllReservationList();
+	}
+
+	@Override
+	public HospitalDetailVO getDetailHoId() {
+		return hospitalDao.selectDetailHoId();
 	}
 
 
