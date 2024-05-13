@@ -500,6 +500,7 @@ public class HospitalController {
 		HsListVO hslist = programService.getHsList(hs_num, user);
 		ArrayList<ItemVO> itemList = programService.getItemList(user, hslist);
 		ArrayList<HospitalProgramVO> hpList = programService.getSubjectByProgram(user, hslist);
+		System.out.println(itemList);
 		map.put("itemList", itemList);
 		map.put("hpList", hpList);
 		return map;
