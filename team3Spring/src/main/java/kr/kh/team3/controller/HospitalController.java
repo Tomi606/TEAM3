@@ -669,7 +669,7 @@ public class HospitalController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		boolean res = programService.insertReservationSechedule(rs_hp_num, rs_date, rs_time, rs_max_person);
 		 if (res) {
-				map.put("msg","추가에성공했습니다.");
+				map.put("msg","추가되었습니다.");
 			}else {
 				map.put("msg","추가를 실패했습니다.");
 			}

@@ -516,7 +516,7 @@ display:flex;border:1px solid lightgray;border-radius:15px;
 					</div>
 					<div class="box-review-insert">
 						<div class="input-group review-textarea">				
-					        <textarea id="review" class="vw_num textarea-review" id="vw_num" name="vw_num" "></textarea>
+					        <textarea id="review" class="vw_num textarea-review" id="vw_num" name="vw_num"></textarea>
 						</div>
 						<div class="review-btn-div">
 					        <button class="btn btn-outline-success review-insert-btn review-btn " name="review-btn" data-hd-num="${detail.hd_num}">리뷰 등록</button>		
