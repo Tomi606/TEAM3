@@ -165,11 +165,9 @@ label {
 	    	<input   type="text" id="name" name="me_name" placeholder="이름" autofocus="autofocus" class="input-tag">
 	    	<label for="me_name" class="text-danger"></label>
 		</div>
-		<!-- 이메일  -->
 		<div>
 			<img alt="아이디이미지" src="<c:url value="/resources/img/mail.svg"/>">
 	    	<input  type="text" id="email" name="site_email" placeholder="이메일" autofocus="autofocus" class="input-tag">
-	    	<!-- <a type="button" class="email-btn btn duplicate">중복확인</a> -->
 	    	<label for="me_email" class="text-danger etext"></label>
 		</div>
 		<div>
@@ -181,14 +179,9 @@ label {
 	   		 <label for="male" class="male">남자</label>
 		</div>
 
-		<div class="gender-buttons">
+		<div class="gender-buttons" style="margin-bottom: 15px;">
 		    <input type="radio" id="female" name="me_gender" value="여자" >
 		    <label for="female"  class="female" style="border:1px solid #ff69b4;">여자</label>
-		</div>
-		<div style="margin-top: 15px;">
-			<img alt="아이디이미지" src="<c:url value="/resources/img/job.svg"/>">
-	   	 	<input   type="text" id="job" name="me_job" placeholder="직업을 입력하세요" autofocus="autofocus" class="input-tag">
-	    	<label for="me_job" class="text-danger"></label>
 		</div>
 		<div>
 			<img alt="아이디이미지" src="<c:url value="/resources/img/phone.svg"/>">
@@ -278,10 +271,6 @@ $("form").validate({
             required: true,
             pattern: /^[ㄱ-힣]{2,5}$/ // 이름은 2~5글자의 한글로 이루어져야 함
         },
-        me_job: {
-            required: true,
-            pattern: /^[ㄱ-힣]{2,10}$/ // 직업은 2~10글자의 한글로 이루어져야 함
-        },
         me_phone: {
             required: true,
             pattern: /^[0-9]{11}$/ // 전화번호는 11자리의 숫자로 이루어져야 함
@@ -319,10 +308,6 @@ $("form").validate({
         me_name: {
             required: "이름을 입력하세요",
             pattern: "이름을 정확히 입력하세요."
-        },
-        me_job: {
-            required: "직업을 입력하세요.(없으면 무직)",
-            pattern: "직업을 정확히 입력하세요."
         },
         me_phone: {
             required: "",

@@ -70,19 +70,47 @@ tbody td {
 .abc{margin-top: 60px;}
 tbody td a{color: black;}
 tbody td a:hover{color: black;}
+
+.myCommunity_container{
+	display: flex;width: 200px;margin: 0 auto;flex-direction: column;
+}
+.prev_btn{
+	width: 100px;margin-left: auto;
+}
+.back_btn{
+border: 1px solid green;padding: 15px;color: green;border-radius: 10px;text-decoration: none;
+	
+}
+.back_btn:hover{
+	background-color: green;color: white;text-decoration: none;
+}
 </style>
 </head>
 <body>
 <div class="community-container">
 	<div class="community-box">
-		<c:if test="${user != null && user.getSite_authority().equals('MANAGER')}">
-			<h1 style="color: #555">${ho.ho_id}</h1>
-			<span>병원 회원</span>
-		</c:if>
-		<c:if test="${user != null && user.getSite_authority().equals('USER')}">	
-			<h1 style="color: #555">${me.me_id }</h1>
-			<span >일반 회원</span>
-		</c:if>	
+		<div class="myCommunity_container">
+			<c:if test="${user != null && user.getSite_authority().equals('MANAGER')}">
+				<h1 style="color: #555">${ho.ho_id}</h1>
+				<span>병원 회원</span>
+			</c:if>
+		</div>	
+		<div class="myCommunity_container">
+			<c:if test="${user != null && user.getSite_authority().equals('USER')}">	
+				<h1 style="color: #555">${me.me_id }</h1>
+				<span >일반 회원</span>
+			</c:if>	
+		</div>	
+			<c:if test="${user != null && user.getSite_authority().equals('USER')}">	
+				<div class="prev_btn">
+					<a href="<c:url value='/member/mypage'/>" class="back_btn">뒤로가기</a>
+				</div>
+			</c:if>	
+			<c:if test="${user != null && user.getSite_authority().equals('MANAGER')}">
+				<div class="prev_btn">
+					<a href="<c:url value='/hospital/mypage'/>" class="back_btn">뒤로가기</a>
+				</div>
+			</c:if>	
 		<hr style="width: 100%; height: 0px; border: 1px solid lightgray; margin: 50px 0 50px 0">
 		<div class="community-toggle-group">
 			<button id="btn1" class="community-toggle-btn click-btn">작성 게시글</button>

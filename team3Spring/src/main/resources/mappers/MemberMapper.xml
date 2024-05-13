@@ -117,8 +117,8 @@
 	<!-- 회원가입 -->
 	<insert id="insertMember">
 		insert into
-		member(me_hs_num,me_id,me_pw,me_name,me_gender,me_job,me_phone,me_email,me_authority,me_ms_state,me_la_num)
-		values(#{me.me_hs_num},#{me.me_id},#{me.me_pw},#{me.me_name},#{me.me_gender},#{me.me_job},#{me.me_phone},#{me.me_email},"USER","이용중",#{la.la_num})
+		member(me_hs_num,me_id,me_pw,me_name,me_gender,me_phone,me_email,me_authority,me_ms_state,me_la_num)
+		values(#{me.me_hs_num},#{me.me_id},#{me.me_pw},#{me.me_name},#{me.me_gender},#{me.me_phone},#{me.me_email},"USER","이용중",#{la.la_num})
 	</insert>
 
 	<insert id="insertSiteMember">

@@ -13,7 +13,6 @@ CREATE TABLE `member` (
 	`me_pw`	varchar(255) NOT NULL,
 	`me_name`	varchar(20)	NOT NULL,
 	`me_gender`	varchar(3)	NOT NULL,
-	`me_job`	varchar(20)	NOT NULL,
 	`me_phone`	varchar(11)	NOT NULL,
 	`me_email`	varchar(50)	NOT NULL,
 	`me_authority`	varchar(10)	not null default 'USER',

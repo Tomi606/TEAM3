@@ -78,13 +78,13 @@
 textarea{outline-style: none;}
 .post_list_container{width: 100%;height: 100%;}
 .post_list_box{
-	border:2px solid green;width: 1400px;height: 100%;margin:100px auto;
+	border:2px solid green;width: 1400px;height: 100%;margin:-140px auto 100px auto;background:white;
 	padding:0 100px 100px 100px;	border-radius: 15px;
 }
 .hr{width: 100%;height: 0;border: 1px solid lightgray;margin: 50px 0 50px 0;}
 .post_insert_btn{
 	line-height: 50px;color: green;height: 100%;width: 100%;
-	border: 1px solid green; padding: 13px;
+	border: 1px solid green; padding: 13px;border-radius: 10px;
 }
 .post_list_box{
    box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
@@ -116,7 +116,7 @@ width: 80%;margin: 0 auto 80px auto;
 
 .writer-more{
         text-align: center;
-    width: 183px;
+    width: 100%;
 	display: inline-block;
 	color: black;
 	height: 40px;
@@ -253,9 +253,31 @@ color: green;
 	text-decoration: none;
 	color: black;
 }
+.page-title{
+	text-align: left;
+	font-size: 50px;
+	color: rgba(0, 100, 60, 0.8);
+	font-weight: bold;
+	margin: 0 0 80px 0;
+}
+.home-box1 {
+	width: 100%;
+	height: 350px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
+}
 </style>
 </head>
 <body>
+<div class="home-box1">
+	<div style="width: 80%;margin: 0 auto;padding-top: 80px">
+		<div class="page-title">
+			상세페이지
+		</div>
+	</div>
+</div>
 	<div class="post_list_container">
 		<div class="post_list_box">
 			<div class="board_location">
@@ -311,10 +333,14 @@ color: green;
 				<div class="user_more_post">
 					<c:choose>
 						<c:when test="${post.po_id ne user.site_id}">
+						<div style="width: 200px">
 							<a href="<c:url value='/board/userpost?po_id=${post.po_id}'/>" class="writer-more"><strong class="user">${post.po_id}</strong>님의 게시글 더보기 ></a>
+						</div>	
 						</c:when>
 						<c:otherwise>
+						<div style="width: 200px">
 							<a href="<c:url value='/board/userpost?po_id=${post.po_id}'/>" class="writer-more"><strong class="user">내가 쓴 </strong> 게시글 더보기 ></a>
+						</div>	
 						</c:otherwise>
 					</c:choose>	
 					</div>
