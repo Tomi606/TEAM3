@@ -1,211 +1,265 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <!-- jquery validation -->
-<script src="http://fastly.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
-<script src="http://fastly.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
-<script src="http://fastly.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-<title>세부 항목  수정</title>
+<script
+	src="http://fastly.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script
+	src="http://fastly.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
+<script
+	src="http://fastly.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<title>세부 항목 수정</title>
 <style type="text/css">
-.day-btn:hover{
-cursor: pointer;
+.day-btn:hover {
+	cursor: pointer;
 }
+
 .container {
-  margin: 20px auto;
-  width: 1400px;height:100%;
-  padding: 20px;
-  border: 1px solid #dee2e6;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
+	margin: 100px auto;
+	width: 1400px;
+	height: 100%;
+	padding: 20px;
+	border: 1px solid #dee2e6;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
 }
 
 h3 {
-  margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .calendar {
-  width: 100%;
-  margin-top: 20px;
+	width: 100%;
+	margin-top: 20px;
+	margin-top: 20px;
 }
 
 .topWrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 10px;
 }
 
 .monthWrap {
-  font-size: 24px;
-  font-weight: bold;
-  margin-right: 10px;
+	font-size: 24px;
+	font-weight: bold;
+	margin-right: 10px;
 }
 
-.month,
-.year {
-  color: #007bff;
+.month, .year {
+	color: #007bff;
 }
 
-.prevBtn,
-.nextBtn {
-  color: #007bff;
-  font-size: 24px;
-  text-decoration: none;
-  margin: 0 10px;
-  transition: color 0.3s ease;
+.prevBtn, .nextBtn {
+	color: #007bff;
+	font-size: 24px;
+	text-decoration: none;
+	margin: 0 10px;
+	transition: color 0.3s ease;
 }
 
-.prevBtn:hover,
-.nextBtn:hover {
-  color: #0056b3;
+.prevBtn:hover, .nextBtn:hover {
+	color: #0056b3;
 }
 
 .table {
-  display: grid;height:500px;
-  grid-template-columns: repeat(7, 1fr);
-  text-align: center;
+	display: grid;
+	height: 500px;
+	grid-template-columns: repeat(7, 1fr);
+	text-align: center;
 }
 
-.week,
+.week, .gray {
+	padding: 10px;
+	border: 1px solid #ced4da;
+	background-color: #fff;
+}
+
 .gray {
-  padding: 10px;
-  border: 1px solid #ced4da;
-  background-color: #fff;
+	color: #6c757d;
 }
 
-
-.gray {
-  color: #6c757d;
-}
-
-.gray.first,
-.gray.last {
-  background-color: #f8f9fa;
+.gray.first, .gray.last {
+	background-color: #f8f9fa;
 }
 
 .gray.bottom {
-  border-bottom: none;
+	border-bottom: none;
 }
 
 .gray.last.bottom {
-  border-bottom: 1px solid #ced4da;
+	border-bottom: 1px solid #ced4da;
 }
 
-.gray.first,
-.gray.last {
-  border-radius: 5px;
+.gray.first, .gray.last {
+	border-radius: 5px;
 }
 
 .week {
-  font-weight: bold;
-  background-color: #f8f9fa;
+	font-weight: bold;
+	background-color: #f8f9fa;
 }
 
 .time-list-box {
-top:46px;
-position:relative;
-border:1px solid lightgray;
-max-height:500px;
-  width: 100%;
-  margin-top: 20px;
-  display: flex;flex-wrap: wrap;
+	overflow-y: auto;
+	padding: 5px;
+	width: 100%;
+	min-height: 100%;
+	flex-direction: column;
+	max-height: 100%;
+	display: grid;
+	margin: auto 0;
+grid-template-columns: 1fr 1fr;
 }
 
-.time-box {display:flex;
-	width:50%;height:50px;
-  margin-bottom: 10px;
-  padding: 10px;
-  background-color: #f8f9fa;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
+
+.time-box {
+	width: 95%;
+	height: 50px;
+	margin: 5px 5px 10px 5px;
+	padding: 10px;
+	background-color: #f8f9fa;
+	border: 1px solid #ced4da;
+	border-radius: 5px;
 }
+
 .time-box a {
-  text-decoration: none;
-  color: inherit;
+	text-decoration: none;
+	color: inherit;
 }
 
 .time-box:hover {
-  background-color: #e9ecef;
-  cursor: pointer;
+	background-color: #e9ecef;
+	cursor: pointer;
 }
 
-.time-box-gray{
+.time-box-gray {
 	pointer-events: none;
-    opacity: 0.5; 
-    cursor: not-allowed; 
+	opacity: 0.5;
+	cursor: not-allowed;
 }
+
 .date-box {
-  display: flex;
-  flex-direction: row;
-  width: 100%;margin-top: 50px;
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	margin-top: 30px;
 }
 
-.date-box,
-.time-list-box {
-  overflow-y: auto; 
-  padding: 10px;
+.date-box, .time-list-box {
+	
 }
 
-.selectTag{
-width: 50%;padding: 10px;border-radius:10px;font-size: 20px; 
+.selectTag {
+	width: 100%;
+	padding: 10px;
+	border-radius: 10px;
+	font-size: 20px;
 }
-.program_container{
-	width:100%;height:150px;
-	display: flex;flex-direction: column;
+
+.program_container {
+	width: 50%;
+	height: 230px;
+	display: flex;
+	flex-direction: column;
 }
-.program_box{
-	width:100%;padding:5px;
-	display: flex;flex-direction: column;
+
+.program_box {
+	width: 100%;
+	padding: 5px; display : flex;
+	flex-direction: column;
+	flex-direction: column;
+	display: flex;
+}
+
+.program_detail {
+	width: 100%;
+	height: 100%;
+	margin-left: 20px;
+	box-shadow: inset 0px 0px 3px 1px rgba(0, 0, 0, 0.4);
+}
+
+.time-list-container {
+	padding:5px;
+	width: 100%;
+	height: 500px;
+	box-shadow: inset 0px 0px 3px 1px rgba(0, 0, 0, 0.4);
+}
+
+.time-reserve-title {
+	text-align: center;
+	line-height: 66px;
+	font-size: 22px;
+	font-weight: bold;
+	color: #555;
+}
+
+label {
+	margin: 0;
+}
+
+.reservation-schedule-container {
+	display: block;
+	width: 100%;
 }
 </style>
 </head>
 <body>
-<div class="container">
-	<div class="program_container">
-		<div class="program_box">
-			<label>검진 과</label>
-			<select name="hs_num" class="selectTag">
-					<option value="none">진료과를 선택해주세요</option>
-				<c:forEach items="${list}" var="list">
-					<option value="${list.hs_num}">${list.hs_title}</option>
-				</c:forEach>
-			</select>
+	<div class="container">
+		<div style="width: 100%; height: 200px; display: flex;">
+			<div class="program_container">
+				<div class="program_box">
+					<label>검진 과</label> <select name="hs_num" class="selectTag">
+						<option value="none">진료과를 선택해주세요</option>
+						<c:forEach items="${list}" var="list">
+							<option value="${list.hs_num}">${list.hs_title}</option>
+						</c:forEach>
+					</select>
+				</div>
+
+				<div class="program_box">
+					<label>검진 프로그램</label> <select name="hp_num" class="selectTag">
+						<option value="none" class="null_option">프로그램을 선택해주세요</option>
+					</select>
+				</div>
+
+			</div>
+			<div class="program_detail"></div>
 		</div>
-		
-		<div class="program_box">
-		<label>검진 프로그램</label>
-			<select name="hp_num" class="selectTag">
-				<option value="none" class="null_option">프로그램을 선택해주세요</option>
-			</select>
-		</div>
-	</div>	
+		<div
+			style="width: 100%; border: 1px solid lightgray; margin-top: 30px;"></div>
 		<div class="date-box">
 			<div class="calendar">
 				<div class="topWrap">
 					<div class="monthWrap">
-						<span class="year"></span>.
-						<span class="month"></span>
+						<span class="year"></span>. <span class="month"></span>
 					</div>
-					<a href="#prev" class="prevBtn">&lt;</a>
-					<a href="#next" class="nextBtn">&gt;</a>
+					<a href="#prev" class="prevBtn">&lt;</a> <a href="#next"
+						class="nextBtn">&gt;</a>
 				</div>
-				<div class="table">
-					
-				</div>
+				<div class="table"></div>
 			</div>
-			<div class="time-list-box">
-			   
+			<div class="reservation-schedule-container">
+				<div class="time-reserve-title">
+					<label>예약 스케줄</label>
+				</div>
+				<div class="time-list-container">
+					<div style="width: 100%; height: 100%;">
+						<div class="time-list-box"></div>
+					</div>
+				</div>
 			</div>
 		</div>
-</div>
+	</div>
 
-<!--병원 과목을 선택하면 프로그램을 가져오는 메서드  -->
-<script type="text/javascript">
+	<!--병원 과목을 선택하면 프로그램을 가져오는 메서드  -->
+	<script type="text/javascript">
 let sgo = {
 	ho_name : '${hospital.ho_name}',
 	hp_title : '',
@@ -239,8 +293,8 @@ let sgo = {
 	});
 </script>
 
-<!-- 프로그램을 선택하면 날짜를 가져오는 메서드 -->
-<script type="text/javascript">
+	<!-- 프로그램을 선택하면 날짜를 가져오는 메서드 -->
+	<script type="text/javascript">
 	$("[name=hp_num]").click(function(){
 		let hp_num = $("[name=hp_num]").val();
 		let hs_num = $("[name=hs_num]").val();
@@ -271,8 +325,8 @@ let sgo = {
 	})
 </script>
 
-<!-- 날짜를 클릭하면 이벤트 발생 -->
-<script type="text/javascript">
+	<!-- 날짜를 클릭하면 이벤트 발생 -->
+	<script type="text/javascript">
 $(document).on("click", ".day-btn", function(){
 	let rs_num = $(this).data("target");
 	let hp_num = $("[name=hp_num]").val();
@@ -324,7 +378,7 @@ function maxPersonCheck(tmp){
 
 
 </script>
-<script type="text/javascript">
+	<script type="text/javascript">
 $(document).on("click", ".reserveBtn", function(){
 	sgo.rs_time = $(this).data("time");
 	sgo.rs_num = $(this).data("target");
@@ -345,8 +399,8 @@ $(document).on("click", ".reserveBtn", function(){
 });
 
 </script>
-<!-- 달력 스크립트 -->
-<script type="text/javascript">
+	<!-- 달력 스크립트 -->
+	<script type="text/javascript">
 //monthWrap
 var today = new Date();
 var tYear = today.getFullYear();
@@ -504,7 +558,7 @@ $('.nextBtn').click(function(){
 });
 
 </script>
-<script type="text/javascript">
+	<script type="text/javascript">
 function checkReserve() {
 	$.ajax({
 		type: "post",
