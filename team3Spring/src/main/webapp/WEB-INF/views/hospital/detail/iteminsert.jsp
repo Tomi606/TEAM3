@@ -7,56 +7,72 @@
 <meta charset="UTF-8">
 <title>프로그램 등록</title>
 <style type="text/css">
+.home-box1 {
+	width: 100%;
+	height: 500px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
+}
+
+.page-title {
+	color:rgba(0, 100, 60, 0.8);
+	text-align: left;
+	font-size: 50px;
+	font-weight: bold;
+	margin: 0 0 80px 0;
+}
+
 .container {
-  margin: 100px auto;
-  max-width: 1000px;
-  padding: 50px;
-  background-color: #f8f9fa;
-  border: 1px solid #dee2e6;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    margin: -250px auto 70px auto;
+    background-color: white;
+    width: 80%;
+    height: 100%;
+    border: 1px solid #ced4da;
+    padding: 60px 80px;
+    display: block;
 }
-.form-control{
+.form-control {
     height: calc(1.5em + .75rem + 8px);
-}
-.input-box-group {
-  margin-bottom: 20px;
-  padding: 20px;
-  background-color: #fff;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.5s ease-in-out;
 }
 
 .program-box {
-  margin-bottom: 20px;
-  padding: 20px;
-  background-color: #fff;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.5s ease-in-out;
+	box-shadow:inset 0 1px 5px 2px rgba(0, 0, 0, 0.2);
+	background-color: #fff;
+	border: 1px solid #ced4da;
+	border-radius: 10px;
+	margin-bottom: 20px;
+	padding: 50px;
 }
 
 .list-box {
-  padding: 20px;
-  background-color: #fff;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.5s ease-in-out;
+	box-shadow:inset 0 1px 5px 2px rgba(0, 0, 0, 0.2);
+	background-color: #fff;
+	border: 1px solid #ced4da;
+	border-radius: 10px;
+	width: 100%;height: 100%;
+	padding: 70px 0;
+}
+
+.schedule-box {
+	display: flex;width: 100%;margin-bottom: 30px;
 }
 
 .date-box {
-  padding: 20px;
-  background-color: #fff;
-  border: 1px solid #ced4da;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.5s ease-in-out;
-  margin-top: 20px;
+	height:100px;
+	padding: 20px;
+	background-color: #fff;
+	border: 1px solid #ced4da;
+	border-radius: 5px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	margin: 40px auto -20px;
+	display : flex;
+	align-items: center;
 }
+
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -78,6 +94,7 @@
     transform: translateY(0);
   }
 }
+
 /* input 태그 스타일 */
 .input-box-group input[type="text"],
 .input-box-group input[type="number"],
@@ -88,28 +105,25 @@
   margin-bottom: 10px;
   border: 1px solid #ced4da;
   border-radius: 5px;
-  animation: fadeIn 0.5s ease-in-out;
 }
-
-/* button 태그 스타일 */
-.input-box-group .btn,
-.program-box .btn {
-  display: inline-block;
-  padding: 10px 20px;
-  margin-right: 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
+.date-box{width: 100%;}
+.date-box input{
+	width: 30%;
+	 padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ced4da;
   border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  animation: fadeIn 0.5s ease-in-out;
+}
+.program-btn-box {
+	 float: right;
 }
 
-.input-box-group .btn:hover,
-.program-box .btn:hover {
-  background-color: #0056b3;
-  animation: scaleIn 0.3s ease-in-out;
+.box2-group {
+	padding-bottom: 20px;
+}
+
+.box3-group {
+	padding-bottom: 20px;
 }
 
 /* select 태그 스타일 */
@@ -121,130 +135,231 @@
   border-radius: 5px;
   background-color: #fff;
   appearance: none; /* 스타일을 위해 기본 스타일 숨김 */
-  animation: fadeIn 0.5s ease-in-out;
-}
-.date-box {
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
 }
 
-.date-box input[type="date"],
-.date-box input[type="time"],
-.date-box input[type="number"] {
-  flex: 1;
-  padding: 12px;
-  margin-right: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  box-sizing: border-box;
+.hr_line {
+	margin: 30px auto;
+	padding: 50px auto;
 }
 
-.date-box .btn {
-	margin:5px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: #fff;
-  font-size: 16px;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
+.label {
+	color: rgb(12, 12, 12);
+    text-align: center;
+    font-size: 30px;
+    margin-right: 10px;
+    font-weight: bold;
 }
 
-.date-box .btn:hover {
-  background-color: #0056b3;
+.sub_label {
+	color: #555;
+    text-align: center;
+    font-size: 20px;
+    margin-right: 10px;
+    font-weight: bold;
 }
 
-/* 애니메이션 효과 */
-.date-box input,
-.date-box .btn {
-  animation: fadeInUp 0.5s ease-out;
+.date-update-btn {
+	margin-left: auto;
+}
+.list-boxBox {
+	width: 90%;
+	margin:0 auto;
+}
+.btn_boxBox {
+	display: flex;
+	justify-content: space-between;
 }
 
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.check-box-group {
+	display: grid;
+    grid-template-columns: repeat(14, 2fr);
+    align-items: center;
+    margin-bottom: 30px;
+    font-size: 16px;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    appearance: none;
+    cursor: pointer;
+    background-color: #c8c8c8;
+    border: 0px solid white;
+    margin: 4px 0px 4px 30px;
+}
+
+input[type="checkbox"]:checked::before {
+    content: '\2713';
+    display: flex;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    background-color: green;
+    color: white;
+    border-radius: 20px;
+    flex-direction: row;
+    align-content: stretch;
+    justify-content: space-evenly;
+    margin: 0px;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.date-box a {
+	color: green;
+    border: 1px solid green;
+    text-decoration: none;
+    font-size: 17px;
+    margin: 5px 0px 15px 5px;
+    width: 100px;
+    
+}
+
+.date-box a:hover {
+	color: white;
+	background: green;
+	border: 0px solid white;
+	border-radius: 5px;
+    
+}
+
+
+.program-btn-box a {
+    color: green;
+    border: 1px solid green;
+    text-decoration: none;
+    font-size: 17px;
+    margin: 5px;
+}
+
+.program-btn-box a:hover {
+	color: white;
+	background: green;
+	border: 0px solid white;
+	border-radius: 5px;
+}
+
+.program-update-del-box {
+	display: flex;
+	align-items: flex-start;
+}
+
+.program-update-del-box a {
+    color: green;
+    border: 1px solid green;
+    text-decoration: none;
+    font-size: 17px;
+    margin: 5px;
+}
+
+.program-update-del-box a:hover {
+	color: white;
+	background: green;
+	border: 0px solid white;
+	border-radius: 5px;
 }
 </style>
 </head>
 <body>
+<div class="home-box1">
+	<div style="width: 80%;margin: 0 auto;padding-top: 80px">
+		<div class="page-title">
+			프로그램 등록
+		</div>
+	</div>
+</div>
 <div class="container">
 <div class="program-box">
 	<div class="input-box-group">
-		<h3>세부항목을 등록할 과를 고르세요</h3>
-		<select name="hs_num" class="form-control">
-				<option value="none">진료과를 선택해주세요</option>
-			<c:forEach items="${list}" var="list">
-				<option value="${list.hs_num}">${list.hs_title}</option>
-			</c:forEach>
-		</select>
-		<br>
+		<div class="box1-group">
+			<label class="label">세부항목을 등록할 과를 고르세요</label>
+			<select name="hs_num" class="form-control">
+					<option value="none">진료과를 선택해주세요</option>
+				<c:forEach items="${list}" var="list">
+					<option value="${list.hs_num}">${list.hs_title}</option>
+				</c:forEach>
+			</select>
+		</div>
+		
+		<hr class="hr_line">
 				
-		<h3>등록할 세부 항목을 입력하세요</h3>
-		<label for="it_name">항목명</label>
-	    <input  type="text" id="it_name" name="it_name" placeholder="등록하고 싶은 항목을 입력하세요" autofocus="autofocus">
-	    <label for="it_explanation">항목 설명</label>
-	    <input type="text" name="it_explanation" placeholder="세부 항목의 설명">
-	    <div class="program-btn-box">
-		    <a class="btn item-inset-btn">등록</a>
-		    <a class="btn item-update-btn" href='<c:url value="/date/update"/>'>수정</a>
+		<div class="box2-group" style="margin-bottom: 50px;">		
+		<div class="program-update-del-box">
+			<label class="label">등록할 세부 항목을 입력하세요</label>
+		    <a class="btn item-update-btn" href='<c:url value="/item/update"/>'>수정</a>
 		    <a class="btn item-delete-btn">삭제</a>
-	    </div>
-	   	<br>
-	   	<label for="it_name" class="it_name"></label>
-	   	<div class="check-box-group" id="check-box-group"></div>
-	   	<br>
-	   
-	   	<h3>등록할 세부항목들을 선택후 프로그램을 등록하세요</h3>
-		<label for="hp_title">프로그램명</label>
-	    <input  type="text" id="hp_title" name="hp_title" placeholder="프로그램 이름을 입력하세요">
-		<label for="hp_payment">프로그램 가격</label>
-	    <input  type="number" id="hp_payment" name="hp_payment" placeholder="프로그램 가격을 입력하세요">
-	    <a class="btn program-inset-btn">등록</a>
-	    <a class="btn program-update-btn" href='<c:url value="/program/update"/>'>수정</a>
-	    <a class="btn program-delete-btn">삭제</a>
+	    </div> 
+			<label for="it_name" class="sub_label">항목명</label>
+		    <input  type="text" id="it_name" name="it_name" placeholder="등록하고 싶은 항목을 입력하세요" autofocus="autofocus">
+		    <label for="it_explanation" class="sub_label">항목 설명</label>
+		    <input type="text" name="it_explanation" placeholder="세부 항목의 설명">
+		    <div class="program-btn-box">
+			    <a class="btn item-inset-btn">등록</a>
+		    </div>  
+		</div>
+
+		    <hr class="hr_line">
+
+	   	<div class="box3-group">	
+	   	 	<label class="label">등록할 세부항목들을 선택하세요</label><br>
+		   	<label for="it_name" class="it_name sub_label"></label>
+		   	<div class="check-box-group" id="check-box-group"></div>
+		   	
+		   	<div class="program-update-del-box">
+				<label class="label">등록할 프로그램명, 가격을 입력하세요</label>
+			    <a class="btn program-update-btn" href='<c:url value="/program/update"/>'>수정</a>
+			    <a class="btn program-delete-btn">삭제</a>
+		    </div>
+			<label for="hp_title" class="sub_label"	>프로그램명</label>
+		    <input  type="text" id="hp_title" name="hp_title" placeholder="프로그램 이름을 입력하세요">
+			<label for="hp_payment" class="sub_label">프로그램 가격</label>
+		    <input  type="number" id="hp_payment" name="hp_payment" placeholder="프로그램 가격을 입력하세요">
+	    	<div class="program-btn-box">
+		    	<a class="btn program-inset-btn">등록</a>
+		    </div>
+	   	</div>
 	</div>
-	
-	
 </div>
 
 <div class="list-box">
-	<div>
-		<h3>시간, 날짜, 최대인원을 등록할 프로그램을 고르세요</h3>
-	</div>
-	<div class="input-group mb-3" id="programBox">
-		<select name="hp_num" class="form-control">
-				<option value="none">프로그램을 선택해주세요</option>
-		</select>
-	</div>
-	 <table class="table">
-	    <thead>
-	      <tr>
-	        <th>항목명</th>
-	        <th>항목설명</th>
-	        <th>가격</th>
-	      </tr>
-	    </thead>
-	    <tbody class="itemList">
-		      
-	    </tbody>
-	  </table>
-</div>
-<div class="date-box">
-	<input type="date" name="rs_date">
-	<input type="time" id="timeInput" name="rs_time">
-	<input type="number" name="rs_max_person" placeholder="최대인원을 입력하세요.">
-	<a class="btn date-inset-btn">등록</a>
-    <a class="btn date-update-btn" href='<c:url value="/date/update"/>'>예약수정</a>
-    <a class="btn date-delete-btn" href='<c:url value="/date/delete"/>'>예약삭제</a>
+	<div class="list-boxBox">
+		<div class="schedule-box">
+			<label class="label">시간, 날짜, 최대인원을 등록할 프로그램을 고르세요</label>
+			<div class="btn_boxBox program-btn-box">
+				<a class="btn date-update-btn" href='<c:url value="/date/update"/>'>예약수정</a>
+				<a class="btn date-delete-btn" href='<c:url value="/date/delete"/>'>예약삭제</a>
+			</div>
+		</div>
+		<div class="input-group mb-3" id="programBox">
+			<div>
+				<label class="sub_label">프로그램명</label>
+			</div>
+			<select name="hp_num" class="form-control">
+					<option value="none">프로그램을 선택해주세요</option>
+			</select>
+		</div>
+		 <table class="table">
+		    <thead>
+		      <tr>
+		        <th>항목명</th>
+		        <th>항목설명</th>
+		        <th>가격</th>
+		      </tr>
+		    </thead>
+		    <tbody class="itemList">
+			      
+		    </tbody>
+		  </table>
+		<div class="date-box">
+			<input type="date" name="rs_date">
+			<input type="time" id="timeInput" name="rs_time">
+			<input type="number" name="rs_max_person" placeholder="최대인원을 입력하세요.">
+			<div class="btn_boxBoxbox">
+				<a class="date-inset-btn btn">등록</a>
+			</div>
+		</div>
+	</div>	
 </div>
 	
 </div>

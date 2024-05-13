@@ -387,7 +387,7 @@ img {
 	font-size: 20px;
 	background: green;
 	
-	ackground: linear-gradient(45deg, white, green);
+	/* background: linear-gradient(45deg, white, green); */
 	border: 0px solid white;
 	animation: colorChange 1.5s infinite alternate;
 }
