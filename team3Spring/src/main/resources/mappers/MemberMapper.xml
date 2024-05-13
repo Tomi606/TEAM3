@@ -374,4 +374,21 @@
 	<select id="selectMyIddd" resultType="SiteManagement">
 		select * from site_management where site_id = #{id}
 	</select>
+	
+	<!-- 자동로그인 cookie -->
+	<update id="updateMemberCookie">
+  		UPDATE site_management SET
+  		site_cookie = #{user.site_cookie},
+  		site_cookie_limit = #{user.site_cookie_limit}
+  		WHERE site_id = #{user.site_id}
+  	</update>
+  	
+  	<select id="selectMemberByCookie" resultType="SiteManagement">
+  		<!-- 내부 코드를 순수하게 쿼리로 인식 -->
+  		<![CDATA[ 
+  		SELECT * FROM site_management
+  		WHERE site_cookie = #{session_Id}
+  			and site_cookie_limit >= now()
+  		]]>
+  	</select>
 </mapper>

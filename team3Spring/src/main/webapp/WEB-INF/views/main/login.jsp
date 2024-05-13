@@ -248,7 +248,7 @@ background-color: white;
 					<div class="input-group">
 						<div class="auto-login">
 							<span>자동로그인</span>
-					 		<input type="checkbox" id="toggle-slider">
+					 		<input type="checkbox" id="toggle-slider" value="true" name="autoLogin">
 					 		<label for="toggle-slider">On/Off</label>
 					 	</div>
 					 	<div class="login-input-tag">
@@ -274,7 +274,7 @@ background-color: white;
 					<div class="input-group">	
 						<div  class="auto-login">
 							<span>자동로그인</span>
-						 	<input type="checkbox" id="toggle-slider1">
+						 	<input type="checkbox" id="toggle-slider1" value="true" name="autoLogin">
 						 	<label for="toggle-slider1">On/Off</label>
 						</div>
 						<div class="login-input-tag">
