@@ -41,15 +41,37 @@
 }
 
 .label {
-	color: #555;
+	color: black;
     text-align: center;
     font-size: 23px;
     font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.sub_label {
+    color: #555;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    margin: -15px 10px 0px 10px;
 }
 
 .hr_line {
 	margin: 30px auto;
-	padding: 50px auto;
+}
+
+.form-control {
+    display: block;
+    width: 95%;
+    height: auto;
+    padding: 8px;
+    margin: auto 10px;
+    font-size: 16px;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
 }
 
 .update-btn {
@@ -86,9 +108,9 @@
 </div>
 <div class="container">
 	<div class="select_subject_box">
-		<label class="label">수정할 진료과를 선택하세요</label>
+		<label class="label">수정할 진료과</label>
 		<select name="hs_num" class="form-control">
-				<option value="none">진료과를 선택해주세요</option>
+				<option value="none">수정할 진료과를 선택하세요</option>
 			<c:forEach items="${list}" var="list">
 				<option value="${list.hs_num}">${list.hs_title}</option>
 			</c:forEach>
@@ -98,24 +120,25 @@
 	<hr class="hr_line">
 	
 	<div class="select_program_box">
-		<label class="label">수정할 진료과를 선택하세요</label>
+		<label class="label">수정할 프로그램</label>
 		<select name="hp_num" class="form-control">
-			<option value="none">수정할 프로그램을 선택해주세요</option>
+			<option value="none">수정할 프로그램을 선택하세요</option>
 		</select>
 	</div>
 	
 	<hr class="hr_line">
 	
-	<div>
-		<label class="label" for="hp_title">새로운 프로그램 이름을 정해주세요</label>
-		<input class="form-control" placeholder="프로그램 입력해주세요" name="hp_title">
+	<div class="update_title_box">
+		<label class="label" for="hp_title">새 프로그램명 입력</label>
+		<input class="form-control" placeholder="새 프로그램 입력하세요" name="hp_title">
 	</div>
 	
 	<hr class="hr_line">
 	
-	<div>
-		<label class="label" for="hp_payment">프로그램 가격을 변경해주세요</label>
-		<input type="number" class="form-control" placeholder="프로그램 가격 입력해주세요" name="hp_payment">
+	<div class="update_pay_box">
+		<label class="label" for="hp_payment">프로그램 가격 변경</label><br>
+		<label class="sub_label" for="hp_payment">※숫자만 입력(원단위는 생략)</label>
+		<input type="number" class="form-control" placeholder="프로그램 가격을 변경하세요" name="hp_payment">
 	</div>
 	<div class="check-box-group" id="check-box-group">	
 	</div>

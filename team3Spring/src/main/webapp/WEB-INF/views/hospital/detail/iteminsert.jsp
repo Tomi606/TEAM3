@@ -143,7 +143,7 @@
 }
 
 .label {
-	color: #555;
+	color: black;
     text-align: center;
     font-size: 30px;
     margin-right: 10px;
