@@ -228,6 +228,7 @@ p {
     font-size: 40px;
     font-weight: bold;
 }
+
 .home-box1 {
 	width: 100%;
 	height: 500px;
@@ -244,17 +245,18 @@ p {
 	font-weight: bold;
 	margin: 0 0 80px 0;
 }
-.bookmark-btn {
 
+.bookmark-btn {
 	margin-left:auto;
-	    height: 60px;
+	height: 60px;
 	position:relative;
 	width: 70px;
 }
-.t_btn_box{
 
+.t_btn_box{
 	width: 33.3%;
 }
+
 .box-review-list {
 	display: flex;
 	width: 100%;
@@ -268,6 +270,7 @@ p {
     background-color: green;
     border-color: green;
 }
+
 .page-link {
 	background-color: white;
 	border-color: green;
@@ -278,21 +281,26 @@ p {
     flex-wrap: wrap;
     width: 90%;
 }
+
 .ho_name_div{
 	width: 100%;
 	text-align: center;
 }
+
 .book_mark_container {
 	width: 100%;
 }
+
 .book_mark_box {
 	width: 70px;
 	margin-left: auto;
 }
+
 .ho_info_box {
 	width: 100%;
 	text-align: left;
 }
+
 .book_btn_box {
 	width: 100%;
 	display: flex;
@@ -300,46 +308,62 @@ p {
 	padding: 10px;
 	height: 90px;
 }
+
 .ho_info_detail {
 	width: 80%;margin: 0 auto;color: #555;
 }
+
 #ho_name {
 	color: #555;
 	font-size: 50px;
     font-weight: bold;
 }
+
 .page_container {
 	width: 100%
 	;height: 100%;
 	padding: 50px;
 }
+
 .box-review {
 	width: 100%;
 	height:100%;
 	border-bottom: 1px solid #c8c8c8;
 }
+
 .review-btn-div {
 	width: 14%;
 }
+
 .box-review-insert {
 	width:100%;
 	display: flex;
 }
+
 .hd_time_container{
-display:flex;border:1px solid lightgray;border-radius:15px;
- width: 94%;padding: 15px ;   margin: 10px 5px 5px 30px;
+	display:flex;
+	border:1px solid lightgray;
+	border-radius:15px;
+	width: 94%;
+	padding: 15px;
+	margin: 10px 5px 5px 30px;
 }
 .hd_time_container input{
-	border: none;outline-style: none;font-size: 20px;
+	border: none;
+	outline-style: none;
+	font-size: 20px;
 }
 .hd_time_container td{
-	font-size: 20px;font-weight: bold;width: 120px;height: 40px;
+	font-size: 20px;
+	font-weight: bold;
+	width: 120px;
+	height: 40px;
 }
 </style>
 </head>
 <body>
 <div class="home-box1">
-	<div style="width: 80%;margin: 0 auto;padding-top: 80px">
+	<div style="width: 80%; margin: 0 auto; padding-top: 80px;">
 		<div class="page-title">
 			병원
 		</div>
