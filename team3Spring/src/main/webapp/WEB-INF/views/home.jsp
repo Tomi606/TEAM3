@@ -250,11 +250,9 @@ display:flex;justify-content:flex-end;
 /*hot group*/
 .hot-group { 
 	box-shadow: 0 3px 16px rgba(0, 0, 0, 0.1);
-	display: flex;
 	margin: 0 auto;
-	width: 100%;
-	height: 100%;
 	padding:20px 30px 40px 30px;
+	border-radius:10px; 
 }
 .롤링{
 	box-shadow: 0 3px 16px rgba(0, 0, 0, 0.6);
@@ -466,6 +464,7 @@ margin-top: 15px;
 /*전체 예역 현황*/
 
 .total-reservation{
+border-radius:10px;
 padding:30px;display:grid;grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     box-shadow: 0 3px 16px rgba(0, 0, 0, 0.1);width: 100%;height: 460px;margin: 0 auto;
 }

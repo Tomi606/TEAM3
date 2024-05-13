@@ -205,7 +205,7 @@ color:  rgba(0, 128, 0, 0.5);
 				</div>
 			</div>	
 			<div class="hr"></div>
-			<form action="<c:url value='/board/list'/>" method="get">
+			<form action="<c:url value='/board/list'/>" method="get" id="searchForm">
 				<div class="search-box-group">
 					<div class="search-box-box">
 						<input type="hidden" name="bo_num" value="${bo_num}">
@@ -223,6 +223,10 @@ color:  rgba(0, 128, 0, 0.5);
 						<button type="submit" class="search-btn">검색</button>
 					</div>	
 				</div>
+				<select class="form-control col-4 offset-8" name="order">
+					<option value="bo_num" <c:if test="${pm.cri.order == 'po_num' }">selected</c:if>>최신순</option>
+					<option value="bo_view" <c:if test="${pm.cri.order == 'po_view' }">selected</c:if>>조회수순</option>
+				</select>
 			</form>
 			<div class="post_insert_btn_box">
 				<a href="<c:url value='/board/insert?bo_num=${bo_num}'/>"
@@ -308,5 +312,11 @@ color:  rgba(0, 128, 0, 0.5);
 			</ul>
 		</div>
 	</div>
+<script type="text/javascript">
+	$("[name=order]").change(function () {
+		$("#searchForm").submit();
+	})
+</script>
+	
 </body>
 </html>
