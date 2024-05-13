@@ -59,15 +59,12 @@
 	border-radius:15px;
     display: block;
     box-shadow:inset 0 1px 5px 2px rgba(0,0,0,0.2);
-    
-    
 }
 
 .body-container {
 	width: 100%;
 	height: 100%;
 	border: 1px solid gray; 
-
 }
 
 

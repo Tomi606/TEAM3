@@ -224,7 +224,6 @@ input[type="checkbox"]:checked::before {
     
 }
 
-
 .program-btn-box a {
     color: green;
     border: 1px solid green;

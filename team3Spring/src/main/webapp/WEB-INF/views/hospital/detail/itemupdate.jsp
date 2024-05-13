@@ -36,19 +36,58 @@
     width: 80%;
     height: 100%;
     border: 1px solid #ced4da;
-    padding: 60px 80px;
+    padding: 60px 80px 40px;
     display: block;
 }
 
 .label {
-	color: rgb(12, 12, 12);
+	color: #555;
     text-align: center;
-    font-size: 30px;
-    margin-right: 10px;
-    font-weight: bold;
+    font-size: 25px;
+    font-weight: 500;
 }
 
+.hr_line {
+	margin: 30px auto;
+	padding: 50px auto;
+}
 
+.form-control {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: 8px;
+    font-size: 16px;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+.update-btn {
+    border-radius: 5px;
+    line-height: 45px;
+    margin: 0 auto;
+    border: 1px solid green;
+    width: 20%;
+    height: 50px;
+    color: green;
+    text-decoration: none;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+.update-btn:hover {
+	color: white;
+	background: green;
+	border: 0px solid white;
+	border-radius: 5px;
+    
+}
 </style>
 </head>
 <body>
@@ -70,23 +109,32 @@
 				</c:forEach>
 			</select>
 		</div>
+		
+		<hr class="hr_line">
 			
-			<div class="select_detail_box">			
-				<select name="type" class="form-control">
-					<option value="none">세부항목을 선택해주세요</option>
-				</select>
-			</div>
-			<div class="input-group mb-3">
-			</div>
-			<div>
-				<label for="it_name">세부 항목을 수정해주세요</label>
-				<input class="form-control" placeholder="항목이름을 입력해주세요" name="it_name">
-			</div>
-			<div>
-				<label for="it_explanation">세부 항목 설명을 수정해주세요</label>
-				<input class="form-control" placeholder="항목 설명을 입력해주세요" name="it_explanation">
-			</div>
-			<button class="btn" type="submit">항목 수정</button>
+		<div class="select_detail_box">
+			<label class="label">수정할 세부항목을 선택하세요</label>	
+			<select name="type" class="form-control">
+				<option value="none">세부항목을 선택해주세요</option>
+			</select>
+		</div>
+				
+		<hr class="hr_line">
+			
+		<div class="update_detail_box">
+			<label class="label" for="it_name">수정할 세부항목 이름을 적으세요</label>
+			<input class="form-control" placeholder="항목이름을 입력해주세요" name="it_name">
+		</div>
+				
+		<hr class="hr_line">
+			
+		<div class="update_explan_box">
+			<label class="label" for="it_explanation">세부항목 설명을 수정하세요</label>
+			<input class="form-control" placeholder="항목 설명을 입력해주세요" name="it_explanation">
+		</div>
+		<div class="">
+			<button class="btn update-btn" type="submit">항목 수정</button>
+		</div>
 	</div>
 </form>
 <script type="text/javascript">
