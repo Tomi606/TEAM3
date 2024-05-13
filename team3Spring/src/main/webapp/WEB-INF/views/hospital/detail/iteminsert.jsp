@@ -36,7 +36,7 @@
     display: block;
 }
 .form-control {
-    height: calc(1.5em + .75rem + 8px);
+	width: 84%;
 }
 
 .program-box {
@@ -129,12 +129,12 @@
 /* select 태그 스타일 */
 .input-box-group select {
   width: 100%;
-  padding: 10px;
+  padding: 6px;
   margin-bottom: 10px;
   border: 1px solid #ced4da;
   border-radius: 5px;
   background-color: #fff;
-  appearance: none; /* 스타일을 위해 기본 스타일 숨김 */
+  appearance: none;
 }
 
 .hr_line {
@@ -259,6 +259,27 @@ input[type="checkbox"]:checked::before {
 	border: 0px solid white;
 	border-radius: 5px;
 }
+
+.select-program-box {
+	display: flex;
+	align-items: baseline;
+	margin-bottom: 25px;
+}
+
+.select-program-box a {
+    color: green;
+    border: 1px solid green;
+    text-decoration: none;
+    font-size: 17px;
+    margin: 5px;
+}
+
+.select-program-box a:hover {
+	color: white;
+	background: green;
+	border: 0px solid white;
+	border-radius: 5px;
+}
 </style>
 </head>
 <body>
@@ -306,11 +327,7 @@ input[type="checkbox"]:checked::before {
 		   	<label for="it_name" class="it_name sub_label"></label>
 		   	<div class="check-box-group" id="check-box-group"></div>
 		   	
-		   	<div class="program-update-del-box">
-				<label class="label">등록할 프로그램명, 가격을 입력하세요</label>
-			    <a class="btn program-update-btn" href='<c:url value="/program/update"/>'>수정</a>
-			    <a class="btn program-delete-btn">삭제</a>
-		    </div>
+			<label class="label">등록할 프로그램명, 가격을 입력하세요</label><br>
 			<label for="hp_title" class="sub_label"	>프로그램명</label>
 		    <input  type="text" id="hp_title" name="hp_title" placeholder="프로그램 이름을 입력하세요">
 			<label for="hp_payment" class="sub_label">프로그램 가격</label>
@@ -331,13 +348,12 @@ input[type="checkbox"]:checked::before {
 				<a class="btn date-delete-btn" href='<c:url value="/date/delete"/>'>예약삭제</a>
 			</div>
 		</div>
-		<div class="input-group mb-3" id="programBox">
-			<div>
-				<label class="sub_label">프로그램명</label>
-			</div>
+		<div class="select-program-box" id="programBox">
 			<select name="hp_num" class="form-control">
 					<option value="none">프로그램을 선택해주세요</option>
 			</select>
+		    <a class="btn program-update-btn" href='<c:url value="/program/update"/>'>수정</a>
+		    <a class="btn program-delete-btn">삭제</a>
 		</div>
 		 <table class="table">
 		    <thead>
@@ -581,7 +597,7 @@ function getCheckedValues() {
 <script type="text/javascript">
 $(".program-delete-btn").click(function(){
     let hp_num = $("[name=hp_num]").val();
-    if(hp_num == 'none'){
+    if(hp_num == "none"){
     	alert("프로그램을 선택해주세요.");
     	return;
     }
