@@ -1,6 +1,7 @@
 package kr.kh.team3.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import kr.kh.team3.model.vo.BookmarkVO;
 import kr.kh.team3.model.vo.EupMyeonDongVO;
@@ -201,6 +202,8 @@ public interface HospitalService {
 	HospitalDetailVO getDetailHoId();
 
 	HospitalDetailVO getHospitalDetail(int vw_hd_num);
+
+	List<HospitalSubjectVO> getHoSubAutoList(String value);
 
 
 }
