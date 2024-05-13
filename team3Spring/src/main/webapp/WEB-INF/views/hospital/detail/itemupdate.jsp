@@ -43,20 +43,20 @@
 .label {
 	color: #555;
     text-align: center;
-    font-size: 25px;
-    font-weight: 500;
+    font-size: 23px;
+    font-weight: bold;
 }
 
 .hr_line {
 	margin: 30px auto;
-	padding: 50px auto;
 }
 
 .form-control {
     display: block;
-    width: 100%;
+    width: 95%;
     height: auto;
     padding: 8px;
+    margin: auto 10px;
     font-size: 16px;
     color: #495057;
     background-color: #fff;
