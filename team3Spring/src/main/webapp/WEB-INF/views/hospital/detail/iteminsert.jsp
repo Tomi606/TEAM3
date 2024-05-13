@@ -586,9 +586,8 @@ function getCheckedValues() {
 					"list" : list,
 					"hs_num" : hs_num},
 			success : function (data) {
-				$("#programBox").load(window.location.href + " #programBox");
-				$("[name=hp_title]").val("");
-				$("[name=hp_payment]").val("");
+				alert(data.msg)
+				location.reload(true);
 			}
 		});
 	});

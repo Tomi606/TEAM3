@@ -528,7 +528,8 @@ public class HospitalController {
 	@PostMapping("/item/delete")
 	 public Map<String, Object> deleteItem(@RequestParam("checkedValues[]") ArrayList<Integer> list){
 		Map<String, Object> map = new HashMap<String, Object>();
-      
+		System.out.println("aaaaaaaaaaaaaaaaa");
+		System.out.println(list);
         boolean res = programService.deleteItem(list);
 		
 		if (res) { 
