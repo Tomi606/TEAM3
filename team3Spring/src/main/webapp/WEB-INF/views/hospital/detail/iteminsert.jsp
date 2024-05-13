@@ -416,12 +416,10 @@ input[type="checkbox"]:checked::before {
 		let hp_num = $("[name=hp_num]").val();
 		let hs_num = $("[name=hs_num]").val();
 		if(hp_num == 'none'){
-			hp_num =1;
-			return;
+			hp_num = 1;
 		}
 		if(hs_num == 'none'){
 			hs_num = 1;
-			return;
 		}
 		$.ajax({
 			method : "post",
@@ -431,6 +429,10 @@ input[type="checkbox"]:checked::before {
 				"hs_num" : hs_num
 			},
 			success : function (data) {
+				if(data.itemList == null){
+					$("[name=hp_num]").html(`<option value="none">프로그램을 선택해주세요</option>`);
+					return;
+				}
 				let str = ``;
 				 for(let i = 0; i < data.itemList.length; i++){
 		                let tmp = data.itemList[i];
@@ -456,12 +458,14 @@ input[type="checkbox"]:checked::before {
 	})	
 </script>
 
-<!-- 진료과목을 선택하면 진료 과에해당하는 세부 항목 띄우기 -->
+<!-- 진료과목을 선택하면 진료 과에해당하는 세부 항목 띄우기 상세 항목 등록 -->
 <script type="text/javascript">
-	$("[name=hs_num]").click(function(){
+	$("[name=hs_num]").change(function(){
 		let hs_num = $("[name=hs_num]").val();
 		let hs_num2 = $(this).find("option:selected").text();
-		
+		if(hs_num == 'none'){
+			hs_num = 0;
+		}
 		$.ajax({
 			method : 'post',
 			url : '<c:url value="/subject/item"/>',
@@ -469,9 +473,15 @@ input[type="checkbox"]:checked::before {
 				"hs_num" : hs_num,
 			},
 			success : function (data) {
-				if(hs_num == 'none'){
-					let str3 = `<option value="none">프로그램을 선택해주세요</option>`;
-					$("[name=hp_num]").html(str3);
+				console.log(data);
+				if(data.itemList == null){
+					$(".check-box-group").empty();
+					$("[name=hp_num]").html(`<option value="none">진료과를 선택해주세요</option>`);
+					return;
+				}
+				if(data.hpList == null || data.hpList.length == 0){
+					$("[name=hp_num]").html(`<option value="none">프로그램을 선택해주세요</option>`);
+					return;
 				}
 				let str = ``;
 				let str2 = ``;
@@ -515,9 +525,8 @@ input[type="checkbox"]:checked::before {
 				if(data.msg){
 					alert(data.msg)
 				}else{
-					$("[name=it_name]").val("");
-					$("[name=it_explanation]").val("");
-					$(".check-box-group").load(window.location.href + " .check-box-group");
+					alert("등록이 완료 되었습니다.ㄴ");
+					location.reload(true);
 				}
 			}
 		});
@@ -530,14 +539,17 @@ input[type="checkbox"]:checked::before {
 <script type="text/javascript">
 $(".item-delete-btn").click(function(){
 	 var checkedValues = getCheckedValues();
-	 console.log(checkedValues);
+	 if(checkedValues == null || checkedValues.length == 0){
+		 alert("삭제할 항목을 체크해주세요.");
+		 return;
+	 }
      $.ajax({
      	url : '<c:url value="/item/delete"/>',
      	method : 'post',
         data: { "checkedValues": checkedValues},
      	success : function(data){
 			alert(data.msg);
-			$(".check-box-group").load(window.location.href + " .check-box-group");
+			location.reload(true);
 		}
      })
 })
