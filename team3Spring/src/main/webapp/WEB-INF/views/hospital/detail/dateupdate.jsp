@@ -49,7 +49,7 @@
 }
 
 .sub_label {
-    color: #555;
+    color: rgb(219,0,0);
     text-align: center;
     font-size: 16px;
     font-weight: 600;
