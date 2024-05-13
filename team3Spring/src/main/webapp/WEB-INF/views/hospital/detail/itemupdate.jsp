@@ -41,7 +41,7 @@
 }
 
 .label {
-	color: #555;
+	color: black;
     text-align: center;
     font-size: 23px;
     font-weight: bold;
