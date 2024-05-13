@@ -321,8 +321,8 @@ public class HospitalController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO member = memberService.getSiteMember(user);
-		boolean res = hospitalService.insertReview(review, member);
-		
+		HospitalDetailVO ho = hospitalService.getHospitalDetail(review.getVw_hd_num());
+		String res = hospitalService.insertReview(review, member, ho);
 
 		map.put("result", res);
 		return map;
