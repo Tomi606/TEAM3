@@ -61,8 +61,6 @@ public interface MemberService {
 
 	boolean updateEmail(SiteManagement user, MemberVO member);
 
-	boolean updateJob(SiteManagement user, MemberVO member);
-
 	boolean updatePw(SiteManagement user, String me_id, String oldPw, String newPw);
 
 

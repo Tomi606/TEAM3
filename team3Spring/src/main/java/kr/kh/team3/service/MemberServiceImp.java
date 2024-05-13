@@ -313,17 +313,6 @@ public class MemberServiceImp implements MemberService {
 		return memberDao.updateEmail(member);
 	}
 
-	@Override // 직업수정
-	public boolean updateJob(SiteManagement user, MemberVO member) {
-		if (user == null || member == null || member.getMe_job() == null || member.getMe_job().isEmpty()
-				|| member.getMe_job().length() == 0)
-			return false;
-		MemberVO dbMember = memberDao.selectMember(user.getSite_id());
-		if (dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
-			return false;
-
-		return memberDao.updateJob(member);
-	}
 
 	@Override // 비번 수정
 	public boolean updatePw(SiteManagement user, String me_id, String oldPw, String newPw) {
@@ -355,8 +344,7 @@ public class MemberServiceImp implements MemberService {
 
 	@Override
 	public MemberVO getMemberPassword(MemberVO member, SiteManagement user) {
-		if (user == null || member == null || member.getMe_job() == null || member.getMe_job().isEmpty()
-				|| member.getMe_job().length() == 0)
+		if (user == null || member == null)
 			return null;
 		MemberVO dbMember = memberDao.selectMember(user.getSite_id());
 		if (dbMember == null || !dbMember.getMe_id().equals(user.getSite_id()))
