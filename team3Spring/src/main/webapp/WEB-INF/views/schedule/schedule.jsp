@@ -15,15 +15,13 @@ cursor: pointer;
 }
 .container {
   margin: 20px auto;
-  max-width: 800px;
+  width: 1400px;height:100%;
   padding: 20px;
-  background-color: #f8f9fa;
   border: 1px solid #dee2e6;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 h3 {
@@ -68,7 +66,7 @@ h3 {
 }
 
 .table {
-  display: grid;
+  display: grid;height:500px;
   grid-template-columns: repeat(7, 1fr);
   text-align: center;
 }
@@ -109,11 +107,17 @@ h3 {
 }
 
 .time-list-box {
+top:46px;
+position:relative;
+border:1px solid lightgray;
+max-height:500px;
   width: 100%;
   margin-top: 20px;
+  display: flex;flex-wrap: wrap;
 }
 
-.time-box {
+.time-box {display:flex;
+	width:50%;height:50px;
   margin-bottom: 10px;
   padding: 10px;
   background-color: #f8f9fa;
@@ -138,31 +142,48 @@ h3 {
 .date-box {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 100%;margin-top: 50px;
 }
 
 .date-box,
 .time-list-box {
-  overflow-y: auto; /* time-list-box가 calendar보다 크면 스크롤이 생기도록 함 */
-  margin-left: 30px;
+  overflow-y: auto; 
+  padding: 10px;
+}
+
+.selectTag{
+width: 50%;padding: 10px;border-radius:10px;font-size: 20px; 
+}
+.program_container{
+	width:100%;height:150px;
+	display: flex;flex-direction: column;
+}
+.program_box{
+	width:100%;padding:5px;
+	display: flex;flex-direction: column;
 }
 </style>
 </head>
 <body>
 <div class="container">
-		<label>검진 과</label>
-		<select name="hs_num" class="form-control">
-				<option value="none">진료과를 선택해주세요</option>
-			<c:forEach items="${list}" var="list">
-				<option value="${list.hs_num}">${list.hs_title}</option>
-			</c:forEach>
-		</select>
-			<label>검진 프로그램</label>
-		<div class="input-group mb-3">
-			<select name="hp_num" class="form-control">
+	<div class="program_container">
+		<div class="program_box">
+			<label>검진 과</label>
+			<select name="hs_num" class="selectTag">
+					<option value="none">진료과를 선택해주세요</option>
+				<c:forEach items="${list}" var="list">
+					<option value="${list.hs_num}">${list.hs_title}</option>
+				</c:forEach>
+			</select>
+		</div>
+		
+		<div class="program_box">
+		<label>검진 프로그램</label>
+			<select name="hp_num" class="selectTag">
 				<option value="none" class="null_option">프로그램을 선택해주세요</option>
 			</select>
 		</div>
+	</div>	
 		<div class="date-box">
 			<div class="calendar">
 				<div class="topWrap">
@@ -500,7 +521,7 @@ function checkReserve() {
 
 		}, 
 		error : function(jqXHR, textStatus, errorThrown){
-			console.log("기은아에러야" + error);
+			console.log("에러다에러!!" + error);
 
 		}
 	});//ajax end
