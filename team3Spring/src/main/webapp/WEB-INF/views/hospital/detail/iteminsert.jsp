@@ -570,9 +570,8 @@ function getCheckedValues() {
 					"list" : list,
 					"hs_num" : hs_num},
 			success : function (data) {
-				$("#programBox").load(window.location.href + " #programBox");
-				$("[name=hp_title]").val("");
-				$("[name=hp_payment]").val("");
+				alert(data.msg)
+				location.reload(true);
 			}
 		});
 	});
@@ -582,6 +581,10 @@ function getCheckedValues() {
 <script type="text/javascript">
 $(".program-delete-btn").click(function(){
     let hp_num = $("[name=hp_num]").val();
+    if(hp_num == 'none'){
+    	alert("프로그램을 선택해주세요.");
+    	return;
+    }
     // hp_num과 list를 함께 보내는 URL 생성
     let url = '<c:url value="/program/delete?hp_num="/>' + hp_num;
     // 생성된 URL로 이동

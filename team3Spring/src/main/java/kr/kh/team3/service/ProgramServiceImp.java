@@ -26,13 +26,15 @@ public class ProgramServiceImp implements ProgramService {
 
 	@Override
 	public boolean insertItem(ItemVO item, SiteManagement user, HsListVO hslist) {
-		/*
-		 * 회원가입 수정 후 나중에 주석 제거해야함 if(item.getIt_name() == "" || item.getIt_explanation()
-		 * == "" || user.getSite_id() == "") { return false; }
-		 */
+		
+		 //회원가입 수정 후 나중에 주석 제거해야함 
+		 if(item.getIt_name() == "" || item.getIt_explanation() == "" || user.getSite_id() == "") {
+			 return false; 
+		}
+		 
 		ArrayList<ItemVO> itemList = programDao.selectItemList(user);
 		for (ItemVO tmp : itemList) {
-			if (tmp.getIt_name().equals(item)) {
+			if (tmp.getIt_name().equals(item.getIt_name())) {
 				System.out.println("중복값 있음");
 				return false;
 			}
