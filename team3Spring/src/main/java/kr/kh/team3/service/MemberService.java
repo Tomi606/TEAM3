@@ -108,4 +108,8 @@ public interface MemberService {
 
 	boolean getReservationId(String ho_id, MemberVO member);
 
+	void updateMemberCookie(SiteManagement user);
+
+	SiteManagement getMemberByCookie(String sessionId);
+
 }

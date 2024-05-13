@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -218,14 +219,19 @@ public class HomeController {
 
 	// 로그인 메인 페이지
 	@GetMapping("/main/login")
-	public String mainLogin() {
+	public String mainLogin(Model model, HttpServletRequest request) {
+		//login 페이지로 넘어오기 이전 경로를 가져옴
+		String url = request.getHeader("Referer");
+		//이전 url에 login이 들어가있는 경우를 제외
+		if(url != null && !url.contains("login")) {
+			request.getSession().setAttribute("prevUrl", url);
+		}
 		return "/main/login";
 	}
 
 	@PostMapping("/member/login")
 	public String memberLoginPost(Model model, MemberVO member) {
 		MemberVO me = memberService.getMember(member);
-
 		// 입력한 아이디가 존재하지 않는 아이디일 때
 		if (me == null) {
 			model.addAttribute("url", "/main/login");
@@ -241,6 +247,7 @@ public class HomeController {
 		// member정보를 주고 아이디 비번 맞는지 확인 후
 		SiteManagement user = memberService.login(member);
 		if (user != null) {
+			user.setAutoLogin(member.isAutoLogin());
 			model.addAttribute("user", user);// user라는 이름으로 전송
 			model.addAttribute("url", "/");
 			model.addAttribute("msg", "로그인이 완료되었습니다.");
@@ -293,6 +300,7 @@ public class HomeController {
 			// 정지기간 지났으면 초기화 후 권한 변경
 			String res = hospitalService.hoStopCancel(ho);
 			if (res.equals("cancel")) {
+				user.setAutoLogin(hospital.isAutoLogin());
 				model.addAttribute("user", user);// user라는 이름으로 전송
 				model.addAttribute("url", "/");
 				model.addAttribute("msg", "기간 정지가 해제되었습니다. 로그인이 완료되었습니다.");
@@ -304,6 +312,7 @@ public class HomeController {
 			model.addAttribute("url", "/main/login");
 			model.addAttribute("msg", "승인 확인 전입니다.");
 		} else if (ho.getHo_ms_state().equals("이용중") && user != null) {
+			user.setAutoLogin(hospital.isAutoLogin());
 			model.addAttribute("user", user);// user라는 이름으로 전송
 			model.addAttribute("url", "/");
 			model.addAttribute("msg", "로그인이 완료되었습니다.");
@@ -323,6 +332,12 @@ public class HomeController {
 	// 로그아웃 기능
 	@GetMapping("/logout")
 	public String logout(Model model, HttpSession session) {
+		//DB에서 cookie 정보를 삭제
+		SiteManagement user = (SiteManagement)session.getAttribute("user");
+		user.setSite_cookie(null);
+		user.setSite_cookie_limit(null);
+		memberService.updateMemberCookie(user);
+		
 		session.removeAttribute("user");
 		model.addAttribute("msg", "로그아웃 했습니다.");
 		model.addAttribute("url", "/");

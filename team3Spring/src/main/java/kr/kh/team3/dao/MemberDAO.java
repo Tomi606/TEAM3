@@ -144,5 +144,9 @@ public interface MemberDAO {
 
 	SiteManagement selectMyIddd(@Param("id")String me_id);
 
+	void updateMemberCookie(@Param("user")SiteManagement user);
+
+	SiteManagement selectMemberByCookie(@Param("session_Id")String sessionId);
+
 
 }

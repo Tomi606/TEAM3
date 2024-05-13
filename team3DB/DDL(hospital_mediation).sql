@@ -17,8 +17,6 @@ CREATE TABLE `member` (
 	`me_phone`	varchar(11)	NOT NULL,
 	`me_email`	varchar(50)	NOT NULL,
 	`me_authority`	varchar(10)	not null default 'USER',
-	`me_cookie`	varchar(255) NULL,
-	`me_cookie_limit` datetime NULL,
     `me_fail` int not null default 0,
 	`me_report_count` int not null default 0,
     `me_stop` datetime NULL,
@@ -154,8 +152,6 @@ CREATE TABLE `hospital` (
 	`ho_address`	varchar(100) NOT NULL,
 	`ho_phone`	char(11) NOT NULL,
 	`ho_authority`	varchar(10) NOT NULL,
-	`ho_cookie`	varchar(255) NULL,
-	`ho_cookie_limit`	datetime NULL,
     `ho_fail` int not null default 0,
     `ho_email` varchar(100) not null,
     `ho_report_count` int not null default 0,
@@ -173,7 +169,9 @@ CREATE TABLE `site_management` (
 	`site_id`	varchar(13) NOT	NULL,
 	`site_phone`	varchar(11) NOT	NULL,
 	`site_email`	varchar(100) NOT NULL,
-	`site_authority`	varchar(10)	NOT NULL default 'USER'
+	`site_authority`	varchar(10)	NOT NULL default 'USER',
+    `site_cookie` varchar(255),
+    `site_cookie_limit` datetime
 );
 
 DROP TABLE IF EXISTS `chat_room`;

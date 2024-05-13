@@ -586,4 +586,17 @@ public class MemberServiceImp implements MemberService {
 		}
 	}
 
+//	자동 로그인 
+	@Override
+	public void updateMemberCookie(SiteManagement user) {
+		if(user == null)
+			return;
+		memberDao.updateMemberCookie(user);
+	}
+
+	@Override
+	public SiteManagement getMemberByCookie(String sessionId) {
+		return memberDao.selectMemberByCookie(sessionId);
+	}
+
 }
