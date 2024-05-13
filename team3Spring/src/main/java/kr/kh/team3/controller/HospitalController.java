@@ -464,7 +464,7 @@ public class HospitalController {
 		if(res) {
 			map.put("itemList", itemList);
 		}else {
-			map.put("msg", "추가에 실패했습니다.");
+			map.put("msg", "중복된 값이 있습니다.");
 		}
 		return map;
 	}
