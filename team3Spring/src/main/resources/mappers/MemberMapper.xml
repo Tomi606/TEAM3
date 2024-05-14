@@ -396,10 +396,6 @@
   		select * from site_management where site_id = #{id}
   	</select>
   	
-  	<select id="selectMemberPw" resultType="SiteManagement">
-  		
-  	</select>
-  	
   	<update id="updatePassword">
   		update member set me_pw = #{pw} where me_id = #{id}
   	</update>
