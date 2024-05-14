@@ -181,6 +181,9 @@ public class ProgramServiceImp implements ProgramService {
 
 	@Override
 	public ArrayList<HospitalProgramVO> getHpList(int hs_num, SiteManagement user) {
+		if(user == null) {
+			return null;
+		}
 		return programDao.selectSubjectByProgramList(hs_num, user);
 	}
 

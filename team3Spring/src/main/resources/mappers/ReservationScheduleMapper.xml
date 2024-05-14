@@ -22,6 +22,7 @@
 		<result property="rv_rvs_name" column="rv_rvs_name"/>
 		<result property="rv_rs_num" column="rv_rs_num"/>
 		<result property="rv_me_id" column="rv_me_id"/>
+		<result property="rv_date" column="rv_date"/>
 		<collection property="ReservationScheduleVO" ofType="kr.kh.team3.model.vo.ReservationScheduleVO"
 			column="rv_rs_num" select="selectSchedule"/>
 		<collection property="MemberVO" ofType="kr.kh.team3.model.vo.MemberVO"
@@ -29,6 +30,10 @@
 	</resultMap>
 	
 	<select id="selectReservationList" resultMap="ReservationMap">
+		select * from reservation where rv_rs_num = #{rs_num}	
+	</select>
+		
+	<select id="selectReservationUpadateList" resultMap="ReservationMap">
 		select * from reservation where rv_rs_num = #{rs_num}	
 	</select>
 	
@@ -50,7 +55,7 @@
 	</select>
 	
 	<delete id="deleteUserSchedule">
-		delete from reservation where rv_rs_num = #{rv_num};
+		delete from reservation where rv_num = #{rv_num};
 	</delete>
 	
 	<update id="updateUserChedule">

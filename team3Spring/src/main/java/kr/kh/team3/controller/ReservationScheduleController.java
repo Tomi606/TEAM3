@@ -124,6 +124,8 @@ public class ReservationScheduleController {
 		ReservationScheduleVO time = reservationScheduleService.getRsTime(rs_num);
 		ArrayList<ReservationScheduleVO> RSTimeList = reservationScheduleService.getRsList(time.getRsDate2(),
 				time.getRs_hp_num());
+		System.out.println("aaaaaaaaaaaaaaaaa");
+		System.out.println(RSTimeList);
 		map.put("timeList", RSTimeList);
 		map.put("time", time);
 		return map;
@@ -166,16 +168,22 @@ public class ReservationScheduleController {
 		ArrayList<ReservationScheduleVO> RSlist = programService.getRsList(hp_num);
 		HospitalProgramVO HP = reservationScheduleService.getHospitalProgram(hp_num);
 		ArrayList<ReservationVO> list = new ArrayList<ReservationVO>();
+		ArrayList<ReservationVO> list2 = new ArrayList<ReservationVO>();
 		for (ReservationScheduleVO tmp : RSlist) {
 			 list = reservationScheduleService.getReservationList(tmp.getRs_num());
+			 ReservationVO arr = reservationScheduleService.getReservationUpdateList(tmp.getRs_num());
+			 list2.add(arr);
 		}
 		map.put("list", list);
 		map.put("HP", HP);
+		map.put("list2", list2);
 		return map;
 	}
 
 	@GetMapping("/delete/schedule")
 	public String deleteUserSchedule(Model model, int rv_num) throws Exception {
+		
+		System.out.println(rv_num);
 		boolean res = reservationScheduleService.deleteUserSchedule(rv_num);
 		if (res) {
 			model.addAttribute("msg", "삭제에 성공하였습니다.");
@@ -190,12 +198,12 @@ public class ReservationScheduleController {
 	@GetMapping("/update/userschedule")
 	public String updateUserSchedule(Model model, int rv_num, String date, 
 			String time2, int hp_num) throws Exception{
-		
 		date = date.replaceAll("/", "-");
 		time2 = time2.replaceAll(" ", "");
 		time2 = time2.replace("시", ":");		
 		time2 = time2.replace("분", ":");		
 		time2 = time2+"00";		
+		System.out.println(time2);
 		boolean res = reservationScheduleService.updateUserSchedule(rv_num, date, time2, hp_num);
 		if(res) {
 			model.addAttribute("msg", "예약 변경에 성공하였습니다.");
