@@ -1,6 +1,7 @@
 package kr.kh.team3.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -222,6 +223,8 @@ public interface HospitalDAO {
 	HospitalDetailVO selectDetailHoId();
 
 	HospitalDetailVO selectHospitalDet(@Param("hd_num")int vw_hd_num);
+
+	List<HospitalSubjectVO> selectHoSubAutoList(@Param("value")String value);
 
 
 }

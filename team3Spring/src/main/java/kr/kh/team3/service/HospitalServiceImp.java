@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.mail.internet.MimeMessage;
 
@@ -907,6 +908,11 @@ public class HospitalServiceImp implements HospitalService {
 	@Override
 	public HospitalDetailVO getHospitalDetail(int vw_hd_num) {
 		return hospitalDao.selectHospitalDet(vw_hd_num);
+	}
+
+	@Override
+	public List<HospitalSubjectVO> getHoSubAutoList(String value) {
+		return hospitalDao.selectHoSubAutoList(value);
 	}
 
 }

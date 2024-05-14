@@ -73,6 +73,17 @@ public class HomeController {
 		return "home";
 	}
 	
+	
+	
+	@ResponseBody
+	@PostMapping("/hospital/autocomplete")
+	public List<HospitalSubjectVO> autoCompletePost(Model model, String value) {
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		ArrayList<HospitalSubjectVO> list = 
+//		map.put("list", list);
+		return hospitalService.getHoSubAutoList(value);
+	}
+	
 	@ResponseBody
 	@PostMapping("/hospital/search")
 	public List<HospitalSubjectVO> hospitalSearch(Model model) {
