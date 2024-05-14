@@ -27,6 +27,7 @@
 .detail-page-sub2 {
 
 }
+
 .toggle-btn ul li{
 	text-align:center;
 	width: 100%;
