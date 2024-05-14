@@ -1,10 +1,7 @@
 package kr.kh.team3.controller;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +25,7 @@ import kr.kh.team3.model.vo.HospitalProgramVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.HsListVO;
+import kr.kh.team3.model.vo.ItemListVO;
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.PaymentVO;
@@ -104,11 +102,17 @@ public class ReservationScheduleController {
 	// 프로그램을를 선택하면 여러 정보가 나옴
 	@ResponseBody
 	@PostMapping("/getdate")
-	public Map<String, Object> updateProgramScheduleCheck(@RequestParam("hp_num") int hp_num, HttpSession session) {
+	public Map<String, Object> updateProgramScheduleCheck(@RequestParam("hp_num") int hp_num, @RequestParam("ho") String ho) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		HospitalProgramVO hp = hospitalService.getHospitalProgram(hp_num);
+		SiteManagement user = new SiteManagement();
+		user.setSite_id(ho); 
 		// 해당 과와아이디를 이용해 번호를 가져오는 메서드
 		ArrayList<ReservationScheduleVO> RSlist = programService.getRsList(hp_num);
+		//프로그램을 선택하면 세부항목 명과 세부항목 설명을 띄우기 위한 리스트
+		ArrayList<ItemListVO> itemList = programService.getProgramItemList(user, hp_num);
+
+		map.put("itemList", itemList);
 		map.put("hp", hp);
 		map.put("RSlist", RSlist);
 		return map;

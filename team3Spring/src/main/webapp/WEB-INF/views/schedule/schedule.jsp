@@ -274,7 +274,7 @@ let sgo = {
 		let hp_num = $("[name=hp_num]").val();
 		let hs_num = $("[name=hs_num]").val();
 		if(hs_num == 'none'){
-			$("[name=hp_num]").html(`<option value="none">진료과를 선택해주세요</option>`);
+			$("[name=hp_num]").html(`<option value="none">프로그램을 선택해주세요</option>`);
 			$(".time-list-box").html("");
 			return;
 		}
@@ -286,7 +286,6 @@ let sgo = {
 					"ho" : ho},
 			success : function (data) {
 				let str = ``;
-				console.log(data);
 				for(let tmp of data.hpList){
 					str+=`<option value="\${tmp.hp_num}" data-title="\${tmp.hp_title}">\${tmp.hp_title}&nbsp;&nbsp;-&nbsp;&nbsp;\${tmp.payMentMoney}원</option>`
 				}	
@@ -301,8 +300,8 @@ let sgo = {
 	$("[name=hp_num]").click(function(){
 		let hp_num = $("[name=hp_num]").val();
 		let hs_num = $("[name=hs_num]").val();
+		let ho = '${ho.site_id}';
 		if(hp_num == 'none'){
-			hp_num = 1;
 			return;
 		}
 		if(hp_num == ''&&hp_num == null){
@@ -314,18 +313,35 @@ let sgo = {
 			method : "post",
 			url : '<c:url value="/getdate"/>',
 			data : {
-				"hp_num" : hp_num
+				"hp_num" : hp_num,
+				"ho" : ho
 			},
 			success : function(data){
+				console.log(data);	
+				let ditail = displayProgramDitail(data.itemList)
 				$(".table").empty();
 				console.log(data.RSlist);
 				sgo.hp_title = data.hp.hp_title;
 				sgo.hpPayment = data.hp.payMentMoney;
 				sgo.hp_payment = data.hp.hp_payment;
 				cal(numMonth, numYear, data.RSlist);
+				$(".program_detail").html(ditail);
 			}
 		})
 	})
+	
+	function displayProgramDitail(list){
+		let str = ``;
+		if(list.length == 0){
+			str += "프로그램 항목이 없습니다."
+			return str;
+		}
+		for(let tmp of list){
+			str += `<div><labal>\${tmp.item.it_name}<labal><br>
+						        \${tmp.item.it_explanation}</div>`	
+		}
+		return str;
+	}
 </script>
 
 	<!-- 날짜를 클릭하면 이벤트 발생 -->
