@@ -72,10 +72,10 @@ public class BoardController {
 			return "message";
 		}
 		String bo_name = boardService.getBoardName(bo_num);
-		cri.setPerPageNum(5);
+		cri.setPerPageNum(10);
 		ArrayList<PostVO> poList = boardService.getPostList(bo_num, cri);
 		int totalCount = boardService.getPostListCount(bo_num, cri);
-		PageMaker pm = new PageMaker(3, cri, totalCount);
+		PageMaker pm = new PageMaker(10, cri, totalCount);
 		model.addAttribute("bo_num", bo_num);
 		model.addAttribute("bo_title", bo_name);
 		model.addAttribute("poList", poList);
