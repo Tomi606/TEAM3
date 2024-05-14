@@ -6,17 +6,72 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입 이메일 인증</title>
+
+<style type="text/css">
+.home-box1 {
+	width: 100%;
+	height: 500px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
+}
+
+.page-title{
+color:rgba(0, 100, 60, 0.8);
+	text-align: left;
+	font-size: 50px;
+	font-weight: bold;
+	margin: 0 0 80px 0;
+}
+
+.all-container {
+	padding: 60px 80px 100px;
+    margin: -250px auto 70px auto;
+    width: 55%;
+    background-color: white;
+    border-radius: 15px;
+    display: block;
+    box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.2);
+}
+
+.email-box {
+	margin-bottom: 20px;
+}
+
+.label {
+	color:#555;
+	text-align: center;
+	font-size: 20px;
+	font-weight: 600;
+	margin-bottom: 0px;
+}
+.btn-email, .btn-ce{
+	margin-top: 10px;
+	float: right;
+}
+.number_box{
+	margin-top: 10px; 
+}
+</style>
 </head>
 <body>
-	<h1>회원가입 이메일 인증</h1>
-	<div class="container">
-		<div class="form-group">
-			<label for="email">이메일 입력</label> <input type="text"
-				class="form-control" id="email" name="email" placeholder="이메일을 입력하세요.">
+<div class="home-box1">
+	<div style="width: 80%; margin: 0 auto; padding-top: 80px;">
+		<div class="page-title">
+			이메일 인증
 		</div>
-		<button class="btn btn-outline-success col-12 btn-email">이메일 인증</button>
-		<div class="form-group ce_numbox"></div>
 	</div>
+</div>
+<div class="all-container">
+	<div class="email-box">
+		<label for="email" class="label">이메일 입력</label> <input type="text"
+			class="form-control" id="email" name="email" placeholder="이메일을 입력하세요.">
+	<button class="btn btn-outline-success btn-email">이메일 인증</button>
+	</div>
+	<br>
+	<div class="ce_numbox"></div>
+</div>
 
 
 
@@ -70,9 +125,11 @@ function displaySuccessBtn(){
 			success : function (data){
 					let str = 
 					`
-						<label for="ce_num">인증번호</label>
-						<input type="text" class="form-control" id="ce_num" name="ce_num" placeholder="인증번호를 입력하세요." >
-						<button class="btn btn-outline-success col-12 btn-ce">인증하기</button>
+						<div class="number_box">
+							<label for="ce_num" class="label">인증번호</label>
+							<input type="text" class="form-control" id="ce_num" name="ce_num" placeholder="인증번호를 입력하세요." >
+							<button class="btn btn-outline-success btn-ce">인증하기</button>
+						</div>
 					`
 					$(".ce_numbox").html(str);
 					em = data.ctfEmail
