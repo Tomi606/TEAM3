@@ -228,4 +228,6 @@ public interface HospitalDAO {
 
 	List<HospitalSubjectVO> selectHoSubAutoList(@Param("value")String value);
 
+	void updatePassword(@Param("id") String id, @Param("pw") String encPw);
+
 }

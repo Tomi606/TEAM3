@@ -391,4 +391,20 @@
   			and site_cookie_limit >= now()
   		]]>
   	</select>
+  	
+  	<select id="selectUser" resultType="SiteManagement">
+  		select * from site_management where site_id = #{id}
+  	</select>
+  	
+  	<update id="updatePassword">
+  		update member set me_pw = #{pw} where me_id = #{id}
+  	</update>
+  	
+  	<select id="selectUserFindId" resultType="SiteManagement">
+  		select * from site_management where site_email = #{email} and site_phone = #{phone}
+  	</select>
+  	
+  	<select id="selectSiteUser" resultType="SiteManagement">
+  		select site_id from site_management where site_email = #{email}
+  	</select>
 </mapper>

@@ -148,5 +148,12 @@ public interface MemberDAO {
 
 	SiteManagement selectMemberByCookie(@Param("session_Id")String sessionId);
 
+	SiteManagement selectUser(@Param("id") String id);
+
+	void updatePassword(@Param("id") String id, @Param("pw") String encPw);
+
+	SiteManagement selectUserFindId(@Param("email") String email, @Param("phone") String phone);
+
+	SiteManagement selectSiteUser(@Param("email") String email);
 
 }
