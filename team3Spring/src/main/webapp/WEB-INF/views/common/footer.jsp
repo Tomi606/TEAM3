@@ -35,8 +35,8 @@ list-style:none;
 display:flex;
 margin: 0 auto;
 padding: 50px 0 90px;
-width: 1350px;
-text-align: left
+text-align: left;
+width: 100%;
 }
 .footer-logo{
     width: 200px;

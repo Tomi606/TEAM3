@@ -62,7 +62,7 @@ text-decoration: underline;
 	width: 100%;
 	height: 953px;
 	text-align: center;
-	background: url('<c:url value="/resources/img/tree.jpg"/>');
+	background: url('<c:url value="/resources/img/pineapple.jpg"/>');
 	background-repeat: no-repeat;
 	background-size: cover;
     background-origin: content-box;
@@ -439,7 +439,7 @@ list-style:none;
 display:flex;
 margin: 0 auto;
 padding: 50px 0 90px;
-width: 1350px;
+width: 100%;
 text-align: left
 }
 .footer-logo{
@@ -583,10 +583,10 @@ margin: 10px;
 					</a>
 					<div class="메뉴얼">
 						<ul>
-							<li>
+							<li class="hos-btn-li">
 								<a href="<c:url value="/hospital/list?hs_num=0"/>" class="hos-btn">병원</a> 
 							</li>
-							<li>
+							<li class="board_btn-li">
 								<a href="<c:url value="/board/all"/>" class="board_btn">커뮤니티</a> 
 							</li>
 							<li>
@@ -596,8 +596,14 @@ margin: 10px;
 								<a href="<c:url value='/board/list?bo_num=1'/>">공지사항</a>
 							</li>
 							<li>
-								<a href="<c:url value="/member/bookmark"/>">북마크</a>
+								<c:if test='${user.getSite_authority().equals("USER")}'>	
+									<a href="<c:url value="/member/bookmark"/>">북마크</a>
+								</c:if>
+								<c:if test='${user.getSite_authority().equals("MANAGER")}'>	
+									<a href="<c:url value="/hospital/schedule/change"/>">예약관리</a>
+								</c:if>
 							</li>
+							
 						</ul>
 					</div>
 				</div>
@@ -672,11 +678,21 @@ margin: 10px;
 						src="<c:url value='/resources/img/comu.png'/>"> <span>커뮤니티</span>
 					</a> <a href="#"> <img alt="로고이미지"
 						src="<c:url value='/resources/img/hpbuild.png'/>"> 
-					</a> <a href="#"> <img alt="로고이미지"
+					</a> <a href="<c:url value='/board/list?bo_num=1'/>"> <img alt="로고이미지"
 						src="<c:url value='/resources/img/공지사항.png'/>"> <span>공지사항</span>
-					</a> <a href="<c:url value="/member/bookmark"/>"> <img alt="로고이미지"
-						src="<c:url value='/resources/img/bookmark.png'/>"> <span>북마크</span>
-					</a>
+					</a> 
+					<c:if test='${user.getSite_authority().equals("USER")}'>	
+						<a href="<c:url value="/member/bookmark"/>"> <img alt="로고이미지"
+							src="<c:url value='/resources/img/bookmark.png'/>"> <span>북마크</span>
+						</a>
+					</c:if>
+					<c:if test='${user.getSite_authority().equals("MANAGER")}'>	
+						<a href="<c:url value="/hospital/schedule/change"/>"> <img alt="로고이미지"
+							src="<c:url value='/resources/img/book.png'/>"> <span>예약관리</span>
+						</a>
+					</c:if>
+					
+					
 				</div>
 			</div>
 			<div class="search-main-right"></div>
@@ -897,7 +913,7 @@ margin: 10px;
 </body>
 <button id="scrollToTopButton" onclick="scrollToTop()">위로가기</button>
 <script>
-     $('.hos-btn').hover(function() {
+     $('.hos-btn-li').hover(function() {
          $('.category').show();
          $('.header-box').addClass('hovered');
          $('.category-board').hide();
@@ -906,7 +922,7 @@ margin: 10px;
     	 $('.category').hide();
     	 $('.header-box').removeClass('hovered');
      });
-     $('.board_btn').hover(function() {
+     $('.board_btn-li').hover(function() {
     	 $('.category').hide();
     	  $('.header-box').addClass('hovered');
          $('.category-board').show();
@@ -915,7 +931,7 @@ margin: 10px;
     	 $('.category-board').hide();
     	 $('.header-box').removeClass('hovered');
      });
-     $('.board_btn').mouseleave(function() {
+     $('.board_btn-li').mouseleave(function() {
     	 $('.category-board').hide();
     	 $('.header-box').removeClass('hovered');
      });

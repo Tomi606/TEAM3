@@ -95,6 +95,7 @@ width: 70px;height: 50px;border: 1px solid green;color:green; line-height: 50px;
 	color: gray;
 }
 </style>
+<link rel="stylesheet" type="text/css" href="../resources/css/style.css">
 </head>
 <body>
 <div class="home-box1">
