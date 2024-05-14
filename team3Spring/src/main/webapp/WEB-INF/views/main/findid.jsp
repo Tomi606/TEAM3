@@ -51,6 +51,12 @@ color:rgba(0, 100, 60, 0.8);
 	margin-bottom: 0px;
 }
 
+.sub_label {
+	color: red;
+	font-weight: 500;
+	font-size: 15px;
+	margin-bottom: 0px;
+}
 .btn-find {
 	float: right;
 }
@@ -72,6 +78,7 @@ color:rgba(0, 100, 60, 0.8);
 		</div>
 		<div class="phone-box">
 			<label for="site_phone" class="label">휴대폰 번호 및 대표 전화번호 입력</label>
+			<label for="site_phone" class="sub_label">  ※"-"제외한 숫자만 입력</label>
 			<input type="text" class="form-control site_phone" id="site_phone" name="site_phone" placeholder="휴대폰 번호 및 대표 전화번호를 입력하세요">
 		</div>
 	</div>
