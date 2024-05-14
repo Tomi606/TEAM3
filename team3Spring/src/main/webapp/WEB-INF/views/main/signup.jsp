@@ -69,8 +69,8 @@ margin-left: auto;
 	<div class="signup-select">
 		<h1 style="margin-top: 50px;">회원가입</h1>
 		<div class="choice">
-		<a class="aTag-btn1" href="<c:url value='/member/signup'/>">개인 회원가입</a>
-		<a class="aTag-btn2" href="<c:url value='/hospital/signup'/>">사업자 회원가입</a>
+		<a class="aTag-btn1" href="<c:url value='/main/certification?num=1'/>">개인 회원가입</a>
+		<a class="aTag-btn2" href="<c:url value='/main/certification?num=2'/>">사업자 회원가입</a>
 		<!-- /main/certification 사업자 회원가입 데이터 저장 후 다시 바꿔넣기 -->
 		</div>
 	</div>
