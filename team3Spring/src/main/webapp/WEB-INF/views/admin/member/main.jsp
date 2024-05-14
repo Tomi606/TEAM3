@@ -163,7 +163,6 @@ table{
 						<th>아이디</th>
 						<th>이름</th>
 						<th>성별</th>
-						<th>직업</th>
 						<th>휴대폰</th>
 						<th>이메일</th>
 						<th>주소</th>
@@ -176,7 +175,6 @@ table{
 							<td>${me.me_id}</td>
 							<td>${me.me_name}</td>
 							<td>${me.me_gender}</td>
-							<td>${me.me_job}</td>
 							<td>${me.me_phone}</td>
 							<td>${me.me_email}</td>
 							<td>${me.land.sido.sd_name} ${me.land.sgg.sgg_name} ${me.land.emd.emd_name}</td>

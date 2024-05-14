@@ -176,7 +176,9 @@ height:50px;width:100%;background-color: #FCF9F7;
 						<a href="<c:url value='/board/list?bo_num=1'/>">공지사항</a>
 					</li>
 					<li>
+					<c:if test='${user.getSite_authority().equals("USER")}'>	
 						<a href="<c:url value="/member/bookmark"/>">북마크</a>
+					</c:if>	
 					</li>
 				</ul>
 			</div>

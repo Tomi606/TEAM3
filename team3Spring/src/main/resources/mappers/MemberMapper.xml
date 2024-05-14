@@ -180,7 +180,6 @@
 		<id property="me_id" column="me_id" />
 		<result property="me_name" column="me_name" />
 		<result property="me_gender" column="me_gender" />
-		<result property="me_job" column="me_job" />
 		<result property="me_phone" column="me_phone" />
 		<result property="me_email" column="me_email" />
 		<result property="me_address" column="me_address" />
