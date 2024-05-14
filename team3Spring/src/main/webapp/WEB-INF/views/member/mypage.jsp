@@ -441,6 +441,22 @@ select:focus {
 .member_delete_box>li:hover {
 	text-decoration: underline;
 }
+.a-btn {
+	color: rgba(0, 128, 0, 0.5);
+	text-decoration-line: none;
+}
+.a-btn:hover {
+	color: green;
+	font-weight: bold;
+	text-decoration-line: none;
+}
+.name_update_btn_wrap{
+    margin-left: 400px;
+    margin-bottom: 10px;
+}
+.pw_update_btn_wrap{
+	margin-left: 400px;
+}
 </style>
 </head>
 <body>
@@ -514,9 +530,9 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 					<input type='text' id="new_me_name" class="box-name2" value="\${member.me_name}"/>
 				</div>
 				<p>\${member.me_email}</p>
-				<span class="name_update_btn_wrap"><a type="button" class="name-update">실명수정</a></span>
-				<span class="name_save_btn_wrap"><a type="button" class="name_save_btn">수정완료</a></span>
-				<span class="pw_update_btn_wrap"><a type="button" class="pw-update">비밀번호 변경</a></span>
+				<span class="name_update_btn_wrap"><a type="button" class="name-update a-btn">실명수정</a></span>
+				<span class="name_save_btn_wrap"><a type="button" class="name_save_btn a-btn">수정완료</a></span>
+				<span class="pw_update_btn_wrap"><a type="button" class="pw-update a-btn">비밀번호 변경</a></span>
 				<div id="myModal" class="modal">
 				  <div class="modal-content">
 				    <span class="close">&times;</span>
@@ -546,8 +562,8 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 					<input type='text' id="new_me_phone" class="box-phone2" value="\${member.me_phone}"/>
 				</div>	
 					<p class="box-phone">\${member.me_phone}</p>
-					<span class="phone_update_btn_wrap"><a type="button" class="phone-update">변경</a></span>
-					<span class="phone_save_btn_wrap"><a type="button" class="phone_save_btn">수정완료</a></span>
+					<span class="phone_update_btn_wrap"><a type="button" class="phone-update a-btn">변경</a></span>
+					<span class="phone_save_btn_wrap"><a type="button" class="phone_save_btn a-btn">수정완료</a></span>
 				</div>
 			</div>
 			<div class="hr"></div>
@@ -557,8 +573,8 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 					<input type='text' id="new_me_email" class="box-email2" value="\${member.me_email}"/>
 				</div>	
 					<p class="box-email">\${member.me_email}</p>
-					<span class="email_update_btn_wrap"><a type="button" class="email-update">변경</a></span>
-					<span class="email_save_btn_wrap"><a type="button" class="email_save_btn">수정완료</a></span>
+					<span class="email_update_btn_wrap"><a type="button" class="email-update a-btn">변경</a></span>
+					<span class="email_save_btn_wrap"><a type="button" class="email_save_btn a-btn">수정완료</a></span>
 				</div>
 			</div>
 				<!-- 관심 과목 시작 -->
@@ -575,8 +591,8 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 								</c:forEach>
 							</select>
 						</div>
-						<span class="subject_update_btn_wrap"><a type="button" class="subject-update">변경</a></span>
-						<span class="subject_save_btn_wrap"><a type="button" class="subject_save_btn">수정완료</a></span>
+						<span class="subject_update_btn_wrap"><a type="button" class="subject-update a-btn">변경</a></span>
+						<span class="subject_save_btn_wrap"><a type="button" class="subject_save_btn a-btn">수정완료</a></span>
 					</div>
 					
 				</div>
@@ -599,8 +615,8 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 					 	</select>
 					</div>
 						<p  class="box-address">\${me_land.sd_name} \${me_land.sgg_name} \${me_land.emd_name}</p>
-					<span class="address_update_btn_wrap"><a type="button" class="address-update">변경</a></span>
-					<span class="address_save_btn_wrap"><a type="button" class="address_save_btn">수정완료</a></span>
+					<span class="address_update_btn_wrap"><a type="button" class="address-update a-btn">변경</a></span>
+					<span class="address_save_btn_wrap"><a type="button" class="address_save_btn a-btn">수정완료</a></span>
 					</div>
 				</div>
 			</div>
