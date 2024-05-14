@@ -183,6 +183,8 @@ grid-template-columns: 1fr 1fr;
 	height: 100%;
 	margin-left: 20px;
 	box-shadow: inset 0px 0px 3px 1px rgba(0, 0, 0, 0.4);
+	padding: 10px;
+	overflow-y: auto;
 }
 
 .time-list-container {
@@ -202,6 +204,22 @@ grid-template-columns: 1fr 1fr;
 
 label {
 	margin: 0;
+}
+
+.ditail-box{
+  font-weight: bold; 
+  color: #000; 
+   margin-bottom: 20px;
+}
+
+.ditail-box label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.ditail-box span {
+  font-style: italic;
 }
 
 .reservation-schedule-container {
@@ -337,8 +355,8 @@ let sgo = {
 			return str;
 		}
 		for(let tmp of list){
-			str += `<div><labal>\${tmp.item.it_name}<labal><br>
-						        \${tmp.item.it_explanation}</div>`	
+			str += `<div class="ditail-box"><labal>항목 명 : \${tmp.item.it_name}<labal><br>
+						        항목 설명 : \${tmp.item.it_explanation}</div>`	
 		}
 		return str;
 	}
