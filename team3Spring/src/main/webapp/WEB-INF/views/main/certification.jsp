@@ -12,105 +12,106 @@
 	<div class="container">
 		<div class="form-group">
 			<label for="email">이메일 입력</label> <input type="text"
-				class="form-control" id="email" name="email"
-				placeholder="이메일을 입력하세요.">
+				class="form-control" id="email" name="email" placeholder="이메일을 입력하세요.">
 		</div>
-		<button class="btn btn-outline-success col-12 btn-email">이메일
-			인증</button>
+		<button class="btn btn-outline-success col-12 btn-email">이메일 인증</button>
 		<div class="form-group ce_numbox"></div>
 	</div>
 
 
 
-	<!-- 이메일 인증 보내기 -->
-	<script type="text/javascript">
-/* var emailCheck = false;
+<!-- 이메일 인증 보내기 -->
+<script type="text/javascript">
+let code = null;
+function emailCheck(){
+	  var email = $("#email").val();
+	    if (email.length == 0 || email == "") {
+	       alert("이메일을 입력 하세요.");
+	       return;
+	    }
+	    let res = null;
+	    $.ajax({
+	    	async : false,
+	        url: '<c:url value="/hospital/checkEmail"/>',
+	        type: "get",
+	        data: { "site_email": email }, 
+	        success: function(response) {
+	            if (response.hoEmailCheck == null) {
+	               alert("사용 가능한 이메일입니다.");
+	               res = true;
+	            } else {
+	               alert("이미 사용중인 이메일입니다.");
+	               res = false;
+	            }
+	        }
+	    }); // ajax end;
+	    return res;
+}
+
 $(".btn-email").click( function() {
-    var email = $("#email").val();
-    if (email.length == 0 || email == "") {
-       alert("이메일을 입력 하세요.");
-        return;
-    }
-    
-    $.ajax({
-        url: '<c:url value="/hospital/checkEmail"/>',
-        type: "get",
-        data: { email: email }, 
-        success: function(response) {
-            if (response.hoEmailCheck == null) {
-               alert("사용 가능한 이메일입니다.");
-               emailCheck = true;
-                return;
-            } else {
-               alert("이미 사용중인 이메일입니다.");
-               emailCheck = false;
-                return;
-            }
-        },
-        error: function(xhr, status, error) {
-           alert("이미 사용중인 이메일입니다.");
-           emailCheck = false;
-            return;
-        }
-    }); // ajax end;
-});
-     */
-$('.btn-email').click(function() {
-	let obj = {
-		email : $('[name=email]').val()
-	}
-	$('.container-spinner').show();
-	//서버로 전송
-	$.ajax({
-		async : 'true',
-		url : '<c:url value="/certification/email"/>', 
-		type : 'post', 
-		data : obj, 
-		dataType : "json", 
-		success : function (data){
-			if(data == null){
-				alert("메일 전송에 실패했습니다 다시 시도해주세요");
-			}else{
-				let str = 
-				`
-					<label for="ce_num">인증번호</label>
-					<input type="text" class="form-control" id="ce_num" name="ce_num" placeholder="인증번호를 입력하세요." >
-					<button class="btn btn-outline-success col-12 btn-ce">인증하기</button>
-				`
-				$('.ce_numbox').html(str);
-				$('.btn-ce').click(function(){
-				    let newCeNum = $("[name=ce_num]").val();
-				    // ceNum 함수의 매개변수로 전달된 값도 함께 보냅니다.
-				    console.log("datadata")
-				    console.log(data);
-				    $.ajax({
-				        async : 'true',
-				        url : '<c:url value="/certification/num"/>', 
-				        type : 'post', 
-				        data : { "newCeNum": newCeNum, "data": data.ctfEmail },
-				        success: function(data) {
-				            if(!data){
-				                alert("인증에 실패했습니다");
-				            }else{
-				                alert("인증에 성공했습니다. 회원가입 페이지로 이동합니다.");
-				               	let email= $("[name=email]").val();
-				               	location.href = '<c:url value="/hospital/signup"/>?email=' + encodeURIComponent(email);
-				            }
-				        },
-				        error: function(xhr, status, error) {
-				            // 오류 처리 코드
-				        }
-				    });
-				});
-			}
-		}, 
-	});
+	code = displaySuccessBtn();
+	console.log(code);
 });
 
-     function ceNum(ceNum) {
-    	 console.log(ceNum)
-    	   
-    	}
+function displaySuccessBtn(){
+	let res = emailCheck();
+	
+ 	let em = null; 
+  	if(res){
+  		let email = $('[name=email]').val() 
+		//서버로 전송
+		$.ajax({
+			async : false,
+			url : '<c:url value="/certification/email"/>', 
+			type : 'post', 
+			data : {
+  				"email" : email
+  			}, 
+			success : function (data){
+					let str = 
+					`
+						<label for="ce_num">인증번호</label>
+						<input type="text" class="form-control" id="ce_num" name="ce_num" placeholder="인증번호를 입력하세요." >
+						<button class="btn btn-outline-success col-12 btn-ce">인증하기</button>
+					`
+					$(".ce_numbox").html(str);
+					em = data.ctfEmail
+			}, 
+		});
+  	}else{
+  		alert("이메일 인증에 문제가 생겼습니다. 다시 시도해 주세요");
+  		location.reload(true);
+  	}
+  	return em;
+}
+
+$(document).on("click", ".btn-ce", function(){
+	let newCeNum = $("[name=ce_num]").val();
+	let url = document.referrer;
+    // ceNum 함수의 매개변수로 전달된 값도 함께 보냅니다.
+    $.ajax({
+        async : 'true',
+        url : '<c:url value="/certification/num"/>', 
+        type : 'post', 
+        data : { "newCeNum": newCeNum, "data": code },
+        success: function(data) {
+            if(!data){
+                alert("인증에 실패했습니다");
+            }else{
+                alert("인증에 성공했습니다. 회원가입 페이지로 이동합니다.");
+               	let email= $("[name=email]").val();
+               	if(${num} == 2){               		
+               		location.href = '<c:url value="/hospital/signup"/>?email=' + encodeURIComponent(email);
+               	}else if(${num} == 1){
+               		location.href = '<c:url value="/member/signup"/>?email=' + encodeURIComponent(email);
+               	}else{
+               		alert("잘못된 접근입니다.");
+               		location.reload(true);
+               	}
+            }
+        }
+    });
+})
 
 </script>
 </body>

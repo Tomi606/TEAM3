@@ -139,11 +139,13 @@ public class HomeController {
 
 	// 개인 회원가입 페이지 GET
 	@GetMapping("/member/signup")
-	public String memberSignup(Model model, SiDoVO sido, SiGoonGuVO sgg, EupMyeonDongVO emd) {
+	public String memberSignup(Model model, SiDoVO sido, SiGoonGuVO sgg, EupMyeonDongVO emd,
+			String email) {
 		ArrayList<HospitalSubjectVO> list = hospitalService.getHospitalSubjectList();
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
 		model.addAttribute("sidoList", sidoList);
 		model.addAttribute("list", list);
+		model.addAttribute("email", email);
 		return "/member/signup";
 	}
 
@@ -194,8 +196,8 @@ public class HomeController {
 	
 	// 회원가입 이메일 인증 페이지(get)
 	@GetMapping("/main/certification")
-	public String certification() {
-
+	public String certification(Model model, int num) {
+		model.addAttribute("num", num);
 		return "/main/certification";
 	}
 
@@ -216,6 +218,9 @@ public class HomeController {
 	@ResponseBody
 	@PostMapping("/certification/num")
 	public boolean handleCertification(@RequestParam("newCeNum") String newCeNum, @RequestParam("data") String data) {
+		System.out.println("aaaaaaaaaaaaaaaaaaa");
+		System.out.println(newCeNum);
+		System.out.println(data);
 		if (newCeNum.equals(data)) {
 			return true;
 		} else {
