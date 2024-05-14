@@ -110,4 +110,10 @@ public interface MemberService {
 
 	SiteManagement getMemberByCookie(String sessionId);
 
+	boolean findPw(String id);
+
+	boolean findId(String email, String phone);
+
+	SiteManagement getSiteUser(String email);
+
 }
