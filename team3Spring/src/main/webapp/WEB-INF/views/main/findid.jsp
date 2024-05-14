@@ -6,18 +6,73 @@
 <head>
 <meta charset="UTF-8">
 <title>아이디 찾기</title>
+<style type="text/css">
+.home-box1 {
+	width: 100%;
+	height: 500px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
+}
+
+.page-title{
+color:rgba(0, 100, 60, 0.8);
+	text-align: left;
+	font-size: 50px;
+	font-weight: bold;
+	margin: 0 0 80px 0;
+}
+
+.all-container {
+	padding: 60px 80px;
+    margin: -250px auto 70px auto;
+    width: 55%;
+    background-color: white;
+    border-radius: 15px;
+    display: block;
+    box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.2);
+}
+
+.input-container {
+	margin-bottom: 10px;
+	margin-top: -35px;
+}
+
+.email-box {
+	margin-bottom: 25px;
+}
+
+.label {
+	color:#555;
+	text-align: center;
+	font-size: 20px;
+	font-weight: 600;
+	margin-bottom: 0px;
+}
+
+.btn-find {
+	float: right;
+}
+</style>
 </head>
 <body>
-<h1>아이디 찾기</h1>
+<div class="home-box1">
+	<div style="width: 80%; margin: 0 auto; padding-top: 80px;">
+		<div class="page-title">
+			아이디 찾기
+		</div>
+	</div>
+</div>
 <div class="all-container">
 	<div class="input-container">
 		<div class="email-box">		
-			<label for="site_email" class="label">이메일</label>
-			<input type="text" class="site_email" id="site_email" name="site_email" placeholder="이메일을 입력하세요">
+			<label for="site_email" class="label">이메일 입력</label>
+			<input type="text" class="form-control site_email" id="site_email" name="site_email" placeholder="이메일을 입력하세요">
 		</div>
 		<div class="phone-box">
-			<label for="site_phone" class="label">휴대폰 번호 및 대표 전화번호</label>
-			<input type="text" class="site_phone" id="site_phone" name="site_phone" placeholder="휴대폰 번호 및 대표 전화번호를 입력하세요">
+			<label for="site_phone" class="label">휴대폰 번호 및 대표 전화번호 입력</label>
+			<input type="text" class="form-control site_phone" id="site_phone" name="site_phone" placeholder="휴대폰 번호 및 대표 전화번호를 입력하세요">
 		</div>
 	</div>
 	<button class="btn btn-outline-success btn-find">아이디 찾기</button>
