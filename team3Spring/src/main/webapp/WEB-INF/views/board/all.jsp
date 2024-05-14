@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <style type="text/css">
 .롤링 {
-	margin:100px auto;
+	margin: -80px auto 100px auto;
 	display:flex;
 	max-width: 1300px;
 	height: 150px;
@@ -74,7 +74,7 @@ width: 70px;height: 50px;border: 1px solid green;color:green; line-height: 50px;
 }
 .home-box1 {
 	width: 100%;
-	height: 350px;
+	height: 500px;
 	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
 	background-repeat: no-repeat;
 	background-size: cover;
