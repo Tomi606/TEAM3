@@ -61,8 +61,6 @@ public interface MemberService {
 
 	boolean updateEmail(SiteManagement user, MemberVO member);
 
-	boolean updateJob(SiteManagement user, MemberVO member);
-
 	boolean updatePw(SiteManagement user, String me_id, String oldPw, String newPw);
 
 
@@ -107,5 +105,9 @@ public interface MemberService {
 	ArrayList<MemberVO> getMemberLand();
 
 	boolean getReservationId(String ho_id, MemberVO member);
+
+	void updateMemberCookie(SiteManagement user);
+
+	SiteManagement getMemberByCookie(String sessionId);
 
 }

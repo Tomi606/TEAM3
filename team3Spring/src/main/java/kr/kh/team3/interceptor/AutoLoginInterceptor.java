@@ -13,7 +13,7 @@ import kr.kh.team3.service.MemberService;
 
 public class AutoLoginInterceptor extends HandlerInterceptorAdapter {
 
-/*	@Autowired
+	@Autowired
 	MemberService memberService;
 	
 	@Override
@@ -41,6 +41,6 @@ public class AutoLoginInterceptor extends HandlerInterceptorAdapter {
 		}
 		
 		return true;
-	} */
+	}
 
 }

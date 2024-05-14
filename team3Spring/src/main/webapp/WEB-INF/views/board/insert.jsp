@@ -18,9 +18,25 @@
     <!-- include plugin -->
     <script src="[folder where script is located]/[plugin script].js"></script>
 <style type="text/css">
+.page-title{
+	text-align: left;
+	font-size: 50px;
+	color: rgba(0, 100, 60, 0.8);
+	font-weight: bold;
+	margin: 0 0 80px 0;
+}
+.home-box1 {
+	width: 100%;
+	height: 350px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
+}
 .post_list_container{width: 100%;height: 1500px;}
 .post_list_box{
-	    border: 2px solid green;width: 1400px;height: 93.4%;margin:100px auto;
+
+	    border: 2px solid green;width: 1400px;height: 93.4%;margin:-140px auto 100px auto;background:white;
 	padding:0 100px 100px 100px;
 }
 .post_list_box{
@@ -95,6 +111,13 @@ margin-top:50px;
 </style>
 </head>
 <body>
+<div class="home-box1">
+	<div style="width: 80%;margin: 0 auto;padding-top: 80px">
+		<div class="page-title">
+			게시글 등록
+		</div>
+	</div>
+</div>
 	<div class="post_list_container">
 
 		<div class="post_list_box">

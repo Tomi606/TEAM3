@@ -9,6 +9,9 @@
 
 <!-- jQuery library -->
 <script src="http://fastly.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <!-- Popper JS -->
 <script src="http://fastly.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -250,11 +253,9 @@ display:flex;justify-content:flex-end;
 /*hot group*/
 .hot-group { 
 	box-shadow: 0 3px 16px rgba(0, 0, 0, 0.1);
-	display: flex;
 	margin: 0 auto;
-	width: 100%;
-	height: 100%;
 	padding:20px 30px 40px 30px;
+	border-radius:10px; 
 }
 .롤링{
 	box-shadow: 0 3px 16px rgba(0, 0, 0, 0.6);
@@ -466,6 +467,7 @@ margin-top: 15px;
 /*전체 예역 현황*/
 
 .total-reservation{
+border-radius:10px;
 padding:30px;display:grid;grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     box-shadow: 0 3px 16px rgba(0, 0, 0, 0.1);width: 100%;height: 460px;margin: 0 auto;
 }
@@ -659,7 +661,7 @@ margin: 10px;
 			<div class="search-main-left"></div>
 			<div class="main-search-area">
 				<div class="search-box">
-					<input type="search" class="search"> 
+					<input type="search" class="search" id="autoComplete"> 
 					  <span class="typing-placeholder"></span>
 					<input type="image" value="" class="search-btn" src="<c:url value='/resources/img/sarchbtn.png'/>">
 				</div>
@@ -996,6 +998,43 @@ $(document).ready(function() {
 	}
 });
 $(document).ready(function () {
+	
+	$('#autoComplete').autocomplete({
+		source : function(request, response) { //source: 입력시 보일 목록
+		     $.ajax({
+		           url : "<c:url value='/hospital/autocomplete'/>"   
+		         , type : "POST"
+		         , data : {value: request.term}	// 검색 키워드
+		         , success : function(data){ 	// 성공
+		             response(
+		                 $.map(data, function(item) {
+		                     return {
+		                    	     label : item.hs_title   	// 목록에 표시되는 값
+		                           , value : item.hs_title 		// 선택 시 input창에 표시되는 값
+		                           , idx : item.hs_num // index
+		                     };
+		                 })
+		             );    //response
+		         }
+		         ,error : function(){ //실패
+		             alert("오류가 발생했습니다.");
+		         }
+		     });
+		}
+		,focus : function(event, ui) { // 방향키로 자동완성단어 선택 가능하게 만들어줌	
+				return false;
+		}
+		,minLength: 1// 최소 글자수
+		,autoFocus : true // true == 첫 번째 항목에 자동으로 초점이 맞춰짐
+		,delay: 100	//autocomplete 딜레이 시간(ms)
+		,select : function(evt, ui) { 
+	      	// 아이템 선택시 실행 ui.item 이 선택된 항목을 나타내는 객체, lavel/value/idx를 가짐
+				console.log(ui.item.label);
+				console.log(ui.item.idx);
+		 }
+	});
+	
+	
 	
 	$('.search-btn').click(function () {
 		homeSearch();

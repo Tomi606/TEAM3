@@ -117,8 +117,8 @@
 	<!-- 회원가입 -->
 	<insert id="insertMember">
 		insert into
-		member(me_hs_num,me_id,me_pw,me_name,me_gender,me_job,me_phone,me_email,me_authority,me_ms_state,me_la_num)
-		values(#{me.me_hs_num},#{me.me_id},#{me.me_pw},#{me.me_name},#{me.me_gender},#{me.me_job},#{me.me_phone},#{me.me_email},"USER","이용중",#{la.la_num})
+		member(me_hs_num,me_id,me_pw,me_name,me_gender,me_phone,me_email,me_authority,me_ms_state,me_la_num)
+		values(#{me.me_hs_num},#{me.me_id},#{me.me_pw},#{me.me_name},#{me.me_gender},#{me.me_phone},#{me.me_email},"USER","이용중",#{la.la_num})
 	</insert>
 
 	<insert id="insertSiteMember">
@@ -374,4 +374,21 @@
 	<select id="selectMyIddd" resultType="SiteManagement">
 		select * from site_management where site_id = #{id}
 	</select>
+	
+	<!-- 자동로그인 cookie -->
+	<update id="updateMemberCookie">
+  		UPDATE site_management SET
+  		site_cookie = #{user.site_cookie},
+  		site_cookie_limit = #{user.site_cookie_limit}
+  		WHERE site_id = #{user.site_id}
+  	</update>
+  	
+  	<select id="selectMemberByCookie" resultType="SiteManagement">
+  		<!-- 내부 코드를 순수하게 쿼리로 인식 -->
+  		<![CDATA[ 
+  		SELECT * FROM site_management
+  		WHERE site_cookie = #{session_Id}
+  			and site_cookie_limit >= now()
+  		]]>
+  	</select>
 </mapper>

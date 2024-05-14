@@ -449,8 +449,11 @@
 		    recommend ON re_po_num = po_num
 		GROUP BY
 		    po_num
+		 
 		HAVING
     		po_up >= 1
+   		order by 
+   			po_up desc   
     	limit 10
 	</select>
 </mapper>

@@ -58,7 +58,10 @@
 }
 
 .schedule-box {
-	display: flex;width: 100%;margin-bottom: 30px;
+	display: flex;
+	width: 100%;
+	margin-bottom: 30px;
+	justify-content: space-between;
 }
 
 .date-box {

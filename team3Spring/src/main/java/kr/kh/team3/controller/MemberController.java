@@ -45,16 +45,15 @@ public class MemberController {
 	@Autowired
 	ProgramService programService;
 
-	/*
-	 * 관리자 전용 컨트롤러 회원 관리용 게시판 리스트 부터 추가 삭제 수정 순으로 기능 구현 전부다 비동기로 진행 수업때 댓글 비동기 한거
-	 * 참고하기
-	 * 
-	 * 메서드 위에 주석으로 무슨 기능인지 쓰기
-	 */
 	// 마이페이지 GET
 	@GetMapping("/member/mypage")
 	public String myPageGet(Model model, MemberVO member, HttpSession session,  SiDoVO sido, SiGoonGuVO sgg, EupMyeonDongVO emd) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		if(user == null ||!user.getSite_authority().equals("USER")) {
+			model.addAttribute("msg","접근할 수 없는 페이지입니다.");
+			model.addAttribute("url","/");
+			return "message";
+		}
 		ArrayList<HospitalSubjectVO> hslist = hospitalService.selectSubject();
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
 		MemberVO muser = memberService.getMemberInfo(user);
@@ -96,18 +95,6 @@ public class MemberController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		boolean res = memberService.updateEmail(user, member);
 		MemberVO me = memberService.getMember(member);
-		map.put("me", me);
-		map.put("res", res);
-		return map;
-	}
-	// 직업 수정 메서드 비동기
-	@ResponseBody
-	@PostMapping("/member/job")
-	public HashMap<String, Object> jobUpdate(@RequestBody MemberVO member, HttpSession session) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		MemberVO me = memberService.getMember(member);
-		boolean res = memberService.updateJob(user, member);
 		map.put("me", me);
 		map.put("res", res);
 		return map;
@@ -206,7 +193,11 @@ public class MemberController {
 	@GetMapping("/member/bookmark")
 	public String bookmark(Model model, HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-
+		if(user == null ||!user.getSite_authority().equals("USER")) {
+			model.addAttribute("msg","접근할 수 없는 페이지입니다.");
+			model.addAttribute("url","/");
+			return "message";
+		}
 		model.addAttribute("user", user);
 		return "/member/bookmark";
 	}
@@ -217,16 +208,12 @@ public class MemberController {
 	public HashMap<String, Object> postBookmark(@RequestParam("page")int page, HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		Criteria cri = new Criteria(page);
-		cri.setPerPageNum(12);
+		cri.setPerPageNum(10);
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		
-		//북마크 리스트 출력하려면
-		//1. 회원 아이디 필요
-		//2. 리저트맵 사용..
 		ArrayList<HospitalVO> hoBmkList = hospitalService.getBmkList(user, cri);
 		System.out.println("fdas;kf h6546532 " + hoBmkList);
 		int totalCount = hospitalService.getBmkListCount(user, cri);
-		PageMaker pm = new PageMaker(5, cri, totalCount);
+		PageMaker pm = new PageMaker(10, cri, totalCount);
 		map.put("pm", pm);
 		map.put("list", hoBmkList);
 		return map;
@@ -252,8 +239,11 @@ public class MemberController {
 	@GetMapping("/member/reservemgr")
 	public String memberReservemgr(Model model, HttpSession session, String site_id) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		
-		
+		if(user == null ||!user.getSite_authority().equals("USER")) {
+			model.addAttribute("msg","접근할 수 없는 페이지입니다.");
+			model.addAttribute("url","/");
+			return "message";
+		}
 		
 		return "/member/reservemgr";
 	}
@@ -264,10 +254,10 @@ public class MemberController {
 	public Map<String, Object> memberReservemgrPost(@RequestParam("page") int page, @RequestParam("type") String type, @RequestParam("search") String search, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
-		Criteria cri = new Criteria(page, 2, type, search);
+		Criteria cri = new Criteria(page, 10, type, search);
 		ArrayList<PostVO> bookList = programService.getBookList(user, cri);
 		int totalCount = programService.getBookListCount(user, cri);
-		PageMaker pm = new PageMaker(3, cri, totalCount);
+		PageMaker pm = new PageMaker(10, cri, totalCount);
 		map.put("bookList", bookList);
 		map.put("pm", pm);
 		return map;

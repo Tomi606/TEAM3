@@ -19,17 +19,15 @@ public class MemberVO {
 	private String me_pw;
 	private String me_name;
 	private String me_gender;
-	private String me_job;
 	private String me_phone;
 	private String me_email;
 	private String me_address;
 	private String me_authority;
 	private int me_fail; //로그인 실패 횟수
-	private String me_cookie; //쿠키(자동로그인)
-	private String me_cookie_limit;
 	private Date me_stop; //정지 기간
 	private int me_report_count; //신고 누적 횟수
 	private int me_stop_count; //정지 누적 횟수
+	private boolean autoLogin;//자동로그인
 	private HospitalSubjectVO hospitalSubject;
 	private ReportVO report;
 	private SiteManagement siteManagement;

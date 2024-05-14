@@ -816,5 +816,11 @@
 		select * from hospital_detail where hd_num = #{hd_num}
 	</select>
 	
+	<select id="selectHoSubAutoList" resultType="HospitalSubjectVO">
+		SELECT
+			 *
+		FROM hospital_subject
+		WHERE hs_title LIKE concat('%', #{value}, '%')
+	</select>
 	
 </mapper>

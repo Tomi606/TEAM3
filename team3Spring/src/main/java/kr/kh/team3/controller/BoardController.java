@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -64,11 +65,17 @@ public class BoardController {
 
 	@GetMapping("/board/list")
 	public String boardList(HttpSession session,Model model, Criteria cri, int bo_num) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		if (user == null) {
+			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
+			model.addAttribute("url", "/main/login");
+			return "message";
+		}
 		String bo_name = boardService.getBoardName(bo_num);
-		cri.setPerPageNum(5);
+		cri.setPerPageNum(10);
 		ArrayList<PostVO> poList = boardService.getPostList(bo_num, cri);
 		int totalCount = boardService.getPostListCount(bo_num, cri);
-		PageMaker pm = new PageMaker(3, cri, totalCount);
+		PageMaker pm = new PageMaker(10, cri, totalCount);
 		model.addAttribute("bo_num", bo_num);
 		model.addAttribute("bo_title", bo_name);
 		model.addAttribute("poList", poList);
@@ -78,8 +85,18 @@ public class BoardController {
 
 	@GetMapping("/board/userpost")
 	public String boardUser(HttpSession session,Model model, Criteria cri, String po_id) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		if (user == null) {
+			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
+			model.addAttribute("url", "/main/login");
+			return "message";
+		}	
+		ArrayList<PostVO> poList = boardService.getUserPostList(po_id,cri);
 		String site_authority = boardService.getUserAuthority(po_id);
 		HospitalDetailVO hd = hospitalService.getHospitalDetail(po_id);
+		for(PostVO post : poList) {
+			model.addAttribute("po_num",post.getPo_num());
+		}
 		model.addAttribute("po_id", po_id);
 		model.addAttribute("hd", hd);
 		model.addAttribute("site_authority", site_authority);
@@ -131,6 +148,11 @@ public class BoardController {
 	@PostMapping("/board/insert")
 	public String boardInsertPost(Model model, PostVO post, MultipartFile[] files, HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		if (user == null) {
+			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
+			model.addAttribute("url", "/main/login");
+			return "message";
+		}
 		boolean res = boardService.insertPost(user, post, files);
 		if (!res) {
 			model.addAttribute("msg", "게시글을 등록하지 못했습니다.");
@@ -163,6 +185,11 @@ public class BoardController {
 	@GetMapping("/board/delete")
 	public String boardDelete(Model model, PostVO post, HttpSession session) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		if (user == null) {
+			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
+			model.addAttribute("url", "/main/login");
+			return "message";
+		}
 		PostVO delPost = boardService.getPost(post.getPo_num());
 		int bo_num = delPost.getPo_bo_num();
 		boolean res = boardService.deletePost(post.getPo_num(), user);
@@ -180,6 +207,12 @@ public class BoardController {
 	// 게시글 슈정
 	@GetMapping("/board/update")
 	public String getBoardUpdate(Model model, PostVO post, HttpSession session) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		if (user == null) {
+			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
+			model.addAttribute("url", "/main/login");
+			return "message";
+		}
 		ArrayList<BoardVO> boardList = boardService.getAllBoardList();
 		PostVO myPost = boardService.getPostDetail(post.getPo_num());
 		ArrayList<FileVO> fileList = boardService.getFileList(post.getPo_num());

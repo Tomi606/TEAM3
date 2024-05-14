@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,16 +56,27 @@ public class AdminController {
 	@Autowired
 	CommentService commentService;
 	
-	//회원가입 메인페이지
 	@GetMapping("/admin/adminpage")
-	public String adminpage() {
+	public String adminpage(HttpSession session,Model model) {
+		SiteManagement user = (SiteManagement)session.getAttribute("user");
+		if(!user.getSite_authority().equals("ADMIN")||user == null) {
+			model.addAttribute("msg","접근할 수 없는 페이지입니다.");
+			model.addAttribute("url","/");
+			return "message";
+		}else {
 		return "/admin/adminpage";
+		}
 	}
 	
-	// ======================== 병원 관리 ==========================
 	//병원 관리 페이지
 	@GetMapping("/admin/hospital")
-	public String adminHospital(HospitalVO hospital,Model model,Criteria cri) {
+	public String adminHospital(HttpSession session,HospitalVO hospital,Model model,Criteria cri) {
+		SiteManagement user = (SiteManagement)session.getAttribute("user");
+		if(!user.getSite_authority().equals("ADMIN")||user == null) {
+			model.addAttribute("msg","접근할 수 없는 페이지입니다.");
+			model.addAttribute("url","/");
+			return "message";
+		}
 		//병원 전체 리스트 가져오기
 		ArrayList<HospitalVO> hoList = hospitalService.hospitalList(cri);
 		int totalCount = hospitalService.getHospitalCount(cri);
@@ -81,8 +94,13 @@ public class AdminController {
 	
 	//대기 병원 관리 페이지
 	@GetMapping("/admin/waitlist")
-	public String adminWaitlist() {
-		//대기 병원 리스트 가져오기
+	public String adminWaitlist(HttpSession session,Model model) {
+		SiteManagement user = (SiteManagement)session.getAttribute("user");
+		if(!user.getSite_authority().equals("ADMIN")||user == null) {
+			model.addAttribute("msg","접근할 수 없는 페이지입니다.");
+			model.addAttribute("url","/");
+			return "message";
+		}
 		return "/admin/waitlist";
 	}
 	
@@ -129,7 +147,13 @@ public class AdminController {
 	
 	//신고 병원 관리 페이지
 	@GetMapping("/admin/reportlist")
-	public String adminReportlist() {
+	public String adminReportlist(HttpSession session,Model model) {
+		SiteManagement user = (SiteManagement)session.getAttribute("user");
+		if(!user.getSite_authority().equals("ADMIN")||user == null) {
+			model.addAttribute("msg","접근할 수 없는 페이지입니다.");
+			model.addAttribute("url","/");
+			return "message";
+		}
 		//대기 병원 리스트 가져오기
 		return "/admin/reportlist";
 	}
@@ -171,13 +195,15 @@ public class AdminController {
 		return map;
 	}
 	
-	// ======================== 병원 관리 끝 ==========================
-	
-	// ======================== 회원 관리 시작 =========================
-	
 	//회원 관리 메인 페이지("이용중" 전체 회원 리스트)
 	@GetMapping("/admin/member/main")
-	public String memberList(Model model, MemberVO member, LandVO land, Criteria cri) {
+	public String memberList(Model model, MemberVO member, LandVO land, Criteria cri,HttpSession session) {
+		SiteManagement user = (SiteManagement)session.getAttribute("user");
+		if(!user.getSite_authority().equals("ADMIN")||user == null) {
+			model.addAttribute("msg","접근할 수 없는 페이지입니다.");
+			model.addAttribute("url","/");
+			return "message";
+		}
 		cri.setPerPageNum(3);
 		ArrayList<MemberVO> list = memberService.getMemberList(cri);
 		int totalCount = memberService.getMemberTotalCount(cri);
@@ -194,7 +220,13 @@ public class AdminController {
 	
 	//신고 회원 관리 페이지
 	@GetMapping("/admin/member/report")
-    public String adminMeReport() {
+    public String adminMeReport(HttpSession session,Model model) {
+		SiteManagement user = (SiteManagement)session.getAttribute("user");
+		if(!user.getSite_authority().equals("ADMIN")||user == null) {
+			model.addAttribute("msg","접근할 수 없는 페이지입니다.");
+			model.addAttribute("url","/");
+			return "message";
+		}
 
 		return "/admin/member/report";
     }
@@ -233,13 +265,15 @@ public class AdminController {
 		return map;
 	}
 	
-	// ======================== 회원 관리 끝 ==========================
-	
-	// ======================== 게시판 관리 시작 ==========================
-	
 	//게시판리스트를 보여주기 위한 메서드
 		@GetMapping("/community")
-		public String board(Model model) {
+		public String board(Model model,HttpSession session) {
+			SiteManagement user = (SiteManagement)session.getAttribute("user");
+			if(!user.getSite_authority().equals("ADMIN")||user == null) {
+				model.addAttribute("msg","접근할 수 없는 페이지입니다.");
+				model.addAttribute("url","/");
+				return "message";
+			}
 			ArrayList<BoardVO> list = boardService.getBoardList();
 			model.addAttribute("list", list);
 			return "/community/community";
@@ -247,7 +281,13 @@ public class AdminController {
 		
 		//수정 페이지를 보여주기 위한 메서드
 		@GetMapping("/community/insert")
-		public String boardInsert(Model model) {
+		public String boardInsert(Model model,HttpSession session) {
+			SiteManagement user = (SiteManagement)session.getAttribute("user");
+			if(!user.getSite_authority().equals("ADMIN")||user == null) {
+				model.addAttribute("msg","접근할 수 없는 페이지입니다.");
+				model.addAttribute("url","/");
+				return "message";
+			}
 			ArrayList<BoardVO> list = boardService.getBoardList();
 			model.addAttribute("list", list);
 			return "/community/communityinsert";
@@ -272,7 +312,13 @@ public class AdminController {
 		
 		//게시판 수정 페이지를 보여주기 위한 메서드
 		@GetMapping("/community/update")
-		public String boardUpdate(Model model, int bo_num) {
+		public String boardUpdate(Model model, int bo_num,HttpSession session) {
+			SiteManagement user = (SiteManagement)session.getAttribute("user");
+			if(!user.getSite_authority().equals("ADMIN")||user == null) {
+				model.addAttribute("msg","접근할 수 없는 페이지입니다.");
+				model.addAttribute("url","/");
+				return "message";
+			}
 			BoardVO board = boardService.getBoard(bo_num);
 			model.addAttribute("board", board);
 			return "/community/communityupdate";
