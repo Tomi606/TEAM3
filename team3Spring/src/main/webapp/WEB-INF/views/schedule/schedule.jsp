@@ -540,6 +540,7 @@ cal(numMonth,numYear);
 $('.prevBtn').click(function(){
 	let hp_num = $("[name=hp_num]").val();
 	let hs_num = $("[name=hs_num]").val();
+	let ho = '${ho.site_id}';
 	if(hp_num == 'none' || hs_num == 'none'){
 		alert("예약된 스케줄이 없습니다.");
 		return;
@@ -555,11 +556,11 @@ $('.prevBtn').click(function(){
 		method : "post",
 		url : '<c:url value="/getdate"/>',
 		data : {
-			"hp_num" : hp_num
+			"hp_num" : hp_num,
+			"ho" : ho
 		},
 		success : function(data){
 			$(".table").empty();
-			console.log(data.RSlist)
 			cal(numMonth, numYear, data.RSlist)
 		}
 	})
@@ -569,6 +570,7 @@ $('.prevBtn').click(function(){
 $('.nextBtn').click(function(){
 	let hp_num = $("[name=hp_num]").val();
 	let hs_num = $("[name=hs_num]").val();
+	let ho = '${ho.site_id}';
 	if(hp_num == 'none' || hs_num == 'none'){
 		alert("예약된 스케줄이 없습니다.");
 		return;
@@ -584,11 +586,11 @@ $('.nextBtn').click(function(){
 		method : "post",
 		url : '<c:url value="/getdate"/>',
 		data : {
-			"hp_num" : hp_num
+			"hp_num" : hp_num,
+			"ho" : ho
 		},
 		success : function(data){
 			$(".table").empty();
-			console.log(data.RSlist)
 			cal(numMonth, numYear, data.RSlist)
 		}
 	})
