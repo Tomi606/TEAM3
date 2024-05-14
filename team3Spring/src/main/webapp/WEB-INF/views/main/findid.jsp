@@ -55,6 +55,7 @@ color:rgba(0, 100, 60, 0.8);
 	color: red;
 	font-weight: 500;
 	font-size: 15px;
+	margin-bottom: 0px;
 }
 .btn-find {
 	float: right;
