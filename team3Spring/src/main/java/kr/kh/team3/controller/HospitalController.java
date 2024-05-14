@@ -487,6 +487,7 @@ public class HospitalController {
 		HsListVO hslist = programService.getHsList(hs_num, user);
 		ArrayList<ItemVO> itemList = programService.getItemList(user, hslist);
 		ArrayList<HospitalProgramVO> hpList = programService.getSubjectByProgram(user, hslist);
+		System.out.println(itemList);
 		map.put("itemList", itemList);
 		map.put("hpList", hpList);
 		return map;
@@ -514,18 +515,16 @@ public class HospitalController {
 	@ResponseBody
 	@PostMapping("/item/delete")
 	public Map<String, Object> deleteItem(@RequestParam("checkedValues[]") ArrayList<Integer> list) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		System.out.println("aaaaaaaaaaaaaaaaa");
-		System.out.println(list);
-		boolean res = programService.deleteItem(list);
-
-		if (res) {
-			map.put("msg", "삭제에 성공했습니다.");
-		} else {
-			map.put("msg", "삭제에 실패했습니다.");
-		}
-		return map;
-	}
+		Map<String, Object> map = new HashMap<String, Object>();		
+        boolean res = programService.deleteItem(list);
+		
+		if (res) { 
+		 map.put("msg", "삭제에 성공했습니다."); 
+		} else { 
+			map.put("msg","삭제에 실패했습니다."); 
+		} 
+		 return map;
+    }
 
 	// 프로그램을 추가하는 메서드
 	@ResponseBody
@@ -589,22 +588,20 @@ public class HospitalController {
 	// 프로그램 수정 메서드
 	@ResponseBody
 	@PostMapping("/program/update")
-	public String updateProgramInsert(Model model, @RequestParam("hs_num") int hs_num, HttpSession session,
+	public boolean updateProgramInsert(Model model, @RequestParam("hs_num") int hs_num, HttpSession session,
 			HospitalProgramVO hospitalProgram, @RequestParam("list[]") ArrayList<Integer> list) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		boolean res = programService.deleteProgram(hospitalProgram.getHp_num());
 		boolean insertres = programService.insertProgram(hospitalProgram, user, list, hs_num);
-
-		if (res) {
-			if (insertres) {
-				model.addAttribute("msg", "수정에 성공했습니다.");
-			}
+		
+		if(res) {
+			if(insertres) {
+				return true;
+      }
 		}
-		model.addAttribute("msg", "수정에 실패했습니다.");
-		return "message";
-	}
-
-	// 프로그램 삭제 메서드
+		return false;
+    }
+	
 	@GetMapping("/program/delete")
 	public String deleteprogram(Model model, int hp_num) {
 		boolean res = programService.deleteProgram(hp_num);

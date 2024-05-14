@@ -99,6 +99,7 @@
 		let option = optionDate(list);
 		
 		$(this).parents(".tr").find(".date").html('<select name="ndate" class="ndate">'+ option +'</select>');
+		$(this).parents(".tr").find(".change_btn").empty();
 		$(this).parents(".tr").find(".change_btn").html('<a class="btn success_btn">확인</a>')
 	})
 </script>
@@ -204,8 +205,7 @@ function displayTime(){
                 let str = ``;
                	console.log(data)
                 if(data.list != null){
-                	console.log(data)
-                    for(let tmp of data.list){
+                    for(let tmp of data.list2){
                         if(tmp == null){
                             continue;
                         }else{
@@ -235,7 +235,7 @@ function displayTime(){
 
 <!-- 병원 과목을 선택하면 프로그램을 가져오는 메서드  -->
 <script type="text/javascript">
-	$("[name=hs_num]").click(function(){
+	$("[name=hs_num]").change(function(){
 		let list = selectProgram();
 		displayHospitalProgram(list);
 	});
@@ -243,9 +243,9 @@ function displayTime(){
 	function selectProgram(){
 	    let hp_num = $("[name=hp_num]").val();
 	    let hs_num = $("[name=hs_num]").val();
-	    if(hs_num == 'none' || hp_num == 'none'){
-	        hs_num = 1;
-	        hp_num = 1;
+	    if(hs_num == 'none'){
+	      
+	       return;
 	    }
 	    let ho = '${ho.site_id}';
 	 	let res = null;
@@ -264,7 +264,9 @@ function displayTime(){
 	function displayHospitalProgram(hpList){
 		let str = ``;
 		if(hpList == null){
-			$("[name=hp_num]").html(str);
+			 $("[name=hp_num]").html(`<option value="none">프로그램을 선택해주세요</option>`);
+			 $(".box-hospital-list").html("");
+			return;
 		}
         for(let tmp of hpList){
             str += `<option value="\${tmp.hp_num}">\${tmp.hp_title}</option>`;

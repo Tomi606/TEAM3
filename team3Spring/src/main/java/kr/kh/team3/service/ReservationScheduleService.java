@@ -22,4 +22,6 @@ public interface ReservationScheduleService {
 
 	boolean MaxPersonCheck(int rs_num);
 
+	ReservationVO getReservationUpdateList(int rs_num);
+
 }
