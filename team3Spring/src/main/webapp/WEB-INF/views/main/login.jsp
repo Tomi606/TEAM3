@@ -86,12 +86,15 @@ label::after {
     left: 35px; /* 좌측 위치 조정 */
 }
 
-.login-box {
-	border:1px solid white;
-	border-radius:14%;
-	background-color:rgba(0, 128, 0, 0.3);
-	text-align: center;
-	margin-top: 100px;
+.login-box-container {
+	background: url('<c:url value="/resources/img/pineapple.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
+    background-attachment: fixed;
+	display:flex;
+	width: 100%;
+	 height: 100%;
 }
 
 .login-btn {
@@ -105,7 +108,8 @@ label::after {
 }
 
 .member-login-btn {
-	
+    height: 50px;
+	width:50%;
 	border: none;
    	border-top: 4px solid #d5d5d5;
 	color:rgba(0, 0, 0, .5);
@@ -115,12 +119,13 @@ label::after {
 }
 
 .hospital-login-btn {
+	    height: 50px;
+	width:50%;
     border: none;
    border-top: 4px solid #d5d5d5;
 	color:rgba(0, 0, 0, .5);
     background-color: #f4f4f4;
     border-bottom: 3px solid #c8c8c8;
-	margin-left: -3px;
 }
 
 .login-btn-click {
@@ -144,12 +149,11 @@ label::after {
 }
 
 .login-form {
-	width: 399px;
-	height: 350px;
+	height:468px;
+	width: 100%;
+	 margin-top: 40px;
 	text-align: center;
 	display: inline-block;
-	margin-top: -1px;
-	border-top: 1px solid white; 
 	background-color: white;
 }
 
@@ -181,9 +185,14 @@ label::after {
 	font-weight: bold;
 }
 .login-btn-r{
-	border-style:none;
-	background: #C6FF70	;
-	color: white;
+	padding:20px 0;height:65px; border-radius:5px;font-size:18px;
+	width:460px;border:1px solid green;
+	color: green;background: white;
+	
+}
+.login-btn-r:hover{
+	background: green; 
+	transition: background 0.5s ease;
 }
 .login-btn-r:hover{
 	border-style:none;
@@ -195,110 +204,129 @@ label::after {
     display: inline-block;
 }
 .auto-login{
+	width:100%;display:flex;    padding-left: 72px;
 	margin-bottom: 5px;
 }
 
 .input-box.id{
+	width:460px;
     margin-bottom: 10px;
-     padding-right: 40px;
+         padding: 30px 40px 30px 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-image: url('<c:url value="/resources/img/user.svg"/>'); 
     background-repeat: no-repeat; 
     background-position: right 10px center; 
-    background-size: 20px; 
+    background-size: 30px; 
 }
 .input-box.pw{
+	width:460px;
     margin-bottom: 10px;
-     padding-right: 40px;
+      padding: 30px 40px 30px 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-image: url('<c:url value="/resources/img/passwordcheck.svg"/>'); 
     background-repeat: no-repeat; 
     background-position: right 10px center; 
-    background-size: 20px; 
+    background-size: 30px; 
 }
 .input-box.num{
+	width:460px;
     margin-bottom: 10px;
-     padding-right: 40px;
+     padding:30px 40px 30px 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-image: url('<c:url value="/resources/img/quote.svg"/>'); 
     background-repeat: no-repeat; 
     background-position: right 10px center; 
-    background-size: 20px; 
+    background-size: 30px; 
 }
 .login-box-second{
 
 background-color: white;
 }
-
+.login-box{
+	background:white;
+	width: 600px;height: 550px;margin:auto;
+}
+.auto_login_box{
+	width: 300px;display: flex; 
+}
 </style>
 </head>
 <body>
-	<div class="login-box">
-		<div class="login-box-second"></div>
-		<div class="login-btns">
-			<button type="button" class="login-btn member-login-btn login-btn-click">회원</button>
-			<button type="button" class="login-btn hospital-login-btn">병원</button>
-		</div>
-		<div class="form-box member-form-box">
-			<div class="login-form">
-				<form action="<c:url value="/member/login"/>" method="post">
-					<div class="input-group">
-						<div class="auto-login">
-							<span>자동로그인</span>
-					 		<input type="checkbox" id="toggle-slider" value="true" name="autoLogin">
-					 		<label for="toggle-slider">On/Off</label>
-					 	</div>
-					 	<div class="login-input-tag">
-							<input type="text" placeholder="아이디" name="me_id" class="input-box id"> 
+<div style="height: 1000px">
+	<div class="login-box-container">
+		<div class="login-box">	
+			<div class="login-box-second"></div>
+			<div class="login-btns">
+				<button type="button" class="login-btn member-login-btn login-btn-click">회원</button>
+				<button type="button" class="login-btn hospital-login-btn">병원</button>
+			</div>
+			<div class="form-box member-form-box" style="height: 100%;">
+				<div class="login-form">
+					<form action="<c:url value="/member/login"/>" method="post">
+						<div class="input-group">
+							<div class="auto-login">
+								<div class="auto_login_box">
+									<span style="margin-right: 5px;">자동로그인</span>
+							 		<input type="checkbox" id="toggle-slider" value="true" name="autoLogin">
+							 		<label for="toggle-slider">On/Off</label>
+							 	</div>	
+						 	</div>
+						 	<div class="login-input-tag">
+								<input type="text" placeholder="아이디" name="me_id" class="input-box id"> 
+							</div>
+						 	<div class="login-input-tag">
+								<input type="password" placeholder="비밀번호" name="me_pw" class="input-box pw">
+							</div>
 						</div>
-					 	<div class="login-input-tag">
-							<input type="password" placeholder="비밀번호" name="me_pw" class="input-box pw">
-						</div>
+						<button class="submit-btn login-btn-r">로그인</button>
+					</form>
+					<div class="find-signup-box">
+	
+						<a class="" href="">아이디/비밀번호 찾기</a> <span>|</span> <a class="123"
+	
+							href="<c:url value="/main/signup"/>">회원가입</a>
 					</div>
-					<button class="submit-btn login-btn-r">로그인</button>
-				</form>
-				<div class="find-signup-box">
-
-					<a class="" href="">아이디/비밀번호 찾기</a> <span>|</span> <a class="123"
-
-						href="<c:url value="/main/signup"/>">회원가입</a>
 				</div>
 			</div>
-		</div>
-		<div class="form-box hospital-form-box">
-			<div class="login-form">
-				<form action="<c:url value="/hospital/login"/>" method="post">
-					<div class="input-group">	
-						<div  class="auto-login">
-							<span>자동로그인</span>
-						 	<input type="checkbox" id="toggle-slider1" value="true" name="autoLogin">
-						 	<label for="toggle-slider1">On/Off</label>
+			<div class="form-box hospital-form-box">
+				<div class="login-form">
+					<form action="<c:url value="/hospital/login"/>" method="post">
+						<div class="input-group">	
+							<div  class="auto-login">
+								<div>
+									<span style="margin-right: 5px;">자동로그인</span>
+								</div>
+								<div>
+							 		<input type="checkbox" id="toggle-slider1" value="true" name="autoLogin">
+							 		<label for="toggle-slider1">On/Off</label>
+							 	</div>
+							</div>
+							<div class="login-input-tag">
+								<input type="text" placeholder="사업자번호" name="ho_num"
+									class="input-box num" maxlength="10"> 
+							</div>	
+							<div class="login-input-tag">
+								<input type="text" placeholder="아이디" name="ho_id" class="input-box id"> 
+							</div>
+							<div class="login-input-tag">
+								<input type="password" placeholder="비밀번호" name="ho_pw" class="input-box pw">
+							</div>
+							<button class="submit-btn login-btn-r">로그인</button>
 						</div>
-						<div class="login-input-tag">
-							<input type="text" placeholder="사업자번호" name="ho_num"
-								class="input-box num" maxlength="10"> 
-						</div>	
-						<div class="login-input-tag">
-							<input type="text" placeholder="아이디" name="ho_id" class="input-box id"> 
-						</div>
-						<div class="login-input-tag">
-							<input type="password" placeholder="비밀번호" name="ho_pw" class="input-box pw">
-						</div>
+					</form>
+					<div class="find-signup-box">
+						<a class="" href="">아이디/비밀번호 찾기</a> <span>|</span> <a class=""
+							href="">회원가입</a>
 					</div>
-					<button class="submit-btn login-btn-r">로그인</button>
-				</form>
-				<div class="find-signup-box">
-					<a class="" href="">아이디/비밀번호 찾기</a> <span>|</span> <a class=""
-						href="">회원가입</a>
 				</div>
 			</div>
-		</div>
+		</div>	
 	</div>
+</div>	
 </body>
-
 <script type="text/javascript">
 	$(".member-login-btn").click(function() {
 		$(".hospital-form-box").hide();
