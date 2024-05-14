@@ -30,8 +30,6 @@ textarea {
     margin-bottom: 35px;
 }
 
- 
-
 .subject-checkbox {
 	display: grid;
     grid-template-columns: repeat(8, 2fr);
@@ -42,15 +40,6 @@ textarea {
 }
 
 .info-textarea {
-	/* width: 95%;
-    height: 150px;
-    margin-bottom: 30px;
-    margin-left: 20px;
-    border: 1px solid green;
-    padding: 10px 15px 5px 10px;
-    font-size: 20px;
-    border-radius: 5px; */
-    
     width: 94%;
     height: 150px;
     border: 1px solid #c8c8c8;
@@ -62,7 +51,6 @@ textarea {
     cursor: inherit;
     outline-style: none;
     padding: 15px;
-    
 }
 
 input[type="checkbox"] {
@@ -189,7 +177,7 @@ color:rgba(0, 100, 60, 0.8);
 </head>
 <body>
 <div class="home-box1">
-	<div style="width: 80%;margin: 0 auto;padding-top: 80px">
+	<div style="width: 80%; margin: 0 auto; padding-top: 80px">
 		<div class="page-title">
 			병원
 		</div>
