@@ -59,7 +59,7 @@ public class AdminController {
 	@GetMapping("/admin/adminpage")
 	public String adminpage(HttpSession session,Model model) {
 		SiteManagement user = (SiteManagement)session.getAttribute("user");
-		if(!user.getSite_authority().equals("ADMIN")) {
+		if(!user.getSite_authority().equals("ADMIN")||user == null) {
 			model.addAttribute("msg","접근할 수 없는 페이지입니다.");
 			model.addAttribute("url","/");
 			return "message";
@@ -72,7 +72,7 @@ public class AdminController {
 	@GetMapping("/admin/hospital")
 	public String adminHospital(HttpSession session,HospitalVO hospital,Model model,Criteria cri) {
 		SiteManagement user = (SiteManagement)session.getAttribute("user");
-		if(!user.getSite_authority().equals("ADMIN")) {
+		if(!user.getSite_authority().equals("ADMIN")||user == null) {
 			model.addAttribute("msg","접근할 수 없는 페이지입니다.");
 			model.addAttribute("url","/");
 			return "message";
@@ -96,7 +96,7 @@ public class AdminController {
 	@GetMapping("/admin/waitlist")
 	public String adminWaitlist(HttpSession session,Model model) {
 		SiteManagement user = (SiteManagement)session.getAttribute("user");
-		if(!user.getSite_authority().equals("ADMIN")) {
+		if(!user.getSite_authority().equals("ADMIN")||user == null) {
 			model.addAttribute("msg","접근할 수 없는 페이지입니다.");
 			model.addAttribute("url","/");
 			return "message";
@@ -149,7 +149,7 @@ public class AdminController {
 	@GetMapping("/admin/reportlist")
 	public String adminReportlist(HttpSession session,Model model) {
 		SiteManagement user = (SiteManagement)session.getAttribute("user");
-		if(!user.getSite_authority().equals("ADMIN")) {
+		if(!user.getSite_authority().equals("ADMIN")||user == null) {
 			model.addAttribute("msg","접근할 수 없는 페이지입니다.");
 			model.addAttribute("url","/");
 			return "message";
@@ -199,7 +199,7 @@ public class AdminController {
 	@GetMapping("/admin/member/main")
 	public String memberList(Model model, MemberVO member, LandVO land, Criteria cri,HttpSession session) {
 		SiteManagement user = (SiteManagement)session.getAttribute("user");
-		if(!user.getSite_authority().equals("ADMIN")) {
+		if(!user.getSite_authority().equals("ADMIN")||user == null) {
 			model.addAttribute("msg","접근할 수 없는 페이지입니다.");
 			model.addAttribute("url","/");
 			return "message";
@@ -222,7 +222,7 @@ public class AdminController {
 	@GetMapping("/admin/member/report")
     public String adminMeReport(HttpSession session,Model model) {
 		SiteManagement user = (SiteManagement)session.getAttribute("user");
-		if(!user.getSite_authority().equals("ADMIN")) {
+		if(!user.getSite_authority().equals("ADMIN")||user == null) {
 			model.addAttribute("msg","접근할 수 없는 페이지입니다.");
 			model.addAttribute("url","/");
 			return "message";
@@ -269,7 +269,7 @@ public class AdminController {
 		@GetMapping("/community")
 		public String board(Model model,HttpSession session) {
 			SiteManagement user = (SiteManagement)session.getAttribute("user");
-			if(!user.getSite_authority().equals("ADMIN")) {
+			if(!user.getSite_authority().equals("ADMIN")||user == null) {
 				model.addAttribute("msg","접근할 수 없는 페이지입니다.");
 				model.addAttribute("url","/");
 				return "message";
@@ -283,7 +283,7 @@ public class AdminController {
 		@GetMapping("/community/insert")
 		public String boardInsert(Model model,HttpSession session) {
 			SiteManagement user = (SiteManagement)session.getAttribute("user");
-			if(!user.getSite_authority().equals("ADMIN")) {
+			if(!user.getSite_authority().equals("ADMIN")||user == null) {
 				model.addAttribute("msg","접근할 수 없는 페이지입니다.");
 				model.addAttribute("url","/");
 				return "message";
@@ -314,7 +314,7 @@ public class AdminController {
 		@GetMapping("/community/update")
 		public String boardUpdate(Model model, int bo_num,HttpSession session) {
 			SiteManagement user = (SiteManagement)session.getAttribute("user");
-			if(!user.getSite_authority().equals("ADMIN")) {
+			if(!user.getSite_authority().equals("ADMIN")||user == null) {
 				model.addAttribute("msg","접근할 수 없는 페이지입니다.");
 				model.addAttribute("url","/");
 				return "message";
