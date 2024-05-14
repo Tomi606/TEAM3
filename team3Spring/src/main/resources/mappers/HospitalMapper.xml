@@ -823,4 +823,7 @@
 		WHERE hs_title LIKE concat('%', #{value}, '%')
 	</select>
 	
+	<update id="updatePassword">
+		update hospital set ho_pw = #{pw} where ho_id = #{id}
+	</update>
 </mapper>

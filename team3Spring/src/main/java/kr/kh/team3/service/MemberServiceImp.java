@@ -35,23 +35,37 @@ import lombok.extern.log4j.Log4j;
 public class MemberServiceImp implements MemberService {
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
+	
 	@Autowired
 	MemberDAO memberDao;
+	
 	@Autowired
 	HospitalDAO hospitalDao;
 
 	@Autowired
 	private JavaMailSender mailSender;
+	
+	//새 비밀번호 생성
+	private String randomPassword1(int size) {
+		String strs = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#";
+		String newPw = "";
+		int min = 0, max = strs.length() - 1;
+		while(newPw.length() < size) {
+			int r = (int)(Math.random() * (max - min + 1) + min);
+			newPw += strs.charAt(r);
+		}
+		return newPw;
+	}
 
-	public boolean mailSend(String to, String title, String content) {
+	public boolean mailSend(String email, String title, String content) {
 
-		String setfrom = "gksrbqmffn@gmail.com";
+		String setfrom = "didtjswls98@gmail.com";
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 
 			messageHelper.setFrom(setfrom);// 보내는사람 생략하거나 하면 정상작동을 안함
-			messageHelper.setTo(to);// 받는사람 이메일
+			messageHelper.setTo(email);// 받는사람 이메일
 			messageHelper.setSubject(title);// 메일제목은 생략이 가능하다
 			messageHelper.setText(content, true);// 메일 내용
 
@@ -586,5 +600,37 @@ public class MemberServiceImp implements MemberService {
 	public SiteManagement getMemberByCookie(String sessionId) {
 		return memberDao.selectMemberByCookie(sessionId);
 	}
+
+	@Override
+	public boolean findPw(String id) {
+		SiteManagement user = memberDao.selectUser(id);
+		if(user == null) {
+			return false;
+		}
+		//임시 새 비번 생성
+		String newPw = randomPassword1(6);
+		
+		//이메일 전송
+		String title = "[병원 중개 사이트] 새 비밀번호 입니다.";
+		String content = user.getSite_id() + "님의 새 비밀번호는 <b>" 
+						+ newPw + "</b> 입니다.\n 로그인 후 비밀번호를 변경해주세요.";
+		boolean res = mailSend(user.getSite_email(), title, content);
+		
+		//임시 새 비밀번호를 암호화해서 DB에 저장
+		String encPw = passwordEncoder.encode(newPw);
+		if(user.getSite_authority().equals("USER")) {			
+			memberDao.updatePassword(user.getSite_id(), encPw);
+		}
+		else if(user.getSite_authority().equals("MANAGER")) {
+			hospitalDao.updatePassword(user.getSite_id(), encPw);
+		}
+		else {
+			return false;
+		}
+		
+		return res;
+	}
+
+	
 
 }

@@ -73,6 +73,20 @@ public class HomeController {
 		return "home";
 	}
 	
+	@GetMapping("/main/findpw")
+	public String findPw() {
+		return "/main/findpw";
+	}
+	
+	@ResponseBody
+	@PostMapping("/main/findpw")
+	public Map<String, Object> findPwPost(@RequestParam("id") String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean res = memberService.findPw(id);
+		map.put("result", res);
+		return map;
+	}
+	
 	
 	
 	@ResponseBody

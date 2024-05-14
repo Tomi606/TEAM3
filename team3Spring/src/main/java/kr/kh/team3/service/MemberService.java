@@ -110,4 +110,6 @@ public interface MemberService {
 
 	SiteManagement getMemberByCookie(String sessionId);
 
+	boolean findPw(String id);
+
 }
