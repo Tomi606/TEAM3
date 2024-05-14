@@ -1,10 +1,7 @@
 package kr.kh.team3.controller;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +25,7 @@ import kr.kh.team3.model.vo.HospitalProgramVO;
 import kr.kh.team3.model.vo.HospitalSubjectVO;
 import kr.kh.team3.model.vo.HospitalVO;
 import kr.kh.team3.model.vo.HsListVO;
+import kr.kh.team3.model.vo.ItemListVO;
 import kr.kh.team3.model.vo.ItemVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.PaymentVO;
@@ -104,11 +102,17 @@ public class ReservationScheduleController {
 	// 프로그램을를 선택하면 여러 정보가 나옴
 	@ResponseBody
 	@PostMapping("/getdate")
-	public Map<String, Object> updateProgramScheduleCheck(@RequestParam("hp_num") int hp_num, HttpSession session) {
+	public Map<String, Object> updateProgramScheduleCheck(@RequestParam("hp_num") int hp_num, @RequestParam("ho") String ho) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		HospitalProgramVO hp = hospitalService.getHospitalProgram(hp_num);
+		SiteManagement user = new SiteManagement();
+		user.setSite_id(ho); 
 		// 해당 과와아이디를 이용해 번호를 가져오는 메서드
 		ArrayList<ReservationScheduleVO> RSlist = programService.getRsList(hp_num);
+		//프로그램을 선택하면 세부항목 명과 세부항목 설명을 띄우기 위한 리스트
+		ArrayList<ItemListVO> itemList = programService.getProgramItemList(user, hp_num);
+
+		map.put("itemList", itemList);
 		map.put("hp", hp);
 		map.put("RSlist", RSlist);
 		return map;
@@ -124,6 +128,8 @@ public class ReservationScheduleController {
 		ReservationScheduleVO time = reservationScheduleService.getRsTime(rs_num);
 		ArrayList<ReservationScheduleVO> RSTimeList = reservationScheduleService.getRsList(time.getRsDate2(),
 				time.getRs_hp_num());
+		System.out.println("aaaaaaaaaaaaaaaaa");
+		System.out.println(RSTimeList);
 		map.put("timeList", RSTimeList);
 		map.put("time", time);
 		return map;
@@ -166,16 +172,22 @@ public class ReservationScheduleController {
 		ArrayList<ReservationScheduleVO> RSlist = programService.getRsList(hp_num);
 		HospitalProgramVO HP = reservationScheduleService.getHospitalProgram(hp_num);
 		ArrayList<ReservationVO> list = new ArrayList<ReservationVO>();
+		ArrayList<ReservationVO> list2 = new ArrayList<ReservationVO>();
 		for (ReservationScheduleVO tmp : RSlist) {
 			 list = reservationScheduleService.getReservationList(tmp.getRs_num());
+			 ReservationVO arr = reservationScheduleService.getReservationUpdateList(tmp.getRs_num());
+			 list2.add(arr);
 		}
 		map.put("list", list);
 		map.put("HP", HP);
+		map.put("list2", list2);
 		return map;
 	}
 
 	@GetMapping("/delete/schedule")
 	public String deleteUserSchedule(Model model, int rv_num) throws Exception {
+		
+		System.out.println(rv_num);
 		boolean res = reservationScheduleService.deleteUserSchedule(rv_num);
 		if (res) {
 			model.addAttribute("msg", "삭제에 성공하였습니다.");
@@ -190,12 +202,12 @@ public class ReservationScheduleController {
 	@GetMapping("/update/userschedule")
 	public String updateUserSchedule(Model model, int rv_num, String date, 
 			String time2, int hp_num) throws Exception{
-		
 		date = date.replaceAll("/", "-");
 		time2 = time2.replaceAll(" ", "");
 		time2 = time2.replace("시", ":");		
 		time2 = time2.replace("분", ":");		
 		time2 = time2+"00";		
+		System.out.println(time2);
 		boolean res = reservationScheduleService.updateUserSchedule(rv_num, date, time2, hp_num);
 		if(res) {
 			model.addAttribute("msg", "예약 변경에 성공하였습니다.");

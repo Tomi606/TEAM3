@@ -269,7 +269,10 @@
 	$("[name=hs_num]").change(function(){
 		let hs_num = $("[name=hs_num]").val();
 		if(hs_num == 'none'){
-			hs_num = 1;
+			$("[name=hp_num]").html(`<option value="none">수정할 프로그램을 선택해주세요</option>`);
+			$("[name=rs_date]").val("");
+			$("[name=rs_time]").val("");
+			$("[name=rs_max_person]").val("");
 			return;
 		}		
 		$.ajax({

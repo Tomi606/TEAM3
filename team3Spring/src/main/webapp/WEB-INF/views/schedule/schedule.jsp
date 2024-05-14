@@ -183,6 +183,8 @@ grid-template-columns: 1fr 1fr;
 	height: 100%;
 	margin-left: 20px;
 	box-shadow: inset 0px 0px 3px 1px rgba(0, 0, 0, 0.4);
+	padding: 10px;
+	overflow-y: auto;
 }
 
 .time-list-container {
@@ -202,6 +204,22 @@ grid-template-columns: 1fr 1fr;
 
 label {
 	margin: 0;
+}
+
+.ditail-box{
+  font-weight: bold; 
+  color: #000; 
+   margin-bottom: 20px;
+}
+
+.ditail-box label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.ditail-box span {
+  font-style: italic;
 }
 
 .reservation-schedule-container {
@@ -228,6 +246,7 @@ label {
 						<option value="none" class="null_option">프로그램을 선택해주세요</option>
 					</select>
 				</div>
+
 
 			</div>
 			<div class="program_detail"></div>
@@ -269,11 +288,13 @@ let sgo = {
 	rs_time : '',
 	rs_num : 0
 }
-	$("[name=hs_num]").click(function(){
+	$("[name=hs_num]").change(function(){
 		let hp_num = $("[name=hp_num]").val();
 		let hs_num = $("[name=hs_num]").val();
 		if(hs_num == 'none'){
-			hs_num = 1;
+			$("[name=hp_num]").html(`<option value="none">프로그램을 선택해주세요</option>`);
+			$(".time-list-box").html("");
+			return;
 		}
 		let ho = '${ho.site_id}';
 		$.ajax({
@@ -283,7 +304,6 @@ let sgo = {
 					"ho" : ho},
 			success : function (data) {
 				let str = ``;
-				console.log(data);
 				for(let tmp of data.hpList){
 					str+=`<option value="\${tmp.hp_num}" data-title="\${tmp.hp_title}">\${tmp.hp_title}&nbsp;&nbsp;-&nbsp;&nbsp;\${tmp.payMentMoney}원</option>`
 				}	
@@ -298,8 +318,8 @@ let sgo = {
 	$("[name=hp_num]").click(function(){
 		let hp_num = $("[name=hp_num]").val();
 		let hs_num = $("[name=hs_num]").val();
+		let ho = '${ho.site_id}';
 		if(hp_num == 'none'){
-			hp_num = 1;
 			return;
 		}
 		if(hp_num == ''&&hp_num == null){
@@ -311,18 +331,35 @@ let sgo = {
 			method : "post",
 			url : '<c:url value="/getdate"/>',
 			data : {
-				"hp_num" : hp_num
+				"hp_num" : hp_num,
+				"ho" : ho
 			},
 			success : function(data){
+				console.log(data);	
+				let ditail = displayProgramDitail(data.itemList)
 				$(".table").empty();
 				console.log(data.RSlist);
 				sgo.hp_title = data.hp.hp_title;
 				sgo.hpPayment = data.hp.payMentMoney;
 				sgo.hp_payment = data.hp.hp_payment;
 				cal(numMonth, numYear, data.RSlist);
+				$(".program_detail").html(ditail);
 			}
 		})
 	})
+	
+	function displayProgramDitail(list){
+		let str = ``;
+		if(list.length == 0){
+			str += "프로그램 항목이 없습니다."
+			return str;
+		}
+		for(let tmp of list){
+			str += `<div class="ditail-box"><labal>항목 명 : \${tmp.item.it_name}<labal><br>
+						        항목 설명 : \${tmp.item.it_explanation}</div>`	
+		}
+		return str;
+	}
 </script>
 
 	<!-- 날짜를 클릭하면 이벤트 발생 -->

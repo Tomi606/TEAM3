@@ -205,5 +205,7 @@ public interface HospitalService {
 
 	List<HospitalSubjectVO> getHoSubAutoList(String value);
 
+	ArrayList<HospitalSubjectVO> selectSubjectAll();
+
 
 }

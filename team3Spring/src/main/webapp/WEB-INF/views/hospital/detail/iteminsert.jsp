@@ -477,26 +477,29 @@ input[type="checkbox"]:checked::before {
 			},
 			success : function (data) {
 				console.log(data);
+				let str = ``;
+				let str2 = ``;
 				if(data.itemList == null){
 					$(".check-box-group").empty();
 					$("[name=hp_num]").html(`<option value="none">진료과를 선택해주세요</option>`);
-					return;
-				}
-				if(data.hpList == null || data.hpList.length == 0){
 					$("[name=hp_num]").html(`<option value="none">프로그램을 선택해주세요</option>`);
+					$(".it_name").html("");
 					return;
 				}
-				let str = ``;
-				let str2 = ``;
 				for(let tmp of data.itemList){
 					str+=`<input type="checkbox" value="\${tmp.it_num}" name="li_list">\${tmp.it_name}`
 				}
 				
-				for(let tmp of data.hpList){
-					str2 += `<option value="\${tmp.hp_num}">\${tmp.hp_title}</option>`
+				if(data.hpList.length == 0){
+					$("[name=hp_num]").html(`<option value="none">프로그램을 선택해주세요</option>`);
+				}else{
+					for(let tmp of data.hpList){
+						str2 += `<option value="\${tmp.hp_num}">\${tmp.hp_title}</option>`
+					}
+					$("[name=hp_num]").html(str2);
 				}
+				
 				$(".check-box-group").html(str);
-				$("[name=hp_num]").html(str2);
 				$(".it_name").html(`\${hs_num2}` + "의 세부항목");
 			}
 		})

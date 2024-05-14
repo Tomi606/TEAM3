@@ -194,8 +194,9 @@ input[type="checkbox"]:checked::before {
 	$("[name=hs_num]").change(function(){
 		let hs_num = $("[name=hs_num]").val();
 		if(hs_num == 'none'){
-			hs_num = 1;
-			return;
+			$("[name=hp_num]").html(`<option value="none">프로그램을 선택해주세요</option>`);
+			$(".check-box-group").empty();
+			return
 		}		
 		$.ajax({
 			method : "post",
@@ -253,7 +254,13 @@ input[type="checkbox"]:checked::before {
 						"hs_num" : hs_num
 					},
 			success : function (data) {
-									
+					if(data){
+						alert("수정에 성공했습니다.");
+						location.href = '<c:url value="/hospital/item/insert"/>';
+					}else{
+						alert("수정에 실패했습니다.");
+						location.href = '<c:url value="/hospital/item/insert"/>';
+					}
 			}
 		});
 	});
