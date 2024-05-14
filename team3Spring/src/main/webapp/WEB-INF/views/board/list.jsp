@@ -20,7 +20,7 @@
 	padding:0 100px 100px 100px;
 	text-align: center;
 	border-radius: 10px;
-	margin-top: -140px;background: white;
+	margin-top: -200px;background: white;
 }
 
 .post_list_box{
@@ -157,7 +157,7 @@ color:  rgba(0, 128, 0, 0.5);
 }
 .home-box1 {
 	width: 100%;
-	height: 350px;
+	height: 500px;
 	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -169,7 +169,7 @@ color:  rgba(0, 128, 0, 0.5);
 <div class="home-box1">
 	<div style="width: 80%;margin: 0 auto;padding-top: 80px">
 		<div class="page-title">
-			게시글
+			${bo_title}
 		</div>
 	</div>
 </div>

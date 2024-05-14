@@ -7,8 +7,13 @@
 <meta charset="UTF-8">
 <title>병원 리스트</title>
 <style type="text/css">
-.area-container{ width: 1400px; height: 48%;padding: 0 50px 50px 50px;margin: 0 auto 100px auto;
-box-shadow: 0 8px 16px rgba(0, 128, 0, 0.3);}
+.area-container{
+	width: 1400px; height: 48%;
+	padding: 0 50px 50px 50px;
+	margin: -100px auto 100px auto;
+	background-color: white;
+	box-shadow: 0 8px 16px rgba(0, 128, 0, 0.3);
+}
 .area-container:hover{
 text-decoration:none;box-shadow: 0 8px 16px rgba(0, 128, 0, 0.6);
     transition: box-shadow 0.3s ease;/* 그림자 효과 추가 */
@@ -110,7 +115,7 @@ color: green;
 }
 .home-box1 {
 	width: 100%;
-	height: 350px;
+	height: 500px;
 	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
 	background-repeat: no-repeat;
 	background-size: cover;
