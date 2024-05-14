@@ -229,6 +229,7 @@ label {
 					</select>
 				</div>
 
+
 			</div>
 			<div class="program_detail"></div>
 		</div>
@@ -269,11 +270,13 @@ let sgo = {
 	rs_time : '',
 	rs_num : 0
 }
-	$("[name=hs_num]").click(function(){
+	$("[name=hs_num]").change(function(){
 		let hp_num = $("[name=hp_num]").val();
 		let hs_num = $("[name=hs_num]").val();
 		if(hs_num == 'none'){
-			hs_num = 1;
+			$("[name=hp_num]").html(`<option value="none">진료과를 선택해주세요</option>`);
+			$(".time-list-box").html("");
+			return;
 		}
 		let ho = '${ho.site_id}';
 		$.ajax({
