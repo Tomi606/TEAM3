@@ -16,7 +16,7 @@
 <body>
 <!-- 전체 병원 조회 박스 -->
 <div class="all-box container mt-3">
-	<h2>신고 병원 리스트(개발중)</h2>
+	<h2>신고 병원 리스트</h2>
 	<table class="table table-hover mt-3">
 		<thead>
 			<tr>

@@ -73,7 +73,37 @@ public class HomeController {
 		return "home";
 	}
 	
+	@GetMapping("/main/findpw")
+	public String findPw() {
+		return "/main/findpw";
+	}
 	
+	@ResponseBody
+	@PostMapping("/main/findpw")
+	public Map<String, Object> findPwPost(@RequestParam("id") String id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean res = memberService.findPw(id);
+		map.put("result", res);
+		return map;
+	}
+	
+	@GetMapping("/main/findid")
+	public String findId() {
+		return "/main/findid";
+	}
+	
+	@ResponseBody
+	@PostMapping("/main/findid")
+	public Map<String, Object> findIdPost(@RequestParam("email") String email, @RequestParam("phone") String phone) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean res = memberService.findId(email, phone);
+		//이메일과 같은 사람 아이디 주기
+		SiteManagement user = memberService.getSiteUser(email);
+		
+		map.put("result", res);
+		map.put("user", user);
+		return map;
+	}
 	
 	@ResponseBody
 	@PostMapping("/hospital/autocomplete")

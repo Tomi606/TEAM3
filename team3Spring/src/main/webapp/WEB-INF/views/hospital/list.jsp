@@ -31,10 +31,10 @@ text-decoration:none;box-shadow: 0 8px 16px rgba(0, 128, 0, 0.6);
     transition: box-shadow 0.3s ease;/* 그림자 효과 추가 */
 }
 .hs_btn{width:25%;height: 50px;line-height: 50px;list-style: none;}
-.active4{background-color:#fff8f6;color:rgba(0, 128, 0, 0.5);}
-.active3{background-color:#fff8f6;color: rgba(0, 128, 0, 0.5);}
-.active1{background-color:#fff8f6;color: rgba(0, 128, 0, 0.5);}
-.active2{background-color:#fff8f6;color: rgba(0, 128, 0, 0.5);}
+.active4{background-color:#f1fff3;color:rgba(0, 128, 0, 0.5);font-weight: bold;font-size: medium;}
+.active3{background-color:#f1fff3;color: rgba(0, 128, 0, 0.5);font-weight: bold;}
+.active1{background-color:#f1fff3;color: rgba(0, 128, 0, 0.5);font-weight: bold;}
+.active2{background-color:#f1fff3;color: rgba(0, 128, 0, 0.5);font-weight: bold;}
 .aTag-btn1:hover,
 .aTag-btn2:hover{text-decoration:none;box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
     transition: box-shadow 0.3s ease;/* 그림자 효과 추가 */}
@@ -77,20 +77,23 @@ border-top:1px solid rgba(0, 128, 0, 0.4);margin-top: 80px;}
 .search-box{margin-bottom: 250px;}
 
 .img{
-       width: 100%; height: 700px;
-        background-image: url("<c:url value='/resources/img/tree.jpg'/>");
-       background-size: 100% auto;
-       background-position: 0px 0px;
-       background-origin: content-box;
-       background-attachment: fixed;
-       background-repeat: no-repeat;
-
-
+	width: 100%; height: 700px;
+	background-image: url("<c:url value='/resources/img/tree.jpg'/>");
+	background-size: 100% auto;
+	background-position: 0px 0px;
+	background-origin: content-box;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
 }
   
-.category .li-box {display: flex;width: 100%; height: 317px;    white-space: normal;
-    overflow-y: auto;
-flex-wrap: wrap;} 
+.category .li-box {
+	display: flex;
+	width: 98%; height: 290px;
+	margin: 0 auto;
+	white-space: normal;
+	overflow-y: auto;
+	flex-wrap: wrap;
+} 
 .category{
 	width: 100%;
 	height: 400px;
@@ -102,9 +105,9 @@ flex-wrap: wrap;}
  
 }
 .title{
-padding:12px;margin:15px auto;width: 95%;border-bottom: 1px solid #c8c8c8;
+	padding:12px;margin:15px auto;width: 95%;
+	border-bottom: 1px solid #c8c8c8;
 }
-
 
 #scrollToTopButton {
     position: fixed;
@@ -228,7 +231,7 @@ color: green;
 				<div class="li-box" >
 				   <li role="button" class="hs_btn" data-hsnum="0">전체</li>
 			        <c:forEach items="${list}" var="hs">
-			                <li role="button" class="hs_btn" data-hsnum="${hs.hs_num}">${hs.hs_title}</li>
+			            <li role="button" class="hs_btn" data-hsnum="${hs.hs_num}">${hs.hs_title}</li>
 			        </c:forEach>
 		        </div>
 			</div>

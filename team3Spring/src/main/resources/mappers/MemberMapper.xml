@@ -180,7 +180,6 @@
 		<id property="me_id" column="me_id" />
 		<result property="me_name" column="me_name" />
 		<result property="me_gender" column="me_gender" />
-		<result property="me_job" column="me_job" />
 		<result property="me_phone" column="me_phone" />
 		<result property="me_email" column="me_email" />
 		<result property="me_address" column="me_address" />
@@ -390,5 +389,21 @@
   		WHERE site_cookie = #{session_Id}
   			and site_cookie_limit >= now()
   		]]>
+  	</select>
+  	
+  	<select id="selectUser" resultType="SiteManagement">
+  		select * from site_management where site_id = #{id}
+  	</select>
+  	
+  	<update id="updatePassword">
+  		update member set me_pw = #{pw} where me_id = #{id}
+  	</update>
+  	
+  	<select id="selectUserFindId" resultType="SiteManagement">
+  		select * from site_management where site_email = #{email} and site_phone = #{phone}
+  	</select>
+  	
+  	<select id="selectSiteUser" resultType="SiteManagement">
+  		select site_id from site_management where site_email = #{email}
   	</select>
 </mapper>

@@ -83,7 +83,8 @@
 		<interceptor>
 			<mapping path="/login"/>
 			<mapping path="/signup"/>
-			<mapping path="/find/pw"/>
+			<mapping path="/main/findpw"/>
+			<mapping path="/main/findid"/>
 			<beans:ref bean="guestInterceptor"/>
 		</interceptor>
 		<interceptor>

@@ -17,6 +17,7 @@
 
     <!-- include plugin -->
     <script src="[folder where script is located]/[plugin script].js"></script>
+    <link rel="stylesheet" type="text/css" href="../resources/css/style.css">
 <style type="text/css">
 .page-title{
 	text-align: left;

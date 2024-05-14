@@ -515,6 +515,7 @@ public class HospitalController {
 	@ResponseBody
 	@PostMapping("/item/delete")
 	public Map<String, Object> deleteItem(@RequestParam("checkedValues[]") ArrayList<Integer> list) {
+
 		Map<String, Object> map = new HashMap<String, Object>();		
         boolean res = programService.deleteItem(list);
 		
@@ -753,7 +754,7 @@ public class HospitalController {
 			return "message";
 		}
 
-		ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
+		ArrayList<HospitalSubjectVO> list = hospitalService.selectSubjectAll();
 		model.addAttribute("list", list);
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
 		LandVO la = memberService.getMyLand(user);
