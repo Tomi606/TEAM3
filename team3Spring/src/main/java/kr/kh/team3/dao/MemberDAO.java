@@ -152,4 +152,8 @@ public interface MemberDAO {
 
 	void updatePassword(@Param("id") String id, @Param("pw") String encPw);
 
+	SiteManagement selectUserFindId(@Param("email") String email, @Param("phone") String phone);
+
+	SiteManagement selectSiteUser(@Param("email") String email);
+
 }

@@ -23,14 +23,16 @@
 </head>
 <body>
 <h1>비밀번호 찾기</h1>
-<div class="input-container">
-	<label for="site_id">아이디</label>
-	<input type="text" class="form-control" id="site_id" name="site_id" placeholder="Enter id" >
-</div>
-<button class="btn btn-outline-success col-12 btn-find">비번찾기</button>
-<div class="spinner-container">
-	이메일을 보내는 중...
-	<span class="spinner-border text-primary"></span>
+<div class="all-container">
+	<div class="input-container">
+		<label for="site_id">아이디</label>
+		<input type="text" class="form-control" id="site_id" name="site_id" placeholder="Enter id" >
+	</div>
+	<button class="btn btn-outline-success col-12 btn-find">비밀번호 찾기</button>
+	<div class="spinner-container">
+		이메일을 보내는 중...
+		<span class="spinner-border text-primary"></span>
+	</div>
 </div>
 <script type="text/javascript">
 $('.btn-find').click(function() {

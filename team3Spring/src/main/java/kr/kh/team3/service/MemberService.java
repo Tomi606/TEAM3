@@ -112,4 +112,8 @@ public interface MemberService {
 
 	boolean findPw(String id);
 
+	boolean findId(String email, String phone);
+
+	SiteManagement getSiteUser(String email);
+
 }

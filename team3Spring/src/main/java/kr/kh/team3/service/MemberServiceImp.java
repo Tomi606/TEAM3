@@ -631,6 +631,26 @@ public class MemberServiceImp implements MemberService {
 		return res;
 	}
 
+	@Override
+	public boolean findId(String email, String phone) {
+		SiteManagement user = memberDao.selectUserFindId(email, phone);
+		if(user == null || user.getSite_email() == null || user.getSite_phone() == null) {
+			return false;
+		}
+		
+		//다 맞으면 true
+		if(email.equals(user.getSite_email()) && phone.equals(user.getSite_phone())) {
+			return true;
+		}
+		
+		return true;
+	}
+
+	@Override
+	public SiteManagement getSiteUser(String email) {
+		return memberDao.selectSiteUser(email);
+	}
+
 	
 
 }
