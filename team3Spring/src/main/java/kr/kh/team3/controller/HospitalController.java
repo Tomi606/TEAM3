@@ -753,7 +753,7 @@ public class HospitalController {
 			return "message";
 		}
 
-		ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
+		ArrayList<HospitalSubjectVO> list = hospitalService.selectSubjectAll();
 		model.addAttribute("list", list);
 		ArrayList<SiDoVO> sidoList = memberService.getSiDo();
 		LandVO la = memberService.getMyLand(user);
