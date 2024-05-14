@@ -344,6 +344,11 @@ public class HospitalServiceImp implements HospitalService {
 	public ArrayList<HospitalSubjectVO> selectSubject() {
 		return hospitalDao.selectHospitalSubjectListHome();
 	}
+	
+	@Override
+	public ArrayList<HospitalSubjectVO> selectSubjectAll() {
+		return hospitalDao.selectHoSubListAll();
+	}
 
 	// 병원 상세 페이지 - 선진, 민석 ==============================================
 	@Override
@@ -914,5 +919,7 @@ public class HospitalServiceImp implements HospitalService {
 	public List<HospitalSubjectVO> getHoSubAutoList(String value) {
 		return hospitalDao.selectHoSubAutoList(value);
 	}
+
+
 
 }

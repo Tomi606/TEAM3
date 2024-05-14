@@ -38,7 +38,7 @@ public class CommentController {
 		cri.setPerPageNum(10);
 		ArrayList<CommentVO> commentList = commentService.getCommentList(cri);
 		int totalCount = commentService.getTotalCount(cri);
-		PageMaker pm = new PageMaker(5, cri, totalCount);
+		PageMaker pm = new PageMaker(10, cri, totalCount);
 		map.put("commentList", commentList);
 		map.put("pm", pm);
 		return map;

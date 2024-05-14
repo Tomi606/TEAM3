@@ -10,6 +10,10 @@
 	<select id="selectHospitalSubjectListHome" resultType="HospitalSubjectVO">
 		select * from hospital_subject order by hs_title limit 13
 	</select>
+	
+	<select id="selectHoSubListAll" resultType="HospitalSubjectVO">
+		select * from hospital_subject order by hs_title
+	</select>
 
 
 	<resultMap type="SiteManagement" id="siteMap">

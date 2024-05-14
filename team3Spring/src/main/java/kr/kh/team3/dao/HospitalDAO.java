@@ -211,6 +211,8 @@ public interface HospitalDAO {
 	ArrayList<SiteManagement> selectRpHoList();
 
 	ArrayList<HospitalSubjectVO> selectHospitalSubjectListHome();
+	
+	ArrayList<HospitalSubjectVO> selectHoSubListAll();
 
 	boolean deleteSiteHospital(@Param("site_id") String site_id);
 
@@ -227,6 +229,5 @@ public interface HospitalDAO {
 	List<HospitalSubjectVO> selectHoSubAutoList(@Param("value")String value);
 
 	void updatePassword(@Param("id") String id, @Param("pw") String encPw);
-
 
 }

@@ -150,6 +150,11 @@
 				"hs_num": hs_num
 			},
 			success : function (data) {
+				console.log(data);
+				if(data.itemList == null){
+					$("[name=type]").html(`<option value="none">세부항목을 선택해주세요</option>`);
+					return;
+				}
 				let str = ``;
 				for(let tmp of data.itemList){
 					str += 
