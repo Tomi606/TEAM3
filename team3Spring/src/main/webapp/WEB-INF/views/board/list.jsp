@@ -192,7 +192,7 @@ width: 100%;display: flex;justify-content: space-between;height: 70px;
 <div class="home-box1">
 	<div style="width: 80%;margin: 0 auto;padding-top: 80px">
 		<div class="page-title">
-			${bo_title}
+			'${bo_title}'게시판
 		</div>
 	</div>
 </div>
@@ -253,6 +253,7 @@ width: 100%;display: flex;justify-content: space-between;height: 70px;
 					<select class="form-control col-4" name="order">
 							<option value="po_num" <c:if test="${pm.cri.order == 'po_num' }">selected</c:if>>최신순</option>
 							<option value="po_view" <c:if test="${pm.cri.order == 'po_view' }">selected</c:if>>조회수순</option>
+							<option value="po_up" <c:if test="${pm.cri.order == 'po_up' }">selected</c:if>>좋아요순</option>
 					</select>
 				</div>	
 				<div class="post_insert_btn_box">
