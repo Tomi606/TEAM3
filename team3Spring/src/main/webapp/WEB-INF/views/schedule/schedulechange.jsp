@@ -112,11 +112,13 @@
 	function displayDate(option){
 		let hp_num = $("[name=hp_num]").val();
 		let res = null
+		let ho = "";
 		$.ajax({
 			async : false,
 			method : "post",
 			url : '<c:url value="/getdate"/>',
 			data : {
+				"ho" : ho,
 				"hp_num" : hp_num
 			},
 			success : function(data){
