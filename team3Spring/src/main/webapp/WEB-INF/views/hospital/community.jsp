@@ -84,6 +84,23 @@ border: 1px solid green;padding: 15px;color: green;border-radius: 10px;text-deco
 .back_btn:hover{
 	background-color: green;color: white;text-decoration: none;
 }
+
+.home-box1 {
+	width: 100%;
+	height: 500px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
+}
+
+.page-title {
+color:rgba(0, 100, 60, 0.8);
+	text-align: left;
+	font-size: 50px;
+	font-weight: bold;
+	margin: 0 0 80px 0;
+}
 </style>
 </head>
 <body>
