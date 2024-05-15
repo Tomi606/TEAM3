@@ -53,6 +53,18 @@ color:rgba(0, 100, 60, 0.8);
 .number_box{
 	margin-top: 10px; 
 }
+.spinner-container {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0,0,0,0.3);
+	display: none;
+	text-align: center;
+	color: white;
+	line-height: 100vh;
+}
 </style>
 </head>
 <body>
@@ -67,7 +79,10 @@ color:rgba(0, 100, 60, 0.8);
 	<div class="email-box">
 		<label for="email" class="label">이메일 입력</label> <input type="text"
 			class="form-control" id="email" name="email" placeholder="이메일을 입력하세요.">
-	<button class="btn btn-outline-success btn-email">이메일 인증</button>
+	<button class="btn btn-outline-success btn-email bbbbb">이메일 인증</button>
+	<div class="spinner-container">
+		<span class="spinner-border text-primary"></span>
+	</div>
 	</div>
 	<br>
 	<div class="ce_numbox"></div>
@@ -93,11 +108,14 @@ function emailCheck(){
 	        success: function(response) {
 	            if (response.hoEmailCheck == null) {
 	               alert("사용 가능한 이메일입니다.");
+		        	spinner();
 	               res = true;
 	            } else {
 	               alert("이미 사용중인 이메일입니다.");
 	               res = false;
+	           	
 	            }
+	        
 	        }
 	    }); // ajax end;
 	    return res;
@@ -112,9 +130,11 @@ function displaySuccessBtn(){
 	let res = emailCheck();
 	
  	let em = null; 
+ 	
   	if(res){
   		let email = $('[name=email]').val() 
 		//서버로 전송
+	
 		$.ajax({
 			async : false,
 			url : '<c:url value="/certification/email"/>', 
@@ -133,6 +153,7 @@ function displaySuccessBtn(){
 					`
 					$(".ce_numbox").html(str);
 					em = data.ctfEmail
+					
 			}, 
 		});
   	}else{
@@ -169,7 +190,12 @@ $(document).on("click", ".btn-ce", function(){
         }
     });
 })
-
+function spinner() {
+    $('.spinner-container').show();
+    setTimeout(function() {
+        $('.spinner-container').hide();
+    }, 5000); 
+}
 </script>
 </body>
 </html>

@@ -269,6 +269,11 @@ color: green;
 	background-size: cover;
     background-origin: content-box;
 }
+.admin_text{
+width: 150px; color:red;
+margin-left: auto;
+text-align: center;
+}
 </style>
 </head>
 <body>
@@ -360,7 +365,7 @@ color: green;
 				</div>
 				<div style="display: flex;">	
 					<div class="like-box">
-					<c:if test="${post.po_id ne user.site_id}">
+					<c:if test="${post.po_id ne user.site_id && post.sitemanagement.site_authority ne 'ADMIN'}">
 						<div class="report-box"data-target="${post.po_num}">
 							<li role="button" class="btn-report"></li>
 						</div>
@@ -717,6 +722,12 @@ function displayCommentList(commentList){
 		   </span>
 		   `;
 		let btns= '${user.site_num}' == item.co_mg_num ? boxBtns : '';
+	    let reportBtn = ('${user.site_num}' != item.co_mg_num && item.sitemanagement.site_authority != 'ADMIN')? 
+    		`
+	            <div class="report-box-comment" data-targetco="${item.co_num}">
+	                <li role="button" class="btn-report-comment"></li>
+	            </div>
+	        ` : '';
 	      str += 
 	      `
 	         <div class="box-comment row " style="width: 100%;border-bottom: 1px solid lightgray;display: flex;">
@@ -726,11 +737,7 @@ function displayCommentList(commentList){
 	            <div class="col-9 clearfix input-group">
 	            	<span class="text-comment" style="width: 69%;">\${item.co_content}</span>
 	            	<span class="comment-date date" style="width: 12%;font-size:14px;color:gray">\${item.changeDate}</span>
-	            	<c:if test="${item.co_num eq user.site_num}">
-			        	<div class="report-box-comment"data-targetco="\${item.co_num}">
-							<li role="button" class="btn-report-comment"></li>
-						</div>
-					</c:if>	
+	            	\${reportBtn}
 	            	\${btns}
 	            </div>
 	         </div>
