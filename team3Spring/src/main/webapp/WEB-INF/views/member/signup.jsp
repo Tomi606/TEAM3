@@ -551,11 +551,11 @@ $(document).ready(function() {
           $("#id").focus();
           return false;
        }
-       if(!emailCheck){
+       /* if(!emailCheck){
           alert("이메일 중복 확인을 해주세요.");
           $("#email").focus();
           return false;
-       }
+       } */
        if (!phoneCheck) {
     	  alert("휴대폰 중복 확인을 해주세요.");
     	  $("#phone").focus();

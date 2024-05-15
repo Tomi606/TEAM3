@@ -266,7 +266,10 @@ public class HomeController {
 		//login 페이지로 넘어오기 이전 경로를 가져옴
 		String url = request.getHeader("Referer");
 		//이전 url에 login이 들어가있는 경우를 제외
-		if(url != null && !url.contains("login")) {
+		if(url != null 
+				&& !url.contains("login") 
+				&& !url.contains("findid") 
+				&& !url.contains("findpw")) {
 			request.getSession().setAttribute("prevUrl", url);
 		}
 		return "/main/login";

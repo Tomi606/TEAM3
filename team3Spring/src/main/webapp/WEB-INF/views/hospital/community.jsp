@@ -84,6 +84,23 @@ border: 1px solid green;padding: 15px;color: green;border-radius: 10px;text-deco
 .back_btn:hover{
 	background-color: green;color: white;text-decoration: none;
 }
+
+.home-box1 {
+	width: 100%;
+	height: 500px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
+}
+
+.page-title {
+color:rgba(0, 100, 60, 0.8);
+	text-align: left;
+	font-size: 50px;
+	font-weight: bold;
+	margin: 0 0 80px 0;
+}
 </style>
 </head>
 <body>
@@ -379,7 +396,7 @@ getRecommendList();
 
 function getRecommendList() {
 	let site_id = "${user.site_id}";
-	
+
 	$.ajax({
 	    async: true,
 	    url: '<c:url value="/hospital/community/recommend"/>',
@@ -431,21 +448,22 @@ function displayRecommendList(rList) {
    str += `
 	   <tbody>
    `;
-
+	   
    for(item of rList) {
-      str += 
-      ` <tr style="height: 100px; border-bottom: 1px solid lightgray;">
-			<td style="width: 5%;">\${item.po_num}</td>
-			<td style="width: 40%;">
-				<a href="<c:url value="/board/detail?po_num=\${item.po_num}"/>" class="title-link">\${item.po_title}</a>
-				<a href="<c:url value="/board/detail?po_num=\${item.po_num}#comments-section"/>" class="comment-link" data-po-num="\${item.po_num}"> [\${item.po_co_count}]</a>
-			</td>
-			<td style="width: 30%;">\${item.changeDate1}</td>
-			<td style="width: 7.5%;">\${item.po_up}</td>
-			<td style="width: 7.5%;">\${item.po_view}</td>
-		</tr>
-      `;
+	      str += 
+	      ` <tr style="height: 100px; border-bottom: 1px solid lightgray;">
+				<td style="width: 5%;">\${item.po_num}</td>
+				<td style="width: 40%;">
+					<a href="<c:url value="/board/detail?po_num=\${item.po_num}"/>" class="title-link">\${item.po_title}</a>
+					<a href="<c:url value="/board/detail?po_num=\${item.po_num}#comments-section"/>" class="comment-link" data-po-num="\${item.po_num}"> [\${item.po_co_count}]</a>
+				</td>
+				<td style="width: 30%;">\${item.changeDate1}</td>
+				<td style="width: 7.5%;">\${item.po_up}</td>
+				<td style="width: 7.5%;">\${item.po_view}</td>
+			</tr>
+	      `;
 	}
+   
     str += `
 			</tbody>
 		</table>
