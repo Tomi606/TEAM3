@@ -122,12 +122,12 @@ label {
 			</div>
 			<div>
 				<img alt="이메일 이미지" src="<c:url value="/resources/img/email.svg"/>">
-				<input type="email" class="input-tag" id="email" name="site_email" maxlength="50" readonly autofocus="autofocus" value="${email}", />
+				<input type="email" class="input-tag" id="email" name="site_email" maxlength="50" readonly autofocus="autofocus" value="${email}"/>
 				<!-- 데이터 추가 후 풀기 <input type="email" class="input-tag" id="email" name="ho_email" readonly value="${email}"/> -->
 				<label id="email-error" class="etext error text-danger" for="email"></label>
 			</div>
 			<div>
-		    	<input type="hidden" id="email2" name="ho_email">
+		    	<input type="hidden" id="email2" name="ho_email" value="${email}">
 			</div>
 			<div>
 				<img alt="상호명 이미지" src="<c:url value="/resources/img/quote.svg"/>">
@@ -476,18 +476,18 @@ $(document).ready(function() {
 	            error: function(xhr, status, error) {
 	            }
 	        }); // ajax end;
-	    });
+	    }); 
      $(".check").click(function(){
        if(!idCheck){
           alert("아이디 중복 확인을 해주세요.");
           $("#id").focus();
           return false;
        }
-       if(!emailCheck){
+       /* if(!emailCheck){
           alert("이메일 중복 확인을 해주세요.");
           $("#email").focus();
           return false;
-       }
+       } */
        if(!phoneCheck){
           alert("휴대폰 번호 중복 확인을 해주세요.");
           $("#phone").focus();

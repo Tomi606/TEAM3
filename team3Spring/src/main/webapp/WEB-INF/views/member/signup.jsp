@@ -171,7 +171,7 @@ label {
 	    	<label for="me_email" class="text-danger etext"></label>
 		</div>
 		<div>
-	    	<input type="hidden" id="email2" name="me_email">
+	    	<input type="hidden" id="email2" name="me_email" value="${email}">
 		</div>
 		<div class="gender-buttons">
 			<img alt="아이디이미지" src="<c:url value="/resources/img/gender.svg"/>">
@@ -546,7 +546,7 @@ $(document).ready(function() {
             error: function(xhr, status, error) {
             }
         }); // ajax end;
-    });
+    }); 
     $(".check").click(function(){
   	   var isValid = $("form").valid();
        if(!idCheck){
@@ -554,11 +554,11 @@ $(document).ready(function() {
           $("#id").focus();
           return false;
        }
-       if(!emailCheck){
+       /* if(!emailCheck){
           alert("이메일 중복 확인을 해주세요.");
           $("#email").focus();
           return false;
-       }
+       } */
        if (!phoneCheck) {
     	  alert("휴대폰 중복 확인을 해주세요.");
     	  $("#phone").focus();
