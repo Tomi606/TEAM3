@@ -7,29 +7,64 @@
 <meta charset="UTF-8">
 <title>신고 회원 관리</title>
 <style type="text/css">
-.page-group {
-	text-align:center;
-    list-style: none;
-    padding: 0;
-    margin: 0 auto;
+.home-box1 {
+	width: 100%;
+	height: 500px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
 }
 
-.page-design {
-    display: inline-block;
-    margin-right: 5px; 
-    border-radius: 3px; 
+.page-title {
+color:rgba(0, 100, 60, 0.8);
+	text-align: left;
+	font-size: 50px;
+	font-weight: bold;
+	margin: 0 0 80px 0;
 }
 
-.page-design a {
-    color: black;
-    text-decoration: none; 
+.table-container {
+	padding: 60px 80px;
+    margin: -250px auto 70px auto;
+    width: 60%;
+    background-color: white;
+    border-radius: 15px;
+    display: block;
+    box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.2);
+}
+
+.btn-member-stop {
+    width: 30%;
+    font-size: 14px;
+    height: 100%;
+}
+
+.btn-member-del {
+    width: 60%;
+    font-size: 14px;
+    height: 100%;	
+}
+
+#selectbox {
+	word-wrap: normal;
+    height: 100%;
+    width: 40%;
+    border-radius: 50px;
+    margin-right: 5px;
 }
 </style>
 </head>
 <body>
+<div class="home-box1">
+	<div style="width: 80%; margin: 0 auto; padding-top: 80px">
+		<div class="page-title">
+			신고 회원 관리
+		</div>
+	</div>
+</div>
 <!-- 신고 회원 조회 : 아이디/이름/유형/사유/정지기간/누적신고횟수/누적정지횟수    정지(정지해제)버튼/탈퇴버튼 -->
-<div class="mt-3">
-	<h1 style="text-align: center;">신고 회원 관리</h1>
+<div class="table-container">
 	<table class="table table-hover">
 		<thead style="text-align: center;">
 			<tr>
@@ -101,7 +136,6 @@ function displayReportList(list){
 							<td>\${item.member.me_id}</td>
 							<td>\${item.member.me_name}</td>
 							<td>\${reportNames}</td>
-							<td>\${meStop}</td>
 							<td>\${item.member.me_stop_count}</td>
 							<td>\${item.member.me_report_count}</td>
 							<td>\${item.member.changeDate}</td>
@@ -116,9 +150,9 @@ function displayReportList(list){
 									<option value="60">60일</option>
 									<option value="365">365일</option>
 								</select>      
-								<button type="button" class="btn-member-stop" data-stop="\${item.site_num}">정지</button>
+								<button type="button" class="btn-member-stop btn btn-outline-warning" data-stop="\${item.site_num}">정지</button>
 							</td>
-							<td><button type="button" class="btn-member-del" data-del="\${item.member.me_id}">탈퇴</button></td>
+							<td><button type="button" class="btn-member-del btn btn-outline-danger" data-del="\${item.member.me_id}">탈퇴</button></td>
 						</tr>
 						`
 				}
@@ -131,7 +165,6 @@ function displayReportList(list){
 						<td>\${item.member.me_id}</td>
 						<td>\${item.member.me_name}</td>
 						<td>\${reportNames}</td>
-						<td>\${meStop}</td>
 						<td>\${item.member.me_stop_count}</td>
 						<td>\${item.member.me_report_count}</td>
 						<td>\${item.member.changeDate}</td>
@@ -180,7 +213,6 @@ function displayReportPagination(pm) {
             <a class="page-link" href='<c:url value="/admin/member/report"/>' data-page="${pm.endPage + 1}">다음</a>
         </li>`;
     }
-    // 여기서 클래스를 잘못 선택했을 수 있습니다. 올바른 클래스를 선택해야 합니다.
     $('.box-pagination ul').html(str);
 }
 </script>

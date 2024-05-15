@@ -125,6 +125,7 @@ input[type="checkbox"]:checked::before {
     50% { background-color: green; color: white; } /* 중간 색상 */
     100% { background-color: white; color: green; } /* 끝 색상 */
 }
+
 .home-box1 {
 	width: 100%;
 	height: 500px;
@@ -134,7 +135,7 @@ input[type="checkbox"]:checked::before {
     background-origin: content-box;
 }
 
-.page-title{
+.page-title {
 color:rgba(0, 100, 60, 0.8);
 	text-align: left;
 	font-size: 50px;
