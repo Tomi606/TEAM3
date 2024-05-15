@@ -21,15 +21,6 @@ textarea {
 	  resize: none;
 }
 
-.info-label {
-	padding-left:25px;
-	display: flex;
-    align-items: center;
-    font-size: 24px;
-    color: #555;
-    margin-bottom: 35px;
-}
-
 .subject-checkbox {
 	display: grid;
     grid-template-columns: repeat(8, 2fr);
@@ -173,6 +164,45 @@ color:rgba(0, 100, 60, 0.8);
 	padding: 50px;
 	border-radius: 10px;
 }
+
+.info-label {
+	padding-left:25px;
+	display: flex;
+    align-items: center;
+    font-size: 24px;
+    color: #555;
+    margin-bottom: 35px;
+}
+
+.sub_label {
+    color: rgb(219,0,0);
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    margin: -15px 10px 0px 10px;
+}
+
+.label-box {
+	display: flex;
+    align-items: baseline;
+}
+
+.input {
+    border: 1px solid #c8c8c8;
+    border-radius: 5px;
+    margin-left: 10px;
+    padding: 5px;
+    font-size: 20px;
+}
+
+.time_label {
+	font-size: 20px;
+    color: #555;
+}
+
+.time-table {
+	margin: 10px 5px 5px 30px;
+}
 </style>
 </head>
 <body>
@@ -197,47 +227,50 @@ color:rgba(0, 100, 60, 0.8);
 				<hr class="hr-line">
 				
 				<div class="hd_time" id="hd_time">
-					<label for="hd_time" style="font-weight: bold" class="info-label">영업 시간</label>
-					<table class="hd_time" id="hd_time">
+					<div class="label-box">
+						<label for="hd_time" style="font-weight: bold" class="info-label">영업 시간</label>
+						<label for="hd_info_sub" class="sub_label">※숫자, "~ :", "휴무" 로만 입력가능</label>
+					</div>
+					<table class="hd_time time-table" id="hd_time">
 						<tbody>
 							<tr>
-						        <td>점심 시간</td>
-						        <td><input type="text" class="lunch" name="hd_time" placeholder="12:00~13:00"
+						        <td class="time_label">점심 시간</td>
+						        <td><input type="text" class="input lunch" name="hd_time" placeholder="12:00~13:00"
 						        onkeyup="this.value=this.value.replace(/[^0-9~:]/g,'');" required></td>
 					 		</tr>
 						    <tr>
-						        <td>월요일</td>
-						        <td><input type="text" class="mon" name="hd_time" placeholder="9:00~18:00"
+						        <td class="time_label">월요일</td>
+						        <td><input type="text" class="input mon" name="hd_time" placeholder="9:00~18:00"
 						        onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
 					 		</tr>
 						 <tr>
-						     <td>화요일</td>
-						     <td><input type="text" class="tue" name="hd_time" placeholder="9:00~18:00"
+						     <td class="time_label">화요일</td>
+						     <td><input type="text" class="input tue" name="hd_time" placeholder="9:00~18:00"
 						     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
 						 </tr>
 						 <tr>
-						     <td>수요일</td>
-						     <td><input type="text" class="wed" name="hd_time" placeholder="9:00~18:00"
+						     <td class="time_label">수요일</td>
+						     <td><input type="text" class="input wed" name="hd_time" placeholder="9:00~18:00"
 						     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
 						 </tr>
 						 <tr>
-						     <td>목요일</td>
-						     <td><input type="text" class="thu" name="hd_time" placeholder="9:00~18:00"
+						     <td class="time_label">목요일</td>
+						     <td><input type="text" class="input thu" name="hd_time" placeholder="9:00~18:00"
 						     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
 						 </tr>
 						 <tr>
-						     <td>금요일</td>
-						     <td><input type="text" class="fri" name="hd_time" placeholder="9:00~18:00" 
+						     <td class="time_label">금요일</td>
+						     <td><input type="text" class="input fri" name="hd_time" placeholder="9:00~18:00" 
 						     onkeyup="this.value=this.value.replace(/[^0-9~:ㅎㅁ휴무]/g,'');" required></td>
 						 </tr>
 						 <tr>
-						     <td>토요일</td>
-						     <td><input type="text" class="sat" name="hd_time" placeholder="9:00~18:00"
+						     <td class="time_label">토요일</td>
+						     <td><input type="text" class="input sat" name="hd_time" placeholder="9:00~18:00"
 						     onkeyup="this.value=this.value.replace(/[^ㅎㅁ휴무0-9~:]/g,'');" required></td>
 						 </tr>
 						 <tr>
-						     <td>일요일</td> 
-						     <td><input type="text" class="sun" name="hd_time" placeholder="9:00~18:00"
+						     <td class="time_label">일요일</td> 
+						     <td><input type="text" class="input sun" name="hd_time" placeholder="9:00~18:00"
 						     onkeyup="this.value=this.value.replace(/[^ㅎㅁ휴무0-9~:]/g,'');" required></td>
 						 </tr>
 						</tbody>

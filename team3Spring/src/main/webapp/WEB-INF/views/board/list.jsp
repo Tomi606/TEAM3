@@ -7,9 +7,25 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+.form-control {
+	display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    margin-bottom: 20px;
+}
 .post_list_container {
 	width: 100%;
-	height: 1500px;
+	height: 100%;
 }
 
 .post_list_box {
@@ -60,7 +76,7 @@
 .post_insert_btn_box {
 	height: 50px;
 	width: 100px;
-	margin: 0 20px 40px auto;
+	margin: 30px -10px 40px auto;
 }
 
 .search-box-group {

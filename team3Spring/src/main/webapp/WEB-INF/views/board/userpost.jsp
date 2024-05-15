@@ -24,7 +24,7 @@
 }
 .post_list_container {
 	width: 100%;
-	height: 1500px;
+	height: 100%;
 }
 
 .post_list_box {
