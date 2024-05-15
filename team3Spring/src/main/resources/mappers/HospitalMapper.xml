@@ -16,32 +16,53 @@
 	</select>
 
 
-	<resultMap type="SiteManagement" id="siteMap">
-		<id column="site_num" property="site_num"/>
-		<result column="site_la_num" property="site_la_num"/>
-		<result column="site_id" property="site_id"/>
-		<result column="site_phone" property="site_phone"/>
-		<result column="site_email" property="site_email"/>
-		<result column="site_authority" property="site_authority"/>
-		<collection property="hospital" ofType="HospitalVO" column="site_id" select="siteHospitalgetId"/>
-		<collection property="report" ofType="ReportVO" column="site_num" select="siteHospitalgetReport"/>
+	<resultMap type="ReportVO" id="reportMap">
+		<id column="rp_num" property="rp_num"/>
+		<result column="rp_target" property="rp_target"/>
+		<result column="rp_name" property="rp_name"/>
+		<result column="rp_table" property="rp_table"/>
+		<result column="rp_rs_name" property="rp_rs_name"/>
+		<result column="rp_site_num" property="rp_site_num"/>
+		<association property="siteManagement" javaType="kr.kh.team3.model.vo.SiteManagement">
+			<id column="site_num" property="site_num"/>
+			<result column="site_la_num" property="site_la_num"/>
+			<result column="site_id" property="site_id"/>
+			<result column="site_phone" property="site_phone"/>
+			<result column="site_email" property="site_email"/>
+			<result column="site_authority" property="site_authority"/>
+		</association>
+		<association property="hospital" javaType="kr.kh.team3.model.vo.HospitalVO">
+			<id property="ho_id" column="ho_id"/>
+			<result property="ho_name" column="ho_name"/>
+			<result property="ho_num" column="ho_num"/>
+			<result property="ho_report_count" column="ho_report_count"/>
+			<result property="ho_stop_count" column="ho_stop_count"/>
+			<result property="ho_stop" column="ho_stop"/>
+		</association>
 	</resultMap>
-	<select id="siteHospitalgetId" resultType="HospitalVO">
+	
+<!-- 	<select id="siteHospitalgetId" resultType="HospitalVO">
 		select * from hospital where ho_id = #{site_id}
 	</select>
 	<select id="siteHospitalgetReport" resultType="kr.kh.team3.model.vo.ReportVO">
 		select * from report where rp_target = #{site_num}
-	</select>
-	<select id="selectReportHospitalList" resultMap="siteMap">
-		select * from site_management
-		where site_authority = "MANAGER"
+	</select> -->
+	<select id="selectReportHospitalList" resultMap="reportMap">
+		select * from report
+		join site_management on site_num = rp_target
+		join hospital on ho_id = site_id
+		where rp_table = "member"
+		and site_authority = "MANAGER"
 		order by site_num
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
 	<select id="selectRHTotalCount" resultType="int">
-		select count(*) from site_management
-		where site_authority = "MANAGER"
+		select count(*) from report
+		join site_management on site_num = rp_target
+		join hospital on ho_id = site_id
+		where rp_table = "member"
+		and site_authority = "MANAGER"
 		order by site_num
 	</select>
 	<!-- 여기까지 세트 -->
@@ -408,9 +429,12 @@
 		limit 4
 	</select>
 	
-	<select id="selectRpHoList" resultMap="siteMap">
-		select * from site_management
-		where site_authority = "MANAGER"
+	<select id="selectRpHoList" resultMap="reportMap">
+		select * from report
+		join site_management on site_num = rp_target
+		join hospital on ho_id = site_id
+		where rp_table = "member"
+		and site_authority = "MANAGER"
 		order by site_num
 		limit 4
 	</select>

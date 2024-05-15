@@ -101,7 +101,7 @@ CREATE TABLE `report` (
 	`rp_target`	int	NOT NULL,
     `rp_table` varchar(50) not null, 
 	`rp_name`	varchar(20) NOT	NULL,
-	`rp_rs_name`	varchar(20)	NOT NULL,
+	`rp_rs_name`	varchar(20)	NULL,
 	`rp_site_num`	int	NOT NULL
 );
 
