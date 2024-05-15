@@ -167,7 +167,7 @@ label {
 		</div>
 		<div>
 			<img alt="아이디이미지" src="<c:url value="/resources/img/mail.svg"/>">
-	    	<input  type="text" id="email" name="site_email" readonly autofocus="autofocus" class="input-tag" value="${email}">
+	    	<input  type="text" id="email" name="site_email" autofocus="autofocus" class="input-tag" value="${email}">
 	    	<label for="me_email" class="text-danger etext"></label>
 		</div>
 		<div>

@@ -535,7 +535,7 @@ public class HospitalController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		HsListVO hslist = programService.getHsList(hs_num, user);
-		boolean res = programService.insertProgram(program, user, list, hslist.getHsl_num());
+		boolean res = programService.insertProgram(program, user, list, hslist.getHsl_hs_num());
 		if (res) {
 			map.put("msg", "추가에 성공했습니다.");
 		} else {
