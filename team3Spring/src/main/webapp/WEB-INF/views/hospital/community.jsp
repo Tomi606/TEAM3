@@ -379,7 +379,7 @@ getRecommendList();
 
 function getRecommendList() {
 	let site_id = "${user.site_id}";
-	
+
 	$.ajax({
 	    async: true,
 	    url: '<c:url value="/hospital/community/recommend"/>',
@@ -431,21 +431,22 @@ function displayRecommendList(rList) {
    str += `
 	   <tbody>
    `;
-
+	   
    for(item of rList) {
-      str += 
-      ` <tr style="height: 100px; border-bottom: 1px solid lightgray;">
-			<td style="width: 5%;">\${item.po_num}</td>
-			<td style="width: 40%;">
-				<a href="<c:url value="/board/detail?po_num=\${item.po_num}"/>" class="title-link">\${item.po_title}</a>
-				<a href="<c:url value="/board/detail?po_num=\${item.po_num}#comments-section"/>" class="comment-link" data-po-num="\${item.po_num}"> [\${item.po_co_count}]</a>
-			</td>
-			<td style="width: 30%;">\${item.changeDate1}</td>
-			<td style="width: 7.5%;">\${item.po_up}</td>
-			<td style="width: 7.5%;">\${item.po_view}</td>
-		</tr>
-      `;
+	      str += 
+	      ` <tr style="height: 100px; border-bottom: 1px solid lightgray;">
+				<td style="width: 5%;">\${item.po_num}</td>
+				<td style="width: 40%;">
+					<a href="<c:url value="/board/detail?po_num=\${item.po_num}"/>" class="title-link">\${item.po_title}</a>
+					<a href="<c:url value="/board/detail?po_num=\${item.po_num}#comments-section"/>" class="comment-link" data-po-num="\${item.po_num}"> [\${item.po_co_count}]</a>
+				</td>
+				<td style="width: 30%;">\${item.changeDate1}</td>
+				<td style="width: 7.5%;">\${item.po_up}</td>
+				<td style="width: 7.5%;">\${item.po_view}</td>
+			</tr>
+	      `;
 	}
+   
     str += `
 			</tbody>
 		</table>
