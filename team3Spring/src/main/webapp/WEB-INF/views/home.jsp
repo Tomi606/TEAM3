@@ -933,6 +933,7 @@ margin: 10px;
      });
      $('.board_btn-li').mouseleave(function() {
     	 $('.category-board').hide();
+    	 
     	 $('.header-box').removeClass('hovered');
      });
 </script>

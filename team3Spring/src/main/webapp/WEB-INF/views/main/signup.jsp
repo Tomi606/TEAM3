@@ -8,20 +8,16 @@
 <title>회원가입</title>
 <style type="text/css">
 .전체화면박스{
+height: 100%;
 width: 100%;
-display:flex;
+display:flex;   
 }
-.왼쪽여백,
-.오른쪽여백{
- width: 20%;
- height: 700px;
- }
  .signup-select{
+ 
  text-align:center;
- margin:0 auto;
- margin-right: auto;
+    margin:-285px auto 0 auto;
 width: 100%;
-height: 700px;
+height: 750px;
  }
 .choice{
 display:flex;
@@ -39,11 +35,9 @@ margin-left: auto;
 .aTag-btn1,
 .aTag-btn2{
 	margin-top:150px;
-    display: inline-block;
-    width: 300px;
+    display: inline-block;background:white;
+    width: 300px;border-radius:5px;
     height: 200px;
-    color: black;
-    text-decoration:none;
     text-align: center;
     line-height: 200px;
     text-decoration: none;
@@ -60,21 +54,39 @@ margin-left: auto;
     font-weight: bold;
     color: green;
 }
-
+.home-box1 {
+	width: 100%;
+	height: 500px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
+}
+.page-title{
+color:rgba(0, 100, 60, 0.8);
+	text-align: left;
+	font-size: 50px;
+	font-weight: bold;
+	margin: 0 0 80px 0;
+}
 </style>
 </head>
 <body>
-<div class="전체화면박스">
-	<div class="왼쪽여백"></div>
-	<div class="signup-select">
-		<h1 style="margin-top: 50px;">회원가입</h1>
-		<div class="choice">
-		<a class="aTag-btn1" href="<c:url value='/main/certification?num=1'/>">개인 회원가입</a>
-		<a class="aTag-btn2" href="<c:url value='/main/certification?num=2'/>">사업자 회원가입</a>
-		<!-- /main/certification 사업자 회원가입 데이터 저장 후 다시 바꿔넣기 -->
+<div class="home-box1">
+	<div style="width: 80%; margin: 0 auto; padding-top: 80px;">
+		<div class="page-title">
+			회원가입
 		</div>
 	</div>
-	<div class="오른쪽여백"></div>
 </div>
+	<div class="전체화면박스">
+		<div class="signup-select" >
+			<div class="choice">
+				<a class="aTag-btn1" href="<c:url value='/main/certification?num=1'/>">개인 회원가입</a>
+				<a class="aTag-btn2" href="<c:url value='/main/certification?num=2'/>">사업자 회원가입</a>
+			</div>
+		</div>
+	</div>
+	
 </body>
 </html>

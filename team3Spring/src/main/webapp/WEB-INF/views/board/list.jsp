@@ -13,14 +13,14 @@
 }
 
 .post_list_box {
-	border:2px solid green;
+	border:2px solid green;background:white;
 	width: 1400px;
 	height: 93.4%;
-	margin: 100px auto;
-	padding:0 100px 100px 100px;
+	margin: -200px auto 100px auto;
+	padding:0 100px;
 	text-align: center;
 	border-radius: 10px;
-	margin-top: -200px;background: white;
+	margin-top: background: white;
 }
 
 .post_list_box{
@@ -163,6 +163,13 @@ color:  rgba(0, 128, 0, 0.5);
 	background-size: cover;
     background-origin: content-box;
 }
+.post_list_inser_title{
+width: 100%;display: flex;justify-content: space-between;height: 70px;
+}
+.order_select{
+	padding:10px; width: 400px;
+
+}
 </style>
 </head>
 <body>
@@ -223,17 +230,24 @@ color:  rgba(0, 128, 0, 0.5);
 						<button type="submit" class="search-btn">검색</button>
 					</div>	
 				</div>
-				<select class="form-control col-4 offset-8" name="order">
-					<option value="bo_num" <c:if test="${pm.cri.order == 'po_num' }">selected</c:if>>최신순</option>
-					<option value="bo_view" <c:if test="${pm.cri.order == 'po_view' }">selected</c:if>>조회수순</option>
-				</select>
+				
+			
+			<div class="post_list_inser_title">
+				<div class="order_select">
+					<select class="form-control col-4" name="order">
+							<option value="po_num" <c:if test="${pm.cri.order == 'po_num' }">selected</c:if>>최신순</option>
+							<option value="po_view" <c:if test="${pm.cri.order == 'po_view' }">selected</c:if>>조회수순</option>
+					</select>
+				</div>	
+				<div class="post_insert_btn_box">
+					<a href="<c:url value='/board/insert?bo_num=${bo_num}'/>"
+						class="post_insert_btn">작성하기</a>
+				</div>
+				
+			</div>	
 			</form>
-			<div class="post_insert_btn_box">
-				<a href="<c:url value='/board/insert?bo_num=${bo_num}'/>"
-					class="post_insert_btn">작성하기</a>
-			</div>
 			<div>
-				<table style="width: 100%;height: 100%;margin-bottom: 20%;">
+				<table style="width: 100%;height: 100%;margin-top: 20px;">
 					<thead>
 						<tr>
 							<th style="width: 5%;">No</th>
@@ -253,7 +267,7 @@ color:  rgba(0, 128, 0, 0.5);
 								<!-- 각 bo_num별 게시글 수 초기화 -->
 								<c:forEach items="${poList}" var="po" varStatus="poIndex">
 									<c:set var="boPostCount" value="${boPostCount + 1}" />
-									<tr style="height: 100px; border-bottom: 1px solid lightgray;font-size: 18px;">
+									<tr style="height: 60px; border-bottom: 1px solid lightgray;font-size: 18px;">
 										<td style="width: 5%;">${boPostCount}</td>
 										<td style="width: 40%;">
 											<a href="<c:url value="/board/detail?po_num=${po.po_num}"/>" class="title-link">${po.po_title}</a>
