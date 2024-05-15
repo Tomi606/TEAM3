@@ -56,7 +56,6 @@ function getReportList(cri){
 		//서버에서 보낸 데이터의 타입
 		dataType : "json", 
 		success : function (data){
-			console.log(data.list);
 			displayReportList(data.list);
 			displayReportPagination(data.pm);
 			/* $('.report-total').text(data.pm.totalCount); */
@@ -75,39 +74,31 @@ function displayReportList(list){
 		return;
 	}
 	for(item of list){
-		console.log(item);
-		if(item.hospital != null){
-			let reportNames = '';
-			for(report of item.report){
-	            reportNames += `\${report.rp_name}`;
-			str += 
-			`
-				<tr class="box-hospital">
-					<td>\${item.hospital.ho_id}</td>
-					<td>\${item.hospital.ho_name}</td>
-					<td>\${item.hospital.ho_num}</td>
-					<td>\${reportNames}</td>
-					<td>\${item.hospital.ho_report_count}</td>
-					<td>\${item.hospital.ho_stop_count}</td>
-					<td>\${item.hospital.changeDate}</td>
-					<td>
-						<select id="selectbox" data-gg="gg">
-							<option value="0">선택</option>
-							<option value="1">1일</option>
-							<option value="3">3일</option>
-							<option value="7">7일</option>
-							<option value="15">15일</option>
-							<option value="30">30일</option>
-							<option value="60">60일</option>
-							<option value="365">365일</option>
-						</select>
-						<button class="btn-ho-stop" data-id="\${item.site_num}">정지</button>
-					</td>
-					<td><button class="btn-ho-out" data-id="\${item.site_id}">탈퇴</button></td>
-				</tr>
-			`;
-			  }
-		}
+		str += 
+		`
+			<tr class="box-hospital">
+				<td>\${item.hospital.ho_id}</td>
+				<td>\${item.hospital.ho_name}</td>
+				<td>\${item.hospital.ho_num}</td>
+				<td>\${item.rp_name}</td>
+				<td>\${item.hospital.ho_report_count}</td>
+				<td>\${item.hospital.changeDate}</td>
+				<td>
+					<select id="selectbox" data-gg="gg">
+						<option value="0">선택</option>
+						<option value="1">1일</option>
+						<option value="3">3일</option>
+						<option value="7">7일</option>
+						<option value="15">15일</option>
+						<option value="30">30일</option>
+						<option value="60">60일</option>
+						<option value="365">365일</option>
+					</select>
+					<button class="btn-ho-stop" data-id="\${item.site_num}">정지</button>
+				</td>
+				<td><button class="btn-ho-out" data-id="\${item.site_id}">탈퇴</button></td>
+			</tr>
+		`;
 	}
 	$('.box-hospital-list').html(str);
 }

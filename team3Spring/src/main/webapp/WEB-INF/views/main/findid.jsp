@@ -101,6 +101,7 @@ $('.btn-find').click(function() {
 		success : function (data) {
 			if(data.result == true) {
 				alert("회원님의 아이디는 " + data.user.site_id + " 입니다.");
+				location.href="<c:url value='/main/login'/>";
 			}
 			else if(data.result == false) {				
 				alert('일치하는 이메일 또는 일치하는 전화번호가 없습니다.');

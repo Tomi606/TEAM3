@@ -407,8 +407,8 @@ $(document).ready(function() {
 	 	var phoneCheck = false;
 	    $("#phone").keyup(function() {
 	        var phone = $("#phone").val();
-	        if(phone.lenght == 0 || phone == "" ||phone.length != 11){
-	        	$(".ptext").text("휴대폰 번호를 입력하세요(11자)");
+	        if(phone.lengh == 0 || phone == "" ||phone.length < 8){
+	        	$(".ptext").text("대표 전화번호를 입력하세요(8~11자)");
 	        	return;
 	        }
 	        
@@ -418,22 +418,22 @@ $(document).ready(function() {
 	            data: { site_phone: phone}, 
 	            success: function(response) {
 	                if (response.hoPhoneCheck == null) {
-	                	if(1<= phone.length <= 11){
-	                    $(".ptext").text("사용가능한 휴대폰 번호입니다.");
+	                	if(8<= phone.length <= 11){
+	                    $(".ptext").text("사용가능한 번호입니다.");
 	                    phoneCheck = true;
 	                    setTimeout(function() {
 	        	            $(".ptext").text("");
 	        	        }, 2000);
 	                    return;
 	                	}
-	                } else if(response.hoPhoneCheck != null || phone.length == 11){
-	                	 $(".ptext").text("이미 사용중인 휴대폰 번호입니다.");
+	                } else if(response.hoPhoneCheck != null ){
+	                	 $(".ptext").text("이미 사용중인 번호입니다.");
 	               	 	phoneCheck = false;
 	                    return;
 	                }
 	            },
 	            error: function(xhr, status, error) {
-	            	 $("#idcheck-phone").text("휴대폰 번호를 제대로 입력해주세요.");
+	            	 $("#idcheck-phone").text("대표 전화번호를 제대로 입력해주세요.");
 	            }
 	        });
 	    });  
