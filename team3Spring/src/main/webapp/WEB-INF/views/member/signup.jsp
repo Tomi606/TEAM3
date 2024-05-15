@@ -167,7 +167,7 @@ label {
 		</div>
 		<div>
 			<img alt="아이디이미지" src="<c:url value="/resources/img/mail.svg"/>">
-	    	<input  type="text" id="email" name="site_email" readonly autofocus="autofocus" class="input-tag" value="${email}">
+	    	<input  type="text" id="email" name="site_email" autofocus="autofocus" class="input-tag" value="${email}" readonly>
 	    	<label for="me_email" class="text-danger etext"></label>
 		</div>
 		<div>
@@ -175,12 +175,12 @@ label {
 		</div>
 		<div class="gender-buttons">
 			<img alt="아이디이미지" src="<c:url value="/resources/img/gender.svg"/>">
-	   		 <input type="radio" id="male" name="me_gender" value="남자">
+	   		 <input type="radio" id="male" name="me_gender" value="남자" required>
 	   		 <label for="male" class="male">남자</label>
 		</div>
 
 		<div class="gender-buttons" style="margin-bottom: 15px;">
-		    <input type="radio" id="female" name="me_gender" value="여자" >
+		    <input type="radio" id="female" name="me_gender" value="여자"  required>
 		    <label for="female"  class="female" style="border:1px solid #ff69b4;">여자</label>
 		</div>
 		<div>
@@ -188,7 +188,6 @@ label {
 	    	<input   type="text" id="phone" name="site_phone" placeholder="핸드폰 번호" autofocus="autofocus" class="input-tag">
 	    	<label for="me_phone" class="text-danger textPhone" id="idcheck-phone"></label>
 		</div>
-		<!-- 핸드폰  -->
 		<div>
 	    	<input type="hidden" id="phone2" name="me_phone">
 		</div>
@@ -202,8 +201,6 @@ label {
 				</c:forEach>
 			</select>
 		</div>
-		
-		<!-- 여기 수정하기 -->
 		<div>
 		 <select name="sd_num" required class="sd_num" style="width: 500px;margin-bottom: 20px">
 		 		<option value="none">시/도를 선택해주세요</option>
@@ -507,7 +504,7 @@ $(document).ready(function() {
             }
         });
     });  
-   var emailCheck = false;
+  /*  var emailCheck = false;
     $("#email").on("keyup",function() {
         var email = $("#email").val();
         if (email.length == 0 || email == "") {
@@ -546,7 +543,7 @@ $(document).ready(function() {
             error: function(xhr, status, error) {
             }
         }); // ajax end;
-    }); 
+    }); */
     $(".check").click(function(){
   	   var isValid = $("form").valid();
        if(!idCheck){

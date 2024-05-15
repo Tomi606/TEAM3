@@ -280,7 +280,7 @@
 					<span>일반 회원</span>
 				</c:if>
 				<c:if test="${site_authority eq 'ADMIN'}">
-					<span>관리자</span>
+					<span style="color: red;">관리자</span>
 				</c:if>
 				<c:choose>
 				    <c:when test="${site_authority eq 'ADMIN' || po_id eq user.site_id}">

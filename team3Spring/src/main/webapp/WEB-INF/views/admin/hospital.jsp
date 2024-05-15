@@ -145,14 +145,12 @@ width: 70px;height: 50px;border: 1px solid green;color:green; line-height: 50px;
 	                <c:choose>
 	                    <c:when test="${not empty hoRpList}">
 	                        <c:forEach items="${hoRpList}" var="ho">
-	                        	<c:forEach items="${ho.report}" var="report">
-		                            <tr style="height: 50px;font-size: 17px;text-align: center;border-bottom: 1px solid lightgray">
-		                                <td>${ho.hospital.ho_name}</td>
-		                                <td>${ho.hospital.ho_num}</td>
-		                                <td>${ho.hospital.ho_phone}</td>
-		                                <td>${report.rp_name}</td>
-		                            </tr>
-	                            </c:forEach>
+	                            <tr style="height: 50px;font-size: 17px;text-align: center;border-bottom: 1px solid lightgray">
+	                                <td>${ho.hospital.ho_id}</td>
+	                                <td>${ho.hospital.ho_name}</td>
+	                                <td>${ho.hospital.ho_num}</td>
+	                                <td>${ho.rp_name}</td>
+	                            </tr>
 	                        </c:forEach>
 	                    </c:when>
 	                    <c:otherwise>
