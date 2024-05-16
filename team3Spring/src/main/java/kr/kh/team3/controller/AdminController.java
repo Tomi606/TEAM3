@@ -222,7 +222,7 @@ public class AdminController {
 	@GetMapping("/admin/member/report")
     public String adminMeReport(HttpSession session,Model model) {
 		SiteManagement user = (SiteManagement)session.getAttribute("user");
-		if(!user.getSite_authority().equals("ADMIN")||user == null) {
+		if(!user.getSite_authority().equals("ADMIN") || user == null || user.getSite_id() == null) {
 			model.addAttribute("msg","접근할 수 없는 페이지입니다.");
 			model.addAttribute("url","/");
 			return "message";
@@ -240,6 +240,7 @@ public class AdminController {
 		ArrayList<SiteManagement> list = memberService.getReportMemberList(cri);
 		int totalCount = memberService.getReportMemberTotalCount(cri);
 		PageMaker pm = new PageMaker(3, cri, totalCount);
+		
 		map.put("list", list);
 		map.put("pm", pm);
 		return map;

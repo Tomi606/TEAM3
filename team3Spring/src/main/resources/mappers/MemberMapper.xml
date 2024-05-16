@@ -32,16 +32,46 @@
 		select * from member where me_id = #{site_id}
 	</select>
 	
-	<select id="selectReportMemberList" resultMap="siteMap">
-		select * from site_management
-		where site_authority = "USER"
+	<resultMap type="ReportVO" id="reportMap">
+		<id column="rp_num" property="rp_num"/>
+		<result column="rp_target" property="rp_target"/>
+		<result column="rp_name" property="rp_name"/>
+		<result column="rp_table" property="rp_table"/>
+		<result column="rp_rs_name" property="rp_rs_name"/>
+		<result column="rp_site_num" property="rp_site_num"/>
+		<association property="siteManagement" javaType="SiteManagement">
+			<id column="site_num" property="site_num"/>
+			<result column="site_la_num" property="site_la_num"/>
+			<result column="site_id" property="site_id"/>
+			<result column="site_phone" property="site_phone"/>
+			<result column="site_email" property="site_email"/>
+			<result column="site_authority" property="site_authority"/>
+		</association>
+		<association property="member" javaType="MemberVO">
+			<id property="me_id" column="me_id"/>
+			<result property="me_name" column="me_name"/>
+			<result property="me_report_count" column="me_report_count"/>
+			<result property="me_stop_count" column="me_stop_count"/>
+			<result property="me_stop" column="me_stop"/>
+		</association>
+	</resultMap>
+	
+	<select id="selectReportMemberList" resultMap="reportMap">
+		select * from report
+		join site_management on site_num = rp_target
+		join member on me_id = site_id
+		where rp_table = "member"
+		and site_authority = "USER"
 		order by site_num
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
 	<select id="selectReportMemberTotalCount" resultType="int">
-		select count(*) from site_management
-		where site_authority = "USER"
+		select count(*) from report
+		join site_management on site_num = rp_target
+		join member on me_id = site_id
+		where rp_table = "member"
+		and site_authority = "USER"
 		order by site_num
 	</select>
 	
@@ -269,16 +299,14 @@
 	<!-- 정지 버튼 -->
 	<update id="updateStopMember">
 		update member set
-		me_stop = DATE_ADD(NOW(), INTERVAL
-		#{rp_rs_name} DAY),
+		me_stop = DATE_ADD(NOW(), INTERVAL #{rp_rs_name} DAY),
 		me_ms_state = "기간정지"
 		where me_id = #{me_id}
 	</update>
 
 	<update id="updatePlusStopMember">
 		update member set
-		me_stop = DATE_ADD(me_stop, INTERVAL
-		#{rp_rs_name} DAY),
+		me_stop = DATE_ADD(me_stop, INTERVAL #{rp_rs_name} DAY),
 		me_ms_state = "기간정지"
 		where me_id = #{me_id}
 	</update>
