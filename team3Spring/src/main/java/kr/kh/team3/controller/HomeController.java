@@ -61,8 +61,10 @@ public class HomeController {
 			ArrayList<HospitalVO> hoList = hospitalService.getMyAreaHospitalList(user.getSite_la_num());
 			ArrayList<BoardVO> boList = boardService.selectBoard();
 			ArrayList<PostVO> poList = boardService.selectHotPostList();
+			ArrayList<PostVO> notice = boardService.selectNoticeList();
 			ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
 			ArrayList<ReservationVO> reList = hospitalService.selectAllReservationList();
+			model.addAttribute("notice", notice);
 			model.addAttribute("reList", reList);
 			model.addAttribute("hoList", hoList);
 			model.addAttribute("poList", poList);

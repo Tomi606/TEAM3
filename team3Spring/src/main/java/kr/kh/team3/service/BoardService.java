@@ -72,6 +72,8 @@ public interface BoardService {
 
 	ArrayList<PostVO> selectHotPostList();
 
+	ArrayList<PostVO> selectNoticeList();
+
 
 
 	
