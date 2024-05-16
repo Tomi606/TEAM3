@@ -54,6 +54,7 @@ margin-left: auto;
     font-weight: bold;
     color: green;
 }
+
 .home-box1 {
 	width: 100%;
 	height: 500px;

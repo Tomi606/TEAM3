@@ -5,13 +5,13 @@
 <head>
 <title>병원 중개 사이트</title>
 <style type="text/css">
-.전체화면박스{
+.전체화면박스 {
 padding-top:50px;
 width: 100%;
 display:flex;
 }
 .왼쪽여백,
-.오른쪽여백{
+.오른쪽여백 {
  width: 20%;
  height: 700px;
  }
@@ -36,9 +36,8 @@ margin-right: auto;
 .aTag-btn2{
 margin-left: auto;
 } 
-.aTag-btn1,
-.aTag-btn2{
-	
+.aTag-btn1, 
+.aTag-btn2 {
 	margin-top:150px;
     display: inline-block;
     width: 300px;
@@ -48,17 +47,22 @@ margin-left: auto;
     text-align: center;
     line-height: 200px;
     text-decoration: none;
-    border: 2px solid  rgba(0, 128, 0, 0.5);
+    border: 2px solid rgba(0, 128, 0, 0.5);
+    font-size: 25px;
+    color: green;
 }
-.aTag-btn1:hover,
-.aTag-btn2:hover{
-text-decoration:none;
-box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
-    transition: box-shadow 0.3s ease;
 
-	
+.aTag-btn1:hover, 
+.aTag-btn2:hover {
+	box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
+    transition: box-shadow 0.3s ease;
+	text-decoration: none;
+	font-size: 25px;
+    font-weight: bold;
+    color: green;
 }
-.btn-box{
+
+.btn-box {
 	margin: 0 auto;
 }
 </style>
