@@ -163,10 +163,10 @@ height:50px;width:100%;background-color: #FCF9F7;
 			</a>
 			<div class="메뉴얼">
 				<ul>
-					<li>
+					<li class="hos-btn-li">
 						<a href="<c:url value="/hospital/list?hs_num=0"/>" class="hos-btn">병원</a> 
 					</li>
-					<li>
+					<li class="board_btn_li">
 						<a href="<c:url value="/board/all"/>" class="board_btn">커뮤니티</a> 
 					</li>
 					<li>
@@ -235,7 +235,7 @@ height:50px;width:100%;background-color: #FCF9F7;
 </div>
 	 
  <script>
-     $('.hos-btn').hover(function() {
+     $('.hos-btn-li').hover(function() {
          $('.category-sub').show();
          $('.header-box').addClass('hovered');
          $('.category-board').hide();
@@ -244,7 +244,7 @@ height:50px;width:100%;background-color: #FCF9F7;
     	 $('.category-sub').hide();
     	 $('.header-box').removeClass('hovered');
      });
-     $('.board_btn').hover(function() {
+     $('.board_btn_li').hover(function() {
     	 $('.category-sub').hide();
     	  $('.header-box').addClass('hovered');
          $('.category-board').show();

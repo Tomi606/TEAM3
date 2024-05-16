@@ -31,17 +31,15 @@
 .post_list_box {
 	border:2px solid green;background:white;
 	width: 1400px;
-	height: 93.4%;
 	margin: -200px auto 100px auto;
 	padding:0 100px;
 	text-align: center;
 	border-radius: 10px;
-	margin-top: background: white;
 }
 
 .post_list_box{
    box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
-    transition: box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;height: 1200px;
 }
 .hr {
 	width: 100%;
@@ -186,6 +184,8 @@ width: 100%;display: flex;justify-content: space-between;height: 70px;
 	padding:10px; width: 400px;
 
 }
+.pagination{margin-top: auto;height: 48%;}
+.page-item{margin-top: auto;}
 </style>
 </head>
 <body>
@@ -317,38 +317,38 @@ width: 100%;display: flex;justify-content: space-between;height: 70px;
 					</tbody>
 				</table>
 			</div>
-			<ul class="pagination justify-content-center" >
-				<c:if test="${pm.prev}">
-					<c:url value="/board/list?bo_num=${bo_num}" var="url">
-						<c:param name="page" value="${pm.startPage - 1}" />
-						<c:param name="type" value="${pm.cri.type}" />
-						<c:param name="search" value="${pm.cri.search}" />
-					</c:url>
-					<li class="page-item"><a class="page-link" href="${url}">이전</a>
-					</li>
-				</c:if>
-				<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
-					<c:url value="/board/list?bo_num=${bo_num}" var="url">
-						<c:param name="page" value="${i}" />
-						<c:param name="type" value="${pm.cri.type}" />
-						<c:param name="search" value="${pm.cri.search}" />
-					</c:url>
-					<li
-						class="page-item <c:if test="${pm.cri.page == i}">active</c:if>">
-						<a class="page-link" href="${url}">${i}</a>
-					</li>
-				</c:forEach>
-				<c:if test="${pm.next}">
-					<c:url value="/board/list?bo_num=${bo_num}" var="url">
-						<c:param name="page" value="${pm.endPage + 1}" />
-						<c:param name="type" value="${pm.cri.type}" />
-						<c:param name="search" value="${pm.cri.search}" />
-					</c:url>
-					<li class="page-item"><a class="page-link" href="${url}">다음</a>
-					</li>
-				</c:if>
-			</ul>
-		</div>
+				<ul class="pagination justify-content-center" >
+					<c:if test="${pm.prev}">
+						<c:url value="/board/list?bo_num=${bo_num}" var="url">
+							<c:param name="page" value="${pm.startPage - 1}" />
+							<c:param name="type" value="${pm.cri.type}" />
+							<c:param name="search" value="${pm.cri.search}" />
+						</c:url>
+						<li class="page-item"><a class="page-link" href="${url}">이전</a>
+						</li>
+					</c:if>
+					<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+						<c:url value="/board/list?bo_num=${bo_num}" var="url">
+							<c:param name="page" value="${i}" />
+							<c:param name="type" value="${pm.cri.type}" />
+							<c:param name="search" value="${pm.cri.search}" />
+						</c:url>
+						<li
+							class="page-item <c:if test="${pm.cri.page == i}">active</c:if>">
+							<a class="page-link" href="${url}">${i}</a>
+						</li>
+					</c:forEach>
+					<c:if test="${pm.next}">
+						<c:url value="/board/list?bo_num=${bo_num}" var="url">
+							<c:param name="page" value="${pm.endPage + 1}" />
+							<c:param name="type" value="${pm.cri.type}" />
+							<c:param name="search" value="${pm.cri.search}" />
+						</c:url>
+						<li class="page-item"><a class="page-link" href="${url}">다음</a>
+						</li>
+					</c:if>
+				</ul>
+			</div>
 	</div>
 <script type="text/javascript">
 	$("[name=order]").change(function () {

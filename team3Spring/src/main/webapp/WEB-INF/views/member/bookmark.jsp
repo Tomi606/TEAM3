@@ -8,7 +8,7 @@
 <title>병원 리스트</title>
 <style type="text/css">
 .area-container{
-	width: 1400px; height: 48%;
+	width: 1400px; height: 48%;border-radius:13px;
 	padding: 0 50px 50px 50px;
 	margin: -100px auto 100px auto;
 	background-color: white;

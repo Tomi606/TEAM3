@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="../resources/css/style.css">
 <style type="text/css">
 .롤링 {
 	margin: -80px auto 100px auto;
@@ -16,28 +17,12 @@
 	position: relative;
 }
 
-.롤링-내용 {
-	display: flex;
-	transition: transform 0.5s ease;
-}
- 
-.board_all_home_container{
-width: 100%;height: 100%;display: flex;margin: 0 auto;
-}
-.board_list_container{
-width: 1700px;height: 1500px;display: grid; grid-template-columns: 1fr 1fr;padding: 25px;
-display: grid;margin: 0 auto;
-}
-.board_list{
-	width: 800px;height: 417px;border: 2px solid green;border-radius: 15px;padding: 20px;margin: 20px 20px 80px 20px; overflow: hidden;
-}
-.board_list:hover{
-   box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
-    transition: box-shadow 0.3s ease;
-}
-table{
-	width: 100%
-}
+.롤링-내용 {display: flex;transition: transform 0.5s ease;}
+.board_all_home_container{width: 100%;height: 100%;display: flex;margin: 0 auto;}
+.board_list_container{width: 1700px;height: 1500px;display: grid; grid-template-columns: 1fr 1fr;padding: 25px;display: grid;margin: 0 auto;}
+.board_list{width: 800px;height: 417px;border: 2px solid green;border-radius: 15px;padding: 20px;margin: 20px 20px 80px 20px; overflow: hidden;}
+.board_list:hover{box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);transition: box-shadow 0.3s ease;}
+table{width: 100%}
 .board_name{
 	margin: 20px auto 40px auto;
 }
@@ -81,8 +66,11 @@ table{
 	background-size: cover;
     background-origin: content-box;
 }
+.롤링{
+	box-shadow: 0 3px 16px rgba(0, 0, 0, 0.6);
+}
 </style>
-<link rel="stylesheet" type="text/css" href="../resources/css/style.css">
+
 </head>
 <body>
 <div class="home-box1">
