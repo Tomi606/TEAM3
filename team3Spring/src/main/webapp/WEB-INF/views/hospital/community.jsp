@@ -104,6 +104,11 @@ color:rgba(0, 100, 60, 0.8);
 	font-weight: bold;
 	margin: 0 0 80px 0;
 }
+
+.table-box {
+	width: 100%;
+	height: 100%;
+}
 </style>
 </head>
 <body>
@@ -163,41 +168,40 @@ color:rgba(0, 100, 60, 0.8);
 			<!-- 좋아요 출력 -->
 			<div id="page3" class="community-page3 page">
 				<div class="recommend-list abc">
-					<table>
+					<table class="table-box">
 						<thead>
 							<tr>
-								<th style="width: 5%;">No</th>
-								<th style="width: 40%;">제목</th>
-								<th style="width: 30%;">작성일</th>
-								<th style="width: 7.5%;">추천수</th>
-								<th style="width: 7.5%;">조회수</th>
+								<th>No</th>
+								<th>제목</th>
+								<th>작성일</th>
+								<th>추천수</th>
+								<th>조회수</th>
 							</tr>
 						</thead>
 						<tbody>
-
-								<c:choose>
-									<c:when test="${rList == null || rList.size() == 0}">
-										<td colspan="5">
-											<div>
-												<h3 style="color: lightgray">좋아요한 게시글이 없습니다.</h3>
-											</div>
-										</td>
-									</c:when>
-									<c:otherwise>
-										<c:forEach items="${rList}" var="list" begin="0" end="${rList.size() - 1}">
-											<tr style="height: 100px; border-bottom: 1px solid lightgray;">
-												<td style="width: 5%;">${list.post.po_num}</td>
-												<td style="width: 40%;">
-													<a href="<c:url value="/board/detail?po_num=${list.post.po_num}"/>" class="title-link">${list.post.po_title}</a>
-													<a href="<c:url value="/board/detail?po_num=${list.post.po_num}#comments-section"/>" class="comment-link" data-po-num="${list.post.po_num}"> [${list.post.po_co_count}]</a>
-												</td>
-												<td style="width: 30%;">${list.post.changeDate1}</td>
-												<td style="width: 7.5%;">${list.post.po_up}</td>
-												<td style="width: 7.5%;">${list.post.po_view}</td>
-											</tr>
-										</c:forEach>
-									</c:otherwise>
-								</c:choose>
+							<c:choose>
+								<c:when test="${rList == null || rList.size() == 0}">
+									<td colspan="5">
+										<div>
+											<h3 style="color: lightgray">좋아요한 게시글이 없습니다.</h3>
+										</div>
+									</td>
+								</c:when>
+								<c:otherwise>
+									<c:forEach items="${rList}" var="list" begin="0" end="${rList.size() - 1}">
+										<tr style="height: 100px; border-bottom: 1px solid lightgray;">
+											<td>${list.post.po_num}</td>
+											<td>
+												<a href="<c:url value="/board/detail?po_num=${list.post.po_num}"/>" class="title-link">${list.post.po_title}</a>
+												<a href="<c:url value="/board/detail?po_num=${list.post.po_num}#comments-section"/>" class="comment-link" data-po-num="${list.post.po_num}"> [${list.post.po_co_count}]</a>
+											</td>
+											<td>${list.post.changeDate1}</td>
+											<td>${list.post.po_up}</td>
+											<td>${list.post.po_view}</td>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
 						</tbody>
 						
 					</table>
@@ -448,7 +452,6 @@ function getRecommendList() {
 	        "site_id" : site_id
 	    },
 	    success: function (data) {
-	    	displayRecommendList(data.rList);
 	    	displayRecommendPagination(data.pm);
 	    },
 	    error: function(jqXHR, textStatus, errorThrown) {
@@ -456,62 +459,6 @@ function getRecommendList() {
 	    }
 	});
 }
-
-/* function displayRecommendList(rList) {
-   let str = `
-	   <table style="width: 100%;">
-		<thead>
-			<tr>
-				<th style="width: 5%;">No</th>
-				<th style="width: 40%;">제목</th>
-				<th style="width: 30%;">작성일</th>
-				<th style="width: 7.5%;">추천수</th>
-				<th style="width: 7.5%;">조회수</th>
-			</tr>
-		</thead>
-		<tr class="hr"></tr>
-   `;
-   if(rList == null || rList.length == 0) {
-      str += `
-    	  <tbody>
-	    	  <tr style="height: 400px;">
-				<td colspan="6">
-					<div>
-						<h3 style="color: lightgray">좋아요한 게시글이 없습니다.</h3>
-					</div>
-				</td>
-			  </tr>
-		  </tbody>
-		</table>
-      `;
-      $('.recommend-list').html(str);
-      return;
-   }
-   str += `
-	   <tbody>
-   `;
-	   
-   for(item of rList) {
-	      str += 
-	      ` <tr style="height: 100px; border-bottom: 1px solid lightgray;">
-				<td style="width: 5%;">\${item.po_num}</td>
-				<td style="width: 40%;">
-					<a href="<c:url value="/board/detail?po_num=\${item.po_num}"/>" class="title-link">\${item.po_title}</a>
-					<a href="<c:url value="/board/detail?po_num=\${item.po_num}#comments-section"/>" class="comment-link" data-po-num="\${item.post.po_num}"> [\${item.po_co_count}]</a>
-				</td>
-				<td style="width: 30%;">\${item.changeDate1}</td>
-				<td style="width: 7.5%;">\${item.po_up}</td>
-				<td style="width: 7.5%;">\${item.po_view}</td>
-			</tr>
-	      `;
-	}
-   
-    str += `
-			</tbody>
-		</table>
-    `;
-	$('.recommend-list').html(str);
-} */
 
 function displayRecommendPagination(pm) {
    let str = '';

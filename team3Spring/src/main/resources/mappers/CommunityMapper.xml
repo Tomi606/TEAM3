@@ -122,7 +122,7 @@
 	<select id="selectRecommendTotalCount" resultType="int">
 		select count(*)
 		from recommend
-		join site_management on site_num = po_mg_num
+		join site_management on site_num = re_mg_num
 		where site_id = #{re_id} and re_state = 1
 	</select>
 	
