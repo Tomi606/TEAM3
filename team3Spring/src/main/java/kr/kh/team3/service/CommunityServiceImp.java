@@ -77,7 +77,7 @@ public class CommunityServiceImp implements CommunityService {
 	}
 
 	@Override
-	public ArrayList<PostVO> getCriRecommendList(Criteria cri, String site_id) {
+	public ArrayList<RecommendVO> getCriRecommendList(Criteria cri, String site_id) {
 		if(cri == null) {
 			return null;
 		}
@@ -91,6 +91,14 @@ public class CommunityServiceImp implements CommunityService {
 			return 0;
 		}
 		return communityDao.selectRecommendTotalCount(site_id);
+	}
+
+	@Override
+	public ArrayList<RecommendVO> getAllRecommendList(Criteria cri, SiteManagement user) {
+		if(cri == null || user.getSite_id() == null) {
+			return null;
+		}
+		return communityDao.selectAllRecommendList(user.getSite_num());
 	}
 
 }

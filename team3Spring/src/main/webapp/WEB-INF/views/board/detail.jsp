@@ -129,7 +129,7 @@ width: 80%;margin: 0 auto 80px auto;
 	text-decoration: none;
 	color: gray;
 }
-.comment_content{ resize: none; width: 92%;}
+.comment_content{ resize: none; width: 95%; border: 1px solid lightgray; padding: 5px; border-radius: 10px 0 0 10px}
 .box-comment{margin:30px 0 20px 0;font-size:18px;
 width: 100%;height: 60px;border-bottom: 1px solid gray;
 
@@ -419,6 +419,12 @@ text-align: center;
 						<img style="width:80px;margin-right: 10px;" alt="댓글이미지" src="<c:url value="/resources/img/comment.png"/>">
 						<span class="comment-total"style="color: #555"></span>
 					</h2>
+					<div class="box-commnt-insert">
+						<div class="input-group mb-3">
+							<textarea class="textarea-comment comment_content" ></textarea>
+							<button class="btn btn-insert-comment btn-comment-insert" style="border-radius: 0 10px 10px 0">등록</button>
+						</div>
+					</div>
 					<div style="width: 100%;border-bottom: 1px solid lightgray;display: flex;text-align: center;padding: 15px;">
 				 	   <span style="width: 25%;">작성자</span>
 				 	   <span style="width: 50%;">내용</span>
@@ -430,12 +436,6 @@ text-align: center;
 					</div>
 					<div class="box-pagination">
 						<ul class="pagination justify-content-center"></ul>
-					</div>
-					<div class="box-commnt-insert">
-						<div class="input-group mb-3">
-							<textarea class="textarea-comment comment_content" ></textarea>
-							<button class="btn btn-insert-comment btn-comment-insert" style="border-radius: 0">등록</button>
-						</div>
 					</div>
 				</div>
 				<!-- 댓글 끝-->
@@ -710,7 +710,7 @@ let cri = {
 function displayCommentList(commentList){
    let str = '';
    if(commentList == null || commentList.length == 0){
-      str = '<h3 style="color: #555">등록된 댓글이 없습니다.</h3>';
+      str = '<h3 style="color: #555; text-align: center; margin-top: 30px;">등록된 댓글이 없습니다.</h3>';
       $('.box-comment-list').html(str);
       return;
    }		
