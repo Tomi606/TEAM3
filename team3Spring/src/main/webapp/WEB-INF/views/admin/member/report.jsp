@@ -35,15 +35,31 @@ color:rgba(0, 100, 60, 0.8);
 }
 
 .btn-member-stop {
-    width: 30%;
-    font-size: 14px;
-    height: 100%;
+    padding: 3px 5px;
+	border: 1px solid rgb(255, 132, 9);
+	background-color: white;
+	color: black;
+	border-radius: 3px;
+}
+
+.btn-member-stop:hover{
+	background-color: rgb(255, 132, 9);
+	color: white;
+	transition: background-color 0.3s;
 }
 
 .btn-member-del {
-    width: 60%;
-    font-size: 14px;
-    height: 100%;	
+    padding: 3px 5px;
+	border: 1px solid red;
+	background-color: white;
+	color: black;
+	border-radius: 3px;	
+}
+
+.btn-member-del:hover{
+	background-color: red;
+	color: white;
+	transition: background-color 0.3s;
 }
 
 #selectbox {
@@ -189,9 +205,9 @@ function displayReportList(list){
 								<option value="60">60일</option>
 								<option value="365">365일</option>
 							</select>      
-							<button type="button" class="btn-member-stop btn btn-outline-warning" data-stop="\${item.rp_target}">정지</button>
+							<button type="button" class="btn-member-stop" data-stop="\${item.rp_target}">정지</button>
 						</td>
-						<td><button type="button" class="btn-member-del btn btn-outline-danger" data-del="\${item.member.me_id}">탈퇴</button></td>
+						<td><button type="button" class="btn-member-del" data-del="\${item.member.me_id}">탈퇴</button></td>
 					</tr>
 					`;
 
