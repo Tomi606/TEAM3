@@ -49,6 +49,15 @@
 .box-comment-pagination2 >ul{
 	margin-top: 20px;
 }
+
+.box-comment-pagination3 {
+    left: 50%; /* 가운데 정렬을 위해 왼쪽 위치를 50%로 설정 */
+    margin : auto;
+}
+.box-comment-pagination3 >ul{
+	margin-top: 20px;
+}
+
 .delete-box{
 	margin-top: 20px;
 }
@@ -141,7 +150,7 @@ text-align: center;
 					
 				</tbody>
 			</table>
-			<div class="box-comment-pagination">
+			<div class="box-comment-pagination3">
 				<ul class="pagination justify-content-center">
 					
 				</ul>
@@ -492,7 +501,7 @@ function displayCommentNoPagination(pm, po_num){
 			<a class="page-link comment-comment-link" href="javascript:void(0);" data-page="\${pm.endPage+1}">다음</a>
 		</li>`;
 	}
-	$(".box-comment-pagination>ul").html(str);
+	$(".box-comment-pagination3>ul").html(str);
 }
 
 $('[name=type]').click(function(){
@@ -527,7 +536,7 @@ $(document).on("click",".box-comment-pagination .comment-page-link", function(){
 });
 
 //신고 받지 않은 댓글 페이지네이션 클릭 이벤트
-$(document).on("click",".box-comment-pagination .comment-comment-link", function(){
+$(document).on("click",".box-comment-pagination3 .comment-comment-link", function(){
 	commentnopage = $(this).data("page");
 	let po_num = $(this).data("po-num");
 	displayCommentNoAndPagination(po_num, commentnopage);
