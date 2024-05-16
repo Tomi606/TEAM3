@@ -18,12 +18,12 @@
 }
 
 .container {
-	margin: 100px auto;
+	margin: -140px auto 100px auto;
 	width: 1400px;
-	height: 100%;
-	padding: 20px;
+	height: 100%;background:white;
+	padding: 50px;
 	border: 1px solid #dee2e6;
-	border-radius: 5px;
+	border-radius: 10px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	display: flex;
 	flex-direction: column;
@@ -89,10 +89,7 @@ h3 {
 	background-color: #f8f9fa;
 }
 
-.gray.bottom {
-	border-bottom: none;
-}
-
+	
 .gray.last.bottom {
 	border-bottom: 1px solid #ced4da;
 }
@@ -226,9 +223,74 @@ label {
 	display: block;
 	width: 100%;
 }
+.home-box1 {
+	width: 100%;
+	height: 500px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-origin: content-box;
+}
+
+.page-title {
+	color: rgba(0, 100, 60, 0.8);
+	text-align: left;
+	font-size: 50px;
+	font-weight: bold;
+	margin: 0 0 80px 0;
+}
+
+.top-img {
+	height: 20px;
+	width: 20px;
+	color: gray;
+}
+
+.here-title {
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.here-title:hover {
+	text-decoration: none;
+	color: gray;
+}
 </style>
 </head>
 <body>
+<div class="home-box1">
+		<div style="width: 80%; margin: 0 auto; padding-top: 80px;">
+			<div class="page-title">병원 예약</div>
+			<div style="text-align: left; display: flex; height: 50px; line-height: 50px; margin: 20px 0 50px 0;">
+			      <a href="<c:url value='/'/>" style="z-index: 999"> <img class="top-img" alt="위치 이미지" 
+					src="<c:url value='/resources/img/home-4-line.svg'/>">
+				</a>
+				<div style="margin: auto 16px;">
+					<img class="top-img" alt="위치 이미지"
+						src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+				</div>
+				<div style="padding-top: 1px;">
+					<a class="here-title" href="<c:url value='/hospital/list?hs_num=${hospital.ho_hs_num}'/>"> 병원 </a>
+				</div>
+				<div style="margin: auto 16px;">
+					<img class="top-img" alt="위치 이미지"
+						src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+				</div>
+				<div style="padding-top: 1px;">
+					<a class="here-title" href="<c:url value='/hospital/detail/detail?ho_id=${hospital.ho_id}'/>"> 상세페이지 </a>
+				</div>
+				<div style="margin: auto 16px;">
+					<img class="top-img" alt="위치 이미지"
+						src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+				</div>
+				<div style="padding-top: 1px;">
+					<p class="here-title"> 예약 </p>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="container">
 		<div style="width: 100%; height: 200px; display: flex;">
 			<div class="program_container">
@@ -635,7 +697,14 @@ function book(ho_name, hp_title, rs_date, rs_time, hp_payment) {
 	}, 
 	function(rsp) {
 		if (rsp.success) {
-			var msg = '결제가 완료되었습니다.';
+			var msg = 
+				"병원명 : " + sgo.ho_name +
+				"\n프로그램 명 : " + sgo.hp_title +
+				"\n예약날짜 : " + sgo.rs_date +
+				"\n예약시간 : " + sgo.rs_time +
+				"\n결제금액 : " + sgo.hpPayment + "원" +
+				"\n\n예약이 완료 되었습니다.";
+			
 			alert(msg);
 			console.log("결제성공");
 			$.ajax({
@@ -651,10 +720,11 @@ function book(ho_name, hp_title, rs_date, rs_time, hp_payment) {
 				success : function (data){
 					console.log(data);
 					console.log(data.payment);
+					alert("병원 상세페이지로 이동합니다.");
 					location.href='<c:url value="/hospital/detail/detail?ho_id=${hospital.ho_id}"/>';
 				}, 
 				error : function(jqXHR, textStatus, errorThrown){
-
+					console.log('에러에러'+textStatus);
 				}
 			});
 		} else {
