@@ -188,9 +188,10 @@ color:rgba(0, 100, 60, 0.8);
 											<tr style="height: 100px; border-bottom: 1px solid lightgray;">
 												<td style="width: 5%;">${list.post.po_num}</td>
 												<td style="width: 40%;">
-												
-												${list.post.po_title}</td>
-												<td style="width: 30%;">${list.post.po_content}</td>
+													<a href="<c:url value="/board/detail?po_num=${list.post.po_num}"/>" class="title-link">${list.post.po_title}</a>
+													<a href="<c:url value="/board/detail?po_num=${list.post.po_num}#comments-section"/>" class="comment-link" data-po-num="${list.post.po_num}"> [${list.post.po_co_count}]</a>
+												</td>
+												<td style="width: 30%;">${list.post.changeDate1}</td>
 												<td style="width: 7.5%;">${list.post.po_up}</td>
 												<td style="width: 7.5%;">${list.post.po_view}</td>
 											</tr>

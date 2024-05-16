@@ -51,7 +51,6 @@ public class CommunityController {
 		ArrayList<PostVO> pList = communityService.getPostList(user);
 		ArrayList<CommentVO> cList = communityService.getCommentList(user);
 		ArrayList<RecommendVO> rList = communityService.getRecommendList(user);
-		log.info(rList + "알리스트알리스트알리스트알리스트알리스트알리스트알리스트알리스트알리스트알리스트");
 		
 		model.addAttribute("me", member);
 		model.addAttribute("ho", hospital);
@@ -98,18 +97,15 @@ public class CommunityController {
 	@ResponseBody
 	@PostMapping("/hospital/community/recommend")
 	public Map<String, Object> hospitalCommunityRecommend(
-		@RequestParam("page") int page, @RequestParam("site_id") String site_id, HttpSession session) {
+		@RequestParam("page") int page, @RequestParam("site_id") String site_id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Criteria cri = new Criteria(page);
 		cri.setPerPageNum(5);
-		SiteManagement user = (SiteManagement)session.getAttribute("user");
-		HospitalVO hospital = hospitalService.getHospital(user);
-//		ArrayList<RecommendVO> reList = communityService.getCriRecommendList(cri, site_id);
-		ArrayList<RecommendVO> rList = communityService.getAllRecommendList(cri, user);
+//		ArrayList<RecommendVO> rList = communityService.getCriRecommendList(cri, site_id);
 		int totalCount = communityService.getRecommendTotalCount(cri,site_id);
 		PageMaker pm = new PageMaker(5, cri, totalCount);
 		
-		map.put("rList", rList);
+//		map.put("rList", rList);
 		map.put("pm", pm);
 		return map;
 	}

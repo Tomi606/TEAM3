@@ -109,22 +109,20 @@
 		select * from post where po_num = #{re_po_num}
 	</select>
 	
-	<select id="selectCriRecommendList" resultType="PostVO">
-		select post.*, site_id as re_id
-		from post 
-		join site_management on site_num = po_mg_num
-		join recommend on re_po_num = po_num 
+	<select id="selectCriRecommendList" resultType="RecommendVO">
+		select recommend.*, site_id as re_id
+		from recommend 
+		join site_management on site_num = re_mg_num
 		where site_id = #{re_id} and re_state = 1
-		group by po_num
-		order by po_num desc
+		group by re_num
+		order by re_num desc
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
 	<select id="selectRecommendTotalCount" resultType="int">
 		select count(*)
-		from post
+		from recommend
 		join site_management on site_num = po_mg_num
-		join recommend on re_po_num = po_num 
 		where site_id = #{re_id} and re_state = 1
 	</select>
 	
