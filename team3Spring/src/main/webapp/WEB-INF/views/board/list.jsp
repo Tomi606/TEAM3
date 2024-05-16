@@ -258,11 +258,18 @@ width: 100%;display: flex;justify-content: space-between;height: 70px;
 				</div>	
 				<div class="post_insert_btn_box">
 				<c:if test="${bo_num != 1}">
-					<a href="<c:url value='/board/insert?bo_num=${bo_num}'/>"
-						class="post_insert_btn">작성하기</a>
-				</c:if>		
-				</div>
-				
+					<div class="post_insert_btn_box">
+						<a href="<c:url value='/board/insert?bo_num=${bo_num}'/>"
+							class="post_insert_btn">작성하기</a>
+					</div>
+				</c:if>
+          </div>
+				<c:if test="${bo_num == 1 and user.getSite_authority().equals('ADMIN')}">
+					<div class="post_insert_btn_box">
+						<a href="<c:url value='/board/insert?bo_num=${bo_num}'/>"
+							class="post_insert_btn">작성하기</a>
+					</div>
+				</c:if>
 			</div>	
 			</form>
 			<div>

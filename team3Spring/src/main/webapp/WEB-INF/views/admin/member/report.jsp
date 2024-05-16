@@ -26,7 +26,7 @@ color:rgba(0, 100, 60, 0.8);
 
 .table-container {
 	padding: 60px 80px;
-    margin: -250px auto 70px auto;
+    margin: -170px auto 0 auto;
     width: 60%;
     background-color: white;
     border-radius: 15px;
@@ -53,6 +53,19 @@ color:rgba(0, 100, 60, 0.8);
     border-radius: 50px;
     margin-right: 5px;
 }
+
+.top-img {
+	height: 20px;
+	width: 20px;
+	color: gray;
+}
+
+.here-title {
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+}
 </style>
 </head>
 <body>
@@ -61,7 +74,41 @@ color:rgba(0, 100, 60, 0.8);
 		<div class="page-title">
 			신고 회원 관리
 		</div>
+		<div style="text-align: left;display: flex;height: 50px;line-height: 50px; margin: 20px 0 50px 0;">
+			<a href="<c:url value='/'/>">
+				<img class="top-img" alt="위치 이미지"
+				src="<c:url value='/resources/img/home-4-line.svg'/>">
+			</a>
+			<div style="margin: auto 16px;" >
+				<img class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+			</div>	
+			<div style="padding-top: 1px;">
+				<a href="<c:url value='/admin/adminpage'/>" class="here-title">
+					관리자페이지
+				</a>
+			</div>
+			<div style="margin: auto 16px;" >
+				<img class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+			</div>
+			<div style="padding-top: 1px;">
+				<a href="<c:url value='/admin/member/main'/>" class="here-title">
+					회원 관리
+				</a>
+			</div>
+			<div style="margin: auto 16px;" >
+				<img class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+			</div>
+			<div style="padding-top: 1px;">
+				<a href="<c:url value='/admin/member/report'/>" class="here-title">
+					신고 회원 관리
+				</a>
+			</div>
+		</div>
 	</div>
+	
 </div>
 <!-- 신고 회원 조회 : 아이디/이름/유형/사유/정지기간/누적신고횟수/누적정지횟수    정지(정지해제)버튼/탈퇴버튼 -->
 <div class="table-container">

@@ -101,7 +101,7 @@ public class CommunityController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Criteria cri = new Criteria(page);
 		cri.setPerPageNum(5);
-		ArrayList<PostVO> rList = communityService.getCriRecommendList(cri, site_id);
+		ArrayList<RecommendVO> rList = communityService.getCriRecommendList(cri, site_id);
 		int totalCount = communityService.getRecommendTotalCount(cri,site_id);
 		PageMaker pm = new PageMaker(5, cri, totalCount);
 		

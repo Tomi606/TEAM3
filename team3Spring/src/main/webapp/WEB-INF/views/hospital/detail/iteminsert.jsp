@@ -282,6 +282,33 @@ input[type="checkbox"]:checked::before {
 	border: 0px solid white;
 	border-radius: 5px;
 }
+
+.table-box {
+	width: 100%;
+    height: 100%;
+    margin: auto;
+}
+
+.thead {
+	text-align: center;
+	font-size: 17px;
+}
+
+.name-th {
+	text-align: center;
+}
+
+.price-th {
+    position: relative;
+    text-align: center;
+}
+
+.price {
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 </style>
 </head>
 <body>
@@ -357,8 +384,8 @@ input[type="checkbox"]:checked::before {
 		    <a class="btn program-update-btn" href='<c:url value="/program/update"/>'>수정</a>
 		    <a class="btn program-delete-btn">삭제</a>
 		</div>
-		 <table class="table">
-		    <thead>
+		 <table class="table table-box">
+		    <thead class="thead">
 		      <tr>
 		        <th>항목명</th>
 		        <th>항목설명</th>
@@ -442,13 +469,15 @@ input[type="checkbox"]:checked::before {
 		                str +=
 		                    `
 			                    <tr>
-			                	<th>\${tmp.item.it_name}</th>
-			                     <th>\${tmp.item.it_explanation}</th>
+			                	<th class="name-th">\${tmp.item.it_name}</th>
+			                    <th>\${tmp.item.it_explanation}</th>
 		                     `;
 		                // 첫 번째 반복 요소에만 rowspan 추가
 		                if(i === 0) {
 		                    str +=
-		                        `<th rowspan="\${data.itemList.length}">\${data.hp.payMentMoney}</th>`;
+		                        `<th class="price-th" rowspan="\${data.itemList.length}">
+		                        	<div class="price">\${data.hp.payMentMoney}</div>
+		                        </th>`;
 		                }
 		                str +=
 		                    `

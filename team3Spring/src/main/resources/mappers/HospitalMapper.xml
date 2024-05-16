@@ -852,6 +852,6 @@
 	</select>
 	
 	<update id="updatePassword">
-		update hospital set ho_pw = #{pw} where ho_id = #{id}
+		update hospital set ho_pw = #{pw}, ho_fail = 0 where ho_id = #{id}
 	</update>
 </mapper>
