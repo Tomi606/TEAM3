@@ -396,7 +396,7 @@
   	</select>
   	
   	<update id="updatePassword">
-  		update member set me_pw = #{pw} where me_id = #{id}
+  		update member set me_pw = #{pw}, me_fail = 0 where me_id = #{id}
   	</update>
   	
   	<select id="selectUserFindId" resultType="SiteManagement">
