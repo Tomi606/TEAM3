@@ -70,6 +70,20 @@
 	background-color:  green;
 	text-decoration: none;
 }
+.post_insert_btn1 {
+	line-height: 50px;
+	color: green;
+	height: 100%;
+	width: 100%;border-radius:10px;
+	border: 1px solid  rgba(0, 128, 0, 0.5);
+	padding: 13px;position: relative;right: 10px;bottom: 30px;
+}
+
+.post_insert_btn1:hover {
+	color: white;
+	background-color:  green;
+	text-decoration: none;
+}
 
 .post_insert_btn_box {
 	height: 50px;
@@ -262,7 +276,7 @@ width: 100%;display: flex;justify-content: space-between;height: 70px;
 				<c:if test="${bo_num != 1}">
 					<div class="post_insert_btn_box">
 						<a href="<c:url value='/board/insert?bo_num=${bo_num}'/>"
-							class="post_insert_btn">작성하기</a>
+							class="post_insert_btn1">작성하기</a>
 					</div>
 				</c:if>
           </div>
