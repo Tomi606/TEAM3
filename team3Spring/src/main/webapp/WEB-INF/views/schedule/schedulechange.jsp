@@ -111,7 +111,8 @@
 	
 	function displayDate(option){
 		let hp_num = $("[name=hp_num]").val();
-		let res = null
+		let res = null;
+		let arr = new Array();
 		let ho = "";
 		$.ajax({
 			async : false,
@@ -123,9 +124,27 @@
 			},
 			success : function(data){
 				res = data.RSlist;
+				let dupYn = false;
+				for(let i = 0; i < res.length; i++) {
+				  const currElem = res[i];
+				  
+				  for(let j = i+1; j < res.length; j++) {
+				      console.log(currElem.rsDate + res[j].reDate)
+				    if(currElem.rsDate === res[j].reDate) {
+				      arr.push(res[j])	
+				      dupYn = true;
+				      break;
+				    }
+				  }
+				  
+				  if(dupYn)  {
+				    break;
+				  }
+				}
+				console.log(arr);
 			}
 		});
-		return res;
+		return arr;
 	}
 	
 	function optionDate(list){

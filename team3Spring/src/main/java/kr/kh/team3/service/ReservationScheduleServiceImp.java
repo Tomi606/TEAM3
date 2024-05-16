@@ -82,4 +82,18 @@ public class ReservationScheduleServiceImp implements ReservationScheduleService
 		return RSDao.selectReservationUpadateList(rs_num);
 	}
 
+	@Override
+	public ArrayList<ReservationVO> getAllReservationScheduleList() {
+		
+		//모든 예약자를 가져오는 메서드
+		ArrayList<ReservationVO> list = RSDao.selectReservationList2();
+		
+		ArrayList<ReservationVO> arr = new ArrayList<ReservationVO>();
+		for(ReservationVO tmp : list) {
+			arr.add(RSDao.selectReservationUpadateList(tmp.getRv_rs_num())); 
+		}
+
+		return arr;
+	}
+
 }

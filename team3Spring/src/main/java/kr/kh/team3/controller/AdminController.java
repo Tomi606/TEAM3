@@ -22,7 +22,7 @@ import kr.kh.team3.model.vo.LandVO;
 import kr.kh.team3.model.vo.MemberVO;
 import kr.kh.team3.model.vo.PostVO;
 import kr.kh.team3.model.vo.ReportVO;
-import kr.kh.team3.model.vo.SiDoVO;
+import kr.kh.team3.model.vo.ReservationVO;
 import kr.kh.team3.model.vo.SiteManagement;
 import kr.kh.team3.pagination.Criteria;
 import kr.kh.team3.pagination.PageMaker;
@@ -31,6 +31,7 @@ import kr.kh.team3.service.CommentService;
 import kr.kh.team3.service.HospitalService;
 import kr.kh.team3.service.MemberService;
 import kr.kh.team3.service.PostService;
+import kr.kh.team3.service.ReservationScheduleService;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -43,6 +44,8 @@ public class AdminController {
 	/* 관리자 페이지 
 	 * 메서드 위에 주석으로 무슨 기능인지 쓰기
 	 */
+	@Autowired
+	ReservationScheduleService reservationScheduleService;
   
 	@Autowired
 	private MemberService memberService;
@@ -437,4 +440,25 @@ public class AdminController {
 			return map;
 		}
 		// ======================== 게시글 관리 끝 ==========================
+		
+		//메출 확인
+		@GetMapping("/sales")
+		public String sales(Model model, HttpSession session) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			SiteManagement user = (SiteManagement) session.getAttribute("user");
+			if(!user.getSite_authority().equals("ADMIN")) {
+				model.addAttribute("msg", "잘못된 접근입니다.");
+				model.addAttribute("url", "/");
+				return "message";
+			}
+			
+			ArrayList<ReservationVO> list = reservationScheduleService.getAllReservationScheduleList();
+			System.out.println("aaaaaaaaaaaaaaaaaaaa");
+			log.info(list);
+			model.addAttribute("list", list);
+			
+			return "/admin/sales";
+		}
+		
+		
 }

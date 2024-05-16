@@ -65,8 +65,8 @@ color:rgba(0, 100, 60, 0.8);
 </div>
 <div class="all-container">
 	<div class="email-box">
-		<label for="email" class="label">이메일 입력</label> <input type="text"
-			class="form-control" id="email" name="email" placeholder="이메일을 입력하세요.">
+		<label for="email" class="label">이메일 입력</label> 
+		<input type="email" class="form-control" id="email" name="email" placeholder="이메일을 입력하세요.">
 	<button class="btn btn-outline-success btn-email">이메일 인증</button>
 	</div>
 	<br>
