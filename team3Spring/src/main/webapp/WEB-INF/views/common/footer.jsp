@@ -79,20 +79,18 @@ text-decoration: underline;
 </head>
 <body>
 	 <div class="공지사항">
-				 <img alt="미니공지" style="width: 48px;margin-left: 100px"
-				 src="<c:url value='/resources/img/미니공지.png'/>">
-				 <span style="color: gray;margin-right:auto;line-height: 3.5;margin-left: 23px ">공지사항 : <a href="#">공지링크</a></span>
-				 <a href="#" 
-				 style="line-height: 3.5;margin-right: 50px;color: gray;border: 1px solid #fafafa;"
-				 >더보기</a>
-			</div>
+		 <img alt="미니공지" style="width: 48px;margin-left: 100px"
+			 src="<c:url value='/resources/img/미니공지.png'/>">
+			<span style="color: gray;margin-right:auto;line-height: 3.5;margin-left: 23px "  class="notice_list">
+	  		</span>
+		 <a href="<c:url value='/board/list?bo_num=1'/>" 
+			 style="line-height: 3.5;margin-right: 50px;color: gray;border: 1px solid #fafafa;">더보기</a>
+	 </div>
   	<div class="footer">
 		  	<div class="footer-info-area">
 			  	<div class="footer-img">
 			  		<img alt="zz" class="footer-logo"
 			  		src="<c:url value='/resources/img/Hospital.png'/>">
-			  		<img alt="" src="">
-			  		<img alt="" src="">
 			  	</div>	
 			  	<div class="footer-content">
 			  		<ul>
@@ -152,6 +150,32 @@ text-decoration: underline;
 	        	  <p>&copy; 2024 정경호. All rights reserved.</p>
        	  	</div>
 	</div>
+<script type="text/javascript">
+notice();
+function notice() {
+    $.ajax({
+        async: true,
+        method: "get",
+        url: '<c:url value="/footer"/>',
+        success: function(data) {
+        	if(data.notice){
+        		for(let po of data.notice){
+	        		let str = 
+	        			`
+	        				공지사항 : &emsp;
+	        				<a href="<c:url value='/board/detail?po_num=\${po.po_num}'/>" style="font-weight:bold">\${po.po_title}</a>
+	        			`;
+	        		$('.notice_list').html(str);
+	        	}
+        	}
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error("Error: " + textStatus, errorThrown);
+        }
+    });
+}
+</script>
+	
+	
 </body>
-
 </html>

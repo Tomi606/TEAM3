@@ -184,7 +184,8 @@ width: 100%;display: flex;justify-content: space-between;height: 70px;
 	padding:10px; width: 400px;
 
 }
-.pagination{margin-top: auto;height: 48%;}
+.pagination{
+    height: 40%;}
 .page-item{margin-top: auto;}
 </style>
 </head>
@@ -254,13 +255,18 @@ width: 100%;display: flex;justify-content: space-between;height: 70px;
 							<option value="po_num" <c:if test="${pm.cri.order == 'po_num' }">selected</c:if>>최신순</option>
 							<option value="po_view" <c:if test="${pm.cri.order == 'po_view' }">selected</c:if>>조회수순</option>
 							<option value="po_up" <c:if test="${pm.cri.order == 'po_up' }">selected</c:if>>좋아요순</option>
+							<option value="po_date" <c:if test="${pm.cri.order == 'po_date' }">selected</c:if>>날짜순</option>
 					</select>
 				</div>	
 				<div class="post_insert_btn_box">
-				<c:if test="${bo_num != 1}">
-					<a href="<c:url value='/board/insert?bo_num=${bo_num}'/>"
-						class="post_insert_btn">작성하기</a>
-				</c:if>		
+					<c:if test="${bo_num != 1}">
+						<a href="<c:url value='/board/insert?bo_num=${bo_num}'/>"
+							class="post_insert_btn">작성하기</a>
+					</c:if>		
+					<c:if test="${bo_num == 1 && user.site_authority eq 'ADMIN'}">
+						<a href="<c:url value='/board/insert?bo_num=${bo_num}'/>"
+							class="post_insert_btn">작성하기</a>
+					</c:if>		
 				</div>
 				
 			</div>	

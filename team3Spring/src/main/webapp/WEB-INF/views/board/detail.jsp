@@ -337,19 +337,21 @@ text-align: center;
 					<input type="text" class="content-title" name="po_id" value="${post.po_id}" readonly>
 				</div>   
 				<div class="user_more_post">
-					<c:choose>
-						<c:when test="${post.po_id ne user.site_id}">
-						<div style="width: 200px">
-							<a href="<c:url value='/board/userpost?po_id=${post.po_id}'/>" class="writer-more"><strong class="user">${post.po_id}</strong>님의 게시글 더보기 ></a>
-						</div>	
-						</c:when>
-						<c:otherwise>
-						<div style="width: 200px">
-							<a href="<c:url value='/board/userpost?po_id=${post.po_id}'/>" class="writer-more"><strong class="user">내가 쓴 </strong> 게시글 더보기 ></a>
-						</div>	
-						</c:otherwise>
-					</c:choose>	
-					</div>
+					<c:if test="${post.sitemanagement.site_authority ne 'ADMIN'}">
+						<c:choose>
+							<c:when test="${post.po_id ne user.site_id}">
+								<div style="width: 200px">
+									<a href="<c:url value='/board/userpost?po_id=${post.po_id}'/>" class="writer-more"><strong class="user">${post.po_id}</strong>님의 게시글 더보기 ></a>
+								</div>	
+							</c:when>
+							<c:otherwise>
+							<div style="width: 200px">
+								<a href="<c:url value='/board/userpost?po_id=${post.po_id}'/>" class="writer-more"><strong class="user">내가 쓴 </strong> 게시글 더보기 ></a>
+							</div>	
+							</c:otherwise>
+						</c:choose>	
+					</c:if>	
+				</div>
 				<div class="p_tag">	
 					<p style="color: gray;margin-left: 20px;">조회수:${post.po_view}</p>
 					<c:if test="${post.po_id eq user.site_id}">

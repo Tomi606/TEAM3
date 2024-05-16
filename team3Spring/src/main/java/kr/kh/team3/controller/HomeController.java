@@ -138,6 +138,15 @@ public class HomeController {
 	public String mainSignup() {
 		return "/main/signup";
 	}
+	
+	@ResponseBody
+	@GetMapping("/footer")
+	public Map<String, Object> noticeList() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		ArrayList<PostVO> notice = boardService.selectNoticeList();
+		map.put("notice", notice);
+		return map;
+	}
 
 	// 개인 회원가입 페이지 GET
 	@GetMapping("/member/signup")
