@@ -383,4 +383,9 @@ public class BoardServiceImp implements BoardService {
 		return boardDao.selectHotPostList();
 	}
 
+	@Override
+	public ArrayList<PostVO> selectNoticeList() {
+		return boardDao.selectNoticeList();
+	}
+
 }
