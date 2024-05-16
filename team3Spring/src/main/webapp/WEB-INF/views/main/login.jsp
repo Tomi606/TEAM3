@@ -261,6 +261,16 @@ p{margin: 0;}
 .login_title{
 width: 100%; height: 500px; display: flex;flex-direction: column;margin-top: 50px;
 }
+
+.a {
+	color: black;
+	font-size: 15px
+}
+
+.a:hover {
+	text-decoration: none;
+	color: green;
+}
 </style>
 </head>
 <body>
@@ -300,9 +310,9 @@ width: 100%; height: 500px; display: flex;flex-direction: column;margin-top: 50p
 	                  <button class="submit-btn login-btn-r">로그인</button>
 	               </form>
 	               <div class="find-signup-box">
-                    <a class="" href="<c:url value="/main/findid"/>">아이디 찾기</a> <span> | </span>
-                    <a class="" href="<c:url value="/main/findpw"/>">비밀번호 찾기</a> <span> | </span>
-                    <a class="123" href="<c:url value="/main/signup"/>">회원가입</a>
+                    <a class="a" href="<c:url value="/main/findid"/>">아이디 찾기</a> <span> | </span>
+                    <a class="a" href="<c:url value="/main/findpw"/>">비밀번호 찾기</a> <span> | </span>
+                    <a class="a" href="<c:url value="/main/signup"/>">회원가입</a>
 	               </div>
 	            </div>
 	         </div>
@@ -333,9 +343,9 @@ width: 100%; height: 500px; display: flex;flex-direction: column;margin-top: 50p
 	                  </div>
 	               </form>
 	               <div class="find-signup-box">
-                    <a class="" href="<c:url value="/main/findid"/>">아이디 찾기</a> <span> | </span>
-                    <a class="" href="<c:url value="/main/findpw"/>">비밀번호 찾기</a> <span> | </span>
-                    <a class="123" href="<c:url value="/main/signup"/>">회원가입</a>
+                    <a class="a" href="<c:url value="/main/findid"/>">아이디 찾기</a> <span> | </span>
+                    <a class="a" href="<c:url value="/main/findpw"/>">비밀번호 찾기</a> <span> | </span>
+                    <a class="a" href="<c:url value="/main/signup"/>">회원가입</a>
 	               </div>
 	            </div>
 	         </div>
