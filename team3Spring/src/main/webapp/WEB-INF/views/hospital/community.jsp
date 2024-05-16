@@ -14,12 +14,15 @@
 }
 
 .community-box {
-	border: 1px solid black;
-	width: 1400px;
-	height: 93.4%;
-	margin: 100px auto;
-	padding: 100px;
-	text-align: center;
+	border: 2px solid green;
+    box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
+    border-radius: 5px;
+    width: 70%;
+    height: 100%;
+    margin: 145px auto 80px auto;
+    background: white;
+    padding: 100px;
+    text-align: center;
 }
 
 /* 버튼 */
@@ -157,9 +160,46 @@ color:rgba(0, 100, 60, 0.8);
 				</div>
 			</div>
 			
+			<!-- 좋아요 출력 -->
 			<div id="page3" class="community-page3 page">
 				<div class="recommend-list abc">
-					<!-- 좋아요 출력 -->
+					<table>
+						<thead>
+							<tr>
+								<th style="width: 5%;">No</th>
+								<th style="width: 40%;">제목</th>
+								<th style="width: 30%;">작성일</th>
+								<th style="width: 7.5%;">추천수</th>
+								<th style="width: 7.5%;">조회수</th>
+							</tr>
+						</thead>
+						<tbody>
+
+								<c:choose>
+									<c:when test="${rList == null || rList.size() == 0}">
+										<td colspan="5">
+											<div>
+												<h3 style="color: lightgray">좋아요한 게시글이 없습니다.</h3>
+											</div>
+										</td>
+									</c:when>
+									<c:otherwise>
+										<c:forEach items="${rList}" var="list" begin="0" end="${rList.size() - 1}">
+											<tr style="height: 100px; border-bottom: 1px solid lightgray;">
+												<td style="width: 5%;">${list.post.po_num}</td>
+												<td style="width: 40%;">
+												
+												${list.post.po_title}</td>
+												<td style="width: 30%;">${list.post.po_content}</td>
+												<td style="width: 7.5%;">${list.post.po_up}</td>
+												<td style="width: 7.5%;">${list.post.po_view}</td>
+											</tr>
+										</c:forEach>
+									</c:otherwise>
+								</c:choose>
+						</tbody>
+						
+					</table>
 				</div>
 				<div class="box-pagination-recommend">
 					<ul class="pagination justify-content-center">
@@ -396,6 +436,7 @@ getRecommendList();
 
 function getRecommendList() {
 	let site_id = "${user.site_id}";
+	${rList};
 
 	$.ajax({
 	    async: true,
@@ -415,7 +456,7 @@ function getRecommendList() {
 	});
 }
 
-function displayRecommendList(rList) {
+/* function displayRecommendList(rList) {
    let str = `
 	   <table style="width: 100%;">
 		<thead>
@@ -455,7 +496,7 @@ function displayRecommendList(rList) {
 				<td style="width: 5%;">\${item.po_num}</td>
 				<td style="width: 40%;">
 					<a href="<c:url value="/board/detail?po_num=\${item.po_num}"/>" class="title-link">\${item.po_title}</a>
-					<a href="<c:url value="/board/detail?po_num=\${item.po_num}#comments-section"/>" class="comment-link" data-po-num="\${item.po_num}"> [\${item.po_co_count}]</a>
+					<a href="<c:url value="/board/detail?po_num=\${item.po_num}#comments-section"/>" class="comment-link" data-po-num="\${item.post.po_num}"> [\${item.po_co_count}]</a>
 				</td>
 				<td style="width: 30%;">\${item.changeDate1}</td>
 				<td style="width: 7.5%;">\${item.po_up}</td>
@@ -469,7 +510,7 @@ function displayRecommendList(rList) {
 		</table>
     `;
 	$('.recommend-list').html(str);
-}
+} */
 
 function displayRecommendPagination(pm) {
    let str = '';

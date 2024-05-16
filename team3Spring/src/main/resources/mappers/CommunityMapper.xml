@@ -65,6 +65,10 @@
 	<select id="selectRecommendList" resultMap="recommendMap">
 		select * from recommend where re_mg_num = #{site_num}
 	</select>
+	
+	<select id="selectAllRecommendList" resultMap="recommendMap">
+		select * from recommend where re_mg_num = #{site_num}
+	</select>
 	<!-- resultMap 끝 -->
 	
 	<select id="selectCriPostList" resultType="PostVO">
