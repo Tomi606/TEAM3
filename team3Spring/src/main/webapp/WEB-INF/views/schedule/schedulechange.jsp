@@ -275,7 +275,6 @@ function displayTime(){
         }
         $("[name=hp_num]").html(str);
 	}
-	
 
 </script> 
 

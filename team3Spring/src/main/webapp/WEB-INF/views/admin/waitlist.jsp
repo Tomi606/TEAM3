@@ -95,6 +95,14 @@ td{
 	color: white;
 	transition: background-color 0.3s;
 }
+.back_btn{
+	border: 1px solid green;background: white;padding: 5px;border-radius:5px;
+	 text-decoration: none;color: green; 
+}
+.back_btn:hover{
+	text-decoration: none;background: green;transition:background 0.3s;
+	color: white;
+}
 </style>
 </head>
 <body>
@@ -142,6 +150,9 @@ td{
 <!-- 전체 병원 조회 박스 -->
 <div class="table-all-container">
 	<div class="table-container">
+	<div style="width: 200px;margin-left: auto;height: 35px;">
+			<a href='<c:url value="/admin/hospital"/>' class="back_btn">뒤로가기</a>
+		</div>
 		<table class="table table-hover">
 			<thead style="text-align: center;">
 				<tr>

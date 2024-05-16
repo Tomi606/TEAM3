@@ -38,33 +38,18 @@ display: grid;margin: 0 auto;
 table{
 	width: 100%
 }
-/* .hr{
-width: 80%;border: 1px solid lightgray;
-} */
 .board_name{
 	margin: 20px auto 40px auto;
 }
-.board_header{
-width: 100%;display: flex;justify-content: space-between;height: 100px;padding: 20px 30px 0 30px;
-}
-.a_btn{
-width: 70px;height: 50px;border: 1px solid green;color:green; line-height: 50px;border-radius: 10px;text-align: center;
-}
-.a_btn:hover {
-	text-decoration: none; color: white;background-color: green;
-}
+.board_header{width: 100%;display: flex;justify-content: space-between;height: 100px;padding: 20px 30px 0 30px;}
+.a_btn{width: 70px;height: 50px;border: 1px solid green;color:green; line-height: 50px;border-radius: 10px;text-align: center;}
+.a_btn:hover {text-decoration: none; color: white;background-color: green;}
 .title-link{
 	color: black;
 }
-.comment-link{
-	color: red;
-	font-weight: 600;
-}
-.comment-link:hover{
-	color: black;
-}
+.comment-link{color: red;font-weight: 600;}
+.comment-link:hover{color: black;}
 .rolling-item{width: 100%;height: 100%;}
-
 .page-title{
 	text-align: left;
 	font-size: 50px;
@@ -72,19 +57,13 @@ width: 70px;height: 50px;border: 1px solid green;color:green; line-height: 50px;
 	font-weight: bold;
 	margin: 0 0 80px 0;
 }
-.home-box1 {
-	width: 100%;
-	height: 500px;
-	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
-	background-repeat: no-repeat;
-	background-size: cover;
-    background-origin: content-box;
-}
+
 .top-img {
 	height: 20px;
 	width: 20px;
 	color: gray;
-}.here-title{
+}
+.here-title{
 	text-decoration: none;
 	color: black;
 	font-size: 15px;
@@ -94,32 +73,40 @@ width: 70px;height: 50px;border: 1px solid green;color:green; line-height: 50px;
 	text-decoration: none;
 	color: gray;
 }
+.home-box1 {
+	width: 100%;
+	height: 500px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
+}
 </style>
 <link rel="stylesheet" type="text/css" href="../resources/css/style.css">
 </head>
 <body>
 <div class="home-box1">
-			<div style="width: 80%;margin: 0 auto;padding-top: 80px">
-				<div class="page-title">
-					커뮤니티
-				</div>
-				<div style="text-align: left;display: flex;height: 50px;line-height: 50px; margin: 20px 0 50px 0;">
-					<a href="<c:url value='/'/>">
-						<img class="top-img" alt="위치 이미지"
-						src="<c:url value='/resources/img/home-4-line.svg'/>">
-					</a>
-					<div style="margin: auto 16px;" >
-						<img class="top-img" alt="위치 이미지"
-							src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
-					</div>	
-					<div style="padding-top: 1px;">
-						<a href="<c:url value='/board/all'/>" class="here-title">
-							게시판
-						</a>
-					</div>
-				</div>
+	<div style="width: 80%;margin: 0 auto;padding-top: 80px">
+		<div class="page-title">
+			커뮤니티
+		</div>
+		<div style="text-align: left;display: flex;height: 50px;line-height: 50px; margin: 20px 0 50px 0;">
+			<a href="<c:url value='/'/>">
+				<img class="top-img" alt="위치 이미지"
+				src="<c:url value='/resources/img/home-4-line.svg'/>">
+			</a>
+			<div style="margin: auto 16px;" >
+				<img class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+			</div>	
+			<div style="padding-top: 1px;">
+				<a href="<c:url value='/board/all'/>" class="here-title">
+					게시판
+				</a>
 			</div>
 		</div>
+	</div>
+</div>
 <div class="롤링">
     <div class="롤링-내용">
 		<div class="rolling-item" style="background-image: url('<c:url value="/resources/img/풍경1.jpg"/>');">
