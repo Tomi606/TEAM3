@@ -441,8 +441,7 @@ getRecommendList();
 
 function getRecommendList() {
 	let site_id = "${user.site_id}";
-	${rList};
-
+	
 	$.ajax({
 	    async: true,
 	    url: '<c:url value="/hospital/community/recommend"/>',
