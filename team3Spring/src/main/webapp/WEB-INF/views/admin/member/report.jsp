@@ -26,7 +26,7 @@ color:rgba(0, 100, 60, 0.8);
 
 .table-container {
 	padding: 60px 80px;
-    margin: -250px auto 70px auto;
+    margin: -170px auto 0 auto;
     width: 60%;
     background-color: white;
     border-radius: 15px;
@@ -35,15 +35,31 @@ color:rgba(0, 100, 60, 0.8);
 }
 
 .btn-member-stop {
-    width: 30%;
-    font-size: 14px;
-    height: 100%;
+    padding: 3px 5px;
+	border: 1px solid rgb(255, 132, 9);
+	background-color: white;
+	color: black;
+	border-radius: 3px;
+}
+
+.btn-member-stop:hover{
+	background-color: rgb(255, 132, 9);
+	color: white;
+	transition: background-color 0.3s;
 }
 
 .btn-member-del {
-    width: 60%;
-    font-size: 14px;
-    height: 100%;	
+    padding: 3px 5px;
+	border: 1px solid red;
+	background-color: white;
+	color: black;
+	border-radius: 3px;	
+}
+
+.btn-member-del:hover{
+	background-color: red;
+	color: white;
+	transition: background-color 0.3s;
 }
 
 #selectbox {
@@ -53,15 +69,62 @@ color:rgba(0, 100, 60, 0.8);
     border-radius: 50px;
     margin-right: 5px;
 }
+
+.top-img {
+	height: 20px;
+	width: 20px;
+	color: gray;
+}
+
+.here-title {
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+}
 </style>
 </head>
 <body>
 <div class="home-box1">
-	<div style="width: 80%; margin: 0 auto; padding-top: 80px">
+	<div style="width: 80%; margin: 0 auto; padding-top: 80px;">
 		<div class="page-title">
 			신고 회원 관리
 		</div>
+		<div style="text-align: left; display: flex; height: 50px; line-height: 50px; margin: 20px 0 50px 0;">
+			<a href="<c:url value='/'/>">
+				<img class="top-img" alt="위치 이미지"
+				src="<c:url value='/resources/img/home-4-line.svg'/>">
+			</a>
+			<div style="margin: auto 16px;" >
+				<img class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+			</div>	
+			<div style="padding-top: 1px;">
+				<a href="<c:url value='/admin/adminpage'/>" class="here-title">
+					관리자페이지
+				</a>
+			</div>
+			<div style="margin: auto 16px;" >
+				<img class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+			</div>
+			<div style="padding-top: 1px;">
+				<a href="<c:url value='/admin/member/main'/>" class="here-title">
+					회원 관리
+				</a>
+			</div>
+			<div style="margin: auto 16px;" >
+				<img class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+			</div>
+			<div style="padding-top: 1px;">
+				<a href="<c:url value='/admin/member/report'/>" class="here-title">
+					신고 회원 관리
+				</a>
+			</div>
+		</div>
 	</div>
+	
 </div>
 <!-- 신고 회원 조회 : 아이디/이름/유형/사유/정지기간/누적신고횟수/누적정지횟수    정지(정지해제)버튼/탈퇴버튼 -->
 <div class="table-container">
@@ -79,9 +142,7 @@ color:rgba(0, 100, 60, 0.8);
 			</tr>
 		</thead>
 		<tbody class="report-list">
-			<tr>
-				<td></td>
-			</tr>
+			
 		</tbody>
 	</table>
 	<div class="box-pagination">
@@ -119,52 +180,17 @@ function getReportList(cri){
 function displayReportList(list){
 	let str = '';
 	if(list == null || list.length == 0){
-		str = '<h3>신고된 회원이 없습니다.</h3>';
+		str = '<td colspan="8" style="text-align:center; font-size: 30px; color: gray;">신고된 회원이 없습니다.</td>';
 		$('.report-list').html(str);
 		return;
 	}
 	for(item of list){
-		if(item.member != null) {
-			let reportNames = '';
-			let meStop = '';
-			for(report of item.report) {
-				if(item.member.me_stop == null) {
-					reportNames += `\${report.rp_name}`;
-					str += 
-						` 
-						<tr class="box-report" style="text-align: center;">
-							<td>\${item.member.me_id}</td>
-							<td>\${item.member.me_name}</td>
-							<td>\${reportNames}</td>
-							<td>\${item.member.me_stop_count}</td>
-							<td>\${item.member.me_report_count}</td>
-							<td>\${item.member.changeDate}</td>
-							<td>
-								<select id="selectbox">
-									<option value="0">선택</option>
-									<option value="1">1일</option>
-									<option value="3">3일</option>
-									<option value="7">7일</option>
-									<option value="15">15일</option>
-									<option value="30">30일</option>
-									<option value="60">60일</option>
-									<option value="365">365일</option>
-								</select>      
-								<button type="button" class="btn-member-stop btn btn-outline-warning" data-stop="\${item.site_num}">정지</button>
-							</td>
-							<td><button type="button" class="btn-member-del btn btn-outline-danger" data-del="\${item.member.me_id}">탈퇴</button></td>
-						</tr>
-						`
-				}
-				else {
-					meStop += `\${item.member.me_stop}`;
-		            reportNames += `\${report.rp_name}`;
 				str += 
 					` 
 					<tr class="box-report" style="text-align: center;">
 						<td>\${item.member.me_id}</td>
 						<td>\${item.member.me_name}</td>
-						<td>\${reportNames}</td>
+						<td>\${item.rp_name}</td>
 						<td>\${item.member.me_stop_count}</td>
 						<td>\${item.member.me_report_count}</td>
 						<td>\${item.member.changeDate}</td>
@@ -179,14 +205,12 @@ function displayReportList(list){
 								<option value="60">60일</option>
 								<option value="365">365일</option>
 							</select>      
-							<button type="button" class="btn-member-stop" data-stop="\${item.member.me_id}">정지</button>
+							<button type="button" class="btn-member-stop" data-stop="\${item.rp_target}">정지</button>
 						</td>
 						<td><button type="button" class="btn-member-del" data-del="\${item.member.me_id}">탈퇴</button></td>
 					</tr>
-					`
-				}
-				}
-		}
+					`;
+
 	}
 	$('.report-list').html(str);
 }
@@ -213,8 +237,13 @@ function displayReportPagination(pm) {
             <a class="page-link" href='<c:url value="/admin/member/report"/>' data-page="${pm.endPage + 1}">다음</a>
         </li>`;
     }
-    $('.box-pagination ul').html(str);
+    $('.box-pagination>ul').html(str);
 }
+
+$(document).on('click','.box-pagination .page-link',function(){
+	cri.page = $(this).data('page');
+	getReportList(cri);
+})
 </script>
 
 <!-- 정지 버튼 -->

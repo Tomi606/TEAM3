@@ -61,8 +61,10 @@ public class HomeController {
 			ArrayList<HospitalVO> hoList = hospitalService.getMyAreaHospitalList(user.getSite_la_num());
 			ArrayList<BoardVO> boList = boardService.selectBoard();
 			ArrayList<PostVO> poList = boardService.selectHotPostList();
+			ArrayList<PostVO> notice = boardService.selectNoticeList();
 			ArrayList<HospitalSubjectVO> list = hospitalService.selectSubject();
 			ArrayList<ReservationVO> reList = hospitalService.selectAllReservationList();
+			model.addAttribute("notice", notice);
 			model.addAttribute("reList", reList);
 			model.addAttribute("hoList", hoList);
 			model.addAttribute("poList", poList);
@@ -135,6 +137,15 @@ public class HomeController {
 	@GetMapping("/main/signup")
 	public String mainSignup() {
 		return "/main/signup";
+	}
+	
+	@ResponseBody
+	@GetMapping("/footer")
+	public Map<String, Object> noticeList() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		ArrayList<PostVO> notice = boardService.selectNoticeList();
+		map.put("notice", notice);
+		return map;
 	}
 
 	// 개인 회원가입 페이지 GET
