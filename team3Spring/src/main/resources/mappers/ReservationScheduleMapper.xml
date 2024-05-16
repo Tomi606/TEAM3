@@ -24,7 +24,7 @@
 		<result property="rv_me_id" column="rv_me_id"/>
 		<result property="rv_date" column="rv_date"/>
 		<collection property="ReservationScheduleVO" ofType="kr.kh.team3.model.vo.ReservationScheduleVO"
-			column="rv_rs_num" select="selectSchedule"/>
+			column="rv_rs_num" select="ReservationScheduleMap"/>
 		<collection property="MemberVO" ofType="kr.kh.team3.model.vo.MemberVO"
 			column="rv_me_id" select="selectMemberSchedule"/>
 	</resultMap>
@@ -37,7 +37,7 @@
 		select * from reservation where rv_rs_num = #{rs_num}	
 	</select>
 	
-	<select id="selectSchedule" resultType="kr.kh.team3.model.vo.ReservationScheduleVO">
+	<select id="ReservationScheduleMap" resultMap="ReservationScheduleMap">
 		select * from reservation_schedule where rs_num = #{rv_rs_num}
 	</select>
 	
@@ -54,6 +54,10 @@
 		select * from reservation_schedule where rs_date = #{date} and rs_time = #{time};
 	</select>
 	
+	<select id="selectReservationList2" resultType="kr.kh.team3.model.vo.ReservationVO">
+		select * from reservation;
+	</select>
+	
 	<delete id="deleteUserSchedule">
 		delete from reservation where rv_num = #{rv_num};
 	</delete>
@@ -61,6 +65,22 @@
 	<update id="updateUserChedule">
 		update reservation set rv_rs_num = #{rs_num} where rv_num = #{rv_num};
 	</update>
+	
+	<!-- 예약 테이블 다중 resultMap -->
+		<resultMap type="kr.kh.team3.model.vo.ReservationScheduleVO" id="ReservationScheduleMap">
+			<id property="rs_num" column="rs_num"/>
+			<result property="rs_hp_num" column="rs_hp_num"/>
+			<result property="rs_date" column="rs_date"/>
+			<result property="rs_time" column="rs_time"/>
+			<result property="rs_max_person" column="rs_max_person"/>
+			<collection property="program" ofType="kr.kh.team3.model.vo.HospitalProgramVO"
+					column="rs_hp_num" select="selectReservationProgram"/>
+		</resultMap>
+		
+		<select id="selectReservationProgram" resultType="kr.kh.team3.model.vo.HospitalProgramVO">
+			select * from hospital_program where hp_num = #{rs_hp_num}
+		</select>
+	<!-- 예약 테이블 다중 resultMap -->
 	
 	
 </mapper>

@@ -24,4 +24,6 @@ public interface ReservationScheduleService {
 
 	ReservationVO getReservationUpdateList(int rs_num);
 
+	ArrayList<ReservationVO> getAllReservationScheduleList();
+
 }
