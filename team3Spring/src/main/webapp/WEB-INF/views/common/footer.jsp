@@ -36,7 +36,7 @@ display:flex;
 margin: 0 auto;
 padding: 50px 0 90px;
 text-align: left;
-width: 100%;
+width: 90%;
 }
 .footer-logo{
     width: 200px;
