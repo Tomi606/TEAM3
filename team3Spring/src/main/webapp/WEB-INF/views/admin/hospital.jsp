@@ -15,7 +15,7 @@
     width: 1600px;
     height: 48%;
     box-shadow: 0 8px 16px rgba(0, 128, 0, 0.3);
-    margin: 7% auto 10% auto;
+    margin: -150px auto 10% auto;background: white;
 }
 .wait-report-box{
 	padding: 20px;
@@ -78,9 +78,72 @@ width: 70px;height: 50px;border: 1px solid green;color:green; line-height: 50px;
 .a_btn:hover {
 	text-decoration: none; color: white;background-color: green;
 }
+.home-box1 {
+	width: 100%;
+	height: 500px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
+}
+
+.page-title {
+color:rgba(0, 100, 60, 0.8);
+	text-align: left;
+	font-size: 50px;
+	font-weight: bold;
+	margin: 0 0 80px 0;
+}
+.here-title{
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+}
+.here-title:hover{
+	text-decoration: none;
+	color: gray;
+}
+.top-img {
+	height: 20px;
+	width: 20px;
+	color: gray;
+}
 </style>
 </head>
 <body>
+<div class="home-box1">
+	<div style="width: 80%; margin: 0 auto; padding-top: 80px">
+		<div class="page-title">
+			병원 관리
+		</div>
+		<div style="text-align: left;display: flex;height: 50px;line-height: 50px; margin: 20px 0 50px 0;">
+			<a href="<c:url value='/'/>">
+				<img class="top-img" alt="위치 이미지"
+				src="<c:url value='/resources/img/home-4-line.svg'/>">
+			</a>
+			<div style="margin: auto 16px;" >
+				<img class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+			</div>	
+			<div style="padding-top: 1px;">
+				<a href="<c:url value='/admin/adminpage'/>" class="here-title">
+					관리자페이지
+				</a>
+			</div>
+			<div style="margin: auto 16px;" >
+				<img class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+			</div>
+			<div style="padding-top: 1px;">
+				<a href="<c:url value='/admin/hospital'/>" class="here-title">
+					병원 관리
+				</a>
+			</div>
+			
+		</div>
+	</div>
+</div>
 <div class="ho-all-box">
 	<!-- 가입대기 + 신고 박스 -->
 	<div class="wait-report-box">
@@ -145,14 +208,12 @@ width: 70px;height: 50px;border: 1px solid green;color:green; line-height: 50px;
 	                <c:choose>
 	                    <c:when test="${not empty hoRpList}">
 	                        <c:forEach items="${hoRpList}" var="ho">
-	                        	<c:forEach items="${ho.report}" var="report">
-		                            <tr style="height: 50px;font-size: 17px;text-align: center;border-bottom: 1px solid lightgray">
-		                                <td>${ho.hospital.ho_name}</td>
-		                                <td>${ho.hospital.ho_num}</td>
-		                                <td>${ho.hospital.ho_phone}</td>
-		                                <td>${report.rp_name}</td>
-		                            </tr>
-	                            </c:forEach>
+	                            <tr style="height: 50px;font-size: 17px;text-align: center;border-bottom: 1px solid lightgray">
+	                                <td>${ho.hospital.ho_id}</td>
+	                                <td>${ho.hospital.ho_name}</td>
+	                                <td>${ho.hospital.ho_num}</td>
+	                                <td>${ho.rp_name}</td>
+	                            </tr>
 	                        </c:forEach>
 	                    </c:when>
 	                    <c:otherwise>

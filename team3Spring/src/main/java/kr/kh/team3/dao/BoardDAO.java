@@ -95,4 +95,6 @@ public interface BoardDAO {
 
 	ArrayList<PostVO> selectHotPostList();
 
+	ArrayList<PostVO> selectNoticeList();
+
 }

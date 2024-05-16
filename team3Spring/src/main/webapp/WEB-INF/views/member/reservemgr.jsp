@@ -10,8 +10,8 @@
 .post_list_box {
 	width: 1400px;
 	height: 93.4%;
-	margin: 100px auto;
-	padding: 100px;
+	margin: -120px auto 100px auto;background:white;
+	padding: 60px 100px;
 	text-align: center;
 	
     box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.2);
@@ -78,12 +78,116 @@ padding: .75rem;
 }
 .pagination{margin-top:50px; }
 .post-search-box{text-align: center;width: 100%}
+
+.top-img {
+	height: 20px;
+	width: 20px;
+	color: gray;
+}
+
+.here-title {
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.here-title1 {
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.here-title:hover {
+	text-decoration: none;
+	color: gray;
+}
+.here-title1:hover {
+	text-decoration: none;
+	color: black;
+}
+.home-box1 {
+	width: 100%;
+	height: 500px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-origin: content-box;
+}
+
+.page-title {
+	color: rgba(0, 100, 60, 0.8);
+	text-align: left;
+	font-size: 50px;
+	font-weight: bold;
+	margin: 0 0 80px 0;
+}
+.btns{
+	border: 1px solid green;color: green;background: white;text-decoration: none;
+	border-radius:5px;list-style: none; display: inline-block; width: 40px; height: 25px;
+}
+.btns:hover{
+	background: green;color: white;text-decoration: none;
+	tranzition: background 0.3s;
+}
+.back_btn{
+	border: 1px solid green;color: green;background: white;text-decoration: none;
+	border-radius:5px;list-style: none; display: inline-block; width: 80px; height: 25px;
+}
+.back_btn:hover{
+	background: green;color: white;text-decoration: none;
+	tranzition: background 0.3s;
+}
+.back_btn_box{
+	width: 200px;margin-left: auto;height: 30px;
+}
+.success_btn{
+	color: green; width: 100%; height: 100%; display: inline-block;
+}
+.success_btn:hover{
+	color: white; text-decoration: none;
+}
 </style>
 </head>
 <body>
+<div class="home-box1">
+		<div style="width: 80%; margin: 0 auto; padding-top: 80px;">
+			<div class="page-title">내 예약관리</div>
+			<div
+				style="text-align: left; display: flex; height: 50px; line-height: 50px; margin: 20px 0 50px 0;">
+				<a href="<c:url value='/'/>" style="z-index: 999"> <img
+					class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/home-4-line.svg'/>">
+				</a>
+				<div style="margin: auto 16px;">
+					<img class="top-img" alt="위치 이미지"
+						src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+				</div>
+				<div style="padding-top: 1px;">
+					<a class="here-title" 
+					href="<c:url value='/member/mypage'/>"
+					> 마이페이지 </a>
+				</div>
+				<div style="margin: auto 16px;">
+					<img class="top-img" alt="위치 이미지"
+						src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+				</div>
+				<div style="padding-top: 1px;">
+					<p class="here-title1"> 예약 관리 </p>
+				</div>
+			</div>
+		</div>
+	</div>
 <div class="post_list_box">
-	<div class="box-post-list">
-		<!-- 회원 게시글, 댓글 출력 -->
+	<div style="height: 60px; width: 100%; background-color: #ededed; padding: 18px; color: gray; border-radius: 5px; font-size: 15px;">
+		예약 변경 및 취소는 예약일 하루 전까지 가능합니다.
+	</div>
+	<div class="back_btn_box">
+		<a href="<c:url value='/member/mypage'/> " class="back_btn">뒤로가기</a>
+	</div>
+	<div class="box-book-list">
+		<!-- 예약 내역 출력 -->
 	</div>
 	<div class="box-pagination">
 		<ul class="pagination justify-content-center">
@@ -133,7 +237,7 @@ function displayPostList(bookList){
 				<th style="width: 10%;">날짜</th>
 				<th style="width: 10%;">시간</th>
 				<th style="width: 10%;">예약상태</th>
-				<th style="width: 10%;">예약취소</th>
+				<th style="width: 10%;">변경/취소</th>
 			</tr>
 		</thead>
 		<tr class="hr"></tr>
@@ -151,7 +255,7 @@ function displayPostList(bookList){
 		  </tbody>
 		</table>
       `;
-      $('.box-post-list').html(str);
+      $('.box-book-list').html(str);
       return;
    }
    str += `
@@ -160,18 +264,18 @@ function displayPostList(bookList){
    for(item of bookList){
 	   console.log(item);
       str += 
-      ` <tr style="height: 100px; border-bottom: 1px solid lightgray;">
+      ` <tr class="tr" style="height: 100px; border-bottom: 1px solid lightgray;">
 			<td>\${item.hospital.ho_name}</td>
 			<td>\${item.hospitalProgram.hp_title}</td>
 			<td>\${item.hospitalProgram.hp_payment}</td>
-			<td>\${item.reservationScheduleVO.rsDate}</td>
-			<td>\${item.reservationScheduleVO.rsTime}</td>
+			<td class="date"><div class="change-box">\${item.reservationScheduleVO.rsDate}</div></td>
+			<td class="time"><div class="change-box">\${item.reservationScheduleVO.rsTime}</td>
 			<td>\${item.rv_rvs_name}</td>
 	  `;
       var currentDate = new Date();
       if(currentDate > item.reservationScheduleVO.rs_date){
     	  str += `
-    		  <td>취소 불가</td>
+    		  <td>변경/취소 불가</td>
     		</tr>
     	  `;
       }else if(item.rv_rvs_name == "예약취소"){
@@ -181,7 +285,10 @@ function displayPostList(bookList){
     	  `;
       }else{
     	  str += `
-    		  <td><button type="button" class="cancelBtn" data-target="\${item.rv_num}">취소</button></td>
+    		  <td>
+    	  		<li role="button" class="btns change_btn" data-target="\${item.rv_num}" data-hpnum="\${item.hospitalProgram.hp_num}">변경</li>
+    	  		<li role="button" class="btns cancelBtn" data-target="\${item.rv_num}">취소</li>
+    		  </td>
     		</tr>
     	  `;
       }
@@ -190,7 +297,7 @@ function displayPostList(bookList){
 			</tbody>
 		</table>
     `;
-	$('.box-post-list').html(str);
+	$('.box-book-list').html(str);
 }
 
 function displayPostPagination(pm){
@@ -282,5 +389,101 @@ $(document).on('click','.cancelBtn',function(){
    });
 });
 </script>
+<!-- 변경 버튼을 눌렀을때 인풋태그가 바뀌는 코드 -->
+<script type="text/javascript">
+let hp_num = 0;
+$(document).on("click", ".change_btn", function(){
+	hp_num = $(this).data("hpnum");
+	let list = displayDate();
+	let option = optionDate(list);
+	
+	$(this).parents(".tr").find(".date").html('<select name="ndate" class="ndate">'+ option +'</select>');
+	$(this).parents(".tr").find(".change_btn").empty();
+	$(this).parents(".tr").find(".change_btn").html('<a class="success_btn">확인</a>')
+})
+</script>
+<!-- 프로그램을 선택하면 날짜를 가져오는 메서드 -->
+<script type="text/javascript">
+function displayDate(){
+	let res = null
+	let ho = "";
+	$.ajax({
+		async : false,
+		method : "post",
+		url : '<c:url value="/getdate"/>',
+		data : {
+			"ho" : ho,
+			"hp_num" : hp_num
+		},
+		success : function(data){
+			res = data.RSlist;
+			console.log(res);
+		}
+	});
+	return res;
+}
+
+function optionDate(list){
+	str = ``;
+	if(list == null){
+		return list;
+	}
+	arr = [];
+	for(let tmp of list){
+		if(!arr.includes(tmp.rsDate)){
+			arr.push(tmp.rsDate);
+		}
+	}
+	for(let tmp of arr){
+		str += `<option value="\${tmp}">` + tmp + '</option>'
+	}
+	return str;
+}
+</script>
+<!-- 날짜를 변경해서 시간대 가져오기 -->
+<script type="text/javascript">
+$(document).on("click", ".ndate", function(){
+	let list = displayTime();
+	let option = optionTime(list)
+	$(this).parents(".tr").find(".time").html('<select name="time" class="time">'+ option +'</select>');
+});
+
+function optionTime(list){
+	let str =``;
+	if(list == null){
+		return str;
+	}
+	for(let tmp of list){
+		str+='<option>' + tmp.rsTime + '</option>'
+	}
+	return str;
+}
+
+function displayTime(){
+	let tmp = $("[name=ndate]").val();
+	//let hp_num = $("[name=hp_num]").val();
+	let res = null;
+	 $.ajax({
+		   async : false,
+	       method : "post",
+	       url : '<c:url value="/gettime"/>',
+	       data : {"tmp" : tmp,
+	               "hp_num" : hp_num},
+	       success : function (data) {
+	           res=data.timeList;
+	       }
+	  });
+	  return res;
+}
+</script>
+<script type="text/javascript">
+$(document).on("click", ".success_btn", function(){
+	let rv_num = $(this).parents(".tr").find(".change_btn").data("target");
+	let date = $("select.ndate option:selected").text();
+	let time = $("select.time option:selected").text();
+	location.href='<c:url value="/update/userschedule?rv_num="/>' + rv_num + "&date=" + date + "&time2=" + time + "&hp_num=" + hp_num;
+})
+</script>
+
 </body>
 </html>

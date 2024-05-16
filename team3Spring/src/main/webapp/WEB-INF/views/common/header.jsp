@@ -163,22 +163,27 @@ height:50px;width:100%;background-color: #FCF9F7;
 			</a>
 			<div class="메뉴얼">
 				<ul>
-					<li>
+					<li class="hos-btn-li">
 						<a href="<c:url value="/hospital/list?hs_num=0"/>" class="hos-btn">병원</a> 
 					</li>
-					<li>
+					<li class="board_btn_li">
 						<a href="<c:url value="/board/all"/>" class="board_btn">커뮤니티</a> 
-					</li>
-					<li>
-						<a href="#">게시판1</a> 
 					</li>
 					<li>
 						<a href="<c:url value='/board/list?bo_num=1'/>">공지사항</a>
 					</li>
-					<li>
 					<c:if test='${user.getSite_authority().equals("USER")}'>	
-						<a href="<c:url value="/member/bookmark"/>">북마크</a>
+						<li>
+							<a href="<c:url value="/member/bookmark"/>">북마크</a>
+						</li>
 					</c:if>	
+					<li>
+						<c:if test='${user.getSite_authority().equals("USER")}'>
+							<a href="<c:url value='/member/reservemgr?site_id=${user.getSite_id()}'/>">예약관리</a> 
+						</c:if>
+						<c:if test='${user.getSite_authority().equals("MANAGER")}'>
+							<a href="<c:url value='/hospital/schedule/change'/>">예약관리</a>
+						</c:if>
 					</li>
 				</ul>
 			</div>
@@ -235,7 +240,7 @@ height:50px;width:100%;background-color: #FCF9F7;
 </div>
 	 
  <script>
-     $('.hos-btn').hover(function() {
+     $('.hos-btn-li').hover(function() {
          $('.category-sub').show();
          $('.header-box').addClass('hovered');
          $('.category-board').hide();
@@ -244,7 +249,7 @@ height:50px;width:100%;background-color: #FCF9F7;
     	 $('.category-sub').hide();
     	 $('.header-box').removeClass('hovered');
      });
-     $('.board_btn').hover(function() {
+     $('.board_btn_li').hover(function() {
     	 $('.category-sub').hide();
     	  $('.header-box').addClass('hovered');
          $('.category-board').show();

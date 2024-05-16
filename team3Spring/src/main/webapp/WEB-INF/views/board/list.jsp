@@ -7,25 +7,39 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+.form-control {
+	display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    margin-bottom: 20px;
+}
 .post_list_container {
 	width: 100%;
-	height: 1500px;
+	height: 100%;
 }
 
 .post_list_box {
-	border:2px solid green;
+	border:2px solid green;background:white;
 	width: 1400px;
-	height: 93.4%;
-	margin: 100px auto;
-	padding:0 100px 100px 100px;
+	margin: -200px auto 100px auto;
+	padding:0 100px;
 	text-align: center;
 	border-radius: 10px;
-	margin-top: -200px;background: white;
 }
 
 .post_list_box{
    box-shadow: 0 8px 16px rgba(0, 128, 0, 0.4);
-    transition: box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;height: 1200px;
 }
 .hr {
 	width: 100%;
@@ -56,11 +70,25 @@
 	background-color:  green;
 	text-decoration: none;
 }
+.post_insert_btn1 {
+	line-height: 50px;
+	color: green;
+	height: 100%;
+	width: 100%;border-radius:10px;
+	border: 1px solid  rgba(0, 128, 0, 0.5);
+	padding: 13px;position: relative;right: 10px;bottom: 30px;
+}
+
+.post_insert_btn1:hover {
+	color: white;
+	background-color:  green;
+	text-decoration: none;
+}
 
 .post_insert_btn_box {
 	height: 50px;
 	width: 100px;
-	margin: 0 20px 40px auto;
+	margin: 30px -10px 40px auto;
 }
 
 .search-box-group {
@@ -163,13 +191,23 @@ color:  rgba(0, 128, 0, 0.5);
 	background-size: cover;
     background-origin: content-box;
 }
+.post_list_inser_title{
+width: 100%;display: flex;justify-content: space-between;height: 70px;
+}
+.order_select{
+	padding:10px; width: 400px;
+
+}
+.pagination{
+    height: 40%;}
+.page-item{margin-top: auto;}
 </style>
 </head>
 <body>
 <div class="home-box1">
 	<div style="width: 80%;margin: 0 auto;padding-top: 80px">
 		<div class="page-title">
-			${bo_title}
+			'${bo_title}'게시판
 		</div>
 	</div>
 </div>
@@ -223,17 +261,35 @@ color:  rgba(0, 128, 0, 0.5);
 						<button type="submit" class="search-btn">검색</button>
 					</div>	
 				</div>
-				<select class="form-control col-4 offset-8" name="order">
-					<option value="bo_num" <c:if test="${pm.cri.order == 'po_num' }">selected</c:if>>최신순</option>
-					<option value="bo_view" <c:if test="${pm.cri.order == 'po_view' }">selected</c:if>>조회수순</option>
-				</select>
+				
+			
+			<div class="post_list_inser_title">
+				<div class="order_select">
+					<select class="form-control col-4" name="order">
+							<option value="po_num" <c:if test="${pm.cri.order == 'po_num' }">selected</c:if>>최신순</option>
+							<option value="po_view" <c:if test="${pm.cri.order == 'po_view' }">selected</c:if>>조회수순</option>
+							<option value="po_up" <c:if test="${pm.cri.order == 'po_up' }">selected</c:if>>좋아요순</option>
+							<option value="po_date" <c:if test="${pm.cri.order == 'po_date' }">selected</c:if>>날짜순</option>
+					</select>
+				</div>	
+				<div class="post_insert_btn_box">
+				<c:if test="${bo_num != 1}">
+					<div class="post_insert_btn_box">
+						<a href="<c:url value='/board/insert?bo_num=${bo_num}'/>"
+							class="post_insert_btn1">작성하기</a>
+					</div>
+				</c:if>
+          </div>
+				<c:if test="${bo_num == 1 and user.getSite_authority().equals('ADMIN')}">
+					<div class="post_insert_btn_box">
+						<a href="<c:url value='/board/insert?bo_num=${bo_num}'/>"
+							class="post_insert_btn">작성하기</a>
+					</div>
+				</c:if>
+			</div>	
 			</form>
-			<div class="post_insert_btn_box">
-				<a href="<c:url value='/board/insert?bo_num=${bo_num}'/>"
-					class="post_insert_btn">작성하기</a>
-			</div>
 			<div>
-				<table style="width: 100%;height: 100%;margin-bottom: 20%;">
+				<table style="width: 100%;height: 100%;margin-top: 20px;">
 					<thead>
 						<tr>
 							<th style="width: 5%;">No</th>
@@ -253,7 +309,7 @@ color:  rgba(0, 128, 0, 0.5);
 								<!-- 각 bo_num별 게시글 수 초기화 -->
 								<c:forEach items="${poList}" var="po" varStatus="poIndex">
 									<c:set var="boPostCount" value="${boPostCount + 1}" />
-									<tr style="height: 100px; border-bottom: 1px solid lightgray;font-size: 18px;">
+									<tr style="height: 60px; border-bottom: 1px solid lightgray;font-size: 18px;">
 										<td style="width: 5%;">${boPostCount}</td>
 										<td style="width: 40%;">
 											<a href="<c:url value="/board/detail?po_num=${po.po_num}"/>" class="title-link">${po.po_title}</a>
@@ -279,38 +335,38 @@ color:  rgba(0, 128, 0, 0.5);
 					</tbody>
 				</table>
 			</div>
-			<ul class="pagination justify-content-center" >
-				<c:if test="${pm.prev}">
-					<c:url value="/board/list?bo_num=${bo_num}" var="url">
-						<c:param name="page" value="${pm.startPage - 1}" />
-						<c:param name="type" value="${pm.cri.type}" />
-						<c:param name="search" value="${pm.cri.search}" />
-					</c:url>
-					<li class="page-item"><a class="page-link" href="${url}">이전</a>
-					</li>
-				</c:if>
-				<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
-					<c:url value="/board/list?bo_num=${bo_num}" var="url">
-						<c:param name="page" value="${i}" />
-						<c:param name="type" value="${pm.cri.type}" />
-						<c:param name="search" value="${pm.cri.search}" />
-					</c:url>
-					<li
-						class="page-item <c:if test="${pm.cri.page == i}">active</c:if>">
-						<a class="page-link" href="${url}">${i}</a>
-					</li>
-				</c:forEach>
-				<c:if test="${pm.next}">
-					<c:url value="/board/list?bo_num=${bo_num}" var="url">
-						<c:param name="page" value="${pm.endPage + 1}" />
-						<c:param name="type" value="${pm.cri.type}" />
-						<c:param name="search" value="${pm.cri.search}" />
-					</c:url>
-					<li class="page-item"><a class="page-link" href="${url}">다음</a>
-					</li>
-				</c:if>
-			</ul>
-		</div>
+				<ul class="pagination justify-content-center" >
+					<c:if test="${pm.prev}">
+						<c:url value="/board/list?bo_num=${bo_num}" var="url">
+							<c:param name="page" value="${pm.startPage - 1}" />
+							<c:param name="type" value="${pm.cri.type}" />
+							<c:param name="search" value="${pm.cri.search}" />
+						</c:url>
+						<li class="page-item"><a class="page-link" href="${url}">이전</a>
+						</li>
+					</c:if>
+					<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+						<c:url value="/board/list?bo_num=${bo_num}" var="url">
+							<c:param name="page" value="${i}" />
+							<c:param name="type" value="${pm.cri.type}" />
+							<c:param name="search" value="${pm.cri.search}" />
+						</c:url>
+						<li
+							class="page-item <c:if test="${pm.cri.page == i}">active</c:if>">
+							<a class="page-link" href="${url}">${i}</a>
+						</li>
+					</c:forEach>
+					<c:if test="${pm.next}">
+						<c:url value="/board/list?bo_num=${bo_num}" var="url">
+							<c:param name="page" value="${pm.endPage + 1}" />
+							<c:param name="type" value="${pm.cri.type}" />
+							<c:param name="search" value="${pm.cri.search}" />
+						</c:url>
+						<li class="page-item"><a class="page-link" href="${url}">다음</a>
+						</li>
+					</c:if>
+				</ul>
+			</div>
 	</div>
 <script type="text/javascript">
 	$("[name=order]").change(function () {

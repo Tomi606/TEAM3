@@ -129,7 +129,7 @@ width: 80%;margin: 0 auto 80px auto;
 	text-decoration: none;
 	color: gray;
 }
-.comment_content{ resize: none; width: 92%;}
+.comment_content{ resize: none; width: 95%; border: 1px solid lightgray; padding: 5px; border-radius: 10px 0 0 10px}
 .box-comment{margin:30px 0 20px 0;font-size:18px;
 width: 100%;height: 60px;border-bottom: 1px solid gray;
 
@@ -269,6 +269,11 @@ color: green;
 	background-size: cover;
     background-origin: content-box;
 }
+.admin_text{
+width: 150px; color:red;
+margin-left: auto;
+text-align: center;
+}
 </style>
 </head>
 <body>
@@ -332,19 +337,21 @@ color: green;
 					<input type="text" class="content-title" name="po_id" value="${post.po_id}" readonly>
 				</div>   
 				<div class="user_more_post">
-					<c:choose>
-						<c:when test="${post.po_id ne user.site_id}">
-						<div style="width: 200px">
-							<a href="<c:url value='/board/userpost?po_id=${post.po_id}'/>" class="writer-more"><strong class="user">${post.po_id}</strong>님의 게시글 더보기 ></a>
-						</div>	
-						</c:when>
-						<c:otherwise>
-						<div style="width: 200px">
-							<a href="<c:url value='/board/userpost?po_id=${post.po_id}'/>" class="writer-more"><strong class="user">내가 쓴 </strong> 게시글 더보기 ></a>
-						</div>	
-						</c:otherwise>
-					</c:choose>	
-					</div>
+					<c:if test="${post.sitemanagement.site_authority ne 'ADMIN'}">
+						<c:choose>
+							<c:when test="${post.po_id ne user.site_id}">
+								<div style="width: 200px">
+									<a href="<c:url value='/board/userpost?po_id=${post.po_id}'/>" class="writer-more"><strong class="user">${post.po_id}</strong>님의 게시글 더보기 ></a>
+								</div>	
+							</c:when>
+							<c:otherwise>
+							<div style="width: 200px">
+								<a href="<c:url value='/board/userpost?po_id=${post.po_id}'/>" class="writer-more"><strong class="user">내가 쓴 </strong> 게시글 더보기 ></a>
+							</div>	
+							</c:otherwise>
+						</c:choose>	
+					</c:if>	
+				</div>
 				<div class="p_tag">	
 					<p style="color: gray;margin-left: 20px;">조회수:${post.po_view}</p>
 					<c:if test="${post.po_id eq user.site_id}">
@@ -360,7 +367,7 @@ color: green;
 				</div>
 				<div style="display: flex;">	
 					<div class="like-box">
-					<c:if test="${post.po_id ne user.site_id}">
+					<c:if test="${post.po_id ne user.site_id && post.sitemanagement.site_authority ne 'ADMIN'}">
 						<div class="report-box"data-target="${post.po_num}">
 							<li role="button" class="btn-report"></li>
 						</div>
@@ -412,6 +419,12 @@ color: green;
 						<img style="width:80px;margin-right: 10px;" alt="댓글이미지" src="<c:url value="/resources/img/comment.png"/>">
 						<span class="comment-total"style="color: #555"></span>
 					</h2>
+					<div class="box-commnt-insert">
+						<div class="input-group mb-3">
+							<textarea class="textarea-comment comment_content" ></textarea>
+							<button class="btn btn-insert-comment btn-comment-insert" style="border-radius: 0 10px 10px 0">등록</button>
+						</div>
+					</div>
 					<div style="width: 100%;border-bottom: 1px solid lightgray;display: flex;text-align: center;padding: 15px;">
 				 	   <span style="width: 25%;">작성자</span>
 				 	   <span style="width: 50%;">내용</span>
@@ -423,12 +436,6 @@ color: green;
 					</div>
 					<div class="box-pagination">
 						<ul class="pagination justify-content-center"></ul>
-					</div>
-					<div class="box-commnt-insert">
-						<div class="input-group mb-3">
-							<textarea class="textarea-comment comment_content" ></textarea>
-							<button class="btn btn-insert-comment btn-comment-insert" style="border-radius: 0">등록</button>
-						</div>
 					</div>
 				</div>
 				<!-- 댓글 끝-->
@@ -703,7 +710,7 @@ let cri = {
 function displayCommentList(commentList){
    let str = '';
    if(commentList == null || commentList.length == 0){
-      str = '<h3 style="color: #555">등록된 댓글이 없습니다.</h3>';
+      str = '<h3 style="color: #555; text-align: center; margin-top: 30px;">등록된 댓글이 없습니다.</h3>';
       $('.box-comment-list').html(str);
       return;
    }		
@@ -717,6 +724,12 @@ function displayCommentList(commentList){
 		   </span>
 		   `;
 		let btns= '${user.site_num}' == item.co_mg_num ? boxBtns : '';
+	    let reportBtn = ('${user.site_num}' != item.co_mg_num && item.sitemanagement.site_authority != 'ADMIN')? 
+    		`
+	            <div class="report-box-comment" data-targetco="${item.co_num}">
+	                <li role="button" class="btn-report-comment"></li>
+	            </div>
+	        ` : '';
 	      str += 
 	      `
 	         <div class="box-comment row " style="width: 100%;border-bottom: 1px solid lightgray;display: flex;">
@@ -726,11 +739,7 @@ function displayCommentList(commentList){
 	            <div class="col-9 clearfix input-group">
 	            	<span class="text-comment" style="width: 69%;">\${item.co_content}</span>
 	            	<span class="comment-date date" style="width: 12%;font-size:14px;color:gray">\${item.changeDate}</span>
-	            	<c:if test="${item.co_num eq user.site_num}">
-			        	<div class="report-box-comment"data-targetco="\${item.co_num}">
-							<li role="button" class="btn-report-comment"></li>
-						</div>
-					</c:if>	
+	            	\${reportBtn}
 	            	\${btns}
 	            </div>
 	         </div>

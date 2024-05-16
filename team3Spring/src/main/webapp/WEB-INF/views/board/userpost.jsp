@@ -24,7 +24,7 @@
 }
 .post_list_container {
 	width: 100%;
-	height: 1500px;
+	height: 100%;
 }
 
 .post_list_box {
@@ -280,7 +280,7 @@
 					<span>일반 회원</span>
 				</c:if>
 				<c:if test="${site_authority eq 'ADMIN'}">
-					<span>관리자</span>
+					<span style="color: red;">관리자</span>
 				</c:if>
 				<c:choose>
 				    <c:when test="${site_authority eq 'ADMIN' || po_id eq user.site_id}">

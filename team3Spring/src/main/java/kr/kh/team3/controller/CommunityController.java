@@ -80,7 +80,6 @@ public class CommunityController {
 	//내 댓글
 	@ResponseBody
 	@PostMapping("/hospital/community/comment")
-	
 	public Map<String, Object> hospitalCommunityComment(@RequestParam("page") int page, @RequestParam("site_id") String site_id) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Criteria cri = new Criteria(page);
@@ -102,7 +101,7 @@ public class CommunityController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Criteria cri = new Criteria(page);
 		cri.setPerPageNum(5);
-		ArrayList<PostVO> rList = communityService.getCriRecommendList(cri, site_id);
+		ArrayList<RecommendVO> rList = communityService.getCriRecommendList(cri, site_id);
 		int totalCount = communityService.getRecommendTotalCount(cri,site_id);
 		PageMaker pm = new PageMaker(5, cri, totalCount);
 		

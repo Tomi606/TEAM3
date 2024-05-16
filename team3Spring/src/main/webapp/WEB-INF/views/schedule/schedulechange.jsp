@@ -152,8 +152,15 @@
 		if(list == null){
 			return list;
 		}
+		
+		arr = [];
 		for(let tmp of list){
-			str += `<option value="\${tmp.rs_num}">` + tmp.rsDate + '</option>'
+			if(!arr.includes(tmp.rsDate)){
+				arr.push(tmp.rsDate);
+			}
+		}
+		for(let tmp of arr){
+			str += `<option value="\${tmp}">` + tmp + '</option>'
 		}
 		return str;
 	}
@@ -179,14 +186,14 @@ function optionTime(list){
 }
 
 function displayTime(){
-	let rs_num = $("[name=ndate]").val();
+	let tmp = $("[name=ndate]").val();
 	let hp_num = $("[name=hp_num]").val();
 	let res = null;
 	 $.ajax({
 		   async : false,
 	       method : "post",
 	       url : '<c:url value="/gettime"/>',
-	       data : {"rs_num" : rs_num,
+	       data : {"tmp" : tmp,
 	               "hp_num" : hp_num},
 	       success : function (data) {
 	           res=data.timeList;
@@ -198,13 +205,13 @@ function displayTime(){
 
 
 <script type="text/javascript">
-	$(document).on("click", ".success_btn", function(){
-		let rv_num = $(this).parents(".tr").find(".rv_num").text();
-		let date = $("select.ndate option:selected").text();
-		let time = $("select.time option:selected").text();
-		let hp_num = $("[name=hp_num]").val();
-		location.href='<c:url value="/update/userschedule?rv_num="/>' + rv_num + "&date=" + date + "&time2=" + time + "&hp_num=" + hp_num;
-	})
+$(document).on("click", ".success_btn", function(){
+	let rv_num = $(this).parents(".tr").find(".rv_num").text();
+	let date = $("select.ndate option:selected").text();
+	let time = $("select.time option:selected").text();
+	let hp_num = $("[name=hp_num]").val();
+	location.href='<c:url value="/update/userschedule?rv_num="/>' + rv_num + "&date=" + date + "&time2=" + time + "&hp_num=" + hp_num;
+})
 </script>
 
 
@@ -294,7 +301,6 @@ function displayTime(){
         }
         $("[name=hp_num]").html(str);
 	}
-	
 
 </script> 
 

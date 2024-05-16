@@ -59,7 +59,7 @@ public class MemberServiceImp implements MemberService {
 
 	public boolean mailSend(String email, String title, String content) {
 
-		String setfrom = "didtjswls98@gmail.com";
+		String setfrom = "gksrbqmffn@gmail.com";
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
