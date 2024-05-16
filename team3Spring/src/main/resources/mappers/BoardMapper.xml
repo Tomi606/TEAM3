@@ -40,22 +40,6 @@
 			select="selectPost" />
 	</resultMap>
 
-	<resultMap type="kr.kh.team3.model.vo.PostVO" id="postMap">
-		<id column="po_num" property="po_num" />
-		<result column="po_title" property="po_title" />
-		<result column="po_content" property="po_content" />
-		<result column="po_report_count" property="po_report_count" />
-		<result column="po_date" property="po_date" />
-		<result column="po_bo_num" property="po_bo_num" />
-		<result column="po_mg_num" property="po_mg_num" />
-		<result column="po_view" property="po_view" />
-		<collection property="recommend" ofType="RecommendVO"
-			column="po_num" select="selectRecommend1" />
-		<collection property="sitemanagement"
-			ofType="SiteManagement" column="po_mg_num"
-			select="selectSiteManagement" />
-	</resultMap>
-
 	<select id="selectSiteManagement"
 		resultType="kr.kh.team3.model.vo.SiteManagement">
 		select * from site_management where site_num = #{po_mg_num}
@@ -204,44 +188,24 @@
 	</insert>
 
 	<select id="selectUserPostDetail"
-		resultMap="postMap">
+		resultType="PostVO">
 		select post.*,
-		site_id as po_id,bo_title as po_bo_title
-		from
-		post
-		join
-		board
-		on
-		bo_num = po_bo_num
-		join
-		site_management
-		on
-		site_num =
-		po_mg_num
-		where
-		po_num = #{num}
+		site_id as po_id, bo_title as po_bo_title
+		from post
+		join board on bo_num = po_bo_num
+		join site_management on site_num = po_mg_num
+		where po_num = #{num}
 	</select>
 
 	<select id="selectPostDetail"
 		resultType="kr.kh.team3.model.vo.PostVO">
-		select
-		post.*,
-		site_id as po_id,
-		Sum(case when re_state = 1
-		then 1 else 0 end)as po_up,
-		Sum(case when re_state = -1 then 1 else 0
-		end)as po_down
-		from
-		post
-		join
-		site_management on site_num = po_mg_num
-		left
-		join
-		recommend
-		on
-		re_po_num = po_num
-		where
-		po_num = #{num}
+		select post.*, site_id as po_id,
+				Sum(case when re_state = 1 then 1 else 0 end)as po_up,
+				Sum(case when re_state = -1 then 1 else 0 end)as po_down
+		from post
+		join site_management on site_num = po_mg_num
+		left join recommend on re_po_num = po_num
+		where po_num = #{num}
 	</select>
 
 	<update id="updateView">
