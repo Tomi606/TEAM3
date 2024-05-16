@@ -28,4 +28,8 @@ public interface ReservationScheduleDAO {
 	ReservationScheduleVO programByMaxPerson(@Param("time") String time, @Param("date") String date);
 
 	ReservationVO selectReservationUpadateList(@Param("rs_num")int rs_num);
+
+	ArrayList<ReservationVO> selectReservationList();
+
+	ArrayList<ReservationVO> selectReservationList2();
 }
