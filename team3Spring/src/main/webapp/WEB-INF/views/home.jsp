@@ -590,20 +590,21 @@ margin: 10px;
 								<a href="<c:url value="/board/all"/>" class="board_btn">커뮤니티</a> 
 							</li>
 							<li>
-								<a href="#">게시판1</a> 
-							</li>
-							<li>
 								<a href="<c:url value='/board/list?bo_num=1'/>">공지사항</a>
 							</li>
-							<li>
-								<c:if test='${user.getSite_authority().equals("USER")}'>	
+							<c:if test='${user.getSite_authority().equals("USER")}'>	
+								<li>
 									<a href="<c:url value="/member/bookmark"/>">북마크</a>
+								</li>
+							</c:if>
+							<li>
+								<c:if test='${user.getSite_authority().equals("USER")}'>
+									<a href="<c:url value='/member/reservemgr?site_id=${user.getSite_id()}'/>">예약관리</a> 
 								</c:if>
-								<c:if test='${user.getSite_authority().equals("MANAGER")}'>	
-									<a href="<c:url value="/hospital/schedule/change"/>">예약관리</a>
+								<c:if test='${user.getSite_authority().equals("MANAGER")}'>
+									<a href="<c:url value='/hospital/schedule/change'/>">예약관리</a>
 								</c:if>
 							</li>
-							
 						</ul>
 					</div>
 				</div>

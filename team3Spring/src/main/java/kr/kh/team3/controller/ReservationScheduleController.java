@@ -121,17 +121,17 @@ public class ReservationScheduleController {
 	// 프로그램을를 선택하면 여러 정보가 나옴
 	@ResponseBody
 	@PostMapping("/gettime")
-	public Map<String, Object> getTime(@RequestParam("rs_num") int rs_num, HttpSession session,
+	public Map<String, Object> getTime(@RequestParam("tmp") String tmp, HttpSession session,
 			@RequestParam("hp_num") int hp_num) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		// 해당 과와아이디를 이용해 번호를 가져오는 메서드
-		ReservationScheduleVO time = reservationScheduleService.getRsTime(rs_num);
-		ArrayList<ReservationScheduleVO> RSTimeList = reservationScheduleService.getRsList(time.getRsDate2(),
-				time.getRs_hp_num());
+		//ReservationScheduleVO time = reservationScheduleService.getRsTime(rs_num);
+		ArrayList<ReservationScheduleVO> RSTimeList = reservationScheduleService.getRsList(tmp,
+				hp_num);
 		System.out.println("aaaaaaaaaaaaaaaaa");
 		System.out.println(RSTimeList);
 		map.put("timeList", RSTimeList);
-		map.put("time", time);
+		//map.put("time", time);
 		return map;
     }
 	
@@ -201,7 +201,8 @@ public class ReservationScheduleController {
 	
 	@GetMapping("/update/userschedule")
 	public String updateUserSchedule(Model model, int rv_num, String date, 
-			String time2, int hp_num) throws Exception{
+			String time2, int hp_num, HttpSession session) throws Exception{
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		date = date.replaceAll("/", "-");
 		time2 = time2.replaceAll(" ", "");
 		time2 = time2.replace("시", ":");		
@@ -211,10 +212,18 @@ public class ReservationScheduleController {
 		boolean res = reservationScheduleService.updateUserSchedule(rv_num, date, time2, hp_num);
 		if(res) {
 			model.addAttribute("msg", "예약 변경에 성공하였습니다.");
-			model.addAttribute("url", "/hospital/schedule/change");
+			if(user.getSite_authority().equals("MANAGER")) {
+				model.addAttribute("url", "/hospital/schedule/change");
+			}else {
+				model.addAttribute("url", "/member/reservemgr?siteid=" + user.getSite_id());
+			}
 		}else {
 			model.addAttribute("msg", "예약 변경에 실패하였습니다.");
-			model.addAttribute("url", "/hospital/schedule/change");
+			if(user.getSite_authority().equals("MANAGER")) {
+				model.addAttribute("url", "/hospital/schedule/change");
+			}else {
+				model.addAttribute("url", "/member/reservemgr?siteid=" + user.getSite_id());
+			}
 		}
 		return "message";
 	}
