@@ -12,7 +12,7 @@
  	box-shadow: 0px 10px 100px -20px rgba(0, 0, 0, 0.2);
     transition: box-shadow 0.3s ease;
     padding: 50px 40px;
-    margin: -250px auto 200px auto;
+    margin: -160px auto 200px auto;
     border-radius: 5px;
     background-color: white;
     width: 80%;
@@ -22,10 +22,6 @@
 	display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.detail-page-sub2 {
-
 }
 
 .toggle-btn ul li{
@@ -357,6 +353,35 @@ p {
 	width: 120px;
 	height: 40px;
 }
+
+.top-img {
+	height: 20px;
+	width: 20px;
+	color: gray;
+}
+
+.here-title {
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;    line-height: 45px;
+}
+
+.here-title1 {
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;line-height: 25px;
+}
+
+.here-title:hover {
+	text-decoration: none;
+	color: gray;
+}
+.here-title1:hover {
+	text-decoration: none;
+	color: black;
+}
 </style>
 </head>
 <body>
@@ -365,6 +390,27 @@ p {
 		<div class="page-title">
 			병원
 		</div>
+			<div
+				style="text-align: left; display: flex; height: 50px; margin: 20px 0 50px 0;">
+				<a href="<c:url value='/'/>" style="z-index: 999;line-height: 56px;"> <img
+					class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/home-4-line.svg'/>">
+				</a>
+				<div style="margin: auto 16px;">
+					<img class="top-img" alt="위치 이미지"
+						src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+				</div>
+				<div >
+					<a class="here-title" href="<c:url value='/hospital/list?hs_num=${detail.hospital.ho_hs_num}'/>"> 병원 </a>
+				</div>
+				<div style="margin: auto 16px;">
+					<img class="top-img" alt="위치 이미지"
+						src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+				</div>
+				<div >
+					<p class="here-title1"> 상세페이지 </p>
+				</div>
+			</div>
 	</div>
 </div>
 <div class="detail-page">

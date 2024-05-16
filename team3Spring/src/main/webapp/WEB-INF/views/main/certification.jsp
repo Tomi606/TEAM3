@@ -14,11 +14,11 @@
 	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
 	background-repeat: no-repeat;
 	background-size: cover;
-    background-origin: content-box;
+	background-origin: content-box;
 }
 
-.page-title{
-color:rgba(0, 100, 60, 0.8);
+.page-title {
+	color: rgba(0, 100, 60, 0.8);
 	text-align: left;
 	font-size: 50px;
 	font-weight: bold;
@@ -27,12 +27,12 @@ color:rgba(0, 100, 60, 0.8);
 
 .all-container {
 	padding: 60px 80px 100px;
-    margin: -250px auto 70px auto;
-    width: 55%;
-    background-color: white;
-    border-radius: 15px;
-    display: block;
-    box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.2);
+	margin: -125px auto 70px auto;
+	width: 55%;
+	background-color: white;
+	border-radius: 15px;
+	display: block;
+	box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.2);
 }
 
 .email-box {
@@ -40,58 +40,111 @@ color:rgba(0, 100, 60, 0.8);
 }
 
 .label {
-	color:#555;
+	color: #555;
 	text-align: center;
 	font-size: 20px;
 	font-weight: 600;
 	margin-bottom: 0px;
 }
-.btn-email, .btn-ce{
+
+.btn-email, .btn-ce {
 	margin-top: 10px;
 	float: right;
 }
-.number_box{
-	margin-top: 10px; 
+
+.number_box {
+	margin-top: 10px;
 }
+
 .spinner-container {
 	position: fixed;
 	top: 0;
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background: rgba(0,0,0,0.3);
+	background: rgba(0, 0, 0, 0.3);
 	display: none;
 	text-align: center;
 	color: white;
 	line-height: 100vh;
 }
+.top-img {
+	height: 20px;
+	width: 20px;
+	color: gray;
+}
+
+.here-title {
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.here-title1 {
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.here-title:hover {
+	text-decoration: none;
+	color: gray;
+}
+.here-title1:hover {
+	text-decoration: none;
+	color: black;
+}
 </style>
 </head>
 <body>
-<div class="home-box1">
-	<div style="width: 80%; margin: 0 auto; padding-top: 80px;">
-		<div class="page-title">
-			이메일 인증
+	<div class="home-box1">
+		<div style="width: 80%; margin: 0 auto; padding-top: 80px;">
+			<div class="page-title">이메일 인증</div>
+			<div
+				style="text-align: left; display: flex; height: 50px; line-height: 50px; margin: 20px 0 50px 0;">
+				<a href="<c:url value='/'/>" style="z-index: 999"> <img
+					class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/home-4-line.svg'/>">
+				</a>
+				<div style="margin: auto 16px;">
+					<img class="top-img" alt="위치 이미지"
+						src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+				</div>
+				<div style="padding-top: 1px;">
+					<a class="here-title"> 회원가입 </a>
+				</div>
+				<div style="margin: auto 16px;">
+					<img class="top-img" alt="위치 이미지"
+						src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+				</div>
+				<div style="padding-top: 1px;">
+					<p class="here-title1"> 이메일 인증 </p>
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
-<div class="all-container">
-	<div class="email-box">
-		<label for="email" class="label">이메일 입력</label> <input type="text"
-			class="form-control" id="email" name="email" placeholder="이메일을 입력하세요.">
-	<button class="btn btn-outline-success btn-email bbbbb">이메일 인증</button>
-	<div class="spinner-container">
-		<span class="spinner-border text-primary"></span>
+	<div style="height: 700px;">
+		<div class="all-container">
+			<div class="email-box">
+				<label for="email" class="label">이메일 입력</label> <input type="text"
+					class="form-control" id="email" name="email"
+					placeholder="이메일을 입력하세요.">
+				<button class="btn btn-outline-success btn-email bbbbb">이메일
+					인증</button>
+				<div class="spinner-container">
+					<span class="spinner-border text-primary"></span>
+				</div>
+			</div>
+			<br>
+			<div class="ce_numbox"></div>
+		</div>
 	</div>
-	</div>
-	<br>
-	<div class="ce_numbox"></div>
-</div>
 
 
-
-<!-- 이메일 인증 보내기 -->
-<script type="text/javascript">
+	<!-- 이메일 인증 보내기 -->
+	<script type="text/javascript">
 let code = null;
 function emailCheck(){
 	  var email = $("#email").val();
@@ -108,7 +161,7 @@ function emailCheck(){
 	        success: function(response) {
 	            if (response.hoEmailCheck == null) {
 	               alert("사용 가능한 이메일입니다.");
-		        	spinner();
+	        	   spinner();
 	               res = true;
 	            } else {
 	               alert("이미 사용중인 이메일입니다.");
@@ -130,7 +183,9 @@ function displaySuccessBtn(){
 	let res = emailCheck();
 	
  	let em = null; 
- 	
+ 	if(!res){
+ 		return;
+ 	}
   	if(res){
   		let email = $('[name=email]').val() 
 		//서버로 전송

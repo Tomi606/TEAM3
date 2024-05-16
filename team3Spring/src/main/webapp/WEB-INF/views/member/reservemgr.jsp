@@ -10,7 +10,7 @@
 .post_list_box {
 	width: 1400px;
 	height: 93.4%;
-	margin: 100px auto;
+	margin: -120px auto 100px auto;background:white;
 	padding: 100px;
 	text-align: center;
 	
@@ -78,10 +78,98 @@ padding: .75rem;
 }
 .pagination{margin-top:50px; }
 .post-search-box{text-align: center;width: 100%}
+
+.top-img {
+	height: 20px;
+	width: 20px;
+	color: gray;
+}
+
+.here-title {
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.here-title1 {
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.here-title:hover {
+	text-decoration: none;
+	color: gray;
+}
+.here-title1:hover {
+	text-decoration: none;
+	color: black;
+}
+.home-box1 {
+	width: 100%;
+	height: 500px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-origin: content-box;
+}
+
+.page-title {
+	color: rgba(0, 100, 60, 0.8);
+	text-align: left;
+	font-size: 50px;
+	font-weight: bold;
+	margin: 0 0 80px 0;
+}
+.back_btn{
+	border: 1px solid green;padding: 5px;color: green;background: white;text-decoration: none;
+	border-radius:10px;list-style: none;
+}
+.back_btn:hover{
+	background: green;color: white;text-decoration: none;
+	tranzition: background 0.3s;
+}
+.back_btn_box{
+	width: 200px;margin-left: auto;height: 30px;
+	
+}
 </style>
 </head>
 <body>
+<div class="home-box1">
+		<div style="width: 80%; margin: 0 auto; padding-top: 80px;">
+			<div class="page-title">내 예약관리</div>
+			<div
+				style="text-align: left; display: flex; height: 50px; line-height: 50px; margin: 20px 0 50px 0;">
+				<a href="<c:url value='/'/>" style="z-index: 999"> <img
+					class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/home-4-line.svg'/>">
+				</a>
+				<div style="margin: auto 16px;">
+					<img class="top-img" alt="위치 이미지"
+						src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+				</div>
+				<div style="padding-top: 1px;">
+					<a class="here-title" 
+					href="<c:url value='/member/mypage'/>"
+					> 마이페이지 </a>
+				</div>
+				<div style="margin: auto 16px;">
+					<img class="top-img" alt="위치 이미지"
+						src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+				</div>
+				<div style="padding-top: 1px;">
+					<p class="here-title1"> 예약 관리 </p>
+				</div>
+			</div>
+		</div>
+	</div>
 <div class="post_list_box">
+	<div class="back_btn_box">
+		<a href="<c:url value='/member/mypage'/> " class="back_btn">뒤로가기</a>
+	</div>
 	<div class="box-post-list">
 		<!-- 회원 게시글, 댓글 출력 -->
 	</div>
@@ -181,7 +269,7 @@ function displayPostList(bookList){
     	  `;
       }else{
     	  str += `
-    		  <td><button type="button" class="cancelBtn" data-target="\${item.rv_num}">취소</button></td>
+    		  <td><li role="button" class="cancelBtn back_btn" data-target="\${item.rv_num}">취소</li></td>
     		</tr>
     	  `;
       }
