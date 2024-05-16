@@ -427,7 +427,7 @@ text-decoration: underline;
 /* 푸터 입니다.*/
 .footer{
 width: 100%;border-top: 1px solid gray;height:400px;background-color: #5A5F5F;
-color: white;
+color: white;text-align: center;
 }
 .footer a:hover{
 color: white;
@@ -439,7 +439,7 @@ list-style:none;
 display:flex;
 margin: 0 auto;
 padding: 50px 0 90px;
-width: 100%;
+width: 90%;
 text-align: left
 }
 .footer-logo{
@@ -835,10 +835,8 @@ margin: 10px;
 			 <div class="공지사항">
 				 <img alt="미니공지" style="width: 48px;margin-left: 100px"
 				 src="<c:url value='/resources/img/미니공지.png'/>">
-				 <span style="color: gray;margin-right:auto;line-height: 3.5;margin-left: 23px ">공지사항 : &emsp;
-					 <c:forEach items="${notice}" var="po">
-						 <a href="<c:url value='/board/detail?po_num=${po.po_num}'/>" style="color:gray;font-weight: bold; ">${po.po_title}</a>
-					 </c:forEach>	 
+				 <span style="color: gray;margin-right:auto;line-height: 3.5;margin-left: 23px " class="notice_list">
+						 
 				 </span>
 				 <a href="<c:url value='/board/list?bo_num=1'/>"
 				 style="line-height: 3.5;margin-right: 50px;color: gray;border: 1px solid #fafafa;"
@@ -1094,7 +1092,30 @@ $(document).ready(function () {
 	}
 });//function end;
 
-
-
+</script>
+<script type="text/javascript">
+notice();
+function notice() {
+    $.ajax({
+        async: true,
+        method: "get",
+        url: '<c:url value="/footer"/>',
+        success: function(data) {
+        	if(data.notice){
+        		for(let po of data.notice){
+	        		let str = 
+	        			`
+	        				공지사항 : &emsp;
+	        				<a href="<c:url value='/board/detail?po_num=\${po.po_num}'/>" style="font-weight:bold">\${po.po_title}</a>
+	        			`;
+	        		$('.notice_list').html(str);
+	        	}
+        	}
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error("Error: " + textStatus, errorThrown);
+        }
+    });
+}
 </script>
 </html>
