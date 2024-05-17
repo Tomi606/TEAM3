@@ -100,6 +100,7 @@ p {
 	font-size: 25px;
     font-weight: lighter;
     padding: 10px 10px 10px 10px;
+    width: 100%;
 }
 
 .review-id {
@@ -273,7 +274,7 @@ p {
 .review-textarea {
     display: flex;
     flex-wrap: wrap;
-    width: 90%;
+    width: 100%;
 }
 
 .ho_name_div{
