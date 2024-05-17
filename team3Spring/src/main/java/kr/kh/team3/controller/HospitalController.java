@@ -487,7 +487,6 @@ public class HospitalController {
 		HsListVO hslist = programService.getHsList(hs_num, user);
 		ArrayList<ItemVO> itemList = programService.getItemList(user, hslist);
 		ArrayList<HospitalProgramVO> hpList = programService.getSubjectByProgram(user, hslist);
-		System.out.println(itemList);
 		map.put("itemList", itemList);
 		map.put("hpList", hpList);
 		return map;
@@ -525,6 +524,35 @@ public class HospitalController {
 			map.put("msg","삭제에 실패했습니다."); 
 		} 
 		 return map;
+    }
+	
+	// 프로그램 수정에서 프로그램을 선택하면 자동으로 체크되어 있게 하는 메서드
+	@ResponseBody
+	@PostMapping("/program/item/check")
+	public Map<String, Object> ProgramItemCheck(@RequestParam("hp_num") int hp_num,
+			@RequestParam("hs_num") int hs_num, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();		
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		
+		HsListVO hslist = programService.getHsList(hs_num, user);
+		ArrayList<ItemVO> itemList = programService.getItemList(user, hslist);
+		
+		
+		ArrayList<HsListVO> subjectList = programService.getSubjectList(user);
+		ArrayList<HospitalSubjectVO> Alllist = new ArrayList<HospitalSubjectVO>();
+		for (HsListVO tmp : subjectList) {
+			try {
+				HospitalSubjectVO subject = programService.getSubject(tmp.getHsl_hs_num(), user);
+				System.out.println(subject);
+				Alllist.add(subject);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+		ArrayList<ItemListVO> list = programService.getProgramItemList(user, hp_num);
+		map.put("itemList", itemList);
+		map.put("list", list);
+		return map;
     }
 
 	// 프로그램을 추가하는 메서드

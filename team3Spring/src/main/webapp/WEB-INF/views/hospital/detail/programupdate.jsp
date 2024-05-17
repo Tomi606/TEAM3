@@ -204,18 +204,53 @@ input[type="checkbox"]:checked::before {
 			data : {"hs_num" : hs_num},
 			success : function (data) {
 				let str = ``
-				let str2 = ``
-				for(let tmp of data.hpList){
-					str+=`<option value="\${tmp.hp_num}">\${tmp.hp_title}</option>`
-				}	
-				for(let tmp of data.itemList){
-					str2+=`<input type="checkbox" value="\${tmp.it_num}" name="li_list">\${tmp.it_name}`
+				if(data.hpList.length == 0){
+					str+=`<option value="none">등록된 프로그램이 없습니다</option>`
+				}else{
+					for(let tmp of data.hpList){
+						str+=`<option value="\${tmp.hp_num}">\${tmp.hp_title}</option>`
+					}						
 				}
+				
 				$("[name=hp_num]").html(str);
-				$(".check-box-group").html(str2);
 			}
 		});
 	});
+</script>
+
+<!-- 프로그램을 선택하면 체크박스 자동으로 체크되어 있게하기 -->
+<script type="text/javascript">
+
+$("[name=hp_num]").change(function(){
+	let hp_num = $(this).val();
+	let hs_num = $("[name=hs_num]").val();
+	$.ajax({
+		method : "post",
+		url : '<c:url value="/program/item/check"/>',
+		data : {"hp_num" : hp_num,
+				"hs_num" : hs_num},
+		success : function (data) {
+			$(".check-box-group").empty();
+			let str2 = ``;
+			for(let tmp of data.itemList){
+				let res = false;
+				for(let j of data.list){
+					if(tmp.it_num == j.item.it_num){
+						str2+=`<input type="checkbox" value="\${tmp.it_num}" name="li_list" checked>\${tmp.it_name}`;
+						res = true;
+						break;
+					}
+				}
+				if(!res){
+					str2+=`<input type="checkbox" value="\${tmp.it_num}" name="li_list">\${tmp.it_name}`					
+				}
+			}
+			$(".check-box-group").html(str2);
+		}
+	});
+})
+
+	
 </script>
 
  <script type="text/javascript">
