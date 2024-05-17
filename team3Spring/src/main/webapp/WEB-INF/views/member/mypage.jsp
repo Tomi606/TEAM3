@@ -512,7 +512,7 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 						<a href='<c:url value="/member/bookmark"/>'>북마크</a><br>
 					</div>
 					<div class="choose-box">
-						<a href='<c:url value="/hospital/community?site_id=${user.site_id}"/>'>커뮤니티</a>
+						<a href='<c:url value="/member/community?id=${user.site_id}"/>'>커뮤니티</a>
 					</div>
 				</div>
 			</div>
