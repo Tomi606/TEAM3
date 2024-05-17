@@ -280,15 +280,17 @@ color: green;
 		<input type="search" class="search-input" onkeyup="enterkey();" placeholder="병원명을 입력하세요."/ style="padding: 15px 65px 15px 15px;border: 3px solid #A8F552;">
 		<input type="image" value="" class="search-btn" src="<c:url value='/resources/img/sarchbtn.png'/>" style="bottom: 72px;right: -366px;    width: 84px;">
 	</div>
-	<div class="area-container">
-		<h1 style="margin-top:50px;color: rgba(0, 128, 0, 0.5);">관심 과목 병원</h1>
-		<div class="hospital-like-list">
-		</div>
-		<div class="box-pagination1">
-			<!-- 페이지네이션 시작 -->
-			<ul class="pagination-custom"></ul>
-		</div>
-	</div>	
+	<c:if test="${!user.getSite_authority().equals('MANAGER')}">
+		<div class="area-container">
+			<h1 style="margin-top:50px;color: rgba(0, 128, 0, 0.5);">관심 과목 병원</h1>
+			<div class="hospital-like-list">
+			</div>
+			<div class="box-pagination1">
+				<!-- 페이지네이션 시작 -->
+				<ul class="pagination-custom"></ul>
+			</div>
+		</div>	
+	</c:if>
 	</div>		
 	<div class="img-container">
 		<div class="img"></div>
