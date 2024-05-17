@@ -144,7 +144,7 @@ public interface HospitalDAO {
 
 	int selectHospitalAllCount(@Param("la")LandVO land,@Param("cri") Criteria cri);
 
-	boolean deleteSubjects(@Param("ho") HospitalVO hospital);
+	boolean deleteSubjects(@Param("ho") HospitalVO hospital, @Param("hsl_hs_num") int i);
 
 	HospitalSubjectVO selectSubject(@Param("ho") HospitalVO huser);
 
