@@ -94,6 +94,7 @@
 			        <th>날짜</th>
 			        <th>시간</th>
 			        <th>최대인원</th>
+			        <th>버튼</th>
 			      </tr>
 			    </thead>
 			    <tbody class="itemList">
@@ -120,10 +121,11 @@
 					str+=
 						`
 							   <tr>
-						        <th><a class="rs-btn" data-rsnum="\${tmp.rs_num}">\${tmp.rs_num}</a></th>
+						        <th>\${tmp.rs_num}</th>
 						        <th>\${tmp.rsDate}</th>
 						        <th>\${tmp.rsTime}</th>
 						        <th>\${tmp.rs_max_person}</th>
+						        <th><a class="rs-btn" data-rsnum="\${tmp.rs_num}">삭제</a></th>						        
 						      </tr>
 						`
 				}
