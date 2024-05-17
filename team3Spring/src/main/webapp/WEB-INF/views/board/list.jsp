@@ -199,7 +199,7 @@ width: 100%;display: flex;justify-content: space-between;height: 70px;
 
 }
 .pagination{
-    height: 40%;}
+    height: 5%;}
 .page-item{margin-top: auto;}
 </style>
 </head>
