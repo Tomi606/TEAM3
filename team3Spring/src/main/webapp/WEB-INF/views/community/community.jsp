@@ -185,9 +185,9 @@ function displayPostNoDeclaration(postList){
 		for(let tmp of postList){
 			str+=
 				`
-					<tr>
+					<tr class="tr">
 						<td>
-							<a href="#" class="nocomment-link" data-po-num="\${tmp.po_num}">\${tmp.po_num}</a>
+							<a href="#" class="nocomment-link po_num" data-po-num="\${tmp.po_num}">\${tmp.po_num}</a>
 						</td>
 						<td>\${tmp.po_title}</td>
 						<td>\${tmp.sitemanagement.site_id}</td>
@@ -197,6 +197,7 @@ function displayPostNoDeclaration(postList){
 		}
 		$('.postNo').html(str);	
 }
+
 
 //지우지마시오!!!
 let postpage = 1;//지우지 마시오!!!
@@ -318,17 +319,19 @@ function displayComment(CommentList){
 					<th>내용</th>
 					<th>작성자</th>
 					<th>신고 횟수</th>
+					<th>버튼</th>
 				</tr>
 			`;
 		$('.postthead').html(str2);
 		for(let tmp of CommentList){
 			str+=
 				`
-				<tr>
-					<td>\${tmp.co_num}</td>
+				<tr class="tr">
+					<td class="co_num">\${tmp.co_num}</td>
 					<td>\${tmp.co_content}</td>
 					<td>\${tmp.sitemanagement.site_id}</td>
 					<td>\${tmp.co_report_count}</td>
+					<td><a class="btn co-del-btn">삭제</a></td>
 				</tr>
 				`
 		}
@@ -336,6 +339,12 @@ function displayComment(CommentList){
 		$('.delete-box').empty(); // 기존 내용을 지우고 새로운 내용을 추가합니다.
 		$('.delete-box').append('<a class="btn comment-delete-btn">댓글 삭제</a>');
 }
+
+$(document).on("click", ".co-del-btn", function(){
+
+	let co_num = $(this).parents(".tr").find(".co_num").text();
+	location.href = '<c:url value="/report/comment/delete?co_num="/>' + co_num;
+})
 
 function displayCommentNo(CommentList){
 	/* 게시판이 바뀔떄마다 그 게시판에 맞는 게시글을 가지고 옴 */
@@ -365,7 +374,7 @@ function displayCommentNo(CommentList){
 }
 
 function displayPost(postList){
-	/* 게시판이 바뀔떄마다 그 게시판에 맞는 게시글을 가지고 옴 */
+	/* 신고 받은 게시판이 바뀔떄마다 그 게시판에 맞는 게시글을 가지고 옴 */
 		let str = ``;
 		let str2 = 
 			`
@@ -374,17 +383,19 @@ function displayPost(postList){
 					<th>제목</th>
 					<th>작성자</th>
 					<th>신고 횟수</th>
+					<th>버튼</th>
 				</tr>
 			`;
 		$('.postthead').html(str2);
 		for(let tmp of postList){
 			str+=
 				`
-				<tr>
-					<td><a href="#" class="comment-link" data-po-num="\${tmp.po_num}">\${tmp.po_num}</a	></td>
+				<tr class="tr">
+					<td><a href="#" class="comment-link po_num" data-po-num="\${tmp.po_num}">\${tmp.po_num}</a	></td>
 					<td>\${tmp.po_title}</td>
 					<td>\${tmp.sitemanagement.site_id}</td>
 					<td>\${tmp.po_report_count}</td>
+					<td><a class="btn po-del-btn">삭제</a></td>
 				</tr>
 				`
 		}
@@ -392,6 +403,13 @@ function displayPost(postList){
 		$('.delete-box').empty(); // 기존 내용을 지우고 새로운 내용을 추가합니다.
 		$('.delete-box').append('<a class="btn post-delete-btn">게시글 삭제</a>');
 }
+
+$(document).on("click", ".po-del-btn", function(){
+	let po_num = $(this).parents(".tr").find(".po_num").data("po-num");
+	location.href = '<c:url value="/report/post/delete?po_num="/>'+po_num
+	
+})
+
 
 //신고 받은 페이지네이션이 주어지면 게시글 페이지네이션을 화면에 출력하는 함수
 function displayPostPagination(pm){

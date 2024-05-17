@@ -30,4 +30,8 @@ public interface CommunityService {
 
 	ArrayList<RecommendVO> getAllRecommendList(Criteria cri, SiteManagement user);
 
+	boolean reportPostDelete(int po_num);
+
+	boolean reportCommentDelete(int co_num);
+
 }
