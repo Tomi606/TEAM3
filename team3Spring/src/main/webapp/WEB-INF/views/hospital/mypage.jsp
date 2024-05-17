@@ -275,7 +275,7 @@ img {
 }
 
 .new_ho_ceo_hidden input {
-	width: 300px;
+	width: 250px;
 	position: relative;
 }
 
@@ -486,6 +486,18 @@ select:focus {
     list-style: none;
     padding-left: 33px;
     margin: 20px 0px 0px 10px;
+}
+
+#new_ho_phone {
+	width: 250px;
+}
+
+#new_ho_email {
+	width: 250px;
+}
+
+#new_ho_detail_address {
+	width: 250px;
 }
 </style>
 </head>
