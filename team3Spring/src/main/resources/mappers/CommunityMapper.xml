@@ -26,7 +26,7 @@
 	
 	<select id="selectPostList" resultMap="postMap">
 		select post.*, 
-		sum(case when re_state = 1 then 1 else 0 end)as `po_up`,
+		sum(case when re_state = 1 then 1 else 0 end)as po_up,
 		sum(case when re_state = -1 then 1 else 0 end)as po_down
 		from post 
 		left join recommend on re_po_num = po_num
@@ -71,9 +71,9 @@
 	</select>
 	
 	<select id="selectRecommendList" resultMap="recommendMap">
-		select *, 
-		Sum(case when re_state = 1 then 1 else 0 end)as po_up,
-		Sum(case when re_state = -1 then 1 else 0 end)as po_down 
+		select recommend.*,
+		sum(case when re_state = 1 then 1 else 0 end)as po_up,
+		sum(case when re_state = -1 then 1 else 0 end)as po_down 
 		from recommend 
 		where re_mg_num = #{site_num}
 		group by re_num
