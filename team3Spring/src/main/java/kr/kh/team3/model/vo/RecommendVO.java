@@ -14,6 +14,8 @@ public class RecommendVO {
 	private int re_state;
 	private int re_po_num;
 	private int re_mg_num;
+	private int po_up;
+	private int po_down;
 	private PostVO post;
 	private SiteManagement sitemanagement;
 	
