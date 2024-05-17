@@ -104,15 +104,12 @@ h3 {
 }
 
 .time-list-box {
-	overflow-y: auto;
 	padding: 5px;
 	width: 100%;
-	min-height: 100%;
-	flex-direction: column;
-	max-height: 100%;
+	height: 493px;overflow-y:auto;
 	display: grid;
 	margin: auto 0;
-grid-template-columns: 1fr 1fr;
+	grid-template-columns: 1fr 1fr;
 }
 
 
@@ -149,9 +146,6 @@ grid-template-columns: 1fr 1fr;
 	margin-top: 30px;
 }
 
-.date-box, .time-list-box {
-	
-}
 
 .selectTag {
 	width: 100%;
@@ -257,6 +251,10 @@ label {
 	text-decoration: none;
 	color: gray;
 }
+.time-list-box-container{
+display: flex;min-height: 95%;margin: auto;
+} 
+
 </style>
 </head>
 <body>
@@ -332,7 +330,11 @@ label {
 				</div>
 				<div class="time-list-container">
 					<div style="width: 100%; height: 100%;">
-						<div class="time-list-box"></div>
+						<div  class="time-list-box-container" >
+							<div class="time-list-box">
+								
+							</div>
+						</div>	
 					</div>
 				</div>
 			</div>
@@ -397,10 +399,8 @@ let sgo = {
 				"ho" : ho
 			},
 			success : function(data){
-				console.log(data);	
 				let ditail = displayProgramDitail(data.itemList)
 				$(".table").empty();
-				console.log(data.RSlist);
 				sgo.hp_title = data.hp.hp_title;
 				sgo.hpPayment = data.hp.payMentMoney;
 				sgo.hp_payment = data.hp.hp_payment;
@@ -515,6 +515,7 @@ function cal(mon,ye, list){
 	var sDate = new Date(ye,mon-1,1); //이번달의 1일
 	var sDay = sDate.getDay(); //이번달 1일의 요일
 	var last = endDay[mon-1]; //이번달 마지막 날짜
+	var j = 0;
 	//윤달일 경우의 마지막 날짜
 	//윤달 계산 4년마다 29일, 100년는 28일, 400년 째는 29일
 	if(mon==2 && (ye%400==0 || (ye%4==00 && ye%100!=0) )){
@@ -548,8 +549,11 @@ function cal(mon,ye, list){
 	for(var i=0;i<sDay;i++){
 		output += '<div class="gray">'+ (last2-sDay+(i+1)) +'</div>';
 	}
-	for(var i=1;i<=42-sDay;i++){
-		let j = i;
+	
+	
+	 for(var i=1;i<=42-sDay;i++){
+		j = i;
+		console.log(j + "처음")
 		let day = i < 10 ? '0' + i : i;
 	    let da = ye + "/" + mon + "/" + day;
 		if(list != null){
@@ -561,6 +565,10 @@ function cal(mon,ye, list){
 				}
 			}
 		}
+		if(j >= last){
+			break;
+		}
+		
 		if(j == i+1){
 			continue;
 		}
@@ -568,8 +576,10 @@ function cal(mon,ye, list){
 		if(i==last){
 			break;
 		}
-		
-	}
+	} 
+	
+	
+	
 	for(var i=1;i<=etc;i++){
 		output += '<div class="gray">' + i +'</div>';
 	}
@@ -674,10 +684,6 @@ function checkReserve() {
 			}else{
 				book(sgo.ho_name, sgo.hp_title, sgo.rs_date, sgo.rs_time, sgo.hp_payment);
 			}
-
-		}, 
-		error : function(jqXHR, textStatus, errorThrown){
-			console.log("에러다에러!!" + error);
 
 		}
 	});//ajax end

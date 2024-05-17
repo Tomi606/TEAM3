@@ -289,6 +289,24 @@ public class BoardServiceImp implements BoardService {
 
 		return boardDao.selectUserCmtListCount(site.getSite_num(), cri);
 	}
+	
+	@Override
+	public ArrayList<PostVO> getUserRecList(int site_num, Criteria cri) {
+		if (cri == null) {
+			cri = new Criteria(1, 5);
+		}
+		return boardDao.selectUserRecList(site_num, cri);
+	}
+
+	@Override
+	public int getUserRecListCount(int site_num, Criteria cri) {
+		if (cri == null) {
+			cri = new Criteria(1, 5);
+		}
+		return boardDao.selectUserRecListCount(site_num, cri);
+	}
+	
+	
 
 	public boolean report(ReportVO report, SiteManagement user) {
 		if (report == null || user == null) {

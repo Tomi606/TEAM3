@@ -560,7 +560,7 @@ input[type="checkbox"]:checked::before {
 				if(data.msg){
 					alert(data.msg)
 				}else{
-					alert("등록이 완료 되었습니다.ㄴ");
+					alert("등록이 완료 되었습니다.");
 					location.reload(true);
 				}
 			}
