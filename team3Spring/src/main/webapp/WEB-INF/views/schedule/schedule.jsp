@@ -428,16 +428,17 @@ let sgo = {
 	<script type="text/javascript">
 $(document).on("click", ".day-btn", function(){
 	let rs_num = $(this).data("target");
+	let tmp = $(this).data("date");
 	let hp_num = $("[name=hp_num]").val();
 	$.ajax({
 		method : "post",
 		url : '<c:url value="/gettime"/>',
 		data : {
-			"rs_num" : rs_num,
+			"tmp" : tmp,
 			"hp_num" : hp_num
 		},
 		success : function(data){
-			sgo.rs_date = data.time.rsDate;
+			sgo.rs_date = data.time;
 			let str = ``;
 			for(let tmp of data.timeList){
 				let res = maxPersonCheck(tmp);
@@ -554,7 +555,7 @@ function cal(mon,ye, list){
 		if(list != null){
 			for(let tmp of list){
 				if(tmp.rsDate == da){
-					output += '<div>' + `<a class="day-btn" data-target="\${tmp.rs_num}">` + j + '</a>' + '</div>';
+					output += '<div>' + `<a class="day-btn" data-target="\${tmp.rs_num}" data-date="\${da}">` + j + '</a>' + '</div>';
 					j+=1;
 					break;
 				}
