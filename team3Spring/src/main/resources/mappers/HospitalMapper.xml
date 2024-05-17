@@ -639,11 +639,11 @@
 	</select>
 	
 	<select id="selectSubjects" resultType="HsListVO">
-		select * from hs_list where hsl_ho_id = #{ho.ho_id}
+		select hsl_hs_num from hs_list where hsl_ho_id = #{ho.ho_id}
 	</select>
 
 	<delete id="deleteSubjects">
-		delete from hs_list where hsl_ho_id = #{ho.ho_id}
+		delete from hs_list where hsl_ho_id = #{ho.ho_id} and hsl_hs_num = #{hsl_hs_num}
 	</delete>
 
 	<select id="selectSubject" resultType="HospitalSubjectVO">
