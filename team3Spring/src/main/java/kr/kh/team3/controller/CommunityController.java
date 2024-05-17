@@ -109,4 +109,35 @@ public class CommunityController {
 		map.put("pm", pm);
 		return map;
 	}
+	
+	//신고받은 게시글 삭제
+	@GetMapping("/report/post/delete")
+	public String ReportPostDelete(Model model, int po_num) {
+		
+		boolean res = communityService.reportPostDelete(po_num);
+		
+		if(res) {
+			model.addAttribute("msg", "삭제에 성공하였습니다.");
+			model.addAttribute("url", "/community");
+		}else {
+			model.addAttribute("msg", "삭제에 실패하였습니다.");
+			model.addAttribute("url", "/community");			
+		}
+		return "message";
+	}
+	//신고받은 댓글 삭제
+	@GetMapping("/report/comment/delete")
+	public String ReportCommentDelete(Model model, int co_num) {
+		
+		boolean res = communityService.reportCommentDelete(co_num);
+		
+		if(res) {
+			model.addAttribute("msg", "삭제에 성공하였습니다.");
+			model.addAttribute("url", "/community");
+		}else {
+			model.addAttribute("msg", "삭제에 실패하였습니다.");
+			model.addAttribute("url", "/community");			
+		}
+		return "message";
+	}
 }

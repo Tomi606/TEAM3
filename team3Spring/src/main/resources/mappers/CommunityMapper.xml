@@ -14,6 +14,8 @@
 		<result property="po_bo_num" column="po_bo_num"/>
 		<result property="po_co_count" column="po_co_count"/>
 		<result property="po_mg_num" column="po_mg_num"/>
+		<result property="po_up" column="po_up"/>
+		<result property="po_down" column="po_down"/>
 		<collection property="sitemanagement" ofType="SiteManagement"
 		column="po_mg_num" select="selectPoMgNum"/>
 	</resultMap>
@@ -23,7 +25,13 @@
 	</select>
 	
 	<select id="selectPostList" resultMap="postMap">
-		select * from post where po_mg_num = #{site_num}
+		select post.*, 
+		sum(case when re_state = 1 then 1 else 0 end)as `po_up`,
+		sum(case when re_state = -1 then 1 else 0 end)as po_down
+		from post 
+		left join recommend on re_po_num = po_num
+		where po_mg_num = #{site_num}
+		group by po_num
 	</select>
 	
 	<!-- 댓글 resultMap -->
@@ -63,7 +71,12 @@
 	</select>
 	
 	<select id="selectRecommendList" resultMap="recommendMap">
-		select * from recommend where re_mg_num = #{site_num}
+		select *, 
+		Sum(case when re_state = 1 then 1 else 0 end)as po_up,
+		Sum(case when re_state = -1 then 1 else 0 end)as po_down 
+		from recommend 
+		where re_mg_num = #{site_num}
+		group by re_num
 	</select>
 	
 	<select id="selectAllRecommendList" resultMap="recommendMap">
@@ -72,9 +85,12 @@
 	<!-- resultMap 끝 -->
 	
 	<select id="selectCriPostList" resultType="PostVO">
-		select post.*, site_id as po_id
+		select post.*, 
+		sum(case when re_state = 1 then 1 else 0 end)as po_up,
+		sum(case when re_state = -1 then 1 else 0 end)as po_down
 		from post
 		join site_management on site_num = po_mg_num
+		left join recommend on re_po_num = po_num 
 		where site_id = #{po_id}
 		group by po_num
 		order by po_num desc
@@ -110,7 +126,9 @@
 	</select>
 	
 	<select id="selectCriRecommendList" resultType="RecommendVO">
-		select recommend.*, site_id as re_id
+		select recommend.*, 
+		sum(case when re_state = 1 then 1 else 0 end)as po_up,
+		sum(case when re_state = -1 then 1 else 0 end)as po_down
 		from recommend 
 		join site_management on site_num = re_mg_num
 		where site_id = #{re_id} and re_state = 1
@@ -125,5 +143,13 @@
 		join site_management on site_num = re_mg_num
 		where site_id = #{re_id} and re_state = 1
 	</select>
+	
+	<delete id="deleteReportPostDelete">
+		delete from post where po_num = #{po_num};
+	</delete>
+	
+	<delete id="deleteReportCommentDelete">
+		delete from comment where co_num = #{co_num};
+	</delete>
 	
 </mapper>
