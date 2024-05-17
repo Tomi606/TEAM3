@@ -370,9 +370,10 @@ text-align: center;
 				<div style="display: flex;">	
 					<div class="like-box">
 					<c:if test="${post.po_id ne user.site_id && post.sitemanagement.site_authority ne 'ADMIN'}">
-						<div class="report-box"data-target="${post.po_num}">
-							<li role="button" class="btn-report"></li>
-						</div>
+							<li role="button" class="btn-report" style="list-style: none;">
+							<div class="report-box"data-target="${post.po_num}">
+							</div>
+							</li>
 					</c:if>
 					   	 <li style="list-style: none;width: 50px;margin-left:auto;" role="button" class="btn btn-like btn-heart btn-up" data-state="1"></li>
 					    <span class="text-up" style="width: 20px;">${post.po_up}</span>
