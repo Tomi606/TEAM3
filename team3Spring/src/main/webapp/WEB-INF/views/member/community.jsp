@@ -315,6 +315,11 @@
 					<!-- 페이지네이션 출력 -->
 				</ul>
 			</div>
+			<div class="box-pagination2">
+				<ul class="pagination justify-content-center">
+					<!-- 페이지네이션 출력 -->
+				</ul>
+			</div>
 			<div class="post-search-box">
 				<!-- 게시글 검색 박스 출력 -->
 			</div>
@@ -555,7 +560,7 @@ function displayCmtList(coList){
 		</table>
     `;
 	$('.box-post-list').html(str);
-	}
+}
 function displayCmtPagination(pm){
    let str = '';
    if(pm.prev){
@@ -633,6 +638,162 @@ $(document).on('click','.cmt-search-btn',function(){
    getCmtList();
 });
 </script>
+<script type="text/javascript">
+function getRecList(){
+   $.ajax({
+      async : true,
+      url : '<c:url value="/board/userrec"/>', 
+      type : 'post', 
+      data : {
+    	  page : page_rec,
+    	  type : type_rec,
+    	  search : search_rec,
+    	  po_id : po_id
+      },
+      dataType : "json", 
+      success : function (data){
+    	 displayRecList(data.recList);
+         displayRecPagination(data.pm);
+         displayRecSearchBox();
+      }, 
+      error : function(jqXHR, textStatus, errorThrown){
+
+      }
+   });
+}
+
+function displayRecList(recList){
+   let str = `
+	   <table style="width: 100%;">
+		<thead>
+			<tr>
+				<th style="width: 5%;">No</th>
+				<th style="width: 40%;">제목</th>
+				<th style="width: 30%;">작성일</th>
+				<th style="width: 7.5%;">추천수</th>
+				<th style="width: 7.5%;">조회수</th>
+			</tr>
+		</thead>
+		<tr class="hr"></tr>
+   `;
+   if(recList == null || recList.length == 0){
+      str += `
+    	  <tbody>
+	    	  <tr style="height: 400px;">
+				<td colspan="6">
+					<div>
+						<h3 style="color:lightgray">게시글이 존재하지 않습니다.</h3>
+					</div>
+				</td>
+			  </tr>
+		  </tbody>
+		</table>
+      `;
+      $('.box-post-list').html(str);
+      return;
+   }
+   str += `
+	   <tbody>
+   `;
+   for(item of recList){
+	   console.log(item);
+      str += 
+      ` <tr style="height: 100px; border-bottom: 1px solid lightgray;">
+			<td style="width: 5%;">\${item.po_num}</td>
+			<td style="width: 40%;">
+				<a href="<c:url value="/board/detail?po_num=\${item.po_num}"/>" class="title-link">\${item.po_title}</a>
+				<a href="<c:url value="/board/detail?po_num=\${item.po_num}#comments-section"/>" class="comment-link" data-po-num="\${item.po_num}"> [\${item.po_co_count}]</a>
+			</td>
+			<td style="width: 30%;">\${item.changeDate1}</td>
+			<td style="width: 7.5%;">\${item.po_up}</td>
+			<td style="width: 7.5%;">\${item.po_view}</td>
+		</tr>
+      `;
+	}
+    str += `
+			</tbody>
+		</table>
+    `;
+	$('.box-post-list').html(str);
+}
+function displayRecPagination(pm){
+   let str = '';
+   if(pm.prev){
+      str += `
+		<li class="page-item">
+			<a class="page-link" href="javascript:void(0);" data-page="\${pm.startPage - 1}">이전</a>
+		</li>`;
+   }
+   for(let i = pm.startPage; i<= pm.endPage; i++){
+      let active = pm.cri.page == i ? 'active' : '';
+      str += `
+      <li class="page-item \${active}">
+         <a class="page-link" href="javascript:void(0);" data-page="\${i}">\${i}</a>
+      </li>`;
+   }
+   if(pm.next){
+      str += `
+      <li class="page-item">
+         <a class="page-link" href="javascript:void(0);" data-page="\${pm.endPage + 1}">다음</a>
+      </li>`;
+   }
+   $('.box-pagination2>ul').html(str);
+}
+$(document).on('click','.box-pagination2 .page-link',function(){
+   page_rec = $(this).data('page');
+   getRecList();
+});
+
+function displayRecSearchBox(){
+	let str = '';
+	if(type_rec == 'title'){		
+		str = `
+		<div class="search-box-box">
+			<select name="type" class="rec-search-type">
+				<option value="title" selected>제목만</option>
+				<option value="titleContent">제목 + 내용</option>
+				<option value="writer">글작성자</option>
+			</select>
+			<input type="search" class="rec-search-search 댓글검색" name="search" placeholder="검색어를 입력하세요" value="\${search_rec}">
+			<button class="rec-search-btn" type="button">검색</button>
+		</div>	
+		`;
+	}else if(type_rec == 'titleContent'){
+		str = `
+			<div class="search-box-box">
+				<select name="type" class="rec-search-type">
+					<option value="title">제목만</option>
+					<option value="titleContent" selected>제목 + 내용</option>
+					<option value="writer">글작성자</option>
+				</select>
+				<input type="search" class="검색 rec-search-search" name="search" placeholder="검색어를 입력하세요" value="\${search_rec}">
+				<button class="rec-search-btn" type="button">검색</button>
+			</div>		
+		`;
+	}
+	else{
+		str = `
+			<div class="search-box-box">
+				<select name="type" class="rec-search-type">
+					<option value="title">제목만</option>
+					<option value="titleContent">제목 + 내용</option>
+					<option value="writer" selected>글작성자</option>
+				</select>
+				<input type="search" class="검색 rec-search-search" name="search" placeholder="검색어를 입력하세요" value="\${search_rec}">
+				<button class="rec-search-btn" type="button">검색</button>
+			</div>	
+		`;
+	}
+	$('.post-search-box').html(str);
+}
+
+$(document).on('click','.rec-search-btn',function(){
+   type_rec = $('.rec-search-type').val();
+   search_rec = $('.rec-search-search').val();
+   getRecList();
+});
+</script>
+
 <script type="text/javascript">
 $(document).on('click','.user-post-btn',function(){
 	page_po = 1;

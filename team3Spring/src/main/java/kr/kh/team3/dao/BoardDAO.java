@@ -64,8 +64,12 @@ public interface BoardDAO {
 	ArrayList<PostVO> selectUserCmtList(@Param("site_num")int site_num, @Param("cri")Criteria cri);
 
 	int selectUserCmtListCount(@Param("site_num")int site_num, @Param("cri")Criteria cri);
+	
+	ArrayList<PostVO> selectUserRecList(@Param("site_num")int site_num, @Param("cri")Criteria cri);
 
-  ReportVO selectReport(@Param("rp")ReportVO report);
+	int selectUserRecListCount(@Param("site_num")int site_num, @Param("cri")Criteria cri);
+
+    ReportVO selectReport(@Param("rp")ReportVO report);
 
 	void insertReport(@Param("rp")ReportVO report);
 
