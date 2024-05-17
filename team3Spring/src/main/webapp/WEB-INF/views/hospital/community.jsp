@@ -196,7 +196,7 @@ color:rgba(0, 100, 60, 0.8);
 												<a href="<c:url value="/board/detail?po_num=${list.post.po_num}#comments-section"/>" class="comment-link" data-po-num="${list.post.po_num}"> [${list.post.po_co_count}]</a>
 											</td>
 											<td>${list.post.changeDate1}</td>
-											<td>${list.post.po_up}</td>
+											<td>${list.po_up}</td>
 											<td>${list.post.po_view}</td>
 										</tr>
 									</c:forEach>
