@@ -1174,7 +1174,7 @@ $(document).on('change', '[name=sd_num]', function() {
 $(document).on("click",".hospital_delete_btn",function () {
     let answer = confirm("회원 탈퇴를 진행 하시겠습니까?");
     if (!answer) {
-    	return;
+    	return false;
     } else {
     	location.href='<c:url value="/hospital/delete"/>';
     }
