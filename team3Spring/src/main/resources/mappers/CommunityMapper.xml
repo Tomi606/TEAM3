@@ -126,4 +126,12 @@
 		where site_id = #{re_id} and re_state = 1
 	</select>
 	
+	<delete id="deleteReportPostDelete">
+		delete from post where po_num = #{po_num};
+	</delete>
+	
+	<delete id="deleteReportCommentDelete">
+		delete from comment where co_num = #{co_num};
+	</delete>
+	
 </mapper>

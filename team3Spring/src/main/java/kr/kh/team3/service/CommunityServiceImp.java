@@ -101,4 +101,15 @@ public class CommunityServiceImp implements CommunityService {
 		return communityDao.selectAllRecommendList(user.getSite_num());
 	}
 
+	@Override
+	public boolean reportPostDelete(int po_num) {
+		return communityDao.deleteReportPostDelete(po_num);
+	}
+
+	@Override
+	public boolean reportCommentDelete(int co_num) {
+		// TODO Auto-generated method stub
+		return communityDao.deleteReportCommentDelete(co_num);
+	}
+
 }

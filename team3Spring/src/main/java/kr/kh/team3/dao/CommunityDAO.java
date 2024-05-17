@@ -31,4 +31,8 @@ public interface CommunityDAO {
 	int selectRecommendTotalCount(@Param("re_id") String site_id);
 
 	ArrayList<RecommendVO> selectAllRecommendList(@Param("site_num") int site_num);
+
+	boolean deleteReportPostDelete(@Param("po_num")int po_num);
+
+	boolean deleteReportCommentDelete(@Param("co_num")int co_num);
 }
