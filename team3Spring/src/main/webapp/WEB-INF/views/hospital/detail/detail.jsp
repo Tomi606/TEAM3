@@ -595,6 +595,17 @@ p {
 	</div>
 </div>
 
+<!-- 병원 회원은 예약 튕김 -->
+<script type="text/javascript">
+$('.book-btn').click(function() {
+	let user = "${user.site_authority}";
+	if(user == "MANAGER") {
+		alert("사업자 회원은 예약할 수 없습니다.");
+		return false;
+	}
+});
+</script>
+
 <!-- 북마크 추가 버튼 -->
 <script type="text/javascript">
 $('.bookmark-before').click(function() {
