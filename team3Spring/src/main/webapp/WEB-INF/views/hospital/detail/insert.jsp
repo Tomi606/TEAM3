@@ -403,7 +403,7 @@ input[type="checkbox"]:checked::before {
 <!-- 병원 등록시 해제한 과목이면 프로그램 삭제된다는 알림 -->
 <script type="text/javascript">
 $(document).on("click",".hospital-btn",function () {
-    let answer = confirm('대표 진료 과목 해제 시 등록한 프로그램이 모두 삭제됩니다.\n수정 하시겠습니까?');
+    let answer = confirm('대표 진료 과목 해제 시 해제한 과목의 등록 프로그램이 모두 삭제됩니다.\n수정 하시겠습니까?');
     if (!answer) {
     	return false;
     } else {
