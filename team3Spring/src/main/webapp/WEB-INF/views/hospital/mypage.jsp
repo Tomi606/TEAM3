@@ -7,6 +7,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+.profile프로필{
+width: 250px;
+}
 .body-tag {
 	width: 100%;
 	display: felex;
@@ -122,7 +125,6 @@ img {
 .profile-img {
 	width: 250px;
 	height: 250px;
-	border: 1px solid green;
 	margin: 0 auto;
 	margin-top: 50px;
 	border-radius: 100%;
@@ -529,6 +531,7 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 		`
 		<div class="mypage-profile">
 			<div class="profile-img">
+				<img alt="asdasd" src="<c:url value='/resources/img/user-white.svg'/>" class="profile프로필">
 			</div>
 			<div class="profile-name" >
 				<h4 style="color:#555;">${hospital.ho_id}</h4>

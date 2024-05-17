@@ -7,6 +7,9 @@
 <meta charset="UTF-8">
 <title>회원 마이페이지</title>
 <style type="text/css">
+.profile프로필{
+width: 250px;
+}
 .my-subect-list{
 	position: relative;bottom: 8px;
 }
@@ -81,7 +84,9 @@ select:hover {
 img {
 	width: 30px;
 }
-
+.mypage-container p{
+	font-size: 20px;
+}
 .duplicate {
 	float: right;
 	border-radius: 0;
@@ -125,7 +130,6 @@ img {
 .profile-img {
 	width: 250px;
 	height: 250px;
-	border: 1px solid green;
 	margin: 0 auto;
 	margin-top: 50px;
 	border-radius: 100%;
@@ -178,11 +182,8 @@ img {
 }
 
 .mypage-img-name {
-	align-content: space-around;
-	flex-direction: column;
-	flex-wrap: wrap;
 	display: flex;
-	width:1000px;
+	width:100%;
 	margin: 30px auto;
 	height: 125px;
 	padding: 20px;
@@ -496,8 +497,8 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 	var str =
 		`
 		<div class="mypage-profile">
-		
 			<div class="profile-img">
+				<img alt="asdasd" src="<c:url value='/resources/img/user-white.svg'/>" class="profile프로필">
 			</div>
 			<div class="profile-name">
 				<h4 style="color:rgba(51, 51, 51, 0.9);">${member.me_id}</h4>
@@ -525,14 +526,34 @@ function getMypageInfo(member,sgg_name,sd_name,emd_name,sub) {
 		<div class="profile-img-name-container">
 			
 			<div class="mypage-img-name">
-				<h4 class="box-name"style="font-size: 33px; font-weight: bold;color:rgba(51, 51, 51, 0.9);">\${member.me_name}</h4>
-				<div class="new_me_name_hidden">
-					<input type='text' id="new_me_name" class="box-name2" value="\${member.me_name}"/>
+			
+				<div>
+					<div>
+						<h4 class="box-name"style="font-size: 33px; font-weight: bold;color:rgba(51, 51, 51, 0.9);">\${member.me_name}</h4>
+					</div>
+					<div class="new_me_name_hidden">
+						<input type='text' id="new_me_name" style="padding:10px;"
+						class="box-name2" value="\${member.me_name}"/>
+					<div class="name_save_btn_wrap">
+						<a  style="margin-left:auto;cursor:pointer;color:black;" class="name_save_btn a-btn">수정완료</a>
+					</div>
+					</div>
+					<div>
+						<p>\${member.me_email}</p>
+					</div>
+				</div>	
+				
+				<div style="width:100%;">
+					<div class="name_update_btn_wrap">
+						<a type="button" class="name-update a-btn">실명수정</a>
+					</div>
+				
+					<div class="pw_update_btn_wrap">
+						<a type="button" class="pw-update a-btn">비밀번호 변경</a>
+					</div>
 				</div>
-				<p>\${member.me_email}</p>
-				<span class="name_update_btn_wrap"><a type="button" class="name-update a-btn">실명수정</a></span>
-				<span class="name_save_btn_wrap"><a type="button" class="name_save_btn a-btn">수정완료</a></span>
-				<span class="pw_update_btn_wrap"><a type="button" class="pw-update a-btn">비밀번호 변경</a></span>
+				
+				
 				<div id="myModal" class="modal">
 				  <div class="modal-content">
 				    <span class="close">&times;</span>

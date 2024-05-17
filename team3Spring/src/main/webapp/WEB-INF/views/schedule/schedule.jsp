@@ -104,15 +104,12 @@ h3 {
 }
 
 .time-list-box {
-	overflow-y: auto;
 	padding: 5px;
 	width: 100%;
-	min-height: 100%;
-	flex-direction: column;
-	max-height: 100%;
+	height: 493px;overflow-y:auto;
 	display: grid;
 	margin: auto 0;
-grid-template-columns: 1fr 1fr;
+	grid-template-columns: 1fr 1fr;
 }
 
 
@@ -149,9 +146,6 @@ grid-template-columns: 1fr 1fr;
 	margin-top: 30px;
 }
 
-.date-box, .time-list-box {
-	
-}
 
 .selectTag {
 	width: 100%;
@@ -257,6 +251,10 @@ label {
 	text-decoration: none;
 	color: gray;
 }
+.time-list-box-container{
+display: flex;min-height: 95%;margin: auto;
+} 
+
 </style>
 </head>
 <body>
@@ -332,7 +330,11 @@ label {
 				</div>
 				<div class="time-list-container">
 					<div style="width: 100%; height: 100%;">
-						<div class="time-list-box"></div>
+						<div  class="time-list-box-container" >
+							<div class="time-list-box">
+								
+							</div>
+						</div>	
 					</div>
 				</div>
 			</div>
