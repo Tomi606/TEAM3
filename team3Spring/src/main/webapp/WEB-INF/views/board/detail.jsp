@@ -10,8 +10,9 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.js"></script>
 <link rel="stylesheet" type="text/css" href="../resources/css/style.css">
 <style type="text/css">
-.report-box li{
-	list-style: none;width: 50px;height: 50px;
+.comment_container_box{
+width:100%;height:100%;padding:10px;
+margin-top: 50px;box-shadow:inset 0 0 2px 1px rgba(0,0,0,0.3);
 }
 .report-box{
  	  background-image:url("<c:url value="/resources/img/red_siren.png"/>");
@@ -129,7 +130,8 @@ width: 80%;margin: 0 auto 80px auto;
 	text-decoration: none;
 	color: gray;
 }
-.comment_content{ resize: none; width: 95%; border: 1px solid lightgray; padding: 5px; border-radius: 10px 0 0 10px}
+.comment_content{ font-size:16px;
+resize: none; width: 95%; border: 1px solid lightgray; padding: 5px; border-radius: 10px 0 0 10px}
 .box-comment{margin:30px 0 20px 0;font-size:18px;
 width: 100%;height: 60px;border-bottom: 1px solid gray;
 
@@ -425,18 +427,20 @@ text-align: center;
 							<button class="btn btn-insert-comment btn-comment-insert" style="border-radius: 0 10px 10px 0">등록</button>
 						</div>
 					</div>
-					<div style="width: 100%;border-bottom: 1px solid lightgray;display: flex;text-align: center;padding: 15px;">
-				 	   <span style="width: 25%;">작성자</span>
-				 	   <span style="width: 50%;">내용</span>
-				 	   <span style="width: 8%;">날짜</span>
-					</div>
-					<div class="box-comment-list">
-						<div class="box-comment row">
+					<div class="comment_container_box">
+						<div style="width: 100%;border-bottom: 1px solid lightgray;display: flex;text-align: center;padding: 15px;">
+					 	   <span style="width: 25%;">작성자</span>
+					 	   <span style="width: 50%;">내용</span>
+					 	   <span style="width: 8%;">날짜</span>
 						</div>
-					</div>
-					<div class="box-pagination">
-						<ul class="pagination justify-content-center"></ul>
-					</div>
+						<div class="box-comment-list">
+							<div class="box-comment row">
+							</div>
+						</div>
+						<div class="box-pagination">
+							<ul class="pagination justify-content-center"></ul>
+						</div>
+					</div>	
 				</div>
 				<!-- 댓글 끝-->
 				<c:url value="/board/list" var="url">
@@ -866,7 +870,7 @@ $(document).on('click','.btn-comment-update',function(){
 	//댓글을 수정할 수 있는 textarea로 변경
 	let content = contentBox.text();
 	let str=
-	`<textarea class="textarea-comment comment_content"style="width: 87%;height:50px;">\${content}</textarea>`;
+	`<textarea class="textarea-comment comment_content"style="width: 87%;height:50px;font-size:18px;margin-bottom:30px;">\${content}</textarea>`;
 	contentBox.after(str);
 	contentBox.hide();
 	//수정 / 삭제버튼을 감추고
