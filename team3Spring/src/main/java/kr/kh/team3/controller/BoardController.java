@@ -83,6 +83,28 @@ public class BoardController {
 		return "/board/list";
 	}
 
+	//회원 커뮤니티 관리
+	@GetMapping("/member/community")
+	public String memberCommunity(HttpSession session,Model model, Criteria cri, String id) {
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
+		if (user == null) {
+			model.addAttribute("msg", "로그인이 필요한 서비스입니다.");
+			model.addAttribute("url", "/main/login");
+			return "message";
+		}	
+		ArrayList<PostVO> poList = boardService.getUserPostList(id,cri);
+		String site_authority = boardService.getUserAuthority(id);
+		HospitalDetailVO hd = hospitalService.getHospitalDetail(id);
+		for(PostVO post : poList) {
+			model.addAttribute("po_num",post.getPo_num());
+		}
+		model.addAttribute("po_id", id);
+		model.addAttribute("hd", hd);
+		model.addAttribute("site_authority", site_authority);
+
+		return "/member/community";
+	}
+	
 	@GetMapping("/board/userpost")
 	public String boardUser(HttpSession session,Model model, Criteria cri, String po_id) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
@@ -103,6 +125,7 @@ public class BoardController {
 
 		return "/board/userpost";
 	}
+
 
 	@ResponseBody
 	@PostMapping("/board/userpost")

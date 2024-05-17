@@ -354,45 +354,43 @@ public class HospitalServiceImp implements HospitalService {
 	@Override
 	public boolean insertDetail(HospitalDetailVO detail, HospitalVO hospital) {
 		if (hospital == null || hospital.getHo_id() == null) {
-			return false;
-		}
+	        return false;
+	    }
 
-		detail.setHd_ho_id(hospital.getHo_id());
-		HospitalDetailVO selectedDetail = hospitalDao.selectHoDetail(hospital);
-		ArrayList<HsListVO> selectedSubjects = hospitalDao.selectSubjects(hospital);
-		ArrayList<Integer> hsList = detail.getHsList();
+	    detail.setHd_ho_id(hospital.getHo_id());
+	    HospitalDetailVO selectedDetail = hospitalDao.selectHoDetail(hospital);
 
-//		boolean result = false;
-		try {
-			// 디테일이 비었으면
-			if (selectedDetail == null) {
-				hospitalDao.insertHoDetail(hospital, detail);
-			} else {
-				hospitalDao.updateHoDetail(hospital.getHo_id(), detail);
-			}
+	    if (selectedDetail == null) {
+	        hospitalDao.insertHoDetail(hospital, detail);
+	    } else {
+	        hospitalDao.updateHoDetail(hospital.getHo_id(), detail);
+	    }
 
-			// 리스트가 비었으면
-			if (selectedSubjects == null) {
-				for (Integer tmp : hsList) {
-					System.out.println("1hsList : " + hsList);
-					hospitalDao.insertSubjects(hospital, tmp);
-				}
-			}
+	    ArrayList<HsListVO> selectedSubjects = hospitalDao.selectSubjects(hospital);
+	    ArrayList<Integer> hsLists = detail.getHsList();
 
-			if (selectedSubjects != null) {
-				// 기존 진료과목 전체 삭제(아이디 기준)
-				hospitalDao.deleteSubjects(hospital);
-				for (Integer tmp : hsList) {
-					System.out.println("2hsList : " + hsList);
-					// 새로 저장
-					hospitalDao.insertSubjects(hospital, tmp);
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
+	    // 추가 작업
+	    for (Integer hs : hsLists) {
+	        boolean found = false;
+	        for (HsListVO selectedSubject : selectedSubjects) {
+	            if (selectedSubject.getHsl_hs_num() == hs) {
+	                found = true;
+	                break;
+	            }
+	        }
+	        if (!found) {
+	            hospitalDao.insertSubjects(hospital, hs);
+	        }
+	    }
+
+	    // 삭제 작업
+	    for (HsListVO selectedSubject : selectedSubjects) {
+	        if (!hsLists.contains(selectedSubject.getHsl_hs_num())) {
+	            hospitalDao.deleteSubjects(hospital, selectedSubject.getHsl_hs_num());
+	        }
+	    }
+
+	    return true;
 	}
 
 	@Override
