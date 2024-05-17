@@ -490,7 +490,6 @@ $(document).on('click','.box-pagination-recommend .page-link',function(){
 });
 </script>
 
-
 <!-- 토글 버튼 -->
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', function() {

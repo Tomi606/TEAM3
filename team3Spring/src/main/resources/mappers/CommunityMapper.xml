@@ -75,8 +75,9 @@
 		sum(case when re_state = 1 then 1 else 0 end)as po_up,
 		sum(case when re_state = -1 then 1 else 0 end)as po_down 
 		from recommend 
-		where re_mg_num = #{site_num}
+		where re_mg_num = #{site_num} and re_state = 1 
 		group by re_num
+		order by re_num desc
 	</select>
 	
 	<select id="selectAllRecommendList" resultMap="recommendMap">
