@@ -131,7 +131,7 @@ public class ReservationScheduleController {
 		System.out.println("aaaaaaaaaaaaaaaaa");
 		System.out.println(RSTimeList);
 		map.put("timeList", RSTimeList);
-		//map.put("time", time);
+		map.put("time", tmp);
 		return map;
     }
 	
