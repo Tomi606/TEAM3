@@ -100,6 +100,7 @@ p {
 	font-size: 25px;
     font-weight: lighter;
     padding: 10px 10px 10px 10px;
+    width: 100%;
 }
 
 .review-id {
@@ -273,7 +274,7 @@ p {
 .review-textarea {
     display: flex;
     flex-wrap: wrap;
-    width: 90%;
+    width: 100%;
 }
 
 .ho_name_div{
@@ -364,14 +365,16 @@ p {
 	text-decoration: none;
 	color: black;
 	font-size: 15px;
-	font-weight: bold;    line-height: 45px;
+	font-weight: bold;
+	line-height: 45px;
 }
 
 .here-title1 {
 	text-decoration: none;
 	color: black;
 	font-size: 15px;
-	font-weight: bold;line-height: 25px;
+	font-weight: bold;
+	line-height: 25px;
 }
 
 .here-title:hover {
@@ -390,27 +393,27 @@ p {
 		<div class="page-title">
 			병원
 		</div>
-			<div
-				style="text-align: left; display: flex; height: 50px; margin: 20px 0 50px 0;">
-				<a href="<c:url value='/'/>" style="z-index: 999;line-height: 56px;"> <img
-					class="top-img" alt="위치 이미지"
-					src="<c:url value='/resources/img/home-4-line.svg'/>">
-				</a>
-				<div style="margin: auto 16px;">
-					<img class="top-img" alt="위치 이미지"
-						src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
-				</div>
-				<div >
-					<a class="here-title" href="<c:url value='/hospital/list?hs_num=${detail.hospital.ho_hs_num}'/>"> 병원 </a>
-				</div>
-				<div style="margin: auto 16px;">
-					<img class="top-img" alt="위치 이미지"
-						src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
-				</div>
-				<div >
-					<p class="here-title1"> 상세페이지 </p>
-				</div>
+		<div
+			style="text-align: left; display: flex; height: 50px; margin: 20px 0 50px 0;">
+			<a href="<c:url value='/'/>" style="z-index: 999;line-height: 56px;">
+			<img class="top-img" alt="위치 이미지"
+				src="<c:url value='/resources/img/home-4-line.svg'/>">
+			</a>
+			<div style="margin: auto 16px;">
+				<img class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
 			</div>
+			<div >
+				<a class="here-title" href="<c:url value='/hospital/list?hs_num=${detail.hospital.ho_hs_num}'/>"> 병원 </a>
+			</div>
+			<div style="margin: auto 16px;">
+				<img class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+			</div>
+			<div >
+				<p class="here-title1"> 상세페이지 </p>
+			</div>
+		</div>
 	</div>
 </div>
 <div class="detail-page">
@@ -592,6 +595,17 @@ p {
 		</div>
 	</div>
 </div>
+
+<!-- 병원 회원은 예약 튕김 -->
+<script type="text/javascript">
+$('.book-btn').click(function() {
+	let user = "${user.site_authority}";
+	if(user == "MANAGER") {
+		alert("사업자 회원은 예약할 수 없습니다.");
+		return false;
+	}
+});
+</script>
 
 <!-- 북마크 추가 버튼 -->
 <script type="text/javascript">

@@ -9,7 +9,7 @@
 <style type="text/css">
 .info-container {
     padding: 60px 80px;
-    margin: -250px auto 70px auto;
+    margin: -130px auto 70px auto;
     width: 80%;
     background-color: white;
     border-radius: 15px;
@@ -136,11 +136,11 @@ input[type="checkbox"]:checked::before {
 }
 
 .page-title {
-color:rgba(0, 100, 60, 0.8);
-	text-align: left;
-	font-size: 50px;
-	font-weight: bold;
-	margin: 0 0 80px 0;
+	color: rgba(0, 100, 60, 0.8);
+    text-align: left;
+    font-size: 50px;
+    font-weight: bold;
+    margin: 0 0 80px 0;
 }
 
 .hr-line {
@@ -204,13 +204,68 @@ color:rgba(0, 100, 60, 0.8);
 .time-table {
 	margin: 10px 5px 5px 30px;
 }
+
+.top-img {
+	height: 20px;
+	width: 20px;
+	color: gray;
+}
+
+.here-title {
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+	line-height: 50px;
+}
+
+.here-title1 {
+	text-decoration: none;
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 50px;
+}
+
+.here-title:hover {
+	text-decoration: none;
+	color: gray;
+}
+.here-title1:hover {
+	text-decoration: none;
+	color: black;
+}
 </style>
 </head>
 <body>
 <div class="home-box1">
 	<div style="width: 80%; margin: 0 auto; padding-top: 80px">
 		<div class="page-title">
-			병원
+			병원 상세페이지 수정
+		</div>
+		<div
+			style="text-align: left; display: flex; height: 50px; margin: 20px 0 50px 0;">
+			<a href="<c:url value='/'/>" style="z-index: 999;line-height: 50px;">
+			<img
+				class="top-img" alt="위치 이미지"
+				src="<c:url value='/resources/img/home-4-line.svg'/>">
+			</a>
+			<div style="margin: auto 16px;">
+				<img 
+					class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+			</div>
+			<div>
+				<a class="here-title" href="<c:url value='/hospital/mypage'/>"> 병원페이지 </a>
+			</div>
+			<div style="margin: auto 16px;">
+				<img 
+					class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+			</div>
+			<div>
+				<p class="here-title1"> 병원 상세페이지 </p>
+			</div>
 		</div>
 	</div>
 </div>
@@ -345,7 +400,17 @@ color:rgba(0, 100, 60, 0.8);
 		</form>
 	</div>
 </div>
-
+<!-- 병원 등록시 해제한 과목이면 프로그램 삭제된다는 알림 -->
+<script type="text/javascript">
+$(document).on("click",".hospital-btn",function () {
+    let answer = confirm('대표 진료 과목 해제 시 등록한 프로그램이 모두 삭제됩니다.\n수정 하시겠습니까?');
+    if (!answer) {
+    	return false;
+    } else {
+    	location.href='<c:url value="/detail/insert"/>';
+    }
+});
+</script>
 
 <!-- 상세페이지 등록(insert) : 상세페이지와 선택한 과목 배열 서버로 전송 -->
 <script type="text/javascript">

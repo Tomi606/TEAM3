@@ -275,7 +275,7 @@ img {
 }
 
 .new_ho_ceo_hidden input {
-	width: 300px;
+	width: 250px;
 	position: relative;
 }
 
@@ -486,6 +486,18 @@ select:focus {
     list-style: none;
     padding-left: 33px;
     margin: 20px 0px 0px 10px;
+}
+
+#new_ho_phone {
+	width: 250px;
+}
+
+#new_ho_email {
+	width: 250px;
+}
+
+#new_ho_detail_address {
+	width: 250px;
 }
 </style>
 </head>
@@ -1162,7 +1174,7 @@ $(document).on('change', '[name=sd_num]', function() {
 $(document).on("click",".hospital_delete_btn",function () {
     let answer = confirm("회원 탈퇴를 진행 하시겠습니까?");
     if (!answer) {
-    	return;
+    	return false;
     } else {
     	location.href='<c:url value="/hospital/delete"/>';
     }
