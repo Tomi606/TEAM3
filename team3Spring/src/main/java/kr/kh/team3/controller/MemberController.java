@@ -211,7 +211,6 @@ public class MemberController {
 		cri.setPerPageNum(10);
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		ArrayList<HospitalVO> hoBmkList = hospitalService.getBmkList(user, cri);
-		System.out.println("fdas;kf h6546532 " + hoBmkList);
 		int totalCount = hospitalService.getBmkListCount(user, cri);
 		PageMaker pm = new PageMaker(10, cri, totalCount);
 		map.put("pm", pm);
