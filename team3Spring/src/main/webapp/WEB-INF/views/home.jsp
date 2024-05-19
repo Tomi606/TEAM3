@@ -62,7 +62,7 @@ text-decoration: underline;
 	width: 100%;
 	height: 953px;
 	text-align: center;
-	background: url('<c:url value="/resources/img/pineapple.jpg"/>');
+	background: url('<c:url value="/resources/img/홈페이지3.png"/>');
 	background-repeat: no-repeat;
 	background-size: cover;
     background-origin: content-box;
