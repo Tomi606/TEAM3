@@ -148,6 +148,9 @@ padding: .75rem;
 .success_btn:hover{
 	color: white; text-decoration: none;
 }
+.ho-name{
+	color: black;
+}
 </style>
 </head>
 <body>
@@ -265,7 +268,7 @@ function displayPostList(bookList){
 	   console.log(item);
       str += 
       ` <tr class="tr" style="height: 100px; border-bottom: 1px solid lightgray;">
-			<td>\${item.hospital.ho_name}</td>
+			<td><a class="ho-name" href="<c:url value='/hospital/detail/detail?ho_id=\${item.hospital.ho_id}'/>">\${item.hospital.ho_name}</a></td>
 			<td>\${item.hospitalProgram.hp_title}</td>
 			<td>\${item.hospitalProgram.hp_payment}</td>
 			<td class="date"><div class="change-box">\${item.reservationScheduleVO.rsDate}</div></td>
