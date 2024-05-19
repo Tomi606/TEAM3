@@ -289,7 +289,7 @@ function displayPostList(bookList){
       }else{
     	  str += `
     		  <td>
-    	  		<li role="button" class="btns change_btn" data-target="\${item.rv_num}" data-hpnum="\${item.hospitalProgram.hp_num}">변경</li>
+    	  		<li role="button" class="btns change_btn" data-target="\${item.rv_num}" data-hpnum="\${item.hospitalProgram.hp_num}" data-rsdate="\${item.reservationScheduleVO.rsDate}">변경</li>
     	  		<li role="button" class="btns cancelBtn" data-target="\${item.rv_num}">취소</li>
     		  </td>
     		</tr>
@@ -368,35 +368,39 @@ $(document).on('click','.search-btn',function(){
 
 $(document).on('click','.cancelBtn',function(){
    rv_num = $(this).data('target');
-   
-   $.ajax({
-      async : true,
-      url : '<c:url value="/member/bookcancel"/>', 
-      type : 'post', 
-      data : {
-    	  rv_num : rv_num
-      },
-      success : function (data){
-    	  if(data){
-    		  alert("예약 취소가 완료되었습니다.");
-    		  getPostList();
-    	  }
-    	  else{
-    		  alert("예약 취소를 실패하였습니다.");
-    		  getPostList();
-    	  }
-      }, 
-      error : function(jqXHR, textStatus, errorThrown){
-
-      }
-   });
+   let res = confirm("예약 취소를 진행하시겠습니까?");
+   if(res){
+	   $.ajax({
+	      async : true,
+	      url : '<c:url value="/member/bookcancel"/>', 
+	      type : 'post', 
+	      data : {
+	    	  rv_num : rv_num
+	      },
+	      success : function (data){
+	    	  if(data){
+	    		  alert("예약 취소가 완료되었습니다.");
+	    		  getPostList();
+	    	  }
+	    	  else{
+	    		  alert("예약 취소를 실패하였습니다.");
+	    		  getPostList();
+	    	  }
+	      }, 
+	      error : function(jqXHR, textStatus, errorThrown){
+	
+	      }
+	   });
+   }
 });
 </script>
 <!-- 변경 버튼을 눌렀을때 인풋태그가 바뀌는 코드 -->
 <script type="text/javascript">
 let hp_num = 0;
+let me_rs_date = '';
 $(document).on("click", ".change_btn", function(){
 	hp_num = $(this).data("hpnum");
+	me_rs_date = $(this).data("rsdate");
 	let list = displayDate();
 	let option = optionDate(list);
 	
@@ -405,7 +409,6 @@ $(document).on("click", ".change_btn", function(){
 	$(this).parents(".tr").find(".change_btn").html('<a class="success_btn">확인</a>')
 })
 </script>
-<!-- 프로그램을 선택하면 날짜를 가져오는 메서드 -->
 <script type="text/javascript">
 function displayDate(){
 	let res = null
@@ -438,7 +441,12 @@ function optionDate(list){
 		}
 	}
 	for(let tmp of arr){
-		str += `<option value="\${tmp}">` + tmp + '</option>'
+		if(tmp == me_rs_date){
+			str += `<option value="\${tmp}" selected>` + tmp + '</option>'
+		}
+		else{
+			str += `<option value="\${tmp}">` + tmp + '</option>'
+		}
 	}
 	return str;
 }

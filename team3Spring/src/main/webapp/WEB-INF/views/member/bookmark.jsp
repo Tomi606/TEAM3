@@ -138,7 +138,16 @@ color: green;
 				<div style="margin: auto 16px;" >
 					<img class="top-img" alt="위치 이미지"
 						src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
-				</div>	
+				</div>
+				<div style="padding-top: 1px;">
+					<a class="here-title" 
+					href="<c:url value='/member/mypage'/>"
+					> 마이페이지 </a>
+				</div>
+				<div style="margin: auto 16px;" >
+					<img class="top-img" alt="위치 이미지"
+						src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+				</div>
 				<div style="padding-top: 1px;">
 					<a href="<c:url value="/member/bookmark"/>" class="here-title">
 						북마크
