@@ -487,33 +487,33 @@ function getSubHoList(){
                		let hd_time = ho.hospital_detail.hd_time;
                		let timeArray = hd_time.split(",");
                		
-               	   let today = new Date();
-           	    let daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
-           	    let dayOfWeek = daysOfWeek[today.getDay()]; 
-
-           	    switch (dayOfWeek) {
-           	        case '월':
-           	            hd_time = timeArray[1];
-           	            break;
-           	        case '화':
-           	            hd_time = timeArray[2];
-           	            break;
-           	        case '수':
-           	            hd_time = timeArray[3];
-           	            break;
-           	        case '목':
-           	            hd_time = timeArray[4];
-           	            break;
-           	        case '금':
-           	            hd_time = timeArray[5];
-           	            break;
-           	        case '토':
-           	            hd_time = timeArray[6];
-           	            break;
-           	        case '일':
-           	            hd_time = timeArray[7];
-           	            break;
-           	    }
+               		let today = new Date();
+               		let daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+               		let dayOfWeek = daysOfWeek[today.getDay()]; //오늘 무슨요일
+						
+               		switch(dayOfWeek){
+               		case '월':
+            			hd_time = timeArray[1];
+            			break;
+            		case '화':
+            			hd_time = timeArray[2];
+            			break;
+            		case '수':
+            			hd_time = timeArray[3];
+            			break;
+            		case '목':
+            			hd_time = timeArray[4];
+            			break;
+            		case '금':
+            			hd_time = timeArray[5];
+            			break;
+            		case '토':
+            			hd_time = timeArray[6];
+            			break;
+            		case '일':
+            			hd_time = timeArray[7];
+            			break;
+               		}
 
 	                    str += 
 	                   	`
@@ -560,33 +560,33 @@ function getAreaHoList(){
                 	let hd_time = ho.hospital_detail.hd_time;
             		let timeArray = hd_time.split(",");
             		
-            	    let today = new Date();
-            	    let daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
-            	    let dayOfWeek = daysOfWeek[today.getDay()]; 
-
-            	    switch (dayOfWeek) {
-            	        case '월':
-            	            hd_time = timeArray[1];
-            	            break;
-            	        case '화':
-            	            hd_time = timeArray[2];
-            	            break;
-            	        case '수':
-            	            hd_time = timeArray[3];
-            	            break;
-            	        case '목':
-            	            hd_time = timeArray[4];
-            	            break;
-            	        case '금':
-            	            hd_time = timeArray[5];
-            	            break;
-            	        case '토':
-            	            hd_time = timeArray[6];
-            	            break;
-            	        case '일':
-            	            hd_time = timeArray[7];
-            	            break;
-            	    }
+            		let today = new Date();
+            		let daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+            		let dayOfWeek = daysOfWeek[today.getDay()]; //오늘 무슨요일
+					
+            		switch(dayOfWeek){
+            		case '월':
+            			hd_time = timeArray[1];
+            			break;
+            		case '화':
+            			hd_time = timeArray[2];
+            			break;
+            		case '수':
+            			hd_time = timeArray[3];
+            			break;
+            		case '목':
+            			hd_time = timeArray[4];
+            			break;
+            		case '금':
+            			hd_time = timeArray[5];
+            			break;
+            		case '토':
+            			hd_time = timeArray[6];
+            			break;
+            		case '일':
+            			hd_time = timeArray[7];
+            			break;
+               		}
                 	if(area.hs_num == 0){
                 		 str += 
                            	`

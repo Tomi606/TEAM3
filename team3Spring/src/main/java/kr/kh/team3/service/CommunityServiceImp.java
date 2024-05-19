@@ -77,9 +77,34 @@ public class CommunityServiceImp implements CommunityService {
 	}
 
 	@Override
-	public ArrayList<RecommendVO> getCriRecommendList(Criteria cri, String site_id) {
+	public ArrayList<RecommendVO> getCriRecommendList(Criteria cri, String site_id, SiteManagement user) {
 		if(cri == null) {
 			return null;
+		}
+		
+		//DB에 해당 회원의 re_state를 가져옴
+		ArrayList<RecommendVO> dbState = communityDao.selectDBState(user.getSite_num());	
+
+		boolean hasZero = false;
+		boolean hasOne = false;
+		for (RecommendVO recommend : dbState) {
+			
+		    if (recommend.getRe_state() == 0) {
+		        hasZero = true;
+		    }
+		    if (recommend.getRe_state() == 1) {
+		        hasOne = true;
+		    }
+		}
+
+		// re_state가 0인 경우 DB 삭제
+		if (hasZero) {
+		    communityDao.deleteDBState(user.getSite_num());
+		} 
+
+		// re_state가 1인 경우 DB 반환
+		if (hasOne) {
+		    return communityDao.selectCriRecommendList(cri, site_id);
 		}
 		
 		return communityDao.selectCriRecommendList(cri, site_id);

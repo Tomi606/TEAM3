@@ -103,9 +103,8 @@ public class CommentServiceImp implements CommentService {
 		if (dbComment == null || dbComment.getCo_mg_num()!=(user.getSite_num()))
 			return false;
 		//post 테이블에서 po_co_count 수 업데이트
-		commentDao.updatePostCoCountDown(comment);
+		commentDao.updatePostCoCountDown(dbComment);
 		// 댓글 삭제
-
 		return commentDao.deleteAjaxComment(comment.getCo_num());
 	}
 

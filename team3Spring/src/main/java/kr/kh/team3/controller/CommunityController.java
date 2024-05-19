@@ -97,11 +97,12 @@ public class CommunityController {
 	@ResponseBody
 	@PostMapping("/hospital/community/recommend")
 	public Map<String, Object> hospitalCommunityRecommend(
-		@RequestParam("page") int page, @RequestParam("site_id") String site_id) {
+		@RequestParam("page") int page, @RequestParam("site_id") String site_id, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		Criteria cri = new Criteria(page);
 		cri.setPerPageNum(5);
-		ArrayList<RecommendVO> rList = communityService.getCriRecommendList(cri, site_id);
+		ArrayList<RecommendVO> rList = communityService.getCriRecommendList(cri, site_id, user);
 		int totalCount = communityService.getRecommendTotalCount(cri,site_id);
 		PageMaker pm = new PageMaker(5, cri, totalCount);
 		
