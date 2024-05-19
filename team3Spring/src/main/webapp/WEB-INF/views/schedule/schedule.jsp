@@ -343,15 +343,15 @@ display: flex;min-height: 95%;margin: auto;
 
 	<!--병원 과목을 선택하면 프로그램을 가져오는 메서드  -->
 	<script type="text/javascript">
-let sgo = {
-	ho_name : '${hospital.ho_name}',
-	hp_title : '',
-	hp_payment : 0,
-	hpPayment : '',
-	rs_date : '',
-	rs_time : '',
-	rs_num : 0
-}
+	let sgo = {
+		ho_name : '${hospital.ho_name}',
+		hp_title : '',
+		hp_payment : 0,
+		hpPayment : '',
+		rs_date : '',
+		rs_time : '',
+		rs_num : 0
+	}
 	$("[name=hs_num]").change(function(){
 		let hp_num = $("[name=hp_num]").val();
 		let hs_num = $("[name=hs_num]").val();
@@ -377,55 +377,55 @@ let sgo = {
 	});
 </script>
 
-	<!-- 프로그램을 선택하면 날짜를 가져오는 메서드 -->
-	<script type="text/javascript">
-	$("[name=hp_num]").click(function(){
-		let hp_num = $("[name=hp_num]").val();
-		let hs_num = $("[name=hs_num]").val();
-		let ho = '${ho.site_id}';
-		if(hp_num == 'none'){
-			return;
+<!-- 프로그램을 선택하면 날짜를 가져오는 메서드 -->
+<script type="text/javascript">
+$("[name=hp_num]").click(function(){
+	let hp_num = $("[name=hp_num]").val();
+	let hs_num = $("[name=hs_num]").val();
+	let ho = '${ho.site_id}';
+	if(hp_num == 'none'){
+		return;
+	}
+	if(hp_num == ''&&hp_num == null){
+		let op = "프로그램이 없습니다.";
+		$('.null_option').val(op);
+		return;
+	}
+	$.ajax({
+		method : "post",
+		url : '<c:url value="/getdate"/>',
+		data : {
+			"hp_num" : hp_num,
+			"ho" : ho
+		},
+		success : function(data){
+			let ditail = displayProgramDitail(data.itemList)
+			$(".table").empty();
+			sgo.hp_title = data.hp.hp_title;
+			sgo.hpPayment = data.hp.payMentMoney;
+			sgo.hp_payment = data.hp.hp_payment;
+			cal(numMonth, numYear, data.RSlist);
+			$(".program_detail").html(ditail);
 		}
-		if(hp_num == ''&&hp_num == null){
-			let op = "프로그램이 없습니다.";
-			$('.null_option').val(op);
-			return;
-		}
-		$.ajax({
-			method : "post",
-			url : '<c:url value="/getdate"/>',
-			data : {
-				"hp_num" : hp_num,
-				"ho" : ho
-			},
-			success : function(data){
-				let ditail = displayProgramDitail(data.itemList)
-				$(".table").empty();
-				sgo.hp_title = data.hp.hp_title;
-				sgo.hpPayment = data.hp.payMentMoney;
-				sgo.hp_payment = data.hp.hp_payment;
-				cal(numMonth, numYear, data.RSlist);
-				$(".program_detail").html(ditail);
-			}
-		})
 	})
-	
-	function displayProgramDitail(list){
-		let str = ``;
-		if(list.length == 0){
-			str += "프로그램 항목이 없습니다."
-			return str;
-		}
-		for(let tmp of list){
-			str += `<div class="ditail-box"><labal>항목 명 : \${tmp.item.it_name}<labal><br>
-						        항목 설명 : \${tmp.item.it_explanation}</div>`	
-		}
+})
+
+function displayProgramDitail(list){
+	let str = ``;
+	if(list.length == 0){
+		str += "프로그램 항목이 없습니다."
 		return str;
 	}
+	for(let tmp of list){
+		str += `<div class="ditail-box"><labal>항목 명 : \${tmp.item.it_name}<labal><br>
+					        항목 설명 : \${tmp.item.it_explanation}</div>`	
+	}
+	return str;
+}
 </script>
 
-	<!-- 날짜를 클릭하면 이벤트 발생 -->
-	<script type="text/javascript">
+<!-- 날짜를 클릭하면 이벤트 발생 -->
+<script type="text/javascript">
 $(document).on("click", ".day-btn", function(){
 	let rs_num = $(this).data("target");
 	let tmp = $(this).data("date");
@@ -478,7 +478,7 @@ function maxPersonCheck(tmp){
 
 
 </script>
-	<script type="text/javascript">
+<script type="text/javascript">
 $(document).on("click", ".reserveBtn", function(){
 	sgo.rs_time = $(this).data("time");
 	sgo.rs_num = $(this).data("target");
@@ -499,8 +499,8 @@ $(document).on("click", ".reserveBtn", function(){
 });
 
 </script>
-	<!-- 달력 스크립트 -->
-	<script type="text/javascript">
+<!-- 달력 스크립트 -->
+<script type="text/javascript">
 //monthWrap
 var today = new Date();
 var tYear = today.getFullYear();
@@ -670,7 +670,7 @@ $('.nextBtn').click(function(){
 });
 
 </script>
-	<script type="text/javascript">
+<script type="text/javascript">
 function checkReserve() {
 	$.ajax({
 		type: "post",
