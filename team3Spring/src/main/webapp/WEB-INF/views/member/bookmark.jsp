@@ -176,44 +176,47 @@ function getBmkHoList(){
             }
             else{
                 for(let ho of data.list){
+                	console.log(ho);
                 	if(ho.hospital_detail == null){
                 		continue;
                 	}
                 	let hd_time = ho.hospital_detail.hd_time;
             		let timeArray = hd_time.split(",");
             		
-            		let today = new Date();
-            		let daysOfWeek = ['월', '화', '수', '목', '금', '토', '일'];
-            		let dayOfWeek = daysOfWeek[today.getDay() - 1]; //오늘 무슨요일
-					
-            		switch(dayOfWeek){
-            		case '월':
-            			hd_time = timeArray[1];
-            			break;
-            		case '화':
-            			hd_time = timeArray[2];
-            			break;
-            		case '수':
-            			hd_time = timeArray[3];
-            			break;
-            		case '목':
-            			hd_time = timeArray[4];
-            			break;
-            		case '금':
-            			hd_time = timeArray[5];
-            			break;
-            		case '토':
-            			hd_time = timeArray[6];
-            			break;
-            		case '일':
-            			hd_time = timeArray[7];
-            			break;
-            		}
+            		   let today = new Date();
+               	    let daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+               	    let dayOfWeek = daysOfWeek[today.getDay()]; 
+
+               	    switch (dayOfWeek) {
+               	        case '월':
+               	            hd_time = timeArray[1];
+               	            break;
+               	        case '화':
+               	            hd_time = timeArray[2];
+               	            break;
+               	        case '수':
+               	            hd_time = timeArray[3];
+               	            break;
+               	        case '목':
+               	            hd_time = timeArray[4];
+               	            break;
+               	        case '금':
+               	            hd_time = timeArray[5];
+               	            break;
+               	        case '토':
+               	            hd_time = timeArray[6];
+               	            break;
+               	        case '일':
+               	            hd_time = timeArray[7];
+               	            break;
+               	    }
+            	    
+           		    let hs_title = ho.hospital_subject && ho.hospital_subject.length > 0 ? ho.hospital_subject[0].hs_title : '제목 없음';
                     str += 
                    	`
 	                    <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=\${ho.ho_id}'/>" style="padding: auto;" data-id="\${ho.ho_id}">
 	                    	<div class="ho-name">\${ho.ho_name}</div>
-	                    	<div class="hs-title">\${ho.hospital_subject.hs_title}</div>
+	                    	<div class="hs-title">\${hs_title}</div>
 	                    	<div class="ho-address"><img class="top-img"
 								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">\${ho.ho_address}</div>
 							<div class="hd-time"><img class="top-img"
