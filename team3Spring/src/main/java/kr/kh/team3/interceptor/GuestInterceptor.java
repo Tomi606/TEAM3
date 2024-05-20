@@ -23,7 +23,7 @@ public class GuestInterceptor extends HandlerInterceptorAdapter {
 		//로그인 했으면
 		if (user != null) {
 	        // 메시지와 리다이렉트할 URL을 모델에 추가
-	        request.setAttribute("msg", "회원은 이용 불가능한 서비스입니다.");
+	        request.setAttribute("msg", "접근할 수 없는 페이지입니다.");
 	        request.setAttribute("url",  "/");
 	        
 	        // RequestDispatcher를 사용하여 message.jsp로 포워딩

@@ -20,6 +20,7 @@
 <script src="http://fastly.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <style type="text/css">
+
 .small-img {
 	height: 16px;
 	width: 16px;
@@ -62,7 +63,7 @@ text-decoration: underline;
 	width: 100%;
 	height: 953px;
 	text-align: center;
-	background: url('<c:url value="/resources/img/homeBack.png"/>');
+	background: url('<c:url value="/resources/img/homeBack3.png"/>');
 	background-repeat: no-repeat;
 	background-size: cover;
     background-origin: content-box;
@@ -578,6 +579,12 @@ margin: 10px;
 .search-title2{
 	font-weight: 500;
 	font-size: 40px;
+	margin-bottom: -5px;
+}
+
+.search_title_container .search-title1,
+.search_title_container .search-title2 {
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 </style>
 </head>
@@ -677,7 +684,7 @@ margin: 10px;
 		<div class="main-area">
 			<div class="search-main-left"></div>
 			<div class="main-search-area">
-				<div>
+				<div class="search_title_container">
 					<div class="search-title1">예약을 원하시는<br>
 					<p class="search-title2">진료 과목을 검색해보세요.</p></div>
 				</div>
@@ -692,8 +699,8 @@ margin: 10px;
 					</a> <a href="<c:url value="/board/all"/>"> <img alt="커뮤니티이미지"
 						src="<c:url value='/resources/img/comu.png'/>"> <span>커뮤니티</span>
 					</a> <a href="#"> <img alt="로고이미지"
-						src="<c:url value='/resources/img/hpbuild.png'/>"> 
-					</a> <a href="<c:url value='/board/list?bo_num=1'/>"> <img alt="로고이미지"
+						src="<c:url value='/resources/img/hpbuild.png'/>"> <span>병원정보</span>
+					</a> <a href="<c:url value='/board/list?bo_num=1'/>"><img alt="로고이미지"
 						src="<c:url value='/resources/img/공지사항.png'/>"> <span>공지사항</span>
 					</a> 
 					<c:if test='${user.getSite_authority().equals("USER")}'>	

@@ -41,7 +41,7 @@ public class HospitalVO {
 
 	public String getChangeDate() {
 		if (this.ho_stop != null) {
-			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 			return format.format(this.ho_stop);
 		} else {
 			return "존재하지 않습니다.";
