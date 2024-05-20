@@ -62,7 +62,7 @@ text-decoration: underline;
 	width: 100%;
 	height: 953px;
 	text-align: center;
-	background: url('<c:url value="/resources/img/홈페이지3.png"/>');
+	background: url('<c:url value="/resources/img/homeBack.png"/>');
 	background-repeat: no-repeat;
 	background-size: cover;
     background-origin: content-box;
@@ -77,7 +77,7 @@ text-decoration: underline;
 }
 
 .search {
-	margin-top: 200px;
+	margin-top: 10px;
 	 border: none;
      outline: none;
      font-size: 16px;
@@ -569,6 +569,16 @@ margin: 10px;
 	text-align: center;
 	
 }
+
+.search-title1{
+	color: white;
+	font-size: 38px;
+	margin-top: 160px;
+}
+.search-title2{
+	font-weight: 500;
+	font-size: 40px;
+}
 </style>
 </head>
 <body>
@@ -667,6 +677,10 @@ margin: 10px;
 		<div class="main-area">
 			<div class="search-main-left"></div>
 			<div class="main-search-area">
+				<div>
+					<div class="search-title1">예약을 원하시는<br>
+					<p class="search-title2">진료 과목을 검색해보세요.</p></div>
+				</div>
 				<div class="search-box">
 					<input type="search" class="search" id="autoComplete"> 
 					  <span class="typing-placeholder"></span>
