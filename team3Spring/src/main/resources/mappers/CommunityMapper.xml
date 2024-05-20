@@ -126,16 +126,33 @@
 		select * from post where po_num = #{re_po_num}
 	</select>
 	
-	<select id="selectCriRecommendList" resultType="RecommendVO">
-		select recommend.*, 
-		sum(case when re_state = 1 then 1 else 0 end)as po_up,
-		sum(case when re_state = -1 then 1 else 0 end)as po_down
-		from recommend 
-		join site_management on site_num = re_mg_num
-		where site_id = #{re_id} and re_state = 1
-		group by re_num
-		order by re_num desc
-		limit #{cri.pageStart}, #{cri.perPageNum}
+	<select id="selectCriRecommendList" resultType="PostVO">
+		SELECT 
+	        post.*, 
+	        site_id AS po_id,
+	        (SELECT COUNT(*) 
+	         FROM recommend 
+	         WHERE re_po_num = po_num 
+	           AND re_state = 1) AS po_up
+	    FROM 
+	        post
+	    JOIN 
+	        site_management ON site_num = po_mg_num
+	    WHERE 
+	        po_num IN (
+	            SELECT 
+	                re_po_num 
+	            FROM 
+	                recommend 
+	            WHERE 
+	                re_state = 1
+	       	)
+	    GROUP BY 
+	        po_num
+	    ORDER BY 
+	        po_num DESC
+	    LIMIT 
+	        #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 	
 	<select id="selectRecommendTotalCount" resultType="int">
@@ -153,4 +170,11 @@
 		delete from comment where co_num = #{co_num};
 	</delete>
 	
+	<select id="selectDBState" resultType="RecommendVO">
+		select re_state from recommend where re_mg_num = #{site_num}
+	</select>
+	
+	<delete id="deleteDBState">
+		delete from recommend where re_mg_num = #{site_num}
+	</delete>
 </mapper>

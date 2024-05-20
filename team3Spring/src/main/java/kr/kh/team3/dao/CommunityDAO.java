@@ -35,4 +35,8 @@ public interface CommunityDAO {
 	boolean deleteReportPostDelete(@Param("po_num")int po_num);
 
 	boolean deleteReportCommentDelete(@Param("co_num")int co_num);
+
+	ArrayList<RecommendVO> selectDBState(@Param("site_num") int site_num);
+
+	void deleteDBState(@Param("site_num") int site_num);
 }
