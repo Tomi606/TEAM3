@@ -16,8 +16,6 @@ public interface ReservationScheduleService {
 
 	HospitalProgramVO getHospitalProgram(int hp_num);
 
-	boolean deleteUserSchedule(int rv_num);
-
 	boolean updateUserSchedule(int rv_num, String date, String time, int hp_num);
 
 	boolean MaxPersonCheck(int rs_num);
@@ -25,5 +23,9 @@ public interface ReservationScheduleService {
 	ReservationVO getReservationUpdateList(int rs_num);
 
 	ArrayList<ReservationVO> getAllReservationScheduleList();
+
+	ArrayList<ReservationVO> getReservationList22(int rs_num);
+
+	boolean updateUserSchedule(int rv_num);
 
 }

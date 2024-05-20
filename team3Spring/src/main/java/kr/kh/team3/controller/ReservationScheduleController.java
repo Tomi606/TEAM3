@@ -1,6 +1,10 @@
 package kr.kh.team3.controller;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -128,8 +132,6 @@ public class ReservationScheduleController {
 		//ReservationScheduleVO time = reservationScheduleService.getRsTime(rs_num);
 		ArrayList<ReservationScheduleVO> RSTimeList = reservationScheduleService.getRsList(tmp,
 				hp_num);
-		System.out.println("aaaaaaaaaaaaaaaaa");
-		System.out.println(RSTimeList);
 		map.put("timeList", RSTimeList);
 		map.put("time", tmp);
 		return map;
@@ -170,33 +172,34 @@ public class ReservationScheduleController {
 	public Map<String, Object> scheduleCheck(@RequestParam("hp_num") int hp_num, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		ArrayList<ReservationScheduleVO> RSlist = programService.getRsList(hp_num);
+		if(RSlist.size() == 0) {
+			map.put("msg", "예약이 없습니다.");
+			return map;
+		}
 		HospitalProgramVO HP = reservationScheduleService.getHospitalProgram(hp_num);
 		ArrayList<ReservationVO> list = new ArrayList<ReservationVO>();
 		ArrayList<ReservationVO> list2 = new ArrayList<ReservationVO>();
-		for (ReservationScheduleVO tmp : RSlist) {
-			 list = reservationScheduleService.getReservationList(tmp.getRs_num());
-			 ReservationVO arr = reservationScheduleService.getReservationUpdateList(tmp.getRs_num());
-			 list2.add(arr);
-		}
+		list = reservationScheduleService.getReservationList22(RSlist.get(0).getRs_num());
+//		for (ReservationScheduleVO tmp : RSlist) {
+//			 System.out.println("aaaaaaaaaaaaaaaaaaaaa");
+//			 System.out.println(list);
+////			 ReservationVO arr = reservationScheduleService.getReservationUpdateList(tmp.getRs_num());
+////			 list2.add(arr);
+//		}
 		map.put("list", list);
 		map.put("HP", HP);
-		map.put("list2", list2);
+		map.put("list2", list2);	
 		return map;
 	}
-
-	@GetMapping("/delete/schedule")
-	public String deleteUserSchedule(Model model, int rv_num) throws Exception {
+	
+	@ResponseBody
+	@PostMapping("/delete/schedule")
+	public boolean deleteUserSchedule(Model model, int rv_num) throws Exception {
 		
-		System.out.println(rv_num);
-		boolean res = reservationScheduleService.deleteUserSchedule(rv_num);
-		if (res) {
-			model.addAttribute("msg", "삭제에 성공하였습니다.");
-			model.addAttribute("url", "/hospital/schedule/change");
-		} else {
-			model.addAttribute("msg", "삭제에 실패하였습니다.");
-			model.addAttribute("url", "/hospital/schedule/change");
-		}
-		return "message";
+		//예약 완료 상태인 회원을 결제 취소를 하면 예약 취소가 되게 하는 메서드
+		boolean res = reservationScheduleService.updateUserSchedule(rv_num);
+		
+		return res;
 	}
 	
 	@GetMapping("/update/userschedule")
@@ -270,6 +273,21 @@ public class ReservationScheduleController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		boolean reserve = programService.selectUserReserve(user.getSite_id(), rv_rs_num);
 		map.put("res", reserve);
+		return map;
+	}
+	
+	
+	@ResponseBody
+	@PostMapping("/payments/cancel")
+	private Map<String, Object> rePayments() throws IOException, InterruptedException {
+		Map<String, Object> map = new HashMap<String, Object>();
+		HttpRequest request = HttpRequest.newBuilder()
+		    .uri(URI.create("https://api.iamport.kr/payments/status/payment_status"))
+		    .header("Content-Type", "application/json")
+		    .method("GET", HttpRequest.BodyPublishers.ofString("{}"))
+		    .build();
+		HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+		System.out.println(response);
 		return map;
 	}
 

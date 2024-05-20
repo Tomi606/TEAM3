@@ -19,8 +19,6 @@ public interface ReservationScheduleDAO {
 
 	HospitalProgramVO selectHospitalProgram(@Param("hp_num")int hp_num);
 
-	boolean deleteUserSchedule(@Param("rv_num")int rv_num);
-
 	boolean updateUserChedule(@Param("rs_num")int rs_num, @Param("rv_num")int rv_num);
 
 	int reservationCount(@Param("rs_num")int rs_num);
@@ -32,4 +30,11 @@ public interface ReservationScheduleDAO {
 	ArrayList<ReservationVO> selectReservationList();
 
 	ArrayList<ReservationVO> selectReservationList2();
+
+	ArrayList<ReservationVO> selectReservationList22(@Param("rs_num")int rs_num);
+
+	ReservationVO selectReservation(@Param("rv_num") int rv_num);
+
+	boolean updateUserScheduleState(@Param("rv_num") int rv_num);
+
 }

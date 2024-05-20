@@ -40,12 +40,6 @@ public class ReservationScheduleServiceImp implements ReservationScheduleService
 	}
 
 	@Override
-	public boolean deleteUserSchedule(int rv_num) {
-		// TODO Auto-generated method stub
-		return RSDao.deleteUserSchedule(rv_num);
-	}
-
-	@Override
 	public boolean updateUserSchedule(int rv_num, String date, String time, int hp_num) {
 		//1. 새로 입력 받은 날짜와 시간에 스케줄 번호를 가져옴
 		ReservationScheduleVO rs = RSDao.programByMaxPerson(time, date);
@@ -94,6 +88,24 @@ public class ReservationScheduleServiceImp implements ReservationScheduleService
 		}
 
 		return arr;
+	}
+
+	@Override
+	public ArrayList<ReservationVO> getReservationList22(int rs_num) {
+		
+		return RSDao.selectReservationList22(rs_num);
+	}
+
+	@Override
+	public boolean updateUserSchedule(int rv_num) {
+		// TODO Auto-generated method stub
+		ReservationVO user = RSDao.selectReservation(rv_num);
+		if(user.getRv_rvs_name().equals("예약완료")) {
+			return RSDao.updateUserScheduleState(rv_num);			
+		}else {
+			return true;
+		}
+		
 	}
 
 }
