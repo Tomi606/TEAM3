@@ -31,7 +31,7 @@ public class ReservationVO {
 	
 	public String getChangeDate() {
 		if (this.rv_date != null) {
-			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 			return format.format(this.rv_date);
 		} else {
 			return "존재하지 않습니다.";

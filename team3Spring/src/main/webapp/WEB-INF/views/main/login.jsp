@@ -87,7 +87,7 @@ label::after {
 }
 
 .login-box-container {
-   background: url('<c:url value="/resources/img/pineapple.jpg"/>');
+   background: url('<c:url value="/resources/img/homeBack2.png"/>');
    background-repeat: no-repeat;
    background-size: cover;
     background-origin: content-box;
