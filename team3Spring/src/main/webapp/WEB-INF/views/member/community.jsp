@@ -14,14 +14,6 @@
 	font-weight: bold;
 	margin: 0 0 80px 0;
 }
-.home-box1 {
-	width: 100%;
-	height: 350px;
-	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
-	background-repeat: no-repeat;
-	background-size: cover;
-    background-origin: content-box;
-}
 .post_list_container {
 	width: 100%;
 	height: 100%;
@@ -253,6 +245,40 @@
 .post-search-box{text-align: center;width: 100%}
 .prev_btn{padding: 13px;border: 1px solid green;color: green;text-decoration: none;border-radius: 10px;}
 .prev_btn:hover{background: green;color: white;text-decoration: none;}
+.top-img {
+	height: 20px;
+	width: 20px;
+	color: gray;
+}
+.small-img {
+	height: 16px;
+	width: 16px;
+}
+.page-title{
+	text-align: left;
+	font-size: 50px;
+	color: rgba(0, 100, 60, 0.8);
+	font-weight: bold;
+	margin: 0 0 80px 0;
+}
+.home-box1 {
+	width: 100%;
+	height: 500px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
+}
+.here-title{
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+}
+.here-title:hover{
+	text-decoration: none;
+	color: gray;
+}
 </style>
 </head>
 <body>
@@ -260,6 +286,30 @@
 	<div style="width: 80%;margin: 0 auto;padding-top: 80px">
 		<div class="page-title">
 			커뮤니티 관리
+		</div>
+		<div style="text-align: left;display: flex;height: 50px;line-height: 50px; margin: 20px 0 50px 0;">
+			<a href="<c:url value='/'/>">
+				<img class="top-img" alt="위치 이미지"
+				src="<c:url value='/resources/img/home-4-line.svg'/>">
+			</a>
+			<div style="margin: auto 16px;" >
+				<img class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+			</div>
+			<div style="padding-top: 1px;">
+				<a class="here-title" 
+				href="<c:url value='/member/mypage'/>"
+				> 마이페이지 </a>
+			</div>
+			<div style="margin: auto 16px;" >
+				<img class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+			</div>
+			<div style="padding-top: 1px;">
+				<a href="<c:url value='/member/community?id=${po_id}'/>" class="here-title">
+					커뮤니티 관리
+				</a>
+			</div>
 		</div>
 	</div>
 </div>
