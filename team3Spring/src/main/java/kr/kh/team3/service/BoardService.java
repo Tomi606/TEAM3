@@ -74,6 +74,10 @@ public interface BoardService {
 
 	ArrayList<PostVO> selectNoticeList();
 
+	ArrayList<PostVO> getUserRecList(int site_num, Criteria cri);
+
+	int getUserRecListCount(int site_num, Criteria cri);
+
 
 
 	

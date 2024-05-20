@@ -19,9 +19,9 @@
     border-radius: 5px;
     width: 70%;
     height: 100%;
-    margin: 145px auto 80px auto;
+    margin: -130px auto 70px auto;
     background: white;
-    padding: 100px;
+    padding: 60px 80px;
     text-align: center;
 }
 
@@ -109,9 +109,72 @@ color:rgba(0, 100, 60, 0.8);
 	width: 100%;
 	height: 100%;
 }
+
+.top-img {
+	height: 20px;
+	width: 20px;
+	color: gray;
+}
+
+.here-title {
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+	line-height: 50px;
+}
+
+.here-title1 {
+	text-decoration: none;
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 50px;
+}
+
+.here-title:hover {
+	text-decoration: none;
+	color: gray;
+}
+.here-title1:hover {
+	text-decoration: none;
+	color: black;
+}
 </style>
 </head>
 <body>
+<div class="home-box1">
+	<div style="width: 80%; margin: 0 auto; padding-top: 80px">
+		<div class="page-title">
+			커뮤니티 관리
+		</div>
+		<div
+			style="text-align: left; display: flex; height: 50px; margin: 20px 0 50px 0;">
+			<a href="<c:url value='/'/>" style="z-index: 999;line-height: 50px;">
+			<img
+				class="top-img" alt="위치 이미지"
+				src="<c:url value='/resources/img/home-4-line.svg'/>">
+			</a>
+			<div style="margin: auto 16px;">
+				<img 
+					class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+			</div>
+			<div>
+				<a class="here-title" href="<c:url value='/hospital/mypage'/>"> 병원페이지 </a>
+			</div>
+			<div style="margin: auto 16px;">
+				<img 
+					class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+			</div>
+			<div>
+				<p class="here-title1"> 커뮤니티 관리 </p>
+			</div>
+		</div>
+	</div>
+</div>
+
 <div class="community-container">
 	<div class="community-box">
 		<div class="myCommunity_container">
@@ -489,7 +552,6 @@ $(document).on('click','.box-pagination-recommend .page-link',function(){
 	getRecommendList();
 });
 </script>
-
 
 <!-- 토글 버튼 -->
 <script type="text/javascript">

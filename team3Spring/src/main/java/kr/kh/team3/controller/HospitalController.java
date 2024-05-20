@@ -264,14 +264,18 @@ public class HospitalController {
 			model.addAttribute("url", "/hospital/mypage");
 			return "message";
 		}
+		
 		HospitalVO hospital = hospitalService.getHoId(detail.getHd_ho_id());
+		
 		LandVO land = hospitalService.getHoLand(hospital.getHo_la_num());
 		SiDoVO sido = hospitalService.getHdSiDoName(land.getLa_sd_num());
 		SiGoonGuVO sgg = hospitalService.getHdSggName(land.getLa_sgg_num());
 		EupMyeonDongVO emd = hospitalService.getHdEmdName(land.getLa_emd_num());
+		
 		ArrayList<HospitalSubjectVO> sub = hospitalService.getDetailSubject(detail.getHd_ho_id());
 		boolean detailAlready = memberService.selectDetailBookmark(bookmark, member, detail.getHd_ho_id());
 		boolean booked = memberService.getReservationId(detail.getHd_ho_id(), member);
+		
 		model.addAttribute("booked", booked);
 		model.addAttribute("detail", detail);
 		model.addAttribute("sub", sub);
@@ -280,6 +284,8 @@ public class HospitalController {
 		model.addAttribute("sido", sido);
 		model.addAttribute("sgg", sgg);
 		model.addAttribute("emd", emd);
+		model.addAttribute("user", user);
+		
 		return "/hospital/detail/detail";
 	}
 

@@ -7,6 +7,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+.profile프로필{
+width: 250px;
+}
 .body-tag {
 	width: 100%;
 	display: felex;
@@ -122,7 +125,6 @@ img {
 .profile-img {
 	width: 250px;
 	height: 250px;
-	border: 1px solid green;
 	margin: 0 auto;
 	margin-top: 50px;
 	border-radius: 100%;
@@ -273,7 +275,7 @@ img {
 }
 
 .new_ho_ceo_hidden input {
-	width: 300px;
+	width: 250px;
 	position: relative;
 }
 
@@ -485,6 +487,18 @@ select:focus {
     padding-left: 33px;
     margin: 20px 0px 0px 10px;
 }
+
+#new_ho_phone {
+	width: 250px;
+}
+
+#new_ho_email {
+	width: 250px;
+}
+
+#new_ho_detail_address {
+	width: 250px;
+}
 </style>
 </head>
 <body>
@@ -529,6 +543,7 @@ function getMypageInfo(hospital, hs, sd_name, sgg_name, emd_name) {
 		`
 		<div class="mypage-profile">
 			<div class="profile-img">
+				<img alt="asdasd" src="<c:url value='/resources/img/user-white.svg'/>" class="profile프로필">
 			</div>
 			<div class="profile-name" >
 				<h4 style="color:#555;">${hospital.ho_id}</h4>
@@ -1159,7 +1174,7 @@ $(document).on('change', '[name=sd_num]', function() {
 $(document).on("click",".hospital_delete_btn",function () {
     let answer = confirm("회원 탈퇴를 진행 하시겠습니까?");
     if (!answer) {
-    	return;
+    	return false;
     } else {
     	location.href='<c:url value="/hospital/delete"/>';
     }
