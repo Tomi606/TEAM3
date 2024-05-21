@@ -194,7 +194,7 @@ display:flex;justify-content:flex-end;
     flex-direction: column;
 }
 .home-body{
-	padding:100px;
+	padding: 0 50px 100px 50px;
 	margin:0 auto;
 	background-color:white;
  	width: 80%;
@@ -219,7 +219,7 @@ display:flex;justify-content:flex-end;
 
 .여기부터내용 {
 	margin:0 auto;
-	margin-top: 180px;
+	margin-top: 110px;
 	margin-bottom: 180px;
 	min-height: calc(100vh - 100px); 
 }
@@ -248,7 +248,7 @@ display:flex;justify-content:flex-end;
 .hot-new {
 	text-align: center;
 	padding: 60px 0 10px;
-    margin-top: 180px;
+    margin-top: 110px;
 }
 
 /*hot group*/
@@ -698,9 +698,13 @@ margin: 10px;
 						src="<c:url value='/resources/img/hospital5.png'/>"> <span>병원</span>
 					</a> <a href="<c:url value="/board/all"/>"> <img alt="커뮤니티이미지"
 						src="<c:url value='/resources/img/comu.png'/>"> <span>커뮤니티</span>
-					</a> <a href="#"> <img alt="로고이미지"
-						src="<c:url value='/resources/img/hpbuild.png'/>"> <span>병원정보</span>
-					</a> <a href="<c:url value='/board/list?bo_num=1'/>"><img alt="로고이미지"
+					</a> 
+					<c:if test="${user != null }">
+						<a href="#"> <img alt="로고이미지"
+							src="<c:url value='/resources/img/hpbuild.png'/>"> <span>병원정보</span>
+						</a> 
+					</c:if>
+					<a href="<c:url value='/board/list?bo_num=1'/>"><img alt="로고이미지"
 						src="<c:url value='/resources/img/공지사항.png'/>"> <span>공지사항</span>
 					</a> 
 					<c:if test='${user.getSite_authority().equals("USER")}'>	
@@ -723,8 +727,7 @@ margin: 10px;
 	<div class="홈">
 		<div class="home-body">
 		<div class="여기부터내용">
-			<h3>&lt;인기 병원&gt;</h3>
-			<div class="롤링" style="margin-top: 50px">
+			<div class="롤링">
 			    <div class="롤링-내용">
 					<div class="rolling-item" style="background-image: url('<c:url value="/resources/img/풍경1.jpg"/>');">
 						<img alt="" src="<c:url value="/resources/img/풍경1.jpg"/>" style="width: 1300px;height: 100%;background-repeat: no-repeat;background-size: cover; object-fit:cover;">

@@ -211,13 +211,14 @@ async function displaySuccessBtn() {
                 success: function(data) {
                     alert("이메일로 인증번호를 보냈습니다.");
                     $('.spinner-container').hide();
-                    let str = `
-                        <div class="number_box">
-                            <label for="ce_num" class="label">인증번호</label>
-                            <input type="text" class="form-control" id="ce_num" name="ce_num" placeholder="인증번호를 입력하세요.">
-                            <button class="btn btn-outline-success btn-ce">인증하기</button>
-                        </div>
-                    `;
+                    let str = 
+	                    `
+	                        <div class="number_box">
+	                            <label for="ce_num" class="label">인증번호</label>
+	                            <input type="text" class="form-control" id="ce_num" name="ce_num" placeholder="인증번호를 입력하세요.">
+	                            <button class="btn btn-outline-success btn-ce">인증하기</button>
+	                        </div>
+	                    `;
                     $(".ce_numbox").html(str);
                     resolve(data.ctfEmail);
                 },
