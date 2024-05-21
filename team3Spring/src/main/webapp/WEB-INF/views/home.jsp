@@ -783,8 +783,8 @@ margin: 10px;
 											<div class="hs-title">${ho.hospital_subject.hs_title}</div>
 											<div class="ho-address"><img class="small-img"
 					   								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">${ho.ho_address}</div>
-										<%-- <div class="hd-time"><img class="small-img"
-				   								alt="위치 이미지" src="<c:url value="/resources/img/time-line.svg"/>">(${dayOfWeek}요일) ${hd_time}</div> --%>
+										 <div class="hd-time"><img class="small-img"
+				   								alt="위치 이미지" src="<c:url value="/resources/img/time-line.svg"/>">(${dayOfWeek}요일) ${hd_time}</div> 
 								 </a>
 							 </c:forEach>
 						 </c:otherwise>
@@ -1118,5 +1118,6 @@ function notice() {
         }
     });
 }
+
 </script>
 </html>

@@ -66,6 +66,10 @@ border-top:1px solid rgba(0, 128, 0, 0.4);margin-top: 80px;}
 .pagination-custom{margin: 0 auto;display: flex;}
 .pagination-custom li{list-style: none; }
 .now-area{display:flex;margin-top: 70px;width: 1400px;border: 1px solid #c8c8c8;color: #ff501b;height: 80px;border-bottom-style:none;
+    
+}
+.now-area-container{box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+    
 }
 .sd_area{width: 33%;}
 .sgg_area{width: 33%;}
@@ -235,8 +239,10 @@ color: green;
 			        </c:forEach>
 		        </div>
 			</div>
+			<div class="now-area-container">
 			<div class="now-area">
-		</div>
+			</div>
+			
 		<div class="area-select-box">
 			<div class="area-select-sido">
 				<div class="area-title">
@@ -272,6 +278,7 @@ color: green;
 					</div>
 				</div>	
 			</div>
+		</div>
 		</div>
 			
 	</div>
