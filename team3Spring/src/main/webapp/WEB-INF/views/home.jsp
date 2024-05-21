@@ -802,13 +802,11 @@ margin: 10px;
 						<c:otherwise>
 							<c:forEach items="${hoList}" var="ho">
 								 <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=${ho.ho_id}'/>" style="padding: auto;">
-													<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
-											<div class="ho-name">${ho.ho_name}</div>
-											<div class="hs-title">${ho.hospital_subject.hs_title}</div>
-											<div class="ho-address"><img class="small-img"
-					   								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">${ho.ho_address}</div>
-										<%-- <div class="hd-time"><img class="small-img"
-				   								alt="위치 이미지" src="<c:url value="/resources/img/time-line.svg"/>">(${dayOfWeek}요일) ${hd_time}</div> --%>
+									<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
+									<div class="ho-name">${ho.ho_name}</div>
+									<div class="hs-title">${ho.hs.hs_title}</div>
+									<div class="ho-address"><img class="small-img"
+			   								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">${ho.ho_address}</div>
 								 </a>
 							 </c:forEach>
 						 </c:otherwise>
