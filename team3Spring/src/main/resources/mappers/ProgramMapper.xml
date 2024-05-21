@@ -151,7 +151,7 @@
 		values(#{rv.rv_me_id},#{rv.rv_rvs_name},#{rv.rv_rs_num})
 	</insert>
 	<select id="selectReservation" resultType="kr.kh.team3.model.vo.ReservationVO">
-		select * from reservation where rv_me_id = #{rv.rv_me_id} and rv_rs_num = #{rv.rv_rs_num}
+		select * from reservation where rv_me_id = #{rv.rv_me_id} and rv_rs_num = #{rv.rv_rs_num} and rv_rvs_name = "예약완료"
 		
 	</select>
 	<insert id="insertPay">
@@ -160,7 +160,7 @@
 	</insert>
 	
 	<select id="selectUserReserve" resultType="kr.kh.team3.model.vo.ReservationVO">
-			select * from reservation where rv_me_id = #{site_id} and rv_rs_num = #{rv_rs_num}
+			select * from reservation where rv_me_id = #{site_id} and rv_rs_num = #{rv_rs_num} and rv_rvs_name = "예약완료"
 	</select>
 	
 	<!-- 회원 예약 조회 -->

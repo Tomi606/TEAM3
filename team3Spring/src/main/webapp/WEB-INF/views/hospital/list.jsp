@@ -479,7 +479,7 @@ function getSubHoList(){
                		 str += 
                         `
 
-       	                    <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=\${ho.hospital.ho_id}'/>" style="padding: auto;" data-id="\${ho.hospital_detail.hd_num}">
+       	                    <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=\${ho.hospital.ho_id}'/>" style="padding: auto;">
 
        							<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
        							<div class="ho-name">\${ho.hospital.ho_name}</div>
