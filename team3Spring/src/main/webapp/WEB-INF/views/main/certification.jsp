@@ -145,79 +145,95 @@
 
 
 	<!-- 이메일 인증 보내기 -->
-	<script type="text/javascript">
+<script type="text/javascript">
 let code = null;
-function emailCheck(){
-	  var email = $("#email").val();
-	    if (email.length == 0 || email == "") {
-	       alert("이메일을 입력 하세요.");
-	       return;
-	    }
-	    let res = null;
-	    $.ajax({
-	    	async : false,
-	        url: '<c:url value="/hospital/checkEmail"/>',
-	        type: "get",
-	        data: { "site_email": email }, 
-	        success: function(response) {
-	            if (response.hoEmailCheck == null) {
-	               alert("사용 가능한 이메일입니다.");
-	        	   spinner();
-	               res = true;
-	            } else {
-	               alert("이미 사용중인 이메일입니다.");
-	               res = false;
-	           	
-	            }
-	        
-	        }
-	    }); // ajax end;
-	    return res;
+
+async function emailCheck() {
+    return new Promise((resolve, reject) => {
+        var email = $("#email").val();
+        if (email.length == 0 || email == "") {
+            alert("이메일을 입력 하세요.");
+            reject(false);
+            return;
+        }
+        $.ajax({
+            async: true,
+            url: '<c:url value="/hospital/checkEmail"/>',
+            type: "get",
+            data: { "site_email": email },
+            success: function(response) {
+                if (response.hoEmailCheck == null) {
+                    resolve(true);
+                } else {
+                    alert("이미 사용중인 이메일입니다.");
+                    resolve(false);
+                }
+            },
+            error: function() {
+                alert("이메일 인증에 문제가 생겼습니다. 다시 시도해 주세요");
+                reject(false);
+            }
+        }); // ajax end;
+    });
 }
 
-$(".btn-email").click( function() {
-	code = displaySuccessBtn();
-	console.log(code);
+$(".btn-email").click(async function() {
+    spinner();
+    try {
+        let res = await emailCheck();
+        if (res) {
+            code = await displaySuccessBtn();
+            console.log(code);
+        } else {
+            $('.spinner-container').hide();
+        }
+    } catch (error) {
+        $('.spinner-container').hide();
+    }
 });
 
-function displaySuccessBtn(){
-	let res = emailCheck();
-	
- 	let em = null; 
- 	if(!res){
- 		return;
- 	}
-  	if(res){
-  		let email = $('[name=email]').val() 
-		//서버로 전송
-	
-		$.ajax({
-			async : false,
-			url : '<c:url value="/certification/email"/>', 
-			type : 'post', 
-			data : {
-  				"email" : email
-  			}, 
-			success : function (data){
-					let str = 
-					`
-						<div class="number_box">
-							<label for="ce_num" class="label">인증번호</label>
-							<input type="text" class="form-control" id="ce_num" name="ce_num" placeholder="인증번호를 입력하세요." >
-							<button class="btn btn-outline-success btn-ce">인증하기</button>
-						</div>
-					`
-					$(".ce_numbox").html(str);
-					em = data.ctfEmail
-					
-			}, 
-		});
-  	}else{
-  		alert("이메일 인증에 문제가 생겼습니다. 다시 시도해 주세요");
-  		location.reload(true);
-  	}
-  	return em;
+async function displaySuccessBtn() {
+    try {
+        let res = await emailCheck();
+        if (!res) {
+            return null;
+        }
+
+        let email = $('[name=email]').val();
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                async: true,
+                url: '<c:url value="/certification/email"/>',
+                type: 'post',
+                data: {
+                    "email": email
+                },
+                success: function(data) {
+                    alert("이메일로 인증번호를 보냈습니다.");
+                    $('.spinner-container').hide();
+                    let str = 
+	                    `
+	                        <div class="number_box">
+	                            <label for="ce_num" class="label">인증번호</label>
+	                            <input type="text" class="form-control" id="ce_num" name="ce_num" placeholder="인증번호를 입력하세요.">
+	                            <button class="btn btn-outline-success btn-ce">인증하기</button>
+	                        </div>
+	                    `;
+                    $(".ce_numbox").html(str);
+                    resolve(data.ctfEmail);
+                },
+                error: function() {
+                    alert("이메일 인증에 문제가 생겼습니다. 다시 시도해 주세요");
+                    location.reload(true);
+                    reject(null);
+                }
+            });
+        });
+    } catch (error) {
+        return null;
+    }
 }
+
 
 $(document).on("click", ".btn-ce", function(){
 	let newCeNum = $("[name=ce_num]").val();
@@ -248,9 +264,9 @@ $(document).on("click", ".btn-ce", function(){
 })
 function spinner() {
     $('.spinner-container').show();
-    setTimeout(function() {
-        $('.spinner-container').hide();
-    }, 5000); 
+   
+       
+   
 }
 </script>
 </body>
