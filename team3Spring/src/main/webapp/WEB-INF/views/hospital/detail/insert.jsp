@@ -271,7 +271,6 @@ input[type="checkbox"]:checked::before {
 </div>
 <div class="info-container">
 	<div class="all-info-box">
-		<form action='<c:url value="/hospital/detail/insert"/>' method="post">
 				<h2 style="font-weight: bold; text-align: center; font-size: 50px; color: #555;">병원 소개</h2>
 			<div class="info1-box">	
 				<div class="hd_info" id="hd_info">
@@ -397,7 +396,6 @@ input[type="checkbox"]:checked::before {
 				</div>
 				<button type="submit" class="hospital-btn btn btn-outline-success" name="hospital-btn">병원 소개 등록</button>
 			</div>
-		</form>
 	</div>
 </div>
 <!-- 병원 등록시 해제한 과목이면 프로그램 삭제된다는 알림 -->
@@ -407,15 +405,14 @@ $(document).on("click",".hospital-btn",function () {
     if (!answer) {
     	return false;
     } else {
-    	location.href='<c:url value="/detail/insert"/>';
+    	insertDetail();
     }
 });
 </script>
 
 <!-- 상세페이지 등록(insert) : 상세페이지와 선택한 과목 배열 서버로 전송 -->
 <script type="text/javascript">
-$("form").submit(function(e) {
-	/* e.preventDefault(); */
+function insertDetail(){
 	let hsList = getCheckedBox();
 	console.log(hsList);
 	let hd_info = $('[name=hd_info]').val();
@@ -465,7 +462,7 @@ $("form").submit(function(e) {
 	        }
 		});
 		return false; //submit을 사용안해서 false
-});
+}
 </script>
 
 <!-- 상세 페이지 수정(update) -->
