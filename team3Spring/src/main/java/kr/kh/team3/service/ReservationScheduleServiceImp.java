@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 
 import kr.kh.team3.dao.ReservationScheduleDAO;
 import kr.kh.team3.model.vo.HospitalProgramVO;
+import kr.kh.team3.model.vo.PaymentVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.ReservationVO;
 
@@ -106,6 +107,22 @@ public class ReservationScheduleServiceImp implements ReservationScheduleService
 			return true;
 		}
 		
+	}
+
+	@Override
+	public PaymentVO getPaymentNum(int rv_num) {
+		return RSDao.selectPayment(rv_num);
+	}
+
+	@Override
+	public boolean updatePaymentStateChange(String pm_num) {
+		// TODO Auto-generated method stub
+		return RSDao.updatePaymentStateChange(pm_num);
+	}
+
+	@Override
+	public PaymentVO getPaymentList(int rv_num) {
+		return RSDao.selectRvNumByPaymentsTable(rv_num);
 	}
 
 }

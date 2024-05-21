@@ -180,15 +180,26 @@ public class ReservationScheduleController {
 		ArrayList<ReservationVO> list = new ArrayList<ReservationVO>();
 		ArrayList<ReservationVO> list2 = new ArrayList<ReservationVO>();
 		list = reservationScheduleService.getReservationList22(RSlist.get(0).getRs_num());
-//		for (ReservationScheduleVO tmp : RSlist) {
-//			 System.out.println("aaaaaaaaaaaaaaaaaaaaa");
-//			 System.out.println(list);
-////			 ReservationVO arr = reservationScheduleService.getReservationUpdateList(tmp.getRs_num());
-////			 list2.add(arr);
-//		}
+		
+		for (ReservationScheduleVO tmp : RSlist) {
+			ArrayList<ReservationVO> arr = reservationScheduleService.getReservationList22(tmp.getRs_num());
+			for(ReservationVO tmp2 : arr) {
+				list2.add(tmp2);
+			}
+		}
+		
+		ArrayList<PaymentVO> paymentList = new ArrayList<PaymentVO>();
+		//예약번호를 넘겨줘서 결제 정보 가져오기
+		for(ReservationVO tmp : list2) {
+			//PaymentVO resertMap해보기
+			PaymentVO arr = reservationScheduleService.getPaymentList(tmp.getRv_num());
+			paymentList.add(arr);
+		}
+		
 		map.put("list", list);
 		map.put("HP", HP);
 		map.put("list2", list2);	
+		map.put("paymentList", paymentList);
 		return map;
 	}
 	
@@ -197,8 +208,7 @@ public class ReservationScheduleController {
 	public boolean deleteUserSchedule(Model model, int rv_num) throws Exception {
 		
 		//예약 완료 상태인 회원을 결제 취소를 하면 예약 취소가 되게 하는 메서드
-		boolean res = reservationScheduleService.updateUserSchedule(rv_num);
-		
+		boolean res = reservationScheduleService.updateUserSchedule(rv_num);		
 		return res;
 	}
 	
@@ -282,13 +292,32 @@ public class ReservationScheduleController {
 	private Map<String, Object> rePayments() throws IOException, InterruptedException {
 		Map<String, Object> map = new HashMap<String, Object>();
 		HttpRequest request = HttpRequest.newBuilder()
-		    .uri(URI.create("https://api.iamport.kr/payments/status/payment_status"))
-		    .header("Content-Type", "application/json")
-		    .method("GET", HttpRequest.BodyPublishers.ofString("{}"))
-		    .build();
-		HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-		System.out.println(response);
+			    .uri(URI.create("https://api.iamport.kr/users/getToken"))
+			    .header("Content-Type", "application/json")
+			    .method("POST", HttpRequest.BodyPublishers.ofString("{\"imp_key\":\"2782622183686774\",\"imp_secret\":\"ZrUBWx6yNEckgEgZrIwSw2MMeW61rEM0DUEiqPw7YnbOc4gkPE7bxxtw8HoEpCjAITgBThyjjHGsLT0Z\"}"))
+			    .build();
+			HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+			System.out.println(response.body());
+			
 		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/get/pmnum")
+	private Map<String, Object> getPmNum(int rv_num) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		PaymentVO pm_num = reservationScheduleService.getPaymentNum(rv_num);
+		map.put("payment", pm_num);
+		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping("/payment/state/change")
+	private boolean reservationStateChange(@RequestParam("pm_num")String pm_num) {
+		System.out.println("aaaaaaaaaaaaaaaa");
+		System.out.println(pm_num);
+		boolean res = reservationScheduleService.updatePaymentStateChange(pm_num);
+		return res;
 	}
 
 }

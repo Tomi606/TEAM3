@@ -133,7 +133,6 @@
 				for(let i = 0; i < res.length; i++) {
 				  let currElem = res[i];
 				  for(let j = i+1; j < res.length; j++) {
-				      console.log(currElem.rsDate + res[j].rsDate)
 				    if(currElem.rsDate === res[j].rsDate) {
 				      arr.push(res[j])	
 				      dupYn = true;
@@ -145,7 +144,6 @@
 				    break;
 				  }
 				} 
-				console.log(arr);
 			}
 		});
 		return arr;
@@ -211,8 +209,11 @@ function displayTime(){
 <script type="text/javascript">
 $(document).on("click", ".success_btn", function(){
 	let rv_num = $(this).parents(".tr").find(".rv_num").text();
-	let date = $("select.ndate option:selected").text();
-	let time = $("select.time option:selected").text();
+	var $tr = $(this).closest('tr');
+    
+    // 선택된 날짜와 시간 옵션의 값을 추출
+    var date = $tr.find('.ndate option:selected').text();
+    var time = $tr.find('.time option:selected').text();
 	let hp_num = $("[name=hp_num]").val();
 	location.href='<c:url value="/update/userschedule?rv_num="/>' + rv_num + "&date=" + date + "&time2=" + time + "&hp_num=" + hp_num;
 })
@@ -240,8 +241,8 @@ $(document).on("click", ".success_btn", function(){
                		$(".box-hospital-list").html(`<tr><td>예약이 없습니다.</td></tr>`);
                		return;
                	}
-                if(data.list != null){
-                    for(let tmp of data.list){
+                if(data.list2 != null){
+                    for(let tmp of data.list2){
                         if(tmp == null){
                             continue;
                         }else{
@@ -251,8 +252,8 @@ $(document).on("click", ".success_btn", function(){
                                         <td>\${tmp.rv_rvs_name}</td>
                                         <td class="program">\${data.HP.hp_title}</td>
                                         <td >\${data.HP.payMentMoney}</td>
-                                        <td class="date"><div class="change-box">\${tmp.reservationScheduleVO.rsDate2}</div></td>
-                                        <td class="time"><div class="change-box">\${tmp.reservationScheduleVO.rsTime}</div></td>
+                                        <td class="date">\${tmp.reservationScheduleVO.rsDate2}</td>
+                                        <td class="time">\${tmp.reservationScheduleVO.rsTime}</td>
                                         <td>`;
 				                            if(tmp.rv_rvs_name =='예약완료'){
 				                                str += `<a class="btn change_btn">변경</a>`;
@@ -278,7 +279,7 @@ $(document).on("click", ".success_btn", function(){
 -->
 
 <!-- 결제 취소 버튼 -->
-<!-- <script type="text/javascript">
+<script type="text/javascript">
 $(document).on("click", ".delete_btn", function(){
 	let rv_num = $(this).parents(".tr").find(".rv_num").text();
 	if(confirm("예약을 취소하히겠습니까?")){
@@ -287,47 +288,87 @@ $(document).on("click", ".delete_btn", function(){
 			alert("예약취소에 실패했습니다.");
 			location.reload(true);
 		}else{
-			
+			let pm_num = getPmNum(rv_num);
+			console.log(pm_num);
+			cancleReservation(pm_num);
 		}
 	}
 
-	
-		
-		$.ajax({
-			method : "post",
-			url : '<c:url value="/payments/cancel"/>',
-			data : {
-				  "code": 1,
-				  "merchant_uid": "merchant_1716181760393",
-				  "response": null
-				},
-			success:function(data){
-				console.log("취소성공");
-				console.log(data);
-			}
-		})
 })
 
-function getPmNum(rv_num)
+/* 결재 정보를 가져오는 메서드 */
 
-function cancleReservation(rv_num){
-	
+function getPmNum(rv_num){
+	let pm_num = ""
+	$.ajax({
+		async : false,
+		method : "post",
+		url : '<c:url value="/get/pmnum"/>',
+		data : {
+			  "rv_num" : rv_num
+			},
+		success:function(data){
+			pm_num = data.payment.pm_num;
+		}
+	})
+	return pm_num;
+}
+
+/* 포트원에 환불을 요청하는 메서드 */
+
+function cancleReservation(pm_num){
+	$.ajax({
+		method : "post",
+		url : '<c:url value="/payments/cancel"/>',
+		data : {
+			  "code": 1,
+			  "merchant_uid": pm_num,
+			  "response": null
+			},
+		success:function(data){
+			//밥 먹고 와서 ajax로 다시 짜기
+			reservationStateChange(pm_num);
+		}
+	})
+}
+
+/* 결제 완료 결제 취소로 만드는 메서드 */
+function reservationStateChange(pm_num){
+	$.ajax({
+		method : "post",
+		url : '<c:url value="/payment/state/change"/>',
+		data : {
+			"pm_num" : pm_num
+		},
+		success : function(data){
+			if(data){
+				alert("환불이 완료 되었습니다.");
+				location.reload(true);				
+			}else{
+				alert("환불도중 문제가 발생 하였습니다.");
+				location.reload(true);								
+			}
+		}
+	})
 }
 
 /* 예약 완료 상태인 회원을 결제 취소를 하면 예약 취소가 되게 하는 메서드 */
 function shceduleChange(rv_num){
+	let res = null;
 	$.ajax({
+		async : false,
 		method : "post",
 		url : '<c:url value="/delete/schedule"/>',
 		data : {
 			  "rv_num": rv_num
 			},
 		success:function(data){
-			console.log(data);
+			res = data;
 		}
 	})
-	}
-</script> -->
+	return res;
+}
+</script>
 
 
 

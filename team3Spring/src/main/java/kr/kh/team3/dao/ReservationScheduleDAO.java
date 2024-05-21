@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import kr.kh.team3.model.vo.HospitalProgramVO;
+import kr.kh.team3.model.vo.PaymentVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.ReservationVO;
 
@@ -36,5 +37,11 @@ public interface ReservationScheduleDAO {
 	ReservationVO selectReservation(@Param("rv_num") int rv_num);
 
 	boolean updateUserScheduleState(@Param("rv_num") int rv_num);
+
+	PaymentVO selectPayment(@Param("rv_num")int rv_num);
+
+	boolean updatePaymentStateChange(@Param("pm_num")String pm_num);
+
+	PaymentVO selectRvNumByPaymentsTable(@Param("rv_num")int rv_num);
 
 }

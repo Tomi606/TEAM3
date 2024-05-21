@@ -12,6 +12,8 @@ public class PaymentVO {
 	private int pm_price;
 	private int pm_rv_num;
 	private String pm_ho_id;
+	HospitalVO hospital;
+	ReservationVO reservation;
 	
 	public PaymentVO(String pm_num, String pm_type, String pm_ps_name, int pm_price, int pm_rv_num, String pm_ho_id) {
 		this.pm_num = pm_num;
