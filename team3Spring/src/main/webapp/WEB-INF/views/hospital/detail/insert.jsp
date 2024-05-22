@@ -264,7 +264,7 @@ input[type="checkbox"]:checked::before {
 					src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
 			</div>
 			<div>
-				<p class="here-title1"> 병원 상세페이지 </p>
+				<p class="here-title1"> 병원 상세페이지 등록/수정 </p>
 			</div>
 		</div>
 	</div>
