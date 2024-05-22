@@ -85,7 +85,10 @@ public class ReservationScheduleServiceImp implements ReservationScheduleService
 		
 		ArrayList<ReservationVO> arr = new ArrayList<ReservationVO>();
 		for(ReservationVO tmp : list) {
-			arr.add(RSDao.selectReservationUpadateList(tmp.getRv_rs_num())); 
+			ArrayList<ReservationVO> arr2 = RSDao.selectReservationList(tmp.getRv_rs_num());
+			for(ReservationVO tmp2 : arr2) {
+				arr.add(tmp2); 				
+			}
 		}
 
 		return arr;
