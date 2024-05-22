@@ -38,7 +38,7 @@ public interface ProgramDAO {
 
 	ArrayList<ItemVO> selectItemListByItem(@Param("il_num")int il_num);
 
-	HospitalProgramVO selectProgram(@Param("pr")HospitalProgramVO program);
+	HospitalProgramVO selectProgram(@Param("pr")HospitalProgramVO program, @Param("ho_id") String ho_id);
 
 	boolean deleteItemList(@Param("hp_num") int hp_num);
 

@@ -104,7 +104,7 @@ public class ProgramServiceImp implements ProgramService {
 			programRes = programDao.insertProgram(program, user, hs_num, hslist);
 		}
 		if (programRes) {
-			HospitalProgramVO pr = programDao.selectProgram(program);
+			HospitalProgramVO pr = programDao.selectProgram(program, user.getSite_id());
 			if (pr == null) {
 				return false;
 			}
