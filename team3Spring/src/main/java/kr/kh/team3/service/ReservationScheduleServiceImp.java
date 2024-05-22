@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 
 import kr.kh.team3.dao.ReservationScheduleDAO;
 import kr.kh.team3.model.vo.HospitalProgramVO;
+import kr.kh.team3.model.vo.PaymentVO;
 import kr.kh.team3.model.vo.ReservationScheduleVO;
 import kr.kh.team3.model.vo.ReservationVO;
 
@@ -37,12 +38,6 @@ public class ReservationScheduleServiceImp implements ReservationScheduleService
 	public HospitalProgramVO getHospitalProgram(int hp_num) {
 		// TODO Auto-generated method stub
 		return RSDao.selectHospitalProgram(hp_num);
-	}
-
-	@Override
-	public boolean deleteUserSchedule(int rv_num) {
-		// TODO Auto-generated method stub
-		return RSDao.deleteUserSchedule(rv_num);
 	}
 
 	@Override
@@ -94,6 +89,40 @@ public class ReservationScheduleServiceImp implements ReservationScheduleService
 		}
 
 		return arr;
+	}
+
+	@Override
+	public ArrayList<ReservationVO> getReservationList22(int rs_num) {
+		
+		return RSDao.selectReservationList22(rs_num);
+	}
+
+	@Override
+	public boolean updateUserSchedule(int rv_num) {
+		// TODO Auto-generated method stub
+		ReservationVO user = RSDao.selectReservation(rv_num);
+		if(user.getRv_rvs_name().equals("예약완료")) {
+			return RSDao.updateUserScheduleState(rv_num);			
+		}else {
+			return true;
+		}
+		
+	}
+
+	@Override
+	public PaymentVO getPaymentNum(int rv_num) {
+		return RSDao.selectPayment(rv_num);
+	}
+
+	@Override
+	public boolean updatePaymentStateChange(String pm_num) {
+		// TODO Auto-generated method stub
+		return RSDao.updatePaymentStateChange(pm_num);
+	}
+
+	@Override
+	public PaymentVO getPaymentList(int rv_num) {
+		return RSDao.selectRvNumByPaymentsTable(rv_num);
 	}
 
 }
