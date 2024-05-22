@@ -3,8 +3,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.kh.team3.dao.HospitalDAO">
-	<select id="selectMyAreaHospitalList" resultType="HospitalVO">
-		select * from hospital where ho_la_num = #{n}
+	<select id="selectMyAreaHospitalList" resultMap="hospitalMap">
+		select * from hospital where ho_la_num = #{n} limit 4
 	</select>
 	
 	<select id="selectHospitalSubjectListHome" resultType="HospitalSubjectVO">
@@ -214,8 +214,15 @@
 			select="selectHospitalSubject"/>
 			<collection property="land" ofType="LandVO" 
 		column="ho_la_num" select="selectHoLaNum" />
+		<collection property="hs" ofType="HospitalSubjectVO" column="ho_hs_num"
+			select="selectHsList2"/>
+			<collection property="land" ofType="LandVO" 
+		column="ho_la_num" select="selectHoLaNum" />
 	</resultMap>
 	
+	<select id="selectHsList2" resultType="HospitalSubjectVO">
+		select * from hospital_subject where hs_num = #{ho_hs_num}
+	</select>
 	<select id="selectHoLaNum" resultMap="landMapp">
 		select * from land where la_num = #{ho_la_num}
 	</select>

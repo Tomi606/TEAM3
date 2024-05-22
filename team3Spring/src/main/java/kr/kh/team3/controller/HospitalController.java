@@ -374,25 +374,21 @@ public class HospitalController {
 		boolean res = hospitalService.insertDetail(detail, hospital);
 		if (res) {
 			map.put("msg", "상세 페이지 수정 완료");
-			map.put("url", "/hospital/mypage");
+			map.put("url", "/hospital/detail/detail");
 		} else {
 			map.put("msg", "상세 페이지 등록 완료");
-			map.put("url", "/hospital/mypage");
+			map.put("url", "/hospital/detail/detail");
 		}
 		return map;
 	}
 
-	// 회원 입장에서 북마크 추가
-	// RecommendVO == BookmarkVO
 	@ResponseBody
 	@PostMapping("/bookmark/insert")
 	public Map<String, Object> bookmarkInsert(@RequestBody BookmarkVO bookmark, HttpSession session) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO member = memberService.getMemberInfo(user);
-		// 북마크 하기(회원)
 		boolean result = memberService.insertBookmark(bookmark, member);
-		// 이미 북마크함(남기기 위함)
 		boolean already = memberService.selectBookmark(bookmark, member);
 
 		map.put("user", user);
@@ -401,7 +397,6 @@ public class HospitalController {
 		return map;
 	}
 
-	// 북마크 해제 -> delete from bookmark where bmk_me_id = #{me_id}
 	@ResponseBody
 	@PostMapping("/bookmark/delete")
 	public Map<String, Object> bookmarkDelete(@RequestBody BookmarkVO bookmark, HttpSession session) {
@@ -441,7 +436,6 @@ public class HospitalController {
 		return "/hospital/detail/iteminsert";
 	}
 
-	// 세부 항목을 추가하는 메서드
 	@ResponseBody
 	@PostMapping("/item/insert")
 	public Map<String, Object> insertItem(ItemVO item, HttpSession session, @RequestParam("hs_num") int hs_num) {
@@ -458,7 +452,6 @@ public class HospitalController {
 		return map;
 	}
 
-	// 세부항목 수정 메서드
 	@GetMapping("/item/update")
 	public String updateItem(ItemVO item, HttpSession session, Model model) {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
@@ -483,8 +476,6 @@ public class HospitalController {
 		return "/hospital/detail/itemupdate";
 	}
 
-	// 세부 항목 수정 포스트 메서드
-	// 프로그램이 바뀔때마다 세부 항목이 바뀌는 메서드
 	@ResponseBody
 	@PostMapping("/subject/item")
 	public Map<String, Object> SubjectItem(@RequestParam("hs_num") int hs_num, HttpSession session) {
@@ -498,7 +489,6 @@ public class HospitalController {
 		return map;
 	}
 
-	// 세부항목 수정 메서드
 	@PostMapping("/item/update")
 	public String updateItemPost(ItemVO item, HttpSession session, Model model, @RequestParam("type") int it_num,
 			@RequestParam("hs_num") int hs_num) {
@@ -834,7 +824,7 @@ public class HospitalController {
 		SiteManagement user = (SiteManagement) session.getAttribute("user");
 		MemberVO me = memberService.getMeId(user.getSite_id());
 		LandVO land = hospitalService.getLand(emd_num);
-		cri.setPerPageNum(10);
+		cri.setPerPageNum(8);
 		int totalCount = hospitalService.getLikeSub(me, land, cri);
 		ArrayList<HospitalVO> hoSubList = hospitalService.getSubHoList(me, land, cri);
 		log.info("al;sdfjlskadmkmj15321 " + hoSubList);

@@ -36,7 +36,7 @@ public class PostVO {
 	
 	public String getChangeDate() {
 		if (this.po_date != null) {
-			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 			return format.format(this.po_date);
 		} else {
 			return "존재하지 않습니다.";
@@ -44,7 +44,7 @@ public class PostVO {
 	}
 	public String getChangeDate1() {
 		if (this.po_date != null) {
-			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 			return format.format(this.po_date);
 		} else {
 			return "존재하지 않습니다.";

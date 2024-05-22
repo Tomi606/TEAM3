@@ -20,6 +20,7 @@
 <script src="http://fastly.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <style type="text/css">
+
 .small-img {
 	height: 16px;
 	width: 16px;
@@ -62,7 +63,7 @@ text-decoration: underline;
 	width: 100%;
 	height: 953px;
 	text-align: center;
-	background: url('<c:url value="/resources/img/homeBack.png"/>');
+	background: url('<c:url value="/resources/img/homeBack3.png"/>');
 	background-repeat: no-repeat;
 	background-size: cover;
     background-origin: content-box;
@@ -193,7 +194,7 @@ display:flex;justify-content:flex-end;
     flex-direction: column;
 }
 .home-body{
-	padding:100px;
+	padding: 0 50px 100px 50px;
 	margin:0 auto;
 	background-color:white;
  	width: 80%;
@@ -218,7 +219,7 @@ display:flex;justify-content:flex-end;
 
 .여기부터내용 {
 	margin:0 auto;
-	margin-top: 180px;
+	margin-top: 110px;
 	margin-bottom: 180px;
 	min-height: calc(100vh - 100px); 
 }
@@ -247,7 +248,7 @@ display:flex;justify-content:flex-end;
 .hot-new {
 	text-align: center;
 	padding: 60px 0 10px;
-    margin-top: 180px;
+    margin-top: 110px;
 }
 
 /*hot group*/
@@ -578,6 +579,12 @@ margin: 10px;
 .search-title2{
 	font-weight: 500;
 	font-size: 40px;
+	margin-bottom: -5px;
+}
+
+.search_title_container .search-title1,
+.search_title_container .search-title2 {
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 </style>
 </head>
@@ -677,7 +684,7 @@ margin: 10px;
 		<div class="main-area">
 			<div class="search-main-left"></div>
 			<div class="main-search-area">
-				<div>
+				<div class="search_title_container">
 					<div class="search-title1">예약을 원하시는<br>
 					<p class="search-title2">진료 과목을 검색해보세요.</p></div>
 				</div>
@@ -691,9 +698,13 @@ margin: 10px;
 						src="<c:url value='/resources/img/hospital5.png'/>"> <span>병원</span>
 					</a> <a href="<c:url value="/board/all"/>"> <img alt="커뮤니티이미지"
 						src="<c:url value='/resources/img/comu.png'/>"> <span>커뮤니티</span>
-					</a> <a href="#"> <img alt="로고이미지"
-						src="<c:url value='/resources/img/hpbuild.png'/>"> 
-					</a> <a href="<c:url value='/board/list?bo_num=1'/>"> <img alt="로고이미지"
+					</a> 
+					<c:if test="${user != null }">
+						<a href="#"> <img alt="로고이미지"
+							src="<c:url value='/resources/img/hpbuild.png'/>"> <span>병원정보</span>
+						</a> 
+					</c:if>
+					<a href="<c:url value='/board/list?bo_num=1'/>"><img alt="로고이미지"
 						src="<c:url value='/resources/img/공지사항.png'/>"> <span>공지사항</span>
 					</a> 
 					<c:if test='${user.getSite_authority().equals("USER")}'>	
@@ -716,8 +727,7 @@ margin: 10px;
 	<div class="홈">
 		<div class="home-body">
 		<div class="여기부터내용">
-			<h3>&lt;인기 병원&gt;</h3>
-			<div class="롤링" style="margin-top: 50px">
+			<div class="롤링">
 			    <div class="롤링-내용">
 					<div class="rolling-item" style="background-image: url('<c:url value="/resources/img/풍경1.jpg"/>');">
 						<img alt="" src="<c:url value="/resources/img/풍경1.jpg"/>" style="width: 1300px;height: 100%;background-repeat: no-repeat;background-size: cover; object-fit:cover;">
@@ -792,13 +802,11 @@ margin: 10px;
 						<c:otherwise>
 							<c:forEach items="${hoList}" var="ho">
 								 <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=${ho.ho_id}'/>" style="padding: auto;">
-													<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
-											<div class="ho-name">${ho.ho_name}</div>
-											<div class="hs-title">${ho.hospital_subject.hs_title}</div>
-											<div class="ho-address"><img class="small-img"
-					   								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">${ho.ho_address}</div>
-										<%-- <div class="hd-time"><img class="small-img"
-				   								alt="위치 이미지" src="<c:url value="/resources/img/time-line.svg"/>">(${dayOfWeek}요일) ${hd_time}</div> --%>
+									<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
+									<div class="ho-name">${ho.ho_name}</div>
+									<div class="hs-title">${ho.hs.hs_title}</div>
+									<div class="ho-address"><img class="small-img"
+			   								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">${ho.ho_address}</div>
 								 </a>
 							 </c:forEach>
 						 </c:otherwise>
