@@ -53,6 +53,10 @@
 .table td {
 	text-align: center;
 }
+
+.schedule_btn_del {
+    display: none;
+}
 </style>
 </head>
 <body>
@@ -254,7 +258,7 @@ $(document).on("click", ".success_btn", function(){
                                         <td >\${data.HP.payMentMoney}</td>
                                         <td class="date">\${tmp.reservationScheduleVO.rsDate2}</td>
                                         <td class="time">\${tmp.reservationScheduleVO.rsTime}</td>
-                                        <td>`;
+                                        <td class="schedule_btn">`;
 				                            if(tmp.rv_rvs_name =='예약완료'){
 				                                str += `<a class="btn change_btn">변경</a>`;
 				                            }
@@ -282,6 +286,7 @@ $(document).on("click", ".success_btn", function(){
 <script type="text/javascript">
 $(document).on("click", ".delete_btn", function(){
 	let rv_num = $(this).parents(".tr").find(".rv_num").text();
+	let res2 = false;
 	if(confirm("예약을 취소하히겠습니까?")){
 		let res = shceduleChange(rv_num);
 		if(!res){
@@ -290,10 +295,17 @@ $(document).on("click", ".delete_btn", function(){
 		}else{
 			let pm_num = getPmNum(rv_num);
 			console.log(pm_num);
-			cancleReservation(pm_num);
+			res2 = cancleReservation(pm_num);
+			if(res2){
+				$(this).parents(".tr").find(".schedule_btn").addClass('schedule_btn_del')
+				alert("환불이 완료 되었습니다.");
+				location.reload(true);				
+			}else{
+				alert("환불도중 문제가 발생 하였습니다.");
+				location.reload(true);								
+			}
 		}
 	}
-
 })
 
 /* 결재 정보를 가져오는 메서드 */
@@ -317,7 +329,9 @@ function getPmNum(rv_num){
 /* 포트원에 환불을 요청하는 메서드 */
 
 function cancleReservation(pm_num){
+	let res = false;
 	$.ajax({
+		async : false,
 		method : "post",
 		url : '<c:url value="/payments/cancel"/>',
 		data : {
@@ -327,29 +341,27 @@ function cancleReservation(pm_num){
 			},
 		success:function(data){
 			//밥 먹고 와서 ajax로 다시 짜기
-			reservationStateChange(pm_num);
+			res = reservationStateChange(pm_num);
 		}
 	})
+	return res;
 }
 
 /* 결제 완료 결제 취소로 만드는 메서드 */
 function reservationStateChange(pm_num){
+	let res = false;
 	$.ajax({
+		async : false,
 		method : "post",
 		url : '<c:url value="/payment/state/change"/>',
 		data : {
 			"pm_num" : pm_num
 		},
 		success : function(data){
-			if(data){
-				alert("환불이 완료 되었습니다.");
-				location.reload(true);				
-			}else{
-				alert("환불도중 문제가 발생 하였습니다.");
-				location.reload(true);								
-			}
+			res = data;
 		}
 	})
+	return res;
 }
 
 /* 예약 완료 상태인 회원을 결제 취소를 하면 예약 취소가 되게 하는 메서드 */

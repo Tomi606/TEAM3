@@ -110,7 +110,7 @@
 			<collection property="hospital" ofType="kr.kh.team3.model.vo.HospitalVO"
 				column="pm_ho_id" select="selectPaymentByHospital"/>
 			<collection property="reservation" ofType="kr.kh.team3.model.vo.ReservationVO"
-				column="pm_rv_num" select="selectReservationList"/>
+				column="pm_rv_num" select="selectReservationList22"/>
 		</resultMap>
 		
 		<select id="selectRvNumByPaymentsTable" resultMap="PaymentMap">
