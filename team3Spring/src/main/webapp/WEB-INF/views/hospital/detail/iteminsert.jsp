@@ -27,7 +27,7 @@
 .container {
     box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.2);
     border-radius: 15px;
-    margin: -250px auto 70px auto;
+    margin: -170px auto 70px auto;
     background-color: white;
     width: 80%;
     height: 100%;
@@ -309,6 +309,28 @@ input[type="checkbox"]:checked::before {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.top-img {
+    height: 20px;
+    width: 20px;
+    color: gray;
+}
+
+.here-title {
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+	line-height: 50px;
+}
+
+.here-title1 {
+	text-decoration: none;
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 50px;
+}
 </style>
 </head>
 <body>
@@ -316,6 +338,30 @@ input[type="checkbox"]:checked::before {
 	<div style="width: 80%;margin: 0 auto;padding-top: 80px">
 		<div class="page-title">
 			프로그램 등록
+		</div>
+		<div
+			style="text-align: left; display: flex; height: 50px; margin: 20px 0 50px 0;">
+			<a href="<c:url value='/'/>" style="z-index: 999;line-height: 50px;">
+			<img
+				class="top-img" alt="위치 이미지"
+				src="<c:url value='/resources/img/home-4-line.svg'/>">
+			</a>
+			<div style="margin: auto 16px;">
+				<img 
+					class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+			</div>
+			<div>
+				<a class="here-title" href="<c:url value='/hospital/mypage'/>"> 병원페이지 </a>
+			</div>
+			<div style="margin: auto 16px;">
+				<img 
+					class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+			</div>
+			<div>
+				<p class="here-title1"> 프로그램 등록 </p>
+			</div>
 		</div>
 	</div>
 </div>
