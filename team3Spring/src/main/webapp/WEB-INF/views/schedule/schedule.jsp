@@ -691,7 +691,7 @@ function checkReserve() {
 function book(ho_name, hp_title, rs_date, rs_time, hp_payment) {
 	
 	var IMP = window.IMP;
-	IMP.init("imp06120506");   /* imp~ : 가맹점 식별코드*/
+	IMP.init("imp60712145");   /* imp~ : 가맹점 식별코드*/
 	
 	IMP.request_pay({
 		pg: 'html5_inicis',
