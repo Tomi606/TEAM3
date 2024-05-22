@@ -16,7 +16,7 @@
 <body>
 <div style='width: 1950px;'>
 	<div style="display: flex;width: 100%;">
-			<img alt="로고이미지" class="error-img" src="<c:url value='/resources/img/500에러1.PNG'/>">
+			<img alt="로고이미지" class="error-img" src="<c:url value='/resources/img/500errorImg.png'/>">
 			<div style="width: 200px;margin: 0 auto;position: absolute;">
 				<a href="<c:url value='/'/>" style='text-decoration: none;' 
 				>홈으로</a>
