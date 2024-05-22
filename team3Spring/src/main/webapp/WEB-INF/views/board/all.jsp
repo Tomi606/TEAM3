@@ -21,7 +21,7 @@
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	padding: 25px;
-	margin: 0 auto;
+	margin: -130px auto 0 auto;
 }
 
 .board_list {
@@ -30,7 +30,7 @@
 	border: 2px solid green;
 	border-radius: 15px;
 	padding: 20px;
-	margin: -150px 20px 80px 20px;
+	margin: 20px 20px 80px 20px;
 	overflow: hidden;
 	width: 800px;
 }
@@ -150,7 +150,7 @@
 									<div class="board_title_img">
 										<img alt="이미지"
 											src="<c:url value='/resources/img/board_img.png'/>"
-											style="width: 100px; z-index: 2; position: absolute; background-color: white; bottom: 401px">
+											style="width: 100px; background-color: white; margin-top:-40px; position: absolute; z-index: 2;">
 
 									</div>
 									<div class="board_header">
