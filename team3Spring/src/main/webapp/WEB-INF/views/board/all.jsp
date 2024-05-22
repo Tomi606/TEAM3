@@ -183,13 +183,18 @@
 														<tr
 															style="height: 50px; font-size: 17px; text-align: center; border-bottom: 1px solid lightgray">
 															<td>${boPostCount}</td>
-															<td
-																style="max-width: 30px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-																<a
-																href="<c:url value='/board/detail?po_num=${po.po_num}'/>"
-																class="title-link">${po.po_title}</a> <a
-																href="<c:url value="/board/detail?po_num=${po.po_num}#comments-section"/>"
-																class="comment-link"> [${po.po_co_count}]</a>
+															<td >
+																<div style="display: flex;padding-left: 25px;">
+																	<div style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+																	<a href="<c:url value='/board/detail?po_num=${po.po_num}'/>"
+																		class="title-link">${po.po_title}
+																	</a> 
+																	</div>
+																	<div>
+																		<a href="<c:url value="/board/detail?po_num=${po.po_num}#comments-section"/>"
+																		class="comment-link">&nbsp; [${po.po_co_count}]</a>
+																	</div>
+																</div>	
 															</td>
 															<td>${po.po_id}</td>
 															<td>${po.changeDate1}</td>

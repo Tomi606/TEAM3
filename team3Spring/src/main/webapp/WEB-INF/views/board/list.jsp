@@ -114,7 +114,7 @@ color:  rgba(0, 128, 0, 0.5);
     z-index: 3;
     color: #fff;
     background-color: green;
-    border-color:  rgba(0, 128, 0, 0.5);;
+    border-color:  rgba(0, 128, 0, 0.5);
  }
  .search-box-box{
  width: 50%;display:flex;
@@ -310,10 +310,17 @@ width: 100%;display: flex;justify-content: space-between;height: 70px;
 								<c:forEach items="${poList}" var="po" varStatus="poIndex">
 									<c:set var="boPostCount" value="${boPostCount + 1}" />
 									<tr style="height: 60px; border-bottom: 1px solid lightgray;font-size: 18px;">
-										<td style="width: 5%;">${boPostCount}</td>
+										<c:if test="${po.po_bo_num != 1 }">
+											<td style="width: 5%;">${boPostCount}</td>
+										</c:if>		
+										<c:if test="${po.po_bo_num == 1 }">
+											<td style="width: 5%;color: red;">
+												[공지]
+											</td>
+										</c:if>
 										<td style="width: 40%;">
-											<a href="<c:url value="/board/detail?po_num=${po.po_num}"/>" class="title-link">${po.po_title}</a>
-											<a href="<c:url value="/board/detail?po_num=${po.po_num}#comments-section"/>" class="comment-link"> [${po.po_co_count}]</a>
+												<a href="<c:url value="/board/detail?po_num=${po.po_num}"/>" class="title-link">${po.po_title}</a>
+												<a href="<c:url value="/board/detail?po_num=${po.po_num}#comments-section"/>" class="comment-link"> [${po.po_co_count}]</a>
 										</td>
 										<td style="width: 10%;">${po.po_id}</td>
 										<td style="width: 30%;">${po.changeDate1}</td>
