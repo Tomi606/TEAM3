@@ -721,11 +721,6 @@ margin: 10px;
 					</a> <a href="<c:url value="/board/all"/>"> <img alt="커뮤니티이미지"
 						src="<c:url value='/resources/img/comu.png'/>"> <span>커뮤니티</span>
 					</a> 
-					<c:if test="${user != null }">
-						<a href="#"> <img alt="로고이미지"
-							src="<c:url value='/resources/img/hpbuild.png'/>"> <span>병원정보</span>
-						</a> 
-					</c:if>
 					<a href="<c:url value='/board/list?bo_num=1'/>"><img alt="로고이미지"
 						src="<c:url value='/resources/img/공지사항.png'/>"> <span>공지사항</span>
 					</a> 
