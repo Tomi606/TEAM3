@@ -229,9 +229,9 @@ function displayReportList(list){
 						<option value="60">60일</option>
 						<option value="365">365일</option>
 					</select>
-					<button class="btns btn-ho-stop" data-id="\${item.site_num}">정지</button>
+					<button class="btns btn-ho-stop" data-id="\${item.siteManagement.site_num}">정지</button>
 				</td>
-				<td><button class="btns btn-ho-out" data-id="\${item.site_id}">탈퇴</button></td>
+				<td><button class="btns btn-ho-out" data-id="\${item.siteManagement.site_id}">탈퇴</button></td>
 			</tr>
 		`;
 	}
@@ -285,6 +285,7 @@ $(document).on('click','.btn-ho-stop',function(){
 		rp_target : $(this).data('id'),
 		rp_rs_name : rp_rs_name
 	}
+	console.log(stop);
 	//서버로 데이터 전송
 	$.ajax({
 		async : true,
