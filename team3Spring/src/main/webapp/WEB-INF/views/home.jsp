@@ -194,7 +194,7 @@ display:flex;justify-content:flex-end;
     flex-direction: column;
 }
 .home-body{
-	padding:100px;
+	padding: 0 50px 100px 50px;
 	margin:0 auto;
 	background-color:white;
  	width: 80%;
@@ -219,19 +219,41 @@ display:flex;justify-content:flex-end;
 
 .여기부터내용 {
 	margin:0 auto;
-	margin-top: 180px;
+	margin-top: 110px;
 	margin-bottom: 180px;
 	min-height: calc(100vh - 100px); 
 }
 
 .롤링 {
-	margin:0 auto;
-	display:flex;
-	max-width: 1300px;
-	height:150px;
+	margin: 0 auto;
+	display: flex;
+	width: 1950px;
+	height: 400px;
 	overflow: hidden;
 	position: relative;
 }
+
+.롤링-내용 {
+	width: 100%;
+}
+
+.rolling-item {
+	flex: 0 0 33.33%;
+}
+
+.rolling-item img {
+	width: 970px;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	object-fit: cover;
+}
+
+.롤링-내용 {
+	display: flex;
+	transition: transform 0.5s ease;
+}
+
 
 .롤링-내용 {
 	display: flex;
@@ -248,7 +270,7 @@ display:flex;justify-content:flex-end;
 .hot-new {
 	text-align: center;
 	padding: 60px 0 10px;
-    margin-top: 180px;
+    margin-top: 110px;
 }
 
 /*hot group*/
@@ -698,9 +720,8 @@ margin: 10px;
 						src="<c:url value='/resources/img/hospital5.png'/>"> <span>병원</span>
 					</a> <a href="<c:url value="/board/all"/>"> <img alt="커뮤니티이미지"
 						src="<c:url value='/resources/img/comu.png'/>"> <span>커뮤니티</span>
-					</a> <a href="#"> <img alt="로고이미지"
-						src="<c:url value='/resources/img/hpbuild.png'/>"> <span>병원정보</span>
-					</a> <a href="<c:url value='/board/list?bo_num=1'/>"><img alt="로고이미지"
+					</a> 
+					<a href="<c:url value='/board/list?bo_num=1'/>"><img alt="로고이미지"
 						src="<c:url value='/resources/img/공지사항.png'/>"> <span>공지사항</span>
 					</a> 
 					<c:if test='${user.getSite_authority().equals("USER")}'>	
@@ -723,21 +744,6 @@ margin: 10px;
 	<div class="홈">
 		<div class="home-body">
 		<div class="여기부터내용">
-			<h3>&lt;인기 병원&gt;</h3>
-			<div class="롤링" style="margin-top: 50px">
-			    <div class="롤링-내용">
-					<div class="rolling-item" style="background-image: url('<c:url value="/resources/img/풍경1.jpg"/>');">
-						<img alt="" src="<c:url value="/resources/img/풍경1.jpg"/>" style="width: 1300px;height: 100%;background-repeat: no-repeat;background-size: cover; object-fit:cover;">
-					</div>
-					<div class="rolling-item" style="background-image: url('<c:url value="/resources/img/풍경22.jpg"/>');">
-						<img alt="" src="<c:url value="/resources/img/풍경22.jpg"/>" style="width: 1300px;height: 100%;background-repeat: no-repeat;background-size: cover; object-fit:cover;">
-					</div>
-					<div class="rolling-item" style="background-image: url('<c:url value="/resources/img/풍경3.jpg"/>');">
-						<img alt="" src="<c:url value="/resources/img/풍경3.jpg"/>" style="width: 1300px;height: 100%;background-repeat: no-repeat;background-size: cover; object-fit:cover;">
-					</div>
-			    </div>
-			</div>
- 
 			<div class="hot-new">
 				<h3 style="font-weight: bold;color: #555">&lt;Hot & New&gt;</h3>
 				<p style="color: gray;">새롭고 재밌는 소식들을 여기서!</p>
@@ -799,13 +805,11 @@ margin: 10px;
 						<c:otherwise>
 							<c:forEach items="${hoList}" var="ho">
 								 <a class="aTag-btn1" href="<c:url value='/hospital/detail/detail?ho_id=${ho.ho_id}'/>" style="padding: auto;">
-													<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
-											<div class="ho-name">${ho.ho_name}</div>
-											<div class="hs-title">${ho.hospital_subject.hs_title}</div>
-											<div class="ho-address"><img class="small-img"
-					   								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">${ho.ho_address}</div>
-										 <div class="hd-time"><img class="small-img"
-				   								alt="위치 이미지" src="<c:url value="/resources/img/time-line.svg"/>">(${dayOfWeek}요일) ${hd_time}</div> 
+									<!-- 병원명,병원ceo명,과목명,주소 넣기 -->
+									<div class="ho-name">${ho.ho_name}</div>
+									<div class="hs-title">${ho.hs.hs_title}</div>
+									<div class="ho-address"><img class="small-img"
+			   								alt="위치 이미지" src="<c:url value="/resources/img/map-pin-2-fill.svg"/>">${ho.ho_address}</div>
 								 </a>
 							 </c:forEach>
 						 </c:otherwise>
@@ -853,6 +857,28 @@ margin: 10px;
 			</div>
 		</div>	
 		</div>	
+	</div>
+	<div class="롤링" style="margin-bottom: 50px">
+		<div class="롤링-내용">
+			<div class="rolling-item">
+				<img alt="" src="<c:url value='/resources/img/척추골절.jpg'/>">
+			</div>
+			<div class="rolling-item">
+				<img alt="" src="<c:url value='/resources/img/레전드.jpg'/>">
+			</div>
+			<div class="rolling-item">
+				<img alt="" src="<c:url value='/resources/img/의료개혁.jpg'/>">
+			</div>
+			<div class="rolling-item">
+				<img alt="" src="<c:url value='/resources/img/성형.jpg'/>">
+			</div>
+			<div class="rolling-item">
+				<img alt="" src="<c:url value='/resources/img/윤승규.jpg'/>">
+			</div>
+			<div class="rolling-item">
+				<img alt="" src="<c:url value='/resources/img/이재욱.jpg'/>">
+			</div>
+		</div>
 	</div>
 			 <div class="공지사항">
 				 <img alt="미니공지" style="width: 48px;margin-left: 100px"
@@ -959,29 +985,22 @@ margin: 10px;
     	 
     	 $('.header-box').removeClass('hovered');
      });
-</script>
-<script type="text/javascript">
 $(document).ready(function() {
-    var interval = setInterval(roll, 3000); // 3초마다 롤링
-
     function roll() {
         var container = $('.롤링');
         var firstItem = container.find('.rolling-item:first');
-        var itemWidth = firstItem.outerWidth(); 
+        var itemWidth = firstItem.outerWidth();
 
         container.find('.롤링-내용').animate({
             marginLeft: -itemWidth
-        }, 500, function() {
-            $(this).append(firstItem.remove()).css({
-                marginLeft: 0
-            });
+        }, 10000, 'linear', function() {
+            $(this).css('marginLeft', 0).append(firstItem);
+            roll();  
         });
     }
+
+    roll();  
 });
-</script>
-
-
-<script type="text/javascript">
 $(document).ready(function() {
     $(window).scroll(function() {
         if ($(this).scrollTop() > 20) {
@@ -995,8 +1014,6 @@ $(document).ready(function() {
         return false;
     });
 });
-</script>
-<script>
      $(document).ready(function() {
         var searchInput = $('.search');
         var defaultTexts = [
@@ -1019,9 +1036,6 @@ $(document).ready(function() {
 
         setInterval(typeText, 400); 
     }); 
-</script>
-<!-- 1 ,2 3 이면 tr태그 배경 바꾸기 -->
-<script>
 $(document).ready(function() {
     let boPostCount = "${boPostCount}";
     

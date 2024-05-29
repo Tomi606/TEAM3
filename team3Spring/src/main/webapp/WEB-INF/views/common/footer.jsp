@@ -73,11 +73,67 @@ color: gray;
 .공지사항 a:hover{
 text-decoration: underline;
 }
+.롤링 {
+	margin: 70px auto;
+	display: flex;
+	width: 1950px;
+	height: 400px;
+	overflow: hidden;
+	position: relative;
+}
 
+.롤링-내용 {
+	display: flex;
+	width: 100%;
+}
+
+.rolling-item {
+	flex: 0 0 33.33%;
+}
+
+.rolling-item img {
+	width: 970px;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	object-fit: cover;
+}
+
+.롤링-내용 {
+	display: flex;
+	transition: transform 0.5s ease;
+}
+
+
+.롤링 {
+	box-shadow: 0 3px 16px rgba(0, 0, 0, 0.6);
+}
 </style>
 
 </head>
 <body>
+<div class="롤링" >
+		<div class="롤링-내용">
+			<div class="rolling-item">
+				<img alt="" src="<c:url value='/resources/img/척추골절.jpg'/>">
+			</div>
+			<div class="rolling-item">
+				<img alt="" src="<c:url value='/resources/img/레전드.jpg'/>">
+			</div>
+			<div class="rolling-item">
+				<img alt="" src="<c:url value='/resources/img/의료개혁.jpg'/>">
+			</div>
+			<div class="rolling-item">
+				<img alt="" src="<c:url value='/resources/img/성형.jpg'/>">
+			</div>
+			<div class="rolling-item">
+				<img alt="" src="<c:url value='/resources/img/윤승규.jpg'/>">
+			</div>
+			<div class="rolling-item">
+				<img alt="" src="<c:url value='/resources/img/이재욱.jpg'/>">
+			</div>
+		</div>
+	</div>
 	 <div class="공지사항">
 		 <img alt="미니공지" style="width: 48px;margin-left: 100px"
 			 src="<c:url value='/resources/img/미니공지.png'/>">
@@ -150,6 +206,24 @@ text-decoration: underline;
 	        	  <p>&copy; 2024 정경호. All rights reserved.</p>
        	  	</div>
 	</div>
+	<script type="text/javascript">
+$(document).ready(function() {
+    function roll() {
+        var container = $('.롤링');
+        var firstItem = container.find('.rolling-item:first');
+        var itemWidth = firstItem.outerWidth();
+
+        container.find('.롤링-내용').animate({
+            marginLeft: -itemWidth
+        }, 10000, 'linear', function() {
+            $(this).css('marginLeft', 0).append(firstItem);
+            roll();  
+        });
+    }
+
+    roll();  
+});
+</script>
 <script type="text/javascript">
 notice();
 function notice() {

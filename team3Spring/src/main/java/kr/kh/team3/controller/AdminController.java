@@ -456,7 +456,7 @@ public class AdminController {
 			ArrayList<ReservationVO> list = reservationScheduleService.getAllReservationScheduleList();
 			System.out.println("aaaaaaaaaaaaaaaaaaaa");
 			log.info(list);
-			model.addAttribute("list", list);
+			//model.addAttribute("list", list);
 			
 			return "/admin/sales";
 		}

@@ -50,10 +50,81 @@
 .table td {
 	text-align: center;
 }
+/* 위 타이틀 */
+.home-box1 {
+	width: 100%;
+	height: 500px;
+	background: url('<c:url value="/resources/img/white_pattern.jpg"/>');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-origin: content-box;
+}
+
+.page-title {
+	color: rgba(0, 100, 60, 0.8);
+    text-align: left;
+    font-size: 50px;
+    font-weight: bold;
+    margin: 0 0 80px 0;
+}
+
+.top-img {
+    height: 20px;
+    width: 20px;
+    color: gray;
+}
+
+.here-title {
+	text-decoration: none;
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+	line-height: 50px;
+}
+
+.here-title1 {
+	text-decoration: none;
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 50px;
+}
 </style>
 </head>
 <body>
+<div class="home-box1">
+	<div style="width: 80%; margin: 0 auto; padding-top: 80px">
+		<div class="page-title">
+			예약 관리
+		</div>
+		<div
+			style="text-align: left; display: flex; height: 50px; margin: 20px 0 50px 0;">
+			<a href="<c:url value='/'/>" style="z-index: 999;line-height: 50px;">
+			<img
+				class="top-img" alt="위치 이미지"
+				src="<c:url value='/resources/img/home-4-line.svg'/>">
+			</a>
+			<div style="margin: auto 16px;">
+				<img 
+					class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+			</div>
+			<div>
+				<a class="here-title" href="<c:url value='/hospital/mypage'/>"> 병원페이지 </a>
+			</div>
+			<div style="margin: auto 16px;">
+				<img 
+					class="top-img" alt="위치 이미지"
+					src="<c:url value='/resources/img/arrow-right-s-line.svg'/>">
+			</div>
+			<div>
+				<p class="here-title1"> 예약 관리 </p>
+			</div>
+		</div>
+	</div>
+</div>
 <!-- 전체 병원 조회 박스 -->
+
 <div class="all-box container">
 
 	
@@ -70,7 +141,7 @@
 			</tr>
 		</thead>
 		<tbody class="box-hospital-list" id="reservation_table">
-			<c:forEach items="${list}" var="list">
+			 <c:forEach items="${list}" var="list">
 				<tr>
 					<th>${list.rv_num}</th>
 					<th>${list.reservationScheduleVO.program.hp_ho_id}</th>
@@ -88,5 +159,7 @@
 	</div>
 </div>
 </body>
-
+<script type="text/javascript">
+console.log(${list});
+</script>
 </html>
