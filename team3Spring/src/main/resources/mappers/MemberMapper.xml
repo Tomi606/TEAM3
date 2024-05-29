@@ -391,7 +391,12 @@
 	</select>
 	
 	<select id="getMemberReservation" resultType="int">
-		select count(*) from reservation join payment on pm_rv_num = rv_num where rv_me_id = #{me_id} and pm_ho_id = #{ho.hd_ho_id}
+		select count(*)
+		from reservation join payment
+		on pm_rv_num = rv_num
+		where rv_me_id = #{me_id}
+		and pm_ho_id = #{ho.hd_ho_id}
+		and rv_rvs_name = "예약완료"
 	</select>
 
 	<select id="selectReviews" resultType="int">
