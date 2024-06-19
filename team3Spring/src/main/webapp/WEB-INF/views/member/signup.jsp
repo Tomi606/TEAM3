@@ -175,7 +175,7 @@ label {
 		</div>
 		<div class="gender-buttons">
 			<img alt="아이디이미지" src="<c:url value="/resources/img/gender.svg"/>">
-	   		 <input type="radio" id="male" name="me_gender" value="남자" required>
+	   		 <input type="radio" id="male" name="me_gender" value="남자" required checked="checked">
 	   		 <label for="male" class="male">남자</label>
 		</div>
 

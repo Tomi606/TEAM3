@@ -296,7 +296,7 @@ width: 100%;display: flex;justify-content: space-between;height: 70px;
 							<th style="width: 40%;">제목</th>
 							<th style="width: 10%;">작성자</th>
 							<th style="width: 30%;">작성일</th>
-							<th style="width: 7.5%;">추천수</th>
+							<th style="width: 7.5%;">좋아요</th>
 							<th style="width: 7.5%;">조회수</th>
 						</tr>
 					</thead>

@@ -406,6 +406,7 @@ $(document).on("click",".hospital-btn",function () {
     	return false;
     } else {
     	insertDetail();
+    	location.href="<c:url value='/hospital/detail/detail?ho_id=${hospital.ho_id}'/>";
     }
 });
 </script>

@@ -76,7 +76,7 @@ text-decoration: underline;
 .롤링 {
 	margin: 70px auto;
 	display: flex;
-	width: 1950px;
+	width: 100%;
 	height: 400px;
 	overflow: hidden;
 	position: relative;
