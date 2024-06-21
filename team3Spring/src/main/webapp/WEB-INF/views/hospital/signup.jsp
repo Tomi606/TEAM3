@@ -267,7 +267,6 @@ $("form").validate({
 		ho_phone : {
 			required : "필수 항목입니다.",
 			regex : "대표 전화번호는 '-'제외한 번호를 입력하세요."
-			//,digits : "숫자만 입력하세요."
 		}
 	}
 });
@@ -406,10 +405,15 @@ $(document).ready(function() {
 	 	var phoneCheck = false;
 	    $("#phone").keyup(function() {
 	        var phone = $("#phone").val();
-	        if(phone.lengh == 0 || phone == "" ||phone.length < 8){
+	        if(phone.length == 0 || phone == "" ||phone.length < 8){
 	        	$(".ptext").text("대표 전화번호를 입력하세요(8~11자)");
 	        	return;
 	        }
+	        
+	       /* if (!/^[0-9]{10,11}$/.test(phone)) {
+	            $(".ptext").text("대표 전화번호를 입력하세요(8~11자)").css("color", "red");
+	            return;
+	        } */
 	        
 	        $.ajax({
 	            url: '<c:url value="/hospital/checkPhone"/>',
